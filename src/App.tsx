@@ -7,6 +7,8 @@ import CompletePage from "./pages/CompletePage"
 import MyPage from "./pages/MyPage"
 import ResultPage from "./pages/ResultPage"
 import ReviewPage from "./pages/ReviewPage"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage/> },
@@ -20,9 +22,26 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
+  const queryClient = new QueryClient(
+    {
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+          refetchOnMount: false,
+          refetchOnReconnect: false,
+          gcTime: 1000*60*60,
+          retry: 0,
+        },
+      },
+    }
+  );
+
   return (
     <>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools/>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   )
 }
