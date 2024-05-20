@@ -3,22 +3,32 @@ import {
   createTheme,
   createThemeContract,
 } from '@vanilla-extract/css';
+import { fonts } from './font.css';
 
 const root = createGlobalTheme('#root', {});
 
 const theme = createThemeContract({
-  color: null,
-  background: null,
+  fonts: fonts,
+  colors: {
+    color: null,
+    backgroundColor: null,
+  },
 });
 
 export const light = createTheme(theme, {
-  color: 'white',
-  background: 'black',
+  fonts: fonts,
+  colors: {
+    color: 'white',
+    backgroundColor: 'black',
+  },
 });
 
 export const dark = createTheme(theme, {
-  color: 'black',
-  background: 'white',
+  fonts: fonts,
+  colors: {
+    color: 'black',
+    backgroundColor: 'white',
+  },
 });
 
 export const vars = { ...root, theme };
