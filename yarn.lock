@@ -647,6 +647,11 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.17.2.tgz#5a2d08b81e8064b34242d5cc9973ef8dd1e60503"
   integrity sha512-TGGO7v7qOq4CYmSBVEYpI1Y5xDuCEnbVC5Vth8mOsW0gDSzxNrVERPc790IGHsrT2dQSimgMr9Ub3Y1Jci5/8w==
 
+"@sopt-makers/colors@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@sopt-makers/colors/-/colors-3.0.1.tgz#130b2c057b09355a47ae434b409bdc54ec18f673"
+  integrity sha512-OcPzu29VAcdYQVw6F4vRDgcCKJlQ7FFcQrd/BqYckYdoUWdo1VVqgowp+iTUEIm1nlZjior5xUzInVr+O7Ck0w==
+
 "@sopt-makers/fonts@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@sopt-makers/fonts/-/fonts-2.0.1.tgz#cbde947720bf026ab0e69cd19937c0e080b96aac"

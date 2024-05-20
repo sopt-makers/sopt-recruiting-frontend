@@ -1,3 +1,4 @@
+import { colors } from '@sopt-makers/colors';
 import {
   createGlobalTheme,
   createTheme,
@@ -9,26 +10,17 @@ const root = createGlobalTheme('#root', {});
 
 const theme = createThemeContract({
   fonts: fonts,
-  colors: {
-    color: null,
-    backgroundColor: null,
-  },
+  colors: colors,
 });
 
 export const light = createTheme(theme, {
   fonts: fonts,
-  colors: {
-    color: 'white',
-    backgroundColor: 'black',
-  },
+  colors: colors,
 });
 
 export const dark = createTheme(theme, {
   fonts: fonts,
-  colors: {
-    color: 'black',
-    backgroundColor: 'white',
-  },
+  colors: colors,
 });
 
 export const vars = { ...root, theme };
