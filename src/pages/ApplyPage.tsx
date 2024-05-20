@@ -1,7 +1,5 @@
 const ApplyPage = () => {
-  return (
-    <div>ApplyPage</div>
-  )
-}
+  return <div>ApplyPage</div>;
+};
 
-export default ApplyPage
+export default ApplyPage;
