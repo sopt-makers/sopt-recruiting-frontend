@@ -7,10 +7,11 @@ import CompletePage from './pages/CompletePage';
 import MyPage from './pages/MyPage';
 import ResultPage from './pages/ResultPage';
 import ReviewPage from './pages/ReviewPage';
+import Layout from '@components/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'styles/global.css';
-import Layout from '@components/Layout';
+import { dark, light } from 'styles/theme.css';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,8 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const isLight = true;
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -48,7 +51,9 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
-        <RouterProvider router={router} />
+        <div className={isLight ? light : dark}>
+          <RouterProvider router={router} />
+        </div>
       </QueryClientProvider>
     </>
   );
