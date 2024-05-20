@@ -10,16 +10,25 @@ import ReviewPage from './pages/ReviewPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'styles/global.css';
+import Layout from '@components/Layout';
 
 const router = createBrowserRouter([
-  { path: '/', element: <MainPage /> },
-  { path: '/sign-up', element: <SignupPage /> },
-  { path: '/password', element: <PasswordPage /> },
-  { path: '/apply', element: <ApplyPage /> },
-  { path: '/complete', element: <CompletePage /> },
-  { path: '/my', element: <MyPage /> },
-  { path: '/result', element: <ResultPage /> },
-  { path: '/review', element: <ReviewPage /> },
+  {
+    path: '/',
+    element: <Layout />,
+    // errorElement: <Error />,
+    children: [
+      { index: true, element: <MainPage /> },
+      { path: '/sign-up', element: <SignupPage /> },
+      { path: '/sign-up', element: <SignupPage /> },
+      { path: '/password', element: <PasswordPage /> },
+      { path: '/apply', element: <ApplyPage /> },
+      { path: '/complete', element: <CompletePage /> },
+      { path: '/my', element: <MyPage /> },
+      { path: '/result', element: <ResultPage /> },
+      { path: '/review', element: <ReviewPage /> },
+    ],
+  },
 ]);
 
 const App = () => {
