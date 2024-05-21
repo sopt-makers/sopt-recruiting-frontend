@@ -10,7 +10,7 @@ import ReviewPage from './pages/ReviewPage';
 import Layout from '@components/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import 'styles/global.css';
+import 'styles/reset.css';
 import { dark, light } from 'styles/theme.css';
 
 const router = createBrowserRouter([
