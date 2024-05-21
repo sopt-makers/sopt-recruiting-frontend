@@ -12,6 +12,7 @@
   "dependencies": {
     "@sopt-makers/colors": "^3.0.1",
     "@sopt-makers/fonts": "^2.0.1",
+    "@sopt-makers/icons": "^1.0.4",
     "@tanstack/react-query": "^5.37.1",
     "@tanstack/react-query-devtools": "^5.37.1",
     "@vanilla-extract/css": "^1.15.1",

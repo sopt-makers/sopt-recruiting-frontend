@@ -657,6 +657,11 @@
   resolved "https://registry.yarnpkg.com/@sopt-makers/fonts/-/fonts-2.0.1.tgz#cbde947720bf026ab0e69cd19937c0e080b96aac"
   integrity sha512-glvB8aPm70XyOuhjrDW27wUH8i7BcVTiWByYAm3b1TMK5bBJzaX8Ga6Xgz5g9FY0VzDvBr/O5iXdMyO9Yhd4yA==
 
+"@sopt-makers/icons@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@sopt-makers/icons/-/icons-1.0.4.tgz#ad4ea15f31d3202988c2db315c94ae42505165af"
+  integrity sha512-MnEiiSA8lQGBIVL0R8G/Ojpq7IjOLEw05x2s0yscHwSCFIUuaCkbZ651i3woZjJ9wj677iGlzDW3BHekzX78uw==
+
 "@tanstack/eslint-plugin-query@^5.35.6":
   version "5.35.6"
   resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.35.6.tgz#805610e1fbeac5f814a6e952354b28ea3a65b64e"
