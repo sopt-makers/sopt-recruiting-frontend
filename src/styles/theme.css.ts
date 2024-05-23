@@ -5,7 +5,7 @@ const theme = createThemeContract({
   background: null,
   backgroundDimmed: null,
   subBackground: null,
-  altBackground: null,
+  altBackground: null, // alternative의 약자.
   primaryFont: null,
   secondaryFont: null,
   tertiaryFont: null,
@@ -29,7 +29,7 @@ export const light = createTheme(theme, {
   background: colors.white,
   backgroundDimmed: colors.grayAlpha500,
   subBackground: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
-  altBackground: colors.gray10,
+  altBackground: colors.gray10, // alternative의 약자.
   primaryFont: colors.gray950,
   secondaryFont: colors.gray300,
   tertiaryFont: colors.gray200,
