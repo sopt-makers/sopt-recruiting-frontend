@@ -15,6 +15,7 @@ const theme = createThemeContract({
   buttonHover: null,
   buttonDisable: null,
   uniqueButton: null,
+  fileUploadButton: null,
   border: null,
   primary: null,
   primaryLight: null,
@@ -39,6 +40,7 @@ export const light = createTheme(theme, {
   buttonHover: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
   buttonDisable: colors.gray30,
   uniqueButton: colors.gray900,
+  fileUploadButton: colors.gray700,
   border: colors.gray50,
   primary: '#BDEC00',
   primaryLight: 'rgba(189, 236, 0, 0.08)',
@@ -64,6 +66,7 @@ export const dark = createTheme(theme, {
   buttonHover: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
   buttonDisable: colors.gray30,
   uniqueButton: colors.gray900,
+  fileUploadButton: colors.gray700,
   border: colors.gray50,
   primary: '#BDEC00',
   primaryLight: 'rgba(189, 236, 0, 0.08)',
