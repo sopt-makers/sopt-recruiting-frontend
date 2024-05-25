@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true, node: true, es6: true },
+  env: { browser: true, es2020: true, node: true },
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react', 'react-hooks', '@typescript-eslint', 'prettier', 'import'],
   extends: [
