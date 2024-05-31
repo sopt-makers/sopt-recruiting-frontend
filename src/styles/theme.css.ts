@@ -14,9 +14,9 @@ const theme = createThemeContract({
   backgroundDimmed: null, // modal background
   subBackground: null, // callout, fix된 input, button(버전2) hover 등 기타 background
 
-  baseFont: null, // main font
-  lighterFont: null, // 희미해진 font
-  lightestFont: null, // 더 희미해진 font
+  baseText: null, // main text
+  lighterText: null, // 희미해진 text
+  lightestText: null, // 더 희미해진 text
   placeholder: null, // input placeholder
 
   buttonDisable: null, // disabled button background
@@ -24,8 +24,8 @@ const theme = createThemeContract({
   border: null, // border
 
   resultBackground: null, // 합격페이지 background
-  myPageButtonFont: null, // 마이페이지 button font
-  stickyButtonFont: null, // 지원서 페이지 sticky button 선택안 된 항목 font
+  myPageButtonText: null, // 마이페이지 button text
+  stickyButtonText: null, // 지원서 페이지 sticky button 선택안 된 항목 text
   fileUploadButton: null, // input file upload button
   fileUploadButtonHover: null, // input file upload button hover
   fileUploadButtonInside: null, // input file upload button 안의 십자가
@@ -47,9 +47,9 @@ export const light = createTheme(theme, {
   backgroundDimmed: colors.grayAlpha500,
   subBackground: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
 
-  baseFont: colors.gray950,
-  lighterFont: colors.gray300,
-  lightestFont: colors.gray200,
+  baseText: colors.gray950,
+  lighterText: colors.gray300,
+  lightestText: colors.gray200,
   placeholder: colors.gray100,
 
   buttonDisable: colors.gray50,
@@ -57,8 +57,8 @@ export const light = createTheme(theme, {
   border: colors.gray50,
 
   resultBackground: colors.gray950,
-  myPageButtonFont: colors.gray400,
-  stickyButtonFont: colors.gray100,
+  myPageButtonText: colors.gray400,
+  stickyButtonText: colors.gray100,
   fileUploadButton: colors.gray400,
   fileUploadButtonHover: colors.gray900,
   fileUploadButtonInside: colors.gray10,
@@ -80,9 +80,9 @@ export const dark = createTheme(theme, {
   backgroundDimmed: colors.grayAlpha500,
   subBackground: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
 
-  baseFont: colors.gray950,
-  lighterFont: colors.gray300,
-  lightestFont: colors.gray200,
+  baseText: colors.gray950,
+  lighterText: colors.gray300,
+  lightestText: colors.gray200,
   placeholder: colors.gray100,
 
   buttonDisable: colors.gray50,
@@ -90,8 +90,8 @@ export const dark = createTheme(theme, {
   border: colors.gray50,
 
   resultBackground: colors.gray950,
-  myPageButtonFont: colors.gray400,
-  stickyButtonFont: colors.gray100,
+  myPageButtonText: colors.gray400,
+  stickyButtonText: colors.gray100,
   fileUploadButton: colors.gray400,
   fileUploadButtonHover: colors.gray900,
   fileUploadButtonInside: colors.gray10,
