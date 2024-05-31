@@ -12,17 +12,27 @@ import ReviewPage from './pages/ReviewPage';
 import SignupPage from './pages/SignupPage';
 
 const router = createBrowserRouter([
-  { path: '/', element: <MainPage /> },
-  { path: '/sign-up', element: <SignupPage /> },
-  { path: '/password', element: <PasswordPage /> },
-  { path: '/apply', element: <ApplyPage /> },
-  { path: '/complete', element: <CompletePage /> },
-  { path: '/my', element: <MyPage /> },
-  { path: '/result', element: <ResultPage /> },
-  { path: '/review', element: <ReviewPage /> },
+  {
+    path: '/',
+    element: <Layout />,
+    // errorElement: <Error />,
+    children: [
+      { index: true, element: <MainPage /> },
+      { path: '/sign-up', element: <SignupPage /> },
+      { path: '/sign-up', element: <SignupPage /> },
+      { path: '/password', element: <PasswordPage /> },
+      { path: '/apply', element: <ApplyPage /> },
+      { path: '/complete', element: <CompletePage /> },
+      { path: '/my', element: <MyPage /> },
+      { path: '/result', element: <ResultPage /> },
+      { path: '/review', element: <ReviewPage /> },
+    ],
+  },
 ]);
 
 const App = () => {
+  const isLight = true;
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -39,7 +49,9 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
-        <RouterProvider router={router} />
+        <div className={isLight ? light : dark}>
+          <RouterProvider router={router} />
+        </div>
       </QueryClientProvider>
     </>
   );

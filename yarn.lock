@@ -652,6 +652,21 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.17.2.tgz#5a2d08b81e8064b34242d5cc9973ef8dd1e60503"
   integrity sha512-TGGO7v7qOq4CYmSBVEYpI1Y5xDuCEnbVC5Vth8mOsW0gDSzxNrVERPc790IGHsrT2dQSimgMr9Ub3Y1Jci5/8w==
 
+"@sopt-makers/colors@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@sopt-makers/colors/-/colors-3.0.1.tgz#130b2c057b09355a47ae434b409bdc54ec18f673"
+  integrity sha512-OcPzu29VAcdYQVw6F4vRDgcCKJlQ7FFcQrd/BqYckYdoUWdo1VVqgowp+iTUEIm1nlZjior5xUzInVr+O7Ck0w==
+
+"@sopt-makers/fonts@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@sopt-makers/fonts/-/fonts-2.0.1.tgz#cbde947720bf026ab0e69cd19937c0e080b96aac"
+  integrity sha512-glvB8aPm70XyOuhjrDW27wUH8i7BcVTiWByYAm3b1TMK5bBJzaX8Ga6Xgz5g9FY0VzDvBr/O5iXdMyO9Yhd4yA==
+
+"@sopt-makers/icons@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@sopt-makers/icons/-/icons-1.0.4.tgz#ad4ea15f31d3202988c2db315c94ae42505165af"
+  integrity sha512-MnEiiSA8lQGBIVL0R8G/Ojpq7IjOLEw05x2s0yscHwSCFIUuaCkbZ651i3woZjJ9wj677iGlzDW3BHekzX78uw==
+
 "@tanstack/eslint-plugin-query@^5.35.6":
   version "5.35.6"
   resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.35.6.tgz#805610e1fbeac5f814a6e952354b28ea3a65b64e"
