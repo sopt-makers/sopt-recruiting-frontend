@@ -6,8 +6,7 @@ const theme = createThemeContract({
   primaryLight: null, // 기수 컬러 밝게
   primaryDark: null, // 기수 컬러 어둡게
   // 기수 컬러 linear
-  primaryLinear:
-    'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
   error: null, // error
 
   background: null, // background
@@ -39,8 +38,7 @@ export const light = createTheme(theme, {
   primary: '#BDEC00',
   primaryLight: 'rgba(189, 236, 0, 0.08)',
   primaryDark: '#99BF00',
-  primaryLinear:
-    'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
   error: colors.error,
 
   background: colors.white,
@@ -72,8 +70,7 @@ export const dark = createTheme(theme, {
   primary: '#BDEC00',
   primaryLight: 'rgba(189, 236, 0, 0.08)',
   primaryDark: '#99BF00',
-  primaryLinear:
-    'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
   error: colors.error,
 
   background: colors.white,

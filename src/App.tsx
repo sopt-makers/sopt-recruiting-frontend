@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { dark, light } from 'styles/theme.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import Layout from '@components/Layout';
 import ApplyPage from './pages/ApplyPage';
 import CompletePage from './pages/CompletePage';
 import MainPage from './pages/MainPage';
@@ -10,6 +12,7 @@ import PasswordPage from './pages/PasswordPage';
 import ResultPage from './pages/ResultPage';
 import ReviewPage from './pages/ReviewPage';
 import SignupPage from './pages/SignupPage';
+import 'styles/global.css';
 
 const router = createBrowserRouter([
   {

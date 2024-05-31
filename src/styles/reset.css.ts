@@ -8,13 +8,10 @@ import { globalStyle } from '@vanilla-extract/css';
  * - The "html" element is excluded, otherwise a bug in Chrome breaks the CSS
  *   hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
  */
-globalStyle(
-  '*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))',
-  {
-    all: 'unset',
-    display: 'revert',
-  }
-);
+globalStyle('*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))', {
+  all: 'unset',
+  display: 'revert',
+});
 
 /** Preferred box-sizing value */
 globalStyle('*, *::before, *::after', {
