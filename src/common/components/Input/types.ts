@@ -1,7 +1,6 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 
-export interface TextBoxProps
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'maxLength' | 'type' | 'pattern' | 'required'> {
+export interface TextBoxProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   placeholderText: string;
   //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
