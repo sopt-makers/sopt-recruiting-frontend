@@ -1,4 +1,4 @@
-import { inputStyle, labelStyle } from './style.css';
+import { inputStyle, labelStyle, wrapper } from './style.css';
 
 import type { InputHTMLAttributes, ReactNode } from 'react';
 
@@ -9,7 +9,7 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Radio = ({ label, ...radioElementProps }: RadioProps) => {
   return (
-    <div>
+    <div className={wrapper}>
       <input className={inputStyle} type="radio" id={label} {...radioElementProps} />
       <label className={labelStyle} htmlFor={label}>
         {label}
