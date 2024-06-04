@@ -1,15 +1,14 @@
+import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
-
-import { theme } from 'styles/theme.css';
 
 export const container = style({
   width: '400px',
   padding: '24px',
-  backgroundColor: theme.color.subBackground,
+  backgroundColor: colors.gray30, // subBackground
   borderRadius: '14px',
   border: 'none',
 
   '::backdrop': {
-    backgroundColor: theme.color.backgroundDimmed,
+    backgroundColor: colors.grayAlpha500, // backgroundDimmed
   },
 });

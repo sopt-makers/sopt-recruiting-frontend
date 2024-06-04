@@ -1,4 +1,5 @@
 import { forwardRef, type DialogHTMLAttributes, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
 import { container } from './style.css';
 
@@ -7,10 +8,11 @@ interface DialogProps extends DialogHTMLAttributes<HTMLDialogElement> {
 }
 
 const Dialog = forwardRef<HTMLDialogElement, DialogProps>(({ children, ...dialogElementProps }: DialogProps, ref) => {
-  return (
+  return createPortal(
     <dialog ref={ref} className={container} {...dialogElementProps}>
       {children}
-    </dialog>
+    </dialog>,
+    document.getElementById('modal')!,
   );
 });
 
