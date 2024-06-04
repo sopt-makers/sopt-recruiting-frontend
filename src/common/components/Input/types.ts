@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 export interface TextBoxProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'maxLength' | 'type' | 'pattern' | 'required'> {
@@ -11,4 +11,5 @@ export interface TextBoxProps
   errorText?: string;
   buttonText?: string;
   buttonHandler?: () => void;
+  button?: ReactNode;
 }

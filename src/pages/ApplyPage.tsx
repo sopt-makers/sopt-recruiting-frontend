@@ -17,7 +17,7 @@ const ApplyPage = () => {
       <TextBox {...textBoxProps1} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <TextBox label="타이틀2" placeholderText="플레이스 홀더 텍스트2" isRequired />
-        <TextBox placeholderText="텍스트" />
+        <TextBox placeholderText="고정 텍스트" isFixed />
       </div>
     </form>
   );

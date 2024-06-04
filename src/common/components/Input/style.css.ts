@@ -44,6 +44,11 @@ export const input = style({
   ':focus': {
     borderColor: theme.color.primary,
   },
+
+  ':disabled': {
+    backgroundColor: theme.color.subBackground, // gray30 -> 20으로 수정해야함
+    color: theme.color.lighterText,
+  },
 });
 
 export const description = style({

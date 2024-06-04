@@ -21,7 +21,7 @@ const TextBox = ({
           {isRequired && <i className={circle} />}
         </label>
       )}
-      <input id={label} className={input} placeholder={placeholderText} {...inputElementProps} />
+      <input id={label} className={input} placeholder={placeholderText} disabled={isFixed} {...inputElementProps} />
       {descriptionText && (
         <div className={description}>
           <p>{descriptionText}</p>
