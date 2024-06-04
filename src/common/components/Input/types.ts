@@ -5,10 +5,9 @@ export interface TextBoxProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholderText: string;
   //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
   descriptionText?: string;
+  descriptionButton?: ReactNode;
   isRequired?: boolean;
   isFixed?: boolean;
   errorText?: string;
-  buttonText?: string;
-  buttonHandler?: () => void;
   button?: ReactNode;
 }

@@ -27,7 +27,14 @@ export const circle = style({
   backgroundColor: theme.color.primary,
 });
 
+export const inputLine = style({
+  display: 'flex',
+  gap: 10,
+});
+
 export const input = style({
+  flex: 1,
+
   padding: 16,
   backgroundColor: theme.color.white,
   borderRadius: 12,

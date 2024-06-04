@@ -1,15 +1,15 @@
-import { container, circle, input, description, title } from './style.css';
+import { container, circle, input, description, title, inputLine } from './style.css';
 import { TextBoxProps } from './types';
 
 const TextBox = ({
   label,
   placeholderText,
   descriptionText,
+  descriptionButton,
   isRequired,
   isFixed,
   errorText,
-  buttonText,
-  buttonHandler,
+  button,
   ...inputElementProps
 }: TextBoxProps) => {
   // 조건부 렌더링 / 유효성 검증은 추후 구현
@@ -21,15 +21,14 @@ const TextBox = ({
           {isRequired && <i className={circle} />}
         </label>
       )}
-      <input id={label} className={input} placeholder={placeholderText} disabled={isFixed} {...inputElementProps} />
+      <div className={inputLine}>
+        <input id={label} className={input} placeholder={placeholderText} disabled={isFixed} {...inputElementProps} />
+        {button}
+      </div>
       {descriptionText && (
         <div className={description}>
           <p>{descriptionText}</p>
-          {buttonText && (
-            <button type="button" style={{ cursor: 'pointer' }} onClick={buttonHandler}>
-              {buttonText}
-            </button>
-          )}
+          {descriptionButton}
         </div>
       )}
     </div>
