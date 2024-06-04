@@ -1,13 +1,17 @@
 import TextBox from '@components/Input';
+import { TextBoxProps } from '@components/Input/types';
 
 const ApplyPage = () => {
-  return (
-    <TextBox.Container>
-      <TextBox.Title>이메일</TextBox.Title>
-      <TextBox.Input placeholderText="인증 번호를 작성해주세요" type="email" maxLength={20} pattern=".+@gmail.com" />
-      <TextBox.Description buttonText="눌러보세요">더 알아보기</TextBox.Description>
-    </TextBox.Container>
-  );
+  const textBoxProps: TextBoxProps = {
+    label: '타이틀',
+    placeholderText: '플레이스 홀더 텍스트',
+    descriptionText: '더 알아보는 텍스트',
+    errorText: '에러 텍스트',
+    buttonHandler: () => console.log('버튼클릭'),
+    buttonText: '더 알아보는 버튼',
+    isRequired: true,
+  };
+  return <TextBox {...textBoxProps} />;
 };
 
 export default ApplyPage;

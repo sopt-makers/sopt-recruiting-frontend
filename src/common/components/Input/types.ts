@@ -1,26 +1,14 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
+import { InputHTMLAttributes } from 'react';
 
-export interface ContainerProps {
-  children: ReactNode;
-}
-
-export interface TitleProps {
-  children: string;
-  isRequired?: boolean;
-}
-
-export interface DescriptionProps {
-  children: string;
-  buttonText?: string;
-  buttonHandler?: () => void;
-  isError?: boolean;
-}
-
-export interface InputProps
+export interface TextBoxProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'maxLength' | 'type' | 'pattern' | 'required'> {
+  label: string;
   placeholderText: string;
   //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
+  descriptionText: string;
   isRequired?: boolean;
   isFixed?: boolean;
-  errorText?: string;
+  errorText: string;
+  buttonText?: string;
+  buttonHandler?: () => void;
 }
