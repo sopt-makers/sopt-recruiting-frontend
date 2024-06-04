@@ -1,24 +1,50 @@
 import { container, circle, input, label, description } from './style.css';
 
-const DescriptionButton = ({ children }: { children: string }) => {
-  return (
-    <button type="button" style={{ cursor: 'pointer' }}>
-      {children}
-    </button>
-  );
-};
+export interface InputProps {
+  title: string;
+  placeholderText: string;
 
-const Input = () => {
+  size?: 'sm' | 'md' | 'lg';
+  isRequired?: boolean;
+  isFixed?: boolean;
+  descriptionText?: string;
+  errorText?: string;
+  inputType?: 'text' | 'email' | 'number' | 'password' | 'tel' | 'url';
+  maxLength?: number;
+  pattern?: string;
+  descriptionButtonText?: string;
+  descriptionButtonOnClick?: () => void;
+}
+const Input = (props: InputProps) => {
+  const {
+    title,
+    placeholderText,
+    size = 'sm',
+    isRequired,
+    isFixed,
+    descriptionText,
+    errorText,
+    inputType,
+    maxLength,
+    pattern,
+    descriptionButtonText,
+    descriptionButtonOnClick,
+  } = props;
+
   return (
     <div className={container}>
       <label className={label}>
-        <span>타이틀</span>
-        <i className={circle} />
+        <span>{title}</span>
+        {isRequired && <i className={circle} />}
       </label>
-      <input className={input} placeholder="디폴트" />
+      <input className={input} placeholder={placeholderText} type={inputType} maxLength={maxLength} pattern={pattern} />
       <div className={description}>
-        <p>비밀번호를 잃어버리셨나요?</p>
-        <DescriptionButton>비밀번호 재설정하기</DescriptionButton>
+        {descriptionText && <p>{descriptionText}</p>}
+        {descriptionButtonText && (
+          <button type="button" style={{ cursor: 'pointer' }} onClick={descriptionButtonOnClick}>
+            {descriptionButtonText}
+          </button>
+        )}
       </div>
     </div>
   );
