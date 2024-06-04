@@ -74,8 +74,8 @@ export const checkmark = style({
       transform: 'rotate(45deg)',
     },
 
-    /* Add focus-visible style */
-    '&:focus-visible': {
+    /* Add focus-visible style to checkmark when input is focused */
+    [`${container} input:focus-visible ~ &`]: {
       outline: `2px dotted ${theme.color.primary}`,
       outlineOffset: '2px',
     },
