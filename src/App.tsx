@@ -14,6 +14,7 @@ import PasswordPage from './pages/PasswordPage';
 import ResultPage from './pages/ResultPage';
 import ReviewPage from './pages/ReviewPage';
 import SignupPage from './pages/SignupPage';
+import 'styles/reset.css';
 
 const router = createBrowserRouter([
   {
