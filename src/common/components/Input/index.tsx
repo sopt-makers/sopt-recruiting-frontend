@@ -1,12 +1,11 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
-
 import { container, circle, input, description, error, title } from './style.css';
+import { ContainerProps, DescriptionProps, InputProps, TitleProps } from './types';
 
-const Container = ({ children }: { children: ReactNode }) => {
+const Container = ({ children }: ContainerProps) => {
   return <div className={container}>{children}</div>;
 };
 
-const Title = ({ children, isRequired }: { children: string; isRequired?: boolean }) => {
+const Title = ({ children, isRequired }: TitleProps) => {
   return (
     <label className={title}>
       <span>{children}</span>
@@ -15,17 +14,7 @@ const Title = ({ children, isRequired }: { children: string; isRequired?: boolea
   );
 };
 
-const Description = ({
-  children,
-  buttonText,
-  buttonHandler,
-  isError,
-}: {
-  children: string;
-  buttonText?: string;
-  buttonHandler?: () => void;
-  isError?: boolean;
-}) => {
+const Description = ({ children, buttonText, buttonHandler, isError }: DescriptionProps) => {
   return (
     <div className={`${description} ${isError && error}`}>
       <p>{children}</p>
@@ -38,15 +27,8 @@ const Description = ({
   );
 };
 
-export interface InputProps extends Pick<InputHTMLAttributes<HTMLInputElement>, 'maxLength' | 'type' | 'pattern'> {
-  placeholderText: string;
-  //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
-  isRequired?: boolean;
-  isFixed?: boolean;
-  errorText?: string;
-}
-
 const Input = ({ placeholderText, isRequired, isFixed, errorText, ...inputElementProps }: InputProps) => {
+  // isRequired, isFixed에 따라 동적스타일링
   return (
     <>
       <input className={input} placeholder={placeholderText} {...inputElementProps} />
