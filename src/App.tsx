@@ -1,4 +1,5 @@
 import Layout from '@components/Layout';
+import Radio from '@components/Radio';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -54,6 +55,8 @@ const App = () => {
         <ReactQueryDevtools />
         <div className={isLight ? light : dark}>
           <RouterProvider router={router} />
+          <Radio label="뭐요" name="아니" value="아니" />
+          <Radio label="아니" name="아니" value="아니" />
         </div>
       </QueryClientProvider>
     </>
