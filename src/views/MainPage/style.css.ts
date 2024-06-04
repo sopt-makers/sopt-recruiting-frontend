@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from 'styles/theme.css';
-import { fontsObject } from '@sopt-makers/fonts';
+
+import { theme } from 'styles/theme.css';
 
 export const container = style({
-  color: vars.theme.baseText,
-  backgroundColor: vars.theme.background,
-  ...fontsObject.BODY_1_18_M,
+  color: theme.color.primaryDark,
+  backgroundColor: theme.color.primaryDark,
+  ...theme.font.BODY_1_18_M,
 });
