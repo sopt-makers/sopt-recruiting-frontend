@@ -1,7 +1,8 @@
 import { colors } from '@sopt-makers/colors';
+import { fontsObject } from '@sopt-makers/fonts';
 import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
-const theme = createThemeContract({
+const color = createThemeContract({
   primary: null, // 기수 컬러
   primaryLight: null, // 기수 컬러 밝게
   primaryDark: null, // 기수 컬러 어둡게
@@ -34,7 +35,7 @@ const theme = createThemeContract({
   black: null, // black
 });
 
-export const light = createTheme(theme, {
+export const light = createTheme(color, {
   primary: '#BDEC00',
   primaryLight: 'rgba(189, 236, 0, 0.08)',
   primaryDark: '#99BF00',
@@ -66,7 +67,7 @@ export const light = createTheme(theme, {
   black: colors.black,
 });
 
-export const dark = createTheme(theme, {
+export const dark = createTheme(color, {
   primary: '#BDEC00',
   primaryLight: 'rgba(189, 236, 0, 0.08)',
   primaryDark: '#99BF00',
@@ -98,4 +99,7 @@ export const dark = createTheme(theme, {
   black: colors.black,
 });
 
-export const vars = { theme };
+export const theme = {
+  color,
+  font: fontsObject,
+};
