@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { ComplexStyleRule, style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
@@ -39,6 +39,10 @@ export const input = style({
   '::placeholder': {
     color: theme.color.placeholder,
     ...theme.font.BODY_2_16_R,
+  },
+
+  ':focus': {
+    borderColor: theme.color.primary,
   },
 });
 
