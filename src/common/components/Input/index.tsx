@@ -1,53 +1,66 @@
-import { container, circle, input, label, description } from './style.css';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
-export interface InputProps {
-  title: string;
-  placeholderText: string;
+import { container, circle, input, description, error, title } from './style.css';
 
-  size?: 'sm' | 'md' | 'lg';
-  isRequired?: boolean;
-  isFixed?: boolean;
-  descriptionText?: string;
-  errorText?: string;
-  inputType?: 'text' | 'email' | 'number' | 'password' | 'tel' | 'url';
-  maxLength?: number;
-  pattern?: string;
-  descriptionButtonText?: string;
-  descriptionButtonOnClick?: () => void;
-}
-const Input = (props: InputProps) => {
-  const {
-    title,
-    placeholderText,
-    size = 'sm',
-    isRequired,
-    isFixed,
-    descriptionText,
-    errorText,
-    inputType,
-    maxLength,
-    pattern,
-    descriptionButtonText,
-    descriptionButtonOnClick,
-  } = props;
+const Container = ({ children }: { children: ReactNode }) => {
+  return <div className={container}>{children}</div>;
+};
 
+const Title = ({ children, isRequired }: { children: string; isRequired?: boolean }) => {
   return (
-    <div className={container}>
-      <label className={label}>
-        <span>{title}</span>
-        {isRequired && <i className={circle} />}
-      </label>
-      <input className={input} placeholder={placeholderText} type={inputType} maxLength={maxLength} pattern={pattern} />
-      <div className={description}>
-        {descriptionText && <p>{descriptionText}</p>}
-        {descriptionButtonText && (
-          <button type="button" style={{ cursor: 'pointer' }} onClick={descriptionButtonOnClick}>
-            {descriptionButtonText}
-          </button>
-        )}
-      </div>
+    <label className={title}>
+      <span>{children}</span>
+      {isRequired && <i className={circle} />}
+    </label>
+  );
+};
+
+const Description = ({
+  children,
+  buttonText,
+  buttonHandler,
+  isError,
+}: {
+  children: string;
+  buttonText?: string;
+  buttonHandler?: () => void;
+  isError?: boolean;
+}) => {
+  return (
+    <div className={`${description} ${isError && error}`}>
+      <p>{children}</p>
+      {buttonText && (
+        <button type="button" style={{ cursor: 'pointer' }} onClick={buttonHandler}>
+          {buttonText}
+        </button>
+      )}
     </div>
   );
 };
 
-export default Input;
+export interface InputProps extends Pick<InputHTMLAttributes<HTMLInputElement>, 'maxLength' | 'type' | 'pattern'> {
+  placeholderText: string;
+  //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
+  isRequired?: boolean;
+  isFixed?: boolean;
+  errorText?: string;
+}
+
+const Input = ({ placeholderText, isRequired, isFixed, errorText, ...inputElementProps }: InputProps) => {
+  return (
+    <>
+      <input className={input} placeholder={placeholderText} {...inputElementProps} />
+      {errorText && <Description isError>{errorText}</Description>}
+      {/* 에러 조건 추가 */}
+    </>
+  );
+};
+
+const TextBox = {
+  Container,
+  Title,
+  Description,
+  Input,
+};
+
+export default TextBox;

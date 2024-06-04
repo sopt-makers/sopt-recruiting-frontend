@@ -11,7 +11,7 @@ export const container = style({
   ...theme.font.BODY_1_18_M,
 });
 
-export const label = style({
+export const title = style({
   display: 'flex',
   alignItems: 'center',
   gap: 6,
@@ -48,4 +48,8 @@ export const description = style({
 
   color: theme.color.lightestText,
   ...theme.font.LABEL_2_16_SB,
+});
+
+export const error = style({
+  color: theme.color.error,
 });
