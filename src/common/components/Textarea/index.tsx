@@ -1,6 +1,6 @@
 import { Path, UseFormRegister } from 'react-hook-form';
 
-import { textareaStyle } from './style.css';
+import { container, errorMsgStyle, textareaStyle } from './style.css';
 
 import type { ReactNode, TextareaHTMLAttributes } from 'react';
 
@@ -14,16 +14,28 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: Path<IFormValues>;
   register: UseFormRegister<IFormValues>;
   required: boolean;
+  errors: unknown;
+  errorMsg: string;
 }
 
-const Textarea = ({ children, label, register, required, ...textareaElementProps }: TextareaProps) => {
+const Textarea = ({
+  children,
+  label,
+  register,
+  required,
+  errors,
+  errorMsg,
+  ...textareaElementProps
+}: TextareaProps) => {
+  const state = errors[label] ? 'error' : 'default';
+
   return (
-    <>
-      <label>{label}</label>
-      <textarea className={textareaStyle} {...register(label, { required })} {...textareaElementProps}>
+    <div className={container}>
+      <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElementProps}>
         {children}
       </textarea>
-    </>
+      {errors[label] && <p className={errorMsgStyle}>{errorMsg}</p>}
+    </div>
   );
 };
 
