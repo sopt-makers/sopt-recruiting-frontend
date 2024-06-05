@@ -10,7 +10,7 @@ export const container = style({
   width: '720px',
 });
 
-const textareaStyleBase = style({
+const textareaBase = style({
   width: '100%',
   height: '162px',
   padding: '16px 16px',
@@ -32,7 +32,7 @@ const textareaStyleBase = style({
 
 export const textareaStyle = styleVariants({
   default: [
-    textareaStyleBase,
+    textareaBase,
     {
       border: `1px solid ${theme.color.border}`,
       ':focus': {
@@ -40,7 +40,7 @@ export const textareaStyle = styleVariants({
       },
     },
   ],
-  error: [textareaStyleBase, { border: `1px solid ${theme.color.error}` }],
+  error: [textareaBase, { border: `1px solid ${theme.color.error}` }],
 });
 
 export const bottom = style({

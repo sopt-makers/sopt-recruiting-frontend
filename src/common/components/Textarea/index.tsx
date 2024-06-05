@@ -1,6 +1,6 @@
 import { Path, UseFormRegister } from 'react-hook-form';
 
-import { container, bottom, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle } from './style.css';
+import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
 
 import type { TextareaHTMLAttributes } from 'react';
 
@@ -34,7 +34,7 @@ const Textarea = ({
   return (
     <div className={container}>
       <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElementProps} />
-      <p className={bottom}>
+      <p className={bottomStyle}>
         {errors[label] && <span className={errorMsgStyle}>{errorMsg}</span>}
         <span>
           <span className={textCountStyle}>{textCount}</span>
