@@ -26,6 +26,7 @@ const ApplyPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm<any>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<any> = (data) => console.log(data);
@@ -39,6 +40,7 @@ const ApplyPage = () => {
     isRequired: true,
     register,
     errors,
+    clearErrors,
   };
 
   return (
@@ -52,6 +54,7 @@ const ApplyPage = () => {
           isRequired
           register={register}
           errors={errors}
+          clearErrors={clearErrors}
         />
         <TextBox label="타이틀3" placeholderText="고정 텍스트" isFixed secondary register={register} errors={errors} />
       </div>

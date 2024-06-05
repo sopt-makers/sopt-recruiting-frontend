@@ -15,6 +15,7 @@ const TextBox = ({
 
   register,
   errors,
+  clearErrors,
   ...inputElementProps
 }: TextBoxProps) => {
   return (
@@ -32,6 +33,7 @@ const TextBox = ({
           placeholder={placeholderText}
           disabled={isFixed}
           {...inputElementProps}
+          onFocus={() => clearErrors && clearErrors(label)}
           {...register(label, {
             required: isRequired && '필수 입력 항목이에요',
             maxLength: inputElementProps.maxLength,
