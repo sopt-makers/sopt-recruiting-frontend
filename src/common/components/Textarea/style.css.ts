@@ -16,7 +16,13 @@ const textareaStyleBase = style({
   borderRadius: '12px',
   backgroundColor: theme.color.background,
   color: theme.color.baseText,
+  whiteSpace: 'pre-line',
   ...theme.font.BODY_2_16_R,
+
+  ':disabled': {
+    color: theme.color.lighterText,
+    backgroundColor: theme.color.subBackground,
+  },
 
   '::placeholder': {
     color: theme.color.placeholder,
