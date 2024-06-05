@@ -43,7 +43,7 @@ export const textareaStyle = styleVariants({
   error: [textareaBase, { border: `1px solid ${theme.color.error}` }],
 });
 
-export const bottom = style({
+export const bottomStyle = style({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
