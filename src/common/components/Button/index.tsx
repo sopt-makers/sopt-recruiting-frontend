@@ -4,12 +4,13 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
+  className?: string;
   buttonStyle?: 'solid' | 'line';
 }
 
-const Button = ({ children, buttonStyle = 'solid', ...buttonElementProps }: ButtonProps) => {
+const Button = ({ children, className, buttonStyle = 'solid', ...buttonElementProps }: ButtonProps) => {
   return (
-    <button type="button" className={container[buttonStyle]} {...buttonElementProps}>
+    <button type="button" className={`${container[buttonStyle]} ${className}`} {...buttonElementProps}>
       {children}
     </button>
   );
