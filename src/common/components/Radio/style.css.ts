@@ -17,9 +17,8 @@ export const inputStyle = style({
   transition: 'all 0.3s ease',
   cursor: 'pointer',
 
-  // TODO: 디자인 나오면 수정
   ':hover': {
-    boxShadow: '0 0 0 1px lightgray',
+    backgroundColor: theme.color.subBackground,
   },
 
   ':checked': {
@@ -29,6 +28,13 @@ export const inputStyle = style({
   ':focus-visible': {
     outline: `2px dotted ${theme.color.primary}`,
     outlineOffset: '2px',
+  },
+
+  selectors: {
+    '&:checked:hover': {
+      backgroundColor: theme.color.background,
+      border: `6px solid ${theme.color.primaryDark}`,
+    },
   },
 });
 
