@@ -1,15 +1,19 @@
-import { textareaHeaderStyle } from './style.css';
+import { requireDot, textareaHeaderStyle } from './style.css';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
 interface TextareaProps extends HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;
+  required: boolean;
 }
 
-const TextareaHeader = ({ children, ...headerElementProps }: TextareaProps) => {
+const TextareaHeader = ({ children, required, ...headerElementProps }: TextareaProps) => {
   return (
-    <h4 className={textareaHeaderStyle} {...headerElementProps}>
-      {children}
+    <h4 className={`${textareaHeaderStyle}`} {...headerElementProps}>
+      <p>
+        {children}&nbsp;
+        <span className={`${required && requireDot}`} />
+      </p>
     </h4>
   );
 };
