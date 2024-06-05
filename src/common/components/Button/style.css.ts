@@ -6,7 +6,7 @@ const containerBase = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '96px',
+  width: 'fit-content',
   padding: '15px 32px',
   borderRadius: '12px',
   transition: 'all 0.3s ease',
