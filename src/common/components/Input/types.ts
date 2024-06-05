@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { FieldErrors, UseFormClearErrors, UseFormRegister } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
