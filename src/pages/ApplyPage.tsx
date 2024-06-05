@@ -29,6 +29,7 @@ const ApplyPage = () => {
   const textBoxProps1: TextBoxProps = {
     label: '타이틀1',
     placeholderText: '플레이스 홀더 텍스트',
+    size: 'lg',
     descriptionText: '더 알아보는 텍스트',
     descriptionButton: <MoreButton />,
     errorText: '에러 텍스트',

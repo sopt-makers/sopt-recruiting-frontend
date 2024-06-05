@@ -1,9 +1,10 @@
-import { container, circle, input, description, title, inputLine, error, errorInput } from './style.css';
+import { circle, input, description, title, inputLine, error, errorInput, containerVar } from './style.css';
 import { TextBoxProps } from './types';
 
 const TextBox = ({
   label,
   placeholderText,
+  size = 'sm',
   descriptionText,
   descriptionButton,
   isRequired,
@@ -22,7 +23,7 @@ const TextBox = ({
   } = formObject;
 
   return (
-    <div className={container}>
+    <div className={containerVar[size]}>
       {!secondary && (
         <label className={title} htmlFor={label}>
           <span>{label}</span>

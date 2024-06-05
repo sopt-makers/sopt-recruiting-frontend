@@ -1,6 +1,8 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
+
+import { containerSize } from './constants';
 
 export const container = style({
   display: 'flex',
@@ -10,6 +12,8 @@ export const container = style({
   color: theme.color.black,
   ...theme.font.BODY_1_18_M,
 });
+
+export const containerVar = styleVariants(containerSize, (size) => [container, { width: size }]);
 
 export const title = style({
   display: 'flex',

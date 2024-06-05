@@ -6,6 +6,8 @@ export type Inputs = {
   타이틀2: string;
 };
 
+export type SizeType = 'sm' | 'md' | 'lg';
+
 export interface FormObjectProps {
   register: UseFormRegister<any>;
   formState: {
@@ -13,10 +15,10 @@ export interface FormObjectProps {
   };
   clearErrors?: UseFormClearErrors<any>;
 }
-export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'pattern'> {
+export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'pattern' | 'size'> {
   label: string;
   placeholderText: string;
-  //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
+  size?: 'sm' | 'md' | 'lg';
   descriptionText?: string;
   descriptionButton?: ReactNode;
   isRequired?: boolean;
