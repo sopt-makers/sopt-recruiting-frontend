@@ -12,7 +12,7 @@ export const container = style({
 
 const textareaBase = style({
   width: '100%',
-  height: '162px',
+  height: '507px',
   padding: '16px 16px',
   borderRadius: '12px',
   backgroundColor: theme.color.background,
