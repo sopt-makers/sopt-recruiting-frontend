@@ -46,6 +46,7 @@ const ApplyPage = () => {
           placeholderText="플레이스 홀더 텍스트2"
           button={<CheckButton />}
           isRequired
+          maxLength={5}
           formObject={formObject}
         />
         <TextBox label="타이틀3" placeholderText="고정 텍스트" isFixed secondary formObject={formObject} />

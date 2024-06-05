@@ -14,7 +14,7 @@ const TextBox = ({
   secondary,
   pattern,
   formObject,
-  ...inputElementProps
+  maxLength,
 }: TextBoxProps) => {
   const {
     register,
@@ -36,11 +36,10 @@ const TextBox = ({
           className={`${input} ${errors?.[label] && errorInput}`}
           placeholder={placeholderText}
           disabled={isFixed}
-          {...inputElementProps}
+          maxLength={maxLength}
           onFocus={() => clearErrors && clearErrors(label)}
           {...register(label, {
             required: isRequired && '필수 입력 항목이에요',
-            maxLength: inputElementProps.maxLength,
             pattern: pattern,
           })}
         />
