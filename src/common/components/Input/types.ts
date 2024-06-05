@@ -10,7 +10,7 @@ export interface FormObjectProps {
   };
   clearErrors?: UseFormClearErrors<any>;
 }
-export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'pattern' | 'size'> {
+export interface TextBoxProps {
   label: string;
   placeholderText: string;
   size?: 'sm' | 'md' | 'lg';
