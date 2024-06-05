@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 import { FieldErrors, UseFormClearErrors, UseFormRegister } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
@@ -10,7 +10,7 @@ export interface FormObjectProps {
   };
   clearErrors?: UseFormClearErrors<any>;
 }
-export interface TextBoxProps {
+export interface TextBoxProps extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength'> {
   label: string;
   placeholderText: string;
   size?: 'sm' | 'md' | 'lg';
@@ -22,6 +22,5 @@ export interface TextBoxProps {
   button?: ReactNode;
   secondary?: boolean;
   pattern?: RegExp;
-  maxLength?: number;
   formObject: FormObjectProps;
 }

@@ -15,6 +15,7 @@ const TextBox = ({
   pattern,
   formObject,
   maxLength,
+  type,
 }: TextBoxProps) => {
   const {
     register,
@@ -35,6 +36,7 @@ const TextBox = ({
           id={label}
           className={`${input} ${errors?.[label] && errorInput}`}
           placeholder={placeholderText}
+          type={type}
           disabled={isFixed}
           maxLength={maxLength}
           onFocus={() => clearErrors && clearErrors(label)}
