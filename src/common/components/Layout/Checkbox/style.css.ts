@@ -44,16 +44,20 @@ export const checkmark = style({
       display: 'none',
     },
 
-    // TODO: 디자인 나오면 수정해야 함.
     /* On mouse-over, add a grey background color */
     [`${container}:hover input ~ &`]: {
-      backgroundColor: '#ccc',
+      backgroundColor: theme.color.subBackground,
     },
 
     /* When the checkbox is checked, add a blue background */
     [`${container} input:checked ~ &`]: {
       border: `1px solid ${theme.color.primary}`,
       backgroundColor: theme.color.primary,
+    },
+
+    [`${container} input:checked:hover ~ &`]: {
+      border: `1px solid ${theme.color.primaryDark}`,
+      backgroundColor: theme.color.primaryDark,
     },
 
     /* Show the checkmark when checked */
