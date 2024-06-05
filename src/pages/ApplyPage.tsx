@@ -1,5 +1,6 @@
 import TextBox from '@components/Input';
 import { TextBoxProps } from '@components/Input/types';
+import SelectBox from '@components/Select';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 const MoreButton = () => {
@@ -39,6 +40,7 @@ const ApplyPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <SelectBox />
       <TextBox {...textBoxProps1} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <TextBox
