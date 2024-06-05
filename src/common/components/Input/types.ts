@@ -1,7 +1,8 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 
 export interface TextBoxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label: string;
   placeholderText: string;
   //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
   descriptionText?: string;
@@ -10,4 +11,7 @@ export interface TextBoxProps extends InputHTMLAttributes<HTMLInputElement> {
   isFixed?: boolean;
   errorText?: string;
   button?: ReactNode;
+  secondary?: boolean;
+
+  register?: UseFormRegister<any>;
 }

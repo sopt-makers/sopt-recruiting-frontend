@@ -1,5 +1,6 @@
 import TextBox from '@components/Input';
-import { TextBoxProps } from '@components/Input/types';
+import { Inputs, TextBoxProps } from '@components/Input/types';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const MoreButton = () => {
   return (
@@ -19,7 +20,16 @@ const CheckButton = () => {
     </button>
   );
 };
+
 const ApplyPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<any> = (data) => console.log(data);
+
   const textBoxProps1: TextBoxProps = {
     label: '타이틀1',
     placeholderText: '플레이스 홀더 텍스트',
@@ -27,15 +37,23 @@ const ApplyPage = () => {
     descriptionButton: <MoreButton />,
     errorText: '에러 텍스트',
     isRequired: true,
+    register,
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TextBox {...textBoxProps1} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <TextBox label="타이틀2" placeholderText="플레이스 홀더 텍스트2" button={<CheckButton />} isRequired />
-        <TextBox placeholderText="고정 텍스트" isFixed />
+        <TextBox
+          label="타이틀2"
+          placeholderText="플레이스 홀더 텍스트2"
+          button={<CheckButton />}
+          isRequired
+          register={register}
+        />
+        <TextBox label="타이틀2-1" placeholderText="고정 텍스트" isFixed secondary />
       </div>
+      <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
     </form>
   );
 };
