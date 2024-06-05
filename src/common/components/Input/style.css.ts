@@ -58,6 +58,10 @@ export const input = style({
   },
 });
 
+export const errorInput = style({
+  borderColor: theme.color.error,
+});
+
 export const description = style({
   display: 'flex',
   gap: 10,

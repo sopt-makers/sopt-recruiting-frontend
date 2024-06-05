@@ -1,4 +1,4 @@
-import { container, circle, input, description, title, inputLine } from './style.css';
+import { container, circle, input, description, title, inputLine, error, errorInput } from './style.css';
 import { TextBoxProps } from './types';
 
 const TextBox = ({
@@ -11,10 +11,12 @@ const TextBox = ({
   errorText,
   button,
   secondary,
+  pattern,
+
   register,
+  errors,
   ...inputElementProps
 }: TextBoxProps) => {
-  // 조건부 렌더링 / 유효성 검증은 추후 구현
   return (
     <div className={container}>
       {!secondary && (
@@ -26,11 +28,15 @@ const TextBox = ({
       <div className={inputLine}>
         <input
           id={label}
-          className={input}
+          className={`${input} ${errors?.[label] && errorInput}`}
           placeholder={placeholderText}
           disabled={isFixed}
           {...inputElementProps}
-          {...() => register && { ...register(label) }}
+          {...register(label, {
+            required: isRequired && '필수 입력 항목이에요',
+            maxLength: inputElementProps.maxLength,
+            pattern: pattern,
+          })}
         />
         {button}
       </div>
@@ -38,6 +44,11 @@ const TextBox = ({
         <div className={description}>
           <p>{descriptionText}</p>
           {descriptionButton}
+        </div>
+      )}
+      {errors?.[label] && (
+        <div className={`${description} ${error}`}>
+          <p>{errors[label]?.message || errorText}</p>
         </div>
       )}
     </div>

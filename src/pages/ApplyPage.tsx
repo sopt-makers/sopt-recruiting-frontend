@@ -1,5 +1,5 @@
 import TextBox from '@components/Input';
-import { Inputs, TextBoxProps } from '@components/Input/types';
+import { TextBoxProps } from '@components/Input/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 const MoreButton = () => {
@@ -26,7 +26,7 @@ const ApplyPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<any>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<any> = (data) => console.log(data);
 
@@ -38,6 +38,7 @@ const ApplyPage = () => {
     errorText: '에러 텍스트',
     isRequired: true,
     register,
+    errors,
   };
 
   return (
@@ -50,8 +51,9 @@ const ApplyPage = () => {
           button={<CheckButton />}
           isRequired
           register={register}
+          errors={errors}
         />
-        <TextBox label="타이틀2-1" placeholderText="고정 텍스트" isFixed secondary />
+        <TextBox label="타이틀3" placeholderText="고정 텍스트" isFixed secondary register={register} errors={errors} />
       </div>
       <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
     </form>

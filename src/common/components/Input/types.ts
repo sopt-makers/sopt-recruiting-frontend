@@ -1,7 +1,11 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-export interface TextBoxProps extends InputHTMLAttributes<HTMLInputElement> {
+export type Inputs = {
+  타이틀1: string;
+  타이틀2: string;
+};
+export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'pattern'> {
   label: string;
   placeholderText: string;
   //size?: 'xs' | 'sm' | 'md' | 'lg'; 나중에하겠습니다...
@@ -12,6 +16,8 @@ export interface TextBoxProps extends InputHTMLAttributes<HTMLInputElement> {
   errorText?: string;
   button?: ReactNode;
   secondary?: boolean;
+  pattern?: RegExp;
 
-  register?: UseFormRegister<any>;
+  register: UseFormRegister<any>;
+  errors?: FieldErrors<any>;
 }
