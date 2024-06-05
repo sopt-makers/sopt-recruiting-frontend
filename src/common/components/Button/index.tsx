@@ -1,4 +1,4 @@
-import { container } from './style.css';
+import { container, disableStyle, outsideBox } from './style.css';
 
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
@@ -9,10 +9,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = ({ children, className, buttonStyle = 'solid', ...buttonElementProps }: ButtonProps) => {
+  const { disabled } = buttonElementProps;
+
   return (
-    <button type="button" className={`${container[buttonStyle]} ${className}`} {...buttonElementProps}>
-      {children}
-    </button>
+    <div className={`${disabled && disableStyle} ${className} ${outsideBox[buttonStyle]}`}>
+      <button type="button" className={`${container[buttonStyle]} ${className}`} {...buttonElementProps}>
+        {children}
+      </button>
+    </div>
   );
 };
 
