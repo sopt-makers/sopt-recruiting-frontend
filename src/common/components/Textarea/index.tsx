@@ -1,25 +1,20 @@
-import { Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
 
 import type { TextareaHTMLAttributes } from 'react';
 
-interface IFormValues {
-  'First Name': string;
-  Age: number;
-}
-
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: Path<IFormValues>;
-  register: UseFormRegister<IFormValues>;
+interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label: Path<T>;
+  register: UseFormRegister<T>;
   required: boolean;
-  errors: unknown;
+  errors: FieldErrors<FieldValues>;
   errorMsg: string;
   textCount: number;
   maxCount: number;
 }
 
-const Textarea = ({
+const Textarea = <T extends FieldValues>({
   label,
   register,
   required,
@@ -28,7 +23,7 @@ const Textarea = ({
   textCount,
   maxCount,
   ...textareaElementProps
-}: TextareaProps) => {
+}: TextareaProps<T>) => {
   const state = errors[label] ? 'error' : 'default';
 
   return (
