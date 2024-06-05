@@ -12,12 +12,15 @@ const TextBox = ({
   button,
   secondary,
   pattern,
-
-  register,
-  errors,
-  clearErrors,
+  formObject,
   ...inputElementProps
 }: TextBoxProps) => {
+  const {
+    register,
+    formState: { errors },
+    clearErrors,
+  } = formObject;
+
   return (
     <div className={container}>
       {!secondary && (

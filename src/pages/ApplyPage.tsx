@@ -22,12 +22,7 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    clearErrors,
-  } = useForm<any>({ mode: 'onBlur' });
+  const { handleSubmit, ...formObject } = useForm<any>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<any> = (data) => console.log(data);
 
@@ -38,9 +33,7 @@ const ApplyPage = () => {
     descriptionButton: <MoreButton />,
     errorText: '에러 텍스트',
     isRequired: true,
-    register,
-    errors,
-    clearErrors,
+    formObject,
   };
 
   return (
@@ -52,11 +45,9 @@ const ApplyPage = () => {
           placeholderText="플레이스 홀더 텍스트2"
           button={<CheckButton />}
           isRequired
-          register={register}
-          errors={errors}
-          clearErrors={clearErrors}
+          formObject={formObject}
         />
-        <TextBox label="타이틀3" placeholderText="고정 텍스트" isFixed secondary register={register} errors={errors} />
+        <TextBox label="타이틀3" placeholderText="고정 텍스트" isFixed secondary formObject={formObject} />
       </div>
       <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
     </form>

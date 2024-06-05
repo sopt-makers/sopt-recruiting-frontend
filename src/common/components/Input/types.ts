@@ -5,6 +5,14 @@ export type Inputs = {
   타이틀1: string;
   타이틀2: string;
 };
+
+export interface FormObjectProps {
+  register: UseFormRegister<any>;
+  formState: {
+    errors: FieldErrors<any>;
+  };
+  clearErrors?: UseFormClearErrors<any>;
+}
 export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'pattern'> {
   label: string;
   placeholderText: string;
@@ -17,8 +25,5 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   button?: ReactNode;
   secondary?: boolean;
   pattern?: RegExp;
-
-  register: UseFormRegister<any>;
-  errors?: FieldErrors<any>;
-  clearErrors?: UseFormClearErrors<any>;
+  formObject: FormObjectProps;
 }
