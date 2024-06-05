@@ -5,12 +5,13 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '12px',
+  gap: '8px',
   justifyContent: 'center',
+  width: '720px',
 });
 
 const textareaStyleBase = style({
-  width: '720px',
+  width: '100%',
   height: '162px',
   padding: '16px 16px',
   borderRadius: '12px',
@@ -42,7 +43,24 @@ export const textareaStyle = styleVariants({
   error: [textareaStyleBase, { border: `1px solid ${theme.color.error}` }],
 });
 
+export const bottom = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  width: '100%',
+  ...theme.font.BODY_2_16_R,
+});
+
 export const errorMsgStyle = style({
   color: theme.color.error,
+  marginRight: 'auto',
   ...theme.font.LABEL_2_16_SB,
+});
+
+export const textCountStyle = style({
+  color: theme.color.baseText,
+});
+
+export const maxCountStyle = style({
+  color: theme.color.lighterText,
 });

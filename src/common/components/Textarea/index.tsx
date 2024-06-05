@@ -1,8 +1,8 @@
 import { Path, UseFormRegister } from 'react-hook-form';
 
-import { container, errorMsgStyle, textareaStyle } from './style.css';
+import { container, bottom, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle } from './style.css';
 
-import type { ReactNode, TextareaHTMLAttributes } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
 
 interface IFormValues {
   'First Name': string;
@@ -10,31 +10,37 @@ interface IFormValues {
 }
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  children?: ReactNode;
   label?: Path<IFormValues>;
   register: UseFormRegister<IFormValues>;
   required: boolean;
   errors: unknown;
   errorMsg: string;
+  textCount: number;
+  maxCount: number;
 }
 
 const Textarea = ({
-  children,
   label,
   register,
   required,
   errors,
   errorMsg,
+  textCount,
+  maxCount,
   ...textareaElementProps
 }: TextareaProps) => {
   const state = errors[label] ? 'error' : 'default';
 
   return (
     <div className={container}>
-      <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElementProps}>
-        {children}
-      </textarea>
-      {errors[label] && <p className={errorMsgStyle}>{errorMsg}</p>}
+      <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElementProps} />
+      <p className={bottom}>
+        {errors[label] && <span className={errorMsgStyle}>{errorMsg}</span>}
+        <span>
+          <span className={textCountStyle}>{textCount}</span>
+          <span className={maxCountStyle}>/{maxCount}</span>
+        </span>
+      </p>
     </div>
   );
 };
