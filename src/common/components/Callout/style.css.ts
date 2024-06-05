@@ -10,6 +10,7 @@ const containerBase = style({
   padding: '28px 28px',
   borderRadius: '15px',
   backgroundColor: theme.color.subBackground,
+  whiteSpace: 'pre-line',
 });
 
 export const container = styleVariants({
