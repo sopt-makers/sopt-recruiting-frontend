@@ -23,7 +23,12 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm<any>({ mode: 'onBlur' });
+  const { handleSubmit, ...formObject } = useForm<any>({
+    mode: 'onBlur',
+    defaultValues: {
+      성별: '성별을 선택하세요',
+    },
+  });
 
   const onSubmit: SubmitHandler<any> = (data) => console.log(data);
 

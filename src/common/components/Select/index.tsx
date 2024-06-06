@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 
 import {
   circle,
@@ -13,13 +13,21 @@ import {
 } from './style.css';
 
 const SelectBox = ({ formObject }) => {
-  const { register, setValue } = formObject;
+  const {
+    register,
+    setValue,
+    formState: { isDirty },
+  } = formObject;
   const isRequired = true;
   const label = '성별';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(label, e.currentTarget.id, { shouldTouch: true });
+    setValue(label, e.currentTarget.id, { shouldDirty: true });
   };
+
+  useEffect(() => {
+    setValue(label, '성별을 입력해주세요');
+  }, []);
 
   return (
     <div className={containerVar['sm']}>
@@ -28,7 +36,12 @@ const SelectBox = ({ formObject }) => {
         {isRequired && <i className={circle} />}
       </label>
       <div className={selectContainer}>
-        <input type="button" className={selectVariant['selected']} role="combobox" {...register(label)} />
+        <input
+          type="button"
+          className={selectVariant[isDirty ? 'selected' : 'default']}
+          role="combobox"
+          {...register(label)}
+        />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>
           <li role="option">
