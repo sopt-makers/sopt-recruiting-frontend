@@ -14,8 +14,11 @@ import {
 } from './style.css';
 
 const SelectBox = ({ formObject }) => {
-  const { register, setValue, formState } = formObject;
-  const { dirtyFields, errors } = formState;
+  const {
+    register,
+    setValue,
+    formState: { defaultValues, dirtyFields, errors },
+  } = formObject;
   const isRequired = true;
   const label = '성별';
 
@@ -32,9 +35,9 @@ const SelectBox = ({ formObject }) => {
       <div className={selectContainer}>
         <input
           type="button"
-          className={selectVariant[dirtyFields['성별'] ? 'selected' : 'default']}
+          className={selectVariant[errors?.[label] ? 'error' : dirtyFields[label] ? 'selected' : 'default']}
           role="combobox"
-          {...register(label, { required: isRequired && '필수 입력 항목이에요' })}
+          {...register(label, { validate: (v) => v !== defaultValues[label] || '필수 항목입니다' })}
         />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>

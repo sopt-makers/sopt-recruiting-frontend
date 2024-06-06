@@ -60,13 +60,20 @@ export const select = style({
   },
 });
 const selectColors = {
-  default: theme.color.placeholder,
-  selected: theme.color.baseText,
+  default: {
+    color: theme.color.placeholder,
+  },
+  selected: {
+    color: theme.color.baseText,
+  },
+  error: {
+    borderColor: theme.color.error,
+  },
 };
-export const selectVariant = styleVariants(selectColors, (color) => [
+export const selectVariant = styleVariants(selectColors, (styles) => [
   select,
   {
-    color: color,
+    ...styles,
   },
 ]);
 
@@ -136,5 +143,6 @@ export const option = style({
 });
 
 export const error = style({
+  ...theme.font.LABEL_2_16_SB,
   color: theme.color.error,
 });
