@@ -6,28 +6,28 @@ import {
   containerVar,
   error,
   icon,
-  option,
   optionContainer,
+  optionLabel,
   selectContainer,
   selectVariant,
   title,
 } from './style.css';
+import { SelectBoxProps } from './type';
 
-const SelectBox = ({ formObject }) => {
+const SelectBox = ({ label, options, size = 'sm', isRequired, formObject }: SelectBoxProps) => {
   const {
     register,
     setValue,
-    formState: { defaultValues, dirtyFields, errors },
+    formState: { defaultValues, dirtyFields, errors, clearErrors },
   } = formObject;
-  const isRequired = true;
-  const label = '성별';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    clearErrors && clearErrors(label);
     setValue(label, e.currentTarget.id, { shouldValidate: true, shouldDirty: true });
   };
 
   return (
-    <div className={containerVar['sm']}>
+    <div className={containerVar[size]}>
       <label className={title} htmlFor={label}>
         <span>{label}</span>
         {isRequired && <i className={circle} />}
@@ -37,22 +37,19 @@ const SelectBox = ({ formObject }) => {
           type="button"
           className={selectVariant[errors?.[label] ? 'error' : dirtyFields[label] ? 'selected' : 'default']}
           role="combobox"
-          {...register(label, { validate: (v) => v !== defaultValues[label] || '필수 항목입니다' })}
+          onFocus={() => clearErrors && clearErrors(label)}
+          {...register(label, { validate: (v) => v !== defaultValues[label] || '필수 입력 항목이에요.' })}
         />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>
-          <li role="option">
-            <input id="남자" type="radio" name={label} onChange={handleChange} />
-            <label htmlFor="남자" className={option}>
-              남자
-            </label>
-          </li>
-          <li role="option">
-            <input id="여자" type="radio" name={label} onChange={handleChange} />
-            <label htmlFor="여자" className={option}>
-              여자
-            </label>
-          </li>
+          {options.map((option) => (
+            <li role="option" key={option}>
+              <input id={option} type="radio" name={label} onChange={handleChange} />
+              <label htmlFor={option} className={optionLabel}>
+                {option}
+              </label>
+            </li>
+          ))}
         </ul>
       </div>
       {errors?.[label] && (

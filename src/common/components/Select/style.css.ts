@@ -126,7 +126,7 @@ export const optionContainer = style({
     },
   },
 });
-export const option = style({
+export const optionLabel = style({
   padding: '13px 0px 13px 0px', // label 선택영역 확장
 
   color: theme.color.lighterText,

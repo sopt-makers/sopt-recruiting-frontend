@@ -1,7 +1,8 @@
 import TextBox from '@components/Input';
 import { TextBoxProps } from '@components/Input/types';
 import SelectBox from '@components/Select';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { selectValues } from '@components/Select/constants';
+import { useForm } from 'react-hook-form';
 
 const MoreButton = () => {
   return (
@@ -23,14 +24,18 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm<any>({
+  // 추후 데이터 관리 형식에 따라 수정 필요
+  const defaultValues = selectValues.reduce((acc, curr) => {
+    acc[curr.label] = curr.default;
+    return acc;
+  }, {});
+
+  const { handleSubmit, ...formObject } = useForm({
     mode: 'onBlur',
-    defaultValues: {
-      성별: '성별을 선택하세요',
-    },
+    defaultValues: defaultValues,
   });
 
-  const onSubmit: SubmitHandler<any> = (data) => console.log(data);
+  const onSubmit = (data) => console.log(data);
 
   const textBoxProps1: TextBoxProps = {
     label: '타이틀1',
@@ -45,7 +50,9 @@ const ApplyPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
-      <SelectBox formObject={formObject} />
+      {selectValues.map(({ label, options }) => (
+        <SelectBox key={label} label={label} options={options} formObject={formObject} />
+      ))}
       <br />
       <br />
       <br />
