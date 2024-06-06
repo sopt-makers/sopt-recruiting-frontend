@@ -19,6 +19,6 @@ export const requireDot = style({
     width: '8px',
     height: '8px',
     background: theme.color.primary,
-    transform: 'translate(5px ,-10px)',
+    transform: 'translate(3px ,-3px)',
   },
 });
