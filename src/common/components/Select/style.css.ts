@@ -134,3 +134,7 @@ export const option = style({
     },
   },
 });
+
+export const error = style({
+  color: theme.color.error,
+});

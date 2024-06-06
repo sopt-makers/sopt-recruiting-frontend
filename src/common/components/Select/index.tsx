@@ -1,9 +1,10 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 import {
   circle,
   containerVar,
+  error,
   icon,
   option,
   optionContainer,
@@ -13,21 +14,14 @@ import {
 } from './style.css';
 
 const SelectBox = ({ formObject }) => {
-  const {
-    register,
-    setValue,
-    formState: { isDirty },
-  } = formObject;
+  const { register, setValue, formState } = formObject;
+  const { dirtyFields, errors } = formState;
   const isRequired = true;
   const label = '성별';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(label, e.currentTarget.id, { shouldDirty: true });
+    setValue(label, e.currentTarget.id, { shouldValidate: true, shouldDirty: true });
   };
-
-  useEffect(() => {
-    setValue(label, '성별을 입력해주세요');
-  }, []);
 
   return (
     <div className={containerVar['sm']}>
@@ -38,9 +32,9 @@ const SelectBox = ({ formObject }) => {
       <div className={selectContainer}>
         <input
           type="button"
-          className={selectVariant[isDirty ? 'selected' : 'default']}
+          className={selectVariant[dirtyFields['성별'] ? 'selected' : 'default']}
           role="combobox"
-          {...register(label)}
+          {...register(label, { required: isRequired && '필수 입력 항목이에요' })}
         />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>
@@ -58,6 +52,11 @@ const SelectBox = ({ formObject }) => {
           </li>
         </ul>
       </div>
+      {errors?.[label] && (
+        <div className={error}>
+          <p>{errors[label]?.message}</p>
+        </div>
+      )}
     </div>
   );
 };
