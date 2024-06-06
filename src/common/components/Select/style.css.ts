@@ -135,7 +135,7 @@ export const optionLabel = style({
   cursor: 'pointer',
 
   selectors: {
-    'input:checked+&': {
+    'input:checked+&, &:hover': {
       ...theme.font.TITLE_6_16_SB,
       color: theme.color.baseText,
     },
