@@ -22,13 +22,13 @@ const Textarea = <T extends FieldValues>({
   errorMsg,
   textCount,
   maxCount,
-  ...textareaElementProps
+  ...textareaElements
 }: TextareaProps<T>) => {
   const state = errors[label] ? 'error' : 'default';
 
   return (
     <div className={container}>
-      <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElementProps} />
+      <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElements} />
       <p className={bottomStyle}>
         {errors[label] && <span className={errorMsgStyle}>{errorMsg}</span>}
         <span>
