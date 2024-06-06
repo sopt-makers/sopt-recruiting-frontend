@@ -99,8 +99,10 @@ export const option = style({
 
   cursor: 'pointer',
 
-  ':hover': {
-    ...theme.font.TITLE_6_16_SB,
-    color: theme.color.baseText,
+  selectors: {
+    'input:checked+&': {
+      ...theme.font.TITLE_6_16_SB,
+      color: theme.color.baseText,
+    },
   },
 });
