@@ -30,9 +30,16 @@ export const circle = style({
   backgroundColor: theme.color.primary,
 });
 
+export const selectContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 9,
+  position: 'relative',
+});
+
 export const select = style({
   display: 'flex',
-  justifyContent: 'space-between',
+
   flex: 1,
 
   padding: 16,
@@ -40,13 +47,8 @@ export const select = style({
   borderRadius: 12,
   border: `1px solid ${theme.color.border}`,
 
-  color: theme.color.baseText,
+  color: theme.color.placeholder,
   ...theme.font.BODY_2_16_R,
-
-  '::placeholder': {
-    color: theme.color.placeholder,
-    ...theme.font.BODY_2_16_R,
-  },
 
   ':focus': {
     borderColor: theme.color.primary,
@@ -59,12 +61,16 @@ export const select = style({
 });
 
 export const icon = style({
+  position: 'absolute',
+  top: 17,
+  right: 16,
   width: 24,
   color: theme.color.lighterText,
 
-  transition: 'transform 0.3s ease-in-out',
+  transition: 'transform 0.1s ease-out 0.2s',
+
   selectors: {
-    [`${select}:focus &`]: {
+    [`${select}:focus+&`]: {
       transform: 'rotate(180deg)',
     },
   },
@@ -79,21 +85,30 @@ export const optionContainer = style({
   flexDirection: 'column',
   gap: 13,
 
-  padding: '22px 16px',
+  position: 'absolute',
+  width: '100%',
+  top: 50,
+
+  padding: '15px 16px',
+
+  backgroundColor: theme.color.white,
 
   borderRadius: 12,
   border: `1px solid ${theme.color.border}`,
 
   opacity: 0,
-  transition: 'opacity 0.3s ease-in-out',
+  transition: '0.3s ease-in-out',
 
   selectors: {
-    [`${select}:focus+&`]: {
+    [`${select}:focus~&`]: {
       opacity: 1,
+      transform: 'translateY(17px)',
     },
   },
 });
 export const option = style({
+  padding: '13px 0px 13px 0px', // label 선택영역 확장
+
   color: theme.color.lighterText,
   ...theme.font.BODY_2_16_R,
 
