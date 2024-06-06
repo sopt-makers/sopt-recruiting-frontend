@@ -59,6 +59,16 @@ export const select = style({
     color: theme.color.lighterText,
   },
 });
+const selectColors = {
+  default: theme.color.placeholder,
+  selected: theme.color.baseText,
+};
+export const selectVariant = styleVariants(selectColors, (color) => [
+  select,
+  {
+    color: color,
+  },
+]);
 
 export const icon = style({
   position: 'absolute',
@@ -72,6 +82,9 @@ export const icon = style({
   selectors: {
     [`${select}:focus+&`]: {
       transform: 'rotate(180deg)',
+    },
+    [`${select}:disabled+&`]: {
+      display: 'none',
     },
   },
 });

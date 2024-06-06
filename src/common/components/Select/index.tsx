@@ -1,15 +1,24 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
-import { circle, containerVar, icon, option, optionContainer, select, selectContainer, title } from './style.css';
+import {
+  circle,
+  containerVar,
+  icon,
+  option,
+  optionContainer,
+  selectContainer,
+  selectVariant,
+  title,
+} from './style.css';
 
 const SelectBox = ({ formObject }) => {
-  const { register, setValue, getValues } = formObject;
+  const { register, setValue } = formObject;
   const isRequired = true;
   const label = '성별';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(label, e.currentTarget.id);
+    setValue(label, e.currentTarget.id, { shouldTouch: true });
   };
 
   return (
@@ -19,7 +28,7 @@ const SelectBox = ({ formObject }) => {
         {isRequired && <i className={circle} />}
       </label>
       <div className={selectContainer}>
-        <input value="성별을 선택해주세요" className={select} type="button" role="combobox" {...register(label)} />
+        <input type="button" className={selectVariant['selected']} role="combobox" {...register(label)} />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>
           <li role="option">

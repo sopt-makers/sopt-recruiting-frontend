@@ -39,8 +39,11 @@ const ApplyPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <SelectBox />
+    <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
+      <SelectBox formObject={formObject} />
+      <br />
+      <br />
+      <br />
       <TextBox {...textBoxProps1} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <TextBox
