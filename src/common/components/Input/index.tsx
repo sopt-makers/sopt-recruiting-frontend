@@ -1,14 +1,14 @@
-import { circle, input, description, title, inputLine, error, errorInput, containerVar } from './style.css';
+import { circle, title, inputLine, containerVar, inputVar, descriptionVar } from './style.css';
 import { TextBoxProps } from './types';
 
 const TextBox = ({
   label,
-  placeholderText,
+  placeholder,
   size = 'sm',
   descriptionText,
   descriptionButton,
-  isRequired,
-  isFixed,
+  required,
+  disabled,
   errorText,
   button,
   secondary,
@@ -28,33 +28,33 @@ const TextBox = ({
       {!secondary && (
         <label className={title} htmlFor={label}>
           <span>{label}</span>
-          {isRequired && <i className={circle} />}
+          {required && <i className={circle} />}
         </label>
       )}
       <div className={inputLine}>
         <input
           id={label}
-          className={`${input} ${errors?.[label] && errorInput}`}
-          placeholder={placeholderText}
+          className={inputVar[errors?.[label] ? 'error' : 'default']}
+          placeholder={placeholder}
           type={type}
-          disabled={isFixed}
+          disabled={disabled}
           maxLength={maxLength}
           onFocus={() => clearErrors && clearErrors(label)}
           {...register(label, {
-            required: isRequired && '필수 입력 항목이에요',
+            required: required && '필수 입력 항목이에요',
             pattern: pattern,
           })}
         />
         {button}
       </div>
       {descriptionText && (
-        <div className={description}>
+        <div className={descriptionVar['default']}>
           <p>{descriptionText}</p>
           {descriptionButton}
         </div>
       )}
       {errors?.[label] && (
-        <div className={`${description} ${error}`}>
+        <div className={descriptionVar['error']}>
           <p>{errors[label]?.message || errorText}</p>
         </div>
       )}

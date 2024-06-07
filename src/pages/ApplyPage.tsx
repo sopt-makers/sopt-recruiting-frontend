@@ -39,12 +39,12 @@ const ApplyPage = () => {
 
   const textBoxProps1: TextBoxProps = {
     label: '타이틀1',
-    placeholderText: '플레이스 홀더 텍스트',
+    placeholder: '플레이스 홀더 텍스트',
     size: 'lg',
     descriptionText: '더 알아보는 텍스트',
     descriptionButton: <MoreButton />,
     errorText: '에러 텍스트',
-    isRequired: true,
+    required: true,
     formObject,
   };
 
@@ -60,13 +60,13 @@ const ApplyPage = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <TextBox
           label="타이틀2"
-          placeholderText="플레이스 홀더 텍스트2"
+          placeholder="플레이스 홀더 텍스트2"
           button={<CheckButton />}
-          isRequired
+          required
           maxLength={5}
           formObject={formObject}
         />
-        <TextBox label="타이틀3" placeholderText="고정 텍스트" isFixed secondary formObject={formObject} />
+        <TextBox label="타이틀3" placeholder="고정 텍스트" disabled secondary formObject={formObject} />
       </div>
       <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
     </form>
