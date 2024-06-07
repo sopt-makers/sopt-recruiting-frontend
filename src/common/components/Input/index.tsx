@@ -1,4 +1,4 @@
-import { circle, input, description, title, inputLine, error, errorInput, containerVar } from './style.css';
+import { circle, input, description, title, inputLine, errorInput, containerVar, errorDescription } from './style.css';
 import { TextBoxProps } from './types';
 
 const TextBox = ({
@@ -34,7 +34,7 @@ const TextBox = ({
       <div className={inputLine}>
         <input
           id={label}
-          className={`${input} ${errors?.[label] && errorInput}`}
+          className={errors?.[label] ? errorInput : input}
           placeholder={placeholderText}
           type={type}
           disabled={isFixed}
@@ -54,7 +54,7 @@ const TextBox = ({
         </div>
       )}
       {errors?.[label] && (
-        <div className={`${description} ${error}`}>
+        <div className={errorDescription}>
           <p>{errors[label]?.message || errorText}</p>
         </div>
       )}

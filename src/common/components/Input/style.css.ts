@@ -62,9 +62,12 @@ export const input = style({
   },
 });
 
-export const errorInput = style({
-  borderColor: theme.color.error,
-});
+export const errorInput = style([
+  input,
+  {
+    borderColor: theme.color.error,
+  },
+]);
 
 export const description = style({
   display: 'flex',
@@ -74,6 +77,9 @@ export const description = style({
   ...theme.font.LABEL_2_16_SB,
 });
 
-export const error = style({
-  color: theme.color.error,
-});
+export const errorDescription = style([
+  description,
+  {
+    color: theme.color.error,
+  },
+]);
