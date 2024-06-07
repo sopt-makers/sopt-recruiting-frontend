@@ -9,7 +9,6 @@ export const container = style({
   flexDirection: 'column',
   gap: 8,
 
-  color: theme.color.black,
   ...theme.font.BODY_1_18_M,
 });
 
@@ -36,13 +35,12 @@ export const inputLine = style({
   gap: 10,
 });
 
-export const input = style({
+const input = style({
   flex: 1,
 
   padding: 16,
   backgroundColor: theme.color.white,
   borderRadius: 12,
-  border: `1px solid ${theme.color.border}`,
 
   color: theme.color.baseText,
   ...theme.font.BODY_2_16_R,
@@ -53,7 +51,7 @@ export const input = style({
   },
 
   ':focus': {
-    borderColor: theme.color.primary,
+    boxShadow: `0 0 0 1px ${theme.color.primary} inset`,
   },
 
   ':disabled': {
@@ -62,14 +60,20 @@ export const input = style({
   },
 });
 
-export const errorInput = style([
-  input,
+export const inputVar = styleVariants(
   {
-    borderColor: theme.color.error,
+    default: theme.color.border,
+    error: theme.color.error,
   },
-]);
+  (borderColor) => [
+    input,
+    {
+      boxShadow: `0 0 0 1px ${borderColor} inset`,
+    },
+  ],
+);
 
-export const description = style({
+const description = style({
   display: 'flex',
   gap: 10,
 
@@ -77,9 +81,15 @@ export const description = style({
   ...theme.font.LABEL_2_16_SB,
 });
 
-export const errorDescription = style([
-  description,
+export const descriptionVar = styleVariants(
   {
-    color: theme.color.error,
+    default: theme.color.lightestText,
+    error: theme.color.error,
   },
-]);
+  (color) => [
+    description,
+    {
+      color,
+    },
+  ],
+);

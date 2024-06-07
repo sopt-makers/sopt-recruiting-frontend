@@ -10,14 +10,12 @@ export interface FormObjectProps {
   };
   clearErrors?: UseFormClearErrors<any>;
 }
-export interface TextBoxProps extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength'> {
+export interface TextBoxProps
+  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength' | 'placeholder' | 'required' | 'disabled'> {
   label: string;
-  placeholderText: string;
   size?: 'sm' | 'md' | 'lg';
   descriptionText?: string;
   descriptionButton?: ReactNode;
-  isRequired?: boolean;
-  isFixed?: boolean;
   errorText?: string;
   button?: ReactNode;
   secondary?: boolean;
