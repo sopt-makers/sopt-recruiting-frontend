@@ -3,6 +3,8 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
+import { selectColors } from './constants';
+
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
@@ -45,13 +47,13 @@ export const select = style({
   padding: 16,
   backgroundColor: theme.color.white,
   borderRadius: 12,
-  border: `1px solid ${theme.color.border}`,
+  boxShadow: `0 0 0 1px ${theme.color.border} inset`,
 
-  color: theme.color.placeholder,
   ...theme.font.BODY_2_16_R,
+  color: theme.color.placeholder,
 
   ':focus': {
-    borderColor: theme.color.primary,
+    boxShadow: `0 0 0 1px ${theme.color.primary} inset`,
   },
 
   ':disabled': {
@@ -59,17 +61,7 @@ export const select = style({
     color: theme.color.lighterText,
   },
 });
-const selectColors = {
-  default: {
-    color: theme.color.placeholder,
-  },
-  selected: {
-    color: theme.color.baseText,
-  },
-  error: {
-    borderColor: theme.color.error,
-  },
-};
+
 export const selectVariant = styleVariants(selectColors, (styles) => [
   select,
   {
@@ -96,10 +88,6 @@ export const icon = style({
   },
 });
 
-export const errorInput = style({
-  borderColor: theme.color.error,
-});
-
 export const optionContainer = style({
   display: 'flex',
   flexDirection: 'column',
@@ -114,7 +102,7 @@ export const optionContainer = style({
   backgroundColor: theme.color.white,
 
   borderRadius: 12,
-  border: `1px solid ${theme.color.border}`,
+  boxShadow: `0 0 0 1px ${theme.color.border} inset`,
 
   opacity: 0,
   transition: '0.3s ease-in-out',
