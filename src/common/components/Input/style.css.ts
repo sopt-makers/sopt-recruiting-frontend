@@ -1,3 +1,4 @@
+import { formColors } from '@constants/styleValues';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
@@ -60,18 +61,12 @@ const input = style({
   },
 });
 
-export const inputVar = styleVariants(
+export const inputVar = styleVariants(formColors, ({ boxShadow }) => [
+  input,
   {
-    default: theme.color.border,
-    error: theme.color.error,
+    boxShadow,
   },
-  (borderColor) => [
-    input,
-    {
-      boxShadow: `0 0 0 1px ${borderColor} inset`,
-    },
-  ],
-);
+]);
 
 const description = style({
   display: 'flex',

@@ -1,9 +1,8 @@
 import { containerSize } from '@components/Input/constants';
+import { formColors } from '@constants/styleValues';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
-
-import { selectColors } from './constants';
 
 export const container = style({
   display: 'flex',
@@ -46,7 +45,6 @@ export const select = style({
 
   padding: 16,
   borderRadius: 12,
-  boxShadow: `0 0 0 1px ${theme.color.border} inset`,
 
   ...theme.font.BODY_2_16_R,
   color: theme.color.placeholder,
@@ -65,7 +63,7 @@ export const select = style({
   },
 });
 
-export const selectVariant = styleVariants(selectColors, (styles) => [
+export const selectVariant = styleVariants(formColors, (styles) => [
   select,
   {
     ...styles,
