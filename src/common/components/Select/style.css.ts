@@ -74,7 +74,7 @@ export const icon = style({
   top: 17,
   right: 16,
   width: 24,
-  color: theme.color.lighterText,
+  color: theme.color.dropdownButton,
 
   transition: 'transform 0.1s ease-out 0.2s',
 
@@ -97,7 +97,7 @@ export const optionContainer = style({
   width: '100%',
   top: 50,
 
-  padding: '15px 16px',
+  padding: '15px 8px',
 
   backgroundColor: theme.color.white,
 
@@ -115,7 +115,8 @@ export const optionContainer = style({
   },
 });
 export const optionLabel = style({
-  padding: '13px 0px 13px 0px', // label 선택영역 확장
+  display: 'flex',
+  padding: '6px 8px',
 
   color: theme.color.lighterText,
   ...theme.font.BODY_2_16_R,
@@ -123,7 +124,13 @@ export const optionLabel = style({
   cursor: 'pointer',
 
   selectors: {
-    'input:checked+&, &:hover': {
+    '&:hover': {
+      backgroundColor: theme.color.subBackground,
+      borderRadius: 10,
+      ...theme.font.BODY_2_16_R,
+      color: theme.color.baseText,
+    },
+    'input:checked+&': {
       ...theme.font.TITLE_6_16_SB,
       color: theme.color.baseText,
     },

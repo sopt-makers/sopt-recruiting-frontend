@@ -44,7 +44,7 @@ const SelectBox = ({ label, options, size = 'sm', isRequired, formObject }: Sele
         <ul className={optionContainer}>
           {options.map((option) => (
             <li role="option" key={option}>
-              <input id={option} type="radio" name={label} onChange={handleChange} />
+              <input id={option} type="radio" name={label} onChange={handleChange} style={{ display: 'none' }} />
               <label htmlFor={option} className={optionLabel}>
                 {option}
               </label>
