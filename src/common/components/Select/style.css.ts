@@ -45,12 +45,15 @@ export const select = style({
   flex: 1,
 
   padding: 16,
-  backgroundColor: theme.color.white,
   borderRadius: 12,
   boxShadow: `0 0 0 1px ${theme.color.border} inset`,
 
   ...theme.font.BODY_2_16_R,
   color: theme.color.placeholder,
+
+  cursor: 'pointer',
+
+  zIndex: 1,
 
   ':focus': {
     boxShadow: `0 0 0 1px ${theme.color.primary} inset`,
@@ -76,7 +79,7 @@ export const icon = style({
   width: 24,
   color: theme.color.dropdownButton,
 
-  transition: 'transform 0.1s ease-out 0.2s',
+  transition: 'transform 0.3s ease-out',
 
   selectors: {
     [`${select}:focus+&`]: {
@@ -91,7 +94,6 @@ export const icon = style({
 export const optionContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 13,
 
   position: 'absolute',
   width: '100%',
