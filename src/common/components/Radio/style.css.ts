@@ -41,5 +41,4 @@ export const inputStyle = style({
 export const labelStyle = style({
   ...theme.font.BODY_2_16_M,
   cursor: 'pointer',
-  fontSize: '12px',
 });
