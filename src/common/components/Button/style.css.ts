@@ -39,15 +39,11 @@ const containerBase = style({
   ...theme.font.TITLE_5_18_SB,
 
   selectors: {
-    '&:disabled': {
+    '&:disabled, &:disabled:hover': {
       backgroundColor: theme.color.buttonDisable,
       cursor: 'default',
       boxShadow: 'none',
       color: theme.color.white,
-    },
-
-    '&:disabled:hover': {
-      backgroundColor: theme.color.buttonDisable,
     },
   },
 });
