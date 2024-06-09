@@ -93,6 +93,15 @@ export const checkmark = style({
   },
 });
 
+export const requireDot = style({
+  display: 'inline-block',
+  borderRadius: '100%',
+  width: '8px',
+  height: '8px',
+  backgroundColor: theme.color.primary,
+  transform: 'translate(6px ,-3px)',
+});
+
 export const iconStyle = style({
   width: '24px',
   height: '24px',
