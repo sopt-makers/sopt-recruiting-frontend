@@ -9,6 +9,7 @@ export interface FormObjectProps {
     errors: FieldErrors<any>;
   };
   clearErrors?: UseFormClearErrors<any>;
+  trigger: (name?: string | string[]) => Promise<boolean>;
 }
 export interface TextBoxProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength' | 'placeholder' | 'required' | 'disabled'> {

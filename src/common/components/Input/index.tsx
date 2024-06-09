@@ -16,12 +16,10 @@ const InputLine = ({
 }: Omit<TextBoxProps, 'size' | 'children' | 'formObject'>) => {
   const {
     required,
-    formObject: {
-      register,
-      formState: { errors },
-      clearErrors,
-    },
+    formObject: { register, formState, clearErrors, trigger },
   } = useContext(ThemeContext);
+  const { errors } = formState;
+
   return (
     <>
       <div className={inputLine}>
@@ -39,8 +37,12 @@ const InputLine = ({
                   }
                 : undefined,
             validate: validate,
+            onBlur: (e) => {
+              if (!pattern || e.currentTarget.value === '') return;
+              trigger(label);
+            },
+            onChange: () => clearErrors && clearErrors(label),
           })}
-          onChange={() => clearErrors && clearErrors(label)}
         />
         {button}
       </div>

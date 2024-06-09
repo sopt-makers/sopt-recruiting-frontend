@@ -21,7 +21,7 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm<any>({ mode: 'onBlur' });
+  const { handleSubmit, ...formObject } = useForm<any>();
 
   const onSubmit: SubmitHandler<any> = (data) => console.log(data);
 
