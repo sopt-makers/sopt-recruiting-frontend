@@ -28,7 +28,6 @@ const InputLine = ({
         <input
           id={label}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
-          onFocus={() => clearErrors && clearErrors(label)}
           {...inputElementProps}
           {...register(label, {
             required: required && '필수 입력 항목이에요',
@@ -41,6 +40,7 @@ const InputLine = ({
                 : undefined,
             validate: validate,
           })}
+          onChange={() => clearErrors && clearErrors(label)}
         />
         {button}
       </div>
