@@ -1,8 +1,7 @@
+import { useState, type ChangeEvent, type TextareaHTMLAttributes } from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
-
-import type { TextareaHTMLAttributes } from 'react';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: Path<T>;
@@ -19,16 +18,27 @@ const Textarea = <T extends FieldValues>({
   register,
   errors,
   errorMsg,
-  textCount,
   maxCount,
+  onChange,
   required = false,
   ...textareaElements
 }: TextareaProps<T>) => {
+  const [textCount, setTextCount] = useState(0);
   const state = errors[label] ? 'error' : 'default';
+
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTextCount(e.target.value.length);
+    onChange && onChange(e);
+  };
 
   return (
     <div className={container}>
-      <textarea className={textareaStyle[state]} {...register(label, { required })} {...textareaElements} />
+      <textarea
+        className={textareaStyle[state]}
+        {...register(label, { required })}
+        {...textareaElements}
+        onChange={handleInputChange}
+      />
       <p className={bottomStyle}>
         {errors[label] && <span className={errorMsgStyle}>{errorMsg}</span>}
         <span>
