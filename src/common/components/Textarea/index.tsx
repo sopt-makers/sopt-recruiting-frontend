@@ -7,21 +7,21 @@ import type { TextareaHTMLAttributes } from 'react';
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: Path<T>;
   register: UseFormRegister<T>;
-  required: boolean;
   errors: FieldErrors<FieldValues>;
   errorMsg: string;
   textCount: number;
   maxCount: number;
+  required?: boolean;
 }
 
 const Textarea = <T extends FieldValues>({
   label,
   register,
-  required,
   errors,
   errorMsg,
   textCount,
   maxCount,
+  required = false,
   ...textareaElements
 }: TextareaProps<T>) => {
   const state = errors[label] ? 'error' : 'default';
