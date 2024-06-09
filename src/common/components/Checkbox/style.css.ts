@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
@@ -102,8 +102,24 @@ export const requireDot = style({
   transform: 'translate(6px ,-3px)',
 });
 
-export const iconStyle = style({
+const iconStyleBase = style({
   width: '24px',
   height: '24px',
   cursor: 'pointer',
+  transition: 'all 0.3s ease-out',
+});
+
+export const iconStyle = styleVariants({
+  default: [
+    iconStyleBase,
+    {
+      transform: 'rotate(0)',
+    },
+  ],
+  isOpen: [
+    iconStyleBase,
+    {
+      transform: 'rotate(180deg)',
+    },
+  ],
 });

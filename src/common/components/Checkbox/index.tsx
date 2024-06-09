@@ -8,9 +8,17 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
   showIcon?: boolean;
   required?: boolean;
+  isOpen?: boolean;
 }
 
-const Checkbox = ({ children, showIcon = false, required = false, ...checkboxElementProps }: CheckboxProps) => {
+const Checkbox = ({
+  children,
+  showIcon = false,
+  required = false,
+  isOpen = false,
+  onClick,
+  ...checkboxElementProps
+}: CheckboxProps) => {
   return (
     <div className={container}>
       <label className={checkboxContainer}>
@@ -20,7 +28,7 @@ const Checkbox = ({ children, showIcon = false, required = false, ...checkboxEle
         {required && <i className={requireDot} />}
       </label>
       {showIcon && (
-        <div className={iconStyle}>
+        <div className={iconStyle[isOpen ? 'isOpen' : 'default']} onClick={onClick}>
           <IconChevronDown />
         </div>
       )}
