@@ -11,14 +11,10 @@ export const textareaHeaderStyle = style({
 });
 
 export const requireDot = style({
-  ':before': {
-    content: '',
-    display: 'inline-block',
-    border: `1px solid ${theme.color.primary}`,
-    borderRadius: '100%',
-    width: '8px',
-    height: '8px',
-    background: theme.color.primary,
-    transform: 'translate(3px ,-3px)',
-  },
+  display: 'inline-block',
+  borderRadius: '100%',
+  width: '8px',
+  height: '8px',
+  backgroundColor: theme.color.primary,
+  transform: 'translate(3px ,-3px)',
 });

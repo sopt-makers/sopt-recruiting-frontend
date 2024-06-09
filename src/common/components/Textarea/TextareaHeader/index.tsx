@@ -14,7 +14,7 @@ const TextareaHeader = ({ children, maxCount, required = false, ...headerElement
       <p>
         <span>{children}</span>
         <span> ({maxCount}자) </span>
-        <span className={`${required && requireDot}`} />
+        {required && <i className={requireDot} />}
       </p>
     </h4>
   );
