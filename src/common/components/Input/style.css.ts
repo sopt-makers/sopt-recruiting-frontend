@@ -61,10 +61,13 @@ const input = style({
   },
 });
 
-export const inputVar = styleVariants(formColors, ({ boxShadow }) => [
+export const inputVar = styleVariants(formColors, ({ boxShadow, focusShadow }) => [
   input,
   {
     boxShadow,
+    ':focus': {
+      boxShadow: focusShadow,
+    },
   },
 ]);
 
