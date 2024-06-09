@@ -11,6 +11,7 @@ const containerBase = style({
   borderRadius: '15px',
   backgroundColor: theme.color.subBackground,
   whiteSpace: 'pre-line',
+  ...theme.font.HEADING_6_18_B,
 });
 
 export const container = styleVariants({
