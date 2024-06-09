@@ -1,8 +1,7 @@
 import TextBox from '@components/Input';
-import { TextBoxProps } from '@components/Input/types';
 import SelectBox from '@components/Select';
 import { selectValues } from '@components/Select/constants';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 const MoreButton = () => {
   return (
@@ -35,18 +34,7 @@ const ApplyPage = () => {
     defaultValues: defaultValues,
   });
 
-  const onSubmit = (data) => console.log(data);
-
-  const textBoxProps1: TextBoxProps = {
-    label: '타이틀1',
-    placeholder: '플레이스 홀더 텍스트',
-    size: 'lg',
-    descriptionText: '더 알아보는 텍스트',
-    descriptionButton: <MoreButton />,
-    errorText: '에러 텍스트',
-    required: true,
-    formObject,
-  };
+  const onSubmit: SubmitHandler<any> = (data) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
@@ -56,19 +44,26 @@ const ApplyPage = () => {
       <br />
       <br />
       <br />
-      <TextBox {...textBoxProps1} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <TextBox
-          label="타이틀2"
-          placeholder="플레이스 홀더 텍스트2"
+      <TextBox.Container label="이메일" required formObject={formObject}>
+        <TextBox.InputLine
+          label="이메일"
           button={<CheckButton />}
-          required
-          maxLength={5}
-          formObject={formObject}
+          placeholder="이메일을 입력하세요"
+          pattern={/^[0-9]*$/}
+          errorText="숫자만 입력해주세요"
         />
-        <TextBox label="타이틀3" placeholder="고정 텍스트" disabled secondary formObject={formObject} />
-      </div>
-      <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
+        <TextBox.InputLine
+          label="인증번호"
+          placeholder="인증번호를 입력하세요"
+          validate={(v) => v === '가나다라마바사' || '틀렸어요'}
+          errorText="틀렸습니다"
+        />
+        <TextBox.Description>
+          <p>더 알아보는 텍스트</p>
+          <MoreButton />
+        </TextBox.Description>
+      </TextBox.Container>
+      <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green', marginTop: 30 }} />
     </form>
   );
 };
