@@ -16,12 +16,12 @@ const Button = ({
   padding = '15x32',
   ...buttonElementProps
 }: ButtonProps) => {
-  const { disabled } = buttonElementProps;
+  const { disabled, type = 'button' } = buttonElementProps;
 
   return (
     <div className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}>
       <button
-        type="button"
+        type={type}
         className={`${container[buttonStyle]} ${paddings[padding]} ${className}`}
         {...buttonElementProps}>
         {children}
