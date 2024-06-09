@@ -3,19 +3,16 @@ import { TextBoxProps } from './types';
 
 const TextBox = ({
   label,
-  placeholder,
   size = 'sm',
   descriptionText,
   descriptionButton,
   required,
-  disabled,
   errorText,
   button,
   secondary,
   pattern,
   formObject,
-  maxLength,
-  type,
+  ...inputElementProps
 }: TextBoxProps) => {
   const {
     register,
@@ -35,11 +32,8 @@ const TextBox = ({
         <input
           id={label}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
-          placeholder={placeholder}
-          type={type}
-          disabled={disabled}
-          maxLength={maxLength}
           onFocus={() => clearErrors && clearErrors(label)}
+          {...inputElementProps}
           {...register(label, {
             required: required && '필수 입력 항목이에요',
             pattern: pattern,
