@@ -35,7 +35,7 @@ export const hiddenCheckbox = style({
 /* Create a custom checkbox */
 export const checkmark = style({
   position: 'absolute',
-  top: '2.5px',
+  top: '2px',
   left: '0',
   height: '22px',
   width: '22px',
