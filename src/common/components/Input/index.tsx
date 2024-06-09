@@ -1,33 +1,28 @@
+import { createContext, useContext } from 'react';
+
 import { circle, title, inputLine, containerVar, inputVar, descriptionVar } from './style.css';
 import { TextBoxProps } from './types';
 
-const TextBox = ({
+const ThemeContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
+
+const InputLine = ({
   label,
-  size = 'sm',
-  descriptionText,
-  descriptionButton,
-  required,
-  errorText,
-  button,
-  secondary,
   pattern,
-  formObject,
+  button,
+  errorText,
   ...inputElementProps
-}: TextBoxProps) => {
+}: Omit<TextBoxProps, 'size' | 'children' | 'formObject'>) => {
   const {
-    register,
-    formState: { errors },
-    clearErrors,
-  } = formObject;
+    required,
+    formObject: {
+      register,
+      formState: { errors },
+      clearErrors,
+    },
+  } = useContext(ThemeContext);
 
   return (
-    <div className={containerVar[size]}>
-      {!secondary && (
-        <label className={title} htmlFor={label}>
-          <span>{label}</span>
-          {required && <i className={circle} />}
-        </label>
-      )}
+    <>
       <div className={inputLine}>
         <input
           id={label}
@@ -41,19 +36,43 @@ const TextBox = ({
         />
         {button}
       </div>
-      {descriptionText && (
-        <div className={descriptionVar['default']}>
-          <p>{descriptionText}</p>
-          {descriptionButton}
-        </div>
-      )}
       {errors?.[label] && (
-        <div className={descriptionVar['error']}>
+        <Description styleType="error">
           <p>{errors[label]?.message || errorText}</p>
-        </div>
+        </Description>
       )}
-    </div>
+    </>
   );
+};
+
+const Description = ({ children, styleType = 'default' }: Pick<TextBoxProps, 'children' | 'styleType'>) => (
+  <div className={descriptionVar[styleType]}>{children}</div>
+);
+
+const Container = ({
+  children,
+  label,
+  size = 'md',
+  required,
+  formObject,
+}: Pick<TextBoxProps, 'children' | 'label' | 'size' | 'required' | 'formObject'>) => {
+  return (
+    <ThemeContext.Provider value={{ required, formObject }}>
+      <div className={containerVar[size]}>
+        <label className={title} htmlFor={label}>
+          <span>{label}</span>
+          {required && <i className={circle} />}
+        </label>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
+};
+
+const TextBox = {
+  Container,
+  InputLine,
+  Description,
 };
 
 export default TextBox;
