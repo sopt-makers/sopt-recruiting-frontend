@@ -1,4 +1,4 @@
-import { container, disableStyle, outsideBox, paddings } from './style.css';
+import { container, outsideBox, paddings } from './style.css';
 
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
@@ -19,7 +19,7 @@ const Button = ({
   const { disabled } = buttonElementProps;
 
   return (
-    <div className={`${disabled && disableStyle} ${className} ${outsideBox[buttonStyle]}`}>
+    <div className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}>
       <button
         type="button"
         className={`${container[buttonStyle]} ${paddings[padding]} ${className}`}

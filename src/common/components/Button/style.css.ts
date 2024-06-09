@@ -22,10 +22,12 @@ export const outsideBox = styleVariants({
       boxShadow: `0 0 0 1px ${theme.color.primary}`,
     },
   ],
-});
-
-export const disableStyle = style({
-  boxShadow: 'none',
+  disabled: [
+    outsideBoxBase,
+    {
+      boxShadow: 'none',
+    },
+  ],
 });
 
 const containerBase = style({
