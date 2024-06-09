@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
-import { FieldErrors, UseFormClearErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormClearErrors, UseFormRegister, Validate } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
 
@@ -17,6 +17,7 @@ export interface TextBoxProps
   errorText?: string;
   button?: ReactNode;
   pattern?: RegExp;
+  validate?: Validate | Record<string, Validate>; // <TFieldValue, TFormValues>
   formObject: FormObjectProps;
   children: ReactNode;
   styleType?: 'default' | 'error';

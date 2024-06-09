@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { createContext, useContext } from 'react';
 
 import { circle, title, inputLine, containerVar, inputVar, descriptionVar } from './style.css';
@@ -8,6 +9,7 @@ const ThemeContext = createContext({} as Pick<TextBoxProps, 'required' | 'formOb
 const InputLine = ({
   label,
   pattern,
+  validate,
   button,
   errorText,
   ...inputElementProps
@@ -20,7 +22,6 @@ const InputLine = ({
       clearErrors,
     },
   } = useContext(ThemeContext);
-
   return (
     <>
       <div className={inputLine}>
@@ -31,14 +32,21 @@ const InputLine = ({
           {...inputElementProps}
           {...register(label, {
             required: required && '필수 입력 항목이에요',
-            pattern: pattern,
+            pattern:
+              pattern && errorText
+                ? {
+                    value: pattern,
+                    message: errorText,
+                  }
+                : undefined,
+            validate: validate,
           })}
         />
         {button}
       </div>
-      {errors?.[label] && (
+      {errors[label] && (
         <Description styleType="error">
-          <p>{errors[label]?.message || errorText}</p>
+          <p>{errors[label].message}</p>
         </Description>
       )}
     </>
