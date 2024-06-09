@@ -35,7 +35,6 @@ const containerBase = style({
   width: 'fit-content',
   borderRadius: '12px',
   transition: 'background-color 0.3s ease-out',
-  ...theme.font.LABEL_3_14_SB,
 
   selectors: {
     '&:disabled, &:disabled:hover': {
