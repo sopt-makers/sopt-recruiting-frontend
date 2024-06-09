@@ -2,8 +2,15 @@ import { style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-/* Customize the label (the container) */
 export const container = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+});
+
+/* Customize the label (the container) */
+export const checkboxContainer = style({
   display: 'block',
   position: 'relative',
   paddingLeft: '26px',
@@ -45,28 +52,28 @@ export const checkmark = style({
     },
 
     /* On mouse-over, add a grey background color */
-    [`${container}:hover input ~ &`]: {
+    [`${checkboxContainer}:hover input ~ &`]: {
       backgroundColor: theme.color.subBackground,
     },
 
     /* When the checkbox is checked, add a blue background */
-    [`${container} input:checked ~ &`]: {
+    [`${checkboxContainer} input:checked ~ &`]: {
       border: `1px solid ${theme.color.primary}`,
       backgroundColor: theme.color.primary,
     },
 
-    [`${container} input:checked:hover ~ &`]: {
+    [`${checkboxContainer} input:checked:hover ~ &`]: {
       border: `1px solid ${theme.color.primaryDark}`,
       backgroundColor: theme.color.primaryDark,
     },
 
     /* Show the checkmark when checked */
-    [`${container} input:checked ~ &:after`]: {
+    [`${checkboxContainer} input:checked ~ &:after`]: {
       display: 'block',
     },
 
     /* Style the checkmark/indicator */
-    [`${container} &:after`]: {
+    [`${checkboxContainer} &:after`]: {
       top: '2.5px',
       left: '7px',
       width: '6px',
@@ -79,9 +86,15 @@ export const checkmark = style({
     },
 
     /* Add focus-visible style to checkmark when input is focused */
-    [`${container} input:focus-visible ~ &`]: {
+    [`${checkboxContainer} input:focus-visible ~ &`]: {
       outline: `2px dotted ${theme.color.primary}`,
       outlineOffset: '2px',
     },
   },
+});
+
+export const iconStyle = style({
+  width: '24px',
+  height: '24px',
+  cursor: 'pointer',
 });
