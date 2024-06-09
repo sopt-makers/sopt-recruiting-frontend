@@ -33,7 +33,6 @@ const containerBase = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
-  padding: '15px 32px',
   borderRadius: '12px',
   transition: 'background-color 0.3s ease-out',
   ...theme.font.TITLE_5_18_SB,
@@ -46,6 +45,13 @@ const containerBase = style({
       color: theme.color.white,
     },
   },
+});
+
+export const paddings = styleVariants({
+  '15x32': { padding: '15px 32px' },
+  '13x20': { padding: '13px 20px' },
+  '10x24': { padding: '10px 24px' },
+  '15x25': { padding: '15px 25px' },
 });
 
 export const container = styleVariants({
