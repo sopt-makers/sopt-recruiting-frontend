@@ -4,8 +4,8 @@ import { FieldValues, UseFormReturn, Validate } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
 
-export interface TextBoxProps
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength' | 'placeholder' | 'required' | 'disabled'> {
+export type TFormValues = Record<string, string>;
+export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'pattern'> {
   label: string;
   size?: 'sm' | 'md' | 'lg';
   errorText?: string;

@@ -20,8 +20,12 @@ export const title = style({
   alignItems: 'center',
   gap: 6,
 
+  width: 'fit-content',
+
   color: theme.color.baseText,
   ...theme.font.TITLE_5_18_SB,
+
+  cursor: 'pointer',
 });
 
 export const circle = style({
