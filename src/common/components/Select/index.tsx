@@ -1,3 +1,4 @@
+import { defaultValues } from '@constants/defaultValues';
 import { IconChevronDown } from '@sopt-makers/icons';
 import { ChangeEvent } from 'react';
 
@@ -14,12 +15,9 @@ import {
 } from './style.css';
 import { SelectBoxProps } from './type';
 
-const SelectBox = ({ label, options, size = 'sm', isRequired, formObject }: SelectBoxProps) => {
-  const {
-    register,
-    setValue,
-    formState: { defaultValues, dirtyFields, errors, clearErrors },
-  } = formObject;
+const SelectBox = ({ label, options, size = 'sm', required, formObject }: SelectBoxProps) => {
+  const { register, setValue, formState, clearErrors } = formObject;
+  const { dirtyFields, errors } = formState;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(label);
@@ -30,7 +28,7 @@ const SelectBox = ({ label, options, size = 'sm', isRequired, formObject }: Sele
     <div className={containerVar[size]}>
       <label className={title} htmlFor={label}>
         <span>{label}</span>
-        {isRequired && <i className={circle} />}
+        {required && <i className={circle} />}
       </label>
       <div className={selectContainer}>
         <input
@@ -54,7 +52,7 @@ const SelectBox = ({ label, options, size = 'sm', isRequired, formObject }: Sele
       </div>
       {errors?.[label] && (
         <div className={error}>
-          <p>{errors[label]?.message}</p>
+          <p>{errors[label]?.message as string}</p>
         </div>
       )}
     </div>

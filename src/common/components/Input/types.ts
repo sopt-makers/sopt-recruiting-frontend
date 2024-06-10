@@ -1,9 +1,9 @@
+import { TFormValues } from '@constants/defaultValues';
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { FieldValues, UseFormReturn, Validate } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
 
-export type TFormValues = Record<string, string>;
 export interface TextBoxProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength' | 'placeholder' | 'required' | 'disabled'> {
   label: string;

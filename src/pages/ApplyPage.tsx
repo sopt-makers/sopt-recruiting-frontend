@@ -1,7 +1,7 @@
 import TextBox from '@components/Input';
-import { TFormValues } from '@components/Input/types';
 import SelectBox from '@components/Select';
 import { selectValues } from '@components/Select/constants';
+import { TFormValues, defaultValues } from '@constants/defaultValues';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 const MoreButton = () => {
@@ -24,11 +24,6 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const defaultValues = selectValues.reduce((acc, curr) => {
-    acc[curr.label] = curr.default;
-    return acc;
-  }, {});
-
   const { handleSubmit, ...formObject } = useForm({
     defaultValues: defaultValues,
   });
