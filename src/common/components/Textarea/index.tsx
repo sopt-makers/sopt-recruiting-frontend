@@ -8,7 +8,6 @@ interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HT
   register: UseFormRegister<T>;
   errors: FieldErrors<FieldValues>;
   errorMsg: string;
-  textCount: number;
   maxCount: number;
   required?: boolean;
 }
