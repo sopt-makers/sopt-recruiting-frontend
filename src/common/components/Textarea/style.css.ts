@@ -18,6 +18,7 @@ const textareaBase = style({
   backgroundColor: theme.color.background,
   color: theme.color.baseText,
   whiteSpace: 'pre-line',
+  wordBreak: 'break-all',
   ...theme.font.BODY_2_16_R,
 
   ':disabled': {
