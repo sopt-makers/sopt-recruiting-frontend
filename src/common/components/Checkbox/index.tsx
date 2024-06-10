@@ -2,10 +2,10 @@ import { IconChevronDown } from '@sopt-makers/icons';
 
 import { container, checkboxContainer, checkmark, hiddenCheckbox, requireDot, iconStyle } from './style.css';
 
-import type { InputHTMLAttributes, ReactNode } from 'react';
+import type { InputHTMLAttributes } from 'react';
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  children?: ReactNode;
+  children?: string | number;
   showIcon?: boolean;
   required?: boolean;
   isOpen?: boolean;

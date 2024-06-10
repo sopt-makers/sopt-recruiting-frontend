@@ -1,9 +1,9 @@
 import { container } from './style.css';
 
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes } from 'react';
 
 interface ContentboxProps extends HTMLAttributes<HTMLElement> {
-  children?: ReactNode;
+  children?: string | number;
   isOpen?: boolean;
 }
 
