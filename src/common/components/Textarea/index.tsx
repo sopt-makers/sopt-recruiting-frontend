@@ -7,7 +7,6 @@ interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HT
   label: Path<T>;
   register: UseFormRegister<T>;
   errors: FieldErrors<FieldValues>;
-  errorMsg: string;
   maxCount: number;
   required?: boolean;
 }
@@ -16,7 +15,6 @@ const Textarea = <T extends FieldValues>({
   label,
   register,
   errors,
-  errorMsg,
   maxCount,
   onChange,
   required = false,
@@ -34,12 +32,22 @@ const Textarea = <T extends FieldValues>({
     <div className={container}>
       <textarea
         className={textareaStyle[state]}
-        {...register(label, { required })}
+        {...register(label, {
+          ...(required && { required: '필수 입력 항목이에요' }),
+          maxLength: {
+            value: maxCount,
+            message: '최대 글자 수를 초과했어요',
+          },
+        })}
         {...textareaElements}
         onChange={handleInputChange}
       />
       <p className={bottomStyle}>
-        {errors[label] && <span className={errorMsgStyle}>{errorMsg}</span>}
+        {errors[label] && (
+          <span className={errorMsgStyle}>
+            <>{errors[label]?.message}</>
+          </span>
+        )}
         <span>
           <span className={textCountStyle}>{textCount}</span>
           <span className={maxCountStyle}>/{maxCount}</span>
