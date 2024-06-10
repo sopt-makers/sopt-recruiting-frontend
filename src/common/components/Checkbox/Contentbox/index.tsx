@@ -4,11 +4,12 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 interface ContentboxProps extends HTMLAttributes<HTMLElement> {
   children?: ReactNode;
+  isOpen?: boolean;
 }
 
-const Contentbox = ({ children, ...contentboxElementProps }: ContentboxProps) => {
+const Contentbox = ({ children, isOpen = false, ...contentboxElementProps }: ContentboxProps) => {
   return (
-    <article className={container} {...contentboxElementProps}>
+    <article className={container[isOpen ? 'default' : 'open']} {...contentboxElementProps}>
       {children}
     </article>
   );
