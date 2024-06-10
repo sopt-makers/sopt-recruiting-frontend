@@ -1,5 +1,7 @@
 import { IconChevronDown } from '@sopt-makers/icons';
 
+import { theme } from 'styles/theme.css';
+
 import { container, checkboxContainer, checkmark, hiddenCheckbox, requireDot, iconStyle } from './style.css';
 
 import type { InputHTMLAttributes } from 'react';
@@ -29,7 +31,7 @@ const Checkbox = ({
       </label>
       {showIcon && (
         <div className={iconStyle[isOpen ? 'isOpen' : 'default']} onClick={onClick}>
-          <IconChevronDown />
+          <IconChevronDown color={theme.color.dropdownButton} />
         </div>
       )}
     </div>
