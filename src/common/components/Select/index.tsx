@@ -1,6 +1,7 @@
-import { defaultValues } from '@constants/defaultValues';
 import { IconChevronDown } from '@sopt-makers/icons';
 import { ChangeEvent } from 'react';
+
+import { defaultValues } from '@constants/defaultValues';
 
 import {
   circle,

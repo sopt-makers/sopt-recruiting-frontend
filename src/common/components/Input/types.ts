@@ -1,10 +1,9 @@
-import { TFormValues } from '@constants/defaultValues';
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { FieldValues, UseFormReturn, Validate } from 'react-hook-form';
 
-export type SizeType = 'sm' | 'md' | 'lg';
+import { TFormValues } from '@constants/defaultValues';
 
-export type TFormValues = Record<string, string>;
+export type SizeType = 'sm' | 'md' | 'lg';
 export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'pattern'> {
   label: string;
   size?: 'sm' | 'md' | 'lg';

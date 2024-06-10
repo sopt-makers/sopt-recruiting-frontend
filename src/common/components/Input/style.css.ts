@@ -1,6 +1,6 @@
-import { formColors } from '@constants/styleValues';
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { formColors } from '@constants/styleValues';
 import { theme } from 'styles/theme.css';
 
 import { containerSize } from './constants';

@@ -1,7 +1,7 @@
-import { containerSize } from '@components/Input/constants';
-import { formColors } from '@constants/styleValues';
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { containerSize } from '@components/Input/constants';
+import { formColors } from '@constants/styleValues';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
