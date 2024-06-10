@@ -1,6 +1,5 @@
 import TextBox from '@components/Input';
 import SelectBox from '@components/Select';
-import { selectValues } from '@components/Select/constants';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
@@ -32,9 +31,7 @@ const ApplyPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
-      {selectValues.map(({ label, options }) => (
-        <SelectBox key={label} label={label} options={options} formObject={formObject} />
-      ))}
+      <SelectBox label="성별" options={['남자', '여자']} formObject={formObject} />
       <br />
       <br />
       <br />
