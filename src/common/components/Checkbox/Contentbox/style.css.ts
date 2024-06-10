@@ -19,6 +19,8 @@ export const container = styleVariants({
     containerBase,
     {
       opacity: 0,
+      pointerEvents: 'none',
+      visibility: 'hidden',
       transform: 'translateY(0px)',
     },
   ],
@@ -26,6 +28,8 @@ export const container = styleVariants({
     containerBase,
     {
       opacity: 1,
+      pointerEvents: 'auto',
+      visibility: 'visible',
       transform: 'translateY(12px)',
     },
   ],
