@@ -50,6 +50,7 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
+      typescript: {},
       node: {
         moduleDirectory: ['node_modules', 'src/'],
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
