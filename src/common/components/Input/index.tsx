@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react';
 import { circle, title, inputLine, containerVar, inputVar, descriptionVar } from './style.css';
 import { TextBoxProps } from './types';
 
-const ThemeContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
+const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
 
 const InputLine = ({
   label,
@@ -16,12 +16,10 @@ const InputLine = ({
 }: Omit<TextBoxProps, 'size' | 'children' | 'formObject'>) => {
   const {
     required,
-    formObject: {
-      register,
-      formState: { errors },
-      clearErrors,
-    },
-  } = useContext(ThemeContext);
+    formObject: { register, formState, clearErrors, trigger },
+  } = useContext(FormContext);
+  const { errors } = formState;
+
   return (
     <>
       <div className={inputLine}>
@@ -39,6 +37,11 @@ const InputLine = ({
                   }
                 : undefined,
             validate: validate,
+            onBlur: (e) => {
+              if (!pattern || e.currentTarget.value === '') return;
+              trigger(label);
+            },
+            onChange: () => clearErrors && clearErrors(label),
           })}
           onChange={() => clearErrors && clearErrors(label)}
         />
@@ -46,7 +49,7 @@ const InputLine = ({
       </div>
       {errors[label] && (
         <Description styleType="error">
-          <p>{errors[label].message}</p>
+          <p>{errors[label]?.message as string}</p>
         </Description>
       )}
     </>
@@ -65,7 +68,7 @@ const Container = ({
   formObject,
 }: Pick<TextBoxProps, 'children' | 'label' | 'size' | 'required' | 'formObject'>) => {
   return (
-    <ThemeContext.Provider value={{ required, formObject }}>
+    <FormContext.Provider value={{ required, formObject }}>
       <div className={containerVar[size]}>
         <label className={title} htmlFor={label}>
           <span>{label}</span>
@@ -73,7 +76,7 @@ const Container = ({
         </label>
         {children}
       </div>
-    </ThemeContext.Provider>
+    </FormContext.Provider>
   );
 };
 
