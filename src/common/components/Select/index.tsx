@@ -15,7 +15,7 @@ import {
 } from './style.css';
 import { SelectBoxProps } from './type';
 
-const SelectBox = ({ label, options, size = 'sm', required, formObject }: SelectBoxProps) => {
+const SelectBox = ({ label, options, size = 'sm', formObject, required, ...inputElementProps }: SelectBoxProps) => {
   const { register, setValue, formState, clearErrors } = formObject;
   const { dirtyFields, errors } = formState;
 
@@ -35,8 +35,10 @@ const SelectBox = ({ label, options, size = 'sm', required, formObject }: Select
           type="button"
           className={selectVariant[errors?.[label] ? 'error' : dirtyFields[label] ? 'selected' : 'default']}
           role="combobox"
-          onFocus={() => clearErrors && clearErrors(label)}
-          {...register(label, { validate: (v) => v !== defaultValues[label] || '필수 입력 항목이에요.' })}
+          {...inputElementProps}
+          {...register(label, {
+            validate: (v) => !required || v !== defaultValues[label] || '필수 입력 항목이에요.',
+          })}
         />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>

@@ -43,7 +43,6 @@ const InputLine = ({
             },
             onChange: () => clearErrors && clearErrors(label),
           })}
-          onChange={() => clearErrors && clearErrors(label)}
         />
         {button}
       </div>

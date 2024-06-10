@@ -53,6 +53,8 @@ export const select = style({
 
   zIndex: 1,
 
+  transition: '0.3s ease-in-out',
+
   ':focus': {
     boxShadow: `0 0 0 1px ${theme.color.primary} inset`,
   },
@@ -63,10 +65,14 @@ export const select = style({
   },
 });
 
-export const selectVariant = styleVariants(formColors, (styles) => [
+export const selectVariant = styleVariants(formColors, ({ boxShadow, focusShadow, ...color }) => [
   select,
   {
-    ...styles,
+    boxShadow,
+    ':focus': {
+      boxShadow: focusShadow,
+    },
+    ...color,
   },
 ]);
 
@@ -95,7 +101,7 @@ export const optionContainer = style({
 
   position: 'absolute',
   width: '100%',
-  top: 50,
+  top: 67,
 
   padding: '15px 8px',
 
@@ -106,11 +112,12 @@ export const optionContainer = style({
 
   opacity: 0,
   transition: '0.3s ease-in-out',
+  visibility: 'hidden',
 
   selectors: {
     [`${select}:focus~&`]: {
       opacity: 1,
-      transform: 'translateY(17px)',
+      visibility: 'visible',
     },
   },
 });
