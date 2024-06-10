@@ -1,32 +1,29 @@
-import { useState, type ChangeEvent, type TextareaHTMLAttributes } from 'react';
-import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, Path, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
 import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
 
+import type { TextareaHTMLAttributes } from 'react';
+
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: Path<T>;
+  watch: UseFormWatch<T>;
   register: UseFormRegister<T>;
+  label: Path<T>;
   errors: FieldErrors<FieldValues>;
   maxCount: number;
   required?: boolean;
 }
 
 const Textarea = <T extends FieldValues>({
-  label,
+  watch,
   register,
+  label,
   errors,
   maxCount,
-  onChange,
   required = false,
   ...textareaElements
 }: TextareaProps<T>) => {
-  const [textCount, setTextCount] = useState(0);
   const state = errors[label] ? 'error' : 'default';
-
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextCount(e.target.value.length);
-    onChange && onChange(e);
-  };
+  const textCount = watch(label)?.length;
 
   return (
     <div className={container}>
@@ -40,7 +37,6 @@ const Textarea = <T extends FieldValues>({
           },
         })}
         {...textareaElements}
-        onChange={handleInputChange}
       />
       <p className={bottomStyle}>
         {errors[label] && (
@@ -49,7 +45,7 @@ const Textarea = <T extends FieldValues>({
           </span>
         )}
         <span>
-          <span className={textCountStyle}>{textCount}</span>
+          <span className={textCountStyle}>{textCount || 0}</span>
           <span className={maxCountStyle}>/{maxCount}</span>
         </span>
       </p>
