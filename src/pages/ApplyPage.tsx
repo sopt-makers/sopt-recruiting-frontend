@@ -1,4 +1,5 @@
 import TextBox from '@components/Input';
+import { TFormValues } from '@components/Input/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 const MoreButton = () => {
@@ -21,9 +22,9 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm<any>();
+  const { handleSubmit, ...formObject } = useForm();
 
-  const onSubmit: SubmitHandler<any> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,7 +39,7 @@ const ApplyPage = () => {
         <TextBox.InputLine
           label="인증번호"
           placeholder="인증번호를 입력하세요"
-          validate={(v) => v === '가나다라마바사' || '틀렸어요'}
+          validate={(_, v) => v['이메일'] === '검사조건' || '틀렸어요'}
           errorText="틀렸습니다"
         />
         <TextBox.Description>

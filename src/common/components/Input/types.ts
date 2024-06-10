@@ -1,16 +1,9 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
-import { FieldErrors, UseFormClearErrors, UseFormRegister, Validate } from 'react-hook-form';
+import { FieldValues, UseFormReturn, Validate } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
 
-export interface FormObjectProps {
-  register: UseFormRegister<any>;
-  formState: {
-    errors: FieldErrors<any>;
-  };
-  clearErrors?: UseFormClearErrors<any>;
-  trigger: (name?: string | string[]) => Promise<boolean>;
-}
+export type TFormValues = Record<string, string>;
 export interface TextBoxProps
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'maxLength' | 'placeholder' | 'required' | 'disabled'> {
   label: string;
@@ -18,8 +11,8 @@ export interface TextBoxProps
   errorText?: string;
   button?: ReactNode;
   pattern?: RegExp;
-  validate?: Validate | Record<string, Validate>; // <TFieldValue, TFormValues>
-  formObject: FormObjectProps;
+  validate?: Validate<FieldValues, TFormValues>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger'>;
   children: ReactNode;
   styleType?: 'default' | 'error';
 }
