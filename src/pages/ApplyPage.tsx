@@ -1,6 +1,7 @@
 import TextBox from '@components/Input';
-import { TFormValues } from '@components/Input/types';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import SelectBox from '@components/Select';
+import { TFormValues, defaultValues } from '@constants/defaultValues';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 const MoreButton = () => {
   return (
@@ -22,12 +23,18 @@ const CheckButton = () => {
 };
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm();
+  const { handleSubmit, ...formObject } = useForm({
+    defaultValues: defaultValues,
+  });
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
+      <SelectBox label="성별" options={['남자', '여자']} formObject={formObject} />
+      <br />
+      <br />
+      <br />
       <TextBox.Container label="이메일" required formObject={formObject}>
         <TextBox.InputLine
           label="이메일"
