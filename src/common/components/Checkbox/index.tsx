@@ -9,7 +9,6 @@ import type { InputHTMLAttributes } from 'react';
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: string | number;
   showIcon?: boolean;
-  required?: boolean;
   isOpen?: boolean;
 }
 
