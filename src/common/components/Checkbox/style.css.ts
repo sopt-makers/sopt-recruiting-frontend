@@ -15,7 +15,6 @@ export const checkboxContainer = style({
   alignItems: 'center',
   gap: '6px',
   position: 'relative',
-  // paddingLeft: '26px',
   width: 'fit-content',
   cursor: 'pointer',
   WebkitUserSelect: 'none',
@@ -35,13 +34,9 @@ export const hiddenCheckbox = style({
 });
 
 /* Create a custom checkbox */
-export const checkmark = style({
-  // position: 'absolute',
-  // top: '2px',
-  // left: '0',
+const checkmarkBase = style({
   height: '22px',
   width: '22px',
-  border: `1px solid ${theme.color.border}`,
   borderRadius: '5px',
   transition: 'all 0.3s ease',
 
@@ -95,6 +90,21 @@ export const checkmark = style({
   },
 });
 
+export const checkmark = styleVariants({
+  default: [
+    checkmarkBase,
+    {
+      border: `1px solid ${theme.color.border}`,
+    },
+  ],
+  error: [
+    checkmarkBase,
+    {
+      border: `1px solid ${theme.color.error}`,
+    },
+  ],
+});
+
 export const requireDot = style({
   display: 'inline-block',
   borderRadius: '100%',
@@ -124,4 +134,9 @@ export const iconStyle = styleVariants({
       transform: 'rotate(180deg)',
     },
   ],
+});
+
+export const error = style({
+  color: theme.color.error,
+  ...theme.font.LABEL_2_16_SB,
 });
