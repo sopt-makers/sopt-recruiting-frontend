@@ -12,7 +12,7 @@ interface CheckboxProps<T extends FieldValues> extends InputHTMLAttributes<HTMLI
   label: Path<T>;
   showIcon?: boolean;
   register: UseFormRegister<T>;
-  errors: FieldErrors<FieldValues>;
+  errors?: FieldErrors<FieldValues>;
   isOpen?: boolean;
 }
 
@@ -39,7 +39,7 @@ const Checkbox = <T extends FieldValues>({
             className={hiddenCheckbox}
             {...checkboxElementProps}
           />
-          <span className={checkmark[errors[label] ? 'error' : 'default']} />
+          <span className={checkmark[errors && errors[label] ? 'error' : 'default']} />
           <span>{children}</span>
           {required && <i className={requireDot} />}
         </label>
@@ -50,7 +50,7 @@ const Checkbox = <T extends FieldValues>({
         )}
       </div>
       <p className={error}>
-        <>{errors[label]?.message}</>
+        <>{errors && errors[label]?.message}</>
       </p>
     </>
   );
