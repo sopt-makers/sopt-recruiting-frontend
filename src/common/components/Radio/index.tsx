@@ -1,20 +1,29 @@
-import { inputStyle, labelStyle, container } from './style.css';
+import { InputHTMLAttributes } from 'react';
+import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import type { InputHTMLAttributes, ReactNode } from 'react';
+import Container from './Container';
+import ErrorMessage from './ErrorMessage';
+import Option from './Option';
 
-interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
-  children?: ReactNode;
-  label: string;
+interface RadioProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'name'> {
+  register: UseFormRegister<T>;
+  errors: FieldErrors<FieldValues>;
+  label: string[];
+  name: Path<T>;
 }
 
-const Radio = ({ label, ...radioElementProps }: RadioProps) => {
+const Radio = <T extends FieldValues>({ register, errors, label, name, ...rest }: RadioProps<T>) => {
   return (
-    <div className={container}>
-      <input className={inputStyle} type="radio" id={label} {...radioElementProps} />
-      <label className={labelStyle} htmlFor={label}>
-        {label}
-      </label>
-    </div>
+    <>
+      <Container>
+        {label.map((item: string) => (
+          <Option key={item} register={register} errors={errors} label={item} name={name} {...rest} />
+        ))}
+      </Container>
+      <ErrorMessage>
+        <>{errors[name]?.message}</>
+      </ErrorMessage>
+    </>
   );
 };
 

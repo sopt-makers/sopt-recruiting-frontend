@@ -1,5 +1,4 @@
-import { style } from '@vanilla-extract/css';
-
+import { style, styleVariants } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
@@ -9,8 +8,7 @@ export const container = style({
   width: 'fit-content',
 });
 
-export const inputStyle = style({
-  border: `1.5px solid ${theme.color.border}`,
+const inputBase = style({
   borderRadius: '50%',
   width: '22px',
   height: '22px',
@@ -36,6 +34,21 @@ export const inputStyle = style({
       border: `6px solid ${theme.color.primaryDark}`,
     },
   },
+});
+
+export const inputStyle = styleVariants({
+  default: [
+    inputBase,
+    {
+      border: `1.5px solid ${theme.color.border}`,
+    },
+  ],
+  error: [
+    inputBase,
+    {
+      border: `1.5px solid ${theme.color.error}`,
+    },
+  ],
 });
 
 export const labelStyle = style({
