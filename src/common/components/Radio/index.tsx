@@ -8,8 +8,7 @@ interface RadioProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HTM
   children?: string | number;
   label: string;
   name: Path<T>;
-  isLast?: boolean;
-  errors?: FieldErrors<FieldValues>;
+  errors: FieldErrors<FieldValues>;
   register: UseFormRegister<T>;
 }
 
@@ -19,7 +18,6 @@ const Radio = <T extends FieldValues>({
   register,
   name,
   required,
-  isLast = false,
   ...radioElementProps
 }: RadioProps<T>) => {
   return (
@@ -29,7 +27,7 @@ const Radio = <T extends FieldValues>({
           {...register(name, {
             ...(required && { required: '필수 선택 항목이에요' }),
           })}
-          className={inputStyle[errors && errors[name] ? 'error' : 'default']}
+          className={inputStyle[errors[name] ? 'error' : 'default']}
           type="radio"
           id={label}
           {...radioElementProps}
@@ -38,11 +36,6 @@ const Radio = <T extends FieldValues>({
           {label}
         </label>
       </div>
-      {isLast && (
-        <p className={errorStyle}>
-          <>{errors && errors[name]?.message}</>
-        </p>
-      )}
     </>
   );
 };
