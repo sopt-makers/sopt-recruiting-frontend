@@ -27,7 +27,7 @@ const Radio = <T extends FieldValues>({
       <div className={container}>
         <input
           {...register(name, {
-            ...(required && { required: '필수 입력 항목이에요' }),
+            ...(required && { required: '필수 선택 항목이에요' }),
           })}
           className={inputStyle[errors[name] ? 'error' : 'default']}
           type="radio"
