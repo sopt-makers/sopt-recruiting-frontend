@@ -1,17 +1,25 @@
+import { InputHTMLAttributes, ReactNode } from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 import { inputStyle, labelStyle, container } from './style.css';
 
-interface OptionProps<T extends FieldValues> {
-  children?: string | number;
+interface OptionProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'name'> {
+  children?: ReactNode;
   label: string;
   name: Path<T>;
   errors: FieldErrors<FieldValues>;
   register: UseFormRegister<T>;
-  required: boolean;
+  required?: boolean;
 }
 
-const Option = <T extends FieldValues>({ label, errors, register, name, required }: OptionProps<T>) => {
+const Option = <T extends FieldValues>({
+  label,
+  errors,
+  register,
+  name,
+  required = false,
+  ...rest
+}: OptionProps<T>) => {
   return (
     <>
       <div className={container}>
@@ -24,6 +32,7 @@ const Option = <T extends FieldValues>({ label, errors, register, name, required
           id={label}
           name={name}
           value={label}
+          {...rest}
         />
         <label className={labelStyle} htmlFor={label}>
           {label}
