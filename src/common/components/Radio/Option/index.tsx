@@ -9,17 +9,9 @@ interface OptionProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HT
   name: Path<T>;
   errors: FieldErrors<FieldValues>;
   register: UseFormRegister<T>;
-  required?: boolean;
 }
 
-const Option = <T extends FieldValues>({
-  label,
-  errors,
-  register,
-  name,
-  required = false,
-  ...rest
-}: OptionProps<T>) => {
+const Option = <T extends FieldValues>({ label, errors, register, name, required, ...rest }: OptionProps<T>) => {
   return (
     <>
       <div className={container}>
