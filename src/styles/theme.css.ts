@@ -44,7 +44,7 @@ export const light = createTheme(color, {
 
   background: colors.white,
   backgroundDimmed: colors.grayAlpha500,
-  subBackground: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
+  subBackground: '#F5F5F5', // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
 
   baseText: colors.gray950,
   lighterText: colors.gray300,
