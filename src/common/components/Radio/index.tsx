@@ -1,41 +1,28 @@
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import { inputStyle, labelStyle, container, errorStyle } from './style.css';
+import Container from './Container';
+import ErrorMessage from './ErrorMessage';
+import Option from './Option';
 
-import type { InputHTMLAttributes } from 'react';
-
-interface RadioProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'name'> {
-  children?: string | number;
-  label: string;
-  name: Path<T>;
-  errors: FieldErrors<FieldValues>;
+interface RadioProps<T extends FieldValues> {
   register: UseFormRegister<T>;
+  errors: FieldErrors<FieldValues>;
+  label: string[];
+  name: Path<T>;
+  required?: boolean;
 }
 
-const Radio = <T extends FieldValues>({
-  label,
-  errors,
-  register,
-  name,
-  required,
-  ...radioElementProps
-}: RadioProps<T>) => {
+const Radio = <T extends FieldValues>({ register, errors, label, name, required = false }: RadioProps<T>) => {
   return (
     <>
-      <div className={container}>
-        <input
-          {...register(name, {
-            ...(required && { required: '필수 선택 항목이에요' }),
-          })}
-          className={inputStyle[errors[name] ? 'error' : 'default']}
-          type="radio"
-          id={label}
-          {...radioElementProps}
-        />
-        <label className={labelStyle} htmlFor={label}>
-          {label}
-        </label>
-      </div>
+      <Container>
+        {label.map((item: string) => (
+          <Option key={item} register={register} errors={errors} label={item} name={name} required={required} />
+        ))}
+      </Container>
+      <ErrorMessage>
+        <>{errors[name]?.message}</>
+      </ErrorMessage>
     </>
   );
 };
