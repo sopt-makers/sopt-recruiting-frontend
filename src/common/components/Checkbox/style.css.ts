@@ -11,9 +11,11 @@ export const container = style({
 
 /* Customize the label (the container) */
 export const checkboxContainer = style({
-  display: 'block',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '6px',
   position: 'relative',
-  paddingLeft: '26px',
+  // paddingLeft: '26px',
   width: 'fit-content',
   cursor: 'pointer',
   WebkitUserSelect: 'none',
@@ -34,9 +36,9 @@ export const hiddenCheckbox = style({
 
 /* Create a custom checkbox */
 export const checkmark = style({
-  position: 'absolute',
-  top: '2px',
-  left: '0',
+  // position: 'absolute',
+  // top: '2px',
+  // left: '0',
   height: '22px',
   width: '22px',
   border: `1px solid ${theme.color.border}`,
@@ -74,8 +76,8 @@ export const checkmark = style({
 
     /* Style the checkmark/indicator */
     [`${checkboxContainer} &:after`]: {
-      top: '2.5px',
-      left: '7px',
+      top: '7px',
+      left: '8px',
       width: '6px',
       height: '11px',
       border: `solid ${theme.color.white}`,
@@ -99,7 +101,7 @@ export const requireDot = style({
   width: '8px',
   height: '8px',
   backgroundColor: theme.color.primary,
-  transform: 'translate(6px ,-3px)',
+  // transform: 'translateY(-3px)',
 });
 
 const iconStyleBase = style({
