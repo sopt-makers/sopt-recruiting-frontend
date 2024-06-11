@@ -9,9 +9,13 @@ interface ContentboxProps extends HTMLAttributes<HTMLElement> {
 
 const Contentbox = ({ children, isOpen = false, ...contentboxElementProps }: ContentboxProps) => {
   return (
-    <article className={container[isOpen ? 'open' : 'default']} {...contentboxElementProps}>
-      {children}
-    </article>
+    <>
+      {isOpen && (
+        <article className={container} {...contentboxElementProps}>
+          {children}
+        </article>
+      )}
+    </>
   );
 };
 

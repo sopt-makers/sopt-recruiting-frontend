@@ -1,8 +1,8 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-const containerBase = style({
+export const container = style({
   width: '100%',
   padding: '16px',
   boxShadow: `0 0 0 1px ${theme.color.border}`,
@@ -11,26 +11,6 @@ const containerBase = style({
   color: theme.color.baseText,
   whiteSpace: 'pre-line',
   transition: 'all 0.3s ease',
+  marginTop: '12px',
   ...theme.font.BODY_2_16_R,
-});
-
-export const container = styleVariants({
-  default: [
-    containerBase,
-    {
-      opacity: 0,
-      pointerEvents: 'none',
-      visibility: 'hidden',
-      transform: 'translateY(0px)',
-    },
-  ],
-  open: [
-    containerBase,
-    {
-      opacity: 1,
-      pointerEvents: 'auto',
-      visibility: 'visible',
-      transform: 'translateY(12px)',
-    },
-  ],
 });
