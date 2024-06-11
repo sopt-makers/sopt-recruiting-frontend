@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
@@ -9,8 +9,7 @@ export const container = style({
   width: 'fit-content',
 });
 
-export const inputStyle = style({
-  border: `1.5px solid ${theme.color.border}`,
+const inputBase = style({
   borderRadius: '50%',
   width: '22px',
   height: '22px',
@@ -38,7 +37,28 @@ export const inputStyle = style({
   },
 });
 
+export const inputStyle = styleVariants({
+  default: [
+    inputBase,
+    {
+      border: `1.5px solid ${theme.color.border}`,
+    },
+  ],
+  error: [
+    inputBase,
+    {
+      border: `1.5px solid ${theme.color.error}`,
+    },
+  ],
+});
+
 export const labelStyle = style({
   ...theme.font.BODY_2_16_M,
   cursor: 'pointer',
+});
+
+export const errorStyle = style({
+  color: theme.color.error,
+  marginTop: '6px',
+  ...theme.font.LABEL_2_16_SB,
 });

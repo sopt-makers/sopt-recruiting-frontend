@@ -1,20 +1,49 @@
-import { inputStyle, labelStyle, container } from './style.css';
+import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import type { InputHTMLAttributes, ReactNode } from 'react';
+import { inputStyle, labelStyle, container, errorStyle } from './style.css';
 
-interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
-  children?: ReactNode;
+import type { InputHTMLAttributes } from 'react';
+
+interface RadioProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'name'> {
+  children?: string | number;
   label: string;
+  name: Path<T>;
+  isLast?: boolean;
+  errors: FieldErrors<FieldValues>;
+  register: UseFormRegister<T>;
 }
 
-const Radio = ({ label, ...radioElementProps }: RadioProps) => {
+const Radio = <T extends FieldValues>({
+  label,
+  errors,
+  register,
+  name,
+  required,
+  isLast = false,
+  ...radioElementProps
+}: RadioProps<T>) => {
   return (
-    <div className={container}>
-      <input className={inputStyle} type="radio" id={label} {...radioElementProps} />
-      <label className={labelStyle} htmlFor={label}>
-        {label}
-      </label>
-    </div>
+    <>
+      <div className={container}>
+        <input
+          {...register(name, {
+            ...(required && { required: '필수 입력 항목이에요' }),
+          })}
+          className={inputStyle[errors[name] ? 'error' : 'default']}
+          type="radio"
+          id={label}
+          {...radioElementProps}
+        />
+        <label className={labelStyle} htmlFor={label}>
+          {label}
+        </label>
+      </div>
+      {isLast && (
+        <p className={errorStyle}>
+          <>{errors[name]?.message}</>
+        </p>
+      )}
+    </>
   );
 };
 
