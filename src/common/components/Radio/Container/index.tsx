@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 
 import { container } from './style.css';
 
-interface RadioContainerProps {
+interface ContainerProps {
   children: ReactNode;
 }
 
-const RadioContainer = ({ children }: RadioContainerProps) => {
+const Container = ({ children }: ContainerProps) => {
   return <div className={container}>{children}</div>;
 };
 
-export default RadioContainer;
+export default Container;
