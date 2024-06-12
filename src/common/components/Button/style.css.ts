@@ -4,7 +4,7 @@ import { theme } from 'styles/theme.css';
 
 const outsideBoxBase = style({
   width: 'fit-content',
-  borderRadius: '12px',
+  borderRadius: 12,
 });
 
 export const outsideBox = styleVariants({
@@ -35,7 +35,7 @@ const containerBase = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: 'fit-content',
-  borderRadius: '12px',
+  borderRadius: 12,
   transition: 'background-color 0.3s ease-out',
   ...theme.font.TITLE_5_18_SB,
 

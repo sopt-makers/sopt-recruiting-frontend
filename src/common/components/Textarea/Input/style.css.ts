@@ -5,16 +5,16 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: 8,
   justifyContent: 'center',
-  width: '720px',
+  width: 720,
 });
 
 const textareaBase = style({
   width: '100%',
-  height: '507px',
+  height: 507,
   padding: '16px 16px',
-  borderRadius: '12px',
+  borderRadius: 12,
   backgroundColor: theme.color.background,
   color: theme.color.baseText,
   whiteSpace: 'pre-line',

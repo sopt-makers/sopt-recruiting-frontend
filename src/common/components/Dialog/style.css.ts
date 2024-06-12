@@ -2,10 +2,10 @@ import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  width: '400px',
-  padding: '24px',
+  width: 400,
+  padding: 24,
   backgroundColor: colors.gray30, // subBackground
-  borderRadius: '14px',
+  borderRadius: 14,
   border: 'none',
 
   '::backdrop': {

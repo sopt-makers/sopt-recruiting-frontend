@@ -1,17 +1,18 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+
 import { theme } from 'styles/theme.css';
 
 export const container = style({
   display: 'flex',
-  gap: '8px',
+  gap: 8,
   alignItems: 'center',
   width: 'fit-content',
 });
 
 const inputBase = style({
   borderRadius: '50%',
-  width: '22px',
-  height: '22px',
+  width: 22,
+  height: 22,
   transition: 'all 0.3s ease',
   cursor: 'pointer',
 
@@ -25,7 +26,7 @@ const inputBase = style({
 
   ':focus-visible': {
     outline: `2px dotted ${theme.color.primary}`,
-    outlineOffset: '2px',
+    outlineOffset: 2,
   },
 
   selectors: {

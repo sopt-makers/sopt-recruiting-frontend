@@ -1,8 +1,10 @@
-import Layout from '@components/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useForm } from 'react-hook-form';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import Layout from '@components/Layout';
+import Textarea from '@components/Textarea';
 import { dark, light } from 'styles/theme.css';
 
 import ApplyPage from './pages/ApplyPage';
@@ -49,12 +51,24 @@ const App = () => {
     },
   });
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const maxCount = 700; // data로 나중에 받아옴.
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <div className={isLight ? light : dark}>
           <RouterProvider router={router} />
+          <Textarea label="q1" register={register} watch={watch} required errors={errors} maxCount={maxCount}>
+            {`3. 최근 1년 이내로 머릿속으로만 생각하고 있던 계획을 행동으로 옮겨본 경험이 있나요? 만약 있다면 어떤. 계획이. 었으며, 행동을 통해 어떤 성장을 이루어냈는지에 대해 구체적으로 서술해 주세요. 만약 없다면, 해당 계획을 행동으로 옮기기 위한 액션 플랜을 서술해 주세요.`}
+          </Textarea>
         </div>
       </QueryClientProvider>
     </>
