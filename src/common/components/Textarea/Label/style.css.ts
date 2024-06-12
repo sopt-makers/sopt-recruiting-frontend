@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const textareaHeaderStyle = style({
+export const labelStyle = style({
   position: 'relative',
   width: '720px',
   marginBottom: '8px',
