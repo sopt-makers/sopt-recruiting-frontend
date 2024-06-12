@@ -1,8 +1,8 @@
-import Layout from '@components/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import Layout from '@components/Layout';
 import { dark, light } from 'styles/theme.css';
 
 import ApplyPage from './pages/ApplyPage';
