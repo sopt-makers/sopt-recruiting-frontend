@@ -1,4 +1,4 @@
-import { TextareaHTMLAttributes } from 'react';
+import { TextareaHTMLAttributes, useId } from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
 import Input from './Input';
@@ -23,13 +23,15 @@ const Textarea = <T extends FieldValues>({
   required = false,
   ...textareaElements
 }: TextareaProps<T>) => {
-  console.log(children);
+  const id = useId();
+
   return (
     <>
-      <Label maxCount={maxCount} required={required}>
+      <Label label={id} maxCount={maxCount} required={required}>
         {children}
       </Label>
       <Input
+        id={id}
         label={label}
         register={register}
         watch={watch}
