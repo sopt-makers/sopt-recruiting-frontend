@@ -1,7 +1,6 @@
 import { CHANNELS } from './constants';
 import IconArrowRight from './icons/IconArrowRight';
 import {
-  channelText,
   channelWrapper,
   container,
   copyRightText,
@@ -9,6 +8,7 @@ import {
   rightWrapper,
   ruleButton,
   ruleText,
+  titleText,
 } from './style.css';
 
 const Footer = () => {
@@ -22,14 +22,14 @@ const Footer = () => {
         <p className={copyRightText}>
           SOPT (솝트, 대학생연합 IT벤처창업 동아리)
           <br />
-          Copyrightⓒ2022.SOPT. All rights reserved.
+          Copyright&copy;2024.SOPT. All rights reserved.
         </p>
       </div>
       <div className={rightWrapper}>
-        <p className={channelText}>SOPT 채널 바로가기</p>
+        <p className={titleText}>SOPT 채널 바로가기</p>
         <ul className={channelWrapper}>
-          {CHANNELS.map(({ channel, link, icon }) => (
-            <li key={channel}>
+          {CHANNELS.map(({ link, icon }) => (
+            <li key={link}>
               <a href={link} target="_blank" rel="noreferrer noopener">
                 {icon}
               </a>
