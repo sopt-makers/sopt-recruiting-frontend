@@ -1,6 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
-
-import { theme } from 'styles/theme.css';
+import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
@@ -8,7 +6,12 @@ export const container = style({
   alignItems: 'center',
   gap: 879,
 
+  position: 'fixed',
+  top: 0,
+  width: '100%',
   padding: 22,
+
+  zIndex: 99,
 
   '@media': {
     'screen and (max-width: 1440px)': {
