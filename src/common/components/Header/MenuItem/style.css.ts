@@ -10,7 +10,7 @@ export const menuItem = style({
 export const menuLink = style({
   textDecoration: `underline transparent 2px`,
   textUnderlineOffset: 21,
-  transition: 'all 0.3s ease',
+  transition: 'all 0.2s ease-out',
 
   selectors: {
     '&:hover:not([disabled])': {
