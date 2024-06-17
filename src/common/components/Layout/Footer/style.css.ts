@@ -20,7 +20,7 @@ export const leftWrapper = style({
   flexDirection: 'column',
   gap: 27,
 });
-export const titleButton = style({
+export const ruleButton = style({
   display: 'flex',
   alignItems: 'center',
 
@@ -28,6 +28,10 @@ export const titleButton = style({
   ...theme.font.TITLE_7_14_SB,
 
   cursor: 'pointer',
+});
+
+export const ruleText = style({
+  marginTop: 2,
 });
 
 export const copyRightText = style({

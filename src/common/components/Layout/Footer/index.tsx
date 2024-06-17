@@ -7,15 +7,16 @@ import {
   copyRightText,
   leftWrapper,
   rightWrapper,
-  titleButton,
+  ruleButton,
+  ruleText,
 } from './style.css';
 
 const Footer = () => {
   return (
     <footer className={container}>
       <div className={leftWrapper}>
-        <a className={titleButton} href="https://www.sopt.org/rules" target="_blank" rel="noreferrer noopener">
-          <span>SOPT 회칙</span>
+        <a className={ruleButton} href="https://www.sopt.org/rules" target="_blank" rel="noreferrer noopener">
+          <span className={ruleText}>SOPT 회칙</span>
           <IconArrowRight />
         </a>
         <p className={copyRightText}>
