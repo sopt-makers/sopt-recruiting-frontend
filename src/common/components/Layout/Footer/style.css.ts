@@ -45,3 +45,9 @@ export const channelText = style({
   ...theme.font.TITLE_7_14_SB,
   color: theme.color.lighterText,
 });
+
+export const channelWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+});
