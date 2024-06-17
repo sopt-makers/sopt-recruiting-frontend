@@ -1,18 +1,18 @@
 import NowsoptLogo from '@assets/NowsoptLogo';
 
 import MenuItem from './MenuItem';
-import { Container, MenuList } from './style.css';
+import { container, menuList } from './style.css';
 
 const Header = () => {
   return (
-    <div className={Container}>
+    <div className={container}>
       <button type="button">
         <NowsoptLogo />
       </button>
-      <ul className={MenuList}>
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
+      <ul className={menuList}>
+        <MenuItem text="모집공고" type="default" />
+        <MenuItem text="문의하기" type="selected" />
+        <MenuItem text="로그인" type="default" />
       </ul>
     </div>
   );

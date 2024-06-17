@@ -2,7 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const Container = style({
+export const container = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -17,7 +17,7 @@ export const Container = style({
   },
 });
 
-export const MenuList = style({
+export const menuList = style({
   display: 'flex',
   alignItems: 'center',
   gap: 40,
