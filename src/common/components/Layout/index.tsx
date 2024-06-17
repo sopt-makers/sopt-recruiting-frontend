@@ -8,9 +8,7 @@ const Layout = ({ children }: PropsWithChildren) => {
     <>
       <header>header입니다.</header>
       <main>{children || <Outlet />}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </>
   );
 };
