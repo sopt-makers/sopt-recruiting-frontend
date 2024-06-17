@@ -1,34 +1,20 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-const menuItem = style({
+export const menuItem = style({
   ...theme.font.HEADING_6_18_B,
+  color: theme.color.baseText,
+});
 
-  ':disabled': {
-    cursor: 'default',
-  },
+export const menuLink = style({
   selectors: {
     '&:hover:not([disabled])': {
       textDecoration: `underline ${theme.color.primary} 2px`,
       textUnderlineOffset: 21,
     },
-  },
-});
-
-export const menuItemVar = styleVariants(
-  {
-    default: {
-      color: theme.color.baseText,
-    },
-    selected: {
+    '&.active': {
       color: theme.color.primary,
     },
   },
-  ({ color }) => [
-    menuItem,
-    {
-      color,
-    },
-  ],
-);
+});

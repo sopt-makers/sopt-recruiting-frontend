@@ -14,17 +14,18 @@ const Header = () => {
     navigate('/');
   }, [navigate]);
 
-  //  현재 route에 따라 조건부 렌더링 추가 에정
   return (
     <header className={container}>
       <button type="button" onClick={handleClickLogo}>
         <NowsoptLogo />
       </button>
-      <ul className={menuList}>
-        {menuItems.map(({ text, path }) => (
-          <MenuItem key={text} text={text} type="default" path={path} />
-        ))}
-      </ul>
+      <nav>
+        <ul className={menuList}>
+          {menuItems.map(({ text, path }) => (
+            <MenuItem key={text} text={text} path={path} />
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 };

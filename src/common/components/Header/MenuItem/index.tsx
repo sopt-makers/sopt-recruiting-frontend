@@ -1,24 +1,21 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-import { menuItemVar } from './style.css';
+import { menuItem, menuLink } from './style.css';
 
 interface MenuItemProps {
   text: string;
-  type: 'default' | 'selected';
   path?: string;
 }
-const MenuItem = ({ text, type, path }: MenuItemProps) => {
-  const navigate = useNavigate();
-  const handleClickMenu = useCallback(() => {
-    path && navigate(path);
-  }, [navigate, path]);
-
+const MenuItem = ({ text, path }: MenuItemProps) => {
   return (
-    <li>
-      <button type="button" className={menuItemVar[type]} onClick={handleClickMenu} disabled={!path}>
-        {text}
-      </button>
+    <li className={menuItem}>
+      {path ? (
+        <NavLink to={path} className={menuLink}>
+          {text}
+        </NavLink>
+      ) : (
+        <p>{text}</p>
+      )}
     </li>
   );
 };
