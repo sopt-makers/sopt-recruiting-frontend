@@ -8,10 +8,13 @@ export const menuItem = style({
 });
 
 export const menuLink = style({
+  textDecoration: `underline transparent 2px`,
+  textUnderlineOffset: 21,
+  transition: 'all 0.3s ease',
+
   selectors: {
     '&:hover:not([disabled])': {
-      textDecoration: `underline ${theme.color.primary} 2px`,
-      textUnderlineOffset: 21,
+      textDecorationColor: theme.color.primary,
     },
     '&.active': {
       color: theme.color.primary,
