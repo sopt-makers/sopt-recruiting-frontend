@@ -3,12 +3,16 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
 
 const menuItem = style({
-  height: '100%',
   ...theme.font.HEADING_6_18_B,
 
-  ':hover': {
-    textDecoration: `underline ${theme.color.primary} 2px`,
-    textUnderlineOffset: 21,
+  ':disabled': {
+    cursor: 'default',
+  },
+  selectors: {
+    '&:hover:not([disabled])': {
+      textDecoration: `underline ${theme.color.primary} 2px`,
+      textUnderlineOffset: 21,
+    },
   },
 });
 
@@ -21,10 +25,10 @@ export const menuItemVar = styleVariants(
       color: theme.color.primary,
     },
   },
-  (type) => [
+  ({ color }) => [
     menuItem,
     {
-      ...type,
+      color,
     },
   ],
 );
