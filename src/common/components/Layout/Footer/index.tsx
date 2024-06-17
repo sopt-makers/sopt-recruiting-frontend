@@ -1,10 +1,5 @@
 import { CHANNELS } from './constants';
 import IconArrowRight from './icons/IconArrowRight';
-import IconFacebook from './icons/IconFacebook';
-import IconInstagram from './icons/IconInstagram';
-import IconKakaotalk from './icons/IconKakaotalk';
-import IconMail from './icons/IconMail';
-import IconYoutube from './icons/IconYoutube';
 import {
   channelText,
   channelWrapper,
@@ -32,8 +27,12 @@ const Footer = () => {
       <div className={rightWrapper}>
         <p className={channelText}>SOPT 채널 바로가기</p>
         <ul className={channelWrapper}>
-          {CHANNELS.map(({ channel, icon }) => (
-            <li key={channel}>{icon}</li>
+          {CHANNELS.map(({ channel, link, icon }) => (
+            <li key={channel}>
+              <a href={link} target="_blank" rel="noreferrer noopener">
+                {icon}
+              </a>
+            </li>
           ))}
         </ul>
       </div>
