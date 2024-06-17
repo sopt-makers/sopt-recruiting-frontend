@@ -1,6 +1,6 @@
 import NowsoptLogo from '@assets/NowsoptLogo';
 
-import { menuItems } from './contants';
+import { MENU_ITEMS } from './contants';
 import MenuItem from './MenuItem';
 import { container, menuList } from './style.css';
 
@@ -10,7 +10,7 @@ const Header = () => {
       <NowsoptLogo />
       <nav>
         <ul className={menuList}>
-          {menuItems.map(({ text, path }) => (
+          {MENU_ITEMS.map(({ text, path }) => (
             <MenuItem key={text} text={text} path={path} />
           ))}
         </ul>

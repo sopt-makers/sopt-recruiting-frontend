@@ -1,4 +1,4 @@
-export const menuItems = [
+export const MENU_ITEMS = [
   {
     text: '모집공고',
     path: '/apply',
