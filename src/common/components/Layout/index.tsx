@@ -7,13 +7,9 @@ import Header from '@components/Header';
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <header>
-        <Header />
-      </header>
+      <Header />
       <main>{children || <Outlet />}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </>
   );
 };
