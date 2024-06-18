@@ -8,15 +8,9 @@ export const container = style({
   position: 'sticky',
   top: 0,
   width: '100%',
-  padding: '22px 100px',
+  padding: '22px 376px 22px 360px',
 
   zIndex: 99,
-
-  '@media': {
-    'screen and (max-width: 1440px)': {
-      gap: 362,
-    },
-  },
 });
 
 export const menuList = style({
