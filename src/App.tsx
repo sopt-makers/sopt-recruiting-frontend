@@ -4,16 +4,15 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
 import { dark, light } from 'styles/theme.css';
-
-import ApplyPage from './pages/ApplyPage';
-import CompletePage from './pages/CompletePage';
-import MainPage from './pages/MainPage';
-import MyPage from './pages/MyPage';
-import PasswordPage from './pages/PasswordPage';
-import ResultPage from './pages/ResultPage';
-import ReviewPage from './pages/ReviewPage';
-import SignupPage from './pages/SignupPage';
 import 'styles/reset.css';
+import ApplyPage from 'views/ApplyPage';
+import CompletePage from 'views/CompletePage';
+import MainPage from 'views/MainPage';
+import MyPage from 'views/MyPage';
+import PasswordPage from 'views/PasswordPage';
+import ResultPage from 'views/ResultPage';
+import ReviewPage from 'views/ReviewPage';
+import SignupPage from 'views/SignupPage';
 
 const router = createBrowserRouter([
   {
