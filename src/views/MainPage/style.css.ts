@@ -5,5 +5,22 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
+  gap: 50,
+
+  margin: '90px 0 168px 0',
   width: 466,
+});
+
+export const calloutWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'end',
+  gap: 8,
+
+  wordBreak: 'keep-all',
+});
+export const calloutButton = style({
+  marginRight: 18,
+  color: theme.color.lighterText,
+  ...theme.font.TITLE_5_18_SB,
 });
