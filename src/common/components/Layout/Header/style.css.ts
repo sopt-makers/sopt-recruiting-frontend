@@ -8,6 +8,8 @@ export const container = style({
   position: 'sticky',
   top: 0,
   width: '100%',
+  maxWidth: 1440,
+  margin: '0 auto',
   padding: '22px 376px 22px 360px',
 
   zIndex: 99,
