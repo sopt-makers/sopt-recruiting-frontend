@@ -6,12 +6,16 @@ import Footer from '@components/Layout/Footer';
 import Header from './Header';
 import { container } from './style.css';
 
-const Layout = ({ children }: PropsWithChildren) => {
+interface LayoutProps {
+  hasFooter?: boolean;
+}
+
+const Layout = ({ hasFooter, children }: PropsWithChildren<LayoutProps>) => {
   return (
     <div className={container}>
       <Header />
       <main>{children || <Outlet />}</main>
-      <Footer />
+      {hasFooter && <Footer />}
     </div>
   );
 };
