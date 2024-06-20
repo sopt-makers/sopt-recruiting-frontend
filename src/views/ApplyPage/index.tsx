@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { Description, InputLine, TextBox } from '@components/Input';
+import Button from '@components/Button';
+import { Description, InputLine, TextBox, Timer } from '@components/Input';
 import SelectBox from '@components/Select';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 
@@ -13,14 +14,7 @@ const MoreButton = () => {
 };
 
 const CheckButton = () => {
-  return (
-    <button
-      type="button"
-      style={{ cursor: 'pointer', backgroundColor: 'green', padding: 10 }}
-      onClick={() => console.log('버튼클릭')}>
-      인증하기
-    </button>
-  );
+  return <Button style={{ width: '148px' }}>인증하기</Button>;
 };
 
 const ApplyPage = () => {
@@ -42,8 +36,9 @@ const ApplyPage = () => {
           button={<CheckButton />}
           placeholder="이메일을 입력하세요"
           pattern={/^[0-9]*$/}
-          errorText="숫자만 입력해주세요"
-        />
+          errorText="숫자만 입력해주세요">
+          <Timer />
+        </InputLine>
         <InputLine
           label="인증번호"
           placeholder="인증번호를 입력하세요"

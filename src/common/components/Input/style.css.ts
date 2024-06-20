@@ -38,6 +38,8 @@ export const circle = style({
 export const inputLine = style({
   display: 'flex',
   gap: 10,
+
+  position: 'relative',
 });
 
 const input = style({
@@ -95,3 +97,12 @@ export const descriptionVar = styleVariants(
     },
   ],
 );
+
+export const timer = style({
+  position: 'absolute',
+  right: 172,
+  top: 16,
+  color: theme.color.lighterText,
+  ...theme.font.BODY_2_16_R,
+  lineHeight: 'inherit',
+});

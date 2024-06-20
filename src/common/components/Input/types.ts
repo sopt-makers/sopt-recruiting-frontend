@@ -12,6 +12,6 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   pattern?: RegExp;
   validate?: Validate<FieldValues, TFormValues>;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger'>;
-  children: ReactNode;
+  children?: ReactNode;
   styleType?: 'default' | 'error';
 }

@@ -1,10 +1,14 @@
 /* eslint-disable indent */
 import { createContext, useContext } from 'react';
 
-import { circle, title, inputLine, containerVar, inputVar, descriptionVar } from './style.css';
+import { circle, title, inputLine, containerVar, inputVar, descriptionVar, timer } from './style.css';
 import { TextBoxProps } from './types';
 
 const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
+
+export const Timer = () => {
+  return <span className={timer}>2:30</span>;
+};
 
 export const InputLine = ({
   label,
@@ -12,8 +16,9 @@ export const InputLine = ({
   validate,
   button,
   errorText,
+  children,
   ...inputElementProps
-}: Omit<TextBoxProps, 'size' | 'children' | 'formObject'>) => {
+}: Omit<TextBoxProps, 'size' | 'formObject'>) => {
   const {
     required,
     formObject: { register, formState, clearErrors, trigger },
@@ -45,6 +50,7 @@ export const InputLine = ({
           })}
         />
         {button}
+        {children}
       </div>
       {errors[label] && (
         <Description styleType="error">
