@@ -6,7 +6,7 @@ import { TextBoxProps } from './types';
 
 const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
 
-const InputLine = ({
+export const InputLine = ({
   label,
   pattern,
   validate,
@@ -55,11 +55,11 @@ const InputLine = ({
   );
 };
 
-const Description = ({ children, styleType = 'default' }: Pick<TextBoxProps, 'children' | 'styleType'>) => (
+export const Description = ({ children, styleType = 'default' }: Pick<TextBoxProps, 'children' | 'styleType'>) => (
   <div className={descriptionVar[styleType]}>{children}</div>
 );
 
-const Container = ({
+export const TextBox = ({
   children,
   label,
   size = 'md',
@@ -78,11 +78,3 @@ const Container = ({
     </FormContext.Provider>
   );
 };
-
-const TextBox = {
-  Container,
-  InputLine,
-  Description,
-};
-
-export default TextBox;
