@@ -1,5 +1,7 @@
 /* eslint-disable indent */
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import formatTimer from '@utils/formatTimer';
 
 import { circle, title, inputLine, containerVar, inputVar, descriptionVar, timer } from './style.css';
 import { TextBoxProps } from './types';
@@ -7,7 +9,17 @@ import { TextBoxProps } from './types';
 const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
 
 export const Timer = () => {
-  return <span className={timer}>2:30</span>;
+  const [seconds, setSeconds] = useState(300);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return <span className={timer}>{formatTimer(seconds)}</span>;
 };
 
 export const InputLine = ({
