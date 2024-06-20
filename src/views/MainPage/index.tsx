@@ -32,7 +32,7 @@ const MainPage = () => {
         <InputLine label="비밀번호" placeholder="비밀번호를 입력해주세요" />
         <Description>
           <p>비밀번호를 잃어버리셨나요?</p>
-          <a href="/password">비밀번호 재설정하기</a>
+          <Link to="/password">비밀번호 재설정하기</Link>
         </Description>
       </TextBox>
       <Button disabled>로그인</Button>
