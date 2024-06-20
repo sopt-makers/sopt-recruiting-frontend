@@ -1,25 +1,40 @@
 /* eslint-disable indent */
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import formatTimer from '@utils/formatTimer';
 
 import { circle, title, inputLine, containerVar, inputVar, descriptionVar, timer } from './style.css';
-import { TextBoxProps } from './types';
+import { TextBoxProps, TimerProps } from './types';
 
 const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
 
-export const Timer = () => {
-  const [seconds, setSeconds] = useState(300);
+export const Timer = ({ isActive, setActive }: TimerProps) => {
+  const [seconds, setSeconds] = useState(10);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((prev) => prev - 1);
-    }, 1000);
+    if (isActive) {
+      setSeconds(10);
+      timerRef.current = setInterval(() => {
+        setSeconds((prev) => prev - 1);
+      }, 1000);
+    } else {
+      timerRef.current && clearInterval(timerRef.current);
+    }
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      timerRef.current && clearInterval(timerRef.current);
+    };
+  }, [isActive]);
 
-  return <span className={timer}>{formatTimer(seconds)}</span>;
+  useEffect(() => {
+    if (seconds < 0) {
+      setActive(false);
+      timerRef.current && clearInterval(timerRef.current);
+    }
+  }, [seconds]);
+
+  return <span className={timer}>{isActive && formatTimer(seconds)}</span>;
 };
 
 export const InputLine = ({

@@ -15,3 +15,8 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   children?: ReactNode;
   styleType?: 'default' | 'error';
 }
+
+export interface TimerProps {
+  isActive: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -13,8 +14,12 @@ const MoreButton = () => {
   );
 };
 
-const CheckButton = () => {
-  return <Button style={{ width: '148px' }}>인증하기</Button>;
+const CheckButton = (props: { disabled: boolean; onClick: () => void }) => {
+  return (
+    <Button style={{ width: '148px' }} {...props}>
+      인증하기
+    </Button>
+  );
 };
 
 const ApplyPage = () => {
@@ -23,6 +28,8 @@ const ApplyPage = () => {
   });
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
+
+  const [isActive, setActive] = useState(false);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
@@ -33,11 +40,18 @@ const ApplyPage = () => {
       <TextBox label="이메일" required formObject={formObject}>
         <InputLine
           label="이메일"
-          button={<CheckButton />}
+          button={
+            <CheckButton
+              disabled={isActive}
+              onClick={() => {
+                setActive(true);
+              }}
+            />
+          }
           placeholder="이메일을 입력하세요"
           pattern={/^[0-9]*$/}
           errorText="숫자만 입력해주세요">
-          <Timer />
+          <Timer isActive={isActive} setActive={setActive} />
         </InputLine>
         <InputLine
           label="인증번호"
