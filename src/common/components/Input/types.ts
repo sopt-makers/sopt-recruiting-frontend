@@ -8,7 +8,6 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   label: string;
   size?: 'sm' | 'md' | 'lg';
   errorText?: string;
-  button?: ReactNode;
   pattern?: RegExp;
   validate?: Validate<FieldValues, TFormValues>;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger'>;
@@ -16,6 +15,11 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   styleType?: 'default' | 'error';
 }
 
+export interface InputButtonProps {
+  text: string;
+  disabled: boolean;
+  onClick: () => void;
+}
 export interface TimerProps {
   isActive: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;

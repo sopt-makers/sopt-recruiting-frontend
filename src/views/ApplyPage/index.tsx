@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import Button from '@components/Button';
-import { Description, InputLine, TextBox, Timer } from '@components/Input';
+import { Description, InputButton, InputLine, TextBox, Timer } from '@components/Input';
 import SelectBox from '@components/Select';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 
@@ -11,14 +10,6 @@ const MoreButton = () => {
     <button type="button" style={{ cursor: 'pointer' }} onClick={() => console.log('버튼클릭')}>
       더알아보는버튼
     </button>
-  );
-};
-
-const CheckButton = (props: { disabled: boolean; onClick: () => void }) => {
-  return (
-    <Button style={{ width: '148px' }} {...props}>
-      인증하기
-    </Button>
   );
 };
 
@@ -40,17 +31,16 @@ const ApplyPage = () => {
       <TextBox label="이메일" required formObject={formObject}>
         <InputLine
           label="이메일"
-          button={
-            <CheckButton
-              disabled={isActive}
-              onClick={() => {
-                setActive(true);
-              }}
-            />
-          }
           placeholder="이메일을 입력하세요"
           pattern={/^[0-9]*$/}
           errorText="숫자만 입력해주세요">
+          <InputButton
+            text="인증하기"
+            disabled={isActive}
+            onClick={() => {
+              setActive(true);
+            }}
+          />
           <Timer isActive={isActive} setActive={setActive} />
         </InputLine>
         <InputLine

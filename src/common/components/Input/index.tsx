@@ -1,12 +1,22 @@
 /* eslint-disable indent */
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
+import Button from '@components/Button';
 import formatTimer from '@utils/formatTimer';
 
 import { circle, title, inputLine, containerVar, inputVar, descriptionVar, timer } from './style.css';
-import { TextBoxProps, TimerProps } from './types';
+import { InputButtonProps, TextBoxProps, TimerProps } from './types';
 
 const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
+
+// TextBox 내부 InputLine 우측 버튼
+export const InputButton = ({ text, ...props }: InputButtonProps) => {
+  return (
+    <Button style={{ width: '148px' }} {...props}>
+      {text}
+    </Button>
+  );
+};
 
 // TextBox 내부 타이머
 export const Timer = ({ isActive, setActive }: TimerProps) => {
@@ -38,12 +48,11 @@ export const Timer = ({ isActive, setActive }: TimerProps) => {
   return <span className={timer}>{isActive && formatTimer(seconds)}</span>;
 };
 
-// TextBox 내부 Input 및 Button(optional)
+// TextBox 내부 Input
 export const InputLine = ({
   label,
   pattern,
   validate,
-  button,
   errorText,
   children,
   ...inputElementProps
@@ -78,7 +87,6 @@ export const InputLine = ({
             onChange: () => clearErrors && clearErrors(label),
           })}
         />
-        {button}
         {children}
       </div>
       {errors[label] && (
