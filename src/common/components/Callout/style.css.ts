@@ -12,6 +12,7 @@ const containerBase = style({
   backgroundColor: theme.color.subBackground,
   whiteSpace: 'pre-line',
   ...theme.font.HEADING_6_18_B,
+  letterSpacing: -0.36,
 });
 
 export const container = styleVariants({

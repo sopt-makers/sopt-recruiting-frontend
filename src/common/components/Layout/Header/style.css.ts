@@ -1,14 +1,20 @@
 import { style } from '@vanilla-extract/css';
 
+import { theme } from 'styles/theme.css';
+
 export const container = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
   width: '100%',
+  maxWidth: 1440,
+  margin: '0 auto',
   padding: '22px 376px 22px 360px',
+
+  backgroundColor: theme.color.white,
 
   zIndex: 99,
 });

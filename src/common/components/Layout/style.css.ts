@@ -1,7 +1,9 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  maxWidth: 1440,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   minWidth: 1440,
-  margin: '0 auto',
+  paddingTop: 74,
 });
