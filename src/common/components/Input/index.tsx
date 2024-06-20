@@ -8,13 +8,14 @@ import { TextBoxProps, TimerProps } from './types';
 
 const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
 
+// TextBox 내부 타이머
 export const Timer = ({ isActive, setActive }: TimerProps) => {
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(300);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isActive) {
-      setSeconds(10);
+      setSeconds(300);
       timerRef.current = setInterval(() => {
         setSeconds((prev) => prev - 1);
       }, 1000);
@@ -37,6 +38,7 @@ export const Timer = ({ isActive, setActive }: TimerProps) => {
   return <span className={timer}>{isActive && formatTimer(seconds)}</span>;
 };
 
+// TextBox 내부 Input 및 Button(optional)
 export const InputLine = ({
   label,
   pattern,
@@ -88,10 +90,12 @@ export const InputLine = ({
   );
 };
 
+// TextBox 내부 Input 하단의 부가텍스트
 export const Description = ({ children, styleType = 'default' }: Pick<TextBoxProps, 'children' | 'styleType'>) => (
   <div className={descriptionVar[styleType]}>{children}</div>
 );
 
+// TextBox Container
 export const TextBox = ({
   children,
   label,
