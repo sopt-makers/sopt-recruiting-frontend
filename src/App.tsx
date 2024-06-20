@@ -17,6 +17,7 @@ import SignupPage from 'views/SignupPage';
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Layout />,
     // errorElement: <Error />,
     children: [
       { index: true, element: <MainPage /> },

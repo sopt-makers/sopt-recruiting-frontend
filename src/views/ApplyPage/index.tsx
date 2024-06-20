@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import TextBox from '@components/Input';
+import { Description, InputLine, TextBox } from '@components/Input';
 import SelectBox from '@components/Select';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 
@@ -36,25 +36,25 @@ const ApplyPage = () => {
       <br />
       <br />
       <br />
-      <TextBox.Container label="이메일" required formObject={formObject}>
-        <TextBox.InputLine
+      <TextBox label="이메일" required formObject={formObject}>
+        <InputLine
           label="이메일"
           button={<CheckButton />}
           placeholder="이메일을 입력하세요"
           pattern={/^[0-9]*$/}
           errorText="숫자만 입력해주세요"
         />
-        <TextBox.InputLine
+        <InputLine
           label="인증번호"
           placeholder="인증번호를 입력하세요"
           validate={(_, v) => v['이메일'] === '검사조건' || '틀렸어요'}
           errorText="틀렸습니다"
         />
-        <TextBox.Description>
+        <Description>
           <p>더 알아보는 텍스트</p>
           <MoreButton />
-        </TextBox.Description>
-      </TextBox.Container>
+        </Description>
+      </TextBox>
       <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green', marginTop: 30 }} />
     </form>
   );
