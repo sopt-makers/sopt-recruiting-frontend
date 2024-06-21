@@ -12,6 +12,12 @@ export const container = style({
   height: calc.subtract('100vh', '74px'),
   minHeight: 700,
   overflow: 'hidden',
+
+  '@supports': {
+    '(height: 100dvh)': {
+      height: calc.subtract('100dvh', '74px'),
+    },
+  },
 });
 
 export const contentWrapper = style({
