@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -13,6 +14,8 @@ import PasswordPage from 'views/PasswordPage';
 import ResultPage from 'views/ResultPage';
 import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
+
+import { ThemeContext } from '@store/theme-context';
 
 const router = createBrowserRouter([
   {
@@ -33,8 +36,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const isLight = true;
-
+  const [isLight, setIsLight] = useState(true);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -47,15 +49,22 @@ const App = () => {
     },
   });
 
+  const contextValue = {
+    isLight,
+    handleDarkMode: () => {
+      setIsLight(false);
+    },
+  };
+
   return (
-    <>
+    <ThemeContext.Provider value={contextValue}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <div className={isLight ? light : dark}>
           <RouterProvider router={router} />
         </div>
       </QueryClientProvider>
-    </>
+    </ThemeContext.Provider>
   );
 };
 
