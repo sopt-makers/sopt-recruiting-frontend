@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
 
@@ -6,16 +7,23 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  justifyContent: 'center',
   width: 466,
-  height: 518,
-  marginTop: 166,
+  height: calc.subtract('100vh', '74px'),
+  minHeight: 700,
+
+  '@supports': {
+    '(height: 100dvh)': {
+      height: calc.subtract('100dvh', '74px'),
+    },
+  },
 });
 
 export const icon = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  margin: '0 auto 32px',
+  marginBottom: '32px',
   width: 66,
   height: 66,
   borderRadius: '50%',
