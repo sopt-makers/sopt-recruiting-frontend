@@ -8,7 +8,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div className={container}>
       <Header />
-      <main>{children || <Outlet />}</main>
+      <main style={{ width: '100%' }}>{children || <Outlet />}</main>
     </div>
   );
 };
