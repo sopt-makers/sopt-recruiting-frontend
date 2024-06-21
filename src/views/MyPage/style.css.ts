@@ -7,15 +7,15 @@ export const container = style({
   flexDirection: 'column',
   gap: 50,
   justifyContent: 'center',
-  margin: 90,
+  margin: 95,
 });
 
 export const infoContainer = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  width: 466,
-  height: 433,
+  width: 467,
+  height: 455,
   padding: '38px 80px',
   border: `1px solid ${theme.color.border}`,
   borderRadius: 18,
