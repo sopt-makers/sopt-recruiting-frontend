@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
+import { ThemeContext } from '@store/theme-context';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
 import ApplyPage from 'views/ApplyPage';
@@ -14,8 +15,6 @@ import PasswordPage from 'views/PasswordPage';
 import ResultPage from 'views/ResultPage';
 import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
-
-import { ThemeContext } from '@store/theme-context';
 
 const router = createBrowserRouter([
   {
