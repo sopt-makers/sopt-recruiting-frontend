@@ -1,7 +1,8 @@
-import { IconCheck } from '@sopt-makers/icons';
-
 import Button from '@components/Button';
 import Callout from '@components/Callout';
+
+import IconCheckmark from './icons/IconCheckmark';
+import { icon } from './style.css';
 
 const CompletePage = () => {
   const name = '000';
@@ -9,8 +10,8 @@ const CompletePage = () => {
 
   return (
     <section>
-      <div>
-        <IconCheck color="white" />
+      <div className={icon}>
+        <IconCheckmark />
       </div>
       <p>{`${name}님의\n${th}기 지원서가 접수되었습니다.`}</p>
       <p>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
