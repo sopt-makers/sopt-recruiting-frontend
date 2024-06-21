@@ -49,16 +49,16 @@ const Content = ({ isPass }: { isPass: boolean }) => {
 };
 
 const ResultPage = () => {
-  const { handleChangeToLightMode, handleChangeToDarkMode } = useContext(ThemeContext);
+  const { handleChangeMode } = useContext(ThemeContext);
   const isPass = true;
 
   useEffect(() => {
-    handleChangeToDarkMode();
+    handleChangeMode('dark');
 
     return () => {
-      handleChangeToLightMode();
+      handleChangeMode('light');
     };
-  }, [handleChangeToDarkMode, handleChangeToLightMode]);
+  }, [handleChangeMode]);
 
   return (
     <section className={container}>

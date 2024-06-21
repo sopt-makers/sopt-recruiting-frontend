@@ -50,11 +50,8 @@ const App = () => {
 
   const contextValue = {
     isLight,
-    handleChangeToLightMode: () => {
-      setIsLight(true);
-    },
-    handleChangeToDarkMode: () => {
-      setIsLight(false);
+    handleChangeMode: (mode: 'light' | 'dark') => {
+      setIsLight(mode === 'light' ? true : false);
     },
   };
 
