@@ -20,3 +20,27 @@ export const infoContainer = style({
   border: `1px solid ${theme.color.border}`,
   borderRadius: 18,
 });
+
+export const itemWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+export const infoLabel = style({
+  width: 62,
+  color: theme.color.lighterText,
+});
+
+export const infoValue = style({
+  width: 132,
+  color: theme.color.baseText,
+  textAlign: 'center',
+});
+
+export const lastItemWrapper = style([
+  itemWrapper,
+  {
+    marginTop: '-15px',
+  },
+]);

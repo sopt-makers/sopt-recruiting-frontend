@@ -2,13 +2,13 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 
-import { container, infoContainer } from './style.css';
+import { container, infoContainer, infoLabel, infoValue, itemWrapper, lastItemWrapper } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
   return (
-    <li>
-      <span>{label}</span>
-      <span>{value}</span>
+    <li className={itemWrapper}>
+      <span className={infoLabel}>{label}</span>
+      <span className={infoValue}>{value}</span>
     </li>
   );
 };
@@ -23,8 +23,8 @@ const MyPage = () => {
         <MyInfoItem label="이름" value="김솝트" />
         <MyInfoItem label="지원파트" value="디자인" />
         <MyInfoItem label="지원상태" value="지원 완료" />
-        <li>
-          <span>지원서</span>
+        <li className={lastItemWrapper}>
+          <span className={infoLabel}>지원서</span>
           <Button padding="15x25">지원서 확인</Button>
         </li>
       </ol>
