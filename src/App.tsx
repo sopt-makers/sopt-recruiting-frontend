@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { ThemeContext } from '@store/theme-context';
+import { ThemeContext } from '@store/ThemeContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
 import ApplyPage from 'views/ApplyPage';
