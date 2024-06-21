@@ -22,13 +22,14 @@ export const contentWrapper = style({
   flexDirection: 'column',
   width: 720,
   gap: 50,
-  margin: '164px auto 0', // 90(margin top) + 74(Header height) = 164
+  margin: '90px auto 0', // 90(margin top) + 74(Header height) = 164
   color: theme.color.baseText,
   ...theme.font.BODY_1_18_M,
 });
 
 export const content = style({
   whiteSpace: 'pre-line',
+  zIndex: 2,
 });
 
 export const strongText = style({
@@ -55,4 +56,12 @@ export const bottomAnimation = style({
   height: 100,
   borderRadius: '100%',
   animation: `${animatedGradient} ease-in-out 3s alternate infinite`,
+});
+
+export const bottomImg = style({
+  position: 'absolute',
+  bottom: 0,
+  right: 0,
+  width: 556,
+  height: 556,
 });

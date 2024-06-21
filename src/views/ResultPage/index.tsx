@@ -3,12 +3,14 @@ import { useContext, useEffect } from 'react';
 import Title from '@components/Title';
 import { ThemeContext } from '@store/theme-context';
 
-import { bottomAnimation, container, contentWrapper, content, strongText } from './style.css';
+import imgLogo from './assets/imgLogo.png';
+import imgLogoWebp from './assets/imgLogo.webp';
+import { bottomAnimation, container, contentWrapper, content, strongText, bottomImg } from './style.css';
 
 /** 화면에 표시될 텍스트 */
 const Content = () => {
   const name = '000';
-  const isPass = false;
+  const isPass = true;
 
   return (
     <>
@@ -61,6 +63,10 @@ const ResultPage = () => {
         <Content />
       </div>
       <div className={bottomAnimation} />
+      <picture className={bottomImg}>
+        <source srcSet={imgLogoWebp} type="image/webp" />
+        <img src={imgLogo} alt="sopt-logo" />
+      </picture>
     </section>
   );
 };
