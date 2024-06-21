@@ -8,9 +8,8 @@ import imgLogoWebp from './assets/imgLogo.webp';
 import { bottomAnimation, container, contentWrapper, content, strongText, bottomImg } from './style.css';
 
 /** 화면에 표시될 텍스트 */
-const Content = () => {
+const Content = ({ isPass }: { isPass: boolean }) => {
   const name = '000';
-  const isPass = true;
 
   return (
     <>
@@ -51,6 +50,7 @@ const Content = () => {
 
 const ResultPage = () => {
   const { handleDarkMode } = useContext(ThemeContext);
+  const isPass = true;
 
   useEffect(() => {
     handleDarkMode();
@@ -60,13 +60,17 @@ const ResultPage = () => {
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content />
+        <Content isPass={isPass} />
       </div>
-      <div className={bottomAnimation} />
-      <picture className={bottomImg}>
-        <source srcSet={imgLogoWebp} type="image/webp" />
-        <img src={imgLogo} alt="sopt-logo" />
-      </picture>
+      {isPass && (
+        <>
+          <div className={bottomAnimation} />
+          <picture className={bottomImg}>
+            <source srcSet={imgLogoWebp} type="image/webp" />
+            <img src={imgLogo} alt="sopt-logo" />
+          </picture>
+        </>
+      )}
     </section>
   );
 };
