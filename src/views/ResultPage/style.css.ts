@@ -22,7 +22,7 @@ export const contentWrapper = style({
   flexDirection: 'column',
   width: 720,
   gap: 50,
-  margin: '90px auto 0', // 90(margin top) + 74(Header height) = 164
+  margin: '90px auto 0',
   color: theme.color.baseText,
   ...theme.font.BODY_1_18_M,
 });
