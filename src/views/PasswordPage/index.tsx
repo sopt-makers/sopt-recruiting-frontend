@@ -36,8 +36,8 @@ const PasswordPage = () => {
           <InputButton text="확인" onClick={handleClick확인} disabled />
         </InputLine>
       </TextBox>
-      <TextBox label="비밀번호" formObject={formObject} required>
-        <InputLine label="비밀번호" placeholder="비밀번호를 입력해주세요." required type="password" />
+      <TextBox label="새 비밀번호" formObject={formObject} required>
+        <InputLine label="새 비밀번호" placeholder="새 비밀번호를 입력해주세요." required type="password" />
         <InputLine
           label="비밀번호 재확인"
           placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요."
