@@ -1,6 +1,23 @@
 import { useContext, useEffect } from 'react';
 
+import Title from '@components/Title';
 import { ThemeContext } from '@store/theme-context';
+
+const Content = () => {
+  const name = '000';
+  return (
+    <p>
+      <span>{`안녕하세요. NOW SOPT입니다.\n\n`}</span>
+      <strong>축하드립니다!</strong>
+      <span>{`\n${name}님은 34기 NOW SOPT 신입회원 모집에 최종 합격하셨습니다.\n\n
+      ${name}님과 34기 NOW SOPT를 함께하게 되어 진심으로 기쁩니다.\n
+      향후 활동은 NOW SOPT 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해\n
+      운영 및 진행됩니다.\n\n
+      오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다.\n\n`}</span>
+      <strong>SOPT의 34번째 열정이 되신 것을 축하드립니다!</strong>
+    </p>
+  );
+};
 
 const ResultPage = () => {
   const { handleDarkMode } = useContext(ThemeContext);
@@ -9,7 +26,12 @@ const ResultPage = () => {
     handleDarkMode();
   }, [handleDarkMode]);
 
-  return <div>ResultPage</div>;
+  return (
+    <section>
+      <Title>결과 확인</Title>
+      <Content />
+    </section>
+  );
 };
 
 export default ResultPage;
