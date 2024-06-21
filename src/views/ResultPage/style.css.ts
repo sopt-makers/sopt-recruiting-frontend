@@ -20,6 +20,7 @@ export const contentWrapper = style({
   width: 720,
   gap: 50,
   color: theme.color.baseText,
+  ...theme.font.BODY_1_18_M,
 });
 
 export const content = style({
@@ -27,7 +28,7 @@ export const content = style({
 });
 
 export const strongText = style({
-  color: 'red',
+  color: theme.color.primary,
 });
 
 const animatedGradient = keyframes({
