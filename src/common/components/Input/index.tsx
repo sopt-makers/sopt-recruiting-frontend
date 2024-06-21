@@ -19,31 +19,33 @@ export const InputButton = ({ text, ...props }: InputButtonProps) => {
 };
 
 // TextBox 내부 타이머
-export const Timer = ({ isActive, setActive }: TimerProps) => {
-  const [seconds, setSeconds] = useState(300);
+export const Timer = ({ isActive, onResetTimer }: TimerProps) => {
+  const [seconds, setSeconds] = useState(5);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const clearTimer = () => {
+    timerRef.current && clearInterval(timerRef.current);
+  };
 
   useEffect(() => {
     if (isActive) {
-      setSeconds(300);
+      setSeconds(5);
       timerRef.current = setInterval(() => {
-        setSeconds((prev) => prev - 1);
+        setSeconds((prev) => {
+          if (prev <= 1) {
+            onResetTimer();
+            clearTimer();
+          }
+          return prev - 1;
+        });
       }, 1000);
     } else {
-      timerRef.current && clearInterval(timerRef.current);
+      clearTimer();
     }
 
     return () => {
-      timerRef.current && clearInterval(timerRef.current);
+      clearTimer();
     };
-  }, [isActive]);
-
-  useEffect(() => {
-    if (seconds < 0) {
-      setActive(false);
-      timerRef.current && clearInterval(timerRef.current);
-    }
-  }, [seconds]);
+  }, [isActive, onResetTimer]);
 
   return <span className={timer}>{isActive && formatTimer(seconds)}</span>;
 };

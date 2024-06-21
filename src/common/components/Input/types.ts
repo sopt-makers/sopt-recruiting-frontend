@@ -22,5 +22,5 @@ export interface InputButtonProps {
 }
 export interface TimerProps {
   isActive: boolean;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  onResetTimer: () => void;
 }

@@ -101,7 +101,8 @@ export const descriptionVar = styleVariants(
 export const timer = style({
   position: 'absolute',
   right: 172,
-  top: 16,
+  top: '50%',
+  transform: 'translateY(-50%)',
   color: theme.color.lighterText,
   ...theme.font.BODY_2_16_R,
   lineHeight: 'inherit',

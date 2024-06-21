@@ -20,7 +20,7 @@ const ApplyPage = () => {
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
-  const [isActive, setActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
@@ -33,15 +33,16 @@ const ApplyPage = () => {
           label="이메일"
           placeholder="이메일을 입력하세요"
           pattern={/^[0-9]*$/}
-          errorText="숫자만 입력해주세요">
+          errorText="숫자만 입력해주세요"
+          type="email">
           <InputButton
             text="인증하기"
             disabled={isActive}
             onClick={() => {
-              setActive(true);
+              setIsActive(true);
             }}
           />
-          <Timer isActive={isActive} setActive={setActive} />
+          <Timer isActive={isActive} onResetTimer={() => setIsActive(false)} />
         </InputLine>
         <InputLine
           label="인증번호"
