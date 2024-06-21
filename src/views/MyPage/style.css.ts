@@ -28,14 +28,16 @@ export const itemWrapper = style({
 });
 
 export const infoLabel = style({
-  width: 62,
+  width: 63,
   color: theme.color.lighterText,
+  ...theme.font.BODY_1_18_M,
 });
 
 export const infoValue = style({
   width: 132,
   color: theme.color.baseText,
   textAlign: 'center',
+  ...theme.font.TITLE_5_18_SB,
 });
 
 export const lastItemWrapper = style([
