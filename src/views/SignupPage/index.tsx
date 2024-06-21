@@ -4,17 +4,21 @@ import { useForm } from 'react-hook-form';
 import Button from '@components/Button';
 import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/Contentbox';
-import { InputButton, InputLine, TextBox } from '@components/Input';
+import { InputButton, InputLine, TextBox, Timer } from '@components/Input';
 import Title from '@components/Title';
 
 import { PRIVACY_POLICY } from './constant';
 import { container } from './style.css';
 
 const SignupPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // CheckBox Content용 state
+  const [isActive, setActive] = useState(false); // Timer용 state
+
   const { handleSubmit, ...formObject } = useForm(); // 임시
 
-  const handleClick이메일인증 = () => {};
+  const handleClick이메일인증 = () => {
+    setActive(true);
+  };
   const handleClick확인 = () => {};
 
   return (
@@ -28,7 +32,13 @@ const SignupPage = () => {
       </TextBox>
       <TextBox label="이메일" formObject={formObject} required>
         <InputLine label="이메일" placeholder="이메일을 입력해주세요." required type="email">
-          <InputButton text="이메일 인증" onClick={handleClick이메일인증} disabled />
+          <InputButton text="이메일 인증" onClick={handleClick이메일인증} disabled={isActive} />
+          <Timer
+            isActive={isActive}
+            onResetTimer={() => {
+              setActive(false);
+            }}
+          />
         </InputLine>
         <InputLine label="인증번호" placeholder="이메일 인증 번호를 작성해주세요" required>
           <InputButton text="확인" onClick={handleClick확인} disabled />
