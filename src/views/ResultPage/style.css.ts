@@ -5,9 +5,6 @@ import { theme } from 'styles/theme.css';
 
 export const container = style({
   position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
   width: '100%',
   height: calc.subtract('100vh', '74px'),
   minHeight: 700,
@@ -25,6 +22,7 @@ export const contentWrapper = style({
   flexDirection: 'column',
   width: 720,
   gap: 50,
+  margin: '164px auto 0', // 90(margin top) + 74(Header height) = 164
   color: theme.color.baseText,
   ...theme.font.BODY_1_18_M,
 });
@@ -52,6 +50,8 @@ const animatedGradient = keyframes({
 export const bottomAnimation = style({
   position: 'absolute',
   bottom: '-100px',
+  left: '50%',
+  transform: 'translateX(-50%)',
   height: 100,
   borderRadius: '100%',
   animation: `${animatedGradient} ease-in-out 3s alternate infinite`,
