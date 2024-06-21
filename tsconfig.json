@@ -28,6 +28,7 @@
       "@components/*": ["common/components/*"],
       "@constants/*": ["common/constants/*"],
       "@hooks/*": ["common/hooks/*"],
+      "@store/*": ["common/store/*"],
       // "@type/*": ["common/type/*"],
       "@utils/*": ["common/utils/*"],
       "pages/*": ["pages/*"],
