@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import Title from '@components/Title';
 import { ThemeContext } from '@store/theme-context';
 
-import { container, contentWrapper, content, strongText } from './style.css';
+import { bottomAnimation, container, contentWrapper, content, strongText } from './style.css';
 
 const Content = () => {
   const name = '000';
@@ -36,6 +36,7 @@ const ResultPage = () => {
         <Title>결과 확인</Title>
         <Content />
       </div>
+      <div className={bottomAnimation} />
     </section>
   );
 };
