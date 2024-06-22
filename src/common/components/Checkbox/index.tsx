@@ -1,7 +1,4 @@
-import { IconChevronDown } from '@sopt-makers/icons';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
-
-import { theme } from 'styles/theme.css';
 
 import { container, checkboxContainer, checkmark, hiddenCheckbox, requireDot, iconStyle, error } from './style.css';
 
@@ -13,7 +10,6 @@ interface CheckboxProps<T extends FieldValues> extends InputHTMLAttributes<HTMLI
   showIcon?: boolean;
   register: UseFormRegister<T>;
   errors?: FieldErrors<FieldValues>;
-  isOpen?: boolean;
 }
 
 const Checkbox = <T extends FieldValues>({
@@ -21,10 +17,7 @@ const Checkbox = <T extends FieldValues>({
   label,
   register,
   errors,
-  showIcon = false,
   required = false,
-  isOpen = false,
-  onClick,
   ...checkboxElementProps
 }: CheckboxProps<T>) => {
   return (
@@ -43,11 +36,6 @@ const Checkbox = <T extends FieldValues>({
           <span>{children}</span>
           {required && <i className={requireDot} />}
         </label>
-        {showIcon && (
-          <div className={iconStyle[isOpen ? 'isOpen' : 'default']} onClick={onClick}>
-            <IconChevronDown color={theme.color.dropdownButton} />
-          </div>
-        )}
       </div>
       <p className={error}>
         <>{errors && errors[label]?.message}</>
