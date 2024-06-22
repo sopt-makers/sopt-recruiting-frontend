@@ -3,9 +3,6 @@ import { forwardRef } from 'react';
 import Dialog from '@components/Dialog';
 
 import {
-  buttonInside,
-  buttonOutside,
-  buttonWrapper,
   checkboxContainer,
   checkboxWrapper,
   checkmark,
@@ -14,9 +11,8 @@ import {
   infoLabel,
   infoValue,
   infoWrapper,
-  mainText,
-  subText,
 } from './style.css';
+import { buttonInside, buttonOutside, buttonWrapper, mainText, subText } from '../style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
   return (
