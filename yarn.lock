@@ -919,6 +919,11 @@
   dependencies:
     "@babel/core" "^7.23.9"
 
+"@vanilla-extract/css-utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.4.tgz#ea9c919109ce642f6ebdb0d11145187003d49758"
+  integrity sha512-3WRxMGa/VQaL32jZqRUpnnoVFSws5iPIUpQr+XlT4jXhtMeKYcA20rFK2k2Amkg04sqrO84A8hNMeABWZQesEg==
+
 "@vanilla-extract/css@^1.15.1":
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.15.1.tgz#cf68cb95cdb521056af9ebf7907694806ae89228"
