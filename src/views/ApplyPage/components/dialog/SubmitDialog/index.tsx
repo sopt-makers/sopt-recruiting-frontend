@@ -6,6 +6,10 @@ import {
   buttonInside,
   buttonOutside,
   buttonWrapper,
+  checkboxContainer,
+  checkboxWrapper,
+  checkmark,
+  hiddenCheckbox,
   infoContainer,
   infoLabel,
   infoValue,
@@ -36,6 +40,13 @@ const SubmitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
         <MyInfoItem label="전화번호" value="010-0000-0000" />
         <MyInfoItem label="지원파트" value="디자인" />
       </ol>
+      <div className={checkboxContainer}>
+        <label className={checkboxWrapper}>
+          <input type="checkbox" className={hiddenCheckbox} />
+          <span className={checkmark} />
+          <span>확인했습니다.</span>
+        </label>
+      </div>
       <div className={buttonWrapper}>
         <form method="dialog" className={buttonOutside.line}>
           <button className={buttonInside.line}>검토하기</button>
