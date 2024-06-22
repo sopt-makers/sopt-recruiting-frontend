@@ -11,7 +11,6 @@ import { PRIVACY_POLICY } from './constant';
 import { container } from './style.css';
 
 const SignupPage = () => {
-  const [isOpen, setIsOpen] = useState(false); // CheckBox Content용 state
   const [isActive, setActive] = useState(false); // Timer용 state
 
   const { handleSubmit, ...formObject } = useForm(); // 임시
@@ -54,19 +53,10 @@ const SignupPage = () => {
         />
       </TextBox>
       <div>
-        <Checkbox
-          showIcon
-          required
-          label="check1"
-          register={formObject.register}
-          errors={formObject.formState.errors}
-          isOpen={isOpen}
-          onClick={() => {
-            setIsOpen((prev) => !prev);
-          }}>
+        <Checkbox required label="check1" register={formObject.register} errors={formObject.formState.errors}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
-        <Contentbox isOpen={isOpen}>{PRIVACY_POLICY}</Contentbox>
+        <Contentbox>{PRIVACY_POLICY}</Contentbox>
       </div>
       <Button disabled style={{ marginTop: 30 }}>
         지원서 작성하기
