@@ -42,7 +42,6 @@ export const checkboxContainer = style({
   marginTop: 24,
 });
 
-/* Customize the label (the container) */
 export const checkboxWrapper = style({
   display: 'flex',
   alignItems: 'center',
@@ -57,7 +56,7 @@ export const checkboxWrapper = style({
   ...theme.font.BODY_1_18_M,
 });
 
-/* Hide the browser's default checkbox */
+/* 브라우저 디폴트 체크박스 숨기기 */
 export const hiddenCheckbox = style({
   position: 'absolute',
   opacity: 0,
@@ -66,7 +65,7 @@ export const hiddenCheckbox = style({
   width: 0,
 });
 
-/* Create a custom checkbox */
+/* 체크박스 커스텀 */
 export const checkmark = style({
   height: 22,
   width: 22,
@@ -82,13 +81,13 @@ export const checkmark = style({
       display: 'none',
     },
 
-    /* On mouse-over, add a grey background color */
+    /* 마우스 hover시 */
     [`${checkboxWrapper}:hover input ~ &`]: {
       // FIXME: gray20으로 수정해야 함.
       backgroundColor: colors.gray30,
     },
 
-    /* When the checkbox is checked, add a blue background */
+    /* 체크되었을 때 배경색 */
     [`${checkboxWrapper} input:checked ~ &`]: {
       border: `1px solid #BDEC00`,
       backgroundColor: '#BDEC00',
@@ -99,12 +98,12 @@ export const checkmark = style({
       backgroundColor: '#99BF00',
     },
 
-    /* Show the checkmark when checked */
+    /* 체크되면 체크마크 보이게 하기 */
     [`${checkboxWrapper} input:checked ~ &:after`]: {
       display: 'block',
     },
 
-    /* Style the checkmark/indicator */
+    /* 체크마크 커스텀 */
     [`${checkboxWrapper} &:after`]: {
       top: 7,
       left: 8,
@@ -117,7 +116,7 @@ export const checkmark = style({
       transform: 'rotate(45deg)',
     },
 
-    /* Add focus-visible style to checkmark when input is focused */
+    /* focus-visible 속성 */
     [`${checkboxWrapper} input:focus-visible ~ &`]: {
       outline: `2px dotted #BDEC00`,
       outlineOffset: 2,
