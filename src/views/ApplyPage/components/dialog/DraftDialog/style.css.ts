@@ -1,22 +1,23 @@
+import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
 export const mainText = style({
-  color: '#0F1012',
+  color: colors.gray950,
   ...theme.font.HEADING_5_20_B,
 });
 
 export const subText = style({
   marginTop: 2,
-  color: '#808087',
+  color: colors.gray300,
   ...theme.font.BODY_2_16_M,
 });
 
 export const buttonOutside = style({
   width: 'fit-content',
   borderRadius: 12,
-  color: 'white',
+  color: colors.white,
   backgroundColor: '#BDEC00',
   marginTop: 20,
   marginLeft: 'auto',
@@ -32,7 +33,7 @@ export const buttonInside = style({
   transition: 'background-color 0.3s ease-out',
   ...theme.font.LABEL_3_14_SB,
 
-  color: 'white',
+  color: colors.white,
   backgroundColor: '#BDEC00',
 
   ':hover': {
