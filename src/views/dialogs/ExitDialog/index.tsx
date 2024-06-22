@@ -14,7 +14,7 @@ const ExitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
           <button className={buttonInside.line}>머물기</button>
         </form>
         <div className={buttonOutside.solid}>
-          <button className={buttonInside.solid}>확인</button>
+          <button className={buttonInside.solid}>나가기</button>
         </div>
       </div>
     </Dialog>
