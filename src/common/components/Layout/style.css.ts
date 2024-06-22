@@ -13,6 +13,8 @@ export const container = style({
 
 export const mainWrapper = style({
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
+  alignItems: 'center',
   width: '100%',
 });
