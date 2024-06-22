@@ -10,3 +10,9 @@ export const container = style({
   paddingTop: 74,
   backgroundColor: theme.color.background,
 });
+
+export const mainWrapper = style({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+});
