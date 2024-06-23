@@ -1,16 +1,38 @@
-import IconPlusButton from './icons/IconPlusButton';
-import { container, fileInput, fileLabel, fileText, textWrapper } from './style.css';
+import { useRef, useState } from 'react';
 
-const FileInput = () => {
+import IconPlusButton from './icons/IconPlusButton';
+import { container, fileInput, fileLabelVar, fileNameVar, fileText, textWrapper } from './style.css';
+
+const FileInput = ({ disabled }: { disabled?: boolean }) => {
+  const [file, setFile] = useState<File | null>(null);
+  const fileName = file ? file.name : '';
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFile(file);
+    }
+  };
+
   return (
     <div className={container}>
-      <input id="file" type="file" className={fileInput} />
-      <label htmlFor="file" className={fileLabel}>
+      <input
+        id="file"
+        type="file"
+        accept=".pdf, .pptx"
+        onChange={handleChangeFile}
+        ref={inputRef}
+        className={fileInput}
+        disabled={disabled}
+      />
+      <label htmlFor="file" className={fileLabelVar[fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span className={fileText}>포트폴리오</span>
-          <span className={fileText}>50mb 이하 | pdf, pptx</span>
+          <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
+            {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
+          </span>
         </div>
-        <IconPlusButton />
+        <IconPlusButton isSelected={fileName !== ''} inputRef={inputRef} setFile={setFile} disabled={disabled} />
       </label>
     </div>
   );
