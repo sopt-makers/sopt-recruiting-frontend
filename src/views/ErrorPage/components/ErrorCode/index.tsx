@@ -5,22 +5,34 @@ import Icon500Front from 'views/ErrorPage/icons/Icon500Front';
 import IconCone from 'views/ErrorPage/icons/IconCone';
 import IconGhost from 'views/ErrorPage/icons/IconGhost';
 
-import { iconWrapper } from './style.css';
+import { backText, frontText, iconWrapper, showIcon } from './style.css';
 
 export default function ErrorCode({ code }: { code: 404 | 500 }) {
   return (
     <div className={iconWrapper}>
       {code === 404 ? (
         <>
-          <Icon404Front />
-          <IconGhost />
-          <Icon404Back />
+          <i className={frontText}>
+            <Icon404Front />
+          </i>
+          <i className={showIcon}>
+            <IconGhost />
+          </i>
+          <i className={backText}>
+            <Icon404Back />
+          </i>
         </>
       ) : (
         <>
-          <Icon500Front />
-          <IconCone />
-          <Icon500Back />
+          <i className={frontText}>
+            <Icon500Front />
+          </i>
+          <i className={showIcon}>
+            <IconCone />
+          </i>
+          <i className={backText}>
+            <Icon500Back />
+          </i>
         </>
       )}
     </div>
