@@ -6,11 +6,6 @@ import { article, contactButton, container, errorButton, errorText, instruction 
 
 const ErrorPage = ({ code }: { code: 404 | 500 }) => {
   const CODE_KEY: 'CODE404' | 'CODE500' = `CODE${code}`;
-  const handleClickKakao = () => {
-    // window.Kakao.Channel.chat({
-    //   channelPublicId: '_sxaIWG',
-    // });
-  };
 
   return (
     <section className={container}>
@@ -22,9 +17,9 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
         </Link>
       </article>
       <p className={instruction}>{`문제가 지속적으로 발생하거나 문의사항이 있다면\n아래 ‘문의하기’를 이용해 주세요`}</p>
-      <button className={contactButton} type="button" onClick={handleClickKakao}>
+      <a id="chat-channel-button" href="javascript:chatChannel()" className={contactButton}>
         문의하기
-      </button>
+      </a>
     </section>
   );
 };
