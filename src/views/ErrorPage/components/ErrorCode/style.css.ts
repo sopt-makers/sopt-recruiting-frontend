@@ -4,4 +4,5 @@ export const iconWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  marginBottom: 43,
 });
