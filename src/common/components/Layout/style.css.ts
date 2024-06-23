@@ -10,3 +10,11 @@ export const container = style({
   paddingTop: 74,
   backgroundColor: theme.color.background,
 });
+
+export const mainWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+});

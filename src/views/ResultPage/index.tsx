@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
-import { ThemeContext } from '@store/ThemeContext';
+import { ThemeContext } from '@store/themeContext';
 
 import imgLogo from './assets/imgLogo.png';
 import imgLogoWebp from './assets/imgLogo.webp';

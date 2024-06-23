@@ -2,13 +2,13 @@ import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from './Header';
-import { container } from './style.css';
+import { container, mainWrapper } from './style.css';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div className={container}>
       <Header />
-      <main style={{ width: '100%' }}>{children || <Outlet />}</main>
+      <main className={mainWrapper}>{children || <Outlet />}</main>
     </div>
   );
 };
