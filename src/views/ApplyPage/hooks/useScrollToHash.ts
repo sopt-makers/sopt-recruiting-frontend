@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ScrollToAnchor = () => {
+const useScrollToHash = () => {
   const location = useLocation();
   const hashRef = useRef('');
 
@@ -13,8 +13,6 @@ const ScrollToAnchor = () => {
       behavior: 'smooth',
     });
   }, [location]);
-
-  return null;
 };
 
-export default ScrollToAnchor;
+export default useScrollToHash;

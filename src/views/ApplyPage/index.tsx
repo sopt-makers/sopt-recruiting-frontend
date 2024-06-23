@@ -6,19 +6,18 @@ import { TFormValues, defaultValues } from '@constants/defaultValues';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
-import ScrollToAnchor from './components/ScrollToAnchor';
+import useScrollToHash from './hooks/useScrollToHash';
 import { container } from './style.css';
 
 const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({
     defaultValues: defaultValues,
   });
-
   const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
+  useScrollToHash(); // scrollTo 카테고리
 
   return (
     <>
-      <ScrollToAnchor />
       <ApplyHeader />
       <ApplyInfo />
       <ApplyCategory />
