@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Description, InputButton, InputLine, TextBox, Timer } from '@components/Input';
 import SelectBox from '@components/Select';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
-import { DraftDialog, ExitDialog, SubmitDialog } from 'views/dialogs';
 
 const MoreButton = () => {
   return (
@@ -31,9 +30,6 @@ const ApplyPage = () => {
 
   return (
     <>
-      {/* <DraftDialog ref={dialog} /> */}
-      {/* <ExitDialog ref={dialog} /> */}
-      <SubmitDialog ref={dialog} />
       <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
         <button onClick={handleOpenDialog}>Open Modal</button>
         <SelectBox label="성별" options={['남자', '여자']} formObject={formObject} />
