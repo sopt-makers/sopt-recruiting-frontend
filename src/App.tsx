@@ -4,11 +4,12 @@ import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { ThemeContext } from '@store/ThemeContext';
+import { ThemeContext } from '@store/themeContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
 import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
+import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
 import MyPage from 'views/MyPage';
 import PasswordPage from 'views/PasswordPage';
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    // errorElement: <Error />,
+    errorElement: (
+      <Layout>
+        <ErrorPage code={500} />
+      </Layout>
+    ),
     children: [
       { index: true, element: <MainPage /> },
       { path: '/sign-up', element: <SignupPage /> },
@@ -30,6 +35,7 @@ const router = createBrowserRouter([
       { path: '/my', element: <MyPage /> },
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
+      { path: '*', element: <ErrorPage code={404} /> },
     ],
   },
 ]);
