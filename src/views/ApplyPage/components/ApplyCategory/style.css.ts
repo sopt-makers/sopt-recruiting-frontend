@@ -12,6 +12,7 @@ export const container = style({
   top: 178,
 
   backgroundColor: theme.color.white,
+  zIndex: 99,
 });
 
 export const categoryList = style({

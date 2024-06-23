@@ -11,6 +11,7 @@ export const headerContainer = style({
   width: 1440,
   margin: '60px auto 0px auto',
   backgroundColor: theme.color.white,
+  zIndex: 99,
 });
 
 export const header = style({
