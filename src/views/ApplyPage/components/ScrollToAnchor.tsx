@@ -7,7 +7,11 @@ const ScrollToAnchor = () => {
 
   useEffect(() => {
     hashRef.current = location.hash.slice(1);
-    document.getElementById(hashRef.current)?.scrollIntoView({ behavior: 'smooth' });
+    const offset = document.getElementById(hashRef.current)?.offsetTop;
+    window.scrollTo({
+      top: offset && offset - 260,
+      behavior: 'smooth',
+    });
   }, [location]);
 
   return null;
