@@ -52,6 +52,9 @@ const App = () => {
     isLight,
     handleChangeMode: (mode: 'light' | 'dark') => {
       setIsLight(mode === 'light' ? true : false);
+      const body = document.body;
+      const bodyColor = mode === 'light' ? '#FFFFFF' : '#0F1012';
+      body.style.backgroundColor = bodyColor;
     },
   };
 
