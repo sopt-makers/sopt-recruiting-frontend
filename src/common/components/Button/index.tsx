@@ -1,8 +1,8 @@
-import { LinkProps, To } from 'react-router-dom';
+import { Link, To } from 'react-router-dom';
 
 import { container, outsideBox, paddings } from './style.css';
 
-import type { ButtonHTMLAttributes, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   children?: ReactNode;
@@ -10,7 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAncho
   buttonStyle?: 'solid' | 'line';
   padding?: '15x32' | '13x20' | '10x24' | '15x25';
   to?: To;
-  Tag?: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>> | 'button';
+  isLink?: boolean;
 }
 
 const Button = ({
@@ -19,10 +19,11 @@ const Button = ({
   buttonStyle = 'solid',
   padding = '15x32',
   to,
-  Tag = 'button',
+  isLink = false,
   ...buttonElementProps
 }: ButtonProps) => {
   const { disabled, type = 'button' } = buttonElementProps;
+  const Tag = isLink ? Link : 'button';
 
   return (
     <div className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}>
