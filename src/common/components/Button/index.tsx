@@ -1,8 +1,8 @@
+import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
+
 import ButtonLoading from '@components/loadings/ButtonLoading';
 
 import { container, outsideBox, paddings } from './style.css';
-
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
@@ -22,14 +22,22 @@ const Button = ({
 }: ButtonProps) => {
   const { disabled, type = 'button' } = buttonElementProps;
 
+  const id = useId();
+  const totalWidth = document.getElementById(id)?.offsetWidth;
+  let loadingWidth;
+  if (totalWidth) {
+    loadingWidth = totalWidth - Number(padding.split('x')[1]) * 2;
+  }
+
   return (
     <div className={`${className} ${outsideBox[isLoading || disabled ? 'disabled' : buttonStyle]}`}>
       <button
         type={type}
+        id={id}
         className={`${container[buttonStyle]} ${paddings[padding]} ${className}`}
         disabled={isLoading || disabled}
         {...buttonElementProps}>
-        {isLoading ? <ButtonLoading /> : children}
+        {isLoading ? <ButtonLoading width={loadingWidth} /> : children}
       </button>
     </div>
   );
