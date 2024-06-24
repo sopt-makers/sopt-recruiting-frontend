@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 
