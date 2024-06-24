@@ -53,7 +53,7 @@ const App = () => {
     handleChangeMode: (mode: 'light' | 'dark') => {
       setIsLight(mode === 'light' ? true : false);
       const body = document.body;
-      const bodyColor = mode === 'light' ? '#FFFFFF' : '#0F1012';
+      const bodyColor = mode === 'light' ? '#FFFFFF' : '#0F1012'; // theme.color.background
       body.style.backgroundColor = bodyColor;
     },
   };
