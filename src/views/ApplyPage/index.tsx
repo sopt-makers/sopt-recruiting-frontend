@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { Description, InputButton, InputLine, TextBox, Timer } from '@components/Input';
@@ -22,16 +22,9 @@ const ApplyPage = () => {
 
   const [isActive, setIsActive] = useState(false);
 
-  const dialog = useRef<HTMLDialogElement>(null);
-
-  const handleOpenDialog = () => {
-    dialog.current?.showModal();
-  };
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 50 }}>
-        <button onClick={handleOpenDialog}>Open Modal</button>
         <SelectBox label="성별" options={['남자', '여자']} formObject={formObject} />
         <br />
         <br />
