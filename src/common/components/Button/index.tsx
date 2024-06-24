@@ -23,7 +23,7 @@ const Button = ({
   const { disabled, type = 'button' } = buttonElementProps;
 
   return (
-    <div className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}>
+    <div className={`${className} ${outsideBox[isLoading || disabled ? 'disabled' : buttonStyle]}`}>
       <button
         type={type}
         className={`${container[buttonStyle]} ${paddings[padding]} ${className}`}
