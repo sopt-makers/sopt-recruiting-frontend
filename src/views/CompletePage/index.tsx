@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 
@@ -19,7 +21,9 @@ const CompletePage = () => {
         style={{
           marginBottom: '50px',
         }}>{`이메일 도착 시점에 차이가 있을 수 있습니다.\n이메일이 오지 않으면 스팸 메일함을 확인해주세요.`}</Callout>
-      <Button>마이페이지로 이동하기</Button>
+      <Button Tag={Link} to="/my">
+        마이페이지로 이동하기
+      </Button>
     </section>
   );
 };
