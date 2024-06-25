@@ -19,7 +19,7 @@ export const categoryList = style({
   display: 'flex',
 });
 
-export const categoryLink = style({
+export const categoryLinkStyle = style({
   display: 'flex',
   justifyContent: 'center',
   width: 240,
@@ -39,8 +39,8 @@ export const categoryLink = style({
   },
 });
 
-export const activeLink = style([
-  categoryLink,
+export const activeLinkStyle = style([
+  categoryLinkStyle,
   {
     color: theme.color.primary,
     borderBottom: `2px solid ${theme.color.primary}`,
