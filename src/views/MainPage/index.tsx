@@ -5,7 +5,6 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
-import FileInput from 'views/ApplyPage/components/FileInput';
 
 import { calloutButton, calloutWrapper, container } from './style.css';
 
@@ -26,7 +25,6 @@ const MainPage = () => {
           </Link>
         </div>
       </Callout>
-      <FileInput />
       <TextBox label="이메일" formObject={formObject} required>
         <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />
       </TextBox>
