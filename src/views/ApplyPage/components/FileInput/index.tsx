@@ -11,7 +11,7 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const LIMIT_SIZE = 1024 ** 1 * 500; //50KB
+    const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
@@ -25,6 +25,18 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
       }
     }
   };
+
+  const handleClickIcon = () => {
+    if (inputRef.current) {
+      if (file) {
+        inputRef.current.value = '';
+        setFile(null);
+      } else {
+        inputRef.current.click();
+      }
+    }
+  };
+
   return (
     <div className={container}>
       <input
@@ -43,13 +55,7 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
             {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
           </span>
         </div>
-        <IconPlusButton
-          isSelected={fileName !== ''}
-          inputRef={inputRef}
-          file={file}
-          setFile={setFile}
-          disabled={disabled}
-        />
+        <IconPlusButton isSelected={fileName !== ''} onClickIcon={handleClickIcon} disabled={disabled} />
       </label>
       {isError && <p className={errorText}>첨부파일 용량을 초과했어요</p>}
     </div>
