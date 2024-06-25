@@ -113,6 +113,7 @@ export const optionContainer = style({
   opacity: 0,
   transition: '0.3s ease-in-out',
   visibility: 'hidden',
+  zIndex: 1,
 
   selectors: {
     [`${select}:focus~&`]: {
