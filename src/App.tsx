@@ -1,3 +1,4 @@
+import { colors } from '@sopt-makers/colors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
@@ -58,6 +59,9 @@ const App = () => {
     isLight,
     handleChangeMode: (mode: 'light' | 'dark') => {
       setIsLight(mode === 'light' ? true : false);
+      const body = document.body;
+      const bodyColor = mode === 'light' ? colors.white : colors.gray950; // theme.color.background
+      body.style.backgroundColor = bodyColor;
     },
   };
 
