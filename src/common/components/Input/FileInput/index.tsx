@@ -31,7 +31,13 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
             {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
           </span>
         </div>
-        <IconPlusButton isSelected={fileName !== ''} inputRef={inputRef} setFile={setFile} disabled={disabled} />
+        <IconPlusButton
+          isSelected={fileName !== ''}
+          inputRef={inputRef}
+          file={file}
+          setFile={setFile}
+          disabled={disabled}
+        />
       </label>
     </div>
   );

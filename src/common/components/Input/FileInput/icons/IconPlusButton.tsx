@@ -5,18 +5,24 @@ import { fileIcon, fileIconSvgVar } from '../style.css';
 const IconPlusButton = ({
   isSelected,
   inputRef,
+  file,
   setFile,
   disabled,
 }: {
   isSelected: boolean;
   inputRef: RefObject<HTMLInputElement>;
+  file: File | null;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
   disabled?: boolean;
 }) => {
   const handleClickDelete = () => {
     if (inputRef.current) {
-      inputRef.current.value = '';
-      setFile(null);
+      if (file) {
+        inputRef.current.value = '';
+        setFile(null);
+      } else {
+        inputRef.current.click();
+      }
     }
   };
 
