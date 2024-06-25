@@ -2,10 +2,10 @@ import { UseFormReturn } from 'react-hook-form';
 
 import Textarea from '@components/Textarea';
 
-import { COMMON_QUESTION } from './constants';
+import { PART_QUESTION } from './constants';
 import { container, title } from './style.css';
 
-const CommonSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch'> }) => {
+const PartSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch'> }) => {
   const {
     register,
     watch,
@@ -13,11 +13,11 @@ const CommonSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'regist
   } = formObject;
   return (
     <section className={container}>
-      <h2 className={title}>공통 질문</h2>
-      {COMMON_QUESTION.map(({ question, maxCount, required }, id) => (
+      <h2 className={title}>파트별 질문</h2>
+      {PART_QUESTION.map(({ question, maxCount, required }, id) => (
         <div key={question}>
           <Textarea
-            label={`공통${id}번`}
+            label={`파트${id}번`}
             register={register}
             watch={watch}
             errors={errors}
@@ -31,4 +31,4 @@ const CommonSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'regist
   );
 };
 
-export default CommonSection;
+export default PartSection;

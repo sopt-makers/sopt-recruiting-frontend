@@ -9,6 +9,7 @@ import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
+import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
 import { container, content } from './style.css';
@@ -50,18 +51,6 @@ const ApplyPage = () => {
             if (el) ref.current[1] = el;
           }}>
           <CommonSection formObject={formObject} />
-          <Title>먀먀먀2</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
         </div>
 
         <div
@@ -70,10 +59,7 @@ const ApplyPage = () => {
           ref={(el) => {
             if (el) ref.current[2] = el;
           }}>
-          <Title>먀먀먀3</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
+          <PartSection formObject={formObject} />
         </div>
 
         <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
