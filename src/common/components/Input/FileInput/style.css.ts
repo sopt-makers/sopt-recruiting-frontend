@@ -19,11 +19,16 @@ export const fileLabel = style({
   padding: '12px 22px',
   border: `1px solid ${theme.color.border}`,
   borderRadius: 12,
+  backgroundColor: theme.color.subBackground,
+  stroke: theme.color.subBackground,
+  transition: 'all 0.2s ease',
   cursor: 'pointer',
 
-  transition: 'all 0.2s ease',
-
   selectors: {
+    [`${container}:hover > ${fileInput}:enabled ~ &`]: {
+      backgroundColor: theme.color.fileUploadButtonInside,
+      stroke: theme.color.fileUploadButtonInside,
+    },
     [`${fileInput}:disabled ~ &`]: {
       color: theme.color.lighterText,
       backgroundColor: theme.color.subBackground,
@@ -33,24 +38,18 @@ export const fileLabel = style({
 });
 
 export const fileLabelVar = styleVariants({
-  default: [
-    fileLabel,
-    {
-      backgroundColor: theme.color.subBackground,
-      stroke: theme.color.subBackground,
-      selectors: {
-        [`${container}:hover > ${fileInput}:enabled ~ &`]: {
-          backgroundColor: theme.color.fileUploadButtonInside,
-          stroke: theme.color.fileUploadButtonInside,
-        },
-      },
-    },
-  ],
+  default: [fileLabel, {}],
   selected: [
     fileLabel,
     {
       backgroundColor: theme.color.fileUploadButtonInside,
       stroke: theme.color.fileUploadButtonInside,
+    },
+  ],
+  error: [
+    fileLabel,
+    {
+      border: `1px solid ${theme.color.error}`,
     },
   ],
 });
@@ -88,6 +87,12 @@ export const fileNameVar = styleVariants({
       color: theme.color.baseText,
     },
   ],
+});
+
+export const errorText = style({
+  marginTop: 8,
+  color: theme.color.error,
+  ...theme.font.LABEL_2_16_SB,
 });
 
 // IconPlusButton style
