@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { CATEGORY } from './constant';
@@ -6,14 +6,14 @@ import { activeLinkStyle, categoryLinkStyle, categoryList, container } from './s
 
 interface ApplyCategoryProps {
   activeHash: string;
-  setActiveHash: React.Dispatch<React.SetStateAction<string>>;
+  onSetActiveHash: (hash: string) => void;
 }
-const ApplyCategory = ({ activeHash, setActiveHash }: ApplyCategoryProps) => {
+const ApplyCategory = ({ activeHash, onSetActiveHash }: ApplyCategoryProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    setActiveHash(location.hash);
-  }, [location.hash, setActiveHash]);
+    onSetActiveHash(location.hash);
+  }, [location.hash, onSetActiveHash]);
 
   return (
     <nav className={container}>

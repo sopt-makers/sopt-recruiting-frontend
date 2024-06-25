@@ -22,11 +22,15 @@ const ApplyPage = () => {
 
   useScrollToHash(); // scrollTo 카테고리
 
+  const handleSetActiveHash = (hash: string) => {
+    setActiveHash(hash);
+  };
+
   return (
     <>
       <ApplyHeader />
       <ApplyInfo />
-      <ApplyCategory activeHash={activeHash} setActiveHash={setActiveHash} />
+      <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
       <form onSubmit={handleSubmit(onSubmit)} className={container}>
         <div
           id="default"
