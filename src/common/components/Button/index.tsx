@@ -26,7 +26,7 @@ const Button = ({
   const Tag = isLink ? Link : 'button';
 
   return (
-    <div className={`${className} ${outsideBox[buttonStyle]}`}>
+    <div className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}>
       <Tag
         to={to as To}
         type={type}
