@@ -22,12 +22,6 @@ export const outsideBox = styleVariants({
       boxShadow: `0 0 0 1px ${theme.color.primary}`,
     },
   ],
-  disabled: [
-    outsideBoxBase,
-    {
-      boxShadow: 'none',
-    },
-  ],
 });
 
 const containerBase = style({
@@ -107,6 +101,16 @@ export const container = styleVariants({
           whiteSpace: 'nowrap',
         },
       },
+    },
+  ],
+  disabled: [
+    containerBase,
+    {
+      backgroundColor: theme.color.buttonDisable,
+      cursor: 'default',
+      boxShadow: 'none',
+      color: theme.color.white,
+      pointerEvents: 'none',
     },
   ],
 });
