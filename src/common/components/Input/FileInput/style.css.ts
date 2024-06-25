@@ -63,10 +63,6 @@ export const textWrapper = style({
   ...theme.font.BODY_1_18_M,
 });
 
-export const fileText = style({
-  ...theme.font.BODY_1_18_M,
-});
-
 const fileName = style({
   selectors: {
     [`${fileInput}:disabled ~ label > div > &`]: {
@@ -78,7 +74,7 @@ export const fileNameVar = styleVariants({
   default: [
     fileName,
     {
-      color: theme.color.lightestText,
+      color: theme.color.placeholder,
     },
   ],
   selected: [

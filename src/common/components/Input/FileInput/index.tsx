@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import IconPlusButton from './icons/IconPlusButton';
-import { container, errorText, fileInput, fileLabelVar, fileNameVar, fileText, textWrapper } from './style.css';
+import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
 
 const FileInput = ({ disabled }: { disabled?: boolean }) => {
   const [isError, setIsError] = useState(false);
@@ -11,7 +11,7 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const LIMIT_SIZE = 1024 ** 1 * 500; //50KB
+    const LIMIT_SIZE = 1024 ** 2 * 500; //50KB
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
@@ -34,7 +34,7 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
       />
       <label htmlFor="portfolio" className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
-          <span className={fileText}>포트폴리오</span>
+          <span>포트폴리오</span>
           <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
             {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
           </span>
