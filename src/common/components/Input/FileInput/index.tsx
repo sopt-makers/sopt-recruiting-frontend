@@ -13,11 +13,10 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
       setFile(file);
     }
   };
-
   return (
     <div className={container}>
       <input
-        id="file"
+        id="portfolio"
         type="file"
         accept=".pdf, .pptx"
         onChange={handleChangeFile}
@@ -25,7 +24,7 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
         className={fileInput}
         disabled={disabled}
       />
-      <label htmlFor="file" className={fileLabelVar[fileName === '' ? 'default' : 'selected']}>
+      <label htmlFor="portfolio" className={fileLabelVar[fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span className={fileText}>포트폴리오</span>
           <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>

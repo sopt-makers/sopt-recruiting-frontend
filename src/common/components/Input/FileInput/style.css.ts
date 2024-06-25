@@ -21,6 +21,8 @@ export const fileLabel = style({
   borderRadius: 12,
   cursor: 'pointer',
 
+  transition: 'all 0.2s ease',
+
   selectors: {
     [`${fileInput}:disabled ~ &`]: {
       color: theme.color.lighterText,
@@ -88,6 +90,8 @@ export const fileNameVar = styleVariants({
   ],
 });
 
+// IconPlusButton style
+
 export const fileIcon = style({
   display: 'flex',
   justifyContent: 'center',
@@ -96,6 +100,7 @@ export const fileIcon = style({
   height: 27,
   backgroundColor: theme.color.fileUploadButton,
   borderRadius: 6,
+  transition: 'all 0.2s ease',
 
   ':disabled': {
     backgroundColor: theme.color.buttonDisable,

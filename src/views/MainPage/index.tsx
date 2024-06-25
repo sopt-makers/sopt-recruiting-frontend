@@ -26,7 +26,7 @@ const MainPage = () => {
           </Link>
         </div>
       </Callout>
-      <FileInput disabled />
+      <FileInput />
       <TextBox label="이메일" formObject={formObject} required>
         <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />
       </TextBox>
