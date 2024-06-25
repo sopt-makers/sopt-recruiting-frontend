@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
-import FileInput from '@components/Input/FileInput';
 import Title from '@components/Title';
+import FileInput from 'views/ApplyPage/components/FileInput';
 
 import { calloutButton, calloutWrapper, container } from './style.css';
 
