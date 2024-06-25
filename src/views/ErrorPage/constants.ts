@@ -1,4 +1,4 @@
-const ERROR_MESSAGE = {
+export const ERROR_MESSAGE = {
   CODE404: {
     text: '존재하지 않는 페이지예요',
     button: '홈으로 가기',
@@ -8,5 +8,3 @@ const ERROR_MESSAGE = {
     button: '이전 페이지로 가기',
   },
 };
-
-export default ERROR_MESSAGE;

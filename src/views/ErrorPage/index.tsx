@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import ErrorCode from './components/ErrorCode';
-import ERROR_MESSAGE from './constants/ERROR_MESSAGE';
+import { ERROR_MESSAGE } from './constants';
 import { article, contactButton, container, errorButton, errorText, instruction } from './style.css';
 
 const ErrorPage = ({ code }: { code: 404 | 500 }) => {
