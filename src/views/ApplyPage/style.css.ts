@@ -5,6 +5,10 @@ export const container = style({
   flexDirection: 'column',
   gap: 50,
 
-  margin: '90px 0 362px 0',
+  marginBottom: 362,
   width: 720,
+});
+
+export const content = style({
+  paddingTop: 90,
 });

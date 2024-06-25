@@ -19,21 +19,6 @@ export const categoryList = style({
   display: 'flex',
 });
 
-export const categoryItem = style({
-  width: 240,
-  padding: '26px 0',
-  ...theme.font.HEADING_6_18_B,
-  color: theme.color.lightestText,
-  backgroundColor: theme.color.white,
-  transition: 'all 0.1s ease',
-  textAlign: 'center',
-
-  ':hover': {
-    color: theme.color.primary,
-    backgroundColor: theme.color.primaryLight,
-  },
-});
-
 export const categoryLink = style({
   display: 'flex',
   justifyContent: 'center',

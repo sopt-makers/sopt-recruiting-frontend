@@ -7,7 +7,7 @@ import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
 import useScrollToHash from './hooks/useScrollToHash';
-import { container } from './style.css';
+import { container, content } from './style.css';
 
 const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({
@@ -22,7 +22,7 @@ const ApplyPage = () => {
       <ApplyInfo />
       <ApplyCategory />
       <form onSubmit={handleSubmit(onSubmit)} className={container}>
-        <div id="default">
+        <div id="default" className={content}>
           <Title>먀먀먀1</Title>
         </div>
         <Title>먀먀먀</Title>
@@ -36,7 +36,7 @@ const ApplyPage = () => {
         <Title>먀먀먀</Title>
         <Title>먀먀먀</Title>
         <Title>먀먀먀</Title>
-        <div id="common">
+        <div id="common" className={content}>
           <Title>먀먀먀2</Title>
         </div>
         <Title>먀먀먀</Title>
@@ -50,7 +50,7 @@ const ApplyPage = () => {
         <Title>먀먀먀</Title>
         <Title>먀먀먀</Title>
         <Title>먀먀먀</Title>
-        <div id="partial">
+        <div id="partial" className={content}>
           <Title>먀먀먀3</Title>
         </div>
         <Title>먀먀먀</Title>

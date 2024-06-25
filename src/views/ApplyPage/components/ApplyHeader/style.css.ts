@@ -4,21 +4,15 @@ import { theme } from 'styles/theme.css';
 
 export const headerContainer = style({
   display: 'flex',
-  justifyContent: 'center',
-  padding: '24px 0 20px 0',
-  position: 'sticky',
-  top: 74,
-  width: 1440,
-  margin: '60px auto 0px auto',
-  backgroundColor: theme.color.white,
-  zIndex: 99,
-});
-
-export const header = style({
-  display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  padding: '24px 0 20px',
+  position: 'sticky',
+  top: 74,
   width: 720,
+  margin: '60px auto 0px',
+  backgroundColor: theme.color.white,
+  zIndex: 99,
 });
 
 export const buttonWrapper = style({
