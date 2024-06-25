@@ -109,4 +109,14 @@ export const container = styleVariants({
       },
     },
   ],
+  disabled: [
+    containerBase,
+    {
+      backgroundColor: theme.color.buttonDisable,
+      cursor: 'default',
+      boxShadow: 'none',
+      color: theme.color.white,
+      pointerEvents: 'none',
+    },
+  ],
 });
