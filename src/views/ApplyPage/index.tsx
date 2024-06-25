@@ -40,18 +40,6 @@ const ApplyPage = () => {
             if (el) ref.current[0] = el;
           }}>
           <DefaultSection formObject={formObject} />
-          <Title>먀먀먀1</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
         </div>
 
         <div

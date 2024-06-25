@@ -44,3 +44,8 @@ export const profileText = style({
   color: theme.color.lighterText,
   whiteSpace: 'pre-wrap',
 });
+
+export const doubleWrapper = style({
+  display: 'flex',
+  gap: 8,
+});
