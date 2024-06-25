@@ -7,6 +7,7 @@ import { TFormValues, defaultValues } from '@constants/defaultValues';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
+import DefaultSection from './components/DefaultSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
 import { container, content } from './style.css';
@@ -38,6 +39,7 @@ const ApplyPage = () => {
           ref={(el) => {
             if (el) ref.current[0] = el;
           }}>
+          <DefaultSection formObject={formObject} />
           <Title>먀먀먀1</Title>
           <Title>먀먀먀</Title>
           <Title>먀먀먀</Title>
