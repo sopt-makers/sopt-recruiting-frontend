@@ -11,10 +11,14 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const LIMIT_SIZE = 1024 ** 2 * 500; //50KB
+    const LIMIT_SIZE = 1024 ** 1 * 500; //50KB
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
+        if (inputRef.current) {
+          inputRef.current.value = '';
+          setFile(null);
+        }
       } else {
         setIsError(false);
         setFile(file);
