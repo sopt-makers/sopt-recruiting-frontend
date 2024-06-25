@@ -3,18 +3,18 @@ import { UseFormReturn } from 'react-hook-form';
 import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
-
-import { DEFAULT_PROFILE } from './constants';
-import IconUser from './icons/IconUser';
 import {
-  container,
   doubleWrapper,
   profileLabel,
   profileText,
   profileTextWrapper,
   profileWrapper,
+  sectionContainer,
   title,
-} from './style.css';
+} from 'views/ApplyPage/style.css';
+
+import { DEFAULT_PROFILE } from './constants';
+import IconUser from './icons/IconUser';
 
 const ProfileImage = ({
   formObject,
@@ -46,7 +46,7 @@ const DefaultSection = ({
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue'>;
 }) => {
   return (
-    <section className={container}>
+    <section className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>
       <ProfileImage formObject={formObject} />
       <div className={doubleWrapper}>

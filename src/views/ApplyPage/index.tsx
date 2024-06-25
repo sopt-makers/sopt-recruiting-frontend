@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import Title from '@components/Title';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 
 import ApplyCategory from './components/ApplyCategory';
@@ -61,7 +60,6 @@ const ApplyPage = () => {
           }}>
           <PartSection formObject={formObject} />
         </div>
-
         <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
       </form>
     </>

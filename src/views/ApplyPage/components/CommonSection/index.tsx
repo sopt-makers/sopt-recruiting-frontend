@@ -1,9 +1,9 @@
 import { UseFormReturn } from 'react-hook-form';
 
 import Textarea from '@components/Textarea';
+import { sectionContainer, title } from 'views/ApplyPage/style.css';
 
 import { COMMON_QUESTION } from './constants';
-import { container, title } from './style.css';
 
 const CommonSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch'> }) => {
   const {
@@ -12,7 +12,7 @@ const CommonSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'regist
     formState: { errors },
   } = formObject;
   return (
-    <section className={container}>
+    <section className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
       {COMMON_QUESTION.map(({ question, maxCount, required }, id) => (
         <div key={question}>
