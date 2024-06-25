@@ -145,3 +145,11 @@ export const fileIconSvgVar = styleVariants({
     },
   ],
 });
+
+export const iconPath = style({
+  selectors: {
+    [`${fileInput}:active ~ label &`]: {
+      stroke: theme.color.lighterText,
+    },
+  },
+});
