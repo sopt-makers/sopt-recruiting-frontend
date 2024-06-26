@@ -2,11 +2,10 @@ import { FieldValues } from 'react-hook-form';
 
 export const validateBirthdate = (val: FieldValues) => {
   if (!val) return true;
+
   const year = Number(val.split('-')[0]);
   const month = Number(val.split('-')[1]);
   const day = Number(val.split('-')[2]);
-
-  const date = new Date(String(val));
 
   switch (month) {
     case 1:
@@ -40,6 +39,7 @@ export const validateBirthdate = (val: FieldValues) => {
       return '잘못된 생년월일 형식이에요. 생년월일을 정확하게 입력해주세요.';
   }
 
+  const date = new Date(String(val));
   const minDate = new Date('1990-01-01');
   const today = new Date(new Date().toISOString().split('T')[0]);
 

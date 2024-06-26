@@ -1,5 +1,6 @@
 export const formatBirthdate = (value: string) => {
   if (!value) return value;
+
   const cleaned = value.replace(/[^\d]/g, ''); // 숫자가 아닌 문자는 모두 제거
   let formatted = cleaned;
 
