@@ -64,7 +64,13 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
 
   return (
     <TextBox label={textVar} formObject={formObject} required>
-      <InputLine label={textVar} placeholder={`${textVar}를 입력해주세요.`} type="password" />
+      <InputLine
+        label={textVar}
+        placeholder={`${textVar}를 입력해주세요.`}
+        type="password"
+        pattern={/^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/}
+        errorText="비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요."
+      />
       <InputLine label="비밀번호 재확인" placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요." type="password" />
     </TextBox>
   );
