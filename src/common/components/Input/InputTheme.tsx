@@ -10,7 +10,14 @@ import { TextBoxProps } from './types';
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
     <TextBox label="이름" formObject={formObject} required>
-      <InputLine label="이름" placeholder="지원자 이름을 공백 없이 입력해주세요." />
+      <InputLine
+        label="이름"
+        pattern={/^[가-힣]+$/}
+        errorText="잘못된 이름(한글명) 형식이에요. 이름(한글명)을 정확하게 입력해주세요."
+        placeholder="지원자 이름을 공백 없이 한글로 입력해주세요."
+        maxLength={10}
+        minLength={2}
+      />
     </TextBox>
   );
 };

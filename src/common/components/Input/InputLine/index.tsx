@@ -12,6 +12,8 @@ const InputLine = ({
   pattern,
   validate,
   errorText,
+  maxLength,
+  minLength,
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'size' | 'formObject'>) => {
@@ -29,14 +31,19 @@ const InputLine = ({
           className={inputVar[errors?.[label] ? 'error' : 'default']}
           {...inputElementProps}
           {...register(label, {
-            required: required && '필수 입력 항목이에요',
-            pattern:
-              pattern && errorText
-                ? {
-                    value: pattern,
-                    message: errorText,
-                  }
-                : undefined,
+            required: required && '필수 입력 항목이에요.',
+            pattern: {
+              value: pattern || /.*/,
+              message: errorText || '',
+            },
+            maxLength: {
+              value: maxLength || 9999,
+              message: `최대 ${maxLength}자 까지 입력할 수 있어요.`,
+            },
+            minLength: {
+              value: minLength || 0,
+              message: `최소 ${minLength}자 이상 입력해 주세요.`,
+            },
             validate: validate,
             onBlur: (e) => {
               if (!pattern || e.currentTarget.value === '') return;
