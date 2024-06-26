@@ -113,7 +113,7 @@ const DefaultSection = ({
       </div>
       <SelectBox
         label="이전 기수 활동 여부 (제명 포함)"
-        options={['34기', '33기', '32기', '31기']}
+        options={['해당사항 없음', '34', '33', '32', '31', '30', '29', '28', '27', '26', '25']}
         formObject={formObject}
         required
         size="lg"
