@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
-import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
+import { TextBox비밀번호, TextBox이름 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import FileInput from 'views/ApplyPage/components/FileInput';
 
