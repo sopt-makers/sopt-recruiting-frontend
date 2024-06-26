@@ -5,6 +5,7 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Checkbox from '@components/Checkbox';
 import { Description, InputLine, TextBox } from '@components/Input';
+import { validateBirthdate } from '@components/Input/InputLine/utils/validateBirthdate';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Radio from '@components/Radio';
 import Textarea from '@components/Textarea';
@@ -63,11 +64,14 @@ const TestPage = () => {
         <TextBox label="생년월일" formObject={formObject} required>
           <InputLine
             label="생년월일"
-            placeholder="YYYY/MM/DD"
-            type="date"
+            placeholder="YYYY-MM-DD"
+            type="text"
             min="1990-01-01"
             max={new Date().toISOString().split('T')[0]}
-            errorText="잘못된 휴대폰 번호 형식이에요. 휴대폰 번호를 정확하게 입력해주세요."
+            maxLength={10}
+            pattern={/[0-9]{4}-[0-9]{2}-[0-9]{2}/}
+            errorText="잘못된 생년월일 형식이에요. 생년월일을 정확하게 입력해주세요."
+            validate={validateBirthdate}
           />
         </TextBox>
         <FileInput />

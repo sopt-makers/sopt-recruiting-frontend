@@ -2,6 +2,7 @@
 import { ChangeEvent, useContext, useState } from 'react';
 
 import { inputLine, inputVar } from './style.css';
+import { formatBirthdate } from './utils/formatBirthdate';
 import { formatPhoneNumber } from './utils/formatPhoneNumber';
 import Description from '../Description';
 import { FormContext } from '../TextBox';
@@ -25,11 +26,17 @@ const InputLine = ({
   const { maxLength, minLength } = inputElementProps;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    clearErrors && clearErrors(label);
+
+    if (label === '생년월일') {
+      const formattedValue = formatBirthdate(e.target.value);
+      setValue(formattedValue);
+    }
+
     if (label === '연락처') {
       const formattedValue = formatPhoneNumber(e.target.value);
       setValue(formattedValue);
     }
-    clearErrors && clearErrors(label);
   };
 
   return (
@@ -37,7 +44,7 @@ const InputLine = ({
       <div className={inputLine}>
         <input
           id={label}
-          value={label === '연락처' ? value : undefined}
+          value={label === '연락처' || label === '생년월일' ? value : undefined}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
           {...inputElementProps}
           {...register(label, {
