@@ -30,6 +30,7 @@ const TestPage = () => {
             placeholder="이메일을 입력해주세요"
             type="email"
             pattern={/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/}
+            maxLength={100}
             errorText="이메일 형식이 올바르지 않아요."
           />
         </TextBox>
@@ -40,6 +41,7 @@ const TestPage = () => {
             placeholder="비밀번호를 입력해주세요"
             type="password"
             pattern={/^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/}
+            maxLength={100}
             errorText="비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요."
           />
           <Description>

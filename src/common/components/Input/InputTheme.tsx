@@ -37,6 +37,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
         placeholder="이메일을 입력해주세요."
         type="email"
         pattern={/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/}
+        maxLength={100}
         errorText="이메일 형식이 올바르지 않아요.">
         <InputButton text="이메일 인증" onClick={handleClick이메일인증} disabled={isActive} />
         <Timer
@@ -69,6 +70,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         label={textVar}
         placeholder={`${textVar}를 입력해주세요.`}
         type="password"
+        maxLength={100}
         pattern={/^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/}
         errorText="비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요."
       />
@@ -76,6 +78,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         label="비밀번호 재확인"
         placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요."
         type="password"
+        maxLength={100}
         errorText="비밀번호가 일치하지 않아요."
         validate={(val) => {
           if (watch(textVar) != val) {
