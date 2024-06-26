@@ -17,7 +17,7 @@ const MainPage = () => {
       <Callout>
         <div className={calloutWrapper}>
           <p>
-            34기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도
+            35기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도
             새 지원서를 작성해야 해요.
           </p>
           <Link to="/sign-up" className={calloutButton}>

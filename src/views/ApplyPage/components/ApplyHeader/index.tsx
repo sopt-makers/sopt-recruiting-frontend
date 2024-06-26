@@ -6,7 +6,7 @@ import { buttonWrapper, headerContainer } from './style.css';
 const ApplyHeader = () => {
   return (
     <header className={headerContainer}>
-      <Title>34기 YB 지원서</Title>
+      <Title>35기 YB 지원서</Title>
       <div className={buttonWrapper}>
         <Button buttonStyle="line" padding="10x24">
           임시저장
