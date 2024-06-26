@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import Button from '@components/Button';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
+import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
-import { container, content } from './style.css';
+import { buttonWrapper, container, content } from './style.css';
 
 const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({
@@ -60,7 +62,11 @@ const ApplyPage = () => {
           }}>
           <PartSection formObject={formObject} />
         </div>
-        <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
+        <BottomSection formObject={formObject} />
+        <div className={buttonWrapper}>
+          <Button buttonStyle="line">임시저장</Button>
+          <Button>제출하기</Button>
+        </div>
       </form>
     </>
   );

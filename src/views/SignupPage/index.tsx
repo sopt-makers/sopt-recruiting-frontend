@@ -6,8 +6,8 @@ import Contentbox from '@components/Checkbox/Contentbox';
 import { InputLine, TextBox } from '@components/Input';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
+import { PRIVACY_POLICY } from '@constants/policy';
 
-import { PRIVACY_POLICY } from './constant';
 import { container } from './style.css';
 
 const SignupPage = () => {

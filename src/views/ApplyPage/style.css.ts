@@ -62,3 +62,41 @@ export const doubleWrapper = style({
   display: 'flex',
   gap: 8,
 });
+
+export const line = style({
+  width: '100%',
+  margin: '100px 0 67px 0',
+  border: `1px solid ${theme.color.border}`,
+});
+
+export const doubleLineCheck = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+});
+
+export const label = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 6,
+
+  width: 'fit-content',
+
+  color: theme.color.baseText,
+  ...theme.font.TITLE_5_18_SB,
+});
+
+export const circle = style({
+  width: 8,
+  height: 8,
+  borderRadius: 4,
+  backgroundColor: theme.color.primary,
+});
+
+export const buttonWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+
+  marginTop: 46,
+});
