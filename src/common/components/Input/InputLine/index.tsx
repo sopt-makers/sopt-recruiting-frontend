@@ -12,8 +12,6 @@ const InputLine = ({
   pattern,
   validate,
   errorText,
-  maxLength,
-  minLength,
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'size' | 'formObject'>) => {
@@ -22,6 +20,7 @@ const InputLine = ({
     formObject: { register, formState, clearErrors, trigger },
   } = useContext(FormContext);
   const { errors } = formState;
+  const { maxLength, minLength } = inputElementProps;
 
   return (
     <>
