@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -22,13 +22,12 @@ const ApplyPage = () => {
   const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
   const [activeHash, setActiveHash] = useState('');
-  const { ref } = useIntersectionObserver(setActiveHash);
+  const handleSetActiveHash = useCallback((hash: string) => {
+    setActiveHash(hash);
+  }, []);
+  const { ref } = useIntersectionObserver(handleSetActiveHash);
 
   useScrollToHash(); // scrollTo 카테고리
-
-  const handleSetActiveHash = (hash: string) => {
-    setActiveHash(hash);
-  };
 
   return (
     <>
