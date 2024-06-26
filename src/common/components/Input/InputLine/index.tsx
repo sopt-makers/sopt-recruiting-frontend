@@ -1,7 +1,8 @@
 /* eslint-disable indent */
-import { useContext } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 
 import { inputLine, inputVar } from './style.css';
+import { formatPhoneNumber } from './utils/formatPhoneNumber';
 import Description from '../Description';
 import { FormContext } from '../TextBox';
 import { TextBoxProps } from '../types';
@@ -15,6 +16,7 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'size' | 'formObject'>) => {
+  const [value, setValue] = useState('');
   const {
     required,
     formObject: { register, formState, clearErrors, trigger },
@@ -22,11 +24,20 @@ const InputLine = ({
   const { errors } = formState;
   const { maxLength, minLength } = inputElementProps;
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (label === '연락처') {
+      const formattedValue = formatPhoneNumber(e.target.value);
+      setValue(formattedValue);
+    }
+    clearErrors && clearErrors(label);
+  };
+
   return (
     <>
       <div className={inputLine}>
         <input
           id={label}
+          value={label === '연락처' ? value : undefined}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
           {...inputElementProps}
           {...register(label, {
@@ -48,7 +59,7 @@ const InputLine = ({
               if (!pattern || e.currentTarget.value === '') return;
               trigger(label);
             },
-            onChange: () => clearErrors && clearErrors(label),
+            onChange: handleChange,
           })}
         />
         {children}
