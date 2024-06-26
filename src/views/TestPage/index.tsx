@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
+import Checkbox from '@components/Checkbox';
 import { Description, InputLine, TextBox } from '@components/Input';
 import { TextBox비밀번호, TextBox이름 } from '@components/Input/InputTheme';
+import Radio from '@components/Radio';
+import Textarea from '@components/Textarea';
 import Title from '@components/Title';
 import FileInput from 'views/ApplyPage/components/FileInput';
 
@@ -66,6 +69,15 @@ const TestPage = () => {
           />
         </TextBox>
         <FileInput />
+        <Checkbox label="체크" formObject={formObject} required>
+          체크하기
+        </Checkbox>
+        <Radio label={['재학', '유예']} name="학교" value="재학" formObject={formObject} required />
+        <Textarea
+          label="텍스트에어리어"
+          formObject={formObject}
+          maxCount={700}
+          required>{`3. 최근 1년 이내로 머릿속으로만 생각하고 있던 계획을 행동으로 옮겨본 경험이 있나요? 만약 있다면 어떤. 계획이. 었으며, 행동을 통해 어떤 성장을 이루어냈는지에 대해 구체적으로 서술해 주세요. 만약 없다면, 해당 계획을 행동으로 옮기기 위한 액션 플랜을 서술해 주세요.`}</Textarea>
         <Button type="submit">제출하기</Button>
       </form>
     </>
