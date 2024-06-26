@@ -22,7 +22,7 @@ export const sectionContainer = style({
 });
 
 export const title = style({
-  ...theme.font.HEADING_3_28_B,
+  ...theme.font.TITLE_2_28_SB,
   color: theme.color.baseText,
   fontSize: 30,
   fontWeight: 600,
