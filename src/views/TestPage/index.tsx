@@ -5,7 +5,7 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Checkbox from '@components/Checkbox';
 import { Description, InputLine, TextBox } from '@components/Input';
-import { TextBox비밀번호, TextBox이름 } from '@components/Input/InputTheme';
+import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Radio from '@components/Radio';
 import Textarea from '@components/Textarea';
 import Title from '@components/Title';
@@ -33,7 +33,7 @@ const TestPage = () => {
             errorText="이메일 형식이 올바르지 않아요."
           />
         </TextBox>
-        {/* <TextBox이메일 formObject={formObject} /> */}
+        <TextBox이메일 formObject={formObject} />
         <TextBox label="비밀번호2" formObject={formObject} required>
           <InputLine
             label="비밀번호2"
