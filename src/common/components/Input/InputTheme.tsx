@@ -32,7 +32,12 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
 
   return (
     <TextBox label="이메일" formObject={formObject} required>
-      <InputLine label="이메일" placeholder="이메일을 입력해주세요." type="email">
+      <InputLine
+        label="이메일"
+        placeholder="이메일을 입력해주세요."
+        type="email"
+        pattern={/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/}
+        errorText="이메일 형식이 올바르지 않아요.">
         <InputButton text="이메일 인증" onClick={handleClick이메일인증} disabled={isActive} />
         <Timer
           isActive={isActive}
