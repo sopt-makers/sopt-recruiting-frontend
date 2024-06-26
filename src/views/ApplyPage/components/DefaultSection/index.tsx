@@ -1,3 +1,4 @@
+import { ChangeEvent, useRef, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import { InputLine, TextBox } from '@components/Input';
@@ -5,6 +6,7 @@ import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import {
   doubleWrapper,
+  profileImage,
   profileLabel,
   profileText,
   profileTextWrapper,
@@ -21,12 +23,24 @@ const ProfileImage = ({
 }: {
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger'>;
 }) => {
+  const [image, setImage] = useState('');
+
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files && e.target.files[0];
+    if (!imageFile) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+    reader.onloadend = () => {
+      setImage(reader.result as string);
+    };
+  };
+
   return (
     <TextBox label="사진" formObject={formObject} size="lg" required>
       <div className={profileWrapper}>
-        <input id="profile" type="file" accept="image/*" style={{ display: 'none' }} />
+        <input id="profile" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleChangeImage} />
         <label htmlFor="profile" className={profileLabel}>
-          <IconUser />
+          {image ? <img src={image} className={profileImage} /> : <IconUser />}
         </label>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (

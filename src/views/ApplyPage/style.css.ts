@@ -30,6 +30,11 @@ export const title = style({
   letterSpacing: '-0.6px',
 });
 
+export const profileImage = style({
+  objectFit: 'cover',
+  width: '100%',
+});
+
 export const profileWrapper = style({
   display: 'flex',
   gap: 28,
@@ -39,8 +44,9 @@ export const profileLabel = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '76px 55px',
-  width: 'fit-content',
+  padding: 6,
+  width: 134,
+  height: 176,
   border: `1px solid ${theme.color.border}`,
   borderRadius: 10,
   cursor: 'pointer',
