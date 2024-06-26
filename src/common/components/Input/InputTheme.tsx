@@ -61,6 +61,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
 export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
+  const { watch } = formObject;
 
   return (
     <TextBox label={textVar} formObject={formObject} required>
@@ -71,7 +72,17 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         pattern={/^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/}
         errorText="비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요."
       />
-      <InputLine label="비밀번호 재확인" placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요." type="password" />
+      <InputLine
+        label="비밀번호 재확인"
+        placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요."
+        type="password"
+        errorText="비밀번호가 일치하지 않아요."
+        validate={(val) => {
+          if (watch(textVar) != val) {
+            return '비밀번호가 일치하지 않아요.';
+          }
+        }}
+      />
     </TextBox>
   );
 };
