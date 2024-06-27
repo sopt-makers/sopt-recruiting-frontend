@@ -1,9 +1,9 @@
 import { UseFormReturn } from 'react-hook-form';
 
 import Textarea from '@components/Textarea';
-import { sectionContainer, title } from 'views/ApplyPage/style.css';
 
 import { COMMON_QUESTION } from './constants';
+import { sectionContainer, title } from './style.css';
 
 const CommonSection = ({ formObject }: { formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch'> }) => {
   const {

@@ -3,9 +3,9 @@ import { UseFormReturn } from 'react-hook-form';
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
-import { sectionContainer, title } from 'views/ApplyPage/style.css';
 
 import { PART_QUESTION } from './constants';
+import { sectionContainer, title } from './style.css';
 
 const PartSection = ({
   formObject,

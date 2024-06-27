@@ -5,6 +5,9 @@ import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
+
+import { DEFAULT_PROFILE } from './constants';
+import IconUser from './icons/IconUser';
 import {
   doubleWrapper,
   profileImage,
@@ -14,10 +17,7 @@ import {
   profileWrapper,
   sectionContainer,
   title,
-} from 'views/ApplyPage/style.css';
-
-import { DEFAULT_PROFILE } from './constants';
-import IconUser from './icons/IconUser';
+} from './style.css';
 
 const ProfileImage = ({
   formObject,

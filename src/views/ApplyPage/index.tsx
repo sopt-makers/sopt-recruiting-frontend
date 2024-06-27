@@ -62,7 +62,7 @@ const ApplyPage = () => {
         <BottomSection formObject={formObject} />
         <div className={buttonWrapper}>
           <Button buttonStyle="line">임시저장</Button>
-          <Button>제출하기</Button>
+          <Button type="submit">제출하기</Button>
         </div>
       </form>
     </>

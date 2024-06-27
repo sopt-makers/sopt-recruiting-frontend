@@ -3,10 +3,10 @@ import { UseFormReturn } from 'react-hook-form';
 import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/Contentbox';
 import SelectBox from '@components/Select';
-import { circle } from '@components/Select/style.css';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
-import { doubleLineCheck, label, line, sectionContainer } from 'views/ApplyPage/style.css';
+
+import { circle, doubleLineCheck, label, line, sectionContainer } from './style.css';
 
 const BottomSection = ({
   formObject,
