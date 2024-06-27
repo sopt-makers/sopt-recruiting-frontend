@@ -105,7 +105,7 @@ export const optionContainer = style({
 
   padding: '15px 8px',
   maxHeight: 224,
-  overflow: 'scroll',
+  overflow: 'auto',
 
   backgroundColor: theme.color.white,
 
