@@ -38,26 +38,6 @@ const MainPage = () => {
         </Description>
       </TextBox>
       <Button type="submit">로그인</Button>
-      <br />
-      <br />
-      <br />
-      <br />
-      <Button>로그인</Button>
-      <Button disabled>로그인</Button>
-      <Button isLink>로그인</Button>
-      <Button isLink disabled>
-        로그인
-      </Button>
-      <Button buttonStyle="line">로그인</Button>
-      <Button buttonStyle="line" disabled>
-        로그인
-      </Button>
-      <Button buttonStyle="line" isLink>
-        로그인
-      </Button>
-      <Button buttonStyle="line" isLink disabled>
-        로그인
-      </Button>
     </form>
   );
 };
