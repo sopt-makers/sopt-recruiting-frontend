@@ -40,6 +40,7 @@ const ProfileImage = ({
     reader.onloadend = () => {
       setImage(reader.result as string);
     };
+    clearErrors && clearErrors('사진');
   };
 
   return (
@@ -52,9 +53,8 @@ const ProfileImage = ({
           style={{ display: 'none' }}
           {...register('사진', {
             required: true && '필수 입력 항목이에요',
-            onChange: () => clearErrors && clearErrors('사진'),
+            onChange: handleChangeImage,
           })}
-          onChange={handleChangeImage}
         />
         <div>
           <label htmlFor="profile" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
