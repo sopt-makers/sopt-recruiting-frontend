@@ -10,8 +10,9 @@ import { DEFAULT_PROFILE } from './constants';
 import IconUser from './icons/IconUser';
 import {
   doubleWrapper,
+  errorText,
   profileImage,
-  profileLabel,
+  profileLabelVar,
   profileText,
   profileTextWrapper,
   profileWrapper,
@@ -24,6 +25,11 @@ const ProfileImage = ({
 }: {
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger'>;
 }) => {
+  const {
+    register,
+    clearErrors,
+    formState: { errors },
+  } = formObject;
   const [image, setImage] = useState('');
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +45,23 @@ const ProfileImage = ({
   return (
     <TextBox label="사진" formObject={formObject} size="lg" required>
       <div className={profileWrapper}>
-        <input id="profile" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleChangeImage} />
-        <label htmlFor="profile" className={profileLabel}>
-          {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
-        </label>
+        <input
+          id="profile"
+          type="file"
+          accept="image/*"
+          style={{ display: 'none' }}
+          {...register('사진', {
+            required: true && '필수 입력 항목이에요',
+            onChange: () => clearErrors && clearErrors('사진'),
+          })}
+          onChange={handleChangeImage}
+        />
+        <div>
+          <label htmlFor="profile" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
+            {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
+          </label>
+          {errors['사진'] && <p className={errorText}>{errors['사진']?.message as string}</p>}
+        </div>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (
             <li key={el} className={profileText}>

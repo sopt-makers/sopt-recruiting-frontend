@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
@@ -25,7 +25,7 @@ export const profileWrapper = style({
   gap: 28,
 });
 
-export const profileLabel = style({
+const profileLabel = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -35,6 +35,27 @@ export const profileLabel = style({
   border: `1px solid ${theme.color.border}`,
   borderRadius: 10,
   cursor: 'pointer',
+});
+
+export const profileLabelVar = styleVariants({
+  default: [
+    profileLabel,
+    {
+      borderColor: theme.color.border,
+    },
+  ],
+  error: [
+    profileLabel,
+    {
+      borderColor: theme.color.error,
+    },
+  ],
+});
+
+export const errorText = style({
+  marginTop: 8,
+  color: theme.color.error,
+  ...theme.font.LABEL_2_16_SB,
 });
 
 export const profileImage = style({

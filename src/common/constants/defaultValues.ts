@@ -1,6 +1,7 @@
-export type TFormValues = Record<string, string | boolean>;
+export type TFormValues = Record<string, string | boolean | null>;
 
 export const defaultValues: TFormValues = {
+  사진: null,
   이름: '김솝트', // 서버 데이터
   성별: '성별을 선택해주세요',
   생년월일: '',
