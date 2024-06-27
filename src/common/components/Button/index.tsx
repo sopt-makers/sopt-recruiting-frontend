@@ -26,15 +26,15 @@ const Button = ({
   const Tag = isLink ? Link : 'button';
 
   return (
-    <div className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}>
-      <Tag
-        to={to as To}
-        type={type}
-        className={`${container[disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${className}`}
-        {...buttonElementProps}>
+    <Tag
+      to={to as To}
+      type={type}
+      className={`${className} ${outsideBox[disabled ? 'disabled' : buttonStyle]}`}
+      {...buttonElementProps}>
+      <div className={`${container[disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${className}`}>
         {children}
-      </Tag>
-    </div>
+      </div>
+    </Tag>
   );
 };
 
