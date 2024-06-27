@@ -26,6 +26,7 @@ export const outsideBox = styleVariants({
     outsideBoxBase,
     {
       boxShadow: 'none',
+      cursor: 'default',
     },
   ],
 });
