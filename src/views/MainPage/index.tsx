@@ -13,7 +13,7 @@ const MainPage = () => {
   const { handleSubmit, ...formObject } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(() => {})} className={container}>
+    <div className={container}>
       <Title>지원하기</Title>
       <Callout>
         <div className={calloutWrapper}>
@@ -37,8 +37,8 @@ const MainPage = () => {
           <Link to="/password">비밀번호 재설정하기</Link>
         </Description>
       </TextBox>
-      <Button type="submit">로그인</Button>
-    </form>
+      <Button disabled>로그인</Button>
+    </div>
   );
 };
 
