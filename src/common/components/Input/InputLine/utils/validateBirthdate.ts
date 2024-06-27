@@ -1,5 +1,7 @@
 import { FieldValues } from 'react-hook-form';
 
+import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+
 export const validateBirthdate = (val: FieldValues) => {
   if (!val) return true;
 
@@ -36,7 +38,7 @@ export const validateBirthdate = (val: FieldValues) => {
       break;
     }
     default:
-      return '잘못된 생년월일 형식이에요. 생년월일을 정확하게 입력해주세요.';
+      return VALIDATION_CHECK.birthdate.errorText;
   }
 
   const date = new Date(String(val));
@@ -44,7 +46,7 @@ export const validateBirthdate = (val: FieldValues) => {
   const today = new Date(new Date().toISOString().split('T')[0]);
 
   if (isNaN(date.getTime()) || date < minDate || date > today) {
-    return '1990년 이후부터 오늘 날짜까지 입력 가능해요.';
+    return VALIDATION_CHECK.birthdate.errorTextOutOfRange;
   }
 
   return true;

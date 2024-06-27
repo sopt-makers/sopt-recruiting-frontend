@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+
 import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { TextBox } from './TextBox';
@@ -70,21 +72,17 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         label={textVar}
         placeholder={`${textVar}를 입력해주세요.`}
         type="password"
-        maxLength={100}
-        pattern={/^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/}
-        errorText="비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요."
+        maxLength={VALIDATION_CHECK.password.maxLength}
+        pattern={VALIDATION_CHECK.password.pattern}
+        errorText={VALIDATION_CHECK.password.errorText}
       />
       <InputLine
         label="비밀번호 재확인"
         placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요."
         type="password"
-        maxLength={100}
-        errorText="비밀번호가 일치하지 않아요."
-        validate={(val) => {
-          if (watch(textVar) != val) {
-            return '비밀번호가 일치하지 않아요.';
-          }
-        }}
+        maxLength={VALIDATION_CHECK.passwordConfirm.maxLength}
+        errorText={VALIDATION_CHECK.passwordConfirm.errorText}
+        validate={VALIDATION_CHECK.passwordConfirm.validate(watch, textVar)}
       />
     </TextBox>
   );

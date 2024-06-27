@@ -5,11 +5,11 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Checkbox from '@components/Checkbox';
 import { Description, InputLine, TextBox } from '@components/Input';
-import { validateBirthdate } from '@components/Input/InputLine/utils/validateBirthdate';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Radio from '@components/Radio';
 import Textarea from '@components/Textarea';
 import Title from '@components/Title';
+import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 import FileInput from 'views/ApplyPage/components/FileInput';
 
 const TestPage = () => {
@@ -30,9 +30,9 @@ const TestPage = () => {
             label="이메일2"
             placeholder="이메일을 입력해주세요"
             type="email"
-            pattern={/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/}
-            maxLength={100}
-            errorText="이메일 형식이 올바르지 않아요."
+            pattern={VALIDATION_CHECK.email.pattern}
+            maxLength={VALIDATION_CHECK.email.maxLength}
+            errorText={VALIDATION_CHECK.email.errorText}
           />
         </TextBox>
         <TextBox이메일 formObject={formObject} />
@@ -41,9 +41,9 @@ const TestPage = () => {
             label="비밀번호2"
             placeholder="비밀번호를 입력해주세요"
             type="password"
-            pattern={/^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/}
-            maxLength={100}
-            errorText="비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요."
+            pattern={VALIDATION_CHECK.password.pattern}
+            maxLength={VALIDATION_CHECK.password.maxLength}
+            errorText={VALIDATION_CHECK.password.errorText}
           />
           <Description>
             <p>비밀번호를 잃어버리셨나요?</p>
@@ -56,9 +56,9 @@ const TestPage = () => {
             label="연락처"
             placeholder="010-0000-0000"
             type="tel"
-            pattern={/^010-?\d{3,4}-?\d{4}$/}
-            errorText="잘못된 휴대폰 번호 형식이에요. 휴대폰 번호를 정확하게 입력해주세요."
-            maxLength={13}
+            pattern={VALIDATION_CHECK.phoneNumber.pattern}
+            maxLength={VALIDATION_CHECK.phoneNumber.maxLength}
+            errorText={VALIDATION_CHECK.phoneNumber.errorText}
           />
         </TextBox>
         <TextBox label="생년월일" formObject={formObject} required>
@@ -66,12 +66,12 @@ const TestPage = () => {
             label="생년월일"
             placeholder="YYYY-MM-DD"
             type="text"
-            min="1990-01-01"
-            max={new Date().toISOString().split('T')[0]}
-            maxLength={10}
-            pattern={/[0-9]{4}-[0-9]{2}-[0-9]{2}/}
-            errorText="잘못된 생년월일 형식이에요. 생년월일을 정확하게 입력해주세요."
-            validate={validateBirthdate}
+            min={VALIDATION_CHECK.birthdate.min}
+            max={VALIDATION_CHECK.birthdate.max}
+            maxLength={VALIDATION_CHECK.birthdate.maxLength}
+            pattern={VALIDATION_CHECK.birthdate.pattern}
+            errorText={VALIDATION_CHECK.birthdate.errorText}
+            validate={VALIDATION_CHECK.birthdate.validate}
           />
         </TextBox>
         <FileInput />
