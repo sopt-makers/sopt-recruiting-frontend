@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
 
 export const labelStyle = style({
-  position: 'relative',
   width: 720,
   marginBottom: 8,
   wordBreak: 'keep-all',
@@ -11,6 +10,9 @@ export const labelStyle = style({
 });
 
 export const requireDot = style({
+  position: 'absolute',
+  bottom: 5,
+  right: -10,
   display: 'inline-block',
   borderRadius: '100%',
   width: 8,

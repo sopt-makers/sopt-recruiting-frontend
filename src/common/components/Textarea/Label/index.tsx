@@ -14,8 +14,11 @@ const Label = ({ children, maxCount, required, label, ...headerElementProps }: L
     <h4 className={`${labelStyle}`} {...headerElementProps}>
       <label htmlFor={label}>
         <span>{children}</span>
-        <span> ({maxCount}자) </span>
-        {required && <i className={requireDot} />}
+        <span style={{ position: 'relative' }}>
+          {' '}
+          ({maxCount}자)
+          {required && <i className={requireDot} />}
+        </span>
       </label>
     </h4>
   );
