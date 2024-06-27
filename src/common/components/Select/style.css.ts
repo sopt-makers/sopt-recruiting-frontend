@@ -104,6 +104,8 @@ export const optionContainer = style({
   top: 67,
 
   padding: '15px 8px',
+  maxHeight: 224,
+  overflow: 'auto',
 
   backgroundColor: theme.color.white,
 
@@ -113,6 +115,7 @@ export const optionContainer = style({
   opacity: 0,
   transition: '0.3s ease-in-out',
   visibility: 'hidden',
+  zIndex: 2,
 
   selectors: {
     [`${select}:focus~&`]: {

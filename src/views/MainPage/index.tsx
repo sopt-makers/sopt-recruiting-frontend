@@ -5,7 +5,6 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
-import FileInput from 'views/ApplyPage/components/FileInput';
 
 import { calloutButton, calloutWrapper, container } from './style.css';
 
@@ -18,7 +17,7 @@ const MainPage = () => {
       <Callout>
         <div className={calloutWrapper}>
           <p>
-            34기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도
+            35기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도
             새 지원서를 작성해야 해요.
           </p>
           <Link to="/sign-up" className={calloutButton}>
@@ -26,7 +25,6 @@ const MainPage = () => {
           </Link>
         </div>
       </Callout>
-      <FileInput />
       <TextBox label="이메일" formObject={formObject} required>
         <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />
       </TextBox>

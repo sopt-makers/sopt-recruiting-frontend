@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import Title from '@components/Title';
+import Button from '@components/Button';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
+import BottomSection from './components/BottomSection';
+import CommonSection from './components/CommonSection';
+import DefaultSection from './components/DefaultSection';
+import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
-import { container, content } from './style.css';
+import { buttonWrapper, container, content } from './style.css';
 
 const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({
@@ -18,13 +22,12 @@ const ApplyPage = () => {
   const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
   const [activeHash, setActiveHash] = useState('');
-  const { ref } = useIntersectionObserver(setActiveHash);
+  const handleSetActiveHash = useCallback((hash: string) => {
+    setActiveHash(hash);
+  }, []);
+  const { ref } = useIntersectionObserver(handleSetActiveHash);
 
   useScrollToHash(); // scrollTo 카테고리
-
-  const handleSetActiveHash = (hash: string) => {
-    setActiveHash(hash);
-  };
 
   return (
     <>
@@ -38,53 +41,29 @@ const ApplyPage = () => {
           ref={(el) => {
             if (el) ref.current[0] = el;
           }}>
-          <Title>먀먀먀1</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
+          <DefaultSection formObject={formObject} />
         </div>
-
         <div
           id="common"
           className={content}
           ref={(el) => {
             if (el) ref.current[1] = el;
           }}>
-          <Title>먀먀먀2</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
+          <CommonSection formObject={formObject} />
         </div>
-
         <div
           id="partial"
           className={content}
           ref={(el) => {
             if (el) ref.current[2] = el;
           }}>
-          <Title>먀먀먀3</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
-          <Title>먀먀먀</Title>
+          <PartSection formObject={formObject} />
         </div>
-
-        <input type="submit" value="제출버튼!" style={{ backgroundColor: 'green' }} />
+        <BottomSection formObject={formObject} />
+        <div className={buttonWrapper}>
+          <Button buttonStyle="line">임시저장</Button>
+          <Button type="submit">제출하기</Button>
+        </div>
       </form>
     </>
   );

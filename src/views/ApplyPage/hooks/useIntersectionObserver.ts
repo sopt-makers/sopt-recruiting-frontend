@@ -1,17 +1,17 @@
 import { useEffect, useRef } from 'react';
 
-const useIntersectionObserver = (setActiveHash: React.Dispatch<React.SetStateAction<string>>) => {
+const useIntersectionObserver = (handleSetActiveHash: (hash: string) => void) => {
   const ref = useRef<HTMLDivElement[]>([]);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveHash(`#${entry.target.id}`);
+            handleSetActiveHash(`#${entry.target.id}`);
           }
         });
       },
-      { threshold: 0.5 },
+      { threshold: 0.2 },
     );
 
     ref.current.forEach((el) => {
@@ -27,7 +27,7 @@ const useIntersectionObserver = (setActiveHash: React.Dispatch<React.SetStateAct
         }
       });
     };
-  }, [setActiveHash]);
+  }, [handleSetActiveHash]);
 
   return { ref };
 };
