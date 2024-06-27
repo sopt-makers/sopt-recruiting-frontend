@@ -1,9 +1,10 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
+import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import {
   doubleWrapper,
   profileImage,
@@ -40,7 +41,7 @@ const ProfileImage = ({
       <div className={profileWrapper}>
         <input id="profile" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleChangeImage} />
         <label htmlFor="profile" className={profileLabel}>
-          {image ? <img src={image} className={profileImage} /> : <IconUser />}
+          {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
         </label>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (
@@ -67,7 +68,7 @@ const DefaultSection = ({
         <TextBox label="이름" formObject={formObject} required size="sm">
           <InputLine label="이름" disabled />
         </TextBox>
-        <SelectBox label="성별" options={['남자', '여자']} formObject={formObject} required />
+        <SelectBox label="성별" options={SELECT_OPTIONS.성별} formObject={formObject} required />
       </div>
       <div className={doubleWrapper}>
         <TextBox label="생년월일" formObject={formObject} required size="sm">
@@ -104,16 +105,11 @@ const DefaultSection = ({
         <TextBox label="학과" formObject={formObject} required size="sm">
           <InputLine label="학과" placeholder="학과 이름을 정확하게 적어주세요." />
         </TextBox>
-        <SelectBox
-          label="학년"
-          options={['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예']}
-          formObject={formObject}
-          required
-        />
+        <SelectBox label="학년" options={SELECT_OPTIONS.학년} formObject={formObject} required />
       </div>
       <SelectBox
         label="이전 기수 활동 여부 (제명 포함)"
-        options={['해당사항 없음', '34', '33', '32', '31', '30', '29', '28', '27', '26', '25']}
+        options={SELECT_OPTIONS.이전기수}
         formObject={formObject}
         required
         size="lg"

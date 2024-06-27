@@ -43,7 +43,6 @@ const ApplyPage = () => {
           }}>
           <DefaultSection formObject={formObject} />
         </div>
-
         <div
           id="common"
           className={content}
@@ -52,7 +51,6 @@ const ApplyPage = () => {
           }}>
           <CommonSection formObject={formObject} />
         </div>
-
         <div
           id="partial"
           className={content}

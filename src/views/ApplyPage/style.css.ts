@@ -2,6 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
+// ApplyPage.tsx
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
@@ -15,6 +16,15 @@ export const content = style({
   paddingTop: 90,
 });
 
+export const buttonWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+
+  marginTop: 46,
+});
+
+// -Section.tsx
 export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
@@ -24,44 +34,6 @@ export const sectionContainer = style({
 export const title = style({
   ...theme.font.TITLE_2_28_SB,
   color: theme.color.baseText,
-  fontSize: 30,
-  fontWeight: 600,
-  lineHeight: '42px',
-  letterSpacing: '-0.6px',
-});
-
-export const profileImage = style({
-  objectFit: 'cover',
-  width: '100%',
-});
-
-export const profileWrapper = style({
-  display: 'flex',
-  gap: 28,
-});
-
-export const profileLabel = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: 6,
-  width: 134,
-  height: 176,
-  border: `1px solid ${theme.color.border}`,
-  borderRadius: 10,
-  cursor: 'pointer',
-});
-
-export const profileTextWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-  marginTop: 19,
-});
-export const profileText = style({
-  ...theme.font.BODY_2_16_R,
-  color: theme.color.lighterText,
-  whiteSpace: 'pre-wrap',
 });
 
 export const doubleWrapper = style({
@@ -75,6 +47,7 @@ export const line = style({
   border: `1px solid ${theme.color.border}`,
 });
 
+// '토요일 참석 여부'관련 디자인 논의 후 삭제될 styles
 export const doubleLineCheck = style({
   display: 'flex',
   flexDirection: 'column',
@@ -99,10 +72,39 @@ export const circle = style({
   backgroundColor: theme.color.primary,
 });
 
-export const buttonWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 12,
+// ProfileImage styles
 
-  marginTop: 46,
+export const profileWrapper = style({
+  display: 'flex',
+  gap: 28,
+});
+
+export const profileLabel = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 6,
+  width: 134,
+  height: 176,
+  border: `1px solid ${theme.color.border}`,
+  borderRadius: 10,
+  cursor: 'pointer',
+});
+
+export const profileImage = style({
+  objectFit: 'cover',
+  width: '100%',
+});
+
+export const profileTextWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  marginTop: 19,
+});
+
+export const profileText = style({
+  ...theme.font.BODY_2_16_R,
+  color: theme.color.lighterText,
+  whiteSpace: 'pre-wrap',
 });

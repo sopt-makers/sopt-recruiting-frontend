@@ -2,6 +2,7 @@ import { UseFormReturn } from 'react-hook-form';
 
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
+import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { sectionContainer, title } from 'views/ApplyPage/style.css';
 
 import { PART_QUESTION } from './constants';
@@ -21,13 +22,7 @@ const PartSection = ({
   return (
     <section className={sectionContainer}>
       <h2 className={title}>파트별 질문</h2>
-      <SelectBox
-        label="지원파트"
-        options={['기획', '디자인', '안드로이드', 'iOS', '웹', '서버']}
-        formObject={formObject}
-        size="lg"
-        required
-      />
+      <SelectBox label="지원파트" options={SELECT_OPTIONS.지원파트} formObject={formObject} size="lg" required />
       {Object.keys(PART_QUESTION).includes(selectedPart) &&
         PART_QUESTION[selectedPart].map(({ question, maxCount, required }, id) => (
           <div key={question}>
