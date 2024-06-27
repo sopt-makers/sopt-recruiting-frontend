@@ -14,11 +14,11 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
     <TextBox label="이름" formObject={formObject} required>
       <InputLine
         label="이름"
-        pattern={/^[가-힣]+$/}
-        errorText="잘못된 이름(한글명) 형식이에요. 이름(한글명)을 정확하게 입력해주세요."
+        pattern={VALIDATION_CHECK.name.pattern}
+        errorText={VALIDATION_CHECK.name.errorText}
         placeholder="지원자 이름을 공백 없이 한글로 입력해주세요."
-        maxLength={10}
-        minLength={2}
+        maxLength={VALIDATION_CHECK.name.maxLength}
+        minLength={VALIDATION_CHECK.name.minLength}
       />
     </TextBox>
   );
@@ -38,9 +38,9 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
         label="이메일"
         placeholder="이메일을 입력해주세요."
         type="email"
-        pattern={/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/}
-        maxLength={100}
-        errorText="이메일 형식이 올바르지 않아요.">
+        pattern={VALIDATION_CHECK.email.pattern}
+        maxLength={VALIDATION_CHECK.email.maxLength}
+        errorText={VALIDATION_CHECK.email.errorText}>
         <InputButton text="이메일 인증" onClick={handleClick이메일인증} disabled={isActive} />
         <Timer
           isActive={isActive}
@@ -52,9 +52,9 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
       <InputLine
         label="인증번호"
         placeholder="이메일 인증 번호를 작성해주세요"
-        pattern={/^0-9$/}
-        errorText="인증 번호가 일치하지 않아요."
-        maxLength={6}>
+        pattern={VALIDATION_CHECK.verificationCode.pattern}
+        errorText={VALIDATION_CHECK.verificationCode.errorText}
+        maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
         <InputButton text="확인" onClick={handleClick확인} disabled />
       </InputLine>
     </TextBox>
