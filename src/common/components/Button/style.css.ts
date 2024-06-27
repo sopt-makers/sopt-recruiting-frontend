@@ -27,6 +27,7 @@ export const outsideBox = styleVariants({
     {
       boxShadow: 'none',
       cursor: 'default',
+      pointerEvents: 'none',
     },
   ],
 });
