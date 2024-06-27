@@ -10,13 +10,11 @@ import { sectionContainer, title } from './style.css';
 const PartSection = ({
   formObject,
 }: {
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues' | 'watch' | 'trigger'
+  >;
 }) => {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = formObject;
   const selectedPart: string = formObject.getValues('지원파트');
 
   return (
@@ -26,13 +24,7 @@ const PartSection = ({
       {Object.keys(PART_QUESTION).includes(selectedPart) &&
         PART_QUESTION[selectedPart].map(({ question, maxCount, required }, id) => (
           <div key={question}>
-            <Textarea
-              label={`파트${id}번`}
-              register={register}
-              watch={watch}
-              errors={errors}
-              maxCount={maxCount}
-              required={required}>
+            <Textarea label={`파트${id}번`} formObject={formObject} maxCount={maxCount} required={required}>
               {question}
             </Textarea>
           </div>
