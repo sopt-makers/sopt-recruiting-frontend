@@ -11,7 +11,7 @@ import { circle, doubleLineCheck, label, line, sectionContainer } from './style.
 const BottomSection = ({
   formObject,
 }: {
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue'>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }) => {
   return (
     <section className={sectionContainer}>
@@ -22,12 +22,12 @@ const BottomSection = ({
           <span>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</span>
           <i className={circle} />
         </p>
-        <Checkbox label="참석여부" register={formObject.register} required>
+        <Checkbox label="참석여부" formObject={formObject} required>
           참석 가능합니다.
         </Checkbox>
       </div>
       <div>
-        <Checkbox required label="개인정보수집동의" register={formObject.register} errors={formObject.formState.errors}>
+        <Checkbox required label="개인정보수집동의" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>

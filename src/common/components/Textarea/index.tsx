@@ -1,29 +1,30 @@
 import { TextareaHTMLAttributes, useId } from 'react';
-import { FieldErrors, FieldValues, Path, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import Input from './Input';
 import Label from './Label';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: Path<T>;
-  watch: UseFormWatch<T>;
-  register: UseFormRegister<T>;
-  errors: FieldErrors<FieldValues>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
   maxCount: number;
   children: string | number;
 }
 
 const Textarea = <T extends FieldValues>({
   label,
-  register,
-  watch,
-  errors,
+  formObject,
   maxCount,
   children,
   required = false,
   ...textareaElements
 }: TextareaProps<T>) => {
   const id = useId();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = formObject;
 
   return (
     <>

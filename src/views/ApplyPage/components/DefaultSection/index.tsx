@@ -23,7 +23,7 @@ import {
 const ProfileImage = ({
   formObject,
 }: {
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger'>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
 }) => {
   const {
     register,
@@ -77,7 +77,7 @@ const ProfileImage = ({
 const DefaultSection = ({
   formObject,
 }: {
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue'>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }) => {
   return (
     <section className={sectionContainer}>
@@ -111,13 +111,7 @@ const DefaultSection = ({
           <InputLine label="학교" placeholder="학교 이름을 정확하게 적어주세요." />
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
-          <Radio
-            register={formObject.register}
-            errors={formObject.formState.errors}
-            label={['재학', '휴학 ‧ 수료 ‧ 유예']}
-            name="학교"
-            required
-          />
+          <Radio formObject={formObject} label={['재학', '휴학 ‧ 수료 ‧ 유예']} name="재학여부" required />
         </div>
       </div>
       <div className={doubleWrapper}>
