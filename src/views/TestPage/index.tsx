@@ -64,7 +64,7 @@ const TestPage = () => {
         <TextBox label="생년월일" formObject={formObject} required>
           <InputLine
             label="생년월일"
-            placeholder="YYYY-MM-DD"
+            placeholder="YYYY/MM/DD"
             type="text"
             min={VALIDATION_CHECK.birthdate.min}
             max={VALIDATION_CHECK.birthdate.max}

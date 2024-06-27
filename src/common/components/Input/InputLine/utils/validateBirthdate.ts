@@ -5,9 +5,9 @@ import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 export const validateBirthdate = (val: FieldValues) => {
   if (!val) return true;
 
-  const year = Number(val.split('-')[0]);
-  const month = Number(val.split('-')[1]);
-  const day = Number(val.split('-')[2]);
+  const year = Number(val.split('/')[0]);
+  const month = Number(val.split('/')[1]);
+  const day = Number(val.split('/')[2]);
 
   switch (month) {
     case 1:

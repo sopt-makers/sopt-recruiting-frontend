@@ -29,7 +29,7 @@ export const VALIDATION_CHECK = {
     validate: validatePasswordConfirmation,
   },
   birthdate: {
-    pattern: /[0-9]{4}-[0-9]{2}-[0-9]{2}/,
+    pattern: /[0-9]{4}\/[0-9]{2}\/[0-9]{2}/,
     min: '1990-01-01',
     max: new Date().toISOString().split('T')[0],
     maxLength: 10,
