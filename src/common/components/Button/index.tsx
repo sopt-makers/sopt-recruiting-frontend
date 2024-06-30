@@ -1,7 +1,7 @@
 import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, To } from 'react-router-dom';
 
-import ButtonLoading from '@components/loadings/ButtonLoading';
+import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import { container, outsideBox, paddings } from './style.css';
 
