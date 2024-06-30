@@ -17,8 +17,16 @@ export const container = style({
   },
 });
 
+export const wrapper = style({
+  marginTop: '-105px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 export const loadingText = style({
-  marginTop: '-10px',
+  marginTop: '-100px',
   color: theme.color.lighterText,
   ...theme.font.BODY_2_16_R,
 });

@@ -7,7 +7,6 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: 1,
   width: '100%',
   height: '100vh',
 
@@ -18,7 +17,16 @@ export const container = style({
   },
 });
 
+export const wrapper = style({
+  marginTop: '-105px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 export const loadingText = style({
+  marginTop: '-60px',
   color: theme.color.lighterText,
   ...theme.font.BODY_2_16_R,
 });
