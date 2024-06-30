@@ -8,13 +8,7 @@ export const container = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  height: '100vh',
-
-  '@supports': {
-    'height: (100dvh)': {
-      height: '100dvh',
-    },
-  },
+  height: '100%',
 });
 
 export const wrapper = style({
