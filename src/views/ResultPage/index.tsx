@@ -19,9 +19,9 @@ const Content = ({ isPass }: { isPass: boolean }) => {
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
-              ${name}님은 34기 NOW SOPT 신입회원 모집에 최종 합격하셨습니다.
+              ${name}님은 35기 NOW SOPT 신입회원 모집에 최종 합격하셨습니다.
   
-              ${name}님과 34기 NOW SOPT를 함께하게 되어 진심으로 기쁩니다.
+              ${name}님과 35기 NOW SOPT를 함께하게 되어 진심으로 기쁩니다.
               향후 활동은 NOW SOPT 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
               운영 및 진행됩니다.
           
@@ -34,7 +34,7 @@ const Content = ({ isPass }: { isPass: boolean }) => {
         <p className={content}>
           {`안녕하세요. NOW SOPT입니다.
               
-            ${name}님은 34기 NOW SOPT 신입회원 모집에 불합격하셨습니다.
+            ${name}님은 35기 NOW SOPT 신입회원 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 최종 합격 소식을
             전해드리지 못하게 되었습니다.

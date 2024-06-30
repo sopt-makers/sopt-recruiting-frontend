@@ -24,7 +24,8 @@ const color = createThemeContract({
   border: null, // border
 
   resultBackground: null, // 합격페이지 background
-  myPageButtonText: null, // 마이페이지 button text
+  buttonText: null, // 마이페이지 button text
+  errorButtonBackground: null, // 에러페이지 button background
   stickyButtonText: null, // 지원서 페이지 sticky button 선택안 된 항목 text
   fileUploadButton: null, // input file upload button
   fileUploadButtonHover: null, // input file upload button hover
@@ -56,7 +57,8 @@ export const light = createTheme(color, {
   border: colors.gray50,
 
   resultBackground: colors.gray950,
-  myPageButtonText: colors.gray400,
+  buttonText: colors.gray400,
+  errorButtonBackground: colors.gray30,
   stickyButtonText: colors.gray100,
   fileUploadButton: colors.gray400,
   fileUploadButtonHover: colors.gray900,
@@ -88,7 +90,8 @@ export const dark = createTheme(color, {
   border: colors.gray50,
 
   resultBackground: colors.gray950,
-  myPageButtonText: colors.gray400,
+  buttonText: colors.gray400,
+  errorButtonBackground: colors.gray30,
   stickyButtonText: colors.gray100,
   fileUploadButton: colors.gray400,
   fileUploadButtonHover: colors.gray900,

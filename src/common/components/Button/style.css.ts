@@ -26,6 +26,8 @@ export const outsideBox = styleVariants({
     outsideBoxBase,
     {
       boxShadow: 'none',
+      cursor: 'default',
+      pointerEvents: 'none',
     },
   ],
 });
@@ -107,6 +109,16 @@ export const container = styleVariants({
           whiteSpace: 'nowrap',
         },
       },
+    },
+  ],
+  disabled: [
+    containerBase,
+    {
+      backgroundColor: theme.color.buttonDisable,
+      cursor: 'default',
+      boxShadow: 'none',
+      color: theme.color.white,
+      pointerEvents: 'none',
     },
   ],
 });
