@@ -7,7 +7,7 @@ export const container = style({
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  position: 'fixed',
+  position: 'sticky',
   top: 0,
   width: 1440,
   margin: '0 auto',
