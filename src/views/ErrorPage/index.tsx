@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, To } from 'react-router-dom';
 
 import ErrorCode from './components/ErrorCode';
 import { ERROR_MESSAGE } from './constants';
@@ -12,7 +12,7 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
       <article className={article}>
         <ErrorCode code={code} />
         <p className={errorText}>{ERROR_MESSAGE[CODE_KEY]?.text}</p>
-        <Link className={errorButton} to={code === 404 ? '/' : '-1'}>
+        <Link className={errorButton} to={code === 404 ? '/' : (-1 as To)}>
           {ERROR_MESSAGE[CODE_KEY]?.button}
         </Link>
       </article>
