@@ -35,8 +35,6 @@ const Button = ({
     loadingWidth = totalWidth - Number(padding.split('x')[1]) * 2;
   }
 
-  console.log(loadingWidth, isLoading);
-
   return (
     <Tag
       id={id}
