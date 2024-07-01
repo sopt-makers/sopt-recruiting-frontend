@@ -1,7 +1,14 @@
 import { style } from '@vanilla-extract/css';
 
 // ApplyPage.tsx
-export const container = style({
+export const formContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 50,

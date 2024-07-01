@@ -10,12 +10,12 @@ const PasswordPage = () => {
   const { handleSubmit, ...formObject } = useForm(); // 임시
 
   return (
-    <form className={container}>
+    <form noValidate onSubmit={handleSubmit((data) => console.log(data))} className={container}>
       <Title>비밀번호 재설정하기</Title>
       <TextBox이름 formObject={formObject} />
       <TextBox이메일 formObject={formObject} />
       <TextBox비밀번호 formObject={formObject} />
-      <Button disabled style={{ marginTop: 30 }}>
+      <Button type="submit" style={{ marginTop: 30 }}>
         저장하기
       </Button>
     </form>

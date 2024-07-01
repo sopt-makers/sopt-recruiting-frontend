@@ -13,7 +13,7 @@ import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
-import { buttonWrapper, container, content } from './style.css';
+import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
 
 const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({
@@ -30,11 +30,11 @@ const ApplyPage = () => {
   useScrollToHash(); // scrollTo 카테고리
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)} className={formContainer}>
       <ApplyHeader />
       <ApplyInfo />
       <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
-      <form onSubmit={handleSubmit(onSubmit)} className={container}>
+      <div className={sectionContainer}>
         <div
           id="default"
           className={content}
@@ -64,8 +64,8 @@ const ApplyPage = () => {
           <Button buttonStyle="line">임시저장</Button>
           <Button type="submit">제출하기</Button>
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 };
 
