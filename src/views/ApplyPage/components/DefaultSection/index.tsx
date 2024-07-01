@@ -6,6 +6,7 @@ import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
+import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
 import IconUser from './icons/IconUser';
 import {
@@ -100,9 +101,7 @@ const DefaultSection = ({
       <TextBox label="이메일" formObject={formObject} required size="lg">
         <InputLine label="이메일" disabled />
       </TextBox>
-      <TextBox label="거주지" formObject={formObject} required size="lg">
-        <InputLine label="거주지" placeholder="예) 서울특별시 관악구 신림동" />
-      </TextBox>
+      <Postcode formObject={formObject} />
       <TextBox label="지하철역" formObject={formObject} required size="lg">
         <InputLine label="지하철역" placeholder="예) 성신여대입구" />
       </TextBox>
