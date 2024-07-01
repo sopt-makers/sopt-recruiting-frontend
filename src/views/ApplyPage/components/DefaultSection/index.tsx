@@ -4,6 +4,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
+import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { DEFAULT_PROFILE } from './constants';
@@ -52,7 +53,7 @@ const ProfileImage = ({
           accept="image/*"
           style={{ display: 'none' }}
           {...register('사진', {
-            required: true && '필수 입력 항목이에요',
+            required: true && '필수 입력 항목이에요.',
             onChange: handleChangeImage,
           })}
         />
@@ -91,7 +92,16 @@ const DefaultSection = ({
       </div>
       <div className={doubleWrapper}>
         <TextBox label="생년월일" formObject={formObject} required size="sm">
-          <InputLine label="생년월일" placeholder="MM/DD/YYYY" />
+          <InputLine
+            label="생년월일"
+            placeholder="YYYY/MM/DD"
+            min={VALIDATION_CHECK.birthdate.min}
+            max={VALIDATION_CHECK.birthdate.max}
+            maxLength={VALIDATION_CHECK.birthdate.maxLength}
+            pattern={VALIDATION_CHECK.birthdate.pattern}
+            errorText={VALIDATION_CHECK.birthdate.errorText}
+            validate={VALIDATION_CHECK.birthdate.validate}
+          />
         </TextBox>
         <TextBox label="연락처" formObject={formObject} required size="sm">
           <InputLine label="연락처" disabled />
@@ -104,7 +114,13 @@ const DefaultSection = ({
         <InputLine label="거주지" placeholder="예) 서울특별시 관악구 신림동" />
       </TextBox>
       <TextBox label="지하철역" formObject={formObject} required size="lg">
-        <InputLine label="지하철역" placeholder="예) 성신여대입구" />
+        <InputLine
+          label="지하철역"
+          placeholder="예) 성신여대입구"
+          maxLength={VALIDATION_CHECK.subway.maxLength}
+          pattern={VALIDATION_CHECK.subway.pattern}
+          errorText={VALIDATION_CHECK.subway.errorText}
+        />
       </TextBox>
       <div className={doubleWrapper}>
         <TextBox label="학교" formObject={formObject} required size="sm">
