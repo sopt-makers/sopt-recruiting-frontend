@@ -16,6 +16,7 @@ const Postcode = ({
       new window.daum.Postcode({
         oncomplete: function (data: Address) {
           setAddress(data.address);
+          formObject.clearErrors && formObject.clearErrors('거주지');
         },
         width: 500,
         height: 500,
