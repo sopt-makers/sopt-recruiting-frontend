@@ -71,7 +71,7 @@ const buttonInsideBase = style({
   selectors: {
     '&:disabled, &:disabled:hover': {
       backgroundColor: colors.gray50,
-      cursor: 'default',
+      cursor: 'not-allowed',
       boxShadow: 'none',
       color: colors.white,
     },
