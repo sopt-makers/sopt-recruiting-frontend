@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import { Address } from 'react-daum-postcode';
+import { UseFormReturn } from 'react-hook-form';
 
 import { InputLine, TextBox } from '@components/Input';
 
-const Postcode = ({ formObject }) => {
+const Postcode = ({
+  formObject,
+}: {
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
+}) => {
   const [address, setAddress] = useState('');
 
   const openPostcode = () => {
-    new window.daum.Postcode({
-      oncomplete: function (data: Address) {
-        setAddress(`${data.sido} ${data.sigungu} ${data.bname}`);
-      },
-    }).open();
+    window.daum &&
+      new window.daum.Postcode({
+        oncomplete: function (data: Address) {
+          setAddress(`${data.sido} ${data.sigungu} ${data.bname}`);
+        },
+      }).open();
   };
 
   return (
