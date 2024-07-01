@@ -15,9 +15,9 @@ const Callout = ({ children, size = 'sm', ...calloutElementProps }: CalloutProps
     <article className={container[size]} {...calloutElementProps}>
       <IconAlertCircle
         style={{
-          width: '32px',
-          minWidth: '32px',
-          height: '32px',
+          width: 32,
+          minWidth: 32,
+          height: 32,
           borderRadius: '50%',
           color: `${colors.yellow700}`,
           fill: `${colors.yellow200}`,
