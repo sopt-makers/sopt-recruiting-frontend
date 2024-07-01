@@ -15,7 +15,7 @@ const Postcode = ({
     window.daum &&
       new window.daum.Postcode({
         oncomplete: function (data: Address) {
-          setAddress(`${data.sido} ${data.sigungu} ${data.bname}`);
+          setAddress(data.address);
         },
       }).open();
   };
