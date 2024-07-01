@@ -13,11 +13,14 @@ const Postcode = ({ formObject }) => {
   };
 
   return (
-    <button type="button" onClick={openPostcode}>
-      <TextBox label="거주지" formObject={formObject} required size="lg">
-        <InputLine label="거주지" placeholder="예) 서울특별시 관악구 신림동" />
-      </TextBox>
-    </button>
+    <TextBox label="거주지" formObject={formObject} required size="lg">
+      <InputLine
+        label="거주지"
+        placeholder="예) 서울특별시 관악구 신림동"
+        onClick={openPostcode}
+        style={{ cursor: 'pointer' }}
+      />
+    </TextBox>
   );
 };
 
