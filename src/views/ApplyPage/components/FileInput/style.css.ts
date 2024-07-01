@@ -32,7 +32,7 @@ export const fileLabel = style({
     [`${fileInput}:disabled ~ &`]: {
       color: theme.color.lighterText,
       backgroundColor: theme.color.subBackground,
-      cursor: 'default',
+      cursor: 'not-allowed',
     },
   },
 });
@@ -67,6 +67,7 @@ const fileName = style({
   selectors: {
     [`${fileInput}:disabled ~ label > div > &`]: {
       color: theme.color.lighterText,
+      cursor: 'not-allowed',
     },
   },
 });
@@ -105,7 +106,7 @@ export const fileIcon = style({
 
   ':disabled': {
     backgroundColor: theme.color.buttonDisable,
-    cursor: 'default',
+    cursor: 'not-allowed',
   },
 
   selectors: {
@@ -123,6 +124,7 @@ const fileIconSvg = style({
   selectors: {
     [`${fileIcon}:disabled &`]: {
       backgroundColor: theme.color.buttonDisable,
+      cursor: 'not-allowed',
     },
   },
 });

@@ -30,6 +30,7 @@ const input = style({
   },
 
   ':disabled': {
+    cursor: 'not-allowed',
     backgroundColor: theme.color.subBackground, // gray30 -> 20으로 수정해야함
     color: theme.color.lighterText,
   },

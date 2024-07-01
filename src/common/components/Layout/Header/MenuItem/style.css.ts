@@ -15,6 +15,7 @@ export const menuLink = style({
   selectors: {
     '&:hover:not([disabled])': {
       textDecorationColor: theme.color.primary,
+      cursor: 'not-allowed',
     },
     '&.active': {
       color: theme.color.primary,
