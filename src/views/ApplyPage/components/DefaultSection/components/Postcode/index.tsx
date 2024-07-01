@@ -17,7 +17,14 @@ const Postcode = ({
         oncomplete: function (data: Address) {
           setAddress(data.address);
         },
-      }).open();
+        width: 500,
+        height: 500,
+      }).open({
+        left: window.screen.width / 2 - 500 / 2,
+        top: window.screen.height / 2 - 500 / 2,
+        popupTitle: 'SOPT - 우편 번호 검색 팝업',
+        popupKey: 'sopt-postcode-popup',
+      });
   };
 
   return (
