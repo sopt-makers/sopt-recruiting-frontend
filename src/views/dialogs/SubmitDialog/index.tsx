@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { type ChangeEvent, forwardRef, useState } from 'react';
 
 import Dialog from '@components/Dialog';
 
@@ -24,7 +24,11 @@ const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
 };
 
 const SubmitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
-  const disabled = true;
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
 
   return (
     <Dialog ref={ref}>
@@ -38,7 +42,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
       </ol>
       <div className={checkboxContainer}>
         <label className={checkboxWrapper}>
-          <input type="checkbox" className={hiddenCheckbox} />
+          <input type="checkbox" className={hiddenCheckbox} onChange={handleCheck} />
           <span className={checkmark} />
           <span>확인했습니다.</span>
         </label>
@@ -47,8 +51,8 @@ const SubmitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
         <form method="dialog" className={buttonOutside.line}>
           <button className={buttonInside.line}>검토하기</button>
         </form>
-        <div className={buttonOutside[disabled ? 'disabled' : 'solid']}>
-          <button className={buttonInside.solid} disabled={disabled}>
+        <div className={buttonOutside[!isChecked ? 'disabled' : 'solid']}>
+          <button className={buttonInside.solid} disabled={!isChecked}>
             제출하기
           </button>
         </div>
