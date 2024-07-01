@@ -5,12 +5,14 @@ import { menuItem, menuLink } from './style.css';
 interface MenuItemProps {
   text: string;
   path?: string;
+  target?: '_blank' | '_self';
 }
-const MenuItem = ({ text, path }: MenuItemProps) => {
+
+const MenuItem = ({ text, path, target }: MenuItemProps) => {
   return (
     <li className={menuItem}>
       {path ? (
-        <NavLink to={path} className={menuLink}>
+        <NavLink to={path} className={menuLink} target={target}>
           {text}
         </NavLink>
       ) : (
