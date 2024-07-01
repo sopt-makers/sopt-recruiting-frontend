@@ -23,7 +23,7 @@ const SignupPage = () => {
       <TextBox이메일 formObject={formObject} />
       <TextBox비밀번호 formObject={formObject} />
       <div>
-        <Checkbox required label="check1" register={formObject.register} errors={formObject.formState.errors}>
+        <Checkbox required label="check1" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>
