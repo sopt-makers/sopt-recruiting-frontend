@@ -11,7 +11,7 @@ const Postcode = ({
 }) => {
   const [address, setAddress] = useState('');
 
-  const openPostcode = () => {
+  const handleOpenPostcode = () => {
     window.daum &&
       new window.daum.Postcode({
         oncomplete: function (data: Address) {
@@ -33,7 +33,7 @@ const Postcode = ({
       <InputLine
         label="거주지"
         placeholder="예) 서울특별시 관악구 신림동"
-        onClick={openPostcode}
+        onClick={handleOpenPostcode}
         value={address}
         style={{ cursor: 'pointer' }}
       />
