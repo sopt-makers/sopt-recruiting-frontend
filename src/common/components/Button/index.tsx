@@ -35,8 +35,11 @@ const Button = ({
     loadingWidth = totalWidth - Number(padding.split('x')[1]) * 2;
   }
 
+  console.log(loadingWidth, isLoading);
+
   return (
     <Tag
+      id={id}
       to={to as To}
       type={type}
       className={`${className} ${outsideBox[isLoading || disabled ? 'disabled' : buttonStyle]}`}
