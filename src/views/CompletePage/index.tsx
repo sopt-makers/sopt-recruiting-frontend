@@ -17,7 +17,7 @@ const CompletePage = () => {
       <p className={subText}>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
       <Callout
         style={{
-          marginBottom: '50px',
+          marginBottom: 50,
         }}>{`이메일 도착 시점에 차이가 있을 수 있습니다.\n이메일이 오지 않으면 스팸 메일함을 확인해주세요.`}</Callout>
       <Button isLink to="/my">
         마이페이지로 이동하기

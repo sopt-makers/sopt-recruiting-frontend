@@ -7,7 +7,7 @@ const BigLoading = () => {
   return (
     <div className={container}>
       <div className={wrapper}>
-        <Lottie animationData={mainLoading} style={{ width: '500px', height: '300px' }} />
+        <Lottie animationData={mainLoading} style={{ width: 500, height: 300 }} />
         <p className={loadingText}>페이지 로딩 중입니다</p>
       </div>
     </div>
