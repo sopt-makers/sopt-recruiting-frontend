@@ -1,7 +1,7 @@
 type menuItemsTypes = {
   text: string;
   path?: string;
-  target?: '_blank' | '_self';
+  target?: '_blank';
 };
 
 export const MENU_ITEMS: menuItemsTypes[] = [
@@ -18,7 +18,6 @@ export const MENU_ITEMS: menuItemsTypes[] = [
   {
     text: '로그인',
     path: '/',
-    target: '_self',
   },
   {
     text: '김솝트님',
