@@ -42,4 +42,8 @@ export const VALIDATION_CHECK = {
     maxLength: 13,
     errorText: '잘못된 휴대폰 번호 형식이에요. 휴대폰 번호를 정확하게 입력해주세요.',
   },
+  url: {
+    pattern: /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
+    errorText: 'url 형식이 올바르지 않아요.',
+  },
 };

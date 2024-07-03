@@ -49,3 +49,8 @@ export const link = style({
     },
   },
 });
+
+export const error = style({
+  color: theme.color.error,
+  ...theme.font.LABEL_2_16_SB,
+});
