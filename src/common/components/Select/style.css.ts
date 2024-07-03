@@ -19,8 +19,10 @@ export const title = style({
   display: 'flex',
   alignItems: 'center',
   gap: 6,
+  width: 'fit-content',
 
   color: theme.color.baseText,
+  cursor: 'pointer',
   ...theme.font.TITLE_5_18_SB,
 });
 

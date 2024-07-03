@@ -48,7 +48,7 @@ const ProfileImage = ({
     <TextBox label="사진" formObject={formObject} size="lg" required>
       <div className={profileWrapper}>
         <input
-          id="profile"
+          id="사진"
           type="file"
           accept="image/*"
           style={{ display: 'none' }}
@@ -58,7 +58,7 @@ const ProfileImage = ({
           })}
         />
         <div>
-          <label htmlFor="profile" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
+          <label htmlFor="사진" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
             {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
           </label>
           {errors['사진'] && <p className={errorText}>{errors['사진']?.message as string}</p>}
