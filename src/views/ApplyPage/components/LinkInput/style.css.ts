@@ -2,7 +2,14 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-const containerBase = style({
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  justifyContent: 'center',
+});
+
+const inputWrapperBase = style({
   display: 'flex',
   gap: 24,
   alignItems: 'center',
@@ -14,15 +21,15 @@ const containerBase = style({
   backgroundColor: theme.color.subBackground,
 });
 
-export const container = styleVariants({
+export const inputWrapper = styleVariants({
   error: [
-    containerBase,
+    inputWrapperBase,
     {
       border: `1px solid ${theme.color.error}`,
     },
   ],
   default: [
-    containerBase,
+    inputWrapperBase,
     {
       border: `1px solid ${theme.color.border}`,
     },
