@@ -62,6 +62,7 @@ export const select = style({
   ':disabled': {
     backgroundColor: theme.color.subBackground, // gray30 -> 20으로 수정해야함
     color: theme.color.lighterText,
+    cursor: 'not-allowed',
   },
 });
 
@@ -91,6 +92,7 @@ export const icon = style({
     },
     [`${select}:disabled+&`]: {
       display: 'none',
+      cursor: 'not-allowed',
     },
   },
 });
