@@ -22,11 +22,16 @@ export const label = style({
 
 export const link = style({
   width: 619,
-  textDecoration: 'underline',
-  textUnderlineOffset: 3,
   ...theme.font.HEADING_6_18_B,
 
   '::placeholder': {
     color: theme.color.placeholder,
+  },
+
+  selectors: {
+    '&:not(:placeholder-shown)': {
+      textUnderlineOffset: 3,
+      textDecoration: 'underline',
+    },
   },
 });
