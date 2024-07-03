@@ -24,6 +24,7 @@ const textareaBase = style({
   ':disabled': {
     color: theme.color.lighterText,
     backgroundColor: theme.color.subBackground,
+    cursor: 'not-allowed',
   },
 
   '::placeholder': {

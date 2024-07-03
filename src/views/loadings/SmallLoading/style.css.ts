@@ -6,14 +6,21 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  minWidth: 1440,
-  backgroundColor: theme.color.background,
+  justifyContent: 'center',
+  width: '100%',
+  height: '100%',
 });
 
-export const mainWrapper = style({
+export const wrapper = style({
+  marginTop: '-105px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '100%',
+});
+
+export const loadingText = style({
+  marginTop: '-60px',
+  color: theme.color.lighterText,
+  ...theme.font.BODY_2_16_R,
 });

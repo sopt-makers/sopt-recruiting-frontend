@@ -44,7 +44,7 @@ const containerBase = style({
   selectors: {
     '&:disabled, &:disabled:hover': {
       backgroundColor: theme.color.buttonDisable,
-      cursor: 'default',
+      cursor: 'not-allowed',
       boxShadow: 'none',
       color: theme.color.white,
     },

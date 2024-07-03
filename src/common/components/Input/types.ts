@@ -17,6 +17,7 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
 
 export interface InputButtonProps {
   text: string;
+  isLoading?: boolean;
   disabled?: boolean;
   onClick: () => void;
 }

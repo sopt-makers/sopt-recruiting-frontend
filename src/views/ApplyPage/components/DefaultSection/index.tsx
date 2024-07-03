@@ -7,6 +7,7 @@ import SelectBox from '@components/Select';
 import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
+import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
 import IconUser from './icons/IconUser';
 import {
@@ -48,7 +49,7 @@ const ProfileImage = ({
     <TextBox label="사진" formObject={formObject} size="lg" required>
       <div className={profileWrapper}>
         <input
-          id="profile"
+          id="사진"
           type="file"
           accept="image/*"
           style={{ display: 'none' }}
@@ -58,7 +59,7 @@ const ProfileImage = ({
           })}
         />
         <div>
-          <label htmlFor="profile" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
+          <label htmlFor="사진" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
             {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
           </label>
           {errors['사진'] && <p className={errorText}>{errors['사진']?.message as string}</p>}
@@ -110,9 +111,7 @@ const DefaultSection = ({
       <TextBox label="이메일" formObject={formObject} required size="lg">
         <InputLine label="이메일" disabled />
       </TextBox>
-      <TextBox label="거주지" formObject={formObject} required size="lg">
-        <InputLine label="거주지" placeholder="예) 서울특별시 관악구 신림동" />
-      </TextBox>
+      <Postcode formObject={formObject} />
       <TextBox label="지하철역" formObject={formObject} required size="lg">
         <InputLine
           label="지하철역"

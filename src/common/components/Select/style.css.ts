@@ -19,8 +19,10 @@ export const title = style({
   display: 'flex',
   alignItems: 'center',
   gap: 6,
+  width: 'fit-content',
 
   color: theme.color.baseText,
+  cursor: 'pointer',
   ...theme.font.TITLE_5_18_SB,
 });
 
@@ -62,6 +64,7 @@ export const select = style({
   ':disabled': {
     backgroundColor: theme.color.subBackground, // gray30 -> 20으로 수정해야함
     color: theme.color.lighterText,
+    cursor: 'not-allowed',
   },
 });
 
@@ -91,6 +94,7 @@ export const icon = style({
     },
     [`${select}:disabled+&`]: {
       display: 'none',
+      cursor: 'not-allowed',
     },
   },
 });

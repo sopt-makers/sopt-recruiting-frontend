@@ -33,6 +33,7 @@ const SelectBox = ({ label, options, size = 'sm', formObject, required, ...input
       </label>
       <div className={selectContainer}>
         <input
+          id={label}
           type="button"
           className={selectVariant[errors?.[label] ? 'error' : dirtyFields[label] ? 'selected' : 'default']}
           role="combobox"
