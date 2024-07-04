@@ -37,7 +37,7 @@ const SignupPage = () => {
       </TextBox>
       <TextBox이메일
         isVerificationSuccess={isVerificationSuccess}
-        onVerification={() => setIsVerificationSuccess(true)}
+        onVerification={(bool: boolean) => setIsVerificationSuccess(bool)}
         formObject={formObject}
       />
       <TextBox비밀번호 formObject={formObject} />

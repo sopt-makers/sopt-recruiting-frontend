@@ -31,7 +31,7 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 interface TextBox이메일Props {
   formObject: TextBoxProps['formObject'];
   isVerificationSuccess: boolean;
-  onVerification: () => void;
+  onVerification: (bool: boolean) => void;
 }
 
 export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerification }: TextBox이메일Props) => {
@@ -44,6 +44,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
   >({
     mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
+      onVerification(false);
       setActive(true);
     },
   });
@@ -56,7 +57,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
     onSuccess: () => {
       setActive(false);
-      onVerification();
+      onVerification(true);
     },
     onError(error) {
       if (error.response?.status === 400) {
