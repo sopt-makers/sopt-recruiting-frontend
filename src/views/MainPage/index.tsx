@@ -1,28 +1,43 @@
-import { useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
-import { SubmitDialog } from 'views/dialogs';
 
+import { sendingSignIn } from './apis';
 import { calloutButton, calloutWrapper, container } from './style.css';
 
-const MainPage = () => {
-  const dialog = useRef<HTMLDialogElement>(null);
+import type { SignInError, SignInRequest, SignInResponse } from './types';
+import type { AxiosError, AxiosResponse } from 'axios';
 
-  const handleOpenDialog = () => {
-    dialog.current?.showModal();
+const MainPage = () => {
+  const navigate = useNavigate();
+  const { handleSubmit, ...formObject } = useForm();
+  const { mutate, isPending } = useMutation<
+    AxiosResponse<SignInResponse, SignInRequest>,
+    AxiosError<SignInError, SignInRequest>,
+    SignInRequest
+  >({
+    mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
+    onSuccess: () => {
+      navigate('/apply');
+    },
+  });
+
+  const handleSignIn = (data: FieldValues) => {
+    mutate({
+      email: data['이메일'],
+      season: 1,
+      group: 'OB',
+      password: data['비밀번호'],
+    });
   };
 
-  const { handleSubmit, ...formObject } = useForm();
-
   return (
-    <div className={container}>
-      <button onClick={handleOpenDialog}>CLICK THIS TO SHOW THE DIALOG</button>
-      <SubmitDialog ref={dialog} />
+    <form noValidate onSubmit={handleSubmit(handleSignIn)} className={container}>
       <Title>지원하기</Title>
       <Callout>
         <div className={calloutWrapper}>
@@ -45,8 +60,10 @@ const MainPage = () => {
           <Link to="/password">비밀번호 재설정하기</Link>
         </Description>
       </TextBox>
-      <Button disabled>로그인</Button>
-    </div>
+      <Button isLoading={isPending} type="submit">
+        로그인
+      </Button>
+    </form>
   );
 };
 
