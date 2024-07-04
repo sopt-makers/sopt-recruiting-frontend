@@ -6,6 +6,7 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
+import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 
 import { sendingSignIn } from './apis';
 import { calloutButton, calloutWrapper, container } from './style.css';
@@ -24,6 +25,18 @@ const MainPage = () => {
     mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
     onSuccess: () => {
       navigate('/apply');
+    },
+    onError(error) {
+      if (error.response?.status === 403 || error.response?.status === 500) {
+        formObject.setError('이메일', {
+          type: 'not-match',
+          message: VALIDATION_CHECK.email.notMatchErrorText,
+        });
+        formObject.setError('비밀번호', {
+          type: 'not-match',
+          message: VALIDATION_CHECK.password.notMatchErrorText,
+        });
+      }
     },
   });
 
