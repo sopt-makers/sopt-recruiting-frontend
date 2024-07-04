@@ -72,8 +72,8 @@ const ProfileImage = ({
         <div>
           <label htmlFor="사진" className={profileLabelVar[isError ? 'error' : 'default']}>
             {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
+            {isError && <p className={errorText}>{isFileSizeExceeded || (errors['사진']?.message as string)}</p>}
           </label>
-          {isError && <p className={errorText}>{isFileSizeExceeded || (errors['사진']?.message as string)}</p>}
         </div>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (
