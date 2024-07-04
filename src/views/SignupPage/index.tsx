@@ -7,7 +7,7 @@ import { InputLine, TextBox } from '@components/Input';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { container } from './style.css';
 

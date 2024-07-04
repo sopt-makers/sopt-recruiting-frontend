@@ -9,7 +9,7 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import Radio from '@components/Radio';
 import Textarea from '@components/Textarea';
 import Title from '@components/Title';
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 import FileInput from 'views/ApplyPage/components/FileInput';
 
 const TestPage = () => {
