@@ -1,5 +1,8 @@
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Checkbox from '@components/Checkbox';
@@ -10,11 +13,25 @@ import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 
+import { sendingSignUp } from './apis';
 import { container } from './style.css';
+import { SignUpError, SignUpRequest, SignUpResponse } from './types';
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [isVerificationSuccess, setIsVerificationSuccess] = useState(false);
   const { handleSubmit, ...formObject } = useForm(); // 임시
+
+  const { mutate, isPending } = useMutation<
+    AxiosResponse<SignUpResponse, SignUpRequest>,
+    AxiosError<SignUpError, SignUpRequest>,
+    SignUpRequest
+  >({
+    mutationFn: (userInfo: SignUpRequest) => sendingSignUp(userInfo),
+    onSuccess: () => {
+      navigate('/');
+    },
+  });
 
   const handleSubmitSignUp = (data: FieldValues) => {
     if (!isVerificationSuccess) {
@@ -25,7 +42,16 @@ const SignupPage = () => {
 
       return;
     }
-    console.log(data);
+
+    mutate({
+      email: data['이메일'],
+      password: data['비밀번호'],
+      passwordCheck: data['비밀번호 재확인'],
+      name: data['이름'],
+      phone: data['연락처'],
+      season: 1,
+      group: 'OB',
+    });
   };
 
   return (
@@ -47,7 +73,7 @@ const SignupPage = () => {
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>
       </div>
-      <Button type="submit" style={{ marginTop: 30 }}>
+      <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
         지원서 작성하기
       </Button>
     </form>
