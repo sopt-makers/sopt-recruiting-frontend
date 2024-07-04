@@ -10,7 +10,7 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   errorText?: string;
   pattern?: RegExp;
   validate?: Validate<FieldValues, TFormValues>;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'getValues'>;
   children?: ReactNode;
   styleType?: 'default' | 'error';
 }
