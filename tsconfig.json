@@ -23,7 +23,7 @@
     /* path and alias */
     "baseUrl": "./src",
     "paths": {
-      // "@apis/*": ["common/apis/*"],
+      "@apis/*": ["common/apis/*"],
       "@assets/*": ["common/assets/*"],
       "@components/*": ["common/components/*"],
       "@constants/*": ["common/constants/*"],
