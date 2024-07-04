@@ -51,7 +51,7 @@ const ProfileImage = ({
         <input
           id="사진"
           type="file"
-          accept="image/*"
+          accept="image/png, image/jpg, image/jpeg"
           style={{ display: 'none' }}
           {...register('사진', {
             required: true && '필수 입력 항목이에요.',
