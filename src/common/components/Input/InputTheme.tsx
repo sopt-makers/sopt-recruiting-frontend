@@ -28,9 +28,14 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
   );
 };
 
-export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
+interface TextBox이메일Props {
+  formObject: Pick<TextBoxProps, 'formObject'>;
+  isVerificationSuccess: boolean;
+  onVerification: () => void;
+}
+
+export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerification }: TextBox이메일Props) => {
   const [isActive, setActive] = useState(false); // Timer용 state
-  const [isSuccess, setIsSuccess] = useState(false);
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<VerificationResponse, EmailRequest>,
@@ -51,7 +56,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
     onSuccess: () => {
       setActive(false);
-      setIsSuccess(true);
+      onVerification();
     },
     onError(error) {
       if (error.response?.status === 400) {
@@ -101,7 +106,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
           onClick={handleVerificationCodeCheck}
         />
       </InputLine>
-      {isSuccess && <p className={success}>인증에 성공했어요.</p>}
+      {isVerificationSuccess && <p className={success}>인증에 성공했어요.</p>}
     </TextBox>
   );
 };
