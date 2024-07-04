@@ -42,9 +42,4 @@ export const VALIDATION_CHECK = {
     maxLength: 13,
     errorText: '잘못된 휴대폰 번호 형식이에요. 휴대폰 번호를 정확하게 입력해주세요.',
   },
-  subway: {
-    pattern: /^[가-힣0-9]+$/,
-    maxLength: 20,
-    errorText: '잘못된 지하철명이에요. 한글과 숫자만 입력할 수 있어요.',
-  },
 };

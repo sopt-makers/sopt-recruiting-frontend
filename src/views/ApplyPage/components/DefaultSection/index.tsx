@@ -113,13 +113,7 @@ const DefaultSection = ({
       </TextBox>
       <Postcode formObject={formObject} />
       <TextBox label="지하철역" formObject={formObject} required size="lg">
-        <InputLine
-          label="지하철역"
-          placeholder="예) 성신여대입구"
-          maxLength={VALIDATION_CHECK.subway.maxLength}
-          pattern={VALIDATION_CHECK.subway.pattern}
-          errorText={VALIDATION_CHECK.subway.errorText}
-        />
+        <InputLine label="지하철역" placeholder="예) 성신여대입구" />
       </TextBox>
       <div className={doubleWrapper}>
         <TextBox label="학교" formObject={formObject} required size="sm">
