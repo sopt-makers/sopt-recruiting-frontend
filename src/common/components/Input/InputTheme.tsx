@@ -71,7 +71,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
   const handleSendingEmail = () => {
     if (formObject.getValues('이메일') === '' || formObject.formState.errors['이메일']) return;
 
-    sendingMutate(formObject.getValues('이메일'));
+    sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
   };
 
   const handleVerificationCodeCheck = () => {
