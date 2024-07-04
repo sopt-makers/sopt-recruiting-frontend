@@ -1,6 +1,6 @@
 import instance from '@apis/instance';
 
-export const sendingVerificationCode = async (email: string) => {
+export const sendingVerificationCode = async (email: string, season: number) => {
   const res = await instance.post('/recruiting-auth/verify/send', {
     email,
     season: 1,

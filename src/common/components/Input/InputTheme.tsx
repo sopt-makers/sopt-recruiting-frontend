@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import { TextBoxProps } from './types';
+import { CodeRequest, EmailRequest, TextBoxProps, VerificationResponse } from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -29,20 +30,28 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const [isActive, setActive] = useState(false); // Timer용 state
 
-  const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation({
-    mutationFn: (email: string) => sendingVerificationCode(email),
+  const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
+    AxiosResponse<VerificationResponse, EmailRequest>,
+    AxiosError<VerificationResponse, EmailRequest>,
+    EmailRequest
+  >({
+    mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
       setActive(true);
     },
   });
 
-  const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation({
-    mutationFn: ({ email, code }: { email: string; code: string }) => checkingVerificationCode(email, code),
+  const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation<
+    AxiosResponse<VerificationResponse, CodeRequest>,
+    AxiosError<VerificationResponse, CodeRequest>,
+    CodeRequest
+  >({
+    mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
     onSuccess: () => {
       setActive(false);
     },
     onError(error) {
-      if (error.response.status === 400) {
+      if (error.response?.status === 400) {
         formObject.setError('인증번호', {
           type: 'not-match',
           message: VALIDATION_CHECK.verificationCode.errorText,

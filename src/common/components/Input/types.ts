@@ -25,3 +25,18 @@ export interface TimerProps {
   isActive: boolean;
   onResetTimer: () => void;
 }
+
+export interface EmailRequest {
+  email: string;
+  season: number;
+}
+
+export interface CodeRequest {
+  email: string;
+  code: string;
+}
+
+export interface VerificationResponse {
+  err: boolean;
+  message: string;
+}
