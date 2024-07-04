@@ -10,8 +10,8 @@ const Header = () => {
       <NowsoptLogo />
       <nav>
         <ul className={menuList}>
-          {MENU_ITEMS.map(({ text, path }) => (
-            <MenuItem key={text} text={text} path={path} />
+          {MENU_ITEMS.map(({ text, path, target }) => (
+            <MenuItem key={text} text={text} path={path} target={target} />
           ))}
         </ul>
       </nav>
