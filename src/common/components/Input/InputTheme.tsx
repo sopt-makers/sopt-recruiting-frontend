@@ -96,6 +96,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
         />
       </InputLine>
       <InputLine
+        disabled={!isActive}
         label="인증번호"
         placeholder="이메일 인증 번호를 작성해주세요"
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
