@@ -29,7 +29,7 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 };
 
 interface TextBox이메일Props {
-  formObject: Pick<TextBoxProps, 'formObject'>;
+  formObject: TextBoxProps['formObject'];
   isVerificationSuccess: boolean;
   onVerification: () => void;
 }
