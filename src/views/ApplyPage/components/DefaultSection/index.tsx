@@ -33,16 +33,27 @@ const ProfileImage = ({
     formState: { errors },
   } = formObject;
   const [image, setImage] = useState('');
+  const [isFileSizeExceeded, setIsFileSizeExceeded] = useState('');
+  const isError = isFileSizeExceeded || errors['사진'];
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files && e.target.files[0];
+    const imageFile = e.target.files?.[0];
+
     if (!imageFile) return;
+
+    const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
+    if (LIMIT_SIZE < imageFile.size) {
+      setIsFileSizeExceeded(VALIDATION_CHECK.IDPhoto.errorText);
+      return;
+    }
+
+    clearErrors && clearErrors('사진');
     const reader = new FileReader();
     reader.readAsDataURL(imageFile);
     reader.onloadend = () => {
+      setIsFileSizeExceeded('');
       setImage(reader.result as string);
     };
-    clearErrors && clearErrors('사진');
   };
 
   return (
@@ -59,10 +70,10 @@ const ProfileImage = ({
           })}
         />
         <div>
-          <label htmlFor="사진" className={profileLabelVar[errors['사진'] ? 'error' : 'default']}>
+          <label htmlFor="사진" className={profileLabelVar[isError ? 'error' : 'default']}>
             {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
           </label>
-          {errors['사진'] && <p className={errorText}>{errors['사진']?.message as string}</p>}
+          {isError && <p className={errorText}>{isFileSizeExceeded || (errors['사진']?.message as string)}</p>}
         </div>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (
