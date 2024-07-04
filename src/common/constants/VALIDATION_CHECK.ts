@@ -14,7 +14,6 @@ export const VALIDATION_CHECK = {
     errorText: '이메일 형식이 올바르지 않아요.',
   },
   verificationCode: {
-    pattern: /^0-9$/,
     maxLength: 6,
     errorText: '인증 번호가 일치하지 않아요.',
   },

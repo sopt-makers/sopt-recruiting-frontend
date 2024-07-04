@@ -41,6 +41,14 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
     onSuccess: () => {
       setActive(false);
     },
+    onError(error) {
+      if (error.response.status === 400) {
+        formObject.setError('인증번호', {
+          type: 'not-match',
+          message: VALIDATION_CHECK.verificationCode.errorText,
+        });
+      }
+    },
   });
 
   const handleSendingEmail = () => {
@@ -73,8 +81,6 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
       <InputLine
         label="인증번호"
         placeholder="이메일 인증 번호를 작성해주세요"
-        pattern={VALIDATION_CHECK.verificationCode.pattern}
-        errorText={VALIDATION_CHECK.verificationCode.errorText}
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
         <InputButton isLoading={checkingIsPending} text="확인" onClick={handleVerificationCodeCheck} />
       </InputLine>
