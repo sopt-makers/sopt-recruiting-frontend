@@ -8,3 +8,12 @@ export const sendingVerificationCode = async (email: string) => {
 
   return res;
 };
+
+export const checkingVerificationCode = async (email: string, code: string) => {
+  const res = await instance.post('/recruiting-auth/verify/email', {
+    email,
+    code,
+  });
+
+  return res;
+};

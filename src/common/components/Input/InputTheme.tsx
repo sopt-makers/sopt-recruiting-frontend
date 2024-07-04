@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 
-import { sendingVerificationCode } from './apis';
+import { checkingVerificationCode, sendingVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { TextBox } from './TextBox';
@@ -29,21 +29,28 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const [isActive, setActive] = useState(false); // Timer용 state
 
-  const { mutate, isPending } = useMutation({
+  const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation({
     mutationFn: (email: string) => sendingVerificationCode(email),
     onSuccess: () => {
       setActive(true);
     },
   });
 
+  const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation({
+    mutationFn: ({ email, code }: { email: string; code: string }) => checkingVerificationCode(email, code),
+    onSuccess: () => {
+      setActive(false);
+    },
+  });
+
   const handleSendingEmail = () => {
     if (formObject.getValues('이메일') === '' || formObject.formState.errors['이메일']) return;
 
-    mutate(formObject.getValues('이메일'));
+    sendingMutate(formObject.getValues('이메일'));
   };
 
   const handleVerificationCodeCheck = () => {
-    setActive(true);
+    checkingMutate({ email: formObject.getValues('이메일'), code: formObject.getValues('인증번호') });
   };
 
   return (
@@ -55,7 +62,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
         pattern={VALIDATION_CHECK.email.pattern}
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
-        <InputButton isLoading={isPending} text="이메일 인증" onClick={handleSendingEmail} disabled={isActive} />
+        <InputButton isLoading={sendingIsPending} text="이메일 인증" onClick={handleSendingEmail} disabled={isActive} />
         <Timer
           isActive={isActive}
           onResetTimer={() => {
@@ -69,7 +76,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
         pattern={VALIDATION_CHECK.verificationCode.pattern}
         errorText={VALIDATION_CHECK.verificationCode.errorText}
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
-        <InputButton text="확인" onClick={handleVerificationCodeCheck} disabled />
+        <InputButton isLoading={checkingIsPending} text="확인" onClick={handleVerificationCodeCheck} />
       </InputLine>
     </TextBox>
   );
