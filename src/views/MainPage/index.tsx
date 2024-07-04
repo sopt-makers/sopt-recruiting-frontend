@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -6,23 +5,14 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
-import { SubmitDialog } from 'views/dialogs';
 
 import { calloutButton, calloutWrapper, container } from './style.css';
 
 const MainPage = () => {
-  const dialog = useRef<HTMLDialogElement>(null);
-
-  const handleOpenDialog = () => {
-    dialog.current?.showModal();
-  };
-
   const { handleSubmit, ...formObject } = useForm();
 
   return (
     <div className={container}>
-      <button onClick={handleOpenDialog}>CLICK THIS TO SHOW THE DIALOG</button>
-      <SubmitDialog ref={dialog} />
       <Title>지원하기</Title>
       <Callout>
         <div className={calloutWrapper}>
