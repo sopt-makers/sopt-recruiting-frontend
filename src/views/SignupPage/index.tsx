@@ -14,7 +14,7 @@ const SignupPage = () => {
   const { handleSubmit, ...formObject } = useForm(); // 임시
 
   return (
-    <form className={container}>
+    <form noValidate onSubmit={handleSubmit((data) => console.log(data))} className={container}>
       <Title>새 지원서 작성하기</Title>
       <TextBox이름 formObject={formObject} />
       <TextBox label="연락처" formObject={formObject} required>
@@ -28,7 +28,7 @@ const SignupPage = () => {
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>
       </div>
-      <Button disabled style={{ marginTop: 30 }}>
+      <Button type="submit" style={{ marginTop: 30 }}>
         지원서 작성하기
       </Button>
     </form>
