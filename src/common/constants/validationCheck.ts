@@ -46,4 +46,7 @@ export const VALIDATION_CHECK = {
     pattern: /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
     errorText: 'url 형식이 올바르지 않아요.',
   },
+  IDPhoto: {
+    errorText: '파일 크기가 너무 커요. 10MB 이하로 선택해주세요.',
+  },
 };

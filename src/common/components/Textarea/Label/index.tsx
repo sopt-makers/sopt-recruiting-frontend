@@ -11,8 +11,8 @@ interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
 
 const Label = ({ children, maxCount, required, label, ...headerElementProps }: LabelProps) => {
   return (
-    <h4 className={`${labelStyle}`} {...headerElementProps}>
-      <label htmlFor={label}>
+    <h4 className={labelStyle} {...headerElementProps}>
+      <label style={{ cursor: 'pointer' }} htmlFor={label}>
         <span>{children}</span>
         <span style={{ position: 'relative' }}>
           {' '}
