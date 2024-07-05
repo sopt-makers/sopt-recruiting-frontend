@@ -23,7 +23,8 @@ const MainPage = () => {
     SignInRequest
   >({
     mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      localStorage.setItem('soptApplyAccessToken', data.data.token);
       navigate('/apply');
     },
     onError(error) {
