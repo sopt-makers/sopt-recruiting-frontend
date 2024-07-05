@@ -30,7 +30,7 @@ const ApplyPage = () => {
   useScrollToHash(); // scrollTo 카테고리
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={formContainer}>
+    <form noValidate onSubmit={handleSubmit(onSubmit)} className={formContainer}>
       <ApplyHeader />
       <ApplyInfo />
       <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
