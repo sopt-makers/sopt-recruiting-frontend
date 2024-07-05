@@ -36,12 +36,7 @@ export interface CheckEmailRequest {
   group: string;
 }
 
-export interface CheckEmailResponse {
-  err: boolean;
-  message: string;
-}
-
-export interface EmailRequest {
+export interface SendEmailRequest {
   email: string;
   season: number;
 }
@@ -51,7 +46,7 @@ export interface CodeRequest {
   code: string;
 }
 
-export interface VerificationResponse {
+export interface EmailResponse {
   err: boolean;
   message: string;
 }

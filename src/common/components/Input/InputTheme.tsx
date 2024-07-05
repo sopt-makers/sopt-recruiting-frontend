@@ -11,14 +11,7 @@ import InputLine from './InputLine';
 import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import {
-  CheckEmailRequest,
-  CheckEmailResponse,
-  CodeRequest,
-  EmailRequest,
-  TextBoxProps,
-  VerificationResponse,
-} from './types';
+import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailResponse } from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -46,8 +39,8 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   const [isActive, setActive] = useState(false); // Timer용 state
 
   const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
-    AxiosResponse<CheckEmailResponse, CheckEmailRequest>,
-    AxiosError<CheckEmailResponse, CheckEmailRequest>,
+    AxiosResponse<EmailResponse, CheckEmailRequest>,
+    AxiosError<EmailResponse, CheckEmailRequest>,
     CheckEmailRequest
   >({
     mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
@@ -58,11 +51,11 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   });
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
-    AxiosResponse<VerificationResponse, EmailRequest>,
-    AxiosError<VerificationResponse, EmailRequest>,
-    EmailRequest
+    AxiosResponse<EmailResponse, SendEmailRequest>,
+    AxiosError<EmailResponse, SendEmailRequest>,
+    SendEmailRequest
   >({
-    mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
+    mutationFn: ({ email, season }: SendEmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
       onChangeVerification(false);
       setActive(true);
@@ -70,8 +63,8 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   });
 
   const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation<
-    AxiosResponse<VerificationResponse, CodeRequest>,
-    AxiosError<VerificationResponse, CodeRequest>,
+    AxiosResponse<EmailResponse, CodeRequest>,
+    AxiosError<EmailResponse, CodeRequest>,
     CodeRequest
   >({
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
