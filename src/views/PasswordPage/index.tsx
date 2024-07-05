@@ -54,10 +54,14 @@ const PasswordPage = () => {
       <Title>비밀번호 재설정하기</Title>
       <TextBox이름 formObject={formObject} />
       <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
-      <TextBox비밀번호 formObject={formObject} />
-      <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
-        저장하기
-      </Button>
+      {isVerified && (
+        <>
+          <TextBox비밀번호 formObject={formObject} />
+          <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
+            저장하기
+          </Button>
+        </>
+      )}
     </form>
   );
 };
