@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +11,7 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import useVerificationStatus from '@hooks/useVerificationStatus';
 
 import { sendingSignUp } from './apis';
 import { container } from './style.css';
@@ -19,7 +19,7 @@ import { SignUpError, SignUpRequest, SignUpResponse } from './types';
 
 const SignupPage = () => {
   const navigate = useNavigate();
-  const [isVerificationSuccess, setIsVerificationSuccess] = useState(false);
+  const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm(); // 임시
 
   const { mutate, isPending } = useMutation<
@@ -34,7 +34,7 @@ const SignupPage = () => {
   });
 
   const handleSubmitSignUp = (data: FieldValues) => {
-    if (!isVerificationSuccess) {
+    if (!isVerified) {
       formObject.setError('인증번호', {
         type: 'not-match',
         message: VALIDATION_CHECK.verificationCode.errorText,
@@ -61,11 +61,7 @@ const SignupPage = () => {
       <TextBox label="연락처" formObject={formObject} required>
         <InputLine label="연락처" placeholder="010-0000-0000" required type="tel" />
       </TextBox>
-      <TextBox이메일
-        isVerificationSuccess={isVerificationSuccess}
-        onVerification={(bool: boolean) => setIsVerificationSuccess(bool)}
-        formObject={formObject}
-      />
+      <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
       <TextBox비밀번호 formObject={formObject} />
       <div>
         <Checkbox required label="check1" formObject={formObject}>

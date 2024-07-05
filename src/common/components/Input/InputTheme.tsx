@@ -30,11 +30,11 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 
 interface TextBox이메일Props {
   formObject: TextBoxProps['formObject'];
-  isVerificationSuccess: boolean;
-  onVerification: (bool: boolean) => void;
+  isVerified: boolean;
+  onChangeVerification: (bool: boolean) => void;
 }
 
-export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerification }: TextBox이메일Props) => {
+export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
   const [isActive, setActive] = useState(false); // Timer용 state
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
@@ -44,7 +44,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
   >({
     mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
-      onVerification(false);
+      onChangeVerification(false);
       setActive(true);
     },
   });
@@ -57,7 +57,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
     onSuccess: () => {
       setActive(false);
-      onVerification(true);
+      onChangeVerification(true);
     },
     onError(error) {
       if (error.response?.status === 400) {
@@ -108,7 +108,7 @@ export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerifica
           onClick={handleVerificationCodeCheck}
         />
       </InputLine>
-      {isVerificationSuccess && <p className={success}>인증에 성공했어요.</p>}
+      {isVerified && <p className={success}>인증에 성공했어요.</p>}
     </TextBox>
   );
 };
