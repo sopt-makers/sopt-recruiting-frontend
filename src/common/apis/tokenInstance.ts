@@ -19,7 +19,7 @@ tokenInstance.interceptors.request.use(
       return config;
     }
 
-    config.headers.Authorization = soptApplyAccessToken;
+    config.headers.Authorization = `Bearer ${soptApplyAccessToken}`;
 
     return config;
   },
@@ -28,18 +28,18 @@ tokenInstance.interceptors.request.use(
   },
 );
 
-tokenInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    const originalRequest = error.config;
+// tokenInstance.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   (error) => {
+//     const originalRequest = error.config;
 
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      window.location.href = '/';
-    }
+//     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//       window.location.href = '/';
+//     }
 
-    return Promise.reject(error);
-  },
-);
+//     return Promise.reject(error);
+//   },
+// );
