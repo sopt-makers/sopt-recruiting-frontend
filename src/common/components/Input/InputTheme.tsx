@@ -86,6 +86,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   return (
     <TextBox label="이메일" formObject={formObject} required>
       <InputLine
+        style={{ paddingRight: isActive ? 50 : 16 }}
         label="이메일"
         placeholder="이메일을 입력해주세요."
         type="email"
