@@ -38,18 +38,6 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   const location = useLocation();
   const [isActive, setActive] = useState(false); // Timer용 state
 
-  const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
-    AxiosResponse<EmailResponse, CheckEmailRequest>,
-    AxiosError<EmailResponse, CheckEmailRequest>,
-    CheckEmailRequest
-  >({
-    mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
-    onSuccess: () => {
-      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
-    },
-    onError: () => {},
-  });
-
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendEmailRequest>,
     AxiosError<EmailResponse, SendEmailRequest>,
@@ -59,6 +47,25 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     onSuccess: () => {
       onChangeVerification(false);
       setActive(true);
+    },
+  });
+
+  const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
+    AxiosResponse<EmailResponse, CheckEmailRequest>,
+    AxiosError<EmailResponse, CheckEmailRequest>,
+    CheckEmailRequest
+  >({
+    mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
+    onSuccess: () => {
+      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+    },
+    onError: (error) => {
+      if (error.response?.status === 400) {
+        formObject.setError('이메일', {
+          type: 'non-existence',
+          message: VALIDATION_CHECK.email.errorTextNonexistence,
+        });
+      }
     },
   });
 
