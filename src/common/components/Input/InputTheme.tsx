@@ -5,13 +5,20 @@ import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
 
-import { checkingVerificationCode, sendingVerificationCode } from './apis';
+import { checkingEmail, checkingVerificationCode, sendingVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import { CodeRequest, EmailRequest, TextBoxProps, VerificationResponse } from './types';
+import {
+  CheckEmailRequest,
+  CheckEmailResponse,
+  CodeRequest,
+  EmailRequest,
+  TextBoxProps,
+  VerificationResponse,
+} from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -35,7 +42,20 @@ interface TextBox이메일Props {
 }
 
 export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
+  const location = useLocation();
   const [isActive, setActive] = useState(false); // Timer용 state
+
+  const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
+    AxiosResponse<CheckEmailResponse, CheckEmailRequest>,
+    AxiosError<CheckEmailResponse, CheckEmailRequest>,
+    CheckEmailRequest
+  >({
+    mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
+    onSuccess: () => {
+      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+    },
+    onError: () => {},
+  });
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<VerificationResponse, EmailRequest>,
@@ -72,7 +92,29 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   const handleSendingEmail = () => {
     if (formObject.getValues('이메일') === '' || formObject.formState.errors['이메일']) return;
 
-    sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+    if (location.pathname === '/password') {
+      if (formObject.getValues('이름') === '') {
+        formObject.setError('이름', {
+          type: 'required',
+          message: '필수 입력 항목이에요.',
+        });
+
+        return;
+      }
+
+      checkingEmailMutate({
+        email: formObject.getValues('이메일'),
+        name: formObject.getValues('이름'),
+        season: 1,
+        group: 'OB',
+      });
+
+      return;
+    }
+
+    if (location.pathname === '/sign-up') {
+      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+    }
   };
 
   const handleVerificationCodeCheck = () => {
@@ -88,7 +130,12 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         pattern={VALIDATION_CHECK.email.pattern}
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
-        <InputButton isLoading={sendingIsPending} text="이메일 인증" onClick={handleSendingEmail} disabled={isActive} />
+        <InputButton
+          isLoading={checkingEmailPending || sendingIsPending}
+          text="이메일 인증"
+          onClick={handleSendingEmail}
+          disabled={isActive}
+        />
         <Timer
           isActive={isActive}
           onResetTimer={() => {
