@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -6,23 +5,15 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
-import { SubmitDialog } from 'views/dialogs';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { calloutButton, calloutWrapper, container } from './style.css';
 
 const MainPage = () => {
-  const dialog = useRef<HTMLDialogElement>(null);
-
-  const handleOpenDialog = () => {
-    dialog.current?.showModal();
-  };
-
   const { handleSubmit, ...formObject } = useForm();
 
   return (
-    <div className={container}>
-      <button onClick={handleOpenDialog}>CLICK THIS TO SHOW THE DIALOG</button>
-      <SubmitDialog ref={dialog} />
+    <form noValidate onSubmit={handleSubmit((data) => console.log(data))} className={container}>
       <Title>지원하기</Title>
       <Callout>
         <div className={calloutWrapper}>
@@ -36,17 +27,31 @@ const MainPage = () => {
         </div>
       </Callout>
       <TextBox label="이메일" formObject={formObject} required>
-        <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />
+        <InputLine
+          label="이메일"
+          placeholder="이메일을 입력해주세요"
+          type="email"
+          pattern={VALIDATION_CHECK.email.pattern}
+          maxLength={VALIDATION_CHECK.email.maxLength}
+          errorText={VALIDATION_CHECK.email.errorText}
+        />
       </TextBox>
       <TextBox label="비밀번호" formObject={formObject} required>
-        <InputLine label="비밀번호" placeholder="비밀번호를 입력해주세요" type="password" />
+        <InputLine
+          label="비밀번호"
+          placeholder="비밀번호를 입력해주세요"
+          type="password"
+          pattern={VALIDATION_CHECK.password.pattern}
+          maxLength={VALIDATION_CHECK.password.maxLength}
+          errorText={VALIDATION_CHECK.password.errorText}
+        />
         <Description>
           <p>비밀번호를 잃어버리셨나요?</p>
           <Link to="/password">비밀번호 재설정하기</Link>
         </Description>
       </TextBox>
-      <Button disabled>로그인</Button>
-    </div>
+      <Button type="submit">로그인</Button>
+    </form>
   );
 };
 
