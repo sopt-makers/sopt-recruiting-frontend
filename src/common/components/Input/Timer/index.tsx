@@ -13,6 +13,7 @@ const Timer = ({ isActive, onResetTimer }: TimerProps) => {
   const [seconds, setSeconds] = useState(INITIAL_TIME);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const clearTimer = () => {
+    setSeconds(INITIAL_TIME);
     timerRef.current && clearInterval(timerRef.current);
   };
 
