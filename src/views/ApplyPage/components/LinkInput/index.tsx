@@ -1,6 +1,6 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { container, error, inputWrapper, label, link } from './style.css';
 
