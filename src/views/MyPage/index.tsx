@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
@@ -7,8 +8,9 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import { getMyInfo } from './apis';
 import { container, infoContainer, infoLabel, infoValue, itemWrapper, lastItemWrapper } from './style.css';
+import { MyError, MyResponse } from './types';
 
-const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
+const MyInfoItem = ({ label, value }: { label: string; value: string | number | boolean }) => {
   return (
     <li className={itemWrapper}>
       <span className={infoLabel}>{label}</span>
@@ -18,14 +20,19 @@ const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
 };
 
 const MyPage = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<
+    AxiosResponse<MyResponse, null>,
+    AxiosError<MyError, null>,
+    AxiosResponse<MyResponse, null>,
+    string[]
+  >({
     queryKey: ['my'],
     queryFn: getMyInfo,
   });
 
   if (isLoading) return <BigLoading />;
 
-  const { season, name, part, submit } = data?.data;
+  const { season, name, part, submit } = data!.data;
 
   return (
     <section className={container}>
