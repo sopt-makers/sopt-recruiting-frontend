@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
@@ -35,7 +35,7 @@ interface TextBox이메일Props {
 }
 
 export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
-  const [isActive, setActive] = useState(false); // Timer용 state
+  const [isActive, setIsActive] = useState(false); // Timer용 state
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<VerificationResponse, EmailRequest>,
@@ -45,7 +45,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
       onChangeVerification(false);
-      setActive(true);
+      setIsActive(true);
     },
   });
 
@@ -56,7 +56,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   >({
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
     onSuccess: () => {
-      setActive(false);
+      setIsActive(false);
       onChangeVerification(true);
     },
     onError(error) {
@@ -79,6 +79,10 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     checkingMutate({ email: formObject.getValues('이메일'), code: formObject.getValues('인증번호') });
   };
 
+  const handleResetTimer = useCallback(() => {
+    setIsActive(false);
+  }, []);
+
   return (
     <TextBox label="이메일" formObject={formObject} required>
       <InputLine
@@ -89,12 +93,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
         <InputButton isLoading={sendingIsPending} text="이메일 인증" onClick={handleSendingEmail} disabled={isActive} />
-        <Timer
-          isActive={isActive}
-          onResetTimer={() => {
-            setActive(false);
-          }}
-        />
+        <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
         disabled={!isActive}
