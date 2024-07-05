@@ -90,7 +90,16 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   });
 
   const handleSendingEmail = () => {
-    if (formObject.getValues('이메일') === '' || formObject.formState.errors['이메일']) return;
+    if (formObject.getValues('이메일') === '') {
+      formObject.setError('이메일', {
+        type: 'required',
+        message: '필수 입력 항목이에요.',
+      });
+
+      return;
+    }
+
+    if (formObject.formState.errors['이메일']) return;
 
     if (location.pathname === '/password') {
       if (formObject.getValues('이름') === '') {
