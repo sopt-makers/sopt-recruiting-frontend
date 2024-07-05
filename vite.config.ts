@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react(), vanillaExtractPlugin()],
   resolve: {
     alias: [
-      // { find: '@apis', replacement: path.resolve(__dirname, 'src/common/apis') },
+      { find: '@apis', replacement: path.resolve(__dirname, 'src/common/apis') },
       {
         find: '@assets',
         replacement: path.resolve(__dirname, 'src/common/assets'),
