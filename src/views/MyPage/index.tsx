@@ -11,10 +11,23 @@ import { container, infoContainer, infoLabel, infoValue, itemWrapper, lastItemWr
 import { MyError, MyResponse } from './types';
 
 const MyInfoItem = ({ label, value }: { label: string; value: string | number | boolean }) => {
+  let renderValue = value;
+
+  switch (label) {
+    case '지원파트':
+      renderValue = value ? value : '미지원';
+      break;
+    case '지원상태':
+      renderValue = value ? '지원완료' : '미지원';
+      break;
+    default:
+      break;
+  }
+
   return (
     <li className={itemWrapper}>
       <span className={infoLabel}>{label}</span>
-      <span className={infoValue}>{value}</span>
+      <span className={infoValue}>{renderValue}</span>
     </li>
   );
 };
