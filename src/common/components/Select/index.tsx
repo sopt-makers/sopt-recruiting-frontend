@@ -52,6 +52,7 @@ const SelectBox = ({
           type="text"
           className={selectVariant[errors?.[label] ? 'error' : 'selected']}
           role="combobox"
+          readOnly
           value={value}
           {...inputElementProps}
           {...register(label, {
