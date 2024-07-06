@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { defaultValues } from '@constants/defaultValues';
 
@@ -16,14 +16,29 @@ import {
 } from './style.css';
 import { SelectBoxProps } from './type';
 
-const SelectBox = ({ label, options, size = 'sm', formObject, required, ...inputElementProps }: SelectBoxProps) => {
-  const { register, setValue, formState, clearErrors } = formObject;
-  const { dirtyFields, errors } = formState;
+const SelectBox = ({
+  label,
+  options,
+  size = 'sm',
+  formObject,
+  required,
+  defaultValue,
+  ...inputElementProps
+}: SelectBoxProps) => {
+  const { register, formState, clearErrors } = formObject;
+  const { errors } = formState;
+  const [value, setValue] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(label);
-    setValue(label, e.currentTarget.id, { shouldValidate: true, shouldDirty: true });
+    setValue(e.currentTarget.id);
   };
+
+  useEffect(() => {
+    if (defaultValue != undefined) {
+      setValue(defaultValue);
+    }
+  }, [label, setValue, defaultValue]);
 
   return (
     <div className={containerVar[size]}>
@@ -34,12 +49,13 @@ const SelectBox = ({ label, options, size = 'sm', formObject, required, ...input
       <div className={selectContainer}>
         <input
           id={label}
-          type="button"
-          className={selectVariant[errors?.[label] ? 'error' : dirtyFields[label] ? 'selected' : 'default']}
+          type="text"
+          className={selectVariant[errors?.[label] ? 'error' : 'selected']}
           role="combobox"
+          value={value}
           {...inputElementProps}
           {...register(label, {
-            validate: (v) => !required || v !== defaultValues[label] || '필수 입력 항목이에요.',
+            required: required && '필수 입력 항목이에요.',
           })}
         />
         <IconChevronDown className={icon} />

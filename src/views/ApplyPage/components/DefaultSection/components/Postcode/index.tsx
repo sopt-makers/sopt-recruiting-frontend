@@ -5,8 +5,10 @@ import { UseFormReturn } from 'react-hook-form';
 import { InputLine, TextBox } from '@components/Input';
 
 const Postcode = ({
+  addressDraft,
   formObject,
 }: {
+  addressDraft: string;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
 }) => {
   const [address, setAddress] = useState('');
@@ -34,7 +36,7 @@ const Postcode = ({
         label="거주지"
         placeholder="예) 서울특별시 관악구 신림동"
         onClick={handleOpenPostcode}
-        value={address}
+        value={address || addressDraft}
         style={{ cursor: 'pointer' }}
       />
     </TextBox>

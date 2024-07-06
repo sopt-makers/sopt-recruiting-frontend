@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
-import { TFormValues, defaultValues } from '@constants/defaultValues';
+import { TFormValues } from '@constants/defaultValues';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { getDraft, sendDraft } from './apis';
@@ -21,9 +21,7 @@ import { buttonWrapper, content, formContainer, sectionContainer } from './style
 import { ApplyError, ApplyRequest, ApplyResponse } from './types';
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm({
-    defaultValues: defaultValues,
-  });
+  const { handleSubmit, ...formObject } = useForm();
 
   const [activeHash, setActiveHash] = useState('');
   useScrollToHash(); // scrollTo 카테고리
@@ -58,7 +56,7 @@ const ApplyPage = () => {
   const commonQuestionsDraft = data?.commonQuestions;
   const partQuestionsDraft = data?.partQuestions;
 
-  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
+  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => console.log(1, data);
 
   const handleDraftSubmit = () => {
     const knownPathValue = formObject.getValues('동아리를 알게 된 경로');
@@ -128,7 +126,7 @@ const ApplyPage = () => {
           ref={(el) => {
             if (el) ref.current[0] = el;
           }}>
-          <DefaultSection formObject={formObject} />
+          <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
         </div>
         <div
           id="common"
