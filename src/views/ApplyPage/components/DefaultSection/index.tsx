@@ -123,7 +123,7 @@ const DefaultSection = ({
     // willAppjam,
   } = applicantDraft;
 
-  console.log(birthday, gender, address, nearestStation);
+  console.log(birthday);
 
   return (
     <section className={sectionContainer}>
@@ -147,7 +147,6 @@ const DefaultSection = ({
           <InputLine
             label="생년월일"
             placeholder="YYYY/MM/DD"
-            key={birthday ? 'default-birthday' : 'just-birthday'}
             defaultValue={birthday}
             min={VALIDATION_CHECK.birthdate.min}
             max={VALIDATION_CHECK.birthdate.max}

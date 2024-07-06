@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { inputLine, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
@@ -24,6 +24,8 @@ const InputLine = ({
   } = useContext(FormContext);
   const { errors } = formState;
   const { maxLength, minLength } = inputElementProps;
+  const { defaultValue } = inputElementProps;
+  console.log(value);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(label);
@@ -39,11 +41,18 @@ const InputLine = ({
     }
   };
 
+  useEffect(() => {
+    if (label === '생년월일' && defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [label, setValue, defaultValue]);
+
   return (
     <>
       <div className={inputLine}>
         <input
           id={label}
+          defaultValue={defaultValue}
           value={label === '연락처' || label === '생년월일' ? value : undefined}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
           {...inputElementProps}
