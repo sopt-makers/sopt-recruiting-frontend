@@ -56,24 +56,25 @@ const ApplyPage = () => {
   const commonQuestionsDraft = data?.commonQuestions;
   const partQuestionsDraft = data?.partQuestions;
 
-  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => console.log(1, data);
+  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
+    console.log(1, data);
+  };
 
   const handleDraftSubmit = () => {
-    const knownPathValue = formObject.getValues('동아리를 알게 된 경로');
-    const knownPath = knownPathValue === '지원 경로를 선택해 주세요.' ? '' : knownPathValue;
-
-    const genderValue = formObject.getValues('성별');
-    const gender = genderValue === '성별을 선택해주세요' ? '' : genderValue;
-
     const mostRecentSeasonStrValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
-    const mostRecentSeasonStr =
-      mostRecentSeasonStrValue === '가장 최근에 활동했던 기수를 선택해주세요.' ? '없음' : mostRecentSeasonStrValue;
-
-    const partValue = formObject.getValues('지원파트');
-    const part = partValue === '지원하고 싶은 파트를 선택해주세요' ? '' : partValue;
+    const mostRecentSeasonStr = mostRecentSeasonStrValue === '해당사항 없음' ? '없음' : mostRecentSeasonStrValue;
 
     const univYearValue = formObject.getValues('학년');
-    const univYear = univYearValue === '학년을 선택해주세요' ? '' : univYearValue;
+    const univYear =
+      univYearValue === '1학년'
+        ? 1
+        : univYearValue === '2학년'
+          ? 2
+          : univYearValue === '3학년'
+            ? 3
+            : univYearValue === '4학년'
+              ? 4
+              : null;
 
     const answers = [
       {
@@ -96,12 +97,12 @@ const ApplyPage = () => {
 
     const formValues = {
       picture: formObject.getValues('사진'),
-      part,
+      part: formObject.getValues('지원파트'),
       address: formObject.getValues('거주지'),
       birthday: formObject.getValues('생년월일'),
       college: formObject.getValues('학교'),
-      gender,
-      knownPath,
+      gender: formObject.getValues('성별'),
+      knownPath: formObject.getValues('동아리를 알게 된 경로'),
       leaveAbsence: false,
       major: formObject.getValues('학과'),
       mostRecentSeasonStr,
