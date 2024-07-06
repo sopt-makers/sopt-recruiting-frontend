@@ -1,12 +1,13 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TFormValues, defaultValues } from '@constants/defaultValues';
+import BigLoading from 'views/loadings/BigLoding';
 
-import { sendDraft } from './apis';
+import { getDraft, sendDraft } from './apis';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
@@ -33,6 +34,16 @@ const ApplyPage = () => {
 
   const { ref } = useIntersectionObserver(handleSetActiveHash);
 
+  const { data, isLoading } = useQuery<
+    AxiosResponse<ApplyResponse, null>,
+    AxiosError<ApplyError, null>,
+    AxiosResponse<ApplyResponse, null>,
+    string[]
+  >({
+    queryKey: ['get-draft'],
+    queryFn: getDraft,
+  });
+
   const { mutate, isPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
     AxiosError<ApplyError, ApplyRequest>,
@@ -40,6 +51,12 @@ const ApplyPage = () => {
   >({
     mutationFn: sendDraft,
   });
+
+  if (isLoading) return <BigLoading />;
+
+  const applicantDraft = data?.applicant;
+  const commonQuestionsDraft = data?.commonQuestions;
+  const partQuestionsDraft = data?.partQuestions;
 
   const handleApplySubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
