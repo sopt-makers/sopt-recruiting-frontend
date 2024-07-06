@@ -42,4 +42,7 @@ export const VALIDATION_CHECK = {
     maxLength: 13,
     errorText: '잘못된 휴대폰 번호 형식이에요. 휴대폰 번호를 정확하게 입력해주세요.',
   },
+  IDPhoto: {
+    errorText: '파일 크기가 너무 커요. 10MB 이하로 선택해주세요.',
+  },
 };
