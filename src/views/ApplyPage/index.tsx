@@ -19,19 +19,25 @@ const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({
     defaultValues: defaultValues,
   });
-  const onSubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
 
   const [activeHash, setActiveHash] = useState('');
+  useScrollToHash(); // scrollTo 카테고리
+
   const handleSetActiveHash = useCallback((hash: string) => {
     setActiveHash(hash);
   }, []);
+
   const { ref } = useIntersectionObserver(handleSetActiveHash);
 
-  useScrollToHash(); // scrollTo 카테고리
+  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => console.log(data);
+
+  const handleDraftSubmit = () => {
+    console.log(formObject.getValues());
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={formContainer}>
-      <ApplyHeader />
+    <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+      <ApplyHeader onSaveDraft={handleDraftSubmit} />
       <ApplyInfo />
       <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
       <div className={sectionContainer}>
@@ -61,7 +67,9 @@ const ApplyPage = () => {
         </div>
         <BottomSection formObject={formObject} />
         <div className={buttonWrapper}>
-          <Button buttonStyle="line">임시저장</Button>
+          <Button onClick={handleDraftSubmit} buttonStyle="line">
+            임시저장
+          </Button>
           <Button type="submit">제출하기</Button>
         </div>
       </div>
