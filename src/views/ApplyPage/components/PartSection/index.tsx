@@ -31,13 +31,7 @@ const PartSection = ({
               formObject={formObject}
               maxCount={maxCount}
               required={required}
-              extraInput={
-                extraInput === 'link' ? (
-                  <LinkInput formObject={formObject} />
-                ) : extraInput === 'file' ? (
-                  <FileInput />
-                ) : null
-              }>
+              extraInput={extraInput === 'link' ? <LinkInput /> : extraInput === 'file' ? <FileInput /> : null}>
               {question}
             </Textarea>
           </div>
