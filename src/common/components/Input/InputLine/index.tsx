@@ -17,10 +17,10 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'size' | 'formObject'>) => {
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
   const {
     required,
-    formObject: { register, formState, clearErrors, trigger },
+    formObject: { register, formState, clearErrors, trigger, setValue },
   } = useContext(FormContext);
   const { errors } = formState;
   const { maxLength, minLength } = inputElementProps;
@@ -31,20 +31,14 @@ const InputLine = ({
 
     if (label === '생년월일') {
       const formattedValue = formatBirthdate(e.target.value);
-      setValue(formattedValue);
+      setValue('생년월일', formattedValue);
     }
 
     if (label === '연락처') {
       const formattedValue = formatPhoneNumber(e.target.value);
-      setValue(formattedValue);
+      setValue('연락처', formattedValue);
     }
   };
-
-  useEffect(() => {
-    if (label === '생년월일' && defaultValue) {
-      setValue(defaultValue);
-    }
-  }, [label, setValue, defaultValue]);
 
   return (
     <>
@@ -52,7 +46,6 @@ const InputLine = ({
         <input
           id={label}
           defaultValue={defaultValue}
-          value={label === '연락처' || label === '생년월일' ? value : undefined}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
           {...inputElementProps}
           {...register(label, {
