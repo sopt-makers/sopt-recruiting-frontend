@@ -5,7 +5,7 @@ import { ApplyRequest } from './types';
 export const getDraft = async () => {
   const res = await tokenInstance.get('/recruiting-answer/store');
 
-  return res.data;
+  return res;
 };
 
 export const sendDraft = async (formValues: ApplyRequest) => {

@@ -21,8 +21,6 @@ import { buttonWrapper, content, formContainer, sectionContainer } from './style
 import { ApplyError, ApplyRequest, ApplyResponse } from './types';
 
 const ApplyPage = () => {
-  const { handleSubmit, ...formObject } = useForm();
-
   const [activeHash, setActiveHash] = useState('');
   useScrollToHash(); // scrollTo 카테고리
 
@@ -50,17 +48,17 @@ const ApplyPage = () => {
     mutationFn: sendDraft,
   });
 
+  const { handleSubmit, ...formObject } = useForm();
+
   if (isLoading) return <BigLoading />;
 
-  const applicantDraft = data?.applicant;
-  const commonQuestionsDraft = data?.commonQuestions;
-  const partQuestionsDraft = data?.partQuestions;
+  const applicantDraft = data?.data?.applicant;
+  const commonQuestionsDraft = data?.data?.commonQuestions;
+  const partQuestionsDraft = data?.data?.partQuestions;
 
   const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(data);
+    console.log(123, data);
   };
-
-  console.log(formObject.getValues());
 
   const handleDraftSubmit = () => {
     const mostRecentSeasonStrValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
@@ -131,7 +129,7 @@ const ApplyPage = () => {
           }}>
           <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
         </div>
-        <div
+        {/* <div
           id="common"
           className={content}
           ref={(el) => {
@@ -147,7 +145,7 @@ const ApplyPage = () => {
           }}>
           <PartSection formObject={formObject} />
         </div>
-        <BottomSection formObject={formObject} />
+        <BottomSection formObject={formObject} /> */}
         <div className={buttonWrapper}>
           <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
             임시저장
