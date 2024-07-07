@@ -123,8 +123,6 @@ const DefaultSection = ({
     // willAppjam,
   } = applicantDraft;
 
-  console.log(birthday);
-
   return (
     <section className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>

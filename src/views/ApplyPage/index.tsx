@@ -57,8 +57,10 @@ const ApplyPage = () => {
   const partQuestionsDraft = data?.partQuestions;
 
   const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(1, data);
+    console.log(data);
   };
+
+  console.log(formObject.getValues());
 
   const handleDraftSubmit = () => {
     const mostRecentSeasonStrValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');

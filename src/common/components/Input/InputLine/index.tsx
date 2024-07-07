@@ -25,7 +25,6 @@ const InputLine = ({
   const { errors } = formState;
   const { maxLength, minLength } = inputElementProps;
   const { defaultValue } = inputElementProps;
-  console.log(value);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(label);
