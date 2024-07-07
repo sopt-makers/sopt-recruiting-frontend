@@ -23,8 +23,10 @@ import {
 } from './style.css';
 
 const ProfileImage = ({
+  pic,
   formObject,
 }: {
+  pic: string;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
 }) => {
   const {
@@ -71,7 +73,7 @@ const ProfileImage = ({
         />
         <div>
           <label htmlFor="사진" className={profileLabelVar[isError ? 'error' : 'default']}>
-            {image ? <img src={image} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
+            {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
             {isError && <p className={errorText}>{isFileSizeExceeded || (errors['사진']?.message as string)}</p>}
           </label>
         </div>
@@ -126,7 +128,7 @@ const DefaultSection = ({
   return (
     <section className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>
-      <ProfileImage formObject={formObject} />
+      <ProfileImage pic={pic} formObject={formObject} />
       <div className={doubleWrapper}>
         <TextBox label="이름" formObject={formObject} required size="sm">
           <InputLine value={name} label="이름" readOnly />

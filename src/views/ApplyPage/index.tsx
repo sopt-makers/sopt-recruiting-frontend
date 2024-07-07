@@ -96,7 +96,7 @@ const ApplyPage = () => {
     ];
 
     const formValues = {
-      picture: formObject.getValues('사진'),
+      picture: formObject.getValues('사진')[0],
       part: formObject.getValues('지원파트'),
       address: formObject.getValues('거주지'),
       birthday: formObject.getValues('생년월일'),
