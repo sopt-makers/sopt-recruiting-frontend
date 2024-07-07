@@ -20,7 +20,14 @@ const PartSection = ({
   return (
     <section className={sectionContainer}>
       <h2 className={title}>파트별 질문</h2>
-      <SelectBox label="지원파트" options={SELECT_OPTIONS.지원파트} formObject={formObject} size="lg" required />
+      <SelectBox
+        label="지원파트"
+        placeholder="지원하고 싶은 파트를 선택해주세요."
+        options={SELECT_OPTIONS.지원파트}
+        formObject={formObject}
+        size="lg"
+        required
+      />
       {Object.keys(PART_QUESTION).includes(selectedPart) &&
         PART_QUESTION[selectedPart].map(({ question, maxCount, required }, id) => (
           <div key={question}>
