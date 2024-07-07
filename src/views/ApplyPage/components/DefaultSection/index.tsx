@@ -129,7 +129,7 @@ const DefaultSection = ({
       <ProfileImage formObject={formObject} />
       <div className={doubleWrapper}>
         <TextBox label="이름" formObject={formObject} required size="sm">
-          <InputLine value={name} label="이름" disabled />
+          <InputLine value={name} label="이름" readOnly />
         </TextBox>
         <SelectBox
           defaultValue={gender}
@@ -155,11 +155,11 @@ const DefaultSection = ({
           />
         </TextBox>
         <TextBox label="연락처" formObject={formObject} required size="sm">
-          <InputLine value={phone} label="연락처" disabled />
+          <InputLine value={phone} label="연락처" readOnly />
         </TextBox>
       </div>
       <TextBox label="이메일" formObject={formObject} required size="lg">
-        <InputLine value={email} label="이메일" disabled />
+        <InputLine value={email} label="이메일" readOnly />
       </TextBox>
       <Postcode addressDraft={address} formObject={formObject} />
       <TextBox label="지하철역" formObject={formObject} required size="lg">
