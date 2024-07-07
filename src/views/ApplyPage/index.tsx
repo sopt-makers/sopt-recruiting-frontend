@@ -18,7 +18,7 @@ import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
-import { ApplyError, ApplyRequest, ApplyResponse } from './types';
+import { ApplyError, ApplyRequest, ApplyResponse, FormValues } from './types';
 
 const ApplyPage = () => {
   const [activeHash, setActiveHash] = useState('');
@@ -74,7 +74,7 @@ const ApplyPage = () => {
             ? 3
             : univYearValue === '4학년'
               ? 4
-              : null;
+              : 5;
 
     const answers = [
       {
@@ -95,7 +95,7 @@ const ApplyPage = () => {
       },
     ];
 
-    const formValues = {
+    const formValues: FormValues = {
       picture: formObject.getValues('사진')[0],
       part: formObject.getValues('지원파트'),
       address: formObject.getValues('거주지'),

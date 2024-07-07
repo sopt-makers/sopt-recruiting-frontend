@@ -20,26 +20,43 @@ export interface ApplyError {
   userMessage: string;
 }
 
-interface Applicant {
+export interface FormValues {
+  picture: File;
+  part: string;
+  address: string;
+  birthday: string;
+  college: string;
+  gender: string;
+  knownPath: string;
+  leaveAbsence: boolean;
+  major: string;
+  mostRecentSeasonStr: string;
+  univYear: number;
+  nearestStation: string;
+  answers: {}[];
+  willAppjam: false;
+}
+
+export interface Applicant {
   id: number;
   group: string;
   season: number;
-  mostRecentSeason: number | null;
-  part: string | null;
+  mostRecentSeason: number;
+  part: string;
   phone: string;
   email: string;
   name: string;
-  address: string | null;
-  gender: string | null;
-  birthday: string | null;
-  college: string | null;
-  major: string | null;
-  univYear: number | null;
-  leaveAbsence: boolean | null;
-  willAppjam: boolean | null;
-  knownPath: string | null;
-  pic: string | null;
-  nearestStation: string | null;
+  address: string;
+  gender: string;
+  birthday: string;
+  college: string;
+  major: string;
+  univYear: number;
+  leaveAbsence: boolean;
+  willAppjam: boolean;
+  knownPath: string;
+  pic: string;
+  nearestStation: string;
   applicationPass: boolean;
   finalPass: boolean;
   isDeleted: boolean;

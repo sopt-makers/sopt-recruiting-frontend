@@ -8,8 +8,8 @@ const Postcode = ({
   addressDraft,
   formObject,
 }: {
-  addressDraft: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
+  addressDraft?: string;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue'>;
 }) => {
   const [address, setAddress] = useState('');
 

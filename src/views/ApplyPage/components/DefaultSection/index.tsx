@@ -6,6 +6,7 @@ import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
+import { Applicant } from 'views/ApplyPage/types';
 
 import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
@@ -26,8 +27,8 @@ const ProfileImage = ({
   pic,
   formObject,
 }: {
-  pic: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
+  pic?: string;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue'>;
 }) => {
   const {
     register,
@@ -93,37 +94,23 @@ const DefaultSection = ({
   applicantDraft,
   formObject,
 }: {
-  applicantDraft: {};
+  applicantDraft?: Applicant;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }) => {
   const {
     address,
-    // applicationPass,
     birthday,
     college,
-    // createdAt,
     email,
-    // finalPass,
     gender,
-    // group,
-    // id,
-    // isDeleted,
-    // isForTest,
-    // knownPath,
-    // leaveAbsence,
     major,
     mostRecentSeason,
     name,
     nearestStation,
-    part,
     phone,
     pic,
-    // season,
-    // submit,
     univYear,
-    // updatedAt,
-    // willAppjam,
-  } = applicantDraft;
+  } = applicantDraft || {};
 
   return (
     <section className={sectionContainer}>
