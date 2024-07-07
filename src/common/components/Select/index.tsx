@@ -1,8 +1,6 @@
 import { IconChevronDown } from '@sopt-makers/icons';
 import { ChangeEvent, useEffect, useState } from 'react';
 
-import { defaultValues } from '@constants/defaultValues';
-
 import {
   circle,
   containerVar,
@@ -25,18 +23,17 @@ const SelectBox = ({
   defaultValue,
   ...inputElementProps
 }: SelectBoxProps) => {
-  const { register, formState, clearErrors } = formObject;
+  const { register, formState, clearErrors, setValue } = formObject;
   const { errors } = formState;
-  const [value, setValue] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(label);
-    setValue(e.currentTarget.id);
+    setValue(label, e.currentTarget.id);
   };
 
   useEffect(() => {
     if (defaultValue != undefined) {
-      label === '학년' ? setValue(`${defaultValue}학년`) : setValue(defaultValue);
+      label === '학년' ? setValue(label, `${defaultValue}학년`) : setValue(label, defaultValue);
     }
   }, [label, setValue, defaultValue]);
 
@@ -53,7 +50,6 @@ const SelectBox = ({
           className={selectVariant[errors?.[label] ? 'error' : 'selected']}
           role="combobox"
           readOnly
-          value={value}
           {...inputElementProps}
           {...register(label, {
             required: required && '필수 입력 항목이에요.',
