@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TFormValues } from '@constants/defaultValues';
+import { DraftDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { getDraft, sendDraft } from './apis';
@@ -28,6 +29,7 @@ const ApplyPage = () => {
     setActiveHash(hash);
   }, []);
 
+  const dialog = useRef<HTMLDialogElement>(null);
   const { ref } = useIntersectionObserver(handleSetActiveHash);
 
   const { data, isLoading } = useQuery<
@@ -46,6 +48,9 @@ const ApplyPage = () => {
     ApplyRequest
   >({
     mutationFn: sendDraft,
+    onSuccess: () => {
+      dialog.current?.showModal();
+    },
   });
 
   const { handleSubmit, ...formObject } = useForm();
@@ -116,20 +121,22 @@ const ApplyPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-      <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
-      <ApplyInfo />
-      <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
-      <div className={sectionContainer}>
-        <div
-          id="default"
-          className={content}
-          ref={(el) => {
-            if (el) ref.current[0] = el;
-          }}>
-          <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
-        </div>
-        {/* <div
+    <>
+      <DraftDialog ref={dialog} />
+      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+        <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
+        <ApplyInfo />
+        <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
+        <div className={sectionContainer}>
+          <div
+            id="default"
+            className={content}
+            ref={(el) => {
+              if (el) ref.current[0] = el;
+            }}>
+            <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
+          </div>
+          {/* <div
           id="common"
           className={content}
           ref={(el) => {
@@ -146,16 +153,17 @@ const ApplyPage = () => {
           <PartSection formObject={formObject} />
         </div>
         <BottomSection formObject={formObject} /> */}
-        <div className={buttonWrapper}>
-          <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
-            임시저장
-          </Button>
-          <Button isLoading={isPending} type="submit">
-            제출하기
-          </Button>
+          <div className={buttonWrapper}>
+            <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
+              임시저장
+            </Button>
+            <Button isLoading={isPending} type="submit">
+              제출하기
+            </Button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };
 
