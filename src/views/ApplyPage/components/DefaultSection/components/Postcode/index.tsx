@@ -37,7 +37,7 @@ const Postcode = ({
         placeholder="예) 서울특별시 관악구 신림동"
         onClick={handleOpenPostcode}
         value={address || addressDraft}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', caretColor: 'transparent' }}
       />
     </TextBox>
   );
