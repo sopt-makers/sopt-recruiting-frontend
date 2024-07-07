@@ -68,7 +68,7 @@ const ProfileImage = ({
           accept="image/png, image/jpg, image/jpeg"
           style={{ display: 'none' }}
           {...register('사진', {
-            required: true && '필수 입력 항목이에요.',
+            required: !pic && true && '필수 입력 항목이에요.',
             onChange: handleChangeImage,
           })}
         />
