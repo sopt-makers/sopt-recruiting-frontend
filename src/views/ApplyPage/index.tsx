@@ -29,6 +29,11 @@ const ApplyPage = () => {
 
   useScrollToHash(); // scrollTo 카테고리
 
+  window.addEventListener('beforeunload', (e) => {
+    e.preventDefault();
+    e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
+  });
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={formContainer}>
       <ApplyHeader />
