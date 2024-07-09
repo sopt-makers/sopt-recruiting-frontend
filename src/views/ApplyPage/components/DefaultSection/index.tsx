@@ -126,7 +126,7 @@ const DefaultSection = ({
       <TextBox label="지하철역" formObject={formObject} required size="lg">
         <InputLine
           label="지하철역"
-          placeholder="예) 성신여대입구"
+          placeholder="역의 이름을 정확하게 적어주세요. (ex. 성신여대입구)"
           maxLength={VALIDATION_CHECK.subway.maxLength}
           pattern={VALIDATION_CHECK.subway.pattern}
           errorText={VALIDATION_CHECK.subway.errorText}
@@ -136,7 +136,7 @@ const DefaultSection = ({
         <TextBox label="학교" formObject={formObject} required size="sm">
           <InputLine
             label="학교"
-            placeholder="학교 이름을 정확하게 적어주세요."
+            placeholder="학교 이름을 정확하게 적어주세요. (ex. 서울대학교)"
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
             errorText={VALIDATION_CHECK.textInput.errorText}
@@ -150,7 +150,7 @@ const DefaultSection = ({
         <TextBox label="학과" formObject={formObject} required size="sm">
           <InputLine
             label="학과"
-            placeholder="학과 이름을 정확하게 적어주세요."
+            placeholder="학과 이름을 정확하게 적어주세요. (ex. 경영학과)"
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
             errorText={VALIDATION_CHECK.textInput.errorText}
