@@ -1,14 +1,16 @@
-import { TextareaHTMLAttributes, useId } from 'react';
+import { ReactNode, TextareaHTMLAttributes, useId } from 'react';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import Input from './Input';
 import Label from './Label';
+import { container } from './style.css';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: Path<T>;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
   maxCount: number;
   children: string | number;
+  extraInput?: ReactNode;
 }
 
 const Textarea = <T extends FieldValues>({
@@ -17,6 +19,7 @@ const Textarea = <T extends FieldValues>({
   maxCount,
   children,
   required = false,
+  extraInput,
   ...textareaElements
 }: TextareaProps<T>) => {
   const id = useId();
@@ -27,10 +30,11 @@ const Textarea = <T extends FieldValues>({
   } = formObject;
 
   return (
-    <>
+    <div className={container}>
       <Label label={id} maxCount={maxCount} required={required}>
         {children}
       </Label>
+      {extraInput}
       <Input
         id={id}
         label={label}
@@ -41,7 +45,7 @@ const Textarea = <T extends FieldValues>({
         maxCount={maxCount}
         {...textareaElements}
       />
-    </>
+    </div>
   );
 };
 
