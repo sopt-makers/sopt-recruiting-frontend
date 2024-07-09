@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { ThemeContext } from '@store/themeContext';
+import { ModeType, ThemeContext } from '@store/themeContext';
 import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
@@ -61,7 +61,7 @@ const App = () => {
 
   const themeContextValue = {
     isLight,
-    handleChangeMode: (mode: 'light' | 'dark') => {
+    handleChangeMode: (mode: ModeType) => {
       setIsLight(mode === 'light' ? true : false);
       const body = document.body;
       const bodyColor = mode === 'light' ? colors.white : colors.gray950; // theme.color.background
@@ -71,7 +71,7 @@ const App = () => {
 
   const userInfoContextValue = {
     userInfo,
-    handleSaveUserInfo: (obj: object) => {
+    handleSaveUserInfo: (obj: UserInfoType) => {
       setUserInfo(obj);
     },
   };
