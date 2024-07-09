@@ -11,7 +11,7 @@ import { InputLine, TextBox } from '@components/Input';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { sendingSignUp } from './apis';
 import { container } from './style.css';
@@ -59,7 +59,14 @@ const SignupPage = () => {
       <Title>새 지원서 작성하기</Title>
       <TextBox이름 formObject={formObject} />
       <TextBox label="연락처" formObject={formObject} required>
-        <InputLine label="연락처" placeholder="010-0000-0000" required type="tel" />
+        <InputLine
+          label="연락처"
+          placeholder="010-0000-0000"
+          type="tel"
+          pattern={VALIDATION_CHECK.phoneNumber.pattern}
+          maxLength={VALIDATION_CHECK.phoneNumber.maxLength}
+          errorText={VALIDATION_CHECK.phoneNumber.errorText}
+        />
       </TextBox>
       <TextBox이메일
         isVerificationSuccess={isVerificationSuccess}
