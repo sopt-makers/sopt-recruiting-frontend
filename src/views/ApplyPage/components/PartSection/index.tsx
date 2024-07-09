@@ -6,6 +6,8 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
+import FileInput from '../FileInput';
+import LinkInput from '../LinkInput';
 
 const PartSection = ({
   part,
