@@ -45,4 +45,9 @@ export const VALIDATION_CHECK = {
   IDPhoto: {
     errorText: '파일 크기가 너무 커요. 10MB 이하로 선택해주세요.',
   },
+  textInput: {
+    pattern: /^[가-힣\s.,·()-]+$/,
+    maxLength: 30,
+    errorText: '입력 형식이 올바르지 않아요.',
+  },
 };
