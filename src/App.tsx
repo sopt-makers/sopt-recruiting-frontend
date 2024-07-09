@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
 import { ThemeContext } from '@store/themeContext';
+import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
 import ApplyPage from 'views/ApplyPage';
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   const [isLight, setIsLight] = useState(true);
+  const [userInfo, setUserInfo] = useState<UserInfoType>({});
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -57,7 +59,7 @@ const App = () => {
     },
   });
 
-  const contextValue = {
+  const themeContextValue = {
     isLight,
     handleChangeMode: (mode: 'light' | 'dark') => {
       setIsLight(mode === 'light' ? true : false);
@@ -67,14 +69,23 @@ const App = () => {
     },
   };
 
+  const userInfoContextValue = {
+    userInfo,
+    handleSaveUserInfo: (obj: object) => {
+      setUserInfo(obj);
+    },
+  };
+
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
-        <div className={isLight ? light : dark}>
-          <RouterProvider router={router} />
-        </div>
-      </QueryClientProvider>
+    <ThemeContext.Provider value={themeContextValue}>
+      <UserInfoContext.Provider value={userInfoContextValue}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools />
+          <div className={isLight ? light : dark}>
+            <RouterProvider router={router} />
+          </div>
+        </QueryClientProvider>
+      </UserInfoContext.Provider>
     </ThemeContext.Provider>
   );
 };
