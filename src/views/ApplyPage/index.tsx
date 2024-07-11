@@ -52,7 +52,6 @@ const ApplyPage = () => {
     queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
     enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
   });
-  console.log(questionsData);
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
@@ -77,7 +76,15 @@ const ApplyPage = () => {
     console.log(123, data);
   };
 
-  console.log(partQuestionsDraft);
+  let selectedPart: string = formObject.getValues('지원파트');
+  if (selectedPart === '기획') selectedPart = 'PM';
+  const selectedType = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart);
+  const recruitingQuestionTypeId = selectedType?.id;
+  const partQuestions = questionsData?.data.partQuestions.find(
+    (part) => part.recruitingQuestionTypeId === recruitingQuestionTypeId,
+  );
+  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
+  const partQuestionIds = partQuestions?.questions.map((question) => question.id);
 
   const handleDraftSubmit = () => {
     const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
@@ -98,18 +105,18 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const answers = JSON.stringify(
-      Object.keys(formObject.getValues())
-        .filter((key) => key.startsWith('공통') || key.startsWith('파트'))
-        .map((key) => {
-          const recruitingQuestionId = Number(key.match(/\d+/)?.[0]);
-          const answer = formObject.getValues()[key];
-          return {
-            recruitingQuestionId,
-            answer,
-          };
-        }),
-    );
+    const commonQuestions =
+      commonQuestionIds?.map((id) => ({
+        recruitingQuestionId: id,
+        answer: formObject.getValues()[`공통${id}번`],
+      })) ?? [];
+    const partQuestions =
+      partQuestionIds?.map((id) => ({
+        recruitingQuestionId: id,
+        answer: formObject.getValues()[`파트${id}번`],
+      })) ?? [];
+
+    const answers = JSON.stringify([...commonQuestions, ...partQuestions]);
 
     const formValues: ApplyRequest = {
       picture: formObject.getValues('사진')[0],
@@ -130,7 +137,6 @@ const ApplyPage = () => {
 
     mutate(formValues);
   };
-  console.log(questionsData?.data.partQuestions, 12);
 
   return (
     <>

@@ -55,6 +55,7 @@ const PartSection = ({
         return (
           <div key={value}>
             <Textarea
+              key={value}
               label={`파트${id}번`}
               defaultValue={defaultValue}
               formObject={formObject}
