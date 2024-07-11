@@ -14,7 +14,7 @@ const PartSection = ({
   partQuestionsDraft,
   formObject,
 }: {
-  refCallback: (elem) => void;
+  refCallback: (elem: HTMLSelectElement) => void;
   part?: string;
   questions?: {
     part: string;

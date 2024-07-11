@@ -25,7 +25,7 @@ const ApplyPage = () => {
   useScrollToHash(); // scrollTo 카테고리
 
   const dialog = useRef<HTMLDialogElement>(null);
-  const sectionsRef = useRef([]);
+  const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
   const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
@@ -63,7 +63,7 @@ const ApplyPage = () => {
 
   const targetSections = document.querySelectorAll('section');
 
-  const refCallback = useCallback((element) => {
+  const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
       sectionsRef.current.push(element);
     }
@@ -74,7 +74,7 @@ const ApplyPage = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveHash(entry.target.getAttribute('id'));
+            setActiveHash(entry.target.getAttribute('id')!);
           }
         });
       },

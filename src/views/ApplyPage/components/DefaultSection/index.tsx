@@ -95,7 +95,7 @@ const DefaultSection = ({
   applicantDraft,
   formObject,
 }: {
-  refCallback?: (elem) => void;
+  refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }) => {

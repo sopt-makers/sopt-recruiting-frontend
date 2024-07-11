@@ -11,7 +11,7 @@ const CommonSection = ({
   commonQuestionsDraft,
   formObject,
 }: {
-  refCallback: (elem) => void;
+  refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
