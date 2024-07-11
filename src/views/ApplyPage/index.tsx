@@ -76,8 +76,6 @@ const ApplyPage = () => {
     console.log(123, data);
   };
 
-  console.log(draftData);
-
   const handleDraftSubmit = () => {
     const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
@@ -97,16 +95,18 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const answers = Object.keys(formObject.getValues())
-      .filter((key) => key.startsWith('공통') || key.startsWith('파트'))
-      .map((key) => {
-        const recruitingQuestionId = Number(key.match(/\d+/)?.[0]);
-        const answer = formObject.getValues()[key];
-        return {
-          recruitingQuestionId,
-          answer,
-        };
-      });
+    const answers = JSON.stringify(
+      Object.keys(formObject.getValues())
+        .filter((key) => key.startsWith('공통') || key.startsWith('파트'))
+        .map((key) => {
+          const recruitingQuestionId = Number(key.match(/\d+/)?.[0]);
+          const answer = formObject.getValues()[key];
+          return {
+            recruitingQuestionId,
+            answer,
+          };
+        }),
+    );
 
     const formValues: ApplyRequest = {
       picture: formObject.getValues('사진')[0],
@@ -150,7 +150,11 @@ const ApplyPage = () => {
             ref={(el) => {
               if (el) ref.current[1] = el;
             }}>
-            <CommonSection questions={questionsData?.data.commonQuestions.questions} formObject={formObject} />
+            <CommonSection
+              questions={questionsData?.data.commonQuestions.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+              formObject={formObject}
+            />
           </div>
           <div
             id="partial"

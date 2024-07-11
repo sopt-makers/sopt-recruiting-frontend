@@ -97,7 +97,7 @@ export interface Applicant {
   submit: boolean;
 }
 
-interface Answers {
+export interface Answers {
   id: number;
   group: string;
   season: number;
