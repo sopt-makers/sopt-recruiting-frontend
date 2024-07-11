@@ -6,6 +6,7 @@ export const labelStyle = style({
   width: 720,
   marginBottom: 8,
   wordBreak: 'keep-all',
+  whiteSpace: 'pre-line',
   ...theme.font.TITLE_5_18_SB,
 });
 

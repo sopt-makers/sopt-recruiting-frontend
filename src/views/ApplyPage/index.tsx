@@ -161,7 +161,7 @@ const ApplyPage = () => {
             ref={(el) => {
               if (el) ref.current[2] = el;
             }}>
-            <PartSection formObject={formObject} />
+            <PartSection questions={questionsData?.data.partQuestions} formObject={formObject} />
           </div>
           <BottomSection formObject={formObject} />
           <div className={buttonWrapper}>
