@@ -20,136 +20,42 @@ export interface QuestionsRequest {
   group: string;
 }
 
+export interface Questions {
+  charLimit: number;
+  createdAt: string;
+  group: string;
+  id: number;
+  ignoreCharLimit: boolean;
+  isDeleted: boolean;
+  isForTest: boolean;
+  order: number;
+  question: string;
+  recruitingQuestionType: string;
+  recruitingQuestionTypeId: number;
+  recruitingQuestionTypeKr: string;
+  recruitingQuestionTypeLegacy: null;
+  season: number;
+  updatedAt: string;
+}
+
 export interface QuestionsResponse {
   err: boolean;
   commonQuestions: {
     part: string;
     recruitingQuestionTypeId: number;
-    questions: [
-      {
-        id: number;
-        group: string;
-        season: number;
-        recruitingQuestionTypeId: number;
-        order: number;
-        question: string;
-        charLimit: number;
-        ignoreCharLimit: boolean;
-        isDeleted: boolean;
-        isForTest: boolean;
-        createdAt: string;
-        updatedAt: string;
-        recruitingQuestionType: string;
-        recruitingQuestionTypeKr: string;
-        recruitingQuestionTypeLegacy: null;
-      },
-      {
-        id: number;
-        group: string;
-        season: number;
-        recruitingQuestionTypeId: number;
-        order: number;
-        question: string;
-        charLimit: number;
-        ignoreCharLimit: boolean;
-        isDeleted: boolean;
-        isForTest: boolean;
-        createdAt: string;
-        updatedAt: string;
-        recruitingQuestionType: string;
-        recruitingQuestionTypeKr: string;
-        recruitingQuestionTypeLegacy: null;
-      },
-    ];
+    questions: Questions[];
   };
-  partQuestions: [
-    {
-      part: string;
-      recruitingQuestionTypeId: number;
-      questions: [
-        {
-          id: number;
-          group: string;
-          season: number;
-          recruitingQuestionTypeId: number;
-          order: number;
-          question: string;
-          charLimit: null;
-          ignoreCharLimit: boolean;
-          isDeleted: boolean;
-          isForTest: boolean;
-          createdAt: string;
-          updatedAt: string;
-          recruitingQuestionType: string;
-          recruitingQuestionTypeKr: string;
-          recruitingQuestionTypeLegacy: null;
-        },
-      ];
-    },
-    {
-      part: string;
-      recruitingQuestionTypeId: number;
-      questions: [];
-    },
-    {
-      part: string;
-      recruitingQuestionTypeId: number;
-      questions: [];
-    },
-    {
-      part: string;
-      recruitingQuestionTypeId: number;
-      questions: [];
-    },
-    {
-      part: string;
-      recruitingQuestionTypeId: number;
-      questions: [];
-    },
-    {
-      part: string;
-      recruitingQuestionTypeId: number;
-      questions: [];
-    },
-  ];
-  questionTypes: [
-    {
-      id: number;
-      type: string;
-      typeKr: string;
-      typeLegacy: null;
-    },
-    {
-      id: number;
-      type: string;
-      typeKr: string;
-      typeLegacy: null;
-    },
-    {
-      id: number;
-      type: string;
-      typeKr: string;
-      typeLegacy: null;
-    },
-    {
-      id: number;
-      type: string;
-      typeKr: string;
-      typeLegacy: null;
-    },
-    {
-      id: number;
-      type: string;
-      typeKr: string;
-      typeLegacy: null;
-    },
-    {
-      id: number;
-      type: string;
-      typeKr: string;
-      typeLegacy: null;
-    },
-  ];
+  partQuestions: {
+    part: string;
+    recruitingQuestionTypeId: number;
+    questions: Questions[];
+  }[];
+  questionTypes: {
+    id: number;
+    type: string;
+    typeKr: string;
+    typeLegacy: null;
+  }[];
 }
 
 export interface ApplyError {
@@ -172,24 +78,6 @@ export interface FormValues {
   nearestStation: string;
   answers: {}[];
   willAppjam: boolean;
-}
-
-export interface Questions {
-  charLimit: number;
-  createdAt: string;
-  group: string;
-  id: number;
-  ignoreCharLimit: boolean;
-  isDeleted: boolean;
-  isForTest: boolean;
-  order: number;
-  question: string;
-  recruitingQuestionType: string;
-  recruitingQuestionTypeId: number;
-  recruitingQuestionTypeKr: string;
-  recruitingQuestionTypeLegacy: null;
-  season: number;
-  updatedAt: string;
 }
 
 export interface Applicant {
