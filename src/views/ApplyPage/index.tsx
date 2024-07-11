@@ -153,7 +153,7 @@ const ApplyPage = () => {
             ref={(el) => {
               if (el) ref.current[1] = el;
             }}>
-            <CommonSection formObject={formObject} />
+            <CommonSection questions={questionsData?.data.commonQuestions.questions} formObject={formObject} />
           </div>
           <div
             id="partial"

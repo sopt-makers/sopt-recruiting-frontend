@@ -174,6 +174,24 @@ export interface FormValues {
   willAppjam: boolean;
 }
 
+export interface Questions {
+  charLimit: number;
+  createdAt: string;
+  group: string;
+  id: number;
+  ignoreCharLimit: boolean;
+  isDeleted: boolean;
+  isForTest: boolean;
+  order: number;
+  question: string;
+  recruitingQuestionType: string;
+  recruitingQuestionTypeId: number;
+  recruitingQuestionTypeKr: string;
+  recruitingQuestionTypeLegacy: null;
+  season: number;
+  updatedAt: string;
+}
+
 export interface Applicant {
   id: number;
   group: string;
