@@ -52,6 +52,7 @@ const ApplyPage = () => {
     queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
     enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
   });
+  console.log(questionsData);
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
@@ -75,6 +76,8 @@ const ApplyPage = () => {
   const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
     console.log(123, data);
   };
+
+  console.log(partQuestionsDraft);
 
   const handleDraftSubmit = () => {
     const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
@@ -165,6 +168,7 @@ const ApplyPage = () => {
             <PartSection
               part={applicantDraft?.part}
               questions={questionsData?.data.partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
               formObject={formObject}
             />
           </div>

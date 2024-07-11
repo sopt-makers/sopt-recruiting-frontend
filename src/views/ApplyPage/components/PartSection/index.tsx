@@ -3,13 +3,14 @@ import { UseFormReturn } from 'react-hook-form';
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
-import { Questions } from 'views/ApplyPage/types';
+import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
 
 const PartSection = ({
   part,
   questions,
+  partQuestionsDraft,
   formObject,
 }: {
   part?: string;
@@ -18,6 +19,7 @@ const PartSection = ({
     recruitingQuestionTypeId: number;
     questions: Questions[];
   }[];
+  partQuestionsDraft?: Answers[];
   formObject: Pick<
     UseFormReturn,
     'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues' | 'watch' | 'trigger'
@@ -26,6 +28,13 @@ const PartSection = ({
   let selectedPart: string = formObject.getValues('지원파트');
   if (selectedPart === '기획') selectedPart = 'PM';
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
+  const partQuestionsById = partQuestionsDraft?.reduce(
+    (acc, draft) => {
+      acc ? (acc[draft.id] = draft) : undefined;
+      return acc;
+    },
+    {} as { [key: number]: Answers } | undefined,
+  );
 
   return (
     <section className={sectionContainer}>
@@ -39,13 +48,23 @@ const PartSection = ({
         size="lg"
         required
       />
-      {filteredQuestions?.map(({ question, charLimit, id }) => (
-        <div key={question}>
-          <Textarea label={`파트${id}번`} formObject={formObject} maxCount={charLimit} required>
-            {question}
-          </Textarea>
-        </div>
-      ))}
+      {filteredQuestions?.map(({ question, charLimit, id }) => {
+        const draftItem = partQuestionsById?.[id];
+        const defaultValue = draftItem ? draftItem.answer.answer : '';
+
+        return (
+          <div key={question}>
+            <Textarea
+              label={`파트${id}번`}
+              defaultValue={defaultValue}
+              formObject={formObject}
+              maxCount={charLimit}
+              required>
+              {question}
+            </Textarea>
+          </div>
+        );
+      })}
     </section>
   );
 };
