@@ -11,7 +11,7 @@ export interface ApplyRequest {
   mostRecentSeasonStr: string;
   univYear: number;
   nearestStation: string;
-  answers: [];
+  answers: Answer[];
   willAppjam: boolean;
 }
 
@@ -63,21 +63,9 @@ export interface ApplyError {
   userMessage: string;
 }
 
-export interface FormValues {
-  picture: File;
-  part: string;
-  address: string;
-  birthday: string;
-  college: string;
-  gender: string;
-  knownPath: string;
-  leaveAbsence: boolean;
-  major: string;
-  mostRecentSeasonStr: string;
-  univYear: number;
-  nearestStation: string;
-  answers: {}[];
-  willAppjam: boolean;
+interface Answer {
+  recruitingQuestionId: number;
+  answer: string;
 }
 
 export interface Applicant {
@@ -109,9 +97,34 @@ export interface Applicant {
   submit: boolean;
 }
 
+interface Answers {
+  id: number;
+  group: string;
+  season: number;
+  recruitingQuestionTypeId: number;
+  order: number;
+  question: string;
+  charLimit: number;
+  ignoreCharLimit: boolean;
+  isDeleted: boolean;
+  isForTest: boolean;
+  createdAt: string;
+  updatedAt: string;
+  answer: {
+    id: number;
+    recruitingApplicantId: number;
+    recruitingQuestionId: number;
+    answer: string;
+    isDeleted: boolean;
+    isForTest: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
 export interface ApplyResponse {
   err: boolean;
   applicant: Applicant;
-  commonQuestions: {}[];
-  partQuestions: {}[];
+  commonQuestions: Answers[];
+  partQuestions: Answers[];
 }

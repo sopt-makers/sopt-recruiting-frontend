@@ -19,7 +19,7 @@ import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
-import { ApplyError, ApplyRequest, ApplyResponse, FormValues, QuestionsRequest, QuestionsResponse } from './types';
+import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
   const [activeHash, setActiveHash] = useState('');
@@ -92,26 +92,18 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const answers = [
-      {
-        recruitingQuestionId: 1,
-        answer: formObject.getValues('공통0번'),
-      },
-      {
-        recruitingQuestionId: 2,
-        answer: formObject.getValues('공통1번'),
-      },
-      {
-        recruitingQuestionId: 3,
-        answer: formObject.getValues('공통2번'),
-      },
-      {
-        recruitingQuestionId: 4,
-        answer: formObject.getValues('공통3번'),
-      },
-    ];
+    const answers = Object.keys(formObject.getValues())
+      .filter((key) => key.startsWith('공통') || key.startsWith('파트'))
+      .map((key) => {
+        const recruitingQuestionId = Number(key.match(/\d+/)?.[0]);
+        const answer = formObject.getValues()[key];
+        return {
+          recruitingQuestionId,
+          answer,
+        };
+      });
 
-    const formValues: FormValues = {
+    const formValues: ApplyRequest = {
       picture: formObject.getValues('사진')[0],
       part: formObject.getValues('지원파트'),
       address: formObject.getValues('거주지'),
