@@ -172,7 +172,7 @@ const ApplyPage = () => {
               formObject={formObject}
             />
           </div>
-          <BottomSection formObject={formObject} />
+          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
             <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
               임시저장
