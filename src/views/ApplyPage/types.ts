@@ -11,7 +11,7 @@ export interface ApplyRequest {
   mostRecentSeason: string;
   univYear: number;
   nearestStation: string;
-  answers: Answer[];
+  answers: string;
   willAppjam: boolean;
 }
 
