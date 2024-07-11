@@ -8,9 +8,11 @@ import { Questions } from 'views/ApplyPage/types';
 import { sectionContainer, title } from './style.css';
 
 const PartSection = ({
+  part,
   questions,
   formObject,
 }: {
+  part?: string;
   questions?: {
     part: string;
     recruitingQuestionTypeId: number;
@@ -29,6 +31,7 @@ const PartSection = ({
     <section className={sectionContainer}>
       <h2 className={title}>파트별 질문</h2>
       <SelectBox
+        defaultValue={part}
         label="지원파트"
         placeholder="지원하고 싶은 파트를 선택해주세요."
         options={SELECT_OPTIONS.지원파트}
