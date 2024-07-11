@@ -16,9 +16,8 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
-import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
-import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
+import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
@@ -30,7 +29,6 @@ const ApplyPage = () => {
   }, []);
 
   const dialog = useRef<HTMLDialogElement>(null);
-  const { ref } = useIntersectionObserver(handleSetActiveHash);
 
   const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
@@ -145,39 +143,18 @@ const ApplyPage = () => {
         <ApplyInfo />
         <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
         <div className={sectionContainer}>
-          <div
-            id="default"
-            className={content}
-            ref={(el) => {
-              if (el) ref.current[0] = el;
-            }}>
-            <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
-          </div>
-          <div
-            id="common"
-            className={content}
-            ref={(el) => {
-              if (el) ref.current[1] = el;
-            }}>
-            <CommonSection
-              questions={questionsData?.data.commonQuestions.questions}
-              commonQuestionsDraft={commonQuestionsDraft}
-              formObject={formObject}
-            />
-          </div>
-          <div
-            id="partial"
-            className={content}
-            ref={(el) => {
-              if (el) ref.current[2] = el;
-            }}>
-            <PartSection
-              part={applicantDraft?.part}
-              questions={questionsData?.data.partQuestions}
-              partQuestionsDraft={partQuestionsDraft}
-              formObject={formObject}
-            />
-          </div>
+          <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
+          <CommonSection
+            questions={questionsData?.data.commonQuestions.questions}
+            commonQuestionsDraft={commonQuestionsDraft}
+            formObject={formObject}
+          />
+          <PartSection
+            part={applicantDraft?.part}
+            questions={questionsData?.data.partQuestions}
+            partQuestionsDraft={partQuestionsDraft}
+            formObject={formObject}
+          />
           <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
             <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">

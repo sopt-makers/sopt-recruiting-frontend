@@ -23,7 +23,7 @@ const CommonSection = ({
   );
 
   return (
-    <section className={sectionContainer}>
+    <section id="common" className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
       {questions?.map(({ value, id, charLimit }) => {
         const draftItem = commonQuestionsById?.[id];

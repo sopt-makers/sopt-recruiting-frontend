@@ -37,7 +37,7 @@ const PartSection = ({
   );
 
   return (
-    <section className={sectionContainer}>
+    <section id="partial" className={sectionContainer}>
       <h2 className={title}>파트별 질문</h2>
       <SelectBox
         defaultValue={part}

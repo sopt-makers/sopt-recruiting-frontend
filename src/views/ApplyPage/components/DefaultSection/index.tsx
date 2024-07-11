@@ -114,7 +114,7 @@ const DefaultSection = ({
   } = applicantDraft || {};
 
   return (
-    <section className={sectionContainer}>
+    <section id="default" className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>
       <ProfileImage pic={pic} formObject={formObject} />
       <div className={doubleWrapper}>
