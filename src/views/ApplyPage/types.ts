@@ -15,6 +15,143 @@ export interface ApplyRequest {
   willAppjam: boolean;
 }
 
+export interface QuestionsRequest {
+  season: number;
+  group: string;
+}
+
+export interface QuestionsResponse {
+  err: boolean;
+  commonQuestions: {
+    part: string;
+    recruitingQuestionTypeId: number;
+    questions: [
+      {
+        id: number;
+        group: string;
+        season: number;
+        recruitingQuestionTypeId: number;
+        order: number;
+        question: string;
+        charLimit: number;
+        ignoreCharLimit: boolean;
+        isDeleted: boolean;
+        isForTest: boolean;
+        createdAt: string;
+        updatedAt: string;
+        recruitingQuestionType: string;
+        recruitingQuestionTypeKr: string;
+        recruitingQuestionTypeLegacy: null;
+      },
+      {
+        id: number;
+        group: string;
+        season: number;
+        recruitingQuestionTypeId: number;
+        order: number;
+        question: string;
+        charLimit: number;
+        ignoreCharLimit: boolean;
+        isDeleted: boolean;
+        isForTest: boolean;
+        createdAt: string;
+        updatedAt: string;
+        recruitingQuestionType: string;
+        recruitingQuestionTypeKr: string;
+        recruitingQuestionTypeLegacy: null;
+      },
+    ];
+  };
+  partQuestions: [
+    {
+      part: string;
+      recruitingQuestionTypeId: number;
+      questions: [
+        {
+          id: number;
+          group: string;
+          season: number;
+          recruitingQuestionTypeId: number;
+          order: number;
+          question: string;
+          charLimit: null;
+          ignoreCharLimit: boolean;
+          isDeleted: boolean;
+          isForTest: boolean;
+          createdAt: string;
+          updatedAt: string;
+          recruitingQuestionType: string;
+          recruitingQuestionTypeKr: string;
+          recruitingQuestionTypeLegacy: null;
+        },
+      ];
+    },
+    {
+      part: string;
+      recruitingQuestionTypeId: number;
+      questions: [];
+    },
+    {
+      part: string;
+      recruitingQuestionTypeId: number;
+      questions: [];
+    },
+    {
+      part: string;
+      recruitingQuestionTypeId: number;
+      questions: [];
+    },
+    {
+      part: string;
+      recruitingQuestionTypeId: number;
+      questions: [];
+    },
+    {
+      part: string;
+      recruitingQuestionTypeId: number;
+      questions: [];
+    },
+  ];
+  questionTypes: [
+    {
+      id: number;
+      type: string;
+      typeKr: string;
+      typeLegacy: null;
+    },
+    {
+      id: number;
+      type: string;
+      typeKr: string;
+      typeLegacy: null;
+    },
+    {
+      id: number;
+      type: string;
+      typeKr: string;
+      typeLegacy: null;
+    },
+    {
+      id: number;
+      type: string;
+      typeKr: string;
+      typeLegacy: null;
+    },
+    {
+      id: number;
+      type: string;
+      typeKr: string;
+      typeLegacy: null;
+    },
+    {
+      id: number;
+      type: string;
+      typeKr: string;
+      typeLegacy: null;
+    },
+  ];
+}
+
 export interface ApplyError {
   err: boolean;
   userMessage: string;
@@ -34,7 +171,7 @@ export interface FormValues {
   univYear: number;
   nearestStation: string;
   answers: {}[];
-  willAppjam: false;
+  willAppjam: boolean;
 }
 
 export interface Applicant {

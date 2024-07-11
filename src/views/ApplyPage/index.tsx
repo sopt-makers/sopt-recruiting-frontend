@@ -8,7 +8,7 @@ import { TFormValues } from '@constants/defaultValues';
 import { DraftDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { getDraft, sendDraft } from './apis';
+import { getDraft, getQuestions, sendDraft } from './apis';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
@@ -19,7 +19,7 @@ import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
-import { ApplyError, ApplyRequest, ApplyResponse, FormValues } from './types';
+import { ApplyError, ApplyRequest, ApplyResponse, FormValues, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
   const [activeHash, setActiveHash] = useState('');
@@ -42,6 +42,16 @@ const ApplyPage = () => {
     queryFn: getDraft,
   });
 
+  const { data: questionsData, isLoading: questionsIsLoading } = useQuery<
+    AxiosResponse<QuestionsResponse, QuestionsRequest>,
+    AxiosError<ApplyError, QuestionsRequest>,
+    AxiosResponse<QuestionsResponse, QuestionsRequest>,
+    string[]
+  >({
+    queryKey: ['get-questions'],
+    queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
+  });
+
   const { mutate, isPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
     AxiosError<ApplyError, ApplyRequest>,
@@ -53,9 +63,10 @@ const ApplyPage = () => {
     },
   });
 
+  console.log('what', questionsData?.data);
   const { handleSubmit, ...formObject } = useForm();
 
-  if (draftIsLoading) return <BigLoading />;
+  if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
   const applicantDraft = draftData?.data?.applicant;
   const commonQuestionsDraft = draftData?.data?.commonQuestions;
