@@ -48,19 +48,19 @@ const PartSection = ({
         size="lg"
         required
       />
-      {filteredQuestions?.map(({ question, charLimit, id }) => {
+      {filteredQuestions?.map(({ value, charLimit, id }) => {
         const draftItem = partQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
 
         return (
-          <div key={question}>
+          <div key={value}>
             <Textarea
               label={`파트${id}번`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
               required>
-              {question}
+              {value}
             </Textarea>
           </div>
         );

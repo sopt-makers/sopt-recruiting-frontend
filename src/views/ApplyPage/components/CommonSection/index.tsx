@@ -25,19 +25,19 @@ const CommonSection = ({
   return (
     <section className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
-      {questions?.map(({ question, id, charLimit }) => {
+      {questions?.map(({ value, id, charLimit }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
 
         return (
-          <div key={question}>
+          <div key={value}>
             <Textarea
               label={`공통${id}번`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
               required>
-              {question}
+              {value}
             </Textarea>
           </div>
         );

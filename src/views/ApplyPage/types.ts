@@ -21,21 +21,10 @@ export interface QuestionsRequest {
 }
 
 export interface Questions {
-  charLimit: number;
-  createdAt: string;
-  group: string;
   id: number;
-  ignoreCharLimit: boolean;
-  isDeleted: boolean;
-  isForTest: boolean;
-  order: number;
-  question: string;
-  recruitingQuestionType: string;
-  recruitingQuestionTypeId: number;
-  recruitingQuestionTypeKr: string;
-  recruitingQuestionTypeLegacy: null;
-  season: number;
-  updatedAt: string;
+  value: string;
+  urls: string[];
+  charLimit: number;
 }
 
 export interface QuestionsResponse {
@@ -61,11 +50,6 @@ export interface QuestionsResponse {
 export interface ApplyError {
   err: boolean;
   userMessage: string;
-}
-
-interface Answer {
-  recruitingQuestionId: number;
-  answer: string;
 }
 
 export interface Applicant {

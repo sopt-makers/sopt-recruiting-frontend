@@ -130,6 +130,7 @@ const ApplyPage = () => {
 
     mutate(formValues);
   };
+  console.log(questionsData?.data.partQuestions, 12);
 
   return (
     <>
