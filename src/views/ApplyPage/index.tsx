@@ -78,7 +78,7 @@ const ApplyPage = () => {
           }
         });
       },
-      { threshold: 0.15 },
+      { threshold: 0.19 },
     );
 
     sectionsRef.current.forEach((section) => {
