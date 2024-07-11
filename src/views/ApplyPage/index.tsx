@@ -72,19 +72,14 @@ const ApplyPage = () => {
   const commonQuestionsDraft = draftData?.data?.commonQuestions;
   const partQuestionsDraft = draftData?.data?.partQuestions;
 
-  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(123, data);
-  };
-
   let selectedPart: string = formObject.getValues('지원파트');
   if (selectedPart === '기획') selectedPart = 'PM';
-  const selectedType = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart);
-  const recruitingQuestionTypeId = selectedType?.id;
+  const selectedPartId = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart)?.id;
   const partQuestions = questionsData?.data.partQuestions.find(
-    (part) => part.recruitingQuestionTypeId === recruitingQuestionTypeId,
+    (part) => part.recruitingQuestionTypeId === selectedPartId,
   );
-  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
   const partQuestionIds = partQuestions?.questions.map((question) => question.id);
+  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
 
   const handleDraftSubmit = () => {
     const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
@@ -105,18 +100,18 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const commonQuestions =
+    const commonAnswers =
       commonQuestionIds?.map((id) => ({
         recruitingQuestionId: id,
         answer: formObject.getValues()[`공통${id}번`],
       })) ?? [];
-    const partQuestions =
+    const partAnswers =
       partQuestionIds?.map((id) => ({
         recruitingQuestionId: id,
         answer: formObject.getValues()[`파트${id}번`],
       })) ?? [];
 
-    const answers = JSON.stringify([...commonQuestions, ...partQuestions]);
+    const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
 
     const formValues: ApplyRequest = {
       picture: formObject.getValues('사진')[0],
@@ -136,6 +131,10 @@ const ApplyPage = () => {
     };
 
     mutate(formValues);
+  };
+
+  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
+    console.log(123, data);
   };
 
   return (
