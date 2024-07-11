@@ -50,6 +50,7 @@ const ApplyPage = () => {
   >({
     queryKey: ['get-questions'],
     queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
+    enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
   });
 
   const { mutate, isPending } = useMutation<
@@ -63,7 +64,6 @@ const ApplyPage = () => {
     },
   });
 
-  console.log('what', questionsData?.data);
   const { handleSubmit, ...formObject } = useForm();
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
@@ -147,23 +147,23 @@ const ApplyPage = () => {
             }}>
             <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
           </div>
-          {/* <div
-          id="common"
-          className={content}
-          ref={(el) => {
-            if (el) ref.current[1] = el;
-          }}>
-          <CommonSection formObject={formObject} />
-        </div>
-        <div
-          id="partial"
-          className={content}
-          ref={(el) => {
-            if (el) ref.current[2] = el;
-          }}>
-          <PartSection formObject={formObject} />
-        </div>
-        <BottomSection formObject={formObject} /> */}
+          <div
+            id="common"
+            className={content}
+            ref={(el) => {
+              if (el) ref.current[1] = el;
+            }}>
+            <CommonSection formObject={formObject} />
+          </div>
+          <div
+            id="partial"
+            className={content}
+            ref={(el) => {
+              if (el) ref.current[2] = el;
+            }}>
+            <PartSection formObject={formObject} />
+          </div>
+          <BottomSection formObject={formObject} />
           <div className={buttonWrapper}>
             <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
               임시저장
