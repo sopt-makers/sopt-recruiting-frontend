@@ -76,9 +76,11 @@ const ApplyPage = () => {
     console.log(123, data);
   };
 
+  console.log(draftData);
+
   const handleDraftSubmit = () => {
-    const mostRecentSeasonStrValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
-    const mostRecentSeasonStr = mostRecentSeasonStrValue === '해당사항 없음' ? '없음' : mostRecentSeasonStrValue;
+    const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
+    const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? '없음' : mostRecentSeasonValue;
 
     const univYearValue = formObject.getValues('학년');
     const univYear =
@@ -113,7 +115,7 @@ const ApplyPage = () => {
       knownPath: formObject.getValues('동아리를 알게 된 경로'),
       leaveAbsence: false,
       major: formObject.getValues('학과'),
-      mostRecentSeasonStr,
+      mostRecentSeason,
       univYear,
       nearestStation: formObject.getValues('지하철역'),
       answers,
