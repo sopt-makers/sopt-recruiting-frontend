@@ -6,10 +6,12 @@ import { Answers, Questions } from 'views/ApplyPage/types';
 import { sectionContainer, title } from './style.css';
 
 const CommonSection = ({
+  refCallback,
   questions,
   commonQuestionsDraft,
   formObject,
 }: {
+  refCallback: (elem) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
@@ -23,7 +25,7 @@ const CommonSection = ({
   );
 
   return (
-    <section id="common" className={sectionContainer}>
+    <section ref={refCallback} id="common" className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
       {questions?.map(({ value, id, charLimit }) => {
         const draftItem = commonQuestionsById?.[id];

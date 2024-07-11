@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -24,11 +24,8 @@ const ApplyPage = () => {
   const [activeHash, setActiveHash] = useState('');
   useScrollToHash(); // scrollTo 카테고리
 
-  const handleSetActiveHash = useCallback((hash: string) => {
-    setActiveHash(hash);
-  }, []);
-
   const dialog = useRef<HTMLDialogElement>(null);
+  const sectionsRef = useRef([]);
 
   const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
@@ -63,6 +60,31 @@ const ApplyPage = () => {
   });
 
   const { handleSubmit, ...formObject } = useForm();
+
+  const targetSections = document.querySelectorAll('section');
+
+  const refCallback = useCallback((element) => {
+    if (element) {
+      sectionsRef.current.push(element);
+    }
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHash(entry.target.getAttribute('id'));
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+
+    sectionsRef.current.forEach((section) => {
+      observer.observe(section);
+    });
+  }, [targetSections]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
@@ -141,15 +163,17 @@ const ApplyPage = () => {
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
         <ApplyInfo />
-        <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
+        <ApplyCategory activeHash={activeHash} />
         <div className={sectionContainer}>
-          <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
+          <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
           <CommonSection
+            refCallback={refCallback}
             questions={questionsData?.data.commonQuestions.questions}
             commonQuestionsDraft={commonQuestionsDraft}
             formObject={formObject}
           />
           <PartSection
+            refCallback={refCallback}
             part={applicantDraft?.part}
             questions={questionsData?.data.partQuestions}
             partQuestionsDraft={partQuestionsDraft}

@@ -91,9 +91,11 @@ const ProfileImage = ({
 };
 
 const DefaultSection = ({
+  refCallback,
   applicantDraft,
   formObject,
 }: {
+  refCallback?: (elem) => void;
   applicantDraft?: Applicant;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }) => {
@@ -114,7 +116,7 @@ const DefaultSection = ({
   } = applicantDraft || {};
 
   return (
-    <section id="default" className={sectionContainer}>
+    <section ref={refCallback} id="default" className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>
       <ProfileImage pic={pic} formObject={formObject} />
       <div className={doubleWrapper}>

@@ -8,11 +8,13 @@ import { Answers, Questions } from 'views/ApplyPage/types';
 import { sectionContainer, title } from './style.css';
 
 const PartSection = ({
+  refCallback,
   part,
   questions,
   partQuestionsDraft,
   formObject,
 }: {
+  refCallback: (elem) => void;
   part?: string;
   questions?: {
     part: string;
@@ -37,7 +39,7 @@ const PartSection = ({
   );
 
   return (
-    <section id="partial" className={sectionContainer}>
+    <section ref={refCallback} id="partial" className={sectionContainer}>
       <h2 className={title}>파트별 질문</h2>
       <SelectBox
         defaultValue={part}
