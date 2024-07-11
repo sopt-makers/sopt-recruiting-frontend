@@ -176,7 +176,7 @@ const DefaultSection = ({
         />
       </div>
       <SelectBox
-        defaultValue={mostRecentSeason}
+        defaultValue={mostRecentSeason === 0 ? '해당사항 없음' : mostRecentSeason}
         label="이전 기수 활동 여부 (제명 포함)"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
         options={SELECT_OPTIONS.이전기수}

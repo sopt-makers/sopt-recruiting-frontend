@@ -80,7 +80,10 @@ const ApplyPage = () => {
 
   const handleDraftSubmit = () => {
     const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
-    const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? '없음' : mostRecentSeasonValue;
+    const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
+
+    const leaveAbsenceValue = formObject.getValues('재학여부');
+    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
 
     const univYearValue = formObject.getValues('학년');
     const univYear =
@@ -113,7 +116,7 @@ const ApplyPage = () => {
       college: formObject.getValues('학교'),
       gender: formObject.getValues('성별'),
       knownPath: formObject.getValues('동아리를 알게 된 경로'),
-      leaveAbsence: false,
+      leaveAbsence,
       major: formObject.getValues('학과'),
       mostRecentSeason,
       univYear,
