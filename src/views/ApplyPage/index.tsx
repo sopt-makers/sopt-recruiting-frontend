@@ -32,7 +32,7 @@ const ApplyPage = () => {
   const dialog = useRef<HTMLDialogElement>(null);
   const { ref } = useIntersectionObserver(handleSetActiveHash);
 
-  const { data, isLoading } = useQuery<
+  const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
     AxiosError<ApplyError, null>,
     AxiosResponse<ApplyResponse, null>,
@@ -55,11 +55,11 @@ const ApplyPage = () => {
 
   const { handleSubmit, ...formObject } = useForm();
 
-  if (isLoading) return <BigLoading />;
+  if (draftIsLoading) return <BigLoading />;
 
-  const applicantDraft = data?.data?.applicant;
-  const commonQuestionsDraft = data?.data?.commonQuestions;
-  const partQuestionsDraft = data?.data?.partQuestions;
+  const applicantDraft = draftData?.data?.applicant;
+  const commonQuestionsDraft = draftData?.data?.commonQuestions;
+  const partQuestionsDraft = draftData?.data?.partQuestions;
 
   const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
     console.log(123, data);
