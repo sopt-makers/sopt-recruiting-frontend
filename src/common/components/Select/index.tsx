@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 
 import {
   circle,

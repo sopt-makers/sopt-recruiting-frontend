@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext } from 'react';
 
 import { inputLine, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
