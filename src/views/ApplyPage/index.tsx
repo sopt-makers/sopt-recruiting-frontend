@@ -9,7 +9,7 @@ import { UserInfoContext } from '@store/userInfoContext';
 import { DraftDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { getDraft, sendDraft } from './apis';
+import { getDraft, getQuestions, sendDraft } from './apis';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
@@ -20,7 +20,7 @@ import PartSection from './components/PartSection';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
-import { ApplyError, ApplyRequest, ApplyResponse, FormValues } from './types';
+import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
   const [activeHash, setActiveHash] = useState('');
@@ -33,7 +33,7 @@ const ApplyPage = () => {
   const dialog = useRef<HTMLDialogElement>(null);
   const { ref } = useIntersectionObserver(handleSetActiveHash);
 
-  const { data, isLoading } = useQuery<
+  const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
     AxiosError<ApplyError, null>,
     AxiosResponse<ApplyResponse, null>,
@@ -41,6 +41,17 @@ const ApplyPage = () => {
   >({
     queryKey: ['get-draft'],
     queryFn: getDraft,
+  });
+
+  const { data: questionsData, isLoading: questionsIsLoading } = useQuery<
+    AxiosResponse<QuestionsResponse, QuestionsRequest>,
+    AxiosError<ApplyError, QuestionsRequest>,
+    AxiosResponse<QuestionsResponse, QuestionsRequest>,
+    string[]
+  >({
+    queryKey: ['get-questions'],
+    queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
+    enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
   });
 
   const { mutate, isPending } = useMutation<
@@ -59,27 +70,35 @@ const ApplyPage = () => {
 
   useEffect(() => {
     handleSaveUserInfo({
-      name: data?.data.applicant.name,
-      phone: data?.data.applicant.phone,
-      email: data?.data.applicant.email,
-      season: data?.data.applicant.season,
-      group: data?.data.applicant.group,
+      name: draftData?.data.applicant.name,
+      phone: draftData?.data.applicant.phone,
+      email: draftData?.data.applicant.email,
+      season: draftData?.data.applicant.season,
+      group: draftData?.data.applicant.group,
     });
-  }, [data, handleSaveUserInfo]);
+  }, [draftData, handleSaveUserInfo]);
 
-  if (isLoading) return <BigLoading />;
+  if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
-  const applicantDraft = data?.data?.applicant;
-  const commonQuestionsDraft = data?.data?.commonQuestions;
-  const partQuestionsDraft = data?.data?.partQuestions;
+  const applicantDraft = draftData?.data?.applicant;
+  const commonQuestionsDraft = draftData?.data?.commonQuestions;
+  const partQuestionsDraft = draftData?.data?.partQuestions;
 
-  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(123, data);
-  };
+  let selectedPart: string = formObject.getValues('지원파트');
+  if (selectedPart === '기획') selectedPart = 'PM';
+  const selectedPartId = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart)?.id;
+  const partQuestions = questionsData?.data.partQuestions.find(
+    (part) => part.recruitingQuestionTypeId === selectedPartId,
+  );
+  const partQuestionIds = partQuestions?.questions.map((question) => question.id);
+  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
 
   const handleDraftSubmit = () => {
-    const mostRecentSeasonStrValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
-    const mostRecentSeasonStr = mostRecentSeasonStrValue === '해당사항 없음' ? '없음' : mostRecentSeasonStrValue;
+    const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
+    const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
+
+    const leaveAbsenceValue = formObject.getValues('재학여부');
+    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
 
     const univYearValue = formObject.getValues('학년');
     const univYear =
@@ -93,26 +112,20 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const answers = [
-      {
-        recruitingQuestionId: 1,
-        answer: formObject.getValues('공통0번'),
-      },
-      {
-        recruitingQuestionId: 2,
-        answer: formObject.getValues('공통1번'),
-      },
-      {
-        recruitingQuestionId: 3,
-        answer: formObject.getValues('공통2번'),
-      },
-      {
-        recruitingQuestionId: 4,
-        answer: formObject.getValues('공통3번'),
-      },
-    ];
+    const commonAnswers =
+      commonQuestionIds?.map((id) => ({
+        recruitingQuestionId: id,
+        answer: formObject.getValues()[`공통${id}번`],
+      })) ?? [];
+    const partAnswers =
+      partQuestionIds?.map((id) => ({
+        recruitingQuestionId: id,
+        answer: formObject.getValues()[`파트${id}번`],
+      })) ?? [];
 
-    const formValues: FormValues = {
+    const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
+
+    const formValues: ApplyRequest = {
       picture: formObject.getValues('사진')[0],
       part: formObject.getValues('지원파트'),
       address: formObject.getValues('거주지'),
@@ -120,9 +133,9 @@ const ApplyPage = () => {
       college: formObject.getValues('학교'),
       gender: formObject.getValues('성별'),
       knownPath: formObject.getValues('동아리를 알게 된 경로'),
-      leaveAbsence: false,
+      leaveAbsence,
       major: formObject.getValues('학과'),
-      mostRecentSeasonStr,
+      mostRecentSeason,
       univYear,
       nearestStation: formObject.getValues('지하철역'),
       answers,
@@ -130,6 +143,10 @@ const ApplyPage = () => {
     };
 
     mutate(formValues);
+  };
+
+  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
+    console.log(123, data);
   };
 
   window.addEventListener('beforeunload', (e) => {
@@ -153,23 +170,32 @@ const ApplyPage = () => {
             }}>
             <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
           </div>
-          {/* <div
-          id="common"
-          className={content}
-          ref={(el) => {
-            if (el) ref.current[1] = el;
-          }}>
-          <CommonSection formObject={formObject} />
-        </div>
-        <div
-          id="partial"
-          className={content}
-          ref={(el) => {
-            if (el) ref.current[2] = el;
-          }}>
-          <PartSection formObject={formObject} />
-        </div>
-        <BottomSection formObject={formObject} /> */}
+          <div
+            id="common"
+            className={content}
+            ref={(el) => {
+              if (el) ref.current[1] = el;
+            }}>
+            <CommonSection
+              questions={questionsData?.data.commonQuestions.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+              formObject={formObject}
+            />
+          </div>
+          <div
+            id="partial"
+            className={content}
+            ref={(el) => {
+              if (el) ref.current[2] = el;
+            }}>
+            <PartSection
+              part={applicantDraft?.part}
+              questions={questionsData?.data.partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
+              formObject={formObject}
+            />
+          </div>
+          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
             <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
               임시저장

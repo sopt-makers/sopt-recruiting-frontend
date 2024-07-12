@@ -28,7 +28,10 @@ const ProfileImage = ({
   formObject,
 }: {
   pic?: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const {
     register,
@@ -95,7 +98,10 @@ const DefaultSection = ({
   formObject,
 }: {
   applicantDraft?: Applicant;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const {
     address,
@@ -110,6 +116,7 @@ const DefaultSection = ({
     phone,
     pic,
     univYear,
+    leaveAbsence,
   } = applicantDraft || {};
 
   return (
@@ -173,7 +180,13 @@ const DefaultSection = ({
           />
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
-          <Radio formObject={formObject} label={['재학', '휴학 ‧ 수료 ‧ 유예']} name="재학여부" required />
+          <Radio
+            defaultValue={leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
+            formObject={formObject}
+            label={['재학', '휴학 ‧ 수료 ‧ 유예']}
+            name="재학여부"
+            required
+          />
         </div>
       </div>
       <div className={doubleWrapper}>
@@ -197,7 +210,7 @@ const DefaultSection = ({
         />
       </div>
       <SelectBox
-        defaultValue={mostRecentSeason}
+        defaultValue={mostRecentSeason === 0 ? '해당사항 없음' : mostRecentSeason}
         label="이전 기수 활동 여부 (제명 포함)"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
         options={SELECT_OPTIONS.이전기수}

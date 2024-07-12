@@ -2,6 +2,17 @@ import tokenInstance from '@apis/tokenInstance';
 
 import { ApplyRequest } from './types';
 
+export const getQuestions = async ({ season, group }: { season?: number; group?: string }) => {
+  const res = await tokenInstance.get('/recruiting-question/list', {
+    params: {
+      season,
+      group,
+    },
+  });
+
+  return res;
+};
+
 export const getDraft = async () => {
   const res = await tokenInstance.get('/recruiting-answer/store');
 
