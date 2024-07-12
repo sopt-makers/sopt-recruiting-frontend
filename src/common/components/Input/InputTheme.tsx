@@ -167,7 +167,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
           onClick={handleVerificationCodeCheck}
         />
       </InputLine>
-      {!formObject.formState.errors['이메일'] && isVerified && <p className={success}>인증에 성공했어요.</p>}
+      {isVerified && <p className={success}>인증에 성공했어요.</p>}
     </TextBox>
   );
 };
