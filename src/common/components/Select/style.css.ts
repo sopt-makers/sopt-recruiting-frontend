@@ -57,14 +57,16 @@ export const select = style({
 
   transition: '0.3s ease-in-out',
 
-  ':focus': {
-    boxShadow: `0 0 0 1px ${theme.color.primary} inset`,
-  },
+  caretColor: 'transparent',
 
   ':disabled': {
     backgroundColor: theme.color.subBackground, // gray30 -> 20으로 수정해야함
     color: theme.color.lighterText,
     cursor: 'not-allowed',
+  },
+
+  '::placeholder': {
+    color: theme.color.placeholder,
   },
 });
 

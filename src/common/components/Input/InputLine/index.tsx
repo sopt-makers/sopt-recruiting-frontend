@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext } from 'react';
 
 import { inputLine, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
@@ -17,25 +17,25 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'size' | 'formObject'>) => {
-  const [value, setValue] = useState('');
   const {
     required,
-    formObject: { register, formState, clearErrors, trigger },
+    formObject: { register, formState, clearErrors, trigger, setValue },
   } = useContext(FormContext);
   const { errors } = formState;
   const { maxLength, minLength } = inputElementProps;
+  const { defaultValue } = inputElementProps;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(label);
 
     if (label === '생년월일') {
       const formattedValue = formatBirthdate(e.target.value);
-      setValue(formattedValue);
+      setValue('생년월일', formattedValue);
     }
 
     if (label === '연락처') {
       const formattedValue = formatPhoneNumber(e.target.value);
-      setValue(formattedValue);
+      setValue('연락처', formattedValue);
     }
   };
 
@@ -44,7 +44,7 @@ const InputLine = ({
       <div className={inputLine}>
         <input
           id={label}
-          value={label === '연락처' || label === '생년월일' ? value : undefined}
+          defaultValue={defaultValue}
           className={inputVar[errors?.[label] ? 'error' : 'default']}
           {...inputElementProps}
           {...register(label, {
