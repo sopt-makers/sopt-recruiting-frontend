@@ -17,7 +17,6 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'size' | 'formObject'>) => {
-  // const [value, setValue] = useState('');
   const {
     required,
     formObject: { register, formState, clearErrors, trigger, setValue },
