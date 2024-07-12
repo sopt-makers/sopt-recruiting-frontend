@@ -26,6 +26,7 @@ export const profileWrapper = style({
 });
 
 const profileLabel = style({
+  position: 'relative',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -47,13 +48,17 @@ export const profileLabelVar = styleVariants({
   error: [
     profileLabel,
     {
+      marginBottom: 22,
       borderColor: theme.color.error,
     },
   ],
 });
 
 export const errorText = style({
-  marginTop: 8,
+  position: 'absolute',
+  bottom: -30,
+  left: 0,
+  width: 330,
   color: theme.color.error,
   ...theme.font.LABEL_2_16_SB,
 });
