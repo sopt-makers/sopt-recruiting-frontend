@@ -7,6 +7,7 @@ export const VALIDATION_CHECK = {
     maxLength: 10,
     minLength: 2,
     errorText: '잘못된 이름(한글명) 형식이에요. 이름(한글명)을 정확하게 입력해주세요.',
+    errorTextNonexistence: '존재하지 않은 계정이에요.',
   },
   email: {
     pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,

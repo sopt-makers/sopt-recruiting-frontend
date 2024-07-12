@@ -57,10 +57,15 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   >({
     mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
     onSuccess: () => {
+      formObject.clearErrors();
       sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
     },
     onError: (error) => {
       if (error.response?.status === 400) {
+        formObject.setError('이름', {
+          type: 'non-existence',
+          message: VALIDATION_CHECK.name.errorTextNonexistence,
+        });
         formObject.setError('이메일', {
           type: 'non-existence',
           message: VALIDATION_CHECK.email.errorTextNonexistence,
@@ -94,18 +99,15 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   }, []);
 
   const handleSendingEmail = () => {
+    let isDone = true;
+
     if (formObject.getValues('이메일') === '') {
       formObject.setError('이메일', {
         type: 'required',
         message: '필수 입력 항목이에요.',
       });
-
-      return;
+      isDone = false;
     }
-
-    if (formObject.formState.errors['이메일']) return;
-
-    formObject.setValue('인증번호', '');
 
     if (location.pathname === '/password') {
       if (formObject.getValues('이름') === '') {
@@ -114,21 +116,36 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
           message: '필수 입력 항목이에요.',
         });
 
-        return;
+        isDone = false;
       }
 
-      checkingEmailMutate({
-        email: formObject.getValues('이메일'),
-        name: formObject.getValues('이름'),
-        season: 1,
-        group: 'OB',
-      });
+      if (
+        (formObject.formState.errors['이름'] &&
+          formObject.formState.errors['이름'].message !== VALIDATION_CHECK.name.errorTextNonexistence) ||
+        (formObject.formState.errors['이메일'] &&
+          formObject.formState.errors['이메일'].message !== VALIDATION_CHECK.name.errorTextNonexistence)
+      )
+        isDone = false;
+
+      if (isDone) {
+        formObject.setValue('인증번호', '');
+        formObject.clearErrors('이메일');
+        checkingEmailMutate({
+          email: formObject.getValues('이메일'),
+          name: formObject.getValues('이름'),
+          season: 1,
+          group: 'OB',
+        });
+      }
 
       return;
     }
 
     if (location.pathname === '/sign-up') {
-      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+      if (isDone) {
+        sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+      }
+      return;
     }
   };
 
