@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
@@ -89,6 +89,10 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     },
   });
 
+  const handleResetTimer = useCallback(() => {
+    setIsActive(false);
+  }, []);
+
   const handleSendingEmail = () => {
     if (formObject.getValues('이메일') === '') {
       formObject.setError('이메일', {
@@ -148,12 +152,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
           onClick={handleSendingEmail}
           disabled={isActive}
         />
-        <Timer
-          isActive={isActive}
-          onResetTimer={() => {
-            setIsActive(false);
-          }}
-        />
+        <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
         disabled={!isActive}
