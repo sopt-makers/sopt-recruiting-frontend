@@ -8,10 +8,10 @@ export interface ApplyRequest {
   knownPath: string;
   leaveAbsence: boolean;
   major: string;
-  mostRecentSeasonStr: string;
+  mostRecentSeason: string;
   univYear: number;
   nearestStation: string;
-  answers: Answer[];
+  answers: string;
   willAppjam: boolean;
 }
 
@@ -21,21 +21,11 @@ export interface QuestionsRequest {
 }
 
 export interface Questions {
-  charLimit: number;
-  createdAt: string;
-  group: string;
   id: number;
-  ignoreCharLimit: boolean;
-  isDeleted: boolean;
-  isForTest: boolean;
-  order: number;
   question: string;
-  recruitingQuestionType: string;
-  recruitingQuestionTypeId: number;
-  recruitingQuestionTypeKr: string;
-  recruitingQuestionTypeLegacy: null;
-  season: number;
-  updatedAt: string;
+  value: string;
+  urls: string[];
+  charLimit: number;
 }
 
 export interface QuestionsResponse {
@@ -61,11 +51,6 @@ export interface QuestionsResponse {
 export interface ApplyError {
   err: boolean;
   userMessage: string;
-}
-
-interface Answer {
-  recruitingQuestionId: number;
-  answer: string;
 }
 
 export interface Applicant {
@@ -97,7 +82,7 @@ export interface Applicant {
   submit: boolean;
 }
 
-interface Answers {
+export interface Answers {
   id: number;
   group: string;
   season: number;

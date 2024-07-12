@@ -110,6 +110,7 @@ const DefaultSection = ({
     phone,
     pic,
     univYear,
+    leaveAbsence,
   } = applicantDraft || {};
 
   return (
@@ -159,7 +160,13 @@ const DefaultSection = ({
           <InputLine defaultValue={college} label="학교" placeholder="학교 이름을 정확하게 적어주세요." />
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
-          <Radio formObject={formObject} label={['재학', '휴학 ‧ 수료 ‧ 유예']} name="재학여부" required />
+          <Radio
+            defaultValue={leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
+            formObject={formObject}
+            label={['재학', '휴학 ‧ 수료 ‧ 유예']}
+            name="재학여부"
+            required
+          />
         </div>
       </div>
       <div className={doubleWrapper}>
@@ -176,7 +183,7 @@ const DefaultSection = ({
         />
       </div>
       <SelectBox
-        defaultValue={mostRecentSeason}
+        defaultValue={mostRecentSeason === 0 ? '해당사항 없음' : mostRecentSeason}
         label="이전 기수 활동 여부 (제명 포함)"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
         options={SELECT_OPTIONS.이전기수}

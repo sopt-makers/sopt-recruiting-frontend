@@ -72,13 +72,21 @@ const ApplyPage = () => {
   const commonQuestionsDraft = draftData?.data?.commonQuestions;
   const partQuestionsDraft = draftData?.data?.partQuestions;
 
-  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(123, data);
-  };
+  let selectedPart: string = formObject.getValues('지원파트');
+  if (selectedPart === '기획') selectedPart = 'PM';
+  const selectedPartId = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart)?.id;
+  const partQuestions = questionsData?.data.partQuestions.find(
+    (part) => part.recruitingQuestionTypeId === selectedPartId,
+  );
+  const partQuestionIds = partQuestions?.questions.map((question) => question.id);
+  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
 
   const handleDraftSubmit = () => {
-    const mostRecentSeasonStrValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
-    const mostRecentSeasonStr = mostRecentSeasonStrValue === '해당사항 없음' ? '없음' : mostRecentSeasonStrValue;
+    const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
+    const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
+
+    const leaveAbsenceValue = formObject.getValues('재학여부');
+    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
 
     const univYearValue = formObject.getValues('학년');
     const univYear =
@@ -92,16 +100,18 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const answers = Object.keys(formObject.getValues())
-      .filter((key) => key.startsWith('공통') || key.startsWith('파트'))
-      .map((key) => {
-        const recruitingQuestionId = Number(key.match(/\d+/)?.[0]);
-        const answer = formObject.getValues()[key];
-        return {
-          recruitingQuestionId,
-          answer,
-        };
-      });
+    const commonAnswers =
+      commonQuestionIds?.map((id) => ({
+        recruitingQuestionId: id,
+        answer: formObject.getValues()[`공통${id}번`],
+      })) ?? [];
+    const partAnswers =
+      partQuestionIds?.map((id) => ({
+        recruitingQuestionId: id,
+        answer: formObject.getValues()[`파트${id}번`],
+      })) ?? [];
+
+    const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
 
     const formValues: ApplyRequest = {
       picture: formObject.getValues('사진')[0],
@@ -111,9 +121,9 @@ const ApplyPage = () => {
       college: formObject.getValues('학교'),
       gender: formObject.getValues('성별'),
       knownPath: formObject.getValues('동아리를 알게 된 경로'),
-      leaveAbsence: false,
+      leaveAbsence,
       major: formObject.getValues('학과'),
-      mostRecentSeasonStr,
+      mostRecentSeason,
       univYear,
       nearestStation: formObject.getValues('지하철역'),
       answers,
@@ -121,6 +131,10 @@ const ApplyPage = () => {
     };
 
     mutate(formValues);
+  };
+
+  const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
+    console.log(123, data);
   };
 
   return (
@@ -145,7 +159,11 @@ const ApplyPage = () => {
             ref={(el) => {
               if (el) ref.current[1] = el;
             }}>
-            <CommonSection questions={questionsData?.data.commonQuestions.questions} formObject={formObject} />
+            <CommonSection
+              questions={questionsData?.data.commonQuestions.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+              formObject={formObject}
+            />
           </div>
           <div
             id="partial"
@@ -153,9 +171,14 @@ const ApplyPage = () => {
             ref={(el) => {
               if (el) ref.current[2] = el;
             }}>
-            <PartSection questions={questionsData?.data.partQuestions} formObject={formObject} />
+            <PartSection
+              part={applicantDraft?.part}
+              questions={questionsData?.data.partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
+              formObject={formObject}
+            />
           </div>
-          <BottomSection formObject={formObject} />
+          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
             <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
               임시저장

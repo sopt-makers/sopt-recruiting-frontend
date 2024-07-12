@@ -9,8 +9,10 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { circle, doubleLineCheck, label, line, sectionContainer } from './style.css';
 
 const BottomSection = ({
+  knownPath,
   formObject,
 }: {
+  knownPath?: string;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }) => {
   return (
@@ -18,6 +20,7 @@ const BottomSection = ({
       <hr className={line} />
       <SelectBox
         label="동아리를 알게 된 경로"
+        defaultValue={knownPath}
         placeholder="지원 경로를 선택해 주세요."
         options={SELECT_OPTIONS.경로}
         formObject={formObject}
