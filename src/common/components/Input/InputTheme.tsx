@@ -36,7 +36,7 @@ interface TextBox이메일Props {
 
 export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
   const location = useLocation();
-  const [isActive, setActive] = useState(false); // Timer용 state
+  const [isActive, setIsActive] = useState(false); // Timer용 state
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendEmailRequest>,
@@ -46,7 +46,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     mutationFn: ({ email, season }: SendEmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
       onChangeVerification(false);
-      setActive(true);
+      setIsActive(true);
     },
   });
 
@@ -76,7 +76,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   >({
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
     onSuccess: () => {
-      setActive(false);
+      setIsActive(false);
       onChangeVerification(true);
     },
     onError(error) {
@@ -133,6 +133,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   return (
     <TextBox label="이메일" formObject={formObject} required>
       <InputLine
+        style={{ paddingRight: isActive ? 50 : 16 }}
         label="이메일"
         placeholder="이메일을 입력해주세요."
         type="email"
@@ -148,7 +149,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         <Timer
           isActive={isActive}
           onResetTimer={() => {
-            setActive(false);
+            setIsActive(false);
           }}
         />
       </InputLine>
