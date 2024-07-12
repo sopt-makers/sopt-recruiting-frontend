@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { ChangeEvent, useContext } from 'react';
 
 import { inputLine, inputVar } from './style.css';

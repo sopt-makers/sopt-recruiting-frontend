@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TFormValues } from '@constants/defaultValues';
+import { UserInfoContext } from '@store/userInfoContext';
 import { DraftDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -54,6 +55,17 @@ const ApplyPage = () => {
   });
 
   const { handleSubmit, ...formObject } = useForm();
+  const { handleSaveUserInfo } = useContext(UserInfoContext);
+
+  useEffect(() => {
+    handleSaveUserInfo({
+      name: data?.data.applicant.name,
+      phone: data?.data.applicant.phone,
+      email: data?.data.applicant.email,
+      season: data?.data.applicant.season,
+      group: data?.data.applicant.group,
+    });
+  }, [data, handleSaveUserInfo]);
 
   if (isLoading) return <BigLoading />;
 
