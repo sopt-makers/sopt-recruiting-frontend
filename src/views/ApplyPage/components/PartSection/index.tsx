@@ -6,6 +6,8 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { PART_QUESTION } from './constants';
 import { sectionContainer, title } from './style.css';
+import FileInput from '../FileInput';
+import LinkInput from '../LinkInput';
 
 const PartSection = ({
   formObject,
@@ -29,9 +31,14 @@ const PartSection = ({
         required
       />
       {Object.keys(PART_QUESTION).includes(selectedPart) &&
-        PART_QUESTION[selectedPart].map(({ question, maxCount, required }, id) => (
+        PART_QUESTION[selectedPart].map(({ question, maxCount, required, extraInput }, id) => (
           <div key={question}>
-            <Textarea label={`파트${id}번`} formObject={formObject} maxCount={maxCount} required={required}>
+            <Textarea
+              label={`파트${id}번`}
+              formObject={formObject}
+              maxCount={maxCount}
+              required={required}
+              extraInput={extraInput === 'link' ? <LinkInput /> : extraInput === 'file' ? <FileInput /> : null}>
               {question}
             </Textarea>
           </div>

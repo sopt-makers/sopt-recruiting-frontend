@@ -15,11 +15,4 @@ export const MENU_ITEMS: menuItemsTypes[] = [
     path: 'https://pf.kakao.com/_JdTKd',
     target: '_blank',
   },
-  {
-    text: '로그인',
-    path: '/',
-  },
-  {
-    text: '김솝트님',
-  },
 ];
