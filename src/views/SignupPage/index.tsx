@@ -31,6 +31,14 @@ const SignupPage = () => {
     onSuccess: () => {
       navigate('/');
     },
+    onError: (error) => {
+      if (error.response?.status === 400) {
+        formObject.setError('이메일', {
+          type: 'non-existence',
+          message: VALIDATION_CHECK.email.errorTextExistence,
+        });
+      }
+    },
   });
 
   const handleSubmitSignUp = (data: FieldValues) => {
