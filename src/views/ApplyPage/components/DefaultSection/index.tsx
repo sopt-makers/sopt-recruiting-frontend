@@ -154,6 +154,7 @@ const DefaultSection = ({
       <Postcode addressDraft={address} formObject={formObject} />
       <TextBox label="지하철역" formObject={formObject} required size="lg">
         <InputLine
+          defaultValue={nearestStation}
           label="지하철역"
           placeholder="역의 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;역)"
           maxLength={VALIDATION_CHECK.subway.maxLength}
@@ -164,6 +165,7 @@ const DefaultSection = ({
       <div className={doubleWrapper}>
         <TextBox label="학교" formObject={formObject} required size="sm">
           <InputLine
+            defaultValue={college}
             label="학교"
             placeholder="학교 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;대학교)"
             maxLength={VALIDATION_CHECK.textInput.maxLength}
@@ -184,6 +186,7 @@ const DefaultSection = ({
       <div className={doubleWrapper}>
         <TextBox label="학과" formObject={formObject} required size="sm">
           <InputLine
+            defaultValue={major}
             label="학과"
             placeholder="학과 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;학과)"
             maxLength={VALIDATION_CHECK.textInput.maxLength}
