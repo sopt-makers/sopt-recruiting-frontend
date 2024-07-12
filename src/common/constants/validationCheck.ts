@@ -15,7 +15,6 @@ export const VALIDATION_CHECK = {
     notMatchErrorText: '잘못된 이메일 혹은 비밀번호예요.',
   },
   verificationCode: {
-    pattern: /^0-9$/,
     maxLength: 6,
     errorText: '인증 번호가 일치하지 않아요.',
   },
@@ -43,5 +42,8 @@ export const VALIDATION_CHECK = {
     pattern: /^010-?\d{3,4}-?\d{4}$/,
     maxLength: 13,
     errorText: '잘못된 휴대폰 번호 형식이에요. 휴대폰 번호를 정확하게 입력해주세요.',
+  },
+  IDPhoto: {
+    errorText: '파일 크기가 너무 커요. 10MB 이하로 선택해주세요.',
   },
 };

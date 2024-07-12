@@ -1,13 +1,17 @@
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
+import { checkingVerificationCode, sendingVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
+import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import { TextBoxProps } from './types';
+import { CodeRequest, EmailRequest, TextBoxProps, VerificationResponse } from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -24,13 +28,56 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
   );
 };
 
-export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
+interface TextBox이메일Props {
+  formObject: TextBoxProps['formObject'];
+  isVerificationSuccess: boolean;
+  onVerification: (bool: boolean) => void;
+}
+
+export const TextBox이메일 = ({ formObject, isVerificationSuccess, onVerification }: TextBox이메일Props) => {
   const [isActive, setActive] = useState(false); // Timer용 state
 
-  const handleClick이메일인증 = () => {
-    setActive(true);
+  const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
+    AxiosResponse<VerificationResponse, EmailRequest>,
+    AxiosError<VerificationResponse, EmailRequest>,
+    EmailRequest
+  >({
+    mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
+    onSuccess: () => {
+      onVerification(false);
+      setActive(true);
+    },
+  });
+
+  const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation<
+    AxiosResponse<VerificationResponse, CodeRequest>,
+    AxiosError<VerificationResponse, CodeRequest>,
+    CodeRequest
+  >({
+    mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
+    onSuccess: () => {
+      setActive(false);
+      onVerification(true);
+    },
+    onError(error) {
+      if (error.response?.status === 400) {
+        formObject.setError('인증번호', {
+          type: 'not-match',
+          message: VALIDATION_CHECK.verificationCode.errorText,
+        });
+      }
+    },
+  });
+
+  const handleSendingEmail = () => {
+    if (formObject.getValues('이메일') === '' || formObject.formState.errors['이메일']) return;
+
+    sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
   };
-  const handleClick확인 = () => {};
+
+  const handleVerificationCodeCheck = () => {
+    checkingMutate({ email: formObject.getValues('이메일'), code: formObject.getValues('인증번호') });
+  };
 
   return (
     <TextBox label="이메일" formObject={formObject} required>
@@ -41,7 +88,7 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
         pattern={VALIDATION_CHECK.email.pattern}
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
-        <InputButton text="이메일 인증" onClick={handleClick이메일인증} disabled={isActive} />
+        <InputButton isLoading={sendingIsPending} text="이메일 인증" onClick={handleSendingEmail} disabled={isActive} />
         <Timer
           isActive={isActive}
           onResetTimer={() => {
@@ -50,13 +97,18 @@ export const TextBox이메일 = ({ formObject }: Pick<TextBoxProps, 'formObject'
         />
       </InputLine>
       <InputLine
+        disabled={!isActive}
         label="인증번호"
-        placeholder="이메일 인증 번호를 작성해주세요"
-        pattern={VALIDATION_CHECK.verificationCode.pattern}
-        errorText={VALIDATION_CHECK.verificationCode.errorText}
+        placeholder="이메일 인증 번호를 작성해주세요."
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
-        <InputButton text="확인" onClick={handleClick확인} disabled />
+        <InputButton
+          disabled={!isActive}
+          isLoading={checkingIsPending}
+          text="확인"
+          onClick={handleVerificationCodeCheck}
+        />
       </InputLine>
+      {isVerificationSuccess && <p className={success}>인증에 성공했어요.</p>}
     </TextBox>
   );
 };

@@ -11,6 +11,7 @@ export const headerContainer = style({
   top: 74,
   width: 720,
   margin: '60px auto 0px',
+  boxShadow: `0 0 0 1px ${theme.color.white}`,
   backgroundColor: theme.color.white,
   zIndex: 99,
 });
