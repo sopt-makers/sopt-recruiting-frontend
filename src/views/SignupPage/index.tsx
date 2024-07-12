@@ -35,7 +35,7 @@ const SignupPage = () => {
     onError: (error) => {
       if (error.response?.status === 400) {
         formObject.setError('이메일', {
-          type: 'non-existence',
+          type: 'already-existence',
           message: VALIDATION_CHECK.email.errorTextExistence,
         });
       }
