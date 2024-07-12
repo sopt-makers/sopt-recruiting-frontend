@@ -12,6 +12,7 @@ export const VALIDATION_CHECK = {
     pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
     maxLength: 100,
     errorText: '이메일 형식이 올바르지 않아요.',
+    notMatchErrorText: '잘못된 이메일 혹은 비밀번호예요.',
   },
   verificationCode: {
     maxLength: 6,
@@ -21,6 +22,7 @@ export const VALIDATION_CHECK = {
     pattern: /^[a-zA-Z0-9!@#$%^&*()_+[\]{};':="\\|,.<>/?`~-]{4,}$/,
     maxLength: 100,
     errorText: '비밀번호는 영문 대소문자/숫자/특수 문자 조합, 4자리 이상으로 구성 해주세요.',
+    notMatchErrorText: '잘못된 이메일 혹은 비밀번호예요.',
   },
   passwordConfirm: {
     maxLength: 100,
