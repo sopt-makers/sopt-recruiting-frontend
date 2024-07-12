@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
@@ -37,6 +37,13 @@ interface TextBox이메일Props {
 export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
   const location = useLocation();
   const [isActive, setIsActive] = useState(false); // Timer용 state
+  const {
+    clearErrors,
+    getValues,
+    setError,
+    setValue,
+    formState: { errors },
+  } = formObject;
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendEmailRequest>,
@@ -57,11 +64,16 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   >({
     mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
     onSuccess: () => {
-      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+      clearErrors();
+      sendingMutate({ email: getValues('이메일'), season: 1 });
     },
     onError: (error) => {
       if (error.response?.status === 400) {
-        formObject.setError('이메일', {
+        setError('이름', {
+          type: 'non-existence',
+          message: VALIDATION_CHECK.name.errorTextNonexistence,
+        });
+        setError('이메일', {
           type: 'non-existence',
           message: VALIDATION_CHECK.email.errorTextNonexistence,
         });
@@ -81,7 +93,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     },
     onError(error) {
       if (error.response?.status === 400) {
-        formObject.setError('인증번호', {
+        setError('인증번호', {
           type: 'not-match',
           message: VALIDATION_CHECK.verificationCode.errorText,
         });
@@ -89,45 +101,61 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     },
   });
 
+  const handleResetTimer = useCallback(() => {
+    setIsActive(false);
+  }, []);
+
   const handleSendingEmail = () => {
-    if (formObject.getValues('이메일') === '') {
-      formObject.setError('이메일', {
+    let isDone = true;
+
+    if (getValues('이메일') === '') {
+      setError('이메일', {
         type: 'required',
         message: '필수 입력 항목이에요.',
       });
-
-      return;
+      isDone = false;
     }
 
-    if (formObject.formState.errors['이메일']) return;
-
     if (location.pathname === '/password') {
-      if (formObject.getValues('이름') === '') {
-        formObject.setError('이름', {
+      if (getValues('이름') === '') {
+        setError('이름', {
           type: 'required',
           message: '필수 입력 항목이에요.',
         });
 
-        return;
+        isDone = false;
       }
 
-      checkingEmailMutate({
-        email: formObject.getValues('이메일'),
-        name: formObject.getValues('이름'),
-        season: 1,
-        group: 'OB',
-      });
+      if (
+        (errors['이름'] && errors['이름'].message !== VALIDATION_CHECK.name.errorTextNonexistence) ||
+        (errors['이메일'] && errors['이메일'].message !== VALIDATION_CHECK.name.errorTextNonexistence)
+      )
+        isDone = false;
+
+      if (isDone) {
+        setValue('인증번호', '');
+        clearErrors('이메일');
+        checkingEmailMutate({
+          email: getValues('이메일'),
+          name: getValues('이름'),
+          season: 1,
+          group: 'OB',
+        });
+      }
 
       return;
     }
 
     if (location.pathname === '/sign-up') {
-      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+      if (isDone) {
+        sendingMutate({ email: getValues('이메일'), season: 1 });
+      }
+      return;
     }
   };
 
   const handleVerificationCodeCheck = () => {
-    checkingMutate({ email: formObject.getValues('이메일'), code: formObject.getValues('인증번호') });
+    checkingMutate({ email: getValues('이메일'), code: getValues('인증번호') });
   };
 
   return (
@@ -146,12 +174,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
           onClick={handleSendingEmail}
           disabled={isActive}
         />
-        <Timer
-          isActive={isActive}
-          onResetTimer={() => {
-            setIsActive(false);
-          }}
-        />
+        <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
         disabled={!isActive}

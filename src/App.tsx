@@ -1,7 +1,7 @@
 import { colors } from '@sopt-makers/colors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -9,7 +9,6 @@ import { ModeType, ThemeContext } from '@store/themeContext';
 import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
-import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
@@ -68,9 +67,9 @@ const App = () => {
 
   const userInfoContextValue = {
     userInfo,
-    handleSaveUserInfo: (obj: UserInfoType) => {
+    handleSaveUserInfo: useCallback((obj: UserInfoType) => {
       setUserInfo(obj);
-    },
+    }, []),
   };
 
   return (

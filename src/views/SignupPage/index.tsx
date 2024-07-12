@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
+import { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,6 +32,14 @@ const SignupPage = () => {
     onSuccess: () => {
       navigate('/');
     },
+    onError: (error) => {
+      if (error.response?.status === 400) {
+        formObject.setError('이메일', {
+          type: 'already-existence',
+          message: VALIDATION_CHECK.email.errorTextExistence,
+        });
+      }
+    },
   });
 
   const handleSubmitSignUp = (data: FieldValues) => {
@@ -53,6 +62,13 @@ const SignupPage = () => {
       group: 'OB',
     });
   };
+
+  useEffect(() => {
+    if (formObject.formState.errors['이메일']?.message === VALIDATION_CHECK.email.errorTextExistence) {
+      formObject.setFocus('이메일');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formObject.formState.errors['이메일']?.message, formObject.setFocus]);
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>

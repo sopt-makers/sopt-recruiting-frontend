@@ -181,7 +181,7 @@ const DefaultSection = ({
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
+            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
             formObject={formObject}
             label={['재학', '휴학 ‧ 수료 ‧ 유예']}
             name="재학여부"

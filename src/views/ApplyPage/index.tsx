@@ -76,6 +76,11 @@ const ApplyPage = () => {
       season: draftData?.data.applicant.season,
       group: draftData?.data.applicant.group,
     });
+
+    if (draftData?.data.applicant.part) {
+      formObject.setValue('지원파트', draftData?.data.applicant.part);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftData, handleSaveUserInfo]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
