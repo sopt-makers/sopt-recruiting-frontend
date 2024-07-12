@@ -9,7 +9,6 @@ import { ModeType, ThemeContext } from '@store/themeContext';
 import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
-import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
