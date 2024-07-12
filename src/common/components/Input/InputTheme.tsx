@@ -101,6 +101,8 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
 
     if (formObject.formState.errors['이메일']) return;
 
+    formObject.setValue('인증번호', '');
+
     if (location.pathname === '/password') {
       if (formObject.getValues('이름') === '') {
         formObject.setError('이름', {
