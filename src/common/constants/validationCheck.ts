@@ -12,6 +12,7 @@ export const VALIDATION_CHECK = {
     pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
     maxLength: 100,
     errorText: '이메일 형식이 올바르지 않아요.',
+    errorTextNonexistence: '존재하지 않은 계정이에요.',
     notMatchErrorText: '잘못된 이메일 혹은 비밀번호예요.',
   },
   verificationCode: {
