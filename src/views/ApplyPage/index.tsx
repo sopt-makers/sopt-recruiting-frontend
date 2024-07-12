@@ -70,13 +70,13 @@ const ApplyPage = () => {
 
   useEffect(() => {
     handleSaveUserInfo({
-      name: data?.data.applicant.name,
-      phone: data?.data.applicant.phone,
-      email: data?.data.applicant.email,
-      season: data?.data.applicant.season,
-      group: data?.data.applicant.group,
+      name: draftData?.data.applicant.name,
+      phone: draftData?.data.applicant.phone,
+      email: draftData?.data.applicant.email,
+      season: draftData?.data.applicant.season,
+      group: draftData?.data.applicant.group,
     });
-  }, [data, handleSaveUserInfo]);
+  }, [draftData, handleSaveUserInfo]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 

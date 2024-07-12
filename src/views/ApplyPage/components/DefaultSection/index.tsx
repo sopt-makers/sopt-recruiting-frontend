@@ -28,7 +28,10 @@ const ProfileImage = ({
   formObject,
 }: {
   pic?: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const {
     register,
@@ -95,7 +98,10 @@ const DefaultSection = ({
   formObject,
 }: {
   applicantDraft?: Applicant;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const {
     address,
