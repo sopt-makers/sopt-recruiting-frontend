@@ -16,7 +16,13 @@ const BottomSection = ({
   return (
     <section className={sectionContainer}>
       <hr className={line} />
-      <SelectBox label="동아리를 알게 된 경로" options={SELECT_OPTIONS.경로} formObject={formObject} required />
+      <SelectBox
+        label="동아리를 알게 된 경로"
+        placeholder="지원 경로를 선택해 주세요."
+        options={SELECT_OPTIONS.경로}
+        formObject={formObject}
+        required
+      />
       <div className={doubleLineCheck}>
         <p className={label}>
           <span>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</span>

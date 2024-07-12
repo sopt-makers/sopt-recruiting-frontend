@@ -8,7 +8,7 @@ export const formColors = {
   },
   selected: {
     boxShadow: `0 0 0 1px ${theme.color.border} inset`,
-    focusShadow: `0 0 0 1px ${theme.color.border} inset`,
+    focusShadow: `0 0 0 1px ${theme.color.primary} inset`,
     color: theme.color.baseText,
   },
   error: {

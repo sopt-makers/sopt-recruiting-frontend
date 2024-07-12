@@ -34,6 +34,15 @@ const input = style({
     backgroundColor: theme.color.subBackground, // gray30 -> 20으로 수정해야함
     color: theme.color.lighterText,
   },
+
+  selectors: {
+    'body &:read-only': {
+      cursor: 'not-allowed',
+      backgroundColor: theme.color.subBackground,
+      color: theme.color.lighterText,
+      boxShadow: 'none',
+    },
+  },
 });
 
 export const inputVar = styleVariants(formColors, ({ boxShadow, focusShadow }) => [
