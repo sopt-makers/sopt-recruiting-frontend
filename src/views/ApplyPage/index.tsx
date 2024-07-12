@@ -132,6 +132,11 @@ const ApplyPage = () => {
     mutate(formValues);
   };
 
+  window.addEventListener('beforeunload', (e) => {
+    e.preventDefault();
+    e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
+  });
+
   return (
     <>
       <DraftDialog ref={dialog} />

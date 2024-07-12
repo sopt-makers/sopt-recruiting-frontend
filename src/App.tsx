@@ -18,7 +18,6 @@ import PasswordPage from 'views/PasswordPage';
 import ResultPage from 'views/ResultPage';
 import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
-import TestPage from 'views/TestPage';
 
 const router = createBrowserRouter([
   {
@@ -33,13 +32,11 @@ const router = createBrowserRouter([
       { index: true, element: <MainPage /> },
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
-      { path: '/apply', element: <ApplyPage /> },
       { path: '/complete', element: <CompletePage /> },
       { path: '/my', element: <MyPage /> },
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
       { path: '*', element: <ErrorPage code={404} /> },
-      { path: '/test', element: <TestPage /> },
     ],
   },
 ]);
