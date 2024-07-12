@@ -29,7 +29,14 @@ export interface TimerProps {
   onResetTimer: () => void;
 }
 
-export interface EmailRequest {
+export interface CheckEmailRequest {
+  email: string;
+  name: string;
+  season: number;
+  group: string;
+}
+
+export interface SendEmailRequest {
   email: string;
   season: number;
 }
@@ -39,7 +46,7 @@ export interface CodeRequest {
   code: string;
 }
 
-export interface VerificationResponse {
+export interface EmailResponse {
   err: boolean;
   message: string;
 }
