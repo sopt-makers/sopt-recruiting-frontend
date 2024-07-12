@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 
 import { sendingPasswordChange } from './apis';
@@ -54,10 +54,14 @@ const PasswordPage = () => {
       <Title>비밀번호 재설정하기</Title>
       <TextBox이름 formObject={formObject} />
       <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
-      <TextBox비밀번호 formObject={formObject} />
-      <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
-        저장하기
-      </Button>
+      {isVerified && (
+        <>
+          <TextBox비밀번호 formObject={formObject} />
+          <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
+            저장하기
+          </Button>
+        </>
+      )}
     </form>
   );
 };

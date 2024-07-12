@@ -29,10 +29,10 @@ const Input = <T extends FieldValues>({
       <textarea
         className={textareaStyle[state]}
         {...register(label, {
-          ...(required && { required: '필수 입력 항목이에요' }),
+          ...(required && { required: '필수 입력 항목이에요.' }),
           maxLength: {
             value: maxCount,
-            message: '최대 글자 수를 초과했어요',
+            message: '최대 글자 수를 초과했어요.',
           },
         })}
         {...textareaElements}

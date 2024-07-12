@@ -1,6 +1,6 @@
 import { FieldValues } from 'react-hook-form';
 
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 export const validateBirthdate = (val: FieldValues) => {
   if (!val) return true;

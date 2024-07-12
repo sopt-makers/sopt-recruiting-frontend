@@ -1,6 +1,6 @@
 import { FieldValues, UseFormWatch } from 'react-hook-form';
 
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 export const validatePasswordConfirmation =
   (watch: UseFormWatch<FieldValues>, textVar: string) => (val: FieldValues) => {

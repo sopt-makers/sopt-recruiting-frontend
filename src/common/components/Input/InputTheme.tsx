@@ -1,17 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { VALIDATION_CHECK } from '@constants/VALIDATION_CHECK';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
-import { checkingVerificationCode, sendingVerificationCode } from './apis';
+import { checkingEmail, checkingVerificationCode, sendingVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import { CodeRequest, EmailRequest, TextBoxProps, VerificationResponse } from './types';
+import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailResponse } from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -35,23 +35,43 @@ interface TextBox이메일Props {
 }
 
 export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
+  const location = useLocation();
   const [isActive, setIsActive] = useState(false); // Timer용 state
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
-    AxiosResponse<VerificationResponse, EmailRequest>,
-    AxiosError<VerificationResponse, EmailRequest>,
-    EmailRequest
+    AxiosResponse<EmailResponse, SendEmailRequest>,
+    AxiosError<EmailResponse, SendEmailRequest>,
+    SendEmailRequest
   >({
-    mutationFn: ({ email, season }: EmailRequest) => sendingVerificationCode(email, season),
+    mutationFn: ({ email, season }: SendEmailRequest) => sendingVerificationCode(email, season),
     onSuccess: () => {
       onChangeVerification(false);
       setIsActive(true);
     },
   });
 
+  const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
+    AxiosResponse<EmailResponse, CheckEmailRequest>,
+    AxiosError<EmailResponse, CheckEmailRequest>,
+    CheckEmailRequest
+  >({
+    mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
+    onSuccess: () => {
+      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+    },
+    onError: (error) => {
+      if (error.response?.status === 400) {
+        formObject.setError('이메일', {
+          type: 'non-existence',
+          message: VALIDATION_CHECK.email.errorTextNonexistence,
+        });
+      }
+    },
+  });
+
   const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation<
-    AxiosResponse<VerificationResponse, CodeRequest>,
-    AxiosError<VerificationResponse, CodeRequest>,
+    AxiosResponse<EmailResponse, CodeRequest>,
+    AxiosError<EmailResponse, CodeRequest>,
     CodeRequest
   >({
     mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
@@ -70,18 +90,45 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   });
 
   const handleSendingEmail = () => {
-    if (formObject.getValues('이메일') === '' || formObject.formState.errors['이메일']) return;
+    if (formObject.getValues('이메일') === '') {
+      formObject.setError('이메일', {
+        type: 'required',
+        message: '필수 입력 항목이에요.',
+      });
 
-    sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+      return;
+    }
+
+    if (formObject.formState.errors['이메일']) return;
+
+    if (location.pathname === '/password') {
+      if (formObject.getValues('이름') === '') {
+        formObject.setError('이름', {
+          type: 'required',
+          message: '필수 입력 항목이에요.',
+        });
+
+        return;
+      }
+
+      checkingEmailMutate({
+        email: formObject.getValues('이메일'),
+        name: formObject.getValues('이름'),
+        season: 1,
+        group: 'OB',
+      });
+
+      return;
+    }
+
+    if (location.pathname === '/sign-up') {
+      sendingMutate({ email: formObject.getValues('이메일'), season: 1 });
+    }
   };
 
   const handleVerificationCodeCheck = () => {
     checkingMutate({ email: formObject.getValues('이메일'), code: formObject.getValues('인증번호') });
   };
-
-  const handleResetTimer = useCallback(() => {
-    setIsActive(false);
-  }, []);
 
   return (
     <TextBox label="이메일" formObject={formObject} required>
@@ -93,8 +140,18 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         pattern={VALIDATION_CHECK.email.pattern}
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
-        <InputButton isLoading={sendingIsPending} text="이메일 인증" onClick={handleSendingEmail} disabled={isActive} />
-        <Timer isActive={isActive} onResetTimer={handleResetTimer} />
+        <InputButton
+          isLoading={checkingEmailPending || sendingIsPending}
+          text="이메일 인증"
+          onClick={handleSendingEmail}
+          disabled={isActive}
+        />
+        <Timer
+          isActive={isActive}
+          onResetTimer={() => {
+            setIsActive(false);
+          }}
+        />
       </InputLine>
       <InputLine
         disabled={!isActive}
