@@ -65,6 +65,15 @@ const ApplyPage = () => {
     },
   });
 
+  const { mutate: dataMutate, isPending: dataIsPending } = useMutation<
+    AxiosResponse<ApplyResponse, ApplyRequest>,
+    AxiosError<ApplyError, ApplyRequest>,
+    ApplyRequest
+  >({
+    mutationFn: (formData) => sendData('/recruiting-answer', formData),
+    onSuccess: () => {},
+  });
+
   const { handleSubmit, ...formObject } = useForm();
   const { handleSaveUserInfo } = useContext(UserInfoContext);
 
@@ -163,7 +172,7 @@ const ApplyPage = () => {
     <>
       <DraftDialog ref={dialog} />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-        <ApplyHeader isLoading={draftIsPending} onSaveDraft={handleDraftSubmit} />
+        <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={handleDraftSubmit} />
         <ApplyInfo />
         <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
         <div className={sectionContainer}>
@@ -202,10 +211,10 @@ const ApplyPage = () => {
           </div>
           <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
-            <Button isLoading={draftIsPending} onClick={handleDraftSubmit} buttonStyle="line">
+            <Button isLoading={draftIsPending || dataIsPending} onClick={handleDraftSubmit} buttonStyle="line">
               임시저장
             </Button>
-            <Button isLoading={draftIsPending} type="submit">
+            <Button isLoading={draftIsPending || dataIsPending} type="submit">
               제출하기
             </Button>
           </div>
