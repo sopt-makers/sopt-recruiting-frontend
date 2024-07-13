@@ -1,11 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { UserInfoContext } from '@store/userInfoContext';
-import { DraftDialog } from 'views/dialogs';
+import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { getDraft, getQuestions, sendData } from './apis';
@@ -29,7 +29,8 @@ const ApplyPage = () => {
     setActiveHash(hash);
   }, []);
 
-  const dialog = useRef<HTMLDialogElement>(null);
+  const draftDialog = useRef<HTMLDialogElement>(null);
+  const submitDialog = useRef<HTMLDialogElement>(null);
   const { ref } = useIntersectionObserver(handleSetActiveHash);
 
   const { data: draftData, isLoading: draftIsLoading } = useQuery<
@@ -60,7 +61,7 @@ const ApplyPage = () => {
   >({
     mutationFn: (formData) => sendData('/recruiting-answer/store', formData),
     onSuccess: () => {
-      dialog.current?.showModal();
+      draftDialog.current?.showModal();
     },
   });
 
@@ -106,7 +107,7 @@ const ApplyPage = () => {
   const partQuestionIds = partQuestions?.questions.map((question) => question.id);
   const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
 
-  const handleDraftSubmit = () => {
+  const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
 
@@ -155,59 +156,11 @@ const ApplyPage = () => {
       willAppjam: false,
     };
 
-    draftMutate(formValues);
+    type === 'draft' ? draftMutate(formValues) : dataMutate(formValues);
   };
 
-  const handleApplySubmit: SubmitHandler<FieldValues> = (data) => {
-    const mostRecentSeasonValue = data['이전 기수 활동 여부 (제명 포함)'];
-    const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : Number(mostRecentSeasonValue);
-
-    const leaveAbsenceValue = data['재학여부'];
-    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
-
-    const univYearValue = data['학년'];
-    const univYear =
-      univYearValue === '1학년'
-        ? 1
-        : univYearValue === '2학년'
-          ? 2
-          : univYearValue === '3학년'
-            ? 3
-            : univYearValue === '4학년'
-              ? 4
-              : 5;
-
-    const commonAnswers =
-      commonQuestionIds?.map((id) => ({
-        recruitingQuestionId: id,
-        answer: data[`공통${id}번`],
-      })) ?? [];
-    const partAnswers =
-      partQuestionIds?.map((id) => ({
-        recruitingQuestionId: id,
-        answer: data[`파트${id}번`],
-      })) ?? [];
-
-    const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
-
-    const formValues: ApplyRequest = {
-      picture: data['사진'] && data['사진'][0],
-      part: data['지원파트'],
-      address: data['거주지'],
-      birthday: data['생년월일'],
-      college: data['학교'],
-      gender: data['성별'],
-      knownPath: data['동아리를 알게 된 경로'],
-      leaveAbsence,
-      major: data['학과'],
-      mostRecentSeason,
-      univYear,
-      nearestStation: data['지하철역'],
-      answers,
-      willAppjam: false,
-    };
-
-    dataMutate(formValues);
+  const handleApplySubmit = () => {
+    submitDialog.current?.showModal();
   };
 
   window.addEventListener('beforeunload', (e) => {
@@ -217,9 +170,10 @@ const ApplyPage = () => {
 
   return (
     <>
-      <DraftDialog ref={dialog} />
+      <DraftDialog ref={draftDialog} />
+      <SubmitDialog ref={submitDialog} onSendData={() => handleSendData('submit')} />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-        <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={handleDraftSubmit} />
+        <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={() => handleSendData('draft')} />
         <ApplyInfo />
         <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
         <div className={sectionContainer}>
@@ -258,7 +212,10 @@ const ApplyPage = () => {
           </div>
           <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
-            <Button isLoading={draftIsPending || dataIsPending} onClick={handleDraftSubmit} buttonStyle="line">
+            <Button
+              isLoading={draftIsPending || dataIsPending}
+              onClick={() => handleSendData('draft')}
+              buttonStyle="line">
               임시저장
             </Button>
             <Button isLoading={draftIsPending || dataIsPending} type="submit">

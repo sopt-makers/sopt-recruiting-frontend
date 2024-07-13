@@ -23,7 +23,7 @@ const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-const SubmitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
+const SubmitDialog = forwardRef<HTMLDialogElement, { onSendData: () => void }>(({ onSendData }, ref) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement>((_, ref) => {
           <button className={buttonInside.line}>검토하기</button>
         </form>
         <div className={buttonOutside[!isChecked ? 'disabled' : 'solid']}>
-          <button className={buttonInside.solid} disabled={!isChecked}>
+          <button className={buttonInside.solid} onClick={onSendData} disabled={!isChecked}>
             제출하기
           </button>
         </div>
