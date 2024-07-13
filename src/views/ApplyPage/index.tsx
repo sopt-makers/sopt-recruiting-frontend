@@ -178,6 +178,7 @@ const ApplyPage = () => {
           phone: formObject.getValues('연락처'),
           part: formObject.getValues('지원파트'),
         }}
+        dataIsPending={dataIsPending}
         ref={submitDialog}
         onSendData={() => handleSendData('submit')}
       />

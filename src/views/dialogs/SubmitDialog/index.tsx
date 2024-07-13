@@ -1,6 +1,7 @@
 import { type ChangeEvent, forwardRef, useState } from 'react';
 
 import Dialog from '@components/Dialog';
+import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import {
   checkboxContainer,
@@ -30,11 +31,12 @@ interface SubmitDialogProps {
     phone: string;
     part: string;
   };
+  dataIsPending: boolean;
   onSendData: () => void;
 }
 
 const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
-  ({ userInfo: { name, email, phone, part }, onSendData }, ref) => {
+  ({ userInfo: { name, email, phone, part }, dataIsPending, onSendData }, ref) => {
     const [isChecked, setIsChecked] = useState(false);
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,12 +61,14 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
           </label>
         </div>
         <div className={buttonWrapper}>
-          <form method="dialog" className={buttonOutside.line}>
-            <button className={buttonInside.line}>검토하기</button>
+          <form method="dialog" className={dataIsPending ? buttonOutside.disabled : buttonOutside.line}>
+            <button className={buttonInside.line} disabled={dataIsPending}>
+              {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
+            </button>
           </form>
           <div className={buttonOutside[!isChecked ? 'disabled' : 'solid']}>
-            <button className={buttonInside.solid} onClick={onSendData} disabled={!isChecked}>
-              제출하기
+            <button className={buttonInside.solid} onClick={onSendData} disabled={!isChecked || dataIsPending}>
+              {dataIsPending ? <ButtonLoading width={48} height={18} /> : '제출하기'}
             </button>
           </div>
         </div>
