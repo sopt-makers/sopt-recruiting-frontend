@@ -9,7 +9,7 @@ import { UserInfoContext } from '@store/userInfoContext';
 import { DraftDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { getDraft, getQuestions, sendDraft } from './apis';
+import { getDraft, getQuestions, sendData } from './apis';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
@@ -54,12 +54,12 @@ const ApplyPage = () => {
     enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
   });
 
-  const { mutate, isPending } = useMutation<
+  const { mutate: draftMutate, isPending: draftIsPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
     AxiosError<ApplyError, ApplyRequest>,
     ApplyRequest
   >({
-    mutationFn: sendDraft,
+    mutationFn: (formData) => sendData('/recruiting-answer/store', formData),
     onSuccess: () => {
       dialog.current?.showModal();
     },
@@ -147,7 +147,7 @@ const ApplyPage = () => {
       willAppjam: false,
     };
 
-    mutate(formValues);
+    draftMutate(formValues);
   };
 
   const handleApplySubmit: SubmitHandler<TFormValues> = (data) => {
@@ -163,7 +163,7 @@ const ApplyPage = () => {
     <>
       <DraftDialog ref={dialog} />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-        <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
+        <ApplyHeader isLoading={draftIsPending} onSaveDraft={handleDraftSubmit} />
         <ApplyInfo />
         <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
         <div className={sectionContainer}>
@@ -202,10 +202,10 @@ const ApplyPage = () => {
           </div>
           <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
-            <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
+            <Button isLoading={draftIsPending} onClick={handleDraftSubmit} buttonStyle="line">
               임시저장
             </Button>
-            <Button isLoading={isPending} type="submit">
+            <Button isLoading={draftIsPending} type="submit">
               제출하기
             </Button>
           </div>
