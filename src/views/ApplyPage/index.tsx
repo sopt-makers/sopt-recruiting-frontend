@@ -171,7 +171,16 @@ const ApplyPage = () => {
   return (
     <>
       <DraftDialog ref={draftDialog} />
-      <SubmitDialog ref={submitDialog} onSendData={() => handleSendData('submit')} />
+      <SubmitDialog
+        userInfo={{
+          name: formObject.getValues('이름'),
+          email: formObject.getValues('이메일'),
+          phone: formObject.getValues('연락처'),
+          part: formObject.getValues('지원파트'),
+        }}
+        ref={submitDialog}
+        onSendData={() => handleSendData('submit')}
+      />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={() => handleSendData('draft')} />
         <ApplyInfo />
