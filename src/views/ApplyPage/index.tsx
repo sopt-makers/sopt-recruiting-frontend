@@ -1,12 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-<<<<<<< Updated upstream
 import { useForm, SubmitHandler } from 'react-hook-form';
-=======
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
->>>>>>> Stashed changes
 
 import Button from '@components/Button';
 import { TFormValues } from '@constants/defaultValues';
