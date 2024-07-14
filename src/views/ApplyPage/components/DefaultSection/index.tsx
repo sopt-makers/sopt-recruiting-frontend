@@ -28,7 +28,10 @@ const ProfileImage = ({
   formObject,
 }: {
   pic?: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const {
     register,
@@ -97,7 +100,10 @@ const DefaultSection = ({
 }: {
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const {
     address,
@@ -155,15 +161,29 @@ const DefaultSection = ({
       </TextBox>
       <Postcode addressDraft={address} formObject={formObject} />
       <TextBox label="지하철역" formObject={formObject} required size="lg">
-        <InputLine defaultValue={nearestStation} label="지하철역" placeholder="예) 성신여대입구" />
+        <InputLine
+          defaultValue={nearestStation}
+          label="지하철역"
+          placeholder="역의 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;역)"
+          maxLength={VALIDATION_CHECK.subway.maxLength}
+          pattern={VALIDATION_CHECK.subway.pattern}
+          errorText={VALIDATION_CHECK.subway.errorText}
+        />
       </TextBox>
       <div className={doubleWrapper}>
         <TextBox label="학교" formObject={formObject} required size="sm">
-          <InputLine defaultValue={college} label="학교" placeholder="학교 이름을 정확하게 적어주세요." />
+          <InputLine
+            defaultValue={college}
+            label="학교"
+            placeholder="학교 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;대학교)"
+            maxLength={VALIDATION_CHECK.textInput.maxLength}
+            pattern={VALIDATION_CHECK.textInput.pattern}
+            errorText={VALIDATION_CHECK.textInput.errorText}
+          />
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
+            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
             formObject={formObject}
             label={['재학', '휴학 ‧ 수료 ‧ 유예']}
             name="재학여부"
@@ -173,7 +193,14 @@ const DefaultSection = ({
       </div>
       <div className={doubleWrapper}>
         <TextBox label="학과" formObject={formObject} required size="sm">
-          <InputLine defaultValue={major} label="학과" placeholder="학과 이름을 정확하게 적어주세요." />
+          <InputLine
+            defaultValue={major}
+            label="학과"
+            placeholder="학과 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;학과)"
+            maxLength={VALIDATION_CHECK.textInput.maxLength}
+            pattern={VALIDATION_CHECK.textInput.pattern}
+            errorText={VALIDATION_CHECK.textInput.errorText}
+          />
         </TextBox>
         <SelectBox
           defaultValue={univYear}

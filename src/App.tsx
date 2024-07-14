@@ -1,14 +1,14 @@
 import { colors } from '@sopt-makers/colors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { ThemeContext } from '@store/themeContext';
+import { ModeType, ThemeContext } from '@store/themeContext';
+import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
-import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
@@ -17,7 +17,6 @@ import PasswordPage from 'views/PasswordPage';
 import ResultPage from 'views/ResultPage';
 import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
-import TestPage from 'views/TestPage';
 
 const router = createBrowserRouter([
   {
@@ -32,19 +31,18 @@ const router = createBrowserRouter([
       { index: true, element: <MainPage /> },
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
-      { path: '/apply', element: <ApplyPage /> },
       { path: '/complete', element: <CompletePage /> },
       { path: '/my', element: <MyPage /> },
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
       { path: '*', element: <ErrorPage code={404} /> },
-      { path: '/test', element: <TestPage /> },
     ],
   },
 ]);
 
 const App = () => {
   const [isLight, setIsLight] = useState(true);
+  const [userInfo, setUserInfo] = useState<UserInfoType>({});
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -57,9 +55,9 @@ const App = () => {
     },
   });
 
-  const contextValue = {
+  const themeContextValue = {
     isLight,
-    handleChangeMode: (mode: 'light' | 'dark') => {
+    handleChangeMode: (mode: ModeType) => {
       setIsLight(mode === 'light' ? true : false);
       const body = document.body;
       const bodyColor = mode === 'light' ? colors.white : colors.gray950; // theme.color.background
@@ -67,14 +65,23 @@ const App = () => {
     },
   };
 
+  const userInfoContextValue = {
+    userInfo,
+    handleSaveUserInfo: useCallback((obj: UserInfoType) => {
+      setUserInfo(obj);
+    }, []),
+  };
+
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
-        <div className={isLight ? light : dark}>
-          <RouterProvider router={router} />
-        </div>
-      </QueryClientProvider>
+    <ThemeContext.Provider value={themeContextValue}>
+      <UserInfoContext.Provider value={userInfoContextValue}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools />
+          <div className={isLight ? light : dark}>
+            <RouterProvider router={router} />
+          </div>
+        </QueryClientProvider>
+      </UserInfoContext.Provider>
     </ThemeContext.Provider>
   );
 };

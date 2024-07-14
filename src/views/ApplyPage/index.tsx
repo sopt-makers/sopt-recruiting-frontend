@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TFormValues } from '@constants/defaultValues';
+import { UserInfoContext } from '@store/userInfoContext';
 import { DraftDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -64,6 +65,22 @@ const ApplyPage = () => {
   });
 
   const { handleSubmit, ...formObject } = useForm();
+  const { handleSaveUserInfo } = useContext(UserInfoContext);
+
+  useEffect(() => {
+    handleSaveUserInfo({
+      name: draftData?.data.applicant.name,
+      phone: draftData?.data.applicant.phone,
+      email: draftData?.data.applicant.email,
+      season: draftData?.data.applicant.season,
+      group: draftData?.data.applicant.group,
+    });
+
+    if (draftData?.data.applicant.part) {
+      formObject.setValue('지원파트', draftData?.data.applicant.part);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draftData, handleSaveUserInfo]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {
@@ -173,19 +190,21 @@ const ApplyPage = () => {
     console.log(123, data);
   };
 
+  window.addEventListener('beforeunload', (e) => {
+    e.preventDefault();
+    e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
+  });
+
   return (
     <>
       <DraftDialog ref={dialog} />
-      <form
-        style={{ border: '1px solid blue' }}
-        id="section-container"
-        onSubmit={handleSubmit(handleApplySubmit)}
-        className={formContainer}>
+      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
         <ApplyInfo />
         <ApplyCategory minIndex={minIndex} />
         <div className={sectionContainer}>
           <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
+
           <CommonSection
             refCallback={refCallback}
             questions={questionsData?.data.commonQuestions.questions}
@@ -199,15 +218,15 @@ const ApplyPage = () => {
             partQuestionsDraft={partQuestionsDraft}
             formObject={formObject}
           />
-          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
-          <div className={buttonWrapper}>
-            <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
-              임시저장
-            </Button>
-            <Button isLoading={isPending} type="submit">
-              제출하기
-            </Button>
-          </div>
+        </div>
+        <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
+        <div className={buttonWrapper}>
+          <Button isLoading={isPending} onClick={handleDraftSubmit} buttonStyle="line">
+            임시저장
+          </Button>
+          <Button isLoading={isPending} type="submit">
+            제출하기
+          </Button>
         </div>
       </form>
     </>

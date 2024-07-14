@@ -9,7 +9,10 @@ const Postcode = ({
   formObject,
 }: {
   addressDraft?: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
+  >;
 }) => {
   const [address, setAddress] = useState('');
 
