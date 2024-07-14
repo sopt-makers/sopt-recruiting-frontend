@@ -9,7 +9,7 @@ import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { sendingSignIn } from './apis';
-import { calloutButton, container } from './style.css';
+import { calloutButton, container, newPasswordButton } from './style.css';
 
 import type { SignInError, SignInRequest, SignInResponse } from './types';
 import type { AxiosError, AxiosResponse } from 'axios';
@@ -71,7 +71,9 @@ const SignInPage = () => {
         <InputLine label="비밀번호" placeholder="비밀번호를 입력해주세요" type="password" />
         <Description>
           <p>비밀번호를 잃어버리셨나요?</p>
-          <Link to="/password">비밀번호 재설정하기</Link>
+          <Link className={newPasswordButton} to="/password">
+            비밀번호 재설정하기
+          </Link>
         </Description>
       </TextBox>
       <Button isLoading={isPending} type="submit">

@@ -13,6 +13,11 @@ export const container = style({
 
 export const calloutButton = style({
   marginRight: 18,
+  borderBottom: '1px solid currentColor',
   color: theme.color.lighterText,
   ...theme.font.TITLE_5_18_SB,
+});
+
+export const newPasswordButton = style({
+  borderBottom: '1px solid currentColor',
 });
