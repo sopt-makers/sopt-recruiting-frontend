@@ -8,7 +8,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { checkingEmail, checkingVerificationCode, sendingVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
-import { error, success } from './style.css';
+import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
 import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailResponse } from './types';
