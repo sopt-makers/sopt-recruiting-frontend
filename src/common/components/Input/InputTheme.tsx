@@ -8,7 +8,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { checkingEmail, checkingVerificationCode, sendingVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
-import { success } from './style.css';
+import { error, success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
 import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailResponse } from './types';
@@ -191,7 +191,14 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
 export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
-  const { watch } = formObject;
+  const { watch, trigger } = formObject;
+
+  const password = watch(textVar);
+  const passwordConfirm = watch('비밀번호 재확인');
+
+  useEffect(() => {
+    if (passwordConfirm != undefined && passwordConfirm !== '') trigger('비밀번호 재확인');
+  }, [password, passwordConfirm, trigger]);
 
   return (
     <TextBox label={textVar} formObject={formObject} required>
@@ -202,6 +209,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         maxLength={VALIDATION_CHECK.password.maxLength}
         pattern={VALIDATION_CHECK.password.pattern}
         errorText={VALIDATION_CHECK.password.errorText}
+        validate={VALIDATION_CHECK.passwordConfirm.validate(watch, textVar)}
       />
       <InputLine
         label="비밀번호 재확인"
@@ -211,6 +219,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         errorText={VALIDATION_CHECK.passwordConfirm.errorText}
         validate={VALIDATION_CHECK.passwordConfirm.validate(watch, textVar)}
       />
+      {passwordConfirm && password === passwordConfirm && <p className={success}>비밀번호가 일치해요.</p>}
     </TextBox>
   );
 };
