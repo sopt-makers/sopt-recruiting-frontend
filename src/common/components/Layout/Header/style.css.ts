@@ -18,6 +18,8 @@ export const container = style({
   zIndex: 99,
 });
 
+export const logo = style({ height: 30, cursor: 'pointer' });
+
 export const menuList = style({
   display: 'flex',
   alignItems: 'center',

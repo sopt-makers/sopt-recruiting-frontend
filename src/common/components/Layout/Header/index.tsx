@@ -1,11 +1,12 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import NowsoptLogo from '@assets/NowsoptLogo';
 import { UserInfoContext, UserInfoContextType } from '@store/userInfoContext';
 
 import { MENU_ITEMS } from './contants';
 import MenuItem from './MenuItem';
-import { container, menuList } from './style.css';
+import { container, logo, menuList } from './style.css';
 
 const Header = () => {
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
@@ -15,7 +16,9 @@ const Header = () => {
 
   return (
     <header className={container}>
-      <NowsoptLogo />
+      <Link to="/" className={logo}>
+        <NowsoptLogo />
+      </Link>
       <nav>
         <ul className={menuList}>
           {MENU_ITEMS.map(({ text, path, target }) => (
