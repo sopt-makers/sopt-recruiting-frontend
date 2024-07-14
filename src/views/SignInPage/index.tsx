@@ -9,7 +9,7 @@ import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { sendingSignIn } from './apis';
-import { calloutButton, calloutWrapper, container } from './style.css';
+import { calloutButton, container } from './style.css';
 
 import type { SignInError, SignInRequest, SignInResponse } from './types';
 import type { AxiosError, AxiosResponse } from 'axios';
