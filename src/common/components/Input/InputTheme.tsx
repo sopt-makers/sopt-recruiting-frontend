@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
@@ -42,6 +42,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     getValues,
     setError,
     setValue,
+    watch,
     formState: { errors },
   } = formObject;
 
@@ -146,6 +147,11 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   const handleVerificationCodeCheck = () => {
     checkingMutate({ email: getValues('이메일'), code: getValues('인증번호') });
   };
+
+  useEffect(() => {
+    onChangeVerification(false);
+    setValue('인증번호', '');
+  }, [watch('이메일')]);
 
   return (
     <TextBox label="이메일" formObject={formObject} required>
