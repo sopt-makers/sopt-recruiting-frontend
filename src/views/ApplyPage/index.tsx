@@ -65,7 +65,7 @@ const ApplyPage = () => {
     },
   });
 
-  const { handleSubmit, ...formObject } = useForm();
+  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { handleSaveUserInfo } = useContext(UserInfoContext);
 
   useEffect(() => {

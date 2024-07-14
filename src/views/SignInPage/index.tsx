@@ -16,7 +16,7 @@ import type { AxiosError, AxiosResponse } from 'axios';
 
 const SignInPage = () => {
   const navigate = useNavigate();
-  const { handleSubmit, ...formObject } = useForm();
+  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignInResponse, SignInRequest>,
     AxiosError<SignInError, SignInRequest>,

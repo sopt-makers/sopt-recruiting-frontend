@@ -17,7 +17,7 @@ import type { AxiosError, AxiosResponse } from 'axios';
 const PasswordPage = () => {
   const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
-  const { handleSubmit, ...formObject } = useForm();
+  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<PasswordResponse, PasswordRequest>,
