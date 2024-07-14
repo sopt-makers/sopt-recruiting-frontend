@@ -132,7 +132,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
       )
         isDone = false;
 
-      if (isDone) {
+      if (!errors['이메일'] && isDone) {
         setValue('인증번호', '');
         clearErrors('이메일');
         checkingEmailMutate({
@@ -147,7 +147,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     }
 
     if (location.pathname === '/sign-up') {
-      if (isDone) {
+      if (!errors['이메일'] && isDone) {
         sendingMutate({ email: getValues('이메일'), season: 1 });
       }
       return;
