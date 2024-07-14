@@ -58,7 +58,7 @@ const InputLine = ({
             },
             minLength: {
               value: minLength || 0,
-              message: `최소 ${minLength}자 이상 입력해 주세요.`,
+              message: `최소 ${minLength}자 이상 입력해주세요.`,
             },
             validate: validate,
             onBlur: (e) => {
