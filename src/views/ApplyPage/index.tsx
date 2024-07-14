@@ -21,12 +21,15 @@ import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
-  const [isInView, setIsInView] = useState([true, false, false]);
-  const minIndex = isInView.findIndex((value) => value === true);
-  useScrollToHash(); // scrollTo 카테고리
-
   const dialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
+
+  const [isInView, setIsInView] = useState([true, false, false]);
+  const [sectionsUpdated, setSectionsUpdated] = useState(false);
+
+  const minIndex = isInView.findIndex((value) => value === true);
+
+  useScrollToHash(); // scrollTo 카테고리
 
   const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
@@ -62,36 +65,42 @@ const ApplyPage = () => {
 
   const { handleSubmit, ...formObject } = useForm();
 
-  const refCallback = useCallback((element: HTMLSelectElement) => {
-    if (element) {
-      sectionsRef.current.push(element);
-    }
-  }, []);
+  const refCallback = useCallback(
+    (element: HTMLSelectElement) => {
+      if (element) {
+        sectionsRef.current.push(element);
+
+        if (sectionsRef.current.length === 3) {
+          setSectionsUpdated(true);
+        }
+      }
+    },
+    [sectionsRef],
+  );
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const sectionId = entry.target.getAttribute('id');
-        const sectionIndex = ['default', 'common', 'partial'].indexOf(sectionId!);
+    if (!sectionsUpdated) return;
 
-        setIsInView((prev) => {
-          const updatedState = [...prev];
-          updatedState[sectionIndex] = entry.isIntersecting;
-          return updatedState;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionId = entry.target.getAttribute('id');
+          const sectionIndex = ['default', 'common', 'partial'].indexOf(sectionId!);
+
+          setIsInView((prev) => {
+            const updatedState = [...prev];
+            updatedState[sectionIndex] = entry.isIntersecting;
+            return updatedState;
+          });
         });
-      });
-    });
+      },
+      { root: null, rootMargin: '-186px' },
+    );
 
     sectionsRef.current.forEach((section) => {
       observer.observe(section);
     });
-
-    return () => {
-      sectionsRef.current.forEach((section) => {
-        observer.unobserve(section);
-      });
-    };
-  }, []);
+  }, [sectionsUpdated]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
@@ -167,7 +176,11 @@ const ApplyPage = () => {
   return (
     <>
       <DraftDialog ref={dialog} />
-      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+      <form
+        style={{ border: '1px solid blue' }}
+        id="section-container"
+        onSubmit={handleSubmit(handleApplySubmit)}
+        className={formContainer}>
         <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
         <ApplyInfo />
         <ApplyCategory minIndex={minIndex} />
