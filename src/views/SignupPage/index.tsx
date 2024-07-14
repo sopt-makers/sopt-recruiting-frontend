@@ -21,7 +21,7 @@ import { SignUpError, SignUpRequest, SignUpResponse } from './types';
 const SignupPage = () => {
   const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
-  const { handleSubmit, ...formObject } = useForm(); // 임시
+  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignUpResponse, SignUpRequest>,
