@@ -111,7 +111,7 @@ const ApplyPage = () => {
           });
         });
       },
-      { root: null, rootMargin: '-186px' },
+      { root: null, rootMargin: '-220px' },
     );
 
     sectionsRef.current.forEach((section) => {
