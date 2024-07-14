@@ -106,51 +106,40 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   }, []);
 
   const handleSendingEmail = () => {
+    const email = getValues('이메일');
+    const name = getValues('이름');
     let isDone = true;
 
-    if (getValues('이메일') === '') {
-      setError('이메일', {
-        type: 'required',
-        message: '필수 입력 항목이에요.',
-      });
+    // 이메일 유효성 검사
+    if (!email) {
+      setError('이메일', { type: 'required', message: '필수 입력 항목이에요.' });
       isDone = false;
     }
 
     if (location.pathname === '/password') {
-      if (getValues('이름') === '') {
-        setError('이름', {
-          type: 'required',
-          message: '필수 입력 항목이에요.',
-        });
-
+      // 이름 유효성 검사
+      if (!name) {
+        setError('이름', { type: 'required', message: '필수 입력 항목이에요.' });
         isDone = false;
       }
 
-      if (
-        (errors['이름'] && errors['이름'].message !== VALIDATION_CHECK.name.errorTextNonexistence) ||
-        (errors['이메일'] && errors['이메일'].message !== VALIDATION_CHECK.name.errorTextNonexistence)
-      )
-        isDone = false;
+      // 존재 하는 계정인지 검사
+      const nameError = errors['이름'] && errors['이름'].message !== VALIDATION_CHECK.name.errorTextNonexistence;
+      const emailError = errors['이메일'] && errors['이메일'].message !== VALIDATION_CHECK.name.errorTextNonexistence;
 
-      if (!errors['이메일'] && isDone) {
+      if (nameError || emailError) isDone = false;
+
+      // 오류가 없을 때 이메일 확인 요청
+      if (!emailError && isDone) {
         setValue('인증번호', '');
         clearErrors('이메일');
-        checkingEmailMutate({
-          email: getValues('이메일'),
-          name: getValues('이름'),
-          season: 1,
-          group: 'OB',
-        });
+        checkingEmailMutate({ email, name, season: 1, group: 'OB' });
       }
-
       return;
     }
 
-    if (location.pathname === '/sign-up') {
-      if (!errors['이메일'] && isDone) {
-        sendingMutate({ email: getValues('이메일'), season: 1 });
-      }
-      return;
+    if (location.pathname === '/sign-up' && !errors['이메일'] && isDone) {
+      sendingMutate({ email, season: 1 });
     }
   };
 
