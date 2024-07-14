@@ -172,7 +172,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
-        disabled={!isActive}
+        readOnly={!isActive}
         label="인증번호"
         placeholder="이메일 인증 번호를 작성해주세요."
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
