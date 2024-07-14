@@ -53,16 +53,16 @@ const SignInPage = () => {
   return (
     <form noValidate onSubmit={handleSubmit(handleSignIn)} className={container}>
       <Title>지원하기</Title>
-      <Callout>
-        <div className={calloutWrapper}>
-          <p>
-            35기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도
-            새 지원서를 작성해야 해요.
-          </p>
+      <Callout
+        Button={
           <Link to="/sign-up" className={calloutButton}>
             새 지원서 작성하기
           </Link>
-        </div>
+        }>
+        <p>
+          35기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도 새
+          지원서를 작성해야 해요.
+        </p>
       </Callout>
       <TextBox label="이메일" formObject={formObject} required>
         <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />

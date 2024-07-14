@@ -11,14 +11,6 @@ export const container = style({
   width: 466,
 });
 
-export const calloutWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'end',
-  gap: 8,
-
-  wordBreak: 'keep-all',
-});
 export const calloutButton = style({
   marginRight: 18,
   color: theme.color.lighterText,
