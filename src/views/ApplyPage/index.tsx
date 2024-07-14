@@ -21,7 +21,8 @@ import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
-  const [activeHash, setActiveHash] = useState('');
+  const [isInView, setIsInView] = useState([true, false, false]);
+  const minIndex = isInView.findIndex((value) => value === true);
   useScrollToHash(); // scrollTo 카테고리
 
   const dialog = useRef<HTMLDialogElement>(null);
@@ -61,8 +62,6 @@ const ApplyPage = () => {
 
   const { handleSubmit, ...formObject } = useForm();
 
-  const targetSections = document.querySelectorAll('section');
-
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
       sectionsRef.current.push(element);
@@ -70,21 +69,29 @@ const ApplyPage = () => {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveHash(entry.target.getAttribute('id')!);
-          }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const sectionId = entry.target.getAttribute('id');
+        const sectionIndex = ['default', 'common', 'partial'].indexOf(sectionId!);
+
+        setIsInView((prev) => {
+          const updatedState = [...prev];
+          updatedState[sectionIndex] = entry.isIntersecting;
+          return updatedState;
         });
-      },
-      { threshold: 0.19 },
-    );
+      });
+    });
 
     sectionsRef.current.forEach((section) => {
       observer.observe(section);
     });
-  }, [targetSections]);
+
+    return () => {
+      sectionsRef.current.forEach((section) => {
+        observer.unobserve(section);
+      });
+    };
+  }, []);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
@@ -163,7 +170,7 @@ const ApplyPage = () => {
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={isPending} onSaveDraft={handleDraftSubmit} />
         <ApplyInfo />
-        <ApplyCategory activeHash={activeHash} />
+        <ApplyCategory minIndex={minIndex} />
         <div className={sectionContainer}>
           <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
           <CommonSection
