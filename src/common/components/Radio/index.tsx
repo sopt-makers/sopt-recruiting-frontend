@@ -31,7 +31,7 @@ const Radio = <T extends FieldValues>({ label, name, defaultValue, formObject, .
         ))}
       </Container>
       <ErrorMessage>
-        <>{errors[name]?.message}</>
+        <>{errors.name?.message}</>
       </ErrorMessage>
     </>
   );

@@ -34,7 +34,7 @@ const SelectBox = ({
 
   useEffect(() => {
     if (defaultValue != undefined) {
-      name === '학년'
+      name === 'univYear'
         ? setValue(name, defaultValue === 5 ? '수료 ‧ 유예' : `${defaultValue}학년`)
         : setValue(name, defaultValue);
     }
@@ -72,7 +72,7 @@ const SelectBox = ({
       </div>
       {errors?.[name] && (
         <div className={error}>
-          <p>{errors[name]?.message as string}</p>
+          <p>{errors.name?.message as string}</p>
         </div>
       )}
     </div>

@@ -34,7 +34,7 @@ const SignupPage = () => {
     },
     onError: (error) => {
       if (error.response?.status === 400) {
-        formObject.setError('이메일', {
+        formObject.setError('email', {
           type: 'already-existence',
           message: VALIDATION_CHECK.email.errorTextExistence,
         });
@@ -42,9 +42,9 @@ const SignupPage = () => {
     },
   });
 
-  const handleSubmitSignUp = (data: FieldValues) => {
+  const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
     if (!isVerified) {
-      formObject.setError('인증번호', {
+      formObject.setError('code', {
         type: 'not-match',
         message: VALIDATION_CHECK.verificationCode.errorText,
       });
@@ -53,30 +53,30 @@ const SignupPage = () => {
     }
 
     mutate({
-      email: data['이메일'],
-      password: data['비밀번호'],
-      passwordCheck: data['비밀번호 재확인'],
-      name: data['이름'],
-      phone: data['연락처'],
+      email,
+      password,
+      passwordCheck,
+      name,
+      phone,
       season: 1,
       group: 'OB',
     });
   };
 
   useEffect(() => {
-    if (formObject.formState.errors['이메일']?.message === VALIDATION_CHECK.email.errorTextExistence) {
-      formObject.setFocus('이메일');
+    if (formObject.formState.errors.email?.message === VALIDATION_CHECK.email.errorTextExistence) {
+      formObject.setFocus('email');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formObject.formState.errors['이메일']?.message, formObject.setFocus]);
+  }, [formObject.formState.errors.email?.message, formObject.setFocus]);
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>
       <Title>새 지원서 작성하기</Title>
       <TextBox이름 formObject={formObject} />
-      <TextBox name="연락처" formObject={formObject} required>
+      <TextBox label="연락처" name="phone" formObject={formObject} required>
         <InputLine
-          name="연락처"
+          name="phone"
           placeholder="010-0000-0000"
           type="tel"
           pattern={VALIDATION_CHECK.phoneNumber.pattern}
@@ -87,7 +87,7 @@ const SignupPage = () => {
       <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
       <TextBox비밀번호 formObject={formObject} />
       <div>
-        <Checkbox required name="check1" formObject={formObject}>
+        <Checkbox required name="personalInformation" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>

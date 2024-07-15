@@ -89,7 +89,7 @@ const ApplyPage = () => {
     });
 
     if (draftData?.data.applicant.part) {
-      formObject.setValue('지원파트', draftData?.data.applicant.part);
+      formObject.setValue('part', draftData?.data.applicant.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftData, handleSaveUserInfo]);
@@ -132,29 +132,29 @@ const ApplyPage = () => {
   }, [sectionsUpdated]);
 
   useEffect(() => {
-    if (formObject.formState.errors['사진']) {
+    if (formObject.formState.errors.picture) {
       navigate('#default');
 
       return;
     }
 
-    if (Object.keys(formObject.formState.errors).some((key) => key.startsWith('파트'))) {
-      formObject.clearErrors('참석여부');
-      formObject.clearErrors('개인정보수집동의');
-      formObject.clearErrors('동아리를 알게 된 경로');
+    if (Object.keys(formObject.formState.errors).some((key) => key.startsWith('part'))) {
+      formObject.clearErrors('attendance');
+      formObject.clearErrors('personalInformation');
+      formObject.clearErrors('knownPath');
 
       return;
     }
 
-    if (formObject.formState.errors['참석여부'] || formObject.formState.errors['개인정보수집동의']) {
+    if (formObject.formState.errors.attendance || formObject.formState.errors.personalInformation) {
       if (Object.keys(formObject.formState.errors).length > 2) return;
       navigate('#check-necessary');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    formObject.formState.errors['사진'],
-    formObject.formState.errors['참석여부'],
-    formObject.formState.errors['개인정보수집동의'],
+    formObject.formState.errors.picture,
+    formObject.formState.errors.attendance,
+    formObject.formState.errors.personalInformation,
   ]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
@@ -163,7 +163,7 @@ const ApplyPage = () => {
   const commonQuestionsDraft = draftData?.data?.commonQuestions;
   const partQuestionsDraft = draftData?.data?.partQuestions;
 
-  let selectedPart: string = formObject.getValues('지원파트');
+  let selectedPart: string = formObject.getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
   const selectedPartId = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart)?.id;
   const partQuestions = questionsData?.data.partQuestions.find(
@@ -173,13 +173,13 @@ const ApplyPage = () => {
   const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
 
   const handleSendData = (type: 'draft' | 'submit') => {
-    const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
+    const mostRecentSeasonValue = formObject.getValues('mostRecentSeason');
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
 
-    const leaveAbsenceValue = formObject.getValues('재학여부');
+    const leaveAbsenceValue = formObject.getValues('leaveAbsence');
     const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
 
-    const univYearValue = formObject.getValues('학년');
+    const univYearValue = formObject.getValues('univYear');
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -194,29 +194,29 @@ const ApplyPage = () => {
     const commonAnswers =
       commonQuestionIds?.map((id) => ({
         recruitingQuestionId: id,
-        answer: formObject.getValues()[`공통${id}번`],
+        answer: formObject.getValues(`common${id}`),
       })) ?? [];
     const partAnswers =
       partQuestionIds?.map((id) => ({
         recruitingQuestionId: id,
-        answer: formObject.getValues()[`파트${id}번`],
+        answer: formObject.getValues(`part${id}`),
       })) ?? [];
 
     const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
 
     const formValues: ApplyRequest = {
-      picture: formObject.getValues('사진')[0],
-      part: formObject.getValues('지원파트'),
-      address: formObject.getValues('거주지'),
-      birthday: formObject.getValues('생년월일'),
-      college: formObject.getValues('학교'),
-      gender: formObject.getValues('성별'),
-      knownPath: formObject.getValues('동아리를 알게 된 경로'),
+      picture: formObject.getValues('picture')[0],
+      part: formObject.getValues('part'),
+      address: formObject.getValues('address'),
+      birthday: formObject.getValues('birthday'),
+      college: formObject.getValues('college'),
+      gender: formObject.getValues('gender'),
+      knownPath: formObject.getValues('knownPath'),
       leaveAbsence,
-      major: formObject.getValues('학과'),
+      major: formObject.getValues('major'),
       mostRecentSeason,
       univYear,
-      nearestStation: formObject.getValues('지하철역'),
+      nearestStation: formObject.getValues('nearestStation'),
       answers,
       willAppjam: false,
     };
@@ -238,10 +238,10 @@ const ApplyPage = () => {
       <DraftDialog ref={draftDialog} />
       <SubmitDialog
         userInfo={{
-          name: formObject.getValues('이름'),
-          email: formObject.getValues('이메일'),
-          phone: formObject.getValues('연락처'),
-          part: formObject.getValues('지원파트'),
+          name: formObject.getValues('name'),
+          email: formObject.getValues('email'),
+          phone: formObject.getValues('phone'),
+          part: formObject.getValues('part'),
         }}
         dataIsPending={dataIsPending}
         ref={submitDialog}

@@ -3,6 +3,7 @@ import { FieldValues, UseFormReturn, Validate } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
 export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'pattern'> {
+  label: string;
   name: string;
   size?: 'sm' | 'md' | 'lg';
   errorText?: string;

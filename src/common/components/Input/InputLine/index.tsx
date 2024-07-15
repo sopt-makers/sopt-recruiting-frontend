@@ -15,7 +15,7 @@ const InputLine = ({
   errorText,
   children,
   ...inputElementProps
-}: Omit<TextBoxProps, 'size' | 'formObject'>) => {
+}: Omit<TextBoxProps, 'label' | 'size' | 'formObject'>) => {
   const {
     required,
     formObject: { register, formState, clearErrors, trigger, setValue },
@@ -27,14 +27,14 @@ const InputLine = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearErrors && clearErrors(name);
 
-    if (name === '생년월일') {
+    if (name === 'birthday') {
       const formattedValue = formatBirthdate(e.target.value);
-      setValue('생년월일', formattedValue);
+      setValue('birthday', formattedValue);
     }
 
-    if (name === '연락처') {
+    if (name === 'phone') {
       const formattedValue = formatPhoneNumber(e.target.value);
-      setValue('연락처', formattedValue);
+      setValue('phone', formattedValue);
     }
   };
 
@@ -70,9 +70,9 @@ const InputLine = ({
         />
         {children}
       </div>
-      {errors[name] && (
+      {errors.name && (
         <Description styleType="error">
-          <p>{errors[name]?.message as string}</p>
+          <p>{errors.name?.message as string}</p>
         </Description>
       )}
     </>
