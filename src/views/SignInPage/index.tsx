@@ -64,11 +64,11 @@ const SignInPage = () => {
           지원서를 작성해야 해요.
         </p>
       </Callout>
-      <TextBox label="이메일" formObject={formObject} required>
-        <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />
+      <TextBox name="이메일" formObject={formObject} required>
+        <InputLine name="이메일" placeholder="이메일을 입력해주세요" type="email" />
       </TextBox>
-      <TextBox label="비밀번호" formObject={formObject} required>
-        <InputLine label="비밀번호" placeholder="비밀번호를 입력해주세요" type="password" />
+      <TextBox name="비밀번호" formObject={formObject} required>
+        <InputLine name="비밀번호" placeholder="비밀번호를 입력해주세요" type="password" />
         <Description>
           <p>비밀번호를 잃어버리셨나요?</p>
           <Link className={newPasswordButton} to="/password">

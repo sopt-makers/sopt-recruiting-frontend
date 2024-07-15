@@ -15,9 +15,9 @@ import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailRe
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
-    <TextBox label="이름" formObject={formObject} required>
+    <TextBox name="이름" formObject={formObject} required>
       <InputLine
-        label="이름"
+        name="이름"
         pattern={VALIDATION_CHECK.name.pattern}
         errorText={VALIDATION_CHECK.name.errorText}
         placeholder="지원자 이름을 공백 없이 한글로 입력해주세요."
@@ -154,10 +154,10 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   }, [watch('이메일')]);
 
   return (
-    <TextBox label="이메일" formObject={formObject} required>
+    <TextBox name="이메일" formObject={formObject} required>
       <InputLine
         style={{ paddingRight: isActive ? 50 : 16 }}
-        label="이메일"
+        name="이메일"
         placeholder="이메일을 입력해주세요."
         type="email"
         pattern={VALIDATION_CHECK.email.pattern}
@@ -173,7 +173,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
       </InputLine>
       <InputLine
         readOnly={!isActive}
-        label="인증번호"
+        name="인증번호"
         placeholder="이메일 인증 번호를 작성해주세요."
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
         <InputButton
@@ -201,9 +201,9 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
   }, [password, passwordConfirm, trigger]);
 
   return (
-    <TextBox label={textVar} formObject={formObject} required>
+    <TextBox name={textVar} formObject={formObject} required>
       <InputLine
-        label={textVar}
+        name={textVar}
         placeholder={`${textVar}를 입력해주세요.`}
         type="password"
         maxLength={VALIDATION_CHECK.password.maxLength}
@@ -212,7 +212,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         validate={VALIDATION_CHECK.passwordConfirm.validate(watch, textVar)}
       />
       <InputLine
-        label="비밀번호 재확인"
+        name="비밀번호 재확인"
         placeholder="비밀번호 확인을 위해 다시 한번 입력해주세요."
         type="password"
         maxLength={VALIDATION_CHECK.passwordConfirm.maxLength}

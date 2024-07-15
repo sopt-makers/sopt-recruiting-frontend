@@ -44,6 +44,7 @@ const PartSection = ({
       <SelectBox
         defaultValue={part}
         label="지원파트"
+        name="지원파트"
         placeholder="지원하고 싶은 파트를 선택해주세요."
         options={SELECT_OPTIONS.지원파트}
         formObject={formObject}
@@ -58,7 +59,7 @@ const PartSection = ({
           <div key={value}>
             <Textarea
               key={value}
-              label={`파트${id}번`}
+              name={`파트${id}번`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}

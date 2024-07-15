@@ -34,9 +34,9 @@ const Postcode = ({
   };
 
   return (
-    <TextBox label="거주지" formObject={formObject} required size="lg">
+    <TextBox name="거주지" formObject={formObject} required size="lg">
       <InputLine
-        label="거주지"
+        name="거주지"
         placeholder="예) 서울특별시 관악구 신림동"
         onClick={handleOpenPostcode}
         value={address || addressDraft}

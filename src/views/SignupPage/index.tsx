@@ -74,9 +74,9 @@ const SignupPage = () => {
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>
       <Title>새 지원서 작성하기</Title>
       <TextBox이름 formObject={formObject} />
-      <TextBox label="연락처" formObject={formObject} required>
+      <TextBox name="연락처" formObject={formObject} required>
         <InputLine
-          label="연락처"
+          name="연락처"
           placeholder="010-0000-0000"
           type="tel"
           pattern={VALIDATION_CHECK.phoneNumber.pattern}
@@ -87,7 +87,7 @@ const SignupPage = () => {
       <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
       <TextBox비밀번호 formObject={formObject} />
       <div>
-        <Checkbox required label="check1" formObject={formObject}>
+        <Checkbox required name="check1" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>

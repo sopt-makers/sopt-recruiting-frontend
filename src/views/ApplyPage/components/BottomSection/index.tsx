@@ -20,6 +20,7 @@ const BottomSection = ({
       <hr className={line} />
       <SelectBox
         label="동아리를 알게 된 경로"
+        name="동아리를 알게 된 경로"
         defaultValue={knownPath}
         placeholder="지원 경로를 선택해 주세요."
         options={SELECT_OPTIONS.경로}
@@ -31,12 +32,12 @@ const BottomSection = ({
           <span>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</span>
           <i className={circle} />
         </p>
-        <Checkbox label="참석여부" formObject={formObject} required>
+        <Checkbox name="참석여부" formObject={formObject} required>
           참석 가능합니다.
         </Checkbox>
       </div>
       <div>
-        <Checkbox required label="개인정보수집동의" formObject={formObject}>
+        <Checkbox required name="개인정보수집동의" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>

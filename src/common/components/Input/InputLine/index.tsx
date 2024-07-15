@@ -9,7 +9,7 @@ import { TextBoxProps } from '../types';
 
 // TextBox 내부 Input
 const InputLine = ({
-  label,
+  name,
   pattern,
   validate,
   errorText,
@@ -25,14 +25,14 @@ const InputLine = ({
   const { defaultValue } = inputElementProps;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    clearErrors && clearErrors(label);
+    clearErrors && clearErrors(name);
 
-    if (label === '생년월일') {
+    if (name === '생년월일') {
       const formattedValue = formatBirthdate(e.target.value);
       setValue('생년월일', formattedValue);
     }
 
-    if (label === '연락처') {
+    if (name === '연락처') {
       const formattedValue = formatPhoneNumber(e.target.value);
       setValue('연락처', formattedValue);
     }
@@ -42,11 +42,11 @@ const InputLine = ({
     <>
       <div className={inputLine}>
         <input
-          id={label}
+          id={name}
           defaultValue={defaultValue}
-          className={inputVar[errors?.[label] ? 'error' : 'default']}
+          className={inputVar[errors?.[name] ? 'error' : 'default']}
           {...inputElementProps}
-          {...register(label, {
+          {...register(name, {
             required: required && '필수 입력 항목이에요.',
             pattern: {
               value: pattern || /.*/,
@@ -63,16 +63,16 @@ const InputLine = ({
             validate: validate,
             onBlur: (e) => {
               if (!pattern || e.currentTarget.value === '') return;
-              trigger(label);
+              trigger(name);
             },
             onChange: handleChange,
           })}
         />
         {children}
       </div>
-      {errors[label] && (
+      {errors[name] && (
         <Description styleType="error">
-          <p>{errors[label]?.message as string}</p>
+          <p>{errors[name]?.message as string}</p>
         </Description>
       )}
     </>
