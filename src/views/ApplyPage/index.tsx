@@ -17,23 +17,23 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
-import useIntersectionObserver from './hooks/useIntersectionObserver';
 import useScrollToHash from './hooks/useScrollToHash';
-import { buttonWrapper, content, formContainer, sectionContainer } from './style.css';
+import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
 
 const ApplyPage = () => {
-  const [activeHash, setActiveHash] = useState('');
-  const navigate = useNavigate();
-  useScrollToHash(); // scrollTo 카테고리
-
-  const handleSetActiveHash = useCallback((hash: string) => {
-    setActiveHash(hash);
-  }, []);
-
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
-  const { ref } = useIntersectionObserver(handleSetActiveHash);
+  const sectionsRef = useRef<HTMLSelectElement[]>([]);
+
+  const [isInView, setIsInView] = useState([true, false, false]);
+  const [sectionsUpdated, setSectionsUpdated] = useState(false);
+
+  const navigate = useNavigate();
+
+  const minIndex = isInView.findIndex((value) => value === true);
+
+  useScrollToHash(); // scrollTo 카테고리
 
   const { data: draftData, isLoading: draftIsLoading } = useQuery<
     AxiosResponse<ApplyResponse, null>,
@@ -93,6 +93,43 @@ const ApplyPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftData, handleSaveUserInfo]);
+
+  const refCallback = useCallback(
+    (element: HTMLSelectElement) => {
+      if (element) {
+        sectionsRef.current.push(element);
+
+        if (sectionsRef.current.length === 3) {
+          setSectionsUpdated(true);
+        }
+      }
+    },
+    [sectionsRef],
+  );
+
+  useEffect(() => {
+    if (!sectionsUpdated) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionId = entry.target.getAttribute('id');
+          const sectionIndex = ['default', 'common', 'partial'].indexOf(sectionId!);
+
+          setIsInView((prev) => {
+            const updatedState = [...prev];
+            updatedState[sectionIndex] = entry.isIntersecting;
+            return updatedState;
+          });
+        });
+      },
+      { root: null, rootMargin: '-220px' },
+    );
+
+    sectionsRef.current.forEach((section) => {
+      observer.observe(section);
+    });
+  }, [sectionsUpdated]);
 
   useEffect(() => {
     if (formObject.formState.errors['사진']) {
@@ -213,53 +250,35 @@ const ApplyPage = () => {
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={() => handleSendData('draft')} />
         <ApplyInfo />
-        <ApplyCategory activeHash={activeHash} onSetActiveHash={handleSetActiveHash} />
+        <ApplyCategory minIndex={minIndex} />
         <div className={sectionContainer}>
-          <div
-            id="default"
-            className={content}
-            ref={(el) => {
-              if (el) ref.current[0] = el;
-            }}>
-            <DefaultSection applicantDraft={applicantDraft} formObject={formObject} />
-          </div>
-          <div
-            id="common"
-            className={content}
-            ref={(el) => {
-              if (el) ref.current[1] = el;
-            }}>
-            <CommonSection
-              questions={questionsData?.data.commonQuestions.questions}
-              commonQuestionsDraft={commonQuestionsDraft}
-              formObject={formObject}
-            />
-          </div>
-          <div
-            id="partial"
-            className={content}
-            ref={(el) => {
-              if (el) ref.current[2] = el;
-            }}>
-            <PartSection
-              part={applicantDraft?.part}
-              questions={questionsData?.data.partQuestions}
-              partQuestionsDraft={partQuestionsDraft}
-              formObject={formObject}
-            />
-          </div>
-          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
-          <div className={buttonWrapper}>
-            <Button
-              isLoading={draftIsPending || dataIsPending}
-              onClick={() => handleSendData('draft')}
-              buttonStyle="line">
-              임시저장
-            </Button>
-            <Button isLoading={draftIsPending || dataIsPending} type="submit">
-              제출하기
-            </Button>
-          </div>
+          <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
+
+          <CommonSection
+            refCallback={refCallback}
+            questions={questionsData?.data.commonQuestions.questions}
+            commonQuestionsDraft={commonQuestionsDraft}
+            formObject={formObject}
+          />
+          <PartSection
+            refCallback={refCallback}
+            part={applicantDraft?.part}
+            questions={questionsData?.data.partQuestions}
+            partQuestionsDraft={partQuestionsDraft}
+            formObject={formObject}
+          />
+        </div>
+        <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
+        <div className={buttonWrapper}>
+          <Button
+            isLoading={draftIsPending || dataIsPending}
+            onClick={() => handleSendData('draft')}
+            buttonStyle="line">
+            임시저장
+          </Button>
+          <Button isLoading={draftIsPending || dataIsPending} type="submit">
+            제출하기
+          </Button>
         </div>
       </form>
     </>
