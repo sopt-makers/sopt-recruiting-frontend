@@ -79,6 +79,29 @@ const ApplyPage = () => {
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { handleSaveUserInfo } = useContext(UserInfoContext);
 
+  const {
+    address,
+    birthday,
+    college,
+    gender,
+    knownPath,
+    leaveAbsence: leaveAbsenceValue,
+    major,
+    mostRecentSeason: mostRecentSeasonValue,
+    nearestStation,
+    part,
+    picture,
+    univYear: univYearValue,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    attendance,
+    email,
+    name,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    personalInformation,
+    phone,
+    ...rest
+  } = formObject.getValues();
+
   useEffect(() => {
     handleSaveUserInfo({
       name: draftData?.data.applicant.name,
@@ -163,23 +186,9 @@ const ApplyPage = () => {
   const commonQuestionsDraft = draftData?.data?.commonQuestions;
   const partQuestionsDraft = draftData?.data?.partQuestions;
 
-  let selectedPart: string = formObject.getValues('part');
-  if (selectedPart === '기획') selectedPart = 'PM';
-  const selectedPartId = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart)?.id;
-  const partQuestions = questionsData?.data.partQuestions.find(
-    (part) => part.recruitingQuestionTypeId === selectedPartId,
-  );
-  const partQuestionIds = partQuestions?.questions.map((question) => question.id);
-  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
-
   const handleSendData = (type: 'draft' | 'submit') => {
-    const mostRecentSeasonValue = formObject.getValues('mostRecentSeason');
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
-
-    const leaveAbsenceValue = formObject.getValues('leaveAbsence');
     const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
-
-    const univYearValue = formObject.getValues('univYear');
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -190,33 +199,29 @@ const ApplyPage = () => {
             : univYearValue === '4학년'
               ? 4
               : 5;
-
-    const commonAnswers =
-      commonQuestionIds?.map((id) => ({
-        recruitingQuestionId: id,
-        answer: formObject.getValues(`common${id}`),
-      })) ?? [];
-    const partAnswers =
-      partQuestionIds?.map((id) => ({
-        recruitingQuestionId: id,
-        answer: formObject.getValues(`part${id}`),
-      })) ?? [];
-
-    const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
+    const answers = JSON.stringify(
+      [...Object.entries(rest)].map(([question, answer]: [question: string, answer: string]) => {
+        const recruitingQuestionId = question.replace(/[^0-9]/g, '');
+        return {
+          recruitingQuestionId,
+          answer,
+        };
+      }),
+    );
 
     const formValues: ApplyRequest = {
-      picture: formObject.getValues('picture')[0],
-      part: formObject.getValues('part'),
-      address: formObject.getValues('address'),
-      birthday: formObject.getValues('birthday'),
-      college: formObject.getValues('college'),
-      gender: formObject.getValues('gender'),
-      knownPath: formObject.getValues('knownPath'),
+      picture: picture[0],
+      part,
+      address,
+      birthday,
+      college,
+      gender,
+      knownPath,
       leaveAbsence,
-      major: formObject.getValues('major'),
+      major,
       mostRecentSeason,
       univYear,
-      nearestStation: formObject.getValues('nearestStation'),
+      nearestStation,
       answers,
       willAppjam: false,
     };
@@ -238,10 +243,10 @@ const ApplyPage = () => {
       <DraftDialog ref={draftDialog} />
       <SubmitDialog
         userInfo={{
-          name: formObject.getValues('name'),
-          email: formObject.getValues('email'),
-          phone: formObject.getValues('phone'),
-          part: formObject.getValues('part'),
+          name,
+          email,
+          phone,
+          part,
         }}
         dataIsPending={dataIsPending}
         ref={submitDialog}

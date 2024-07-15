@@ -59,7 +59,7 @@ const PartSection = ({
           <div key={value}>
             <Textarea
               key={value}
-              name={`${id}`}
+              name={`part${id}`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}

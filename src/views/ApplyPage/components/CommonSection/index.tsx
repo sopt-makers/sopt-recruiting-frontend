@@ -34,7 +34,7 @@ const CommonSection = ({
         return (
           <div key={value}>
             <Textarea
-              name={`공통${id}번`}
+              name={`common${id}`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}

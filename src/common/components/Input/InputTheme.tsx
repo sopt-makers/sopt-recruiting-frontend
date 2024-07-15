@@ -45,6 +45,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     watch,
     formState: { errors },
   } = formObject;
+  const { email, name, code } = getValues();
 
   const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendEmailRequest>,
@@ -66,7 +67,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
     onSuccess: () => {
       clearErrors();
-      sendingMutate({ email: getValues('email'), season: 1 });
+      sendingMutate({ email, season: 1 });
     },
     onError: (error) => {
       if (error.response?.status === 400) {
@@ -107,8 +108,6 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   }, []);
 
   const handleSendingEmail = () => {
-    const email = getValues('email');
-    const name = getValues('name');
     let isDone = true;
 
     // 이메일 유효성 검사
@@ -145,7 +144,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   };
 
   const handleVerificationCodeCheck = () => {
-    checkingMutate({ email: getValues('email'), code: getValues('code') });
+    checkingMutate({ email, code });
   };
 
   useEffect(() => {
