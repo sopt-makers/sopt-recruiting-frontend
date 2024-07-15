@@ -21,7 +21,7 @@ const Input = <T extends FieldValues>({
   required,
   ...textareaElements
 }: InputProps<T>) => {
-  const state = errors.name ? 'error' : 'default';
+  const state = errors[name] ? 'error' : 'default';
   const textCount = watch(name)?.length;
 
   return (
@@ -38,9 +38,9 @@ const Input = <T extends FieldValues>({
         {...textareaElements}
       />
       <p className={bottomStyle}>
-        {errors.name && (
+        {errors[name] && (
           <span className={errorMsgStyle}>
-            <>{errors.name?.message}</>
+            <>{errors[name]?.message}</>
           </span>
         )}
         <span>

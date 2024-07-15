@@ -124,7 +124,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
       }
 
       // 존재 하는 계정인지 검사
-      const nameError = errors.name && errors.name.message !== VALIDATION_CHECK.name.errorTextNonexistence;
+      const nameError = errors[name] && errors[name].message !== VALIDATION_CHECK.name.errorTextNonexistence;
       const emailError = errors.email && errors.email.message !== VALIDATION_CHECK.name.errorTextNonexistence;
 
       if (nameError || emailError) isDone = false;

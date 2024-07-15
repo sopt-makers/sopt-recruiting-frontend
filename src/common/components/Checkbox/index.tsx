@@ -22,6 +22,7 @@ const Checkbox = <T extends FieldValues>({
     register,
     formState: { errors },
   } = formObject;
+
   return (
     <>
       <div className={container}>
@@ -34,13 +35,13 @@ const Checkbox = <T extends FieldValues>({
             className={hiddenCheckbox}
             {...checkboxElementProps}
           />
-          <span className={checkmark[errors && errors.name ? 'error' : 'default']} />
+          <span className={checkmark[errors && errors[name] ? 'error' : 'default']} />
           <span>{children}</span>
           {required && <i className={requireDot} />}
         </label>
       </div>
       <p className={error}>
-        <>{errors && errors.name?.message}</>
+        <>{errors && errors[name]?.message}</>
       </p>
     </>
   );

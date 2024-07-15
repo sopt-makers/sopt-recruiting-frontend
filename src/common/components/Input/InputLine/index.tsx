@@ -70,9 +70,9 @@ const InputLine = ({
         />
         {children}
       </div>
-      {errors.name && (
+      {errors[name] && (
         <Description styleType="error">
-          <p>{errors.name?.message as string}</p>
+          <p>{errors[name]?.message as string}</p>
         </Description>
       )}
     </>

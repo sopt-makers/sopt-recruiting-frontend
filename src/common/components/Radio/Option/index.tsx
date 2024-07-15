@@ -19,7 +19,7 @@ const Option = <T extends FieldValues>({ label, errors, register, name, required
           {...register(name, {
             ...(required && { required: '필수 선택 항목이에요.' }),
           })}
-          className={inputStyle[errors.name ? 'error' : 'default']}
+          className={inputStyle[errors[name] ? 'error' : 'default']}
           type="radio"
           id={label}
           name={name}

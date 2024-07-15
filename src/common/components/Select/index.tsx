@@ -72,7 +72,7 @@ const SelectBox = ({
       </div>
       {errors?.[name] && (
         <div className={error}>
-          <p>{errors.name?.message as string}</p>
+          <p>{errors[name]?.message as string}</p>
         </div>
       )}
     </div>
