@@ -6,9 +6,10 @@ interface MenuItemProps {
   text: string;
   path?: string;
   target?: '_blank' | '_self';
+  onClick?: () => void;
 }
 
-const MenuItem = ({ text, path, target }: MenuItemProps) => {
+const MenuItem = ({ text, path, target, onClick }: MenuItemProps) => {
   return (
     <li className={menuItem}>
       {path ? (
@@ -16,7 +17,9 @@ const MenuItem = ({ text, path, target }: MenuItemProps) => {
           {text}
         </NavLink>
       ) : (
-        <p>{text}</p>
+        <p className={`${onClick ? menuLink : null}`} onClick={onClick}>
+          {text}
+        </p>
       )}
     </li>
   );
