@@ -3,7 +3,7 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 import { useCallback, useRef, useState } from 'react';
-import { RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
 import { ModeType, ThemeContext } from '@store/themeContext';
@@ -49,8 +49,6 @@ const App = () => {
   const [isLight, setIsLight] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfoType>({});
 
-  const navigate = useNavigate();
-
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -68,7 +66,7 @@ const App = () => {
         if (axiosError.response?.status === 401) {
           sessionRef.current?.showModal();
         } else if (axiosError.response?.status === 500) {
-          navigate('/error');
+          window.location.href = '/error';
         }
       },
     }),
@@ -79,7 +77,7 @@ const App = () => {
         if (axiosError.response?.status === 401) {
           sessionRef.current?.showModal();
         } else if (axiosError.response?.status === 500) {
-          navigate('/error');
+          window.location.href = '/error';
         }
       },
     }),
