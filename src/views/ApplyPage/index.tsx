@@ -45,6 +45,12 @@ const ApplyPage = () => {
     queryFn: getDraft,
   });
 
+  const {
+    applicant: applicantDraft,
+    commonQuestions: commonQuestionsDraft,
+    partQuestions: partQuestionsDraft,
+  } = draftData?.data || {};
+
   const { data: questionsData, isLoading: questionsIsLoading } = useQuery<
     AxiosResponse<QuestionsResponse, QuestionsRequest>,
     AxiosError<ApplyError, QuestionsRequest>,
@@ -52,9 +58,11 @@ const ApplyPage = () => {
     string[]
   >({
     queryKey: ['get-questions'],
-    queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
-    enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
+    queryFn: () => getQuestions({ season: applicantDraft?.season, group: applicantDraft?.group }),
+    enabled: !!applicantDraft?.season && !!applicantDraft.group,
   });
+
+  const { commonQuestions, partQuestions } = questionsData?.data || {};
 
   const { mutate: draftMutate, isPending: draftIsPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
@@ -77,6 +85,12 @@ const ApplyPage = () => {
   });
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const {
+    getValues,
+    setValue,
+    formState: { errors },
+    clearErrors,
+  } = formObject;
   const { handleSaveUserInfo } = useContext(UserInfoContext);
 
   const {
@@ -100,19 +114,19 @@ const ApplyPage = () => {
     personalInformation,
     phone,
     ...rest
-  } = formObject.getValues();
+  } = getValues();
 
   useEffect(() => {
     handleSaveUserInfo({
-      name: draftData?.data.applicant.name,
-      phone: draftData?.data.applicant.phone,
-      email: draftData?.data.applicant.email,
-      season: draftData?.data.applicant.season,
-      group: draftData?.data.applicant.group,
+      name: applicantDraft?.name,
+      phone: applicantDraft?.phone,
+      email: applicantDraft?.email,
+      season: applicantDraft?.season,
+      group: applicantDraft?.group,
     });
 
-    if (draftData?.data.applicant.part) {
-      formObject.setValue('part', draftData?.data.applicant.part);
+    if (applicantDraft?.part) {
+      setValue('part', applicantDraft?.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftData, handleSaveUserInfo]);
@@ -155,36 +169,28 @@ const ApplyPage = () => {
   }, [sectionsUpdated]);
 
   useEffect(() => {
-    if (formObject.formState.errors.picture) {
+    if (errors.picture) {
       navigate('#default');
 
       return;
     }
 
-    if (Object.keys(formObject.formState.errors).some((key) => key.startsWith('part'))) {
-      formObject.clearErrors('attendance');
-      formObject.clearErrors('personalInformation');
-      formObject.clearErrors('knownPath');
+    if (Object.keys(errors).some((key) => key.startsWith('part'))) {
+      clearErrors('attendance');
+      clearErrors('personalInformation');
+      clearErrors('knownPath');
 
       return;
     }
 
-    if (formObject.formState.errors.attendance || formObject.formState.errors.personalInformation) {
-      if (Object.keys(formObject.formState.errors).length > 2) return;
+    if (errors.attendance || errors.personalInformation) {
+      if (Object.keys(errors).length > 2) return;
       navigate('#check-necessary');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    formObject.formState.errors.picture,
-    formObject.formState.errors.attendance,
-    formObject.formState.errors.personalInformation,
-  ]);
+  }, [errors.picture, errors.attendance, errors.personalInformation]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
-
-  const applicantDraft = draftData?.data?.applicant;
-  const commonQuestionsDraft = draftData?.data?.commonQuestions;
-  const partQuestionsDraft = draftData?.data?.partQuestions;
 
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
@@ -261,14 +267,14 @@ const ApplyPage = () => {
 
           <CommonSection
             refCallback={refCallback}
-            questions={questionsData?.data.commonQuestions.questions}
+            questions={commonQuestions?.questions}
             commonQuestionsDraft={commonQuestionsDraft}
             formObject={formObject}
           />
           <PartSection
             refCallback={refCallback}
             part={applicantDraft?.part}
-            questions={questionsData?.data.partQuestions}
+            questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
             formObject={formObject}
           />

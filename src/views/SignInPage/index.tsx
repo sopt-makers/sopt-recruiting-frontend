@@ -16,24 +16,27 @@ import type { AxiosError, AxiosResponse } from 'axios';
 
 const SignInPage = () => {
   const navigate = useNavigate();
+
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const { setError } = formObject;
+
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignInResponse, SignInRequest>,
     AxiosError<SignInError, SignInRequest>,
     SignInRequest
   >({
     mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
-    onSuccess: (data) => {
-      localStorage.setItem('soptApplyAccessToken', data.data.token);
+    onSuccess: ({ data: { token } }) => {
+      localStorage.setItem('soptApplyAccessToken', token);
       navigate(0);
     },
     onError(error) {
       if (error.response?.status === 403 || error.response?.status === 500) {
-        formObject.setError('email', {
+        setError('email', {
           type: 'not-match',
           message: VALIDATION_CHECK.email.notMatchErrorText,
         });
-        formObject.setError('password', {
+        setError('password', {
           type: 'not-match',
           message: VALIDATION_CHECK.password.notMatchErrorText,
         });

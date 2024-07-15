@@ -18,6 +18,7 @@ const PasswordPage = () => {
   const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const { setError } = formObject;
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<PasswordResponse, PasswordRequest>,
@@ -32,7 +33,7 @@ const PasswordPage = () => {
 
   const handleChangePassword = ({ email, password, passwordCheck }: FieldValues) => {
     if (!isVerified) {
-      formObject.setError('code', {
+      setError('code', {
         type: 'not-match',
         message: VALIDATION_CHECK.verificationCode.errorText,
       });

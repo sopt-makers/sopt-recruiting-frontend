@@ -22,6 +22,11 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
+  const {
+    setError,
+    setFocus,
+    formState: { errors },
+  } = formObject;
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignUpResponse, SignUpRequest>,
@@ -34,7 +39,7 @@ const SignupPage = () => {
     },
     onError: (error) => {
       if (error.response?.status === 400) {
-        formObject.setError('email', {
+        setError('email', {
           type: 'already-existence',
           message: VALIDATION_CHECK.email.errorTextExistence,
         });
@@ -44,7 +49,7 @@ const SignupPage = () => {
 
   const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
     if (!isVerified) {
-      formObject.setError('code', {
+      setError('code', {
         type: 'not-match',
         message: VALIDATION_CHECK.verificationCode.errorText,
       });
@@ -64,11 +69,11 @@ const SignupPage = () => {
   };
 
   useEffect(() => {
-    if (formObject.formState.errors.email?.message === VALIDATION_CHECK.email.errorTextExistence) {
-      formObject.setFocus('email');
+    if (errors.email?.message === VALIDATION_CHECK.email.errorTextExistence) {
+      setFocus('email');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formObject.formState.errors.email?.message, formObject.setFocus]);
+  }, [errors.email?.message, setFocus]);
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>

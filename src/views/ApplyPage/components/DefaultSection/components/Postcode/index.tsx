@@ -16,12 +16,14 @@ const Postcode = ({
 }) => {
   const [address, setAddress] = useState('');
 
+  const { clearErrors } = formObject;
+
   const handleOpenPostcode = () => {
     window.daum &&
       new window.daum.Postcode({
-        oncomplete: function (data: Address) {
-          setAddress(data.address);
-          formObject.clearErrors && formObject.clearErrors('address');
+        oncomplete: function ({ address }: Address) {
+          setAddress(address);
+          clearErrors && clearErrors('address');
         },
         width: 500,
         height: 500,

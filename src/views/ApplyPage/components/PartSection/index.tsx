@@ -27,7 +27,9 @@ const PartSection = ({
     'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues' | 'watch' | 'trigger'
   >;
 }) => {
-  let selectedPart: string = formObject.getValues('part');
+  const { getValues } = formObject;
+
+  let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
   const partQuestionsById = partQuestionsDraft?.reduce(
