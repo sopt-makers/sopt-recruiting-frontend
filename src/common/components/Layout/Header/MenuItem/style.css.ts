@@ -11,6 +11,7 @@ export const menuLink = style({
   textDecoration: `underline transparent 2px`,
   textUnderlineOffset: 21,
   transition: 'all 0.2s ease-out',
+  cursor: 'pointer',
 
   selectors: {
     '&:hover:not([disabled])': {

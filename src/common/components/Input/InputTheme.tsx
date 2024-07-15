@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
@@ -42,6 +42,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     getValues,
     setError,
     setValue,
+    watch,
     formState: { errors },
   } = formObject;
 
@@ -106,57 +107,51 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   }, []);
 
   const handleSendingEmail = () => {
+    const email = getValues('이메일');
+    const name = getValues('이름');
     let isDone = true;
 
-    if (getValues('이메일') === '') {
-      setError('이메일', {
-        type: 'required',
-        message: '필수 입력 항목이에요.',
-      });
+    // 이메일 유효성 검사
+    if (!email) {
+      setError('이메일', { type: 'required', message: '필수 입력 항목이에요.' });
       isDone = false;
     }
 
     if (location.pathname === '/password') {
-      if (getValues('이름') === '') {
-        setError('이름', {
-          type: 'required',
-          message: '필수 입력 항목이에요.',
-        });
-
+      // 이름 유효성 검사
+      if (!name) {
+        setError('이름', { type: 'required', message: '필수 입력 항목이에요.' });
         isDone = false;
       }
 
-      if (
-        (errors['이름'] && errors['이름'].message !== VALIDATION_CHECK.name.errorTextNonexistence) ||
-        (errors['이메일'] && errors['이메일'].message !== VALIDATION_CHECK.name.errorTextNonexistence)
-      )
-        isDone = false;
+      // 존재 하는 계정인지 검사
+      const nameError = errors['이름'] && errors['이름'].message !== VALIDATION_CHECK.name.errorTextNonexistence;
+      const emailError = errors['이메일'] && errors['이메일'].message !== VALIDATION_CHECK.name.errorTextNonexistence;
 
-      if (isDone) {
+      if (nameError || emailError) isDone = false;
+
+      // 오류가 없을 때 이메일 확인 요청
+      if (!emailError && isDone) {
         setValue('인증번호', '');
         clearErrors('이메일');
-        checkingEmailMutate({
-          email: getValues('이메일'),
-          name: getValues('이름'),
-          season: 1,
-          group: 'OB',
-        });
+        checkingEmailMutate({ email, name, season: 1, group: 'OB' });
       }
-
       return;
     }
 
-    if (location.pathname === '/sign-up') {
-      if (isDone) {
-        sendingMutate({ email: getValues('이메일'), season: 1 });
-      }
-      return;
+    if (location.pathname === '/sign-up' && !errors['이메일'] && isDone) {
+      sendingMutate({ email, season: 1 });
     }
   };
 
   const handleVerificationCodeCheck = () => {
     checkingMutate({ email: getValues('이메일'), code: getValues('인증번호') });
   };
+
+  useEffect(() => {
+    onChangeVerification(false);
+    setValue('인증번호', '');
+  }, [watch('이메일')]);
 
   return (
     <TextBox label="이메일" formObject={formObject} required>
@@ -177,7 +172,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
-        disabled={!isActive}
+        readOnly={!isActive}
         label="인증번호"
         placeholder="이메일 인증 번호를 작성해주세요."
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
@@ -196,7 +191,14 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
 export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
-  const { watch } = formObject;
+  const { watch, trigger } = formObject;
+
+  const password = watch(textVar);
+  const passwordConfirm = watch('비밀번호 재확인');
+
+  useEffect(() => {
+    if (passwordConfirm != undefined && passwordConfirm !== '') trigger('비밀번호 재확인');
+  }, [password, passwordConfirm, trigger]);
 
   return (
     <TextBox label={textVar} formObject={formObject} required>
@@ -207,6 +209,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         maxLength={VALIDATION_CHECK.password.maxLength}
         pattern={VALIDATION_CHECK.password.pattern}
         errorText={VALIDATION_CHECK.password.errorText}
+        validate={VALIDATION_CHECK.passwordConfirm.validate(watch, textVar)}
       />
       <InputLine
         label="비밀번호 재확인"
@@ -216,6 +219,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
         errorText={VALIDATION_CHECK.passwordConfirm.errorText}
         validate={VALIDATION_CHECK.passwordConfirm.validate(watch, textVar)}
       />
+      {passwordConfirm && password === passwordConfirm && <p className={success}>비밀번호가 일치해요.</p>}
     </TextBox>
   );
 };

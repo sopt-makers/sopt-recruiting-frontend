@@ -4,9 +4,10 @@ import { theme } from 'styles/theme.css';
 
 const containerBase = style({
   display: 'flex',
-  gap: 22,
-  alignItems: 'center',
-  width: 'fit-content',
+  flexDirection: 'column',
+  gap: 8,
+
+  wordBreak: 'keep-all',
   padding: '28px 28px',
   borderRadius: 15,
   backgroundColor: theme.color.subBackground,
@@ -18,4 +19,14 @@ const containerBase = style({
 export const container = styleVariants({
   sm: [containerBase, { width: 466 }],
   lg: [containerBase, { width: 720 }],
+});
+
+export const warningWrapper = style({
+  display: 'flex',
+  gap: 22,
+  alignItems: 'center',
+});
+
+export const button = style({
+  marginLeft: 'auto',
 });

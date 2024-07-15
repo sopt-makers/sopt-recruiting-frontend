@@ -11,16 +11,13 @@ export const container = style({
   width: 466,
 });
 
-export const calloutWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'end',
-  gap: 8,
-
-  wordBreak: 'keep-all',
-});
 export const calloutButton = style({
   marginRight: 18,
+  borderBottom: '1px solid currentColor',
   color: theme.color.lighterText,
   ...theme.font.TITLE_5_18_SB,
+});
+
+export const newPasswordButton = style({
+  borderBottom: '1px solid currentColor',
 });
