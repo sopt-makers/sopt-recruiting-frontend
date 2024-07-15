@@ -19,8 +19,8 @@ export const getDraft = async () => {
   return res;
 };
 
-export const sendDraft = async (formValues: ApplyRequest) => {
-  const res = await tokenInstance.post('/recruiting-answer/store', formValues, {
+export const sendData = async (api: string, formValues: ApplyRequest) => {
+  const res = await tokenInstance.post(api, formValues, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

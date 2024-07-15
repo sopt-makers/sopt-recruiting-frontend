@@ -8,7 +8,7 @@ export interface ApplyRequest {
   knownPath: string;
   leaveAbsence: boolean;
   major: string;
-  mostRecentSeason: string;
+  mostRecentSeason: number;
   univYear: number;
   nearestStation: string;
   answers: string;

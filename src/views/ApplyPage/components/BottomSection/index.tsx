@@ -26,7 +26,7 @@ const BottomSection = ({
         formObject={formObject}
         required
       />
-      <div className={doubleLineCheck}>
+      <div id="check-necessary" className={doubleLineCheck}>
         <p className={label}>
           <span>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</span>
           <i className={circle} />

@@ -17,9 +17,7 @@ export const sectionContainer = style({
   width: 720,
 });
 
-export const content = style({
-  paddingTop: 90,
-});
+export const content = style({});
 
 export const buttonWrapper = style({
   display: 'flex',
