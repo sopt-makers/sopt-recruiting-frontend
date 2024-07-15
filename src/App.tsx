@@ -3,7 +3,7 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 import { useCallback, useRef, useState } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import Layout from '@components/Layout';
 import { ModeType, ThemeContext } from '@store/themeContext';
@@ -37,6 +37,7 @@ const router = createBrowserRouter([
       { path: '/my', element: <MyPage /> },
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
+      { path: '/error', element: <ErrorPage code={500} /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],
   },
@@ -47,6 +48,9 @@ const App = () => {
 
   const [isLight, setIsLight] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfoType>({});
+
+  const navigate = useNavigate();
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -59,15 +63,23 @@ const App = () => {
     },
     queryCache: new QueryCache({
       onError: (error) => {
-        if ((error as AxiosError).response?.status === 401) {
+        const axiosError = error as AxiosError;
+
+        if (axiosError.response?.status === 401) {
           sessionRef.current?.showModal();
+        } else if (axiosError.response?.status === 500) {
+          navigate('/error');
         }
       },
     }),
     mutationCache: new MutationCache({
       onError: (error) => {
-        if ((error as AxiosError).response?.status === 401) {
+        const axiosError = error as AxiosError;
+
+        if (axiosError.response?.status === 401) {
           sessionRef.current?.showModal();
+        } else if (axiosError.response?.status === 500) {
+          navigate('/error');
         }
       },
     }),
