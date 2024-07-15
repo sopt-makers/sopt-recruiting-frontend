@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import { UserInfoContext } from '@store/userInfoContext';
@@ -23,6 +24,7 @@ import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsRes
 
 const ApplyPage = () => {
   const [activeHash, setActiveHash] = useState('');
+  const navigate = useNavigate();
   useScrollToHash(); // scrollTo 카테고리
 
   const handleSetActiveHash = useCallback((hash: string) => {
@@ -91,6 +93,32 @@ const ApplyPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftData, handleSaveUserInfo]);
+
+  useEffect(() => {
+    if (formObject.formState.errors['사진']) {
+      navigate('#default');
+
+      return;
+    }
+
+    if (Object.keys(formObject.formState.errors).some((key) => key.startsWith('파트'))) {
+      formObject.clearErrors('참석여부');
+      formObject.clearErrors('개인정보수집동의');
+      formObject.clearErrors('동아리를 알게 된 경로');
+
+      return;
+    }
+
+    if (formObject.formState.errors['참석여부'] || formObject.formState.errors['개인정보수집동의']) {
+      if (Object.keys(formObject.formState.errors).length > 2) return;
+      navigate('#check-necessary');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    formObject.formState.errors['사진'],
+    formObject.formState.errors['참석여부'],
+    formObject.formState.errors['개인정보수집동의'],
+  ]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
