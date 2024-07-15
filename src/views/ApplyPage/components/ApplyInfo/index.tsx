@@ -12,11 +12,9 @@ const ApplyInfo = () => {
       applicationStart,
       applicationEnd,
       applicationPassConfirmStart,
-      applicationPassConfirmEnd,
       interviewStart,
       interviewEnd,
       finalPassConfirmStart,
-      finalPassConfirmEnd,
     },
   } = useContext(UserInfoContext);
 
@@ -39,15 +37,15 @@ const ApplyInfo = () => {
         </li>
         <li className={dateItems}>
           <span className={dateLabel}>서류 발표</span>
-          <span className={dateText}>{`${applicationPassConfirmStart} - ${applicationPassConfirmEnd}`}</span>
+          <span className={dateText}>{applicationPassConfirmStart}</span>
         </li>
         <li className={dateItems}>
           <span className={dateLabel}>면접 평가</span>
-          <span className={dateText}>{`${interviewStart} - ${interviewEnd}`}</span>
+          <span className={dateText}>{`${interviewStart} - ${interviewEnd} (오프라인 면접)`}</span>
         </li>
         <li className={dateItems}>
           <span className={dateLabel}>최종 발표</span>
-          <span className={dateText}>{`${finalPassConfirmStart} - ${finalPassConfirmEnd}`}</span>
+          <span className={dateText}>{finalPassConfirmStart}</span>
         </li>
       </ol>
     </section>
