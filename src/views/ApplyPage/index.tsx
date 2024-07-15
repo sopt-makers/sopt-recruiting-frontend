@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
+import { UserInfoContext } from '@store/userInfoContext';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -29,6 +30,7 @@ const ApplyPage = () => {
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
+  const { userInfo, handleSaveUserInfo } = useContext(UserInfoContext);
 
   const minIndex = isInView.findIndex((value) => value === true);
 
@@ -91,8 +93,12 @@ const ApplyPage = () => {
   );
 
   useEffect(() => {
-    if (draftData?.data.applicant.part) {
-      formObject.setValue('지원파트', draftData?.data.applicant.part);
+    if (!draftData) return;
+
+    handleSaveUserInfo({ ...userInfo, name: draftData.data.applicant.name });
+
+    if (draftData.data.applicant.part) {
+      formObject.setValue('지원파트', draftData.data.applicant.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftData]);

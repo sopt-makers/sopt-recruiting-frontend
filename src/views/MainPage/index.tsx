@@ -30,7 +30,6 @@ const MainPage = () => {
     if (!data) return;
 
     const {
-      name,
       season,
       group,
       ybApplicationStart,
@@ -87,7 +86,6 @@ const MainPage = () => {
     const interviewEnd = format(new Date(interviewEndValue), 'M월 dd일 (E)', { locale: ko });
 
     handleSaveUserInfo({
-      name,
       season,
       group,
       applicationStart, // 서류 지원 시작
