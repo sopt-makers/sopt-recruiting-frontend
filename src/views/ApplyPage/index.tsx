@@ -62,7 +62,7 @@ const ApplyPage = () => {
     enabled: !!applicantDraft?.season && !!applicantDraft.group,
   });
 
-  const { commonQuestions, partQuestions } = questionsData?.data || {};
+  const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   const { mutate: draftMutate, isPending: draftIsPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
@@ -192,6 +192,13 @@ const ApplyPage = () => {
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
+  let selectedPart: string = getValues('part');
+  if (selectedPart === '기획') selectedPart = 'PM';
+  const selectedPartId = questionTypes?.find((type) => type.typeKr === selectedPart)?.id;
+  const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
+  const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
+  const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
+
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
@@ -205,15 +212,33 @@ const ApplyPage = () => {
             : univYearValue === '4학년'
               ? 4
               : 5;
-    const answers = JSON.stringify(
-      [...Object.entries(rest)].map(([question, answer]: [question: string, answer: string]) => {
+
+    let answersValue = [];
+
+    if (type === 'submit') {
+      const commonAnswers =
+        commonQuestionIds?.map((id) => ({
+          recruitingQuestionId: id,
+          answer: getValues()[`common${id}`],
+        })) ?? [];
+      const partAnswers =
+        partQuestionIds?.map((id) => ({
+          recruitingQuestionId: id,
+          answer: getValues()[`part${id}`],
+        })) ?? [];
+
+      answersValue = [...commonAnswers, ...partAnswers];
+    } else {
+      answersValue = [...Object.entries(rest)].map(([question, answer]: [question: string, answer: string]) => {
         const recruitingQuestionId = question.replace(/[^0-9]/g, '');
         return {
           recruitingQuestionId,
           answer,
         };
-      }),
-    );
+      });
+    }
+
+    const answers = JSON.stringify(answersValue);
 
     const formValues: ApplyRequest = {
       picture: picture[0],
