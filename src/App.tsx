@@ -1,7 +1,8 @@
 import { colors } from '@sopt-makers/colors';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useCallback, useState } from 'react';
+import { AxiosError } from 'axios';
+import { useCallback, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -10,6 +11,7 @@ import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
 import CompletePage from 'views/CompletePage';
+import SessionExpiredDialog from 'views/dialogs/SessionExpiredDialog';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
 import MyPage from 'views/MyPage';
@@ -35,14 +37,18 @@ const router = createBrowserRouter([
       { path: '/my', element: <MyPage /> },
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
+      { path: '/error', element: <ErrorPage code={500} /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],
   },
 ]);
 
 const App = () => {
+  const sessionRef = useRef<HTMLDialogElement>(null);
+
   const [isLight, setIsLight] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfoType>({});
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -53,6 +59,28 @@ const App = () => {
         retry: 0,
       },
     },
+    queryCache: new QueryCache({
+      onError: (error) => {
+        const axiosError = error as AxiosError;
+
+        if (axiosError.response?.status === 401) {
+          sessionRef.current?.showModal();
+        } else if (axiosError.response?.status === 500) {
+          window.location.href = '/error';
+        }
+      },
+    }),
+    mutationCache: new MutationCache({
+      onError: (error) => {
+        const axiosError = error as AxiosError;
+
+        if (axiosError.response?.status === 401) {
+          sessionRef.current?.showModal();
+        } else if (axiosError.response?.status === 500) {
+          window.location.href = '/error';
+        }
+      },
+    }),
   });
 
   const themeContextValue = {
@@ -73,16 +101,19 @@ const App = () => {
   };
 
   return (
-    <ThemeContext.Provider value={themeContextValue}>
-      <UserInfoContext.Provider value={userInfoContextValue}>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools />
-          <div className={isLight ? light : dark}>
-            <RouterProvider router={router} />
-          </div>
-        </QueryClientProvider>
-      </UserInfoContext.Provider>
-    </ThemeContext.Provider>
+    <>
+      <SessionExpiredDialog ref={sessionRef} />
+      <ThemeContext.Provider value={themeContextValue}>
+        <UserInfoContext.Provider value={userInfoContextValue}>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools />
+            <div className={isLight ? light : dark}>
+              <RouterProvider router={router} />
+            </div>
+          </QueryClientProvider>
+        </UserInfoContext.Provider>
+      </ThemeContext.Provider>
+    </>
   );
 };
 
