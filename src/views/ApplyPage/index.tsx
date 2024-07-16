@@ -310,18 +310,18 @@ const ApplyPage = () => {
             partQuestionsDraft={partQuestionsDraft}
             formObject={formObject}
           />
-        </div>
-        <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
-        <div className={buttonWrapper}>
-          <Button
-            isLoading={draftIsPending || dataIsPending}
-            onClick={() => handleSendData('draft')}
-            buttonStyle="line">
-            임시저장
-          </Button>
-          <Button isLoading={draftIsPending || dataIsPending} type="submit">
-            제출하기
-          </Button>
+          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
+          <div className={buttonWrapper}>
+            <Button
+              isLoading={draftIsPending || dataIsPending}
+              onClick={() => handleSendData('draft')}
+              buttonStyle="line">
+              임시저장
+            </Button>
+            <Button isLoading={draftIsPending || dataIsPending} type="submit">
+              제출하기
+            </Button>
+          </div>
         </div>
       </form>
     </>
