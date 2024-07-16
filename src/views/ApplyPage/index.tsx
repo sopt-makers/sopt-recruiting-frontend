@@ -289,7 +289,10 @@ const ApplyPage = () => {
         }}
         dataIsPending={dataIsPending}
         ref={submitDialog}
-        onSendData={() => handleSendData('submit')}
+        onSendData={() => {
+          handleSendData('submit');
+          submitDialog.current?.close();
+        }}
       />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={() => handleSendData('draft')} />
