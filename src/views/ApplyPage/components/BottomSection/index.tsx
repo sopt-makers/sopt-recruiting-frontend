@@ -6,7 +6,7 @@ import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
-import { circle, doubleLineCheck, label, line, sectionContainer } from './style.css';
+import { doubleLineCheck, label, line, sectionContainer } from './style.css';
 
 const BottomSection = ({
   knownPath,
