@@ -28,10 +28,7 @@ const BottomSection = ({
         required
       />
       <div id="check-necessary" className={doubleLineCheck}>
-        <p className={label}>
-          <span>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</span>
-          <i className={circle} />
-        </p>
+        <p className={label}>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</p>
         <Checkbox name="attendance" formObject={formObject} required>
           참석 가능합니다.
         </Checkbox>
