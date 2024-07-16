@@ -46,6 +46,12 @@ const ApplyPage = () => {
     queryFn: getDraft,
   });
 
+  const {
+    applicant: applicantDraft,
+    commonQuestions: commonQuestionsDraft,
+    partQuestions: partQuestionsDraft,
+  } = draftData?.data || {};
+
   const { data: questionsData, isLoading: questionsIsLoading } = useQuery<
     AxiosResponse<QuestionsResponse, QuestionsRequest>,
     AxiosError<ApplyError, QuestionsRequest>,
@@ -53,9 +59,11 @@ const ApplyPage = () => {
     string[]
   >({
     queryKey: ['get-questions'],
-    queryFn: () => getQuestions({ season: draftData?.data.applicant.season, group: draftData?.data.applicant.group }),
-    enabled: !!draftData?.data.applicant.season && !!draftData.data.applicant.group,
+    queryFn: () => getQuestions({ season: applicantDraft?.season, group: applicantDraft?.group }),
+    enabled: !!applicantDraft?.season && !!applicantDraft.group,
   });
+
+  const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   const { mutate: draftMutate, isPending: draftIsPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
@@ -78,6 +86,47 @@ const ApplyPage = () => {
   });
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const {
+    getValues,
+    setValue,
+    formState: { errors },
+    clearErrors,
+  } = formObject;
+
+  const {
+    address,
+    birthday,
+    college,
+    gender,
+    knownPath,
+    leaveAbsence: leaveAbsenceValue,
+    major,
+    mostRecentSeason: mostRecentSeasonValue,
+    nearestStation,
+    part,
+    picture,
+    univYear: univYearValue,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    attendance,
+    email,
+    name,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    personalInformation,
+    phone,
+    ...rest
+  } = getValues();
+
+  useEffect(() => {
+    handleSaveUserInfo({
+      name: applicantDraft?.name,
+      ...userInfo,
+    });
+
+    if (applicantDraft?.part) {
+      setValue('part', applicantDraft?.part);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draftData, handleSaveUserInfo]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {
@@ -128,54 +177,39 @@ const ApplyPage = () => {
   }, [sectionsUpdated]);
 
   useEffect(() => {
-    if (formObject.formState.errors['사진']) {
+    if (errors.picture) {
       navigate('#default');
 
       return;
     }
 
-    if (Object.keys(formObject.formState.errors).some((key) => key.startsWith('파트'))) {
-      formObject.clearErrors('참석여부');
-      formObject.clearErrors('개인정보수집동의');
-      formObject.clearErrors('동아리를 알게 된 경로');
+    if (Object.keys(errors).some((key) => key.startsWith('part'))) {
+      clearErrors('attendance');
+      clearErrors('personalInformation');
+      clearErrors('knownPath');
 
       return;
     }
 
-    if (formObject.formState.errors['참석여부'] || formObject.formState.errors['개인정보수집동의']) {
-      if (Object.keys(formObject.formState.errors).length > 2) return;
+    if (errors.attendance || errors.personalInformation) {
+      if (Object.keys(errors).length > 2) return;
       navigate('#check-necessary');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    formObject.formState.errors['사진'],
-    formObject.formState.errors['참석여부'],
-    formObject.formState.errors['개인정보수집동의'],
-  ]);
+  }, [errors.picture, errors.attendance, errors.personalInformation]);
 
   if (draftIsLoading || questionsIsLoading) return <BigLoading />;
 
-  const applicantDraft = draftData?.data?.applicant;
-  const commonQuestionsDraft = draftData?.data?.commonQuestions;
-  const partQuestionsDraft = draftData?.data?.partQuestions;
-
-  let selectedPart: string = formObject.getValues('지원파트');
+  let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
-  const selectedPartId = questionsData?.data.questionTypes.find((type) => type.typeKr === selectedPart)?.id;
-  const partQuestions = questionsData?.data.partQuestions.find(
-    (part) => part.recruitingQuestionTypeId === selectedPartId,
-  );
-  const partQuestionIds = partQuestions?.questions.map((question) => question.id);
-  const commonQuestionIds = questionsData?.data.commonQuestions.questions.map((question) => question.id);
+  const selectedPartId = questionTypes?.find((type) => type.typeKr === selectedPart)?.id;
+  const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
+  const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
+  const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
 
   const handleSendData = (type: 'draft' | 'submit') => {
-    const mostRecentSeasonValue = formObject.getValues('이전 기수 활동 여부 (제명 포함)');
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
-
-    const leaveAbsenceValue = formObject.getValues('재학여부');
     const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
-
-    const univYearValue = formObject.getValues('학년');
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -187,32 +221,46 @@ const ApplyPage = () => {
               ? 4
               : 5;
 
-    const commonAnswers =
-      commonQuestionIds?.map((id) => ({
-        recruitingQuestionId: id,
-        answer: formObject.getValues()[`공통${id}번`],
-      })) ?? [];
-    const partAnswers =
-      partQuestionIds?.map((id) => ({
-        recruitingQuestionId: id,
-        answer: formObject.getValues()[`파트${id}번`],
-      })) ?? [];
+    let answersValue = [];
 
-    const answers = JSON.stringify([...commonAnswers, ...partAnswers]);
+    if (type === 'submit') {
+      const commonAnswers =
+        commonQuestionIds?.map((id) => ({
+          recruitingQuestionId: id,
+          answer: getValues()[`common${id}`],
+        })) ?? [];
+      const partAnswers =
+        partQuestionIds?.map((id) => ({
+          recruitingQuestionId: id,
+          answer: getValues()[`part${id}`],
+        })) ?? [];
+
+      answersValue = [...commonAnswers, ...partAnswers];
+    } else {
+      answersValue = [...Object.entries(rest)].map(([question, answer]: [question: string, answer: string]) => {
+        const recruitingQuestionId = question.replace(/[^0-9]/g, '');
+        return {
+          recruitingQuestionId,
+          answer,
+        };
+      });
+    }
+
+    const answers = JSON.stringify(answersValue);
 
     const formValues: ApplyRequest = {
-      picture: formObject.getValues('사진')[0],
-      part: formObject.getValues('지원파트'),
-      address: formObject.getValues('거주지'),
-      birthday: formObject.getValues('생년월일'),
-      college: formObject.getValues('학교'),
-      gender: formObject.getValues('성별'),
-      knownPath: formObject.getValues('동아리를 알게 된 경로'),
+      picture: picture[0],
+      part,
+      address,
+      birthday,
+      college,
+      gender,
+      knownPath,
       leaveAbsence,
-      major: formObject.getValues('학과'),
+      major,
       mostRecentSeason,
       univYear,
-      nearestStation: formObject.getValues('지하철역'),
+      nearestStation,
       answers,
       willAppjam: false,
     };
@@ -234,10 +282,10 @@ const ApplyPage = () => {
       <DraftDialog ref={draftDialog} />
       <SubmitDialog
         userInfo={{
-          name: formObject.getValues('이름'),
-          email: formObject.getValues('이메일'),
-          phone: formObject.getValues('연락처'),
-          part: formObject.getValues('지원파트'),
+          name,
+          email,
+          phone,
+          part,
         }}
         dataIsPending={dataIsPending}
         ref={submitDialog}
@@ -251,14 +299,14 @@ const ApplyPage = () => {
           <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
           <CommonSection
             refCallback={refCallback}
-            questions={questionsData?.data.commonQuestions.questions}
+            questions={commonQuestions?.questions}
             commonQuestionsDraft={commonQuestionsDraft}
             formObject={formObject}
           />
           <PartSection
             refCallback={refCallback}
             part={applicantDraft?.part}
-            questions={questionsData?.data.partQuestions}
+            questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
             formObject={formObject}
           />

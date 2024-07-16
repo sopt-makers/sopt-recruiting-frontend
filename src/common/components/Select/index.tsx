@@ -16,6 +16,7 @@ import { SelectBoxProps } from './type';
 
 const SelectBox = ({
   label,
+  name,
   options,
   size = 'sm',
   formObject,
@@ -27,33 +28,33 @@ const SelectBox = ({
   const { errors } = formState;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    clearErrors && clearErrors(label);
-    setValue(label, e.currentTarget.id);
+    clearErrors && clearErrors(name);
+    setValue(name, e.currentTarget.id);
   };
 
   useEffect(() => {
     if (defaultValue != undefined) {
-      label === '학년'
-        ? setValue(label, defaultValue === 5 ? '수료 ‧ 유예' : `${defaultValue}학년`)
-        : setValue(label, defaultValue);
+      name === 'univYear'
+        ? setValue(name, defaultValue === 5 ? '수료 ‧ 유예' : `${defaultValue}학년`)
+        : setValue(name, defaultValue);
     }
-  }, [label, setValue, defaultValue]);
+  }, [name, setValue, defaultValue]);
 
   return (
     <div className={containerVar[size]}>
-      <label className={title} htmlFor={label}>
+      <label className={title} htmlFor={name}>
         <span>{label}</span>
         {required && <i className={circle} />}
       </label>
       <div className={selectContainer}>
         <input
-          id={label}
+          id={name}
           type="text"
-          className={selectVariant[errors?.[label] ? 'error' : 'selected']}
+          className={selectVariant[errors?.[name] ? 'error' : 'selected']}
           role="combobox"
           readOnly
           {...inputElementProps}
-          {...register(label, {
+          {...register(name, {
             required: required && '필수 입력 항목이에요.',
           })}
         />
@@ -61,7 +62,7 @@ const SelectBox = ({
         <ul className={optionContainer}>
           {options.map((option) => (
             <li role="option" key={option}>
-              <input id={option} type="radio" name={label} onChange={handleChange} style={{ display: 'none' }} />
+              <input id={option} type="radio" name={name} onChange={handleChange} style={{ display: 'none' }} />
               <label htmlFor={option} className={optionLabel}>
                 {option}
               </label>
@@ -69,9 +70,9 @@ const SelectBox = ({
           ))}
         </ul>
       </div>
-      {errors?.[label] && (
+      {errors?.[name] && (
         <div className={error}>
-          <p>{errors[label]?.message as string}</p>
+          <p>{errors[name]?.message as string}</p>
         </div>
       )}
     </div>

@@ -40,7 +40,7 @@ const ProfileImage = ({
   } = formObject;
   const [image, setImage] = useState('');
   const [isFileSizeExceeded, setIsFileSizeExceeded] = useState('');
-  const isError = isFileSizeExceeded || errors['사진'];
+  const isError = isFileSizeExceeded || errors.picture;
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
@@ -53,7 +53,7 @@ const ProfileImage = ({
       return;
     }
 
-    clearErrors && clearErrors('사진');
+    clearErrors && clearErrors('picture');
     const reader = new FileReader();
     reader.readAsDataURL(imageFile);
     reader.onloadend = () => {
@@ -63,22 +63,22 @@ const ProfileImage = ({
   };
 
   return (
-    <TextBox label="사진" formObject={formObject} size="lg" required>
+    <TextBox label="사진" name="picture" formObject={formObject} size="lg" required>
       <div className={profileWrapper}>
         <input
-          id="사진"
+          id="picture"
           type="file"
           accept="image/png, image/jpg, image/jpeg"
           style={{ display: 'none' }}
-          {...register('사진', {
+          {...register('picture', {
             required: !pic && true && '필수 입력 항목이에요.',
             onChange: handleChangeImage,
           })}
         />
         <div>
-          <label htmlFor="사진" className={profileLabelVar[isError ? 'error' : 'default']}>
+          <label htmlFor="picture" className={profileLabelVar[isError ? 'error' : 'default']}>
             {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
-            {isError && <p className={errorText}>{isFileSizeExceeded || (errors['사진']?.message as string)}</p>}
+            {isError && <p className={errorText}>{isFileSizeExceeded || (errors.picture?.message as string)}</p>}
           </label>
         </div>
         <ul className={profileTextWrapper}>
@@ -126,22 +126,23 @@ const DefaultSection = ({
       <h2 className={title}>기본 인적사항</h2>
       <ProfileImage pic={pic} formObject={formObject} />
       <div className={doubleWrapper}>
-        <TextBox label="이름" formObject={formObject} required size="sm">
-          <InputLine value={name} label="이름" readOnly />
+        <TextBox label="이름" name="name" formObject={formObject} required size="sm">
+          <InputLine value={name} name="name" readOnly />
         </TextBox>
         <SelectBox
           defaultValue={gender}
           placeholder="성별을 선택해주세요."
           label="성별"
+          name="gender"
           options={SELECT_OPTIONS.성별}
           formObject={formObject}
           required
         />
       </div>
       <div className={doubleWrapper}>
-        <TextBox label="생년월일" formObject={formObject} required size="sm">
+        <TextBox label="생년월일" name="birthday" formObject={formObject} required size="sm">
           <InputLine
-            label="생년월일"
+            name="birthday"
             placeholder="YYYY/MM/DD"
             defaultValue={birthday}
             min={VALIDATION_CHECK.birthdate.min}
@@ -152,18 +153,18 @@ const DefaultSection = ({
             validate={VALIDATION_CHECK.birthdate.validate}
           />
         </TextBox>
-        <TextBox label="연락처" formObject={formObject} required size="sm">
-          <InputLine value={phone} label="연락처" readOnly />
+        <TextBox label="연락처" name="phone" formObject={formObject} required size="sm">
+          <InputLine value={phone} name="phone" readOnly />
         </TextBox>
       </div>
-      <TextBox label="이메일" formObject={formObject} required size="lg">
-        <InputLine value={email} label="이메일" readOnly />
+      <TextBox label="이메일" name="email" formObject={formObject} required size="lg">
+        <InputLine value={email} name="email" readOnly />
       </TextBox>
       <Postcode addressDraft={address} formObject={formObject} />
-      <TextBox label="지하철역" formObject={formObject} required size="lg">
+      <TextBox label="지하철역" name="nearestStation" formObject={formObject} required size="lg">
         <InputLine
           defaultValue={nearestStation}
-          label="지하철역"
+          name="nearestStation"
           placeholder="역의 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;역)"
           maxLength={VALIDATION_CHECK.subway.maxLength}
           pattern={VALIDATION_CHECK.subway.pattern}
@@ -171,10 +172,10 @@ const DefaultSection = ({
         />
       </TextBox>
       <div className={doubleWrapper}>
-        <TextBox label="학교" formObject={formObject} required size="sm">
+        <TextBox label="학교" name="college" formObject={formObject} required size="sm">
           <InputLine
             defaultValue={college}
-            label="학교"
+            name="college"
             placeholder="학교 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;대학교)"
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
@@ -186,16 +187,16 @@ const DefaultSection = ({
             defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
             formObject={formObject}
             label={['재학', '휴학 ‧ 수료 ‧ 유예']}
-            name="재학여부"
+            name="leaveAbsence"
             required
           />
         </div>
       </div>
       <div className={doubleWrapper}>
-        <TextBox label="학과" formObject={formObject} required size="sm">
+        <TextBox label="학과" name="major" formObject={formObject} required size="sm">
           <InputLine
             defaultValue={major}
-            label="학과"
+            name="major"
             placeholder="학과 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;학과)"
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
@@ -205,6 +206,7 @@ const DefaultSection = ({
         <SelectBox
           defaultValue={univYear}
           label="학년"
+          name="univYear"
           placeholder="학년을 선택해주세요."
           options={SELECT_OPTIONS.학년}
           formObject={formObject}
@@ -214,6 +216,7 @@ const DefaultSection = ({
       <SelectBox
         defaultValue={mostRecentSeason === 0 ? '해당사항 없음' : mostRecentSeason}
         label="이전 기수 활동 여부 (제명 포함)"
+        name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
         options={SELECT_OPTIONS.이전기수}
         formObject={formObject}

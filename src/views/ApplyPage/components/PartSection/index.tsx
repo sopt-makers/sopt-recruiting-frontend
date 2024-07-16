@@ -27,7 +27,9 @@ const PartSection = ({
     'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues' | 'watch' | 'trigger'
   >;
 }) => {
-  let selectedPart: string = formObject.getValues('지원파트');
+  const { getValues } = formObject;
+
+  let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
   const partQuestionsById = partQuestionsDraft?.reduce(
@@ -44,6 +46,7 @@ const PartSection = ({
       <SelectBox
         defaultValue={part}
         label="지원파트"
+        name="part"
         placeholder="지원하고 싶은 파트를 선택해주세요."
         options={SELECT_OPTIONS.지원파트}
         formObject={formObject}
@@ -58,7 +61,7 @@ const PartSection = ({
           <div key={value}>
             <Textarea
               key={value}
-              label={`파트${id}번`}
+              name={`part${id}`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}

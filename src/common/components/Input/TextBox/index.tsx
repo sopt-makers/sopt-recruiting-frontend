@@ -9,14 +9,15 @@ export const FormContext = createContext({} as Pick<TextBoxProps, 'required' | '
 export const TextBox = ({
   children,
   label,
+  name,
   size = 'md',
   required,
   formObject,
-}: Pick<TextBoxProps, 'children' | 'label' | 'size' | 'required' | 'formObject'>) => {
+}: Pick<TextBoxProps, 'children' | 'label' | 'name' | 'size' | 'required' | 'formObject'>) => {
   return (
     <FormContext.Provider value={{ required, formObject }}>
       <div className={containerVar[size]}>
-        <label className={title} htmlFor={label}>
+        <label className={title} htmlFor={name}>
           <span>{label}</span>
           {required && <i className={circle} />}
         </label>

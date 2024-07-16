@@ -18,6 +18,7 @@ const PasswordPage = () => {
   const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const { setError } = formObject;
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<PasswordResponse, PasswordRequest>,
@@ -30,9 +31,9 @@ const PasswordPage = () => {
     },
   });
 
-  const handleChangePassword = (data: FieldValues) => {
+  const handleChangePassword = ({ email, password, passwordCheck }: FieldValues) => {
     if (!isVerified) {
-      formObject.setError('인증번호', {
+      setError('code', {
         type: 'not-match',
         message: VALIDATION_CHECK.verificationCode.errorText,
       });
@@ -41,11 +42,11 @@ const PasswordPage = () => {
     }
 
     mutate({
-      email: data['이메일'],
+      email,
+      password,
+      passwordCheck,
       season: 1,
       group: 'OB',
-      password: data['새 비밀번호'],
-      passwordCheck: data['비밀번호 재확인'],
     });
   };
 

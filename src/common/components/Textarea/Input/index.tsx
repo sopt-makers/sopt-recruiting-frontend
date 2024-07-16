@@ -7,7 +7,7 @@ import type { TextareaHTMLAttributes } from 'react';
 interface InputProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   watch: UseFormWatch<T>;
   register: UseFormRegister<T>;
-  label: Path<T>;
+  name: Path<T>;
   errors: FieldErrors<FieldValues>;
   maxCount: number;
 }
@@ -15,20 +15,20 @@ interface InputProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLT
 const Input = <T extends FieldValues>({
   watch,
   register,
-  label,
+  name,
   errors,
   maxCount,
   required,
   ...textareaElements
 }: InputProps<T>) => {
-  const state = errors[label] ? 'error' : 'default';
-  const textCount = watch(label)?.length;
+  const state = errors[name] ? 'error' : 'default';
+  const textCount = watch(name)?.length;
 
   return (
     <div className={container}>
       <textarea
         className={textareaStyle[state]}
-        {...register(label, {
+        {...register(name, {
           ...(required && { required: '필수 입력 항목이에요.' }),
           maxLength: {
             value: maxCount,
@@ -38,9 +38,9 @@ const Input = <T extends FieldValues>({
         {...textareaElements}
       />
       <p className={bottomStyle}>
-        {errors[label] && (
+        {errors[name] && (
           <span className={errorMsgStyle}>
-            <>{errors[label]?.message}</>
+            <>{errors[name]?.message}</>
           </span>
         )}
         <span>

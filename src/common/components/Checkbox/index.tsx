@@ -6,14 +6,14 @@ import type { InputHTMLAttributes } from 'react';
 
 interface CheckboxProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   children?: string | number;
-  label: Path<T>;
+  name: Path<T>;
   showIcon?: boolean;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
 }
 
 const Checkbox = <T extends FieldValues>({
   children,
-  label,
+  name,
   formObject,
   required = false,
   ...checkboxElementProps
@@ -22,25 +22,26 @@ const Checkbox = <T extends FieldValues>({
     register,
     formState: { errors },
   } = formObject;
+
   return (
     <>
       <div className={container}>
         <label className={checkboxContainer}>
           <input
-            {...register(label, {
+            {...register(name, {
               ...(required && { required: '필수 동의 항목이에요.' }),
             })}
             type="checkbox"
             className={hiddenCheckbox}
             {...checkboxElementProps}
           />
-          <span className={checkmark[errors && errors[label] ? 'error' : 'default']} />
+          <span className={checkmark[errors && errors[name] ? 'error' : 'default']} />
           <span>{children}</span>
           {required && <i className={requireDot} />}
         </label>
       </div>
       <p className={error}>
-        <>{errors && errors[label]?.message}</>
+        <>{errors && errors[name]?.message}</>
       </p>
     </>
   );

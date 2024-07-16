@@ -6,7 +6,7 @@ import Label from './Label';
 import { container } from './style.css';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: Path<T>;
+  name: Path<T>;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
   maxCount: number;
   children: string | number;
@@ -14,7 +14,7 @@ interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HT
 }
 
 const Textarea = <T extends FieldValues>({
-  label,
+  name,
   formObject,
   maxCount,
   children,
@@ -37,7 +37,7 @@ const Textarea = <T extends FieldValues>({
       {extraInput}
       <Input
         id={id}
-        label={label}
+        name={name}
         register={register}
         watch={watch}
         required={required}

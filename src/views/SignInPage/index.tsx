@@ -16,24 +16,27 @@ import type { AxiosError, AxiosResponse } from 'axios';
 
 const SignInPage = () => {
   const navigate = useNavigate();
+
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const { setError } = formObject;
+
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignInResponse, SignInRequest>,
     AxiosError<SignInError, SignInRequest>,
     SignInRequest
   >({
     mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
-    onSuccess: (data) => {
-      localStorage.setItem('soptApplyAccessToken', data.data.token);
+    onSuccess: ({ data: { token } }) => {
+      localStorage.setItem('soptApplyAccessToken', token);
       navigate(0);
     },
     onError(error) {
       if (error.response?.status === 403 || error.response?.status === 500) {
-        formObject.setError('이메일', {
+        setError('email', {
           type: 'not-match',
           message: VALIDATION_CHECK.email.notMatchErrorText,
         });
-        formObject.setError('비밀번호', {
+        setError('password', {
           type: 'not-match',
           message: VALIDATION_CHECK.password.notMatchErrorText,
         });
@@ -41,12 +44,12 @@ const SignInPage = () => {
     },
   });
 
-  const handleSignIn = (data: FieldValues) => {
+  const handleSignIn = ({ email, password }: FieldValues) => {
     mutate({
-      email: data['이메일'],
+      email,
+      password,
       season: 1,
       group: 'OB',
-      password: data['비밀번호'],
     });
   };
 
@@ -64,11 +67,11 @@ const SignInPage = () => {
           지원서를 작성해야 해요.
         </p>
       </Callout>
-      <TextBox label="이메일" formObject={formObject} required>
-        <InputLine label="이메일" placeholder="이메일을 입력해주세요" type="email" />
+      <TextBox label="이메일" name="email" formObject={formObject} required>
+        <InputLine name="email" placeholder="이메일을 입력해주세요" type="email" />
       </TextBox>
-      <TextBox label="비밀번호" formObject={formObject} required>
-        <InputLine label="비밀번호" placeholder="비밀번호를 입력해주세요" type="password" />
+      <TextBox label="비밀번호" name="password" formObject={formObject} required>
+        <InputLine name="password" placeholder="비밀번호를 입력해주세요" type="password" />
         <Description>
           <p>비밀번호를 잃어버리셨나요?</p>
           <Link className={newPasswordButton} to="/password">

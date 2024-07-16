@@ -16,12 +16,14 @@ const Postcode = ({
 }) => {
   const [address, setAddress] = useState('');
 
+  const { clearErrors } = formObject;
+
   const handleOpenPostcode = () => {
     window.daum &&
       new window.daum.Postcode({
-        oncomplete: function (data: Address) {
-          setAddress(data.address);
-          formObject.clearErrors && formObject.clearErrors('거주지');
+        oncomplete: function ({ address }: Address) {
+          setAddress(address);
+          clearErrors && clearErrors('address');
         },
         width: 500,
         height: 500,
@@ -34,9 +36,9 @@ const Postcode = ({
   };
 
   return (
-    <TextBox label="거주지" formObject={formObject} required size="lg">
+    <TextBox label="거주지" name="address" formObject={formObject} required size="lg">
       <InputLine
-        label="거주지"
+        name="address"
         placeholder="예) 서울특별시 관악구 신림동"
         onClick={handleOpenPostcode}
         value={address || addressDraft}
