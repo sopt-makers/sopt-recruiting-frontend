@@ -30,6 +30,7 @@ const ApplyPage = () => {
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
+  const { userInfo, handleSaveUserInfo } = useContext(UserInfoContext);
 
   const minIndex = isInView.findIndex((value) => value === true);
 
@@ -91,7 +92,6 @@ const ApplyPage = () => {
     formState: { errors },
     clearErrors,
   } = formObject;
-  const { handleSaveUserInfo } = useContext(UserInfoContext);
 
   const {
     address,
@@ -119,10 +119,7 @@ const ApplyPage = () => {
   useEffect(() => {
     handleSaveUserInfo({
       name: applicantDraft?.name,
-      phone: applicantDraft?.phone,
-      email: applicantDraft?.email,
-      season: applicantDraft?.season,
-      group: applicantDraft?.group,
+      ...userInfo,
     });
 
     if (applicantDraft?.part) {
@@ -143,6 +140,17 @@ const ApplyPage = () => {
     },
     [sectionsRef],
   );
+
+  useEffect(() => {
+    if (!draftData) return;
+
+    handleSaveUserInfo({ ...userInfo, name: draftData.data.applicant.name });
+
+    if (draftData.data.applicant.part) {
+      formObject.setValue('지원파트', draftData.data.applicant.part);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draftData]);
 
   useEffect(() => {
     if (!sectionsUpdated) return;
@@ -289,7 +297,6 @@ const ApplyPage = () => {
         <ApplyCategory minIndex={minIndex} />
         <div className={sectionContainer}>
           <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
-
           <CommonSection
             refCallback={refCallback}
             questions={commonQuestions?.questions}
