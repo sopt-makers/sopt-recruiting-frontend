@@ -18,6 +18,11 @@ export const calloutButton = style({
   ...theme.font.TITLE_5_18_SB,
 });
 
+export const strongText = style({
+  fontStyle: 'italic',
+  borderBottom: '1px solid currentColor',
+});
+
 export const newPasswordButton = style({
   borderBottom: '1px solid currentColor',
 });
