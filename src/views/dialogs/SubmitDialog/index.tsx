@@ -55,13 +55,16 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
         </ol>
         <div className={checkboxContainer}>
           <label className={checkboxWrapper}>
-            <input type="checkbox" className={hiddenCheckbox} onChange={handleCheck} />
+            <input type="checkbox" checked={isChecked} className={hiddenCheckbox} onChange={handleCheck} />
             <span className={checkmark} />
             <span>확인했습니다.</span>
           </label>
         </div>
         <div className={buttonWrapper}>
-          <form method="dialog" className={dataIsPending ? buttonOutside.disabled : buttonOutside.line}>
+          <form
+            method="dialog"
+            className={dataIsPending ? buttonOutside.disabled : buttonOutside.line}
+            onSubmit={() => setIsChecked(false)}>
             <button className={buttonInside.line} disabled={dataIsPending}>
               {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
             </button>
