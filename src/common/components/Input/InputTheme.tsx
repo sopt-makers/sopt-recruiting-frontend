@@ -205,6 +205,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
       <InputLine
         name={name}
         placeholder={`${textVar}를 입력해주세요.`}
+        autoComplete="new-password"
         type="password"
         maxLength={VALIDATION_CHECK.password.maxLength}
         pattern={VALIDATION_CHECK.password.pattern}
