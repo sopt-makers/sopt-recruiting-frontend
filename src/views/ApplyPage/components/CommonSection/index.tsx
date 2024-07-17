@@ -5,17 +5,15 @@ import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
 
-const CommonSection = ({
-  refCallback,
-  questions,
-  commonQuestionsDraft,
-  formObject,
-}: {
+interface CommonSectionProps {
+  isReview: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
-}) => {
+}
+
+const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft, formObject }: CommonSectionProps) => {
   const commonQuestionsById = commonQuestionsDraft?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
@@ -38,7 +36,8 @@ const CommonSection = ({
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
-              required>
+              required
+              disabled={isReview}>
               {value}
             </Textarea>
           </div>

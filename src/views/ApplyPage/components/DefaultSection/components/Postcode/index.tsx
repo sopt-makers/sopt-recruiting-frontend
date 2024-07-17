@@ -4,16 +4,16 @@ import { UseFormReturn } from 'react-hook-form';
 
 import { InputLine, TextBox } from '@components/Input';
 
-const Postcode = ({
-  addressDraft,
-  formObject,
-}: {
+interface PostcodeProps {
+  disabled: boolean;
   addressDraft?: string;
   formObject: Pick<
     UseFormReturn,
     'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
   >;
-}) => {
+}
+
+const Postcode = ({ disabled, addressDraft, formObject }: PostcodeProps) => {
   const [address, setAddress] = useState('');
 
   const { clearErrors } = formObject;
@@ -43,6 +43,7 @@ const Postcode = ({
         onClick={handleOpenPostcode}
         value={address || addressDraft}
         style={{ cursor: 'pointer', caretColor: 'transparent' }}
+        disabled={disabled}
       />
     </TextBox>
   );
