@@ -1,40 +1,46 @@
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
+import BigLoading from 'views/loadings/BigLoding';
 
 import imgLogo from './assets/imgLogo.png';
 import imgLogoWebp from './assets/imgLogo.webp';
+import useGetFinalResult from './hooks/useGetFinalResult';
+import useGetScreeningResult from './hooks/useGetScreeningResult';
 import { bottomAnimation, container, contentWrapper, content, strongText, bottomImg } from './style.css';
 
 /** 화면에 표시될 텍스트 */
-const Content = ({ isPass }: { isPass: boolean }) => {
-  const name = '000';
+const Content = ({ pass }: { pass?: boolean }) => {
+  const {
+    recruitingInfo: { name, season },
+  } = useContext(RecruitingInfoContext);
 
   return (
     <>
-      {isPass ? (
+      {pass ? (
         <p className={content}>
           <span>{`안녕하세요. NOW SOPT 입니다.\n\n`}</span>
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
-              ${name}님은 35기 NOW SOPT 신입회원 모집에 최종 합격하셨습니다.
+              ${name}님은 ${season}기 NOW SOPT 신입회원 모집에 최종 합격하셨습니다.
   
-              ${name}님과 35기 NOW SOPT를 함께하게 되어 진심으로 기쁩니다.
+              ${name}님과 ${season}기 NOW SOPT를 함께하게 되어 진심으로 기쁩니다.
               향후 활동은 NOW SOPT 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
               운영 및 진행됩니다.
           
               오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다.\n
             `}
           </span>
-          <strong className={strongText}>{`SOPT의 34번째 열정이 되신 것을 축하드립니다!`}</strong>
+          <strong className={strongText}>{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</strong>
         </p>
       ) : (
         <p className={content}>
           {`안녕하세요. NOW SOPT입니다.
               
-            ${name}님은 35기 NOW SOPT 신입회원 모집에 불합격하셨습니다.
+            ${name}님은 ${season}기 NOW SOPT 신입회원 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 최종 합격 소식을
             전해드리지 못하게 되었습니다.
@@ -50,7 +56,19 @@ const Content = ({ isPass }: { isPass: boolean }) => {
 
 const ResultPage = () => {
   const { handleChangeMode } = useContext(ThemeContext);
-  const isPass = true;
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+
+  const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
+  const { finalResult, finalResultIsLoading } = useGetFinalResult();
+  const { name, season, group } = screeningResult?.data || {};
+
+  useEffect(() => {
+    handleSaveRecruitingInfo({
+      name,
+      season,
+      group,
+    });
+  }, [name, season, group, handleSaveRecruitingInfo]);
 
   useEffect(() => {
     handleChangeMode('dark');
@@ -60,13 +78,17 @@ const ResultPage = () => {
     };
   }, [handleChangeMode]);
 
+  if (screeningResultIsLoading || finalResultIsLoading) return <BigLoading />;
+
+  const { pass } = finalResult?.data || {};
+
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content isPass={isPass} />
+        <Content pass={pass} />
       </div>
-      {isPass && (
+      {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
