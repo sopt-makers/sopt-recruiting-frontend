@@ -1,17 +1,24 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { UserInfoContext } from '@store/userInfoContext';
 
-import { checkingEmail, checkingVerificationCode, sendingVerificationCode } from './apis';
+import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailResponse } from './types';
+import {
+  CheckUserRequest,
+  CheckVerificationCodeRequest,
+  SendVerificationCodeRequest,
+  TextBoxProps,
+  EmailResponse,
+} from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -46,31 +53,44 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     formState: { errors },
   } = formObject;
   const { email, name, code } = getValues();
+  const {
+    userInfo: { season },
+  } = useContext(UserInfoContext);
 
-  const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
-    AxiosResponse<EmailResponse, SendEmailRequest>,
-    AxiosError<EmailResponse, SendEmailRequest>,
-    SendEmailRequest
+  const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
+    AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
+    AxiosError<EmailResponse, SendVerificationCodeRequest>,
+    SendVerificationCodeRequest
   >({
-    mutationFn: ({ email, season }: SendEmailRequest) => sendingVerificationCode(email, season),
+    mutationFn: ({ email, season, isSignup }: SendVerificationCodeRequest) =>
+      sendVerificationCode(email, season, isSignup),
     onSuccess: () => {
       onChangeVerification(false);
       setIsActive(true);
     },
+    onError: (error) => {
+      if (error.response?.status === 400 || error.response?.status === 403) {
+        setError('email', {
+          type: 'already-existence',
+          message: VALIDATION_CHECK.email.errorTextExistence,
+        });
+      }
+    },
   });
 
-  const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
-    AxiosResponse<EmailResponse, CheckEmailRequest>,
-    AxiosError<EmailResponse, CheckEmailRequest>,
-    CheckEmailRequest
+  const { mutate: checkUserMutate, isPending: checkUserIsPending } = useMutation<
+    AxiosResponse<EmailResponse, CheckUserRequest>,
+    AxiosError<EmailResponse, CheckUserRequest>,
+    CheckUserRequest
   >({
-    mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
+    mutationFn: (userInfo: CheckUserRequest) => checkUser(userInfo),
     onSuccess: () => {
       clearErrors();
-      sendingMutate({ email, season: 1 });
+      if (!season) return;
+      sendVerificationCodeMutate({ email, season, isSignup: false });
     },
     onError: (error) => {
-      if (error.response?.status === 400) {
+      if (error.response?.status === 400 || error.response?.status === 403) {
         setError('name', {
           type: 'non-existence',
           message: VALIDATION_CHECK.name.errorTextNonexistence,
@@ -83,12 +103,12 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     },
   });
 
-  const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation<
-    AxiosResponse<EmailResponse, CodeRequest>,
-    AxiosError<EmailResponse, CodeRequest>,
-    CodeRequest
+  const { mutate: checkVerificationCodeMutate, isPending: checkVerificationCodeIsPending } = useMutation<
+    AxiosResponse<EmailResponse, CheckVerificationCodeRequest>,
+    AxiosError<EmailResponse, CheckVerificationCodeRequest>,
+    CheckVerificationCodeRequest
   >({
-    mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
+    mutationFn: ({ email, code }: CheckVerificationCodeRequest) => checkVerificationCode(email, code),
     onSuccess: () => {
       setIsActive(false);
       onChangeVerification(true);
@@ -133,18 +153,19 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
       if (!emailError && isDone) {
         setValue('code', '');
         clearErrors('email');
-        checkingEmailMutate({ email, name, season: 1, group: 'OB' });
+        checkUserMutate({ email, name, season: 1, group: 'OB' });
       }
       return;
     }
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
-      sendingMutate({ email, season: 1 });
+      if (!season) return;
+      sendVerificationCodeMutate({ email, season, isSignup: true });
     }
   };
 
   const handleVerificationCodeCheck = () => {
-    checkingMutate({ email, code });
+    checkVerificationCodeMutate({ email, code });
   };
 
   useEffect(() => {
@@ -163,7 +184,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
         <InputButton
-          isLoading={checkingEmailPending || sendingIsPending}
+          isLoading={checkUserIsPending || sendVerificationCodeIsPending}
           text="이메일 인증"
           onClick={handleSendingEmail}
           disabled={isActive}
@@ -177,7 +198,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
         <InputButton
           disabled={!isActive}
-          isLoading={checkingIsPending}
+          isLoading={checkVerificationCodeIsPending}
           text="확인"
           onClick={handleVerificationCodeCheck}
         />

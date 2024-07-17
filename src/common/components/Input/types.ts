@@ -28,19 +28,20 @@ export interface TimerProps {
   onResetTimer: () => void;
 }
 
-export interface CheckEmailRequest {
+export interface CheckUserRequest {
   email: string;
   name: string;
-  season: number;
-  group: string;
+  season?: number;
+  group?: string;
 }
 
-export interface SendEmailRequest {
+export interface SendVerificationCodeRequest {
   email: string;
   season: number;
+  isSignup: boolean;
 }
 
-export interface CodeRequest {
+export interface CheckVerificationCodeRequest {
   email: string;
   code: string;
 }

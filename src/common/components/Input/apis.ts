@@ -1,8 +1,8 @@
 import instance from '@apis/instance';
 
-import { CheckEmailRequest } from './types';
+import { CheckUserRequest } from './types';
 
-export const checkingEmail = async (userInfo: CheckEmailRequest) => {
+export const checkUser = async (userInfo: CheckUserRequest) => {
   const { email, name, season, group } = userInfo;
   const res = await instance.post('/recruiting-auth/check/user', {
     email,
@@ -14,16 +14,18 @@ export const checkingEmail = async (userInfo: CheckEmailRequest) => {
   return res;
 };
 
-export const sendingVerificationCode = async (email: string, season: number) => {
+export const sendVerificationCode = async (email: string, season: number, isSignup: boolean) => {
   const res = await instance.post('/recruiting-auth/verify/send', {
     email,
     season,
+    group: 'OB',
+    isSignup,
   });
 
   return res;
 };
 
-export const checkingVerificationCode = async (email: string, code: string) => {
+export const checkVerificationCode = async (email: string, code: string) => {
   const res = await instance.post('/recruiting-auth/verify/email', {
     email,
     code,
