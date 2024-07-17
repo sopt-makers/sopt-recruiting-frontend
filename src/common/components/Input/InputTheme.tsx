@@ -190,10 +190,10 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
 export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
-  const name = location.pathname === '/password' ? 'passwordCheck' : 'password';
+  const name = location.pathname === '/password' ? 'newPassword' : 'password';
   const { watch, trigger } = formObject;
 
-  const password = watch(textVar);
+  const password = watch(name);
   const passwordConfirm = watch('passwordCheck');
 
   useEffect(() => {
