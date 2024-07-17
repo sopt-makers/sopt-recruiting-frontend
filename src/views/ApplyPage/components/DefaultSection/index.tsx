@@ -56,7 +56,18 @@ const ProfileImage = ({
     clearErrors && clearErrors('picture');
     const reader = new FileReader();
     reader.readAsDataURL(imageFile);
-    reader.onloadend = () => {
+    reader.onloadend = (e) => {
+      const image = new Image();
+      image.src = e.target?.result as string;
+      image.onload = () => {
+        const { width, height } = image;
+        const exactRatio = Math.round((width / height) * 100);
+        if (exactRatio !== 75) {
+          setIsFileSizeExceeded('이미지의 비율이 3:4가 아닙니다.');
+          setImage('');
+          return;
+        }
+      };
       setIsFileSizeExceeded('');
       setImage(reader.result as string);
     };
