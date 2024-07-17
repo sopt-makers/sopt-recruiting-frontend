@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getDraft } from '../apis';
 
-import type { ApplyError, ApplyResponse } from '../types';
+import type { ApplyError, ApplyResponse } from '../../ApplyPage/types';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const useGetDraft = () => {

@@ -4,10 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
-import CompletePage from 'views/CompletePage';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
-import MyPage from 'views/MyPage';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -16,46 +14,45 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
-import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 
-import type { ApplyRequest } from './types';
+import type { ApplyRequest, ApplyResponse } from './types';
 
-const ApplyPage = () => {
+interface ApplyPageProps {
+  isComplete: boolean;
+  isReview: boolean;
+  onSetComplete: () => void;
+  draftData?: { data: ApplyResponse };
+}
+
+const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
   const [isInView, setIsInView] = useState([true, false, false]);
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
-  const [isReview, setIsReview] = useState(false);
 
   const navigate = useNavigate();
-  const {
-    recruitingInfo: { season, group },
-    handleSaveRecruitingInfo,
-  } = useContext(RecruitingInfoContext);
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
 
-  const { draftData, draftIsLoading } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
-    isSubmit,
   } = draftData?.data || {};
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
-  const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: () => setIsComplete(true) });
+  const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const {
@@ -158,7 +155,7 @@ const ApplyPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.picture, errors.attendance, errors.personalInformation]);
 
-  if (draftIsLoading || questionsIsLoading) return <BigLoading />;
+  if (questionsIsLoading) return <BigLoading />;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
@@ -241,73 +238,67 @@ const ApplyPage = () => {
 
   return (
     <>
-      {!isReview && isComplete && <CompletePage userInfo={{ name, season, group }} />}
-      {!isReview && !isComplete && isSubmit && <MyPage onShowReview={() => setIsReview(true)} />}
-      {(isReview || (!isComplete && !isSubmit)) && (
-        <>
-          <DraftDialog ref={draftDialog} />
-          <SubmitDialog
-            userInfo={{
-              name,
-              email,
-              phone,
-              part,
-            }}
-            dataIsPending={submitIsPending}
-            ref={submitDialog}
-            onSendData={() => {
-              handleSendData('submit');
-              submitDialog.current?.close();
-            }}
+      <DraftDialog ref={draftDialog} />
+      <SubmitDialog
+        userInfo={{
+          name,
+          email,
+          phone,
+          part,
+        }}
+        dataIsPending={submitIsPending}
+        ref={submitDialog}
+        onSendData={() => {
+          handleSendData('submit');
+          submitDialog.current?.close();
+        }}
+      />
+      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+        <ApplyHeader
+          isReview={isReview}
+          isLoading={draftIsPending || submitIsPending}
+          onSaveDraft={() => handleSendData('draft')}
+        />
+        <ApplyInfo isReview={isReview} />
+        <ApplyCategory minIndex={minIndex} />
+        <div className={sectionContainer}>
+          <DefaultSection
+            isReview={isReview}
+            refCallback={refCallback}
+            applicantDraft={applicantDraft}
+            formObject={formObject}
           />
-          <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-            <ApplyHeader
-              isReview={isReview}
-              isLoading={draftIsPending || submitIsPending}
-              onSaveDraft={() => handleSendData('draft')}
-            />
-            <ApplyInfo isReview={isReview} />
-            <ApplyCategory minIndex={minIndex} />
-            <div className={sectionContainer}>
-              <DefaultSection
-                isReview={isReview}
-                refCallback={refCallback}
-                applicantDraft={applicantDraft}
-                formObject={formObject}
-              />
-              <CommonSection
-                isReview={isReview}
-                refCallback={refCallback}
-                questions={commonQuestions?.questions}
-                commonQuestionsDraft={commonQuestionsDraft}
-                formObject={formObject}
-              />
-              <PartSection
-                isReview={isReview}
-                refCallback={refCallback}
-                part={applicantDraft?.part}
-                questions={partQuestions}
-                partQuestionsDraft={partQuestionsDraft}
-                formObject={formObject}
-              />
-              <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} formObject={formObject} />
-              {!isReview && (
-                <div className={buttonWrapper}>
-                  <Button
-                    isLoading={draftIsPending || submitIsPending}
-                    onClick={() => handleSendData('draft')}
-                    buttonStyle="line">
-                    임시저장
-                  </Button>
-                  <Button isLoading={draftIsPending || submitIsPending} type="submit">
-                    제출하기
-                  </Button>
-                </div>
-              )}
+          <CommonSection
+            isReview={isReview}
+            refCallback={refCallback}
+            questions={commonQuestions?.questions}
+            commonQuestionsDraft={commonQuestionsDraft}
+            formObject={formObject}
+          />
+          <PartSection
+            isReview={isReview}
+            refCallback={refCallback}
+            part={applicantDraft?.part}
+            questions={partQuestions}
+            partQuestionsDraft={partQuestionsDraft}
+            formObject={formObject}
+          />
+          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} formObject={formObject} />
+          {!isReview && (
+            <div className={buttonWrapper}>
+              <Button
+                isLoading={draftIsPending || submitIsPending}
+                onClick={() => handleSendData('draft')}
+                buttonStyle="line">
+                임시저장
+              </Button>
+              <Button isLoading={draftIsPending || submitIsPending} type="submit">
+                제출하기
+              </Button>
             </div>
-          </form>
-        </>
-      )}
+          )}
+        </div>
+      </form>
     </>
   );
 };

@@ -1,17 +1,18 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import IconCheckmark from './icons/IconCheckmark';
 import { container, icon, mainText, subText } from './style.css';
 
-const CompletePage = ({
-  userInfo: { name, season, group },
-}: {
-  userInfo: { name: string; season?: number; group?: string };
-}) => {
+const CompletePage = () => {
   const navigate = useNavigate();
+  const {
+    recruitingInfo: { name, season, group },
+  } = useContext(RecruitingInfoContext);
 
   return (
     <section className={container}>

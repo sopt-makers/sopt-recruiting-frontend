@@ -13,12 +13,6 @@ export const getQuestions = async ({ season, group }: { season?: number; group?:
   return res;
 };
 
-export const getDraft = async () => {
-  const res = await tokenInstance.get('/recruiting-answer/store');
-
-  return res;
-};
-
 export const sendData = async (api: string, formValues: ApplyRequest) => {
   const res = await tokenInstance.post(api, formValues, {
     headers: {
