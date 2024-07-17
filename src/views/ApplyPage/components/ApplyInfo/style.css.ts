@@ -7,6 +7,7 @@ export const infoContainer = style({
   flexDirection: 'column',
   gap: 50,
   margin: '90px 0 82px 0',
+  width: 720,
 });
 
 export const infoWrapper = style({
