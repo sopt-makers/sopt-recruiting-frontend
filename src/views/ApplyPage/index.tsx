@@ -150,6 +150,19 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.picture, errors.attendance, errors.personalInformation]);
 
+  useEffect(() => {
+    if (isReview) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = ''; // Included for legacy support, e.g. Chrome/Edeg < 119;
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [isReview]);
+
   if (questionsIsLoading) return <BigLoading />;
 
   let selectedPart: string = getValues('part');
@@ -223,13 +236,6 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
   const handleApplySubmit = () => {
     submitDialog.current?.showModal();
   };
-
-  if (!isComplete) {
-    window.addEventListener('beforeunload', (e) => {
-      !isComplete && e.preventDefault();
-      e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
-    });
-  }
 
   return (
     <>
