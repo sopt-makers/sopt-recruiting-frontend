@@ -91,7 +91,7 @@ const ProfileImage = ({ disabled, pic, formObject }: ProfileImageProps) => {
           })}
         />
         <div>
-          <label htmlFor="picture" className={profileLabelVar[isError ? 'error' : 'default']}>
+          <label htmlFor="picture" className={profileLabelVar[disabled ? 'disabled' : isError ? 'error' : 'default']}>
             {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
             {isError && <p className={errorText}>{isFileSizeExceeded || (errors.picture?.message as string)}</p>}
           </label>
