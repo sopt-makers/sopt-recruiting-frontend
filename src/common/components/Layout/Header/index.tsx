@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NowsoptLogo from '@assets/NowsoptLogo';
-import { UserInfoContext, UserInfoContextType } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { MENU_ITEMS } from './contants';
 import MenuItem from './MenuItem';
@@ -12,8 +12,8 @@ const Header = () => {
   const navigate = useNavigate();
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
   const {
-    userInfo: { name },
-  }: UserInfoContextType = useContext(UserInfoContext);
+    recruitingInfo: { name },
+  } = useContext(RecruitingInfoContext);
 
   const handleLogout = () => {
     localStorage.removeItem('soptApplyAccessToken');

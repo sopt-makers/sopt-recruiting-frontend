@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import Callout from '@components/Callout';
-import { UserInfoContext } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import {
   dateItems,
@@ -17,7 +17,7 @@ import { APPLY_INFO } from '../../constant';
 
 const ApplyInfo = () => {
   const {
-    userInfo: {
+    recruitingInfo: {
       applicationStart,
       applicationEnd,
       applicationPassConfirmStart,
@@ -25,7 +25,7 @@ const ApplyInfo = () => {
       interviewEnd,
       finalPassConfirmStart,
     },
-  } = useContext(UserInfoContext);
+  } = useContext(RecruitingInfoContext);
 
   return (
     <section className={infoContainer}>

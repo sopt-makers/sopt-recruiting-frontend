@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
-import { UserInfoContext } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -30,7 +30,7 @@ const ApplyPage = () => {
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
-  const { handleSaveUserInfo } = useContext(UserInfoContext);
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
   const minIndex = isInView.findIndex((value) => value === true);
 
@@ -117,7 +117,7 @@ const ApplyPage = () => {
   } = getValues();
 
   useEffect(() => {
-    handleSaveUserInfo({
+    handleSaveRecruitingInfo({
       name: applicantDraft?.name,
     });
 
@@ -125,7 +125,7 @@ const ApplyPage = () => {
       setValue('part', applicantDraft?.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft, handleSaveUserInfo]);
+  }, [applicantDraft, handleSaveRecruitingInfo]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {

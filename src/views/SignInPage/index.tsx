@@ -8,7 +8,7 @@ import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { UserInfoContext } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { sendingSignIn } from './apis';
 import { calloutButton, container, newPasswordButton, strongText } from './style.css';
@@ -22,8 +22,8 @@ const SignInPage = () => {
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;
   const {
-    userInfo: { season, group },
-  } = useContext(UserInfoContext);
+    recruitingInfo: { season, group },
+  } = useContext(RecruitingInfoContext);
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignInResponse, SignInRequest>,

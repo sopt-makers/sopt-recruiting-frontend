@@ -3,13 +3,13 @@ import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import { useGetRecruitingInfo } from '@hooks/use';
-import { UserInfoContext } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import ApplyPage from 'views/ApplyPage';
 import BigLoading from 'views/loadings/BigLoding';
 import SignInPage from 'views/SignInPage';
 
 const MainPage = () => {
-  const { handleSaveUserInfo } = useContext(UserInfoContext);
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
   const { data, isLoading } = useGetRecruitingInfo();
@@ -73,7 +73,7 @@ const MainPage = () => {
     const interviewStart = format(new Date(interviewStartValue), 'M월 dd일 (E)', { locale: ko });
     const interviewEnd = format(new Date(interviewEndValue), 'M월 dd일 (E)', { locale: ko });
 
-    handleSaveUserInfo({
+    handleSaveRecruitingInfo({
       season,
       group,
       applicationStart, // 서류 지원 시작
@@ -87,7 +87,7 @@ const MainPage = () => {
       interviewStart, // 면접 시작
       interviewEnd, // 면접 끝
     });
-  }, [data, handleSaveUserInfo]);
+  }, [data, handleSaveRecruitingInfo]);
 
   if (isLoading) return <BigLoading />;
 
