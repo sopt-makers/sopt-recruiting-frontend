@@ -1,9 +1,8 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -38,7 +37,7 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
@@ -86,15 +85,11 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
   } = getValues();
 
   useEffect(() => {
-    handleSaveRecruitingInfo({
-      name: applicantDraft?.name,
-    });
-
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft, handleSaveRecruitingInfo]);
+  }, [applicantDraft]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {
