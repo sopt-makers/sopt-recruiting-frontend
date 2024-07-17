@@ -1,8 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 import { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Checkbox from '@components/Checkbox';
@@ -16,12 +13,10 @@ import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { sendingSignUp } from './apis';
+import useMutateSignUp from './hooks/useMutateSignUp';
 import { container } from './style.css';
-import { SignUpError, SignUpRequest, SignUpResponse } from './types';
 
 const SignupPage = () => {
-  const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
   const {
@@ -33,23 +28,8 @@ const SignupPage = () => {
   const { data, isLoading } = useGetRecruitingInfo();
   const { season, group } = data?.data.season || {};
 
-  const { mutate, isPending } = useMutation<
-    AxiosResponse<SignUpResponse, SignUpRequest>,
-    AxiosError<SignUpError, SignUpRequest>,
-    SignUpRequest
-  >({
-    mutationFn: (userInfo: SignUpRequest) => sendingSignUp(userInfo),
-    onSuccess: () => {
-      navigate('/');
-    },
-    onError: (error) => {
-      if (error.response?.status === 400) {
-        setError('email', {
-          type: 'already-existence',
-          message: VALIDATION_CHECK.email.errorTextExistence,
-        });
-      }
-    },
+  const { signUpMutate, signUpIsPending } = useMutateSignUp({
+    onSetError: (name, type, message) => setError(name, { type, message }),
   });
 
   const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
@@ -64,7 +44,7 @@ const SignupPage = () => {
 
     if (!season || !group) return;
 
-    mutate({
+    signUpMutate({
       email,
       password,
       passwordCheck,
@@ -111,7 +91,7 @@ const SignupPage = () => {
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>
       </div>
-      <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
+      <Button isLoading={signUpIsPending} type="submit" style={{ marginTop: 30 }}>
         지원서 작성하기
       </Button>
     </form>
