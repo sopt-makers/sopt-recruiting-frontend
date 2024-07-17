@@ -64,8 +64,8 @@ export const TextBox이메일 = ({
     AxiosError<EmailResponse, SendVerificationCodeRequest>,
     SendVerificationCodeRequest
   >({
-    mutationFn: ({ email, season, isSignup }: SendVerificationCodeRequest) =>
-      sendVerificationCode(email, season, isSignup),
+    mutationFn: ({ email, season, group, isSignup }: SendVerificationCodeRequest) =>
+      sendVerificationCode(email, season, group, isSignup),
     onSuccess: () => {
       onChangeVerification(false);
       setIsActive(true);
@@ -88,8 +88,8 @@ export const TextBox이메일 = ({
     mutationFn: (userInfo: CheckUserRequest) => checkUser(userInfo),
     onSuccess: () => {
       clearErrors();
-      if (!season) return;
-      sendVerificationCodeMutate({ email, season, isSignup: false });
+      if (!season || !group) return;
+      sendVerificationCodeMutate({ email, season, group, isSignup: false });
     },
     onError: (error) => {
       if (error.response?.status === 400 || error.response?.status === 403) {
@@ -155,14 +155,14 @@ export const TextBox이메일 = ({
       if (!emailError && isDone) {
         setValue('code', '');
         clearErrors('email');
-        checkUserMutate({ email, name, season, group: 'OB' });
+        checkUserMutate({ email, name, season, group });
       }
       return;
     }
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
-      if (!season) return;
-      sendVerificationCodeMutate({ email, season, isSignup: true });
+      if (!season || !group) return;
+      sendVerificationCodeMutate({ email, season, group, isSignup: true });
     }
   };
 

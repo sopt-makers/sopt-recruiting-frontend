@@ -38,6 +38,7 @@ export interface CheckUserRequest {
 export interface SendVerificationCodeRequest {
   email: string;
   season: number;
+  group: string;
   isSignup: boolean;
 }
 

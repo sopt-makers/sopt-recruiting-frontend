@@ -46,14 +46,14 @@ const PasswordPage = () => {
       return;
     }
 
-    if (!season) return;
+    if (!season || !group) return;
 
     mutate({
       email,
       password,
       passwordCheck,
       season,
-      group: 'OB',
+      group,
     });
   };
 

@@ -62,7 +62,7 @@ const SignupPage = () => {
       return;
     }
 
-    if (!season) return;
+    if (!season || !group) return;
 
     mutate({
       email,
@@ -71,7 +71,7 @@ const SignupPage = () => {
       name,
       phone,
       season,
-      group: 'OB',
+      group,
     });
   };
 

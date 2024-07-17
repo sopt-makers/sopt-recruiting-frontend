@@ -14,11 +14,11 @@ export const checkUser = async (userInfo: CheckUserRequest) => {
   return res;
 };
 
-export const sendVerificationCode = async (email: string, season: number, isSignup: boolean) => {
+export const sendVerificationCode = async (email: string, season: number, group: string, isSignup: boolean) => {
   const res = await instance.post('/recruiting-auth/verify/send', {
     email,
     season,
-    group: 'OB',
+    group,
     isSignup,
   });
 

@@ -22,7 +22,7 @@ const SignInPage = () => {
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;
   const {
-    userInfo: { season },
+    userInfo: { season, group },
   } = useContext(UserInfoContext);
 
   const { mutate, isPending } = useMutation<
@@ -50,13 +50,14 @@ const SignInPage = () => {
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
-    if (season)
-      mutate({
-        email,
-        password,
-        season,
-        group: 'OB',
-      });
+    if (!season || !group) return;
+
+    mutate({
+      email,
+      password,
+      season,
+      group,
+    });
   };
 
   return (
