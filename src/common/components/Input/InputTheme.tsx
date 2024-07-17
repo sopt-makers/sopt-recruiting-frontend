@@ -1,10 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { UserInfoContext } from '@store/userInfoContext';
 
 import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
 import InputButton from './InputButton';
@@ -36,12 +35,18 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 };
 
 interface TextBox이메일Props {
+  recruitingInfo: { season?: number; group?: string };
   formObject: TextBoxProps['formObject'];
   isVerified: boolean;
   onChangeVerification: (bool: boolean) => void;
 }
 
-export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
+export const TextBox이메일 = ({
+  recruitingInfo: { season, group },
+  formObject,
+  isVerified,
+  onChangeVerification,
+}: TextBox이메일Props) => {
   const location = useLocation();
   const [isActive, setIsActive] = useState(false); // Timer용 state
   const {
@@ -53,9 +58,6 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     formState: { errors },
   } = formObject;
   const { email, name, code } = getValues();
-  const {
-    userInfo: { season },
-  } = useContext(UserInfoContext);
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
@@ -153,7 +155,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
       if (!emailError && isDone) {
         setValue('code', '');
         clearErrors('email');
-        checkUserMutate({ email, name, season: 1, group: 'OB' });
+        checkUserMutate({ email, name, season, group: 'OB' });
       }
       return;
     }

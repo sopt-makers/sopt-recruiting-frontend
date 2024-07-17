@@ -30,7 +30,7 @@ export default defineConfig({
         find: '@store',
         replacement: path.resolve(__dirname, 'src/common/store'),
       },
-      // { find: '@type', replacement: path.resolve(__dirname, 'src/common/type') },
+      { find: '@type', replacement: path.resolve(__dirname, 'src/common/type') },
       {
         find: '@utils',
         replacement: path.resolve(__dirname, 'src/common/utils'),

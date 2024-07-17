@@ -1,30 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
+import { useGetRecruitingInfo } from '@hooks/use';
 import { UserInfoContext } from '@store/userInfoContext';
 import ApplyPage from 'views/ApplyPage';
 import BigLoading from 'views/loadings/BigLoding';
 import SignInPage from 'views/SignInPage';
 
-import { getRecruitingInfo } from './apis';
-import { RecruitingError, RecruitingResponse } from './types';
-
 const MainPage = () => {
   const { handleSaveUserInfo } = useContext(UserInfoContext);
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
-  const { data, isLoading } = useQuery<
-    AxiosResponse<RecruitingResponse, null>,
-    AxiosError<RecruitingError, null>,
-    AxiosResponse<RecruitingResponse, null>,
-    string[]
-  >({
-    queryKey: ['get-recruiting-info'],
-    queryFn: getRecruitingInfo,
-  });
+  const { data, isLoading } = useGetRecruitingInfo();
 
   useEffect(() => {
     if (!data) return;
