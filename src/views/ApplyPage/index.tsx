@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import CompletePage from 'views/CompletePage';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -30,10 +31,13 @@ const ApplyPage = () => {
 
   const [isInView, setIsInView] = useState([true, false, false]);
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const navigate = useNavigate();
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
-
+  const {
+    recruitingInfo: { season, group },
+    handleSaveRecruitingInfo,
+  } = useContext(RecruitingInfoContext);
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
@@ -44,12 +48,11 @@ const ApplyPage = () => {
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
-
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
-  const { submitMutate, submitIsPending } = useMutateSubmit();
+  const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: () => setIsSubmit(true) });
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const {
@@ -233,54 +236,59 @@ const ApplyPage = () => {
 
   return (
     <>
-      <DraftDialog ref={draftDialog} />
-      <SubmitDialog
-        userInfo={{
-          name,
-          email,
-          phone,
-          part,
-        }}
-        dataIsPending={submitIsPending}
-        ref={submitDialog}
-        onSendData={() => {
-          handleSendData('submit');
-          submitDialog.current?.close();
-        }}
-      />
-      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-        <ApplyHeader isLoading={draftIsPending || submitIsPending} onSaveDraft={() => handleSendData('draft')} />
-        <ApplyInfo />
-        <ApplyCategory minIndex={minIndex} />
-        <div className={sectionContainer}>
-          <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
-          <CommonSection
-            refCallback={refCallback}
-            questions={commonQuestions?.questions}
-            commonQuestionsDraft={commonQuestionsDraft}
-            formObject={formObject}
+      {isSubmit && <CompletePage userInfo={{ name, season, group }} />}
+      {!isSubmit && (
+        <>
+          <DraftDialog ref={draftDialog} />
+          <SubmitDialog
+            userInfo={{
+              name,
+              email,
+              phone,
+              part,
+            }}
+            dataIsPending={submitIsPending}
+            ref={submitDialog}
+            onSendData={() => {
+              handleSendData('submit');
+              submitDialog.current?.close();
+            }}
           />
-          <PartSection
-            refCallback={refCallback}
-            part={applicantDraft?.part}
-            questions={partQuestions}
-            partQuestionsDraft={partQuestionsDraft}
-            formObject={formObject}
-          />
-          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
-          <div className={buttonWrapper}>
-            <Button
-              isLoading={draftIsPending || submitIsPending}
-              onClick={() => handleSendData('draft')}
-              buttonStyle="line">
-              임시저장
-            </Button>
-            <Button isLoading={draftIsPending || submitIsPending} type="submit">
-              제출하기
-            </Button>
-          </div>
-        </div>
-      </form>
+          <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+            <ApplyHeader isLoading={draftIsPending || submitIsPending} onSaveDraft={() => handleSendData('draft')} />
+            <ApplyInfo />
+            <ApplyCategory minIndex={minIndex} />
+            <div className={sectionContainer}>
+              <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
+              <CommonSection
+                refCallback={refCallback}
+                questions={commonQuestions?.questions}
+                commonQuestionsDraft={commonQuestionsDraft}
+                formObject={formObject}
+              />
+              <PartSection
+                refCallback={refCallback}
+                part={applicantDraft?.part}
+                questions={partQuestions}
+                partQuestionsDraft={partQuestionsDraft}
+                formObject={formObject}
+              />
+              <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
+              <div className={buttonWrapper}>
+                <Button
+                  isLoading={draftIsPending || submitIsPending}
+                  onClick={() => handleSendData('draft')}
+                  buttonStyle="line">
+                  임시저장
+                </Button>
+                <Button isLoading={draftIsPending || submitIsPending} type="submit">
+                  제출하기
+                </Button>
+              </div>
+            </div>
+          </form>
+        </>
+      )}
     </>
   );
 };
