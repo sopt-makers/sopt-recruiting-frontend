@@ -22,7 +22,7 @@ const SignInPage = () => {
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;
   const {
-    userInfo: { season, group },
+    userInfo: { season },
   } = useContext(UserInfoContext);
 
   const { mutate, isPending } = useMutation<
