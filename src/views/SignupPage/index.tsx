@@ -12,7 +12,7 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useGetRecruitingInfo } from '@hooks/use';
+import { useGetRecruitingInfo } from '@hooks/useGetRecruitingInfo';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import BigLoading from 'views/loadings/BigLoding';
 
