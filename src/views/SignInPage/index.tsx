@@ -1,7 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
@@ -10,49 +9,24 @@ import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
-import { sendingSignIn } from './apis';
+import useMutateSignIn from './hooks/useMutateSignIn';
 import { calloutButton, container, newPasswordButton, strongText } from './style.css';
 
-import type { SignInError, SignInRequest, SignInResponse } from './types';
-import type { AxiosError, AxiosResponse } from 'axios';
-
 const SignInPage = () => {
-  const navigate = useNavigate();
-
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;
   const {
     recruitingInfo: { season, group },
   } = useContext(RecruitingInfoContext);
 
-  const { mutate, isPending } = useMutation<
-    AxiosResponse<SignInResponse, SignInRequest>,
-    AxiosError<SignInError, SignInRequest>,
-    SignInRequest
-  >({
-    mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
-    onSuccess: ({ data: { token } }) => {
-      localStorage.setItem('soptApplyAccessToken', token);
-      navigate(0);
-    },
-    onError(error) {
-      if (error.response?.status === 403) {
-        setError('email', {
-          type: 'not-match',
-          message: VALIDATION_CHECK.email.notMatchErrorText,
-        });
-        setError('password', {
-          type: 'not-match',
-          message: VALIDATION_CHECK.password.notMatchErrorText,
-        });
-      }
-    },
+  const { signInMutate, signInIsPending } = useMutateSignIn({
+    onSetError: (name, type, message) => setError(name, { type, message }),
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
     if (!season || !group) return;
 
-    mutate({
+    signInMutate({
       email,
       password,
       season,
@@ -101,7 +75,7 @@ const SignInPage = () => {
           </Link>
         </Description>
       </TextBox>
-      <Button isLoading={isPending} type="submit">
+      <Button isLoading={signInIsPending} type="submit">
         로그인
       </Button>
     </form>

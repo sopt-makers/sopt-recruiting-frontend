@@ -1,16 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
-
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { getMyInfo } from './apis';
+import useGetMyInfo from './hooks/useGetMyInfo';
 import { container, infoContainer, infoLabel, infoValue, itemWrapper, lastItemWrapper } from './style.css';
-import { MyError, MyResponse } from './types';
 
-const MyInfoItem = ({ label, value }: { label: string; value: string | number | boolean }) => {
+const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
   let renderValue = value;
 
   switch (label) {
@@ -33,19 +29,11 @@ const MyInfoItem = ({ label, value }: { label: string; value: string | number | 
 };
 
 const MyPage = () => {
-  const { data, isLoading } = useQuery<
-    AxiosResponse<MyResponse, null>,
-    AxiosError<MyError, null>,
-    AxiosResponse<MyResponse, null>,
-    string[]
-  >({
-    queryKey: ['my'],
-    queryFn: getMyInfo,
-  });
+  const { myInfoData, myInfoIsLoading } = useGetMyInfo();
 
-  if (isLoading) return <BigLoading />;
+  if (myInfoIsLoading) return <BigLoading />;
 
-  const { season, name, part, submit } = data!.data;
+  const { season, name, part, submit } = myInfoData?.data || {};
 
   return (
     <section className={container}>

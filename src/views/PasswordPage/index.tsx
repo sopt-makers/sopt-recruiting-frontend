@@ -1,23 +1,17 @@
-import { useMutation } from '@tanstack/react-query';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useGetRecruitingInfo } from '@hooks/use';
+import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { sendingPasswordChange } from './apis';
+import useMutateChangePassword from './hooks/useMutateChangePassword';
 import { container } from './style.css';
-import { PasswordError, PasswordRequest, PasswordResponse } from './types';
-
-import type { AxiosError, AxiosResponse } from 'axios';
 
 const PasswordPage = () => {
-  const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { data, isLoading } = useGetRecruitingInfo();
@@ -25,16 +19,7 @@ const PasswordPage = () => {
   const { setError } = formObject;
   const { season, group } = data?.data.season || {};
 
-  const { mutate, isPending } = useMutation<
-    AxiosResponse<PasswordResponse, PasswordRequest>,
-    AxiosError<PasswordError, PasswordRequest>,
-    PasswordRequest
-  >({
-    mutationFn: (userInfo: PasswordRequest) => sendingPasswordChange(userInfo),
-    onSuccess: () => {
-      navigate('/');
-    },
-  });
+  const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword();
 
   const handleChangePassword = ({ email, password, passwordCheck }: FieldValues) => {
     if (!isVerified) {
@@ -48,7 +33,7 @@ const PasswordPage = () => {
 
     if (!season || !group) return;
 
-    mutate({
+    changePasswordMutate({
       email,
       password,
       passwordCheck,
@@ -72,7 +57,7 @@ const PasswordPage = () => {
       {isVerified && (
         <>
           <TextBox비밀번호 formObject={formObject} />
-          <Button isLoading={isPending} type="submit" style={{ marginTop: 30 }}>
+          <Button isLoading={changePasswordIsPending} type="submit" style={{ marginTop: 30 }}>
             저장하기
           </Button>
         </>

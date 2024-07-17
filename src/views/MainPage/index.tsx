@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
-import { useGetRecruitingInfo } from '@hooks/use';
+import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import ApplyPage from 'views/ApplyPage';
 import BigLoading from 'views/loadings/BigLoding';
