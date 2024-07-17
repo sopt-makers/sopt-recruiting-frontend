@@ -36,7 +36,7 @@ const ProfileImage = ({
   const {
     register,
     clearErrors,
-    setError,
+    setValue,
     formState: { errors },
   } = formObject;
   const [image, setImage] = useState('');
@@ -64,9 +64,10 @@ const ProfileImage = ({
         const { width, height } = image;
         const exactRatio = Math.round((width / height) * 100);
         if (exactRatio !== 75) {
+          setValue('picture', null);
           setIsFileSizeExceeded('이미지의 비율이 3:4가 아닙니다.');
           setImage('');
-          setError('picture', { type: 'pattern', message: 'huh,,,' });
+
           return;
         }
       };
