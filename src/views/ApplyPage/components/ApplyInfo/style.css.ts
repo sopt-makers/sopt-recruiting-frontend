@@ -22,6 +22,13 @@ export const infoItems = style({
   letterSpacing: '-0.27px',
 });
 
+export const infoItemsBold = style([
+  infoItems,
+  {
+    fontWeight: 700,
+  },
+]);
+
 export const dateWrapper = style({
   display: 'flex',
   flexDirection: 'column',
