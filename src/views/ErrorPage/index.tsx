@@ -29,7 +29,7 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
         </button>
       </article>
       <p className={instruction}>{`문제가 지속적으로 발생하거나 문의사항이 있다면\n아래 ‘문의하기’를 이용해 주세요`}</p>
-      <a id="chat-channel-button" href="javascript:chatChannel()" className={contactButton}>
+      <a id="chat-channel-button" href="http://pf.kakao.com/_sxaIWG" className={contactButton}>
         문의하기
       </a>
     </section>
