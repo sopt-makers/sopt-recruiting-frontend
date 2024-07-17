@@ -6,7 +6,13 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { buttonWrapper, headerContainer } from './style.css';
 
-const ApplyHeader = ({ isLoading, onSaveDraft }: { isLoading: boolean; onSaveDraft: () => void }) => {
+interface ApplyHeaderProps {
+  isReview: boolean;
+  isLoading: boolean;
+  onSaveDraft: () => void;
+}
+
+const ApplyHeader = ({ isReview, isLoading, onSaveDraft }: ApplyHeaderProps) => {
   const {
     recruitingInfo: { season, group },
   } = useContext(RecruitingInfoContext);
@@ -16,14 +22,16 @@ const ApplyHeader = ({ isLoading, onSaveDraft }: { isLoading: boolean; onSaveDra
       <Title>
         {season}기 {group} 지원서
       </Title>
-      <div className={buttonWrapper}>
-        <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
-          임시저장
-        </Button>
-        <Button isLoading={isLoading} padding="10x24" type="submit">
-          제출하기
-        </Button>
-      </div>
+      {!isReview && (
+        <div className={buttonWrapper}>
+          <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
+            임시저장
+          </Button>
+          <Button isLoading={isLoading} padding="10x24" type="submit">
+            제출하기
+          </Button>
+        </div>
+      )}
     </header>
   );
 };

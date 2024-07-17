@@ -4,8 +4,8 @@ import { useContext, useEffect } from 'react';
 
 import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
-import ApplyPage from 'views/ApplyPage';
 import BigLoading from 'views/loadings/BigLoding';
+import SignedInPage from 'views/SignedInPage';
 import SignInPage from 'views/SignInPage';
 
 const MainPage = () => {
@@ -91,7 +91,7 @@ const MainPage = () => {
 
   if (isLoading) return <BigLoading />;
 
-  return <>{isSignedIn ? <ApplyPage /> : <SignInPage />}</>;
+  return <>{isSignedIn ? <SignedInPage /> : <SignInPage />}</>;
 };
 
 export default MainPage;

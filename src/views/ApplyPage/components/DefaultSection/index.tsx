@@ -23,16 +23,16 @@ import {
   title,
 } from './style.css';
 
-const ProfileImage = ({
-  pic,
-  formObject,
-}: {
+interface ProfileImageProps {
+  disabled: boolean;
   pic?: string;
   formObject: Pick<
     UseFormReturn,
     'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
   >;
-}) => {
+}
+
+const ProfileImage = ({ disabled, pic, formObject }: ProfileImageProps) => {
   const {
     register,
     clearErrors,
@@ -84,13 +84,14 @@ const ProfileImage = ({
           type="file"
           accept="image/png, image/jpg, image/jpeg"
           style={{ display: 'none' }}
+          disabled={disabled}
           {...register('picture', {
             required: !pic && true && '필수 입력 항목이에요.',
             onChange: handleChangeImage,
           })}
         />
         <div>
-          <label htmlFor="picture" className={profileLabelVar[isError ? 'error' : 'default']}>
+          <label htmlFor="picture" className={profileLabelVar[disabled ? 'disabled' : isError ? 'error' : 'default']}>
             {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
             {isError && <p className={errorText}>{isFileSizeExceeded || (errors.picture?.message as string)}</p>}
           </label>
@@ -107,18 +108,17 @@ const ProfileImage = ({
   );
 };
 
-const DefaultSection = ({
-  refCallback,
-  applicantDraft,
-  formObject,
-}: {
+interface DefaultSectionProps {
+  isReview: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
   formObject: Pick<
     UseFormReturn,
     'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
   >;
-}) => {
+}
+
+const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: DefaultSectionProps) => {
   const {
     address,
     birthday,
@@ -138,10 +138,10 @@ const DefaultSection = ({
   return (
     <section ref={refCallback} id="default" className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>
-      <ProfileImage pic={pic} formObject={formObject} />
+      <ProfileImage pic={pic} formObject={formObject} disabled={isReview} />
       <div className={doubleWrapper}>
         <TextBox label="이름" name="name" formObject={formObject} required size="sm">
-          <InputLine value={name} name="name" readOnly />
+          <InputLine value={name} name="name" readOnly disabled={isReview} />
         </TextBox>
         <SelectBox
           defaultValue={gender}
@@ -151,6 +151,7 @@ const DefaultSection = ({
           options={SELECT_OPTIONS.성별}
           formObject={formObject}
           required
+          disabled={isReview}
         />
       </div>
       <div className={doubleWrapper}>
@@ -165,16 +166,17 @@ const DefaultSection = ({
             pattern={VALIDATION_CHECK.birthdate.pattern}
             errorText={VALIDATION_CHECK.birthdate.errorText}
             validate={VALIDATION_CHECK.birthdate.validate}
+            disabled={isReview}
           />
         </TextBox>
         <TextBox label="연락처" name="phone" formObject={formObject} required size="sm">
-          <InputLine value={phone} name="phone" readOnly />
+          <InputLine value={phone} name="phone" readOnly disabled={isReview} />
         </TextBox>
       </div>
       <TextBox label="이메일" name="email" formObject={formObject} required size="lg">
-        <InputLine value={email} name="email" readOnly />
+        <InputLine value={email} name="email" readOnly disabled={isReview} />
       </TextBox>
-      <Postcode addressDraft={address} formObject={formObject} />
+      <Postcode addressDraft={address} formObject={formObject} disabled={isReview} />
       <TextBox label="지하철역" name="nearestStation" formObject={formObject} required size="lg">
         <InputLine
           defaultValue={nearestStation}
@@ -183,6 +185,7 @@ const DefaultSection = ({
           maxLength={VALIDATION_CHECK.subway.maxLength}
           pattern={VALIDATION_CHECK.subway.pattern}
           errorText={VALIDATION_CHECK.subway.errorText}
+          disabled={isReview}
         />
       </TextBox>
       <div className={doubleWrapper}>
@@ -194,6 +197,7 @@ const DefaultSection = ({
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
             errorText={VALIDATION_CHECK.textInput.errorText}
+            disabled={isReview}
           />
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
@@ -203,6 +207,7 @@ const DefaultSection = ({
             label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
             name="leaveAbsence"
             required
+            disabled={isReview}
           />
         </div>
       </div>
@@ -215,6 +220,7 @@ const DefaultSection = ({
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
             errorText={VALIDATION_CHECK.textInput.errorText}
+            disabled={isReview}
           />
         </TextBox>
         <SelectBox
@@ -225,6 +231,7 @@ const DefaultSection = ({
           options={SELECT_OPTIONS.학년}
           formObject={formObject}
           required
+          disabled={isReview}
         />
       </div>
       <SelectBox
@@ -236,6 +243,7 @@ const DefaultSection = ({
         formObject={formObject}
         required
         size="lg"
+        disabled={isReview}
       />
     </section>
   );

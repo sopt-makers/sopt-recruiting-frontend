@@ -7,13 +7,8 @@ import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
 
-const PartSection = ({
-  refCallback,
-  part,
-  questions,
-  partQuestionsDraft,
-  formObject,
-}: {
+interface PartSectionProps {
+  isReview: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
   part?: string;
   questions?: {
@@ -26,7 +21,9 @@ const PartSection = ({
     UseFormReturn,
     'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues' | 'watch' | 'trigger'
   >;
-}) => {
+}
+
+const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraft, formObject }: PartSectionProps) => {
   const { getValues } = formObject;
 
   let selectedPart: string = getValues('part');
@@ -52,6 +49,7 @@ const PartSection = ({
         formObject={formObject}
         size="lg"
         required
+        disabled={isReview}
       />
       {filteredQuestions?.map(({ value, charLimit, id }) => {
         const draftItem = partQuestionsById?.[id];
@@ -65,7 +63,8 @@ const PartSection = ({
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
-              required>
+              required
+              disabled={isReview}>
               {value}
             </Textarea>
           </div>

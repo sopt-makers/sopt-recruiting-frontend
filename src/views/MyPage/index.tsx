@@ -28,7 +28,7 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   );
 };
 
-const MyPage = () => {
+const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
 
   if (myInfoIsLoading) return <BigLoading />;
@@ -46,7 +46,9 @@ const MyPage = () => {
         <MyInfoItem label="지원상태" value={submit} />
         <li className={lastItemWrapper}>
           <span className={infoLabel}>지원서</span>
-          <Button padding="15x25">지원서 확인</Button>
+          <Button onClick={onShowReview} padding="15x25">
+            지원서 확인
+          </Button>
         </li>
       </ol>
     </section>

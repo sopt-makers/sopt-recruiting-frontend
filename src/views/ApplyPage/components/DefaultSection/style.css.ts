@@ -53,6 +53,12 @@ export const profileLabelVar = styleVariants({
       borderColor: theme.color.error,
     },
   ],
+  disabled: [
+    profileLabel,
+    {
+      cursor: 'not-allowed',
+    },
+  ],
 });
 
 export const errorText = style({
