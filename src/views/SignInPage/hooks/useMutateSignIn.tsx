@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 
-import { sendingSignIn } from '../apis';
+import { sendSignIn } from '../apis';
 
 import type { SignInError, SignInRequest, SignInResponse } from '../types';
 import type { AxiosError, AxiosResponse } from 'axios';
@@ -16,7 +16,7 @@ const useMutateSignIn = ({ onSetError }: { onSetError: (name: string, type: stri
     AxiosError<SignInError, SignInRequest>,
     SignInRequest
   >({
-    mutationFn: (userInfo: SignInRequest) => sendingSignIn(userInfo),
+    mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
     onSuccess: ({ data: { token } }) => {
       localStorage.setItem('soptApplyAccessToken', token);
       navigate(0);

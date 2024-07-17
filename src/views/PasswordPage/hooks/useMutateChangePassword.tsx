@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-import { sendingPasswordChange } from '../apis';
+import { sendPasswordChange } from '../apis';
 
 import type { PasswordError, PasswordRequest, PasswordResponse } from '../types';
 
@@ -14,7 +14,7 @@ const useMutateChangePassword = () => {
     AxiosError<PasswordError, PasswordRequest>,
     PasswordRequest
   >({
-    mutationFn: (userInfo: PasswordRequest) => sendingPasswordChange(userInfo),
+    mutationFn: (userInfo: PasswordRequest) => sendPasswordChange(userInfo),
     onSuccess: () => {
       navigate('/');
     },

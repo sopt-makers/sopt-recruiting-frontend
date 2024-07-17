@@ -1,8 +1,8 @@
 import instance from '@apis/instance';
 
-import { SignInRequest } from './types';
+import type { SignInRequest } from './types';
 
-export const sendingSignIn = async (userInfo: SignInRequest) => {
+export const sendSignIn = async (userInfo: SignInRequest) => {
   const { email, season, group, password } = userInfo;
   const res = await instance.post('/recruiting-auth/login', {
     email,

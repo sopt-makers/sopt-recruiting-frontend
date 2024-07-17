@@ -1,6 +1,6 @@
 import instance from '@apis/instance';
 
-import { SignUpRequest } from './types';
+import type { SignUpRequest } from './types';
 
 export const sendSignUp = async (userInfo: SignUpRequest) => {
   const { email, password, passwordCheck, name, phone, season, group } = userInfo;
