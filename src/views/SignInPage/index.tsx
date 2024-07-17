@@ -36,7 +36,7 @@ const SignInPage = () => {
       navigate(0);
     },
     onError(error) {
-      if (error.response?.status === 403 || error.response?.status === 500) {
+      if (error.response?.status === 403) {
         setError('email', {
           type: 'not-match',
           message: VALIDATION_CHECK.email.notMatchErrorText,
