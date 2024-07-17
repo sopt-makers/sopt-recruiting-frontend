@@ -96,7 +96,7 @@ const App = () => {
   const userInfoContextValue = {
     userInfo,
     handleSaveUserInfo: useCallback((obj: UserInfoType) => {
-      setUserInfo(obj);
+      setUserInfo((prev) => ({ ...prev, ...obj }));
     }, []),
   };
 

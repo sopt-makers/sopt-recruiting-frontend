@@ -50,12 +50,12 @@ const SignInPage = () => {
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
-    if (season && group)
+    if (season)
       mutate({
         email,
         password,
         season,
-        group,
+        group: 'OB',
       });
   };
 

@@ -30,7 +30,7 @@ const ApplyPage = () => {
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
-  const { userInfo, handleSaveUserInfo } = useContext(UserInfoContext);
+  const { handleSaveUserInfo } = useContext(UserInfoContext);
 
   const minIndex = isInView.findIndex((value) => value === true);
 
@@ -119,14 +119,13 @@ const ApplyPage = () => {
   useEffect(() => {
     handleSaveUserInfo({
       name: applicantDraft?.name,
-      ...userInfo,
     });
 
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [draftData, handleSaveUserInfo]);
+  }, [applicantDraft, handleSaveUserInfo]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {
@@ -140,17 +139,6 @@ const ApplyPage = () => {
     },
     [sectionsRef],
   );
-
-  useEffect(() => {
-    if (!draftData) return;
-
-    handleSaveUserInfo({ ...userInfo, name: draftData.data.applicant.name });
-
-    if (draftData.data.applicant.part) {
-      formObject.setValue('지원파트', draftData.data.applicant.part);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [draftData]);
 
   useEffect(() => {
     if (!sectionsUpdated) return;
