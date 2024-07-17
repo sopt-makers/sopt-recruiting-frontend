@@ -18,13 +18,12 @@ export const line = style({
 export const doubleLineCheck = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
 });
 
 export const label = style({
   display: 'flex',
   alignItems: 'center',
-  gap: 6,
+  marginBottom: 16,
 
   width: 'fit-content',
 

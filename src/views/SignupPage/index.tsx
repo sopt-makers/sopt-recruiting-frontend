@@ -12,7 +12,9 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { useGetRecruitingInfo } from '@hooks/use';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import BigLoading from 'views/loadings/BigLoding';
 
 import { sendingSignUp } from './apis';
 import { container } from './style.css';
@@ -27,6 +29,9 @@ const SignupPage = () => {
     setFocus,
     formState: { errors },
   } = formObject;
+
+  const { data, isLoading } = useGetRecruitingInfo();
+  const { season, group } = data?.data.season || {};
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignUpResponse, SignUpRequest>,
@@ -57,14 +62,16 @@ const SignupPage = () => {
       return;
     }
 
+    if (!season || !group) return;
+
     mutate({
       email,
       password,
       passwordCheck,
       name,
       phone,
-      season: 1,
-      group: 'OB',
+      season,
+      group,
     });
   };
 
@@ -74,6 +81,8 @@ const SignupPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.email?.message, setFocus]);
+
+  if (isLoading) return <BigLoading />;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>
@@ -89,7 +98,12 @@ const SignupPage = () => {
           errorText={VALIDATION_CHECK.phoneNumber.errorText}
         />
       </TextBox>
-      <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
+      <TextBox이메일
+        recruitingInfo={{ season, group }}
+        isVerified={isVerified}
+        onChangeVerification={handleVerified}
+        formObject={formObject}
+      />
       <TextBox비밀번호 formObject={formObject} />
       <div>
         <Checkbox required name="personalInformation" formObject={formObject}>

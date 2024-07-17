@@ -2,14 +2,14 @@ import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Title from '@components/Title';
-import { UserInfoContext, UserInfoContextType } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { buttonWrapper, headerContainer } from './style.css';
 
 const ApplyHeader = ({ isLoading, onSaveDraft }: { isLoading: boolean; onSaveDraft: () => void }) => {
   const {
-    userInfo: { season, group },
-  }: UserInfoContextType = useContext(UserInfoContext);
+    recruitingInfo: { season, group },
+  } = useContext(RecruitingInfoContext);
 
   return (
     <header className={headerContainer}>

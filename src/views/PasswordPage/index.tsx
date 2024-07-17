@@ -6,7 +6,9 @@ import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { useGetRecruitingInfo } from '@hooks/use';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import BigLoading from 'views/loadings/BigLoding';
 
 import { sendingPasswordChange } from './apis';
 import { container } from './style.css';
@@ -18,7 +20,10 @@ const PasswordPage = () => {
   const navigate = useNavigate();
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const { data, isLoading } = useGetRecruitingInfo();
+
   const { setError } = formObject;
+  const { season, group } = data?.data.season || {};
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<PasswordResponse, PasswordRequest>,
@@ -41,20 +46,29 @@ const PasswordPage = () => {
       return;
     }
 
+    if (!season || !group) return;
+
     mutate({
       email,
       password,
       passwordCheck,
-      season: 1,
-      group: 'OB',
+      season,
+      group,
     });
   };
+
+  if (isLoading) return <BigLoading />;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={container}>
       <Title>비밀번호 재설정하기</Title>
       <TextBox이름 formObject={formObject} />
-      <TextBox이메일 isVerified={isVerified} onChangeVerification={handleVerified} formObject={formObject} />
+      <TextBox이메일
+        recruitingInfo={{ season, group }}
+        isVerified={isVerified}
+        onChangeVerification={handleVerified}
+        formObject={formObject}
+      />
       {isVerified && (
         <>
           <TextBox비밀번호 formObject={formObject} />

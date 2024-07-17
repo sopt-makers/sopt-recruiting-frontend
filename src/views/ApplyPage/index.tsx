@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
-import { UserInfoContext } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -30,7 +30,7 @@ const ApplyPage = () => {
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
-  const { userInfo, handleSaveUserInfo } = useContext(UserInfoContext);
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
   const minIndex = isInView.findIndex((value) => value === true);
 
@@ -117,16 +117,15 @@ const ApplyPage = () => {
   } = getValues();
 
   useEffect(() => {
-    handleSaveUserInfo({
+    handleSaveRecruitingInfo({
       name: applicantDraft?.name,
-      ...userInfo,
     });
 
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [draftData, handleSaveUserInfo]);
+  }, [applicantDraft, handleSaveRecruitingInfo]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {
@@ -140,17 +139,6 @@ const ApplyPage = () => {
     },
     [sectionsRef],
   );
-
-  useEffect(() => {
-    if (!draftData) return;
-
-    handleSaveUserInfo({ ...userInfo, name: draftData.data.applicant.name });
-
-    if (draftData.data.applicant.part) {
-      formObject.setValue('지원파트', draftData.data.applicant.part);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [draftData]);
 
   useEffect(() => {
     if (!sectionsUpdated) return;
@@ -289,7 +277,10 @@ const ApplyPage = () => {
         }}
         dataIsPending={dataIsPending}
         ref={submitDialog}
-        onSendData={() => handleSendData('submit')}
+        onSendData={() => {
+          handleSendData('submit');
+          submitDialog.current?.close();
+        }}
       />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
         <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={() => handleSendData('draft')} />
@@ -310,18 +301,18 @@ const ApplyPage = () => {
             partQuestionsDraft={partQuestionsDraft}
             formObject={formObject}
           />
-        </div>
-        <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
-        <div className={buttonWrapper}>
-          <Button
-            isLoading={draftIsPending || dataIsPending}
-            onClick={() => handleSendData('draft')}
-            buttonStyle="line">
-            임시저장
-          </Button>
-          <Button isLoading={draftIsPending || dataIsPending} type="submit">
-            제출하기
-          </Button>
+          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
+          <div className={buttonWrapper}>
+            <Button
+              isLoading={draftIsPending || dataIsPending}
+              onClick={() => handleSendData('draft')}
+              buttonStyle="line">
+              임시저장
+            </Button>
+            <Button isLoading={draftIsPending || dataIsPending} type="submit">
+              제출하기
+            </Button>
+          </div>
         </div>
       </form>
     </>

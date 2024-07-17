@@ -1,10 +1,14 @@
-import { forwardRef } from 'react';
+import { forwardRef, type KeyboardEvent } from 'react';
 
 import Dialog from '@components/Dialog';
 
-import { buttonInside, buttonOutside, buttonWrapper, mainText } from '../style.css';
+import { buttonInside, buttonOutside, buttonWrapper, mainText, subText } from '../style.css';
 
 const SessionExpiredDialog = forwardRef<HTMLDialogElement>((_, ref) => {
+  const handlePreventESCKeyPress = (e: KeyboardEvent<HTMLDialogElement>) => {
+    if (e.key === 'Escape') e.preventDefault();
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('soptApplyAccessToken');
     if (window.location.pathname === '/') {
@@ -15,11 +19,12 @@ const SessionExpiredDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   };
 
   return (
-    <Dialog ref={ref}>
+    <Dialog ref={ref} onKeyDown={handlePreventESCKeyPress}>
       <p className={mainText}>로그인 세션이 만료되었어요.</p>
+      <p className={subText}>다시 로그인해주세요.</p>
       <form method="dialog" className={`${buttonWrapper} ${buttonOutside.solid}`}>
         <button className={buttonInside.solid} onClick={handleLogout}>
-          다시 로그인 하기
+          확인
         </button>
       </form>
     </Dialog>

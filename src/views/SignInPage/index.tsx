@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { useContext } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -7,9 +8,10 @@ import Callout from '@components/Callout';
 import { Description, InputLine, TextBox } from '@components/Input';
 import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { sendingSignIn } from './apis';
-import { calloutButton, container, newPasswordButton } from './style.css';
+import { calloutButton, container, newPasswordButton, strongText } from './style.css';
 
 import type { SignInError, SignInRequest, SignInResponse } from './types';
 import type { AxiosError, AxiosResponse } from 'axios';
@@ -19,6 +21,9 @@ const SignInPage = () => {
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;
+  const {
+    recruitingInfo: { season, group },
+  } = useContext(RecruitingInfoContext);
 
   const { mutate, isPending } = useMutation<
     AxiosResponse<SignInResponse, SignInRequest>,
@@ -31,7 +36,7 @@ const SignInPage = () => {
       navigate(0);
     },
     onError(error) {
-      if (error.response?.status === 403 || error.response?.status === 500) {
+      if (error.response?.status === 403) {
         setError('email', {
           type: 'not-match',
           message: VALIDATION_CHECK.email.notMatchErrorText,
@@ -45,17 +50,19 @@ const SignInPage = () => {
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
+    if (!season || !group) return;
+
     mutate({
       email,
       password,
-      season: 1,
-      group: 'OB',
+      season,
+      group,
     });
   };
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSignIn)} className={container}>
-      <Title>지원하기</Title>
+      <Title>{season}기 Makers 지원하기</Title>
       <Callout
         Button={
           <Link to="/sign-up" className={calloutButton}>
@@ -63,15 +70,30 @@ const SignInPage = () => {
           </Link>
         }>
         <p>
-          35기 지원서 작성이 처음이라면 ‘새 지원서 작성 하기’를 진행해주세요. 이전 기수 지원서를 제출한 적이 있더라도 새
-          지원서를 작성해야 해요.
+          {season}기 Makers 지원서 작성이 처음이라면 ‘새 지원서 작성하기’를 진행해주세요.{' '}
+          <strong className={strongText}>이전에 지원서 </strong>를 제출한 적이 있더라도{' '}
+          <strong className={strongText}>반드시</strong> 새 지원서를 작성해야 해요.
         </p>
       </Callout>
       <TextBox label="이메일" name="email" formObject={formObject} required>
-        <InputLine name="email" placeholder="이메일을 입력해주세요" type="email" />
+        <InputLine
+          name="email"
+          placeholder="이메일을 입력해주세요"
+          type="email"
+          pattern={VALIDATION_CHECK.email.pattern}
+          maxLength={VALIDATION_CHECK.email.maxLength}
+          errorText={VALIDATION_CHECK.email.errorText}
+        />
       </TextBox>
       <TextBox label="비밀번호" name="password" formObject={formObject} required>
-        <InputLine name="password" placeholder="비밀번호를 입력해주세요" type="password" />
+        <InputLine
+          name="password"
+          placeholder="비밀번호를 입력해주세요"
+          type="password"
+          pattern={VALIDATION_CHECK.password.pattern}
+          maxLength={VALIDATION_CHECK.password.maxLength}
+          errorText={VALIDATION_CHECK.password.errorText}
+        />
         <Description>
           <p>비밀번호를 잃어버리셨나요?</p>
           <Link className={newPasswordButton} to="/password">

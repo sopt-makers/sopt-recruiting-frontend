@@ -7,6 +7,7 @@ export const infoContainer = style({
   flexDirection: 'column',
   gap: 50,
   margin: '90px 0 82px 0',
+  width: 720,
 });
 
 export const infoWrapper = style({
@@ -21,6 +22,13 @@ export const infoItems = style({
   whiteSpace: 'pre-wrap',
   letterSpacing: '-0.27px',
 });
+
+export const infoItemsBold = style([
+  infoItems,
+  {
+    fontWeight: 700,
+  },
+]);
 
 export const dateWrapper = style({
   display: 'flex',

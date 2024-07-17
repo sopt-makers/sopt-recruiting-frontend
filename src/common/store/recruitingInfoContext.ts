@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export type UserInfoType = {
+export type RecruitingInfoType = {
   name?: string;
   season?: number;
   group?: string;
@@ -16,12 +16,12 @@ export type UserInfoType = {
   interviewEnd?: string;
 };
 
-export interface UserInfoContextType {
-  userInfo: UserInfoType;
-  handleSaveUserInfo: (obj: UserInfoType) => void;
+interface RecruitingInfoContextType {
+  recruitingInfo: RecruitingInfoType;
+  handleSaveRecruitingInfo: (obj: RecruitingInfoType) => void;
 }
 
-export const UserInfoContext = createContext<UserInfoContextType>({
-  userInfo: {},
-  handleSaveUserInfo: () => {},
+export const RecruitingInfoContext = createContext<RecruitingInfoContextType>({
+  recruitingInfo: {},
+  handleSaveRecruitingInfo: () => {},
 });

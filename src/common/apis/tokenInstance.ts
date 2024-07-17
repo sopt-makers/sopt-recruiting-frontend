@@ -27,19 +27,3 @@ tokenInstance.interceptors.request.use(
     return Promise.reject(error);
   },
 );
-
-tokenInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    const originalRequest = error.config;
-
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      window.location.href = '/';
-    }
-
-    return Promise.reject(error);
-  },
-);

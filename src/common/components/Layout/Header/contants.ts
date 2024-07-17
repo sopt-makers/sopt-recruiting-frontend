@@ -7,12 +7,12 @@ type menuItemsTypes = {
 export const MENU_ITEMS: menuItemsTypes[] = [
   {
     text: '모집공고',
-    path: 'https://www.sopt.org/recruit',
+    path: 'https://makers.sopt.org/recruit',
     target: '_blank',
   },
   {
     text: '문의하기',
-    path: 'https://pf.kakao.com/_JdTKd',
+    path: 'http://pf.kakao.com/_sxaIWG',
     target: '_blank',
   },
 ];

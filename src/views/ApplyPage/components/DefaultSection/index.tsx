@@ -36,6 +36,7 @@ const ProfileImage = ({
   const {
     register,
     clearErrors,
+    setValue,
     formState: { errors },
   } = formObject;
   const [image, setImage] = useState('');
@@ -56,7 +57,20 @@ const ProfileImage = ({
     clearErrors && clearErrors('picture');
     const reader = new FileReader();
     reader.readAsDataURL(imageFile);
-    reader.onloadend = () => {
+    reader.onloadend = (e) => {
+      const image = new Image();
+      image.src = e.target?.result as string;
+      image.onload = () => {
+        const { width, height } = image;
+        const exactRatio = Math.round((width / height) * 100);
+        if (exactRatio !== 75) {
+          setValue('picture', null);
+          setIsFileSizeExceeded('이미지의 비율이 3:4가 아닙니다.');
+          setImage('');
+
+          return;
+        }
+      };
       setIsFileSizeExceeded('');
       setImage(reader.result as string);
     };
@@ -184,9 +198,9 @@ const DefaultSection = ({
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예'}
+            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'}
             formObject={formObject}
-            label={['재학', '휴학 ‧ 수료 ‧ 유예']}
+            label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
             name="leaveAbsence"
             required
           />

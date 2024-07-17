@@ -6,8 +6,8 @@ import { useCallback, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
+import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
-import { UserInfoContext, UserInfoType } from '@store/userInfoContext';
 import { dark, light } from 'styles/theme.css';
 import 'styles/reset.css';
 import CompletePage from 'views/CompletePage';
@@ -47,7 +47,7 @@ const App = () => {
   const sessionRef = useRef<HTMLDialogElement>(null);
 
   const [isLight, setIsLight] = useState(true);
-  const [userInfo, setUserInfo] = useState<UserInfoType>({});
+  const [recruitingInfo, setRecruitingInfo] = useState<RecruitingInfoType>({});
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -93,10 +93,10 @@ const App = () => {
     },
   };
 
-  const userInfoContextValue = {
-    userInfo,
-    handleSaveUserInfo: useCallback((obj: UserInfoType) => {
-      setUserInfo(obj);
+  const recruitingInfoContextValue = {
+    recruitingInfo,
+    handleSaveRecruitingInfo: useCallback((obj: RecruitingInfoType) => {
+      setRecruitingInfo((prev) => ({ ...prev, ...obj }));
     }, []),
   };
 
@@ -104,14 +104,14 @@ const App = () => {
     <>
       <SessionExpiredDialog ref={sessionRef} />
       <ThemeContext.Provider value={themeContextValue}>
-        <UserInfoContext.Provider value={userInfoContextValue}>
+        <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
           <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools />
             <div className={isLight ? light : dark}>
               <RouterProvider router={router} />
             </div>
           </QueryClientProvider>
-        </UserInfoContext.Provider>
+        </RecruitingInfoContext.Provider>
       </ThemeContext.Provider>
     </>
   );

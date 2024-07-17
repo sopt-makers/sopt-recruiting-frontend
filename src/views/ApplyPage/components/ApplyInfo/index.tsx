@@ -1,14 +1,23 @@
 import { useContext } from 'react';
 
 import Callout from '@components/Callout';
-import { UserInfoContext } from '@store/userInfoContext';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
-import { dateItems, dateLabel, dateText, dateWrapper, infoContainer, infoItems, infoWrapper } from './style.css';
+import {
+  dateItems,
+  dateLabel,
+  dateText,
+  dateWrapper,
+  infoContainer,
+  infoItems,
+  infoItemsBold,
+  infoWrapper,
+} from './style.css';
 import { APPLY_INFO } from '../../constant';
 
 const ApplyInfo = () => {
   const {
-    userInfo: {
+    recruitingInfo: {
       applicationStart,
       applicationEnd,
       applicationPassConfirmStart,
@@ -16,14 +25,19 @@ const ApplyInfo = () => {
       interviewEnd,
       finalPassConfirmStart,
     },
-  } = useContext(UserInfoContext);
+  } = useContext(RecruitingInfoContext);
 
   return (
     <section className={infoContainer}>
       <ul className={infoWrapper}>
-        {APPLY_INFO.map((info) => (
-          <li key={info} className={infoItems}>
-            &#183; {info}
+        {APPLY_INFO.sections.map(({ id, content }) => (
+          <li key={id}>
+            &#183;{' '}
+            {content.map(({ text, weight }) => (
+              <span key={text} className={weight === 'normal' ? infoItems : infoItemsBold}>
+                {text}
+              </span>
+            ))}
           </li>
         ))}
       </ul>

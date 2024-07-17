@@ -5,13 +5,19 @@ import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 
-import { checkingEmail, checkingVerificationCode, sendingVerificationCode } from './apis';
+import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
 import InputButton from './InputButton';
 import InputLine from './InputLine';
 import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import { CheckEmailRequest, CodeRequest, SendEmailRequest, TextBoxProps, EmailResponse } from './types';
+import {
+  CheckUserRequest,
+  CheckVerificationCodeRequest,
+  SendVerificationCodeRequest,
+  TextBoxProps,
+  EmailResponse,
+} from './types';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -29,12 +35,18 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 };
 
 interface TextBox이메일Props {
+  recruitingInfo: { season?: number; group?: string };
   formObject: TextBoxProps['formObject'];
   isVerified: boolean;
   onChangeVerification: (bool: boolean) => void;
 }
 
-export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification }: TextBox이메일Props) => {
+export const TextBox이메일 = ({
+  recruitingInfo: { season, group },
+  formObject,
+  isVerified,
+  onChangeVerification,
+}: TextBox이메일Props) => {
   const location = useLocation();
   const [isActive, setIsActive] = useState(false); // Timer용 state
   const {
@@ -47,30 +59,40 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
   } = formObject;
   const { email, name, code } = getValues();
 
-  const { mutate: sendingMutate, isPending: sendingIsPending } = useMutation<
-    AxiosResponse<EmailResponse, SendEmailRequest>,
-    AxiosError<EmailResponse, SendEmailRequest>,
-    SendEmailRequest
+  const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
+    AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
+    AxiosError<EmailResponse, SendVerificationCodeRequest>,
+    SendVerificationCodeRequest
   >({
-    mutationFn: ({ email, season }: SendEmailRequest) => sendingVerificationCode(email, season),
+    mutationFn: ({ email, season, group, isSignup }: SendVerificationCodeRequest) =>
+      sendVerificationCode(email, season, group, isSignup),
     onSuccess: () => {
       onChangeVerification(false);
       setIsActive(true);
     },
+    onError: (error) => {
+      if (error.response?.status === 400 || error.response?.status === 403) {
+        setError('email', {
+          type: 'already-existence',
+          message: VALIDATION_CHECK.email.errorTextExistence,
+        });
+      }
+    },
   });
 
-  const { mutate: checkingEmailMutate, isPending: checkingEmailPending } = useMutation<
-    AxiosResponse<EmailResponse, CheckEmailRequest>,
-    AxiosError<EmailResponse, CheckEmailRequest>,
-    CheckEmailRequest
+  const { mutate: checkUserMutate, isPending: checkUserIsPending } = useMutation<
+    AxiosResponse<EmailResponse, CheckUserRequest>,
+    AxiosError<EmailResponse, CheckUserRequest>,
+    CheckUserRequest
   >({
-    mutationFn: (userInfo: CheckEmailRequest) => checkingEmail(userInfo),
+    mutationFn: (userInfo: CheckUserRequest) => checkUser(userInfo),
     onSuccess: () => {
       clearErrors();
-      sendingMutate({ email, season: 1 });
+      if (!season || !group) return;
+      sendVerificationCodeMutate({ email, season, group, isSignup: false });
     },
     onError: (error) => {
-      if (error.response?.status === 400) {
+      if (error.response?.status === 400 || error.response?.status === 403) {
         setError('name', {
           type: 'non-existence',
           message: VALIDATION_CHECK.name.errorTextNonexistence,
@@ -83,12 +105,12 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
     },
   });
 
-  const { mutate: checkingMutate, isPending: checkingIsPending } = useMutation<
-    AxiosResponse<EmailResponse, CodeRequest>,
-    AxiosError<EmailResponse, CodeRequest>,
-    CodeRequest
+  const { mutate: checkVerificationCodeMutate, isPending: checkVerificationCodeIsPending } = useMutation<
+    AxiosResponse<EmailResponse, CheckVerificationCodeRequest>,
+    AxiosError<EmailResponse, CheckVerificationCodeRequest>,
+    CheckVerificationCodeRequest
   >({
-    mutationFn: ({ email, code }: CodeRequest) => checkingVerificationCode(email, code),
+    mutationFn: ({ email, code }: CheckVerificationCodeRequest) => checkVerificationCode(email, code),
     onSuccess: () => {
       setIsActive(false);
       onChangeVerification(true);
@@ -133,18 +155,19 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
       if (!emailError && isDone) {
         setValue('code', '');
         clearErrors('email');
-        checkingEmailMutate({ email, name, season: 1, group: 'OB' });
+        checkUserMutate({ email, name, season, group });
       }
       return;
     }
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
-      sendingMutate({ email, season: 1 });
+      if (!season || !group) return;
+      sendVerificationCodeMutate({ email, season, group, isSignup: true });
     }
   };
 
   const handleVerificationCodeCheck = () => {
-    checkingMutate({ email, code });
+    checkVerificationCodeMutate({ email, code });
   };
 
   useEffect(() => {
@@ -163,7 +186,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}>
         <InputButton
-          isLoading={checkingEmailPending || sendingIsPending}
+          isLoading={checkUserIsPending || sendVerificationCodeIsPending}
           text="이메일 인증"
           onClick={handleSendingEmail}
           disabled={isActive}
@@ -177,7 +200,7 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
         maxLength={VALIDATION_CHECK.verificationCode.maxLength}>
         <InputButton
           disabled={!isActive}
-          isLoading={checkingIsPending}
+          isLoading={checkVerificationCodeIsPending}
           text="확인"
           onClick={handleVerificationCodeCheck}
         />
@@ -190,10 +213,10 @@ export const TextBox이메일 = ({ formObject, isVerified, onChangeVerification 
 export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
-  const name = location.pathname === '/password' ? 'passwordCheck' : 'password';
+  const name = location.pathname === '/password' ? 'newPassword' : 'password';
   const { watch, trigger } = formObject;
 
-  const password = watch(textVar);
+  const password = watch(name);
   const passwordConfirm = watch('passwordCheck');
 
   useEffect(() => {
@@ -205,6 +228,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
       <InputLine
         name={name}
         placeholder={`${textVar}를 입력해주세요.`}
+        autoComplete="new-password"
         type="password"
         maxLength={VALIDATION_CHECK.password.maxLength}
         pattern={VALIDATION_CHECK.password.pattern}

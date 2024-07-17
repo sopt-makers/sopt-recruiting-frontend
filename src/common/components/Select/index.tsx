@@ -35,7 +35,7 @@ const SelectBox = ({
   useEffect(() => {
     if (defaultValue != undefined) {
       name === 'univYear'
-        ? setValue(name, defaultValue === 5 ? '수료 ‧ 유예' : `${defaultValue}학년`)
+        ? setValue(name, defaultValue === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${defaultValue}학년`)
         : setValue(name, defaultValue);
     }
   }, [name, setValue, defaultValue]);
