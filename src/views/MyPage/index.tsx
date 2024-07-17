@@ -4,7 +4,7 @@ import Title from '@components/Title';
 import BigLoading from 'views/loadings/BigLoding';
 
 import useGetMyInfo from './hooks/useGetMyInfo';
-import { container, infoContainer, infoLabel, infoValue, itemWrapper, lastItemWrapper } from './style.css';
+import { buttonWidth, container, infoContainer, infoLabel, infoValue, itemWrapper, buttonValue } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
   let renderValue = value;
@@ -43,10 +43,15 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        <MyInfoItem label="지원상태" value={submit} />
-        <li className={lastItemWrapper}>
+        <li className={buttonValue}>
+          <span className={infoLabel}>지원상태</span>
+          <Button isLink to="/result" className={buttonWidth} padding="15x25">
+            결과 확인
+          </Button>
+        </li>
+        <li className={buttonValue}>
           <span className={infoLabel}>지원서</span>
-          <Button onClick={onShowReview} padding="15x25">
+          <Button className={buttonWidth} onClick={onShowReview} padding="15x25">
             지원서 확인
           </Button>
         </li>

@@ -2,18 +2,21 @@ import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
 import { ThemeContext } from '@store/themeContext';
+import BigLoading from 'views/loadings/BigLoding';
 
 import imgLogo from './assets/imgLogo.png';
 import imgLogoWebp from './assets/imgLogo.webp';
+import useGetFinalResult from './hooks/useGetFinalResult';
+import useGetScreeningResult from './hooks/useGetScreeningResult';
 import { bottomAnimation, container, contentWrapper, content, strongText, bottomImg } from './style.css';
 
 /** 화면에 표시될 텍스트 */
-const Content = ({ isPass }: { isPass: boolean }) => {
+const Content = ({ pass }: { pass?: boolean }) => {
   const name = '000';
 
   return (
     <>
-      {isPass ? (
+      {pass ? (
         <p className={content}>
           <span>{`안녕하세요. NOW SOPT 입니다.\n\n`}</span>
           <strong className={strongText}>{`축하드립니다!`}</strong>
@@ -50,7 +53,8 @@ const Content = ({ isPass }: { isPass: boolean }) => {
 
 const ResultPage = () => {
   const { handleChangeMode } = useContext(ThemeContext);
-  const isPass = true;
+  const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
+  const { finalResult, finalResultIsLoading } = useGetFinalResult();
 
   useEffect(() => {
     handleChangeMode('dark');
@@ -60,13 +64,17 @@ const ResultPage = () => {
     };
   }, [handleChangeMode]);
 
+  if (screeningResultIsLoading || finalResultIsLoading) return <BigLoading />;
+
+  const { pass } = finalResult?.data || {};
+
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content isPass={isPass} />
+        <Content pass={pass} />
       </div>
-      {isPass && (
+      {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>

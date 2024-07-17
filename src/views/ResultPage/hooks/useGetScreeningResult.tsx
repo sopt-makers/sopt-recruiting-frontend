@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getScreeningResult } from '../apis';
 
-import type { MyError, ScreeningResultResponse } from '../types';
+import type { MyError, ScreeningResultResponse } from '../../MyPage/types';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const useGetScreeningResult = () => {
