@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 
 import { getDraft } from '../apis';
-import { ApplyError, ApplyResponse } from '../types';
+
+import type { ApplyError, ApplyResponse } from '../types';
+import type { AxiosError, AxiosResponse } from 'axios';
 
 const useGetDraft = () => {
   const { data: draftData, isLoading: draftIsLoading } = useQuery<

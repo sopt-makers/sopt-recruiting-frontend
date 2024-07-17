@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 
 import { sendData } from '../apis';
-import { ApplyError, ApplyRequest, ApplyResponse } from '../types';
+
+import type { ApplyError, ApplyRequest, ApplyResponse } from '../types';
+import type { AxiosError, AxiosResponse } from 'axios';
 
 const useMutateDraft = ({ onSuccess }: { onSuccess: () => void }) => {
   const { mutate: draftMutate, isPending: draftIsPending } = useMutation<

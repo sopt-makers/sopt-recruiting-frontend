@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 
 import { getMyInfo } from '../apis';
 
 import type { MyError, MyResponse } from '../types';
+import type { AxiosError, AxiosResponse } from 'axios';
 
 const useGetMyInfo = () => {
   const { data: myInfoData, isLoading: myInfoIsLoading } = useQuery<
