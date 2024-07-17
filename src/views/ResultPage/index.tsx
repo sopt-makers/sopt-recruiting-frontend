@@ -14,7 +14,7 @@ import { bottomAnimation, container, contentWrapper, content, strongText, bottom
 /** 화면에 표시될 텍스트 */
 const Content = ({ pass }: { pass?: boolean }) => {
   const {
-    recruitingInfo: { name, season, group },
+    recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);
 
   return (

@@ -33,7 +33,7 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
 
   if (myInfoIsLoading) return <BigLoading />;
 
-  const { season, name, part, submit } = myInfoData?.data || {};
+  const { season, name, part } = myInfoData?.data || {};
 
   return (
     <section className={container}>
