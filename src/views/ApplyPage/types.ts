@@ -22,6 +22,7 @@ export interface QuestionsRequest {
 
 export interface Questions {
   id: number;
+  order: number;
   question: string;
   value: string;
   urls: string[];

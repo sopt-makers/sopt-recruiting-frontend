@@ -4,6 +4,7 @@ import Textarea from '@components/Textarea';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
+import LinkInput from '../LinkInput';
 
 const CommonSection = ({
   refCallback,
@@ -27,7 +28,7 @@ const CommonSection = ({
   return (
     <section ref={refCallback} id="common" className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
-      {questions?.map(({ value, id, charLimit }) => {
+      {questions?.map(({ urls, value, id, charLimit }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
 
@@ -38,6 +39,7 @@ const CommonSection = ({
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
+              extraInput={urls && <LinkInput urls={urls} />}
               required>
               {value}
             </Textarea>
