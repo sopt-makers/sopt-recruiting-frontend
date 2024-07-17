@@ -1,5 +1,3 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +7,6 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { getDraft, getQuestions, sendData } from './apis';
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
 import ApplyInfo from './components/ApplyInfo';
@@ -17,9 +14,14 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
+import useGetDraft from './hooks/useGetDraft';
+import useGetQuestions from './hooks/useGetQuestions';
+import useMutateDraft from './hooks/useMutateDraft';
+import useMutateSubmit from './hooks/useMutateSubmit';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, formContainer, sectionContainer } from './style.css';
-import { ApplyError, ApplyRequest, ApplyResponse, QuestionsRequest, QuestionsResponse } from './types';
+
+import type { ApplyRequest } from './types';
 
 const ApplyPage = () => {
   const draftDialog = useRef<HTMLDialogElement>(null);
@@ -36,54 +38,18 @@ const ApplyPage = () => {
 
   useScrollToHash(); // scrollTo 카테고리
 
-  const { data: draftData, isLoading: draftIsLoading } = useQuery<
-    AxiosResponse<ApplyResponse, null>,
-    AxiosError<ApplyError, null>,
-    AxiosResponse<ApplyResponse, null>,
-    string[]
-  >({
-    queryKey: ['get-draft'],
-    queryFn: getDraft,
-  });
-
+  const { draftData, draftIsLoading } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
 
-  const { data: questionsData, isLoading: questionsIsLoading } = useQuery<
-    AxiosResponse<QuestionsResponse, QuestionsRequest>,
-    AxiosError<ApplyError, QuestionsRequest>,
-    AxiosResponse<QuestionsResponse, QuestionsRequest>,
-    string[]
-  >({
-    queryKey: ['get-questions'],
-    queryFn: () => getQuestions({ season: applicantDraft?.season, group: applicantDraft?.group }),
-    enabled: !!applicantDraft?.season && !!applicantDraft.group,
-  });
-
+  const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
-  const { mutate: draftMutate, isPending: draftIsPending } = useMutation<
-    AxiosResponse<ApplyResponse, ApplyRequest>,
-    AxiosError<ApplyError, ApplyRequest>,
-    ApplyRequest
-  >({
-    mutationFn: (formData) => sendData('/recruiting-answer/store', formData),
-    onSuccess: () => {
-      draftDialog.current?.showModal();
-    },
-  });
-
-  const { mutate: dataMutate, isPending: dataIsPending } = useMutation<
-    AxiosResponse<ApplyResponse, ApplyRequest>,
-    AxiosError<ApplyError, ApplyRequest>,
-    ApplyRequest
-  >({
-    mutationFn: (formData) => sendData('/recruiting-answer', formData),
-    onSuccess: () => {},
-  });
+  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
+  const { submitMutate, submitIsPending } = useMutateSubmit();
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const {
@@ -253,7 +219,7 @@ const ApplyPage = () => {
       willAppjam: false,
     };
 
-    type === 'draft' ? draftMutate(formValues) : dataMutate(formValues);
+    type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
 
   const handleApplySubmit = () => {
@@ -275,7 +241,7 @@ const ApplyPage = () => {
           phone,
           part,
         }}
-        dataIsPending={dataIsPending}
+        dataIsPending={submitIsPending}
         ref={submitDialog}
         onSendData={() => {
           handleSendData('submit');
@@ -283,7 +249,7 @@ const ApplyPage = () => {
         }}
       />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-        <ApplyHeader isLoading={draftIsPending || dataIsPending} onSaveDraft={() => handleSendData('draft')} />
+        <ApplyHeader isLoading={draftIsPending || submitIsPending} onSaveDraft={() => handleSendData('draft')} />
         <ApplyInfo />
         <ApplyCategory minIndex={minIndex} />
         <div className={sectionContainer}>
@@ -304,12 +270,12 @@ const ApplyPage = () => {
           <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
           <div className={buttonWrapper}>
             <Button
-              isLoading={draftIsPending || dataIsPending}
+              isLoading={draftIsPending || submitIsPending}
               onClick={() => handleSendData('draft')}
               buttonStyle="line">
               임시저장
             </Button>
-            <Button isLoading={draftIsPending || dataIsPending} type="submit">
+            <Button isLoading={draftIsPending || submitIsPending} type="submit">
               제출하기
             </Button>
           </div>
