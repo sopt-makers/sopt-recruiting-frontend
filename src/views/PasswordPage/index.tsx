@@ -6,7 +6,7 @@ import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useGetRecruitingInfo } from '@hooks/useGetRecruitingInfo';
+import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import BigLoading from 'views/loadings/BigLoding';
 

@@ -5,7 +5,7 @@ import { getRecruitingInfo } from '@apis/getRecruitingInfo';
 import type { RecruitingError, RecruitingResponse } from '@type/types';
 import type { AxiosError, AxiosResponse } from 'axios';
 
-export const useGetRecruitingInfo = () => {
+const useGetRecruitingInfo = () => {
   const { data, isLoading } = useQuery<
     AxiosResponse<RecruitingResponse, null>,
     AxiosError<RecruitingError, null>,
@@ -18,3 +18,5 @@ export const useGetRecruitingInfo = () => {
 
   return { data, isLoading };
 };
+
+export default useGetRecruitingInfo;
