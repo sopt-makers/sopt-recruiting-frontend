@@ -7,6 +7,7 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import CompletePage from 'views/CompletePage';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
+import MyPage from 'views/MyPage';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -31,7 +32,7 @@ const ApplyPage = () => {
 
   const [isInView, setIsInView] = useState([true, false, false]);
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   const navigate = useNavigate();
   const {
@@ -47,12 +48,13 @@ const ApplyPage = () => {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
+    isSubmit,
   } = draftData?.data || {};
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
-  const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: () => setIsSubmit(true) });
+  const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: () => setIsComplete(true) });
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const {
@@ -229,15 +231,18 @@ const ApplyPage = () => {
     submitDialog.current?.showModal();
   };
 
-  window.addEventListener('beforeunload', (e) => {
-    e.preventDefault();
-    e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
-  });
+  if (!isComplete) {
+    window.addEventListener('beforeunload', (e) => {
+      !isComplete && e.preventDefault();
+      e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
+    });
+  }
 
   return (
     <>
-      {isSubmit && <CompletePage userInfo={{ name, season, group }} />}
-      {!isSubmit && (
+      {isComplete && <CompletePage userInfo={{ name, season, group }} />}
+      {!isComplete && isSubmit && <MyPage />}
+      {!isComplete && !isSubmit && (
         <>
           <DraftDialog ref={draftDialog} />
           <SubmitDialog

@@ -112,4 +112,5 @@ export interface ApplyResponse {
   applicant: Applicant;
   commonQuestions: Answers[];
   partQuestions: Answers[];
+  isSubmit: boolean;
 }
