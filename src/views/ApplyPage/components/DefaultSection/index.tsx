@@ -134,6 +134,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
     univYear,
     leaveAbsence,
   } = applicantDraft || {};
+  console.log(leaveAbsence, univYear);
 
   return (
     <section ref={refCallback} id="default" className={sectionContainer}>
@@ -224,7 +225,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
           />
         </TextBox>
         <SelectBox
-          defaultValue={univYear}
+          defaultValue={univYear == undefined ? undefined : univYear === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${univYear}학년`}
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."

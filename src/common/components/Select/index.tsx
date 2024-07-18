@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 import {
   circle,
@@ -21,7 +21,6 @@ const SelectBox = ({
   size = 'sm',
   formObject,
   required,
-  defaultValue,
   ...inputElementProps
 }: SelectBoxProps) => {
   const { register, formState, clearErrors, setValue } = formObject;
@@ -31,14 +30,6 @@ const SelectBox = ({
     clearErrors && clearErrors(name);
     setValue(name, e.currentTarget.id);
   };
-
-  useEffect(() => {
-    if (defaultValue != undefined) {
-      name === 'univYear'
-        ? setValue(name, defaultValue === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${defaultValue}학년`)
-        : setValue(name, defaultValue);
-    }
-  }, [name, setValue, defaultValue]);
 
   return (
     <div className={containerVar[size]}>
