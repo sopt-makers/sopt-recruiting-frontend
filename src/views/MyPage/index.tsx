@@ -21,7 +21,12 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 
 const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
   const {
-    recruitingInfo: { applicationPassConfirmStart, applicationPassConfirmEnd },
+    recruitingInfo: {
+      applicationPassConfirmStart,
+      applicationPassConfirmEnd,
+      finalPassConfirmStart,
+      finalPassConfirmEnd,
+    },
   } = useContext(RecruitingInfoContext);
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
 
@@ -33,6 +38,10 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
   const afterScreeningResult = isBefore(new Date(applicationPassConfirmEnd || ''), new Date());
   const isScreeningResultTime = !(beforeScreeningResult || afterScreeningResult);
 
+  const beforeFinalResult = isAfter(new Date(finalPassConfirmStart || ''), new Date());
+  const afterFinalResult = isBefore(new Date(finalPassConfirmEnd || ''), new Date());
+  const isFinalResultTime = !(beforeFinalResult || afterFinalResult);
+
   return (
     <section className={container}>
       <Title>지원 현황</Title>
@@ -41,8 +50,8 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        {!isScreeningResultTime && <MyInfoItem label="지원상태" value="지원 완료" />}
-        {isScreeningResultTime && (
+        {(!isScreeningResultTime || !isFinalResultTime) && <MyInfoItem label="지원상태" value="지원 완료" />}
+        {(isScreeningResultTime || isFinalResultTime) && (
           <li className={buttonValue}>
             <span className={infoLabel}>지원상태</span>
             <Button isLink to="/result" className={buttonWidth} padding="15x25">
@@ -50,12 +59,15 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
             </Button>
           </li>
         )}
-        <li className={buttonValue}>
-          <span className={infoLabel}>지원서</span>
-          <Button className={buttonWidth} onClick={onShowReview} padding="15x25">
-            지원서 확인
-          </Button>
-        </li>
+        {!isFinalResultTime && (
+          <li className={buttonValue}>
+            <span className={infoLabel}>지원서</span>
+            <Button className={buttonWidth} onClick={onShowReview} padding="15x25">
+              지원서 확인
+            </Button>
+          </li>
+        )}
+        {isFinalResultTime && <MyInfoItem label="지원서" value="제출 완료" />}
       </ol>
     </section>
   );
