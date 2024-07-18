@@ -12,7 +12,7 @@ interface CommonSectionProps {
   refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue'>;
 }
 
 const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft, formObject }: CommonSectionProps) => {
