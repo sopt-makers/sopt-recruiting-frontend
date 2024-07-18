@@ -30,12 +30,12 @@ const BottomSection = ({ isReview, knownPath, formObject }: BottomSectionProps) 
       />
       <div id="check-necessary" className={doubleLineCheck}>
         <p className={label}>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</p>
-        <Checkbox checked={isReview} name="attendance" formObject={formObject} required>
+        <Checkbox checked={isReview ? true : undefined} name="attendance" formObject={formObject} required>
           참석 가능합니다.
         </Checkbox>
       </div>
       <div>
-        <Checkbox checked={isReview} required name="personalInformation" formObject={formObject}>
+        <Checkbox checked={isReview ? true : undefined} required name="personalInformation" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>
