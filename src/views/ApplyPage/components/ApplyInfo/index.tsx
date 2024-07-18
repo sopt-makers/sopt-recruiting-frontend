@@ -46,6 +46,13 @@ const ApplyInfo = ({ isReview }: { isReview: boolean }) => {
     <section className={infoContainer}>
       {!isReview && (
         <ul className={infoWrapper}>
+          <span key="first-info" className={infoItems}>
+            &#183; 지원서 작성 전에{' '}
+            <a href="https://makers.sopt.org/recruit" className={infoItemsBold} target="_blank" rel="noreferrer">
+              모집 및 활동 일정
+            </a>
+            을 꼭 숙지하고 지원해 주시기 바랍니다.
+          </span>
           {APPLY_INFO.sections.map(({ id, content }) => (
             <li key={id}>
               &#183;{' '}
