@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
@@ -11,27 +13,35 @@ import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const {
-    recruitingInfo: { name, season },
+    recruitingInfo: { name, season, group, interviewStart, interviewEnd },
   } = useContext(RecruitingInfoContext);
+
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M/dd(E)', { locale: ko });
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M/dd(E)', { locale: ko });
 
   return (
     <>
       {pass ? (
         <p className={content}>
-          <span>{`안녕하세요. NOW SOPT 입니다.\n\n`}</span>
+          <span>{`안녕하세요. ${season}기 NOW SOPT 입니다.\n\n`}</span>
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
-              ${name}님은 ${season}기 NOW SOPT 신입회원 모집에 서류 합격하셨습니다.
+              서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
   
-              ${name}님과 ${season}기 NOW SOPT를 함께하게 되어 진심으로 기쁩니다.
-              향후 활동은 NOW SOPT 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
-              운영 및 진행됩니다.
-          
-              오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다.\n
+              ${season}기 ${group} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 오프라인 으로 진행될 예정입니다.
+              모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
-          <strong className={strongText}>{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</strong>
+          <a href="https://sopt.org">https://sopt.org</a>
+          <span>
+            {`
+              위 구글폼은 금일 20시 정각(14일 목요일 오후 8시)까지 제출해주셔야 합니다.
+              면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를 내일(15일 금요일) 오후 12시 전으로 이메일을
+              통해 전해드리겠습니다.
+            `}
+          </span>
+          <span>{`다시 한 번 진심으로 축하드리며, 면접에서 뵙도록 하겠습니다. :)`}</span>
         </p>
       ) : (
         <p className={content}>
@@ -39,7 +49,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
               
             ${name}님은 ${season}기 NOW SOPT 신입회원 서류 모집에 불합격하셨습니다.
 
-            지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 최종 합격 소식을
+            지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 합격 소식을
             전해드리지 못하게 되었습니다.
 
             한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나 저희 SOPT에 지원하셨던

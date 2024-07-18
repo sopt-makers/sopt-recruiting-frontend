@@ -18,7 +18,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
     <>
       {pass ? (
         <p className={content}>
-          <span>{`안녕하세요. NOW SOPT 입니다.\n\n`}</span>
+          <span>{`안녕하세요. ${season}기 NOW SOPT 입니다.\n\n`}</span>
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
