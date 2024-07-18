@@ -4,7 +4,7 @@ import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
 import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
+import useDate from '@hooks/useDate';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -14,10 +14,9 @@ import { container } from './style.css';
 const PasswordPage = () => {
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
-  const { data, isLoading } = useGetRecruitingInfo();
+  const { season, group, NoMoreRecruit, isLoading } = useDate();
 
   const { setError } = formObject;
-  const { season, group } = data?.data.season || {};
 
   const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword();
 
@@ -43,6 +42,8 @@ const PasswordPage = () => {
   };
 
   if (isLoading) return <BigLoading />;
+
+  if (NoMoreRecruit) return <>모집 기간이 아니에요.</>;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={container}>

@@ -6,6 +6,7 @@ const useDate = () => {
   const { data, isLoading } = useGetRecruitingInfo();
 
   const {
+    season,
     group,
     ybApplicationStart,
     obApplicationStart,
@@ -55,7 +56,16 @@ const useDate = () => {
   const NoMoreReview = startInterview; // 면접 시작 -> 지원서 확인 불가
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
 
-  return { NoMoreRecruit, NoMoreApply, NoMoreScreeningResult, NoMoreReview, NoMoreFinalResult, isLoading };
+  return {
+    season,
+    group,
+    NoMoreRecruit,
+    NoMoreApply,
+    NoMoreScreeningResult,
+    NoMoreReview,
+    NoMoreFinalResult,
+    isLoading,
+  };
 };
 
 export default useDate;

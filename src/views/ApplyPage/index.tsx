@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
+import useDate from '@hooks/useDate';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -46,6 +47,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
+
+  const { NoMoreApply, isLoading } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -162,7 +165,9 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isReview]);
 
-  if (questionsIsLoading) return <BigLoading />;
+  if (questionsIsLoading || isLoading) return <BigLoading />;
+
+  if (NoMoreApply) return <>모집 기간이 아니에요.</>;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';

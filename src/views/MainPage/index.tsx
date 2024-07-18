@@ -55,25 +55,6 @@ const MainPage = () => {
     const interviewStart = group === 'YB' ? ybInterviewStart : obInterviewStart;
     const interviewEnd = group === 'YB' ? ybInterviewEnd : obInterviewEnd;
 
-    // const applicationStart = format(new Date(applicationStartValue), 'M월 dd일 (E) aaa HH시', { locale: ko });
-    // const applicationEnd = format(new Date(applicationEndValue), 'M월 dd일 (E) aaa HH시', { locale: ko });
-    // const applicationConfirmStart = format(new Date(applicationConfirmStartValue), 'M월 dd일 (E) aaa HH시', {
-    //   locale: ko,
-    // });
-    // const applicationConfirmEnd = format(new Date(applicationConfirmEndValue), 'M월 dd일 (E) aaa HH시', {
-    //   locale: ko,
-    // });
-    // const applicationPassConfirmStart = format(new Date(applicationPassConfirmStartValue), 'M월 dd일 (E)', {
-    //   locale: ko,
-    // });
-    // const applicationPassConfirmEnd = format(new Date(applicationPassConfirmEndValue), 'M월 dd일 (E)', {
-    //   locale: ko,
-    // });
-    // const finalPassConfirmStart = format(new Date(finalPassConfirmStartValue), 'M월 dd일 (E)', { locale: ko });
-    // const finalPassConfirmEnd = format(new Date(finalPassConfirmEndValue), 'M월 dd일 (E)', { locale: ko });
-    // const interviewStart = format(new Date(interviewStartValue), 'M월 dd일 (E)', { locale: ko });
-    // const interviewEnd = format(new Date(interviewEndValue), 'M월 dd일 (E)', { locale: ko });
-
     handleSaveRecruitingInfo({
       season,
       group,

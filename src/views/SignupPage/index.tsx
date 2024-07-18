@@ -1,5 +1,4 @@
-import { isBefore } from 'date-fns';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -10,9 +9,8 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import Title from '@components/Title';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
+import useDate from '@hooks/useDate';
 import useVerificationStatus from '@hooks/useVerificationStatus';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import useMutateSignUp from './hooks/useMutateSignUp';
@@ -20,9 +18,6 @@ import { container } from './style.css';
 
 const SignupPage = () => {
   const { isVerified, handleVerified } = useVerificationStatus();
-  const {
-    recruitingInfo: { applicationEnd },
-  } = useContext(RecruitingInfoContext);
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
   const {
     setError,
@@ -30,8 +25,7 @@ const SignupPage = () => {
     formState: { errors },
   } = formObject;
 
-  const { data, isLoading } = useGetRecruitingInfo();
-  const { season, group } = data?.data.season || {};
+  const { season, group, NoMoreRecruit, NoMoreApply, isLoading } = useDate();
 
   const { signUpMutate, signUpIsPending } = useMutateSignUp({
     onSetError: (name, type, message) => setError(name, { type, message }),
@@ -69,9 +63,7 @@ const SignupPage = () => {
 
   if (isLoading) return <BigLoading />;
 
-  const afterApplying = isBefore(new Date(applicationEnd || ''), new Date());
-
-  if (afterApplying) return <>모집 기간이 아니에요.</>;
+  if (NoMoreRecruit || NoMoreApply) return <>모집 기간이 아니에요.</>;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>
