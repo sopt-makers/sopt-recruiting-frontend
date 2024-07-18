@@ -4,6 +4,8 @@ import Textarea from '@components/Textarea';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
+import FileInput from '../FileInput';
+import LinkInput from '../LinkInput';
 
 interface CommonSectionProps {
   isReview: boolean;
@@ -25,7 +27,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft,
   return (
     <section ref={refCallback} id="common" className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
-      {questions?.map(({ value, id, charLimit }) => {
+      {questions?.map(({ urls, value, id, charLimit, isFile }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
 
@@ -36,6 +38,13 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft,
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
+              extraInput={
+                isFile ? (
+                  <FileInput id={id} isReview={isReview} formObject={formObject} />
+                ) : urls ? (
+                  <LinkInput urls={urls} />
+                ) : null
+              }
               required
               disabled={isReview}>
               {value}
