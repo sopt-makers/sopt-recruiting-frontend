@@ -38,7 +38,7 @@ export const VALIDATION_CHECK = {
     max: new Date().toISOString().split('T')[0],
     maxLength: 10,
     errorText: '잘못된 생년월일 형식이에요. 생년월일을 정확하게 입력해주세요.',
-    errorTextOutOfRange: '1990년 이후부터 오늘 날짜까지 입력 가능해요.',
+    errorTextOutOfRange: '1990년 이후부터 오늘 이전 날짜까지 입력 가능해요.',
     validate: validateBirthdate,
   },
   phoneNumber: {
