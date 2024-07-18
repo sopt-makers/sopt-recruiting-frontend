@@ -134,7 +134,6 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
     univYear,
     leaveAbsence,
   } = applicantDraft || {};
-  console.log(leaveAbsence, univYear);
 
   return (
     <section ref={refCallback} id="default" className={sectionContainer}>
@@ -203,7 +202,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'}
+            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' : '재학'}
             formObject={formObject}
             label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
             name="leaveAbsence"
