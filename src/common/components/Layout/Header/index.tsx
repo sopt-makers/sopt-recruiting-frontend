@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import NowsoptLogo from '@assets/NowsoptLogo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
