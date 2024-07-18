@@ -20,8 +20,8 @@ const SessionExpiredDialog = forwardRef<HTMLDialogElement>((_, ref) => {
 
   return (
     <Dialog ref={ref} onKeyDown={handlePreventESCKeyPress}>
-      <p className={mainText}>로그인 세션이 만료되었어요.</p>
-      <p className={subText}>다시 로그인해주세요.</p>
+      <p className={mainText}>로그인을 다시 해주세요.</p>
+      <p className={subText}>세션이 만료되었거나 비정상적인 로그인이에요.</p>
       <form method="dialog" className={`${buttonWrapper} ${buttonOutside.solid}`}>
         <button className={buttonInside.solid} onClick={handleLogout}>
           확인
