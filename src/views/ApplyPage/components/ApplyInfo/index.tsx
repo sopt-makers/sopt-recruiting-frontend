@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 import { useContext } from 'react';
 
 import Callout from '@components/Callout';
@@ -27,6 +29,19 @@ const ApplyInfo = ({ isReview }: { isReview: boolean }) => {
     },
   } = useContext(RecruitingInfoContext);
 
+  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시', { locale: ko });
+  const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시', { locale: ko });
+  const formattedApplicationConfirmStart = format(
+    new Date(applicationPassConfirmStart || ''),
+    'M월 dd일 (E) aaa HH시',
+    {
+      locale: ko,
+    },
+  );
+  const formattedFinalPassConfirmStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedInterviewStart = format(new Date(interviewEnd || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedInterviewEnd = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
+
   return (
     <section className={infoContainer}>
       {!isReview && (
@@ -54,19 +69,19 @@ const ApplyInfo = ({ isReview }: { isReview: boolean }) => {
         <ol className={dateWrapper}>
           <li className={dateItems}>
             <span className={dateLabel}>지원 기간</span>
-            <span className={dateText}>{`${applicationStart} - ${applicationEnd}`}</span>
+            <span className={dateText}>{`${formattedApplicationStart} - ${formattedApplicationEnd}`}</span>
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>서류 발표</span>
-            <span className={dateText}>{applicationPassConfirmStart}</span>
+            <span className={dateText}>{formattedApplicationConfirmStart}</span>
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>면접 평가</span>
-            <span className={dateText}>{`${interviewStart} - ${interviewEnd} (오프라인 면접)`}</span>
+            <span className={dateText}>{`${formattedInterviewStart} - ${formattedInterviewEnd} (오프라인 면접)`}</span>
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>최종 발표</span>
-            <span className={dateText}>{finalPassConfirmStart}</span>
+            <span className={dateText}>{formattedFinalPassConfirmStart}</span>
           </li>
         </ol>
       )}

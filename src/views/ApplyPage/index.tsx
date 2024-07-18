@@ -82,8 +82,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     phone,
     ...rest
   } = getValues();
-  console.log(univYearValue, leaveAbsenceValue);
-  console.log(applicantDraft?.leaveAbsence, applicantDraft?.univYear);
 
   useEffect(() => {
     if (applicantDraft?.part) {
