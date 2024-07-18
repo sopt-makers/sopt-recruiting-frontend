@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import IconPlusButton from './icons/IconPlusButton';
@@ -8,7 +8,7 @@ interface FileInputProps {
   id: number;
   isReview: boolean;
   disabled?: boolean;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue'>;
 }
 
 const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
@@ -16,9 +16,9 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
-  const { register } = formObject;
+  const { register, setValue } = formObject;
 
-  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
     const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
     if (file) {
@@ -31,6 +31,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
       } else {
         setIsError(false);
         setFile(file);
+        setValue(`file${id}`, file);
       }
     }
   };
@@ -53,7 +54,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         type="file"
         accept=".pdf, .pptx"
         {...register(`file${id}`)}
-        onChange={handleChangeFile}
+        onChange={(e) => handleChangeFile(e, id)}
         ref={inputRef}
         className={fileInput}
         disabled={disabled || isReview}

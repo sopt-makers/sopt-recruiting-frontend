@@ -13,6 +13,7 @@ export interface ApplyRequest {
   nearestStation: string;
   answers: string;
   willAppjam: boolean;
+  [key: string]: unknown;
 }
 
 export interface QuestionsRequest {

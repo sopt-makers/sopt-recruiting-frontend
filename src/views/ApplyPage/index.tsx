@@ -214,6 +214,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     }
 
     const answers = JSON.stringify(answersValue);
+    console.log(getValues());
 
     const formValues: ApplyRequest = {
       picture: picture?.[0],
@@ -231,6 +232,12 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
       answers,
       willAppjam: false,
     };
+
+    for (const key in getValues()) {
+      if (key.startsWith('file')) {
+        formValues[key] = getValues()[key];
+      }
+    }
 
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
