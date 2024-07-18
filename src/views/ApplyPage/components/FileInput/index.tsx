@@ -1,13 +1,23 @@
 import { useRef, useState } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 
 import IconPlusButton from './icons/IconPlusButton';
 import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
 
-const FileInput = ({ disabled }: { disabled?: boolean }) => {
+const FileInput = ({
+  isReview,
+  disabled,
+  formObject,
+}: {
+  isReview: boolean;
+  disabled?: boolean;
+  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
+}) => {
   const [isError, setIsError] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
+  const { register } = formObject;
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -40,17 +50,20 @@ const FileInput = ({ disabled }: { disabled?: boolean }) => {
   return (
     <div className={container}>
       <input
-        id="portfolio"
+        id="file-input"
         type="file"
         accept=".pdf, .pptx"
+        {...register('file-input')}
         onChange={handleChangeFile}
         ref={inputRef}
         className={fileInput}
-        disabled={disabled}
+        disabled={disabled || isReview}
       />
-      <label htmlFor="portfolio" className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
+      <label
+        htmlFor="file-input"
+        className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
-          <span>포트폴리오</span>
+          <span>파일</span>
           <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
             {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
           </span>

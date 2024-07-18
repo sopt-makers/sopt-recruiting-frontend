@@ -27,6 +27,7 @@ export interface Questions {
   value: string;
   urls: string[];
   charLimit: number;
+  isFile: boolean;
 }
 
 export interface QuestionsResponse {
