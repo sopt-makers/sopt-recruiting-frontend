@@ -22,13 +22,12 @@ import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 import type { ApplyRequest, ApplyResponse } from './types';
 
 interface ApplyPageProps {
-  isComplete: boolean;
   isReview: boolean;
   onSetComplete: () => void;
   draftData?: { data: ApplyResponse };
 }
 
-const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPageProps) => {
+const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
