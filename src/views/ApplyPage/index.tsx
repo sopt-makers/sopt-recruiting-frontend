@@ -22,13 +22,12 @@ import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 import type { ApplyRequest, ApplyResponse } from './types';
 
 interface ApplyPageProps {
-  isComplete: boolean;
   isReview: boolean;
   onSetComplete: () => void;
   draftData?: { data: ApplyResponse };
 }
 
-const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPageProps) => {
+const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
@@ -83,6 +82,8 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
     phone,
     ...rest
   } = getValues();
+  console.log(univYearValue, leaveAbsenceValue);
+  console.log(applicantDraft?.leaveAbsence, applicantDraft?.univYear);
 
   useEffect(() => {
     if (applicantDraft?.part) {
@@ -174,7 +175,8 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
 
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
-    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
+    const leaveAbsence =
+      leaveAbsenceValue === '재학' ? true : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? false : undefined;
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -184,7 +186,9 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
             ? 3
             : univYearValue === '4학년'
               ? 4
-              : 5;
+              : univYearValue === '수료 ‧ 유예 ‧ 졸업'
+                ? 5
+                : undefined;
 
     let answersValue = [];
 
@@ -214,7 +218,7 @@ const ApplyPage = ({ isComplete, isReview, onSetComplete, draftData }: ApplyPage
     const answers = JSON.stringify(answersValue);
 
     const formValues: ApplyRequest = {
-      picture: picture[0],
+      picture: picture?.[0],
       part,
       address,
       birthday,

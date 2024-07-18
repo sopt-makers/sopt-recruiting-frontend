@@ -6,10 +6,10 @@ export interface ApplyRequest {
   college: string;
   gender: string;
   knownPath: string;
-  leaveAbsence: boolean;
+  leaveAbsence?: boolean;
   major: string;
   mostRecentSeason: number;
-  univYear: number;
+  univYear?: number;
   nearestStation: string;
   answers: string;
   willAppjam: boolean;

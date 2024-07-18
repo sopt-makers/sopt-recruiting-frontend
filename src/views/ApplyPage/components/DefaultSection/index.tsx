@@ -202,7 +202,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '재학' : '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'}
+            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' : '재학'}
             formObject={formObject}
             label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
             name="leaveAbsence"
@@ -224,7 +224,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
           />
         </TextBox>
         <SelectBox
-          defaultValue={univYear}
+          defaultValue={univYear == undefined ? undefined : univYear === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${univYear}학년`}
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."
