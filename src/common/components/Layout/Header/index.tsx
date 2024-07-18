@@ -23,7 +23,8 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('soptApplyAccessToken');
-    navigate(0);
+    if (pathname === '/') navigate(0);
+    else navigate('/');
   };
 
   return (
