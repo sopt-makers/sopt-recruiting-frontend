@@ -170,11 +170,10 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
-
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
-      leaveAbsenceValue === '재학' ? true : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? false : undefined;
+      leaveAbsenceValue === '재학' ? false : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? true : undefined;
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -214,7 +213,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     }
 
     const answers = JSON.stringify(answersValue);
-
     const formValues: ApplyRequest = {
       picture: picture?.[0],
       pictureUrl: applicantDraft?.pic,
