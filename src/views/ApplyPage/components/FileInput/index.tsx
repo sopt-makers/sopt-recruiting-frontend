@@ -50,7 +50,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
   return (
     <div className={container}>
       <input
-        id="file-input"
+        id={`file-${id}`}
         type="file"
         accept=".pdf, .pptx"
         {...register(`file${id}`)}
@@ -60,7 +60,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         disabled={disabled || isReview}
       />
       <label
-        htmlFor="file-input"
+        htmlFor={`file-${id}`}
         className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
