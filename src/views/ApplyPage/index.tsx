@@ -82,6 +82,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     phone,
     ...rest
   } = getValues();
+  console.log(univYearValue, leaveAbsenceValue);
+  console.log(applicantDraft?.leaveAbsence, applicantDraft?.univYear);
 
   useEffect(() => {
     if (applicantDraft?.part) {
@@ -173,7 +175,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
 
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
-    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
+    const leaveAbsence =
+      leaveAbsenceValue === '재학' ? true : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? false : undefined;
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -183,7 +186,9 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             ? 3
             : univYearValue === '4학년'
               ? 4
-              : 5;
+              : univYearValue === '수료 ‧ 유예 ‧ 졸업'
+                ? 5
+                : undefined;
 
     let answersValue = [];
 
