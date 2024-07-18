@@ -4,15 +4,14 @@ import { UseFormReturn } from 'react-hook-form';
 import IconPlusButton from './icons/IconPlusButton';
 import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
 
-const FileInput = ({
-  isReview,
-  disabled,
-  formObject,
-}: {
+interface FileInputProps {
+  id: number;
   isReview: boolean;
   disabled?: boolean;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger'>;
-}) => {
+}
+
+const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
@@ -53,7 +52,7 @@ const FileInput = ({
         id="file-input"
         type="file"
         accept=".pdf, .pptx"
-        {...register('file-input')}
+        {...register(`file${id}`)}
         onChange={handleChangeFile}
         ref={inputRef}
         className={fileInput}

@@ -66,7 +66,7 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
               maxCount={charLimit}
               extraInput={
                 isFile ? (
-                  <FileInput isReview={isReview} formObject={formObject} />
+                  <FileInput id={id} isReview={isReview} formObject={formObject} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null
