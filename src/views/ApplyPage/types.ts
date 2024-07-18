@@ -1,5 +1,6 @@
 export interface ApplyRequest {
   picture: File | null;
+  pictureUrl?: string;
   part: string;
   address: string;
   birthday: string;

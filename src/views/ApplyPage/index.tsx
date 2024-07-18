@@ -214,10 +214,10 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     }
 
     const answers = JSON.stringify(answersValue);
-    console.log(getValues());
 
     const formValues: ApplyRequest = {
       picture: picture?.[0],
+      pictureUrl: applicantDraft?.pic,
       part,
       address,
       birthday,
