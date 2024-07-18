@@ -30,12 +30,7 @@ const SignedInPage = () => {
       {!isReview && isComplete && <CompletePage />}
       {!isReview && !isComplete && isSubmit && <MyPage onShowReview={() => setIsReview(true)} />}
       {(isReview || (!isComplete && !isSubmit)) && (
-        <ApplyPage
-          isComplete={isComplete}
-          isReview={isReview}
-          onSetComplete={() => setIsComplete(true)}
-          draftData={draftData}
-        />
+        <ApplyPage isReview={isReview} onSetComplete={() => setIsComplete(true)} draftData={draftData} />
       )}
     </>
   );
