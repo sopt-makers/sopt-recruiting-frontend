@@ -1,5 +1,6 @@
 export interface ApplyRequest {
   picture: File | null;
+  pictureUrl?: string;
   part: string;
   address: string;
   birthday: string;
@@ -13,6 +14,7 @@ export interface ApplyRequest {
   nearestStation: string;
   answers: string;
   willAppjam: boolean;
+  [key: string]: unknown;
 }
 
 export interface QuestionsRequest {
