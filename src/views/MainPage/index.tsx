@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 
 import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 import SignedInPage from 'views/SignedInPage';
 import SignInPage from 'views/SignInPage';
@@ -76,7 +77,7 @@ const MainPage = () => {
   const beforeRecruiting = isAfter(new Date(applicationStart || ''), new Date());
   const afterRecruiting = isBefore(new Date(finalPassConfirmEnd || ''), new Date());
 
-  if (beforeRecruiting || afterRecruiting) return <>모집 기간이 아니에요.</>;
+  if (beforeRecruiting || afterRecruiting) return <NoMore content="모집 기간이 아니에요" />;
 
   return <>{isSignedIn ? <SignedInPage /> : <SignInPage />}</>;
 };

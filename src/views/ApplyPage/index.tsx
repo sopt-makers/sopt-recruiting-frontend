@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@components/Button';
 import useDate from '@hooks/useDate';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import ApplyCategory from './components/ApplyCategory';
@@ -167,7 +168,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
 
   if (questionsIsLoading || isLoading) return <BigLoading />;
 
-  if (NoMoreApply) return <>모집 기간이 아니에요.</>;
+  if (NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';

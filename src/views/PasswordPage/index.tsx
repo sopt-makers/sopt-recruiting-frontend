@@ -6,6 +6,7 @@ import Title from '@components/Title';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useDate from '@hooks/useDate';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import useMutateChangePassword from './hooks/useMutateChangePassword';
@@ -43,7 +44,7 @@ const PasswordPage = () => {
 
   if (isLoading) return <BigLoading />;
 
-  if (NoMoreRecruit) return <>모집 기간이 아니에요.</>;
+  if (NoMoreRecruit) return <NoMore content="모집 기간이 아니에요" />;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={container}>

@@ -11,6 +11,7 @@ import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useDate from '@hooks/useDate';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import useMutateSignUp from './hooks/useMutateSignUp';
@@ -63,7 +64,7 @@ const SignupPage = () => {
 
   if (isLoading) return <BigLoading />;
 
-  if (NoMoreRecruit || NoMoreApply) return <>모집 기간이 아니에요.</>;
+  if (NoMoreRecruit || NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>

@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import useDate from '@hooks/useDate';
 import { ThemeContext } from '@store/themeContext';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import FinalResult from './components/FinalResult';
@@ -21,7 +22,8 @@ const ResultPage = () => {
 
   if (isLoading) return <BigLoading />;
 
-  if (NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult)) return <>확인 기간이 아니에요.</>;
+  if (NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
+    return <NoMore content="합불 확인 기간이 아니에요" />;
 
   return (
     <>
