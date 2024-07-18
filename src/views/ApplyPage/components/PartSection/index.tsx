@@ -6,6 +6,8 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
+import FileInput from '../FileInput';
+import LinkInput from '../LinkInput';
 
 interface PartSectionProps {
   isReview: boolean;
@@ -51,18 +53,24 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
         required
         disabled={isReview}
       />
-      {filteredQuestions?.map(({ value, charLimit, id }) => {
+      {filteredQuestions?.map(({ value, charLimit, id, urls, isFile }) => {
         const draftItem = partQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
 
         return (
           <div key={value}>
             <Textarea
-              key={value}
               name={`part${id}`}
               defaultValue={defaultValue}
               formObject={formObject}
               maxCount={charLimit}
+              extraInput={
+                isFile ? (
+                  <FileInput isReview={isReview} formObject={formObject} />
+                ) : urls ? (
+                  <LinkInput urls={urls} />
+                ) : null
+              }
               required
               disabled={isReview}>
               {value}
