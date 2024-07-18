@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { isBefore } from 'date-fns';
+import { useContext, useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -11,6 +12,7 @@ import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import useMutateSignUp from './hooks/useMutateSignUp';
@@ -18,6 +20,9 @@ import { container } from './style.css';
 
 const SignupPage = () => {
   const { isVerified, handleVerified } = useVerificationStatus();
+  const {
+    recruitingInfo: { applicationEnd },
+  } = useContext(RecruitingInfoContext);
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
   const {
     setError,
@@ -63,6 +68,10 @@ const SignupPage = () => {
   }, [errors.email?.message, setFocus]);
 
   if (isLoading) return <BigLoading />;
+
+  const afterApplying = isBefore(new Date(applicationEnd || ''), new Date());
+
+  if (afterApplying) return <>모집 기간이 아니에요.</>;
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={container}>
