@@ -9,16 +9,14 @@ import Layout from '@components/Layout';
 import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
 import { dark, light } from 'styles/theme.css';
-import 'styles/reset.css';
-import CompletePage from 'views/CompletePage';
 import SessionExpiredDialog from 'views/dialogs/SessionExpiredDialog';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
-import MyPage from 'views/MyPage';
 import PasswordPage from 'views/PasswordPage';
 import ResultPage from 'views/ResultPage';
-import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
+
+import 'styles/reset.css';
 
 const router = createBrowserRouter([
   {
@@ -33,10 +31,7 @@ const router = createBrowserRouter([
       { index: true, element: <MainPage /> },
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
-      { path: '/complete', element: <CompletePage /> },
-      { path: '/my', element: <MyPage /> },
       { path: '/result', element: <ResultPage /> },
-      { path: '/review', element: <ReviewPage /> },
       { path: '/error', element: <ErrorPage code={500} /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],

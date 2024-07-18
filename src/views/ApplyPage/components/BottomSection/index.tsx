@@ -8,13 +8,13 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { doubleLineCheck, label, line, sectionContainer } from './style.css';
 
-const BottomSection = ({
-  knownPath,
-  formObject,
-}: {
+interface BottomSectionProps {
+  isReview: boolean;
   knownPath?: string;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
-}) => {
+}
+
+const BottomSection = ({ isReview, knownPath, formObject }: BottomSectionProps) => {
   return (
     <section className={sectionContainer}>
       <hr className={line} />
@@ -26,15 +26,16 @@ const BottomSection = ({
         options={SELECT_OPTIONS.경로}
         formObject={formObject}
         required
+        disabled={isReview}
       />
       <div id="check-necessary" className={doubleLineCheck}>
         <p className={label}>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</p>
-        <Checkbox name="attendance" formObject={formObject} required>
+        <Checkbox checked={isReview} name="attendance" formObject={formObject} required>
           참석 가능합니다.
         </Checkbox>
       </div>
       <div>
-        <Checkbox required name="personalInformation" formObject={formObject}>
+        <Checkbox checked={isReview} required name="personalInformation" formObject={formObject}>
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>

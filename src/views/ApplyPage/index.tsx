@@ -1,9 +1,8 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -14,16 +13,21 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
-import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, formContainer, sectionContainer } from './style.css';
 
-import type { ApplyRequest } from './types';
+import type { ApplyRequest, ApplyResponse } from './types';
 
-const ApplyPage = () => {
+interface ApplyPageProps {
+  isReview: boolean;
+  onSetComplete: () => void;
+  draftData?: { data: ApplyResponse };
+}
+
+const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
@@ -32,24 +36,21 @@ const ApplyPage = () => {
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const navigate = useNavigate();
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
 
-  const { draftData, draftIsLoading } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
-
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
-  const { submitMutate, submitIsPending } = useMutateSubmit();
+  const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const {
@@ -83,15 +84,11 @@ const ApplyPage = () => {
   } = getValues();
 
   useEffect(() => {
-    handleSaveRecruitingInfo({
-      name: applicantDraft?.name,
-    });
-
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft, handleSaveRecruitingInfo]);
+  }, [applicantDraft]);
 
   const refCallback = useCallback(
     (element: HTMLSelectElement) => {
@@ -152,7 +149,20 @@ const ApplyPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.picture, errors.attendance, errors.personalInformation]);
 
-  if (draftIsLoading || questionsIsLoading) return <BigLoading />;
+  useEffect(() => {
+    if (isReview) return;
+
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = ''; // Included for legacy support, e.g. Chrome/Edeg < 119;
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [isReview]);
+
+  if (questionsIsLoading) return <BigLoading />;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
@@ -163,7 +173,8 @@ const ApplyPage = () => {
 
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
-    const leaveAbsence = leaveAbsenceValue === '재학' ? true : false;
+    const leaveAbsence =
+      leaveAbsenceValue === '재학' ? true : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? false : undefined;
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -173,7 +184,9 @@ const ApplyPage = () => {
             ? 3
             : univYearValue === '4학년'
               ? 4
-              : 5;
+              : univYearValue === '수료 ‧ 유예 ‧ 졸업'
+                ? 5
+                : undefined;
 
     let answersValue = [];
 
@@ -203,7 +216,7 @@ const ApplyPage = () => {
     const answers = JSON.stringify(answersValue);
 
     const formValues: ApplyRequest = {
-      picture: picture[0],
+      picture: picture?.[0],
       part,
       address,
       birthday,
@@ -226,11 +239,6 @@ const ApplyPage = () => {
     submitDialog.current?.showModal();
   };
 
-  window.addEventListener('beforeunload', (e) => {
-    e.preventDefault();
-    e.returnValue = true; // Included for legacy support, e.g. Chrome/Edge < 119
-  });
-
   return (
     <>
       <DraftDialog ref={draftDialog} />
@@ -249,36 +257,49 @@ const ApplyPage = () => {
         }}
       />
       <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-        <ApplyHeader isLoading={draftIsPending || submitIsPending} onSaveDraft={() => handleSendData('draft')} />
-        <ApplyInfo />
+        <ApplyHeader
+          isReview={isReview}
+          isLoading={draftIsPending || submitIsPending}
+          onSaveDraft={() => handleSendData('draft')}
+        />
+        <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
         <div className={sectionContainer}>
-          <DefaultSection refCallback={refCallback} applicantDraft={applicantDraft} formObject={formObject} />
+          <DefaultSection
+            isReview={isReview}
+            refCallback={refCallback}
+            applicantDraft={applicantDraft}
+            formObject={formObject}
+          />
           <CommonSection
+            isReview={isReview}
             refCallback={refCallback}
             questions={commonQuestions?.questions}
             commonQuestionsDraft={commonQuestionsDraft}
             formObject={formObject}
           />
           <PartSection
+            isReview={isReview}
             refCallback={refCallback}
             part={applicantDraft?.part}
             questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
             formObject={formObject}
           />
-          <BottomSection knownPath={applicantDraft?.knownPath} formObject={formObject} />
-          <div className={buttonWrapper}>
-            <Button
-              isLoading={draftIsPending || submitIsPending}
-              onClick={() => handleSendData('draft')}
-              buttonStyle="line">
-              임시저장
-            </Button>
-            <Button isLoading={draftIsPending || submitIsPending} type="submit">
-              제출하기
-            </Button>
-          </div>
+          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} formObject={formObject} />
+          {!isReview && (
+            <div className={buttonWrapper}>
+              <Button
+                isLoading={draftIsPending || submitIsPending}
+                onClick={() => handleSendData('draft')}
+                buttonStyle="line">
+                임시저장
+              </Button>
+              <Button isLoading={draftIsPending || submitIsPending} type="submit">
+                제출하기
+              </Button>
+            </div>
+          )}
         </div>
       </form>
     </>

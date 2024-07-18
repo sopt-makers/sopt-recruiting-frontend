@@ -40,9 +40,13 @@ export const infoValue = style({
   ...theme.font.TITLE_5_18_SB,
 });
 
-export const lastItemWrapper = style([
+export const buttonValue = style([
   itemWrapper,
   {
     marginTop: '-15px',
   },
 ]);
+
+export const buttonWidth = style({
+  width: 133,
+});

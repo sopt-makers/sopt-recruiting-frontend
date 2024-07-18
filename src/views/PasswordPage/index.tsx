@@ -21,7 +21,7 @@ const PasswordPage = () => {
 
   const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword();
 
-  const handleChangePassword = ({ email, password, passwordCheck }: FieldValues) => {
+  const handleChangePassword = ({ email, newPassword: password, passwordCheck }: FieldValues) => {
     if (!isVerified) {
       setError('code', {
         type: 'not-match',
