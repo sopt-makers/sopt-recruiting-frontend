@@ -43,10 +43,12 @@ const Input = <T extends FieldValues>({
             <>{errors[name]?.message}</>
           </span>
         )}
-        <span>
-          <span className={textCountStyle}>{textCount || 0}</span>
-          <span className={maxCountStyle}>/{maxCount}</span>
-        </span>
+        {!textareaElements.disabled && (
+          <span>
+            <span className={textCountStyle}>{textCount || 0}</span>
+            <span className={maxCountStyle}>/{maxCount}</span>
+          </span>
+        )}
       </p>
     </div>
   );

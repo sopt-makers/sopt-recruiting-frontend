@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
+import useDate from '@hooks/useDate';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import ApplyCategory from './components/ApplyCategory';
@@ -46,6 +48,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
+
+  const { NoMoreApply, isLoading } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -162,7 +166,9 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isReview]);
 
-  if (questionsIsLoading) return <BigLoading />;
+  if (questionsIsLoading || isLoading) return <BigLoading />;
+
+  if (!isReview && NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
@@ -170,11 +176,10 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
-
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
-      leaveAbsenceValue === '재학' ? true : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? false : undefined;
+      leaveAbsenceValue === '재학' ? false : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? true : undefined;
     const univYear =
       univYearValue === '1학년'
         ? 1
@@ -214,7 +219,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     }
 
     const answers = JSON.stringify(answersValue);
-
     const formValues: ApplyRequest = {
       picture: picture?.[0],
       pictureUrl: applicantDraft?.pic,

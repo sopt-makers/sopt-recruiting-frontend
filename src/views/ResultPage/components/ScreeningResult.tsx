@@ -3,6 +3,7 @@ import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
+import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -12,12 +13,17 @@ import imgLogoWebp from '../assets/imgLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
-  const {
-    recruitingInfo: { name, season, group, interviewStart, interviewEnd },
-  } = useContext(RecruitingInfoContext);
+  const { data, isLoading } = useGetRecruitingInfo();
+  const { name, season, group, ybInterviewStart, ybInterviewEnd, obInterviewStart, obInterviewEnd } =
+    data?.data.season || {};
 
-  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M/dd(E)', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M/dd(E)', { locale: ko });
+  if (isLoading) return <BigLoading />;
+
+  const interviewStartTime = group === 'OB' ? obInterviewStart : ybInterviewStart;
+  const interviewEndTime = group === 'OB' ? obInterviewEnd : ybInterviewEnd;
+
+  const formattedInterviewStart = format(new Date(interviewStartTime || ''), 'M/dd(E)', { locale: ko });
+  const formattedInterviewEnd = format(new Date(interviewEndTime || ''), 'M/dd(E)', { locale: ko });
 
   return (
     <>

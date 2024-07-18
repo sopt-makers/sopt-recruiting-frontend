@@ -25,6 +25,12 @@ globalStyle('html', {
   textSizeAdjust: 'none',
 });
 
+globalStyle('body', {
+  WebkitFontSmoothing: 'antialiased',
+  MozOsxFontSmoothing: 'grayscale',
+  fontSmooth: 'never',
+});
+
 /** Reapply the pointer cursor for anchor tags */
 globalStyle('a, button', {
   cursor: 'pointer',

@@ -1,22 +1,16 @@
-import { isAfter, isBefore } from 'date-fns';
 import { useContext, useEffect } from 'react';
 
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import useDate from '@hooks/useDate';
 import { ThemeContext } from '@store/themeContext';
+import NoMore from 'views/ErrorPage/components/NoMore';
+import BigLoading from 'views/loadings/BigLoding';
 
 import FinalResult from './components/FinalResult';
 import ScreeningResult from './components/ScreeningResult';
 
 const ResultPage = () => {
   const { handleChangeMode } = useContext(ThemeContext);
-  const {
-    recruitingInfo: {
-      applicationPassConfirmStart,
-      applicationPassConfirmEnd,
-      finalPassConfirmStart,
-      finalPassConfirmEnd,
-    },
-  } = useContext(RecruitingInfoContext);
+  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
 
   useEffect(() => {
     handleChangeMode('dark');
@@ -26,20 +20,15 @@ const ResultPage = () => {
     };
   }, [handleChangeMode]);
 
-  const beforeScreeningResult = isAfter(new Date(applicationPassConfirmStart || ''), new Date());
-  const afterScreeningResult = isBefore(new Date(applicationPassConfirmEnd || ''), new Date());
-  const isScreeningResultTime = !(beforeScreeningResult || afterScreeningResult);
+  if (isLoading) return <BigLoading />;
 
-  const beforeFinalResult = isAfter(new Date(finalPassConfirmStart || ''), new Date());
-  const afterFinalResult = isBefore(new Date(finalPassConfirmEnd || ''), new Date());
-  const isFinalResultTime = !(beforeFinalResult || afterFinalResult);
-
-  if (!isScreeningResultTime && !isFinalResultTime) return <>확인 기간이 아니에요.</>;
+  if (NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
+    return <NoMore content="합불 확인 기간이 아니에요" />;
 
   return (
     <>
-      {isScreeningResultTime && <ScreeningResult />}
-      {isFinalResultTime && <FinalResult />}
+      {!NoMoreScreeningResult && <ScreeningResult />}
+      {!NoMoreFinalResult && <FinalResult />}
     </>
   );
 };

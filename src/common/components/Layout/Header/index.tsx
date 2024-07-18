@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import NowsoptLogo from '@assets/NowsoptLogo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
@@ -10,21 +10,28 @@ import { container, logo, menuList } from './style.css';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
   const {
     recruitingInfo: { name },
   } = useContext(RecruitingInfoContext);
 
+  const handleClickLogo = () => {
+    if (pathname === '/') navigate(0);
+    else navigate('/');
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('soptApplyAccessToken');
-    navigate(0);
+    if (pathname === '/') navigate(0);
+    else navigate('/');
   };
 
   return (
     <header className={container}>
-      <Link to="/" className={logo}>
+      <button onClick={handleClickLogo} className={logo}>
         <NowsoptLogo />
-      </Link>
+      </button>
       <nav>
         <ul className={menuList}>
           {MENU_ITEMS.map(({ text, path, target }) => (
@@ -33,7 +40,7 @@ const Header = () => {
           {isSignedIn ? (
             <>
               <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
-              <MenuItem key="로그인완료" text={`${name}님`} />
+              {name && <MenuItem key="로그인완료" text={`${name}님`} />}
             </>
           ) : (
             <MenuItem key="로그인" text="로그인" path="/" />

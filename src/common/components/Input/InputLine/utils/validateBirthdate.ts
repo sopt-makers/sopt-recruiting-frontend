@@ -42,7 +42,7 @@ export const validateBirthdate = (val: FieldValues) => {
   }
 
   const date = new Date(String(val));
-  const minDate = new Date('1990-01-01');
+  const minDate = new Date('1989-12-31');
   const today = new Date(new Date().toISOString().split('T')[0]);
 
   if (isNaN(date.getTime()) || date < minDate || date > today) {

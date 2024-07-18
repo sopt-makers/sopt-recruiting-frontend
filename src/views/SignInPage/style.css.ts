@@ -20,7 +20,6 @@ export const calloutButton = style({
 
 export const strongText = style({
   fontStyle: 'italic',
-  borderBottom: '1px solid currentColor',
 });
 
 export const newPasswordButton = style({

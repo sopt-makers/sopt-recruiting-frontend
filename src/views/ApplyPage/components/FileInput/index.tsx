@@ -31,7 +31,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
       } else {
         setIsError(false);
         setFile(file);
-        setValue(`file${id}`, file);
+        setValue(`file_${id}`, file);
       }
     }
   };
@@ -41,6 +41,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
       if (file) {
         inputRef.current.value = '';
         setFile(null);
+        setValue(`file_${id}`, undefined);
       } else {
         inputRef.current.click();
       }
@@ -50,17 +51,17 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
   return (
     <div className={container}>
       <input
-        id="file-input"
+        id={`file-${id}`}
         type="file"
         accept=".pdf, .pptx"
-        {...register(`file${id}`)}
+        {...register(`file_${id}`)}
         onChange={(e) => handleChangeFile(e, id)}
         ref={inputRef}
         className={fileInput}
         disabled={disabled || isReview}
       />
       <label
-        htmlFor="file-input"
+        htmlFor={`file-${id}`}
         className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
