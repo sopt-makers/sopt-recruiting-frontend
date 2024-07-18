@@ -41,7 +41,7 @@ const Postcode = ({ disabled, addressDraft, formObject }: PostcodeProps) => {
         name="address"
         placeholder="예) 서울특별시 관악구 신림동"
         onClick={handleOpenPostcode}
-        value={address || addressDraft}
+        value={address || addressDraft || ''}
         style={{ cursor: disabled ? 'not-allowed' : 'pointer', caretColor: 'transparent' }}
         disabled={disabled}
       />
