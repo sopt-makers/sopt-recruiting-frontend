@@ -41,7 +41,6 @@
         <td>
             조승희 <br/>
         </td>
-     <td></td>
     </tr>
 </tr>
 </table>
