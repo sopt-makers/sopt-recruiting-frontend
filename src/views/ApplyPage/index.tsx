@@ -19,7 +19,7 @@ import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import useScrollToHash from './hooks/useScrollToHash';
-import { buttonWrapper, formContainer, sectionContainer } from './style.css';
+import { buttonWrapper, container, formContainer } from './style.css';
 
 import type { ApplyRequest, ApplyResponse } from './types';
 
@@ -272,7 +272,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
           submitDialog.current?.close();
         }}
       />
-      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+      <div className={container}>
         <ApplyHeader
           isReview={isReview}
           isLoading={draftIsPending || submitIsPending}
@@ -280,7 +280,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
-        <div className={sectionContainer}>
+        <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
           <DefaultSection
             isReview={isReview}
             refCallback={refCallback}
@@ -316,8 +316,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
               </Button>
             </div>
           )}
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 };
