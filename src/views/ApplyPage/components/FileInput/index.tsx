@@ -16,6 +16,9 @@ interface FileInputProps {
   defaultFile?: { id: number; file?: string; fileName?: string };
 }
 
+const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
+const ACCEPTED_FORMATS = '.pdf, .pptx';
+
 const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
   const [uploadPercent, setUploadPercent] = useState(-1);
@@ -25,43 +28,47 @@ const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInpu
   const { register, setValue } = formObject;
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
-  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+  const handleFileUpload = (file: File, id: number) => {
+    const storageRef = storage.ref();
+    const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
+
+    uploadTask.on(
+      STATE_CHANGED,
+      (snapshot) => {
+        const progress = Math.trunc((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setUploadPercent(progress);
+      },
+      (error) => {
+        console.error(error);
+        throw error;
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+          const urlWithoutToken = url.split('&token=')[0];
+          setFile(file);
+          setValue(`file${id}`, {
+            recruitingQuestionId: id,
+            file: urlWithoutToken,
+            fileName: file.name,
+          });
+        });
+      },
+    );
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
-    const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
         if (inputRef.current) {
           inputRef.current.value = '';
-          setFile(null);
         }
+        setFile(null);
       } else {
         setIsError(false);
         setFile(null);
-        const storageRef = storage.ref();
-        const uploadTask = storageRef.child('recruiting/applicants/question/' + file.name + nanoid(7)).put(file);
-
-        uploadTask.on(
-          STATE_CHANGED,
-          (snapshot) => {
-            const progress = Math.trunc((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            setUploadPercent(progress);
-          },
-          (error) => {
-            throw error;
-          },
-          () => {
-            uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-              const urlWithoutToken = url.split('&token=')[0];
-              setFile(file);
-              setValue(`file${id}`, {
-                recruitingQuestionId: id,
-                file: urlWithoutToken,
-                fileName: file.name,
-              });
-            });
-          },
-        );
+        handleFileUpload(file, id);
       }
     }
   };
@@ -94,9 +101,9 @@ const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInpu
       <input
         id={`file-${id}`}
         type="file"
-        accept=".pdf, .pptx"
+        accept={ACCEPTED_FORMATS}
         {...register(`file${id}`)}
-        onChange={(e) => handleFileUpload(e, id)}
+        onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
         className={fileInput}
         disabled={disabled || isReview}
