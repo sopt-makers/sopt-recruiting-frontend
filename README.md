@@ -31,7 +31,6 @@
               <img src="https://github.com/lydiacho.png" width="50" />
             </a>
         </td>
-    <td></td>
     </tr>
     <tr align="center">
      <td><sub>24.02 ~ 24.07</sup></td>
