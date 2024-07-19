@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import NowsoptLogo from '@assets/NowsoptLogo';
+import MakersLogo from '@assets/MakersLogo';
+// import NowsoptLogo from '@assets/NowsoptLogo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { MENU_ITEMS } from './contants';
@@ -30,7 +31,7 @@ const Header = () => {
   return (
     <header className={container}>
       <button onClick={handleClickLogo} className={logo}>
-        <NowsoptLogo />
+        <MakersLogo />
       </button>
       <nav>
         <ul className={menuList}>
