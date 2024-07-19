@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
@@ -26,19 +26,15 @@ import {
 interface ProfileImageProps {
   disabled: boolean;
   pic?: string;
-  formObject: Pick<
-    UseFormReturn,
-    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
-  >;
 }
 
-const ProfileImage = ({ disabled, pic, formObject }: ProfileImageProps) => {
+const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
   const {
     register,
     clearErrors,
     setValue,
     formState: { errors },
-  } = formObject;
+  } = useFormContext();
   const [image, setImage] = useState('');
   const [isFileSizeExceeded, setIsFileSizeExceeded] = useState('');
   const isError = isFileSizeExceeded || errors.picture;
@@ -77,7 +73,7 @@ const ProfileImage = ({ disabled, pic, formObject }: ProfileImageProps) => {
   };
 
   return (
-    <TextBox label="사진" name="picture" formObject={formObject} size="lg" required>
+    <TextBox label="사진" name="picture" size="lg" required>
       <div className={profileWrapper}>
         <input
           id="picture"
@@ -112,13 +108,9 @@ interface DefaultSectionProps {
   isReview: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
-  formObject: Pick<
-    UseFormReturn,
-    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setValue' | 'getValues' | 'setError'
-  >;
 }
 
-const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: DefaultSectionProps) => {
+const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
   const {
     address,
     birthday,
@@ -138,9 +130,9 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
   return (
     <section ref={refCallback} id="default" className={sectionContainer}>
       <h2 className={title}>기본 인적사항</h2>
-      <ProfileImage pic={pic} formObject={formObject} disabled={isReview} />
+      <ProfileImage pic={pic} disabled={isReview} />
       <div className={doubleWrapper}>
-        <TextBox label="이름" name="name" formObject={formObject} required size="sm">
+        <TextBox label="이름" name="name" required size="sm">
           <InputLine value={name} name="name" readOnly disabled={isReview} />
         </TextBox>
         <SelectBox
@@ -149,13 +141,12 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
           label="성별"
           name="gender"
           options={SELECT_OPTIONS.성별}
-          formObject={formObject}
           required
           disabled={isReview}
         />
       </div>
       <div className={doubleWrapper}>
-        <TextBox label="생년월일" name="birthday" formObject={formObject} required size="sm">
+        <TextBox label="생년월일" name="birthday" required size="sm">
           <InputLine
             name="birthday"
             placeholder="YYYY/MM/DD"
@@ -169,15 +160,15 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
             disabled={isReview}
           />
         </TextBox>
-        <TextBox label="연락처" name="phone" formObject={formObject} required size="sm">
+        <TextBox label="연락처" name="phone" required size="sm">
           <InputLine value={phone} name="phone" readOnly disabled={isReview} />
         </TextBox>
       </div>
-      <TextBox label="이메일" name="email" formObject={formObject} required size="lg">
+      <TextBox label="이메일" name="email" required size="lg">
         <InputLine value={email} name="email" readOnly disabled={isReview} />
       </TextBox>
-      <Postcode addressDraft={address} formObject={formObject} disabled={isReview} />
-      <TextBox label="지하철역" name="nearestStation" formObject={formObject} required size="lg">
+      <Postcode addressDraft={address} disabled={isReview} />
+      <TextBox label="지하철역" name="nearestStation" required size="lg">
         <InputLine
           defaultValue={nearestStation}
           name="nearestStation"
@@ -189,7 +180,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
         />
       </TextBox>
       <div className={doubleWrapper}>
-        <TextBox label="학교" name="college" formObject={formObject} required size="sm">
+        <TextBox label="학교" name="college" required size="sm">
           <InputLine
             defaultValue={college}
             name="college"
@@ -203,7 +194,6 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
             defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' : '재학'}
-            formObject={formObject}
             label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
             name="leaveAbsence"
             required
@@ -212,7 +202,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
         </div>
       </div>
       <div className={doubleWrapper}>
-        <TextBox label="학과" name="major" formObject={formObject} required size="sm">
+        <TextBox label="학과" name="major" required size="sm">
           <InputLine
             defaultValue={major}
             name="major"
@@ -229,7 +219,6 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
           name="univYear"
           placeholder="학년을 선택해주세요."
           options={SELECT_OPTIONS.학년}
-          formObject={formObject}
           required
           disabled={isReview}
         />
@@ -240,7 +229,6 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft, formObject }: D
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
         options={SELECT_OPTIONS.이전기수}
-        formObject={formObject}
         required
         size="lg"
         disabled={isReview}

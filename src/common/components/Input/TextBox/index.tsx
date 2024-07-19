@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { circle, containerVar, title } from './style.css';
 import { TextBoxProps } from '../types';
 
-export const FormContext = createContext({} as Pick<TextBoxProps, 'required' | 'formObject'>);
+export const FormContext = createContext({} as Pick<TextBoxProps, 'required'>);
 
 // TextBox Container
 export const TextBox = ({
@@ -12,10 +12,9 @@ export const TextBox = ({
   name,
   size = 'md',
   required,
-  formObject,
-}: Pick<TextBoxProps, 'children' | 'label' | 'name' | 'size' | 'required' | 'formObject'>) => {
+}: Pick<TextBoxProps, 'children' | 'label' | 'name' | 'size' | 'required'>) => {
   return (
-    <FormContext.Provider value={{ required, formObject }}>
+    <FormContext.Provider value={{ required }}>
       <div className={containerVar[size]}>
         <label className={title} htmlFor={name}>
           <span>{label}</span>

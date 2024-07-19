@@ -1,5 +1,3 @@
-import { UseFormReturn } from 'react-hook-form';
-
 import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/Contentbox';
 import SelectBox from '@components/Select';
@@ -11,10 +9,9 @@ import { doubleLineCheck, label, line, sectionContainer } from './style.css';
 interface BottomSectionProps {
   isReview: boolean;
   knownPath?: string;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'setValue' | 'watch'>;
 }
 
-const BottomSection = ({ isReview, knownPath, formObject }: BottomSectionProps) => {
+const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
   return (
     <section className={sectionContainer}>
       <hr className={line} />
@@ -24,18 +21,17 @@ const BottomSection = ({ isReview, knownPath, formObject }: BottomSectionProps) 
         defaultValue={knownPath}
         placeholder="지원 경로를 선택해 주세요."
         options={SELECT_OPTIONS.경로}
-        formObject={formObject}
         required
         disabled={isReview}
       />
       <div id="check-necessary" className={doubleLineCheck}>
         <p className={label}>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</p>
-        <Checkbox checked={isReview ? true : undefined} name="attendance" formObject={formObject} required>
+        <Checkbox checked={isReview ? true : undefined} name="attendance" required>
           참석 가능합니다.
         </Checkbox>
       </div>
       <div>
-        <Checkbox checked={isReview ? true : undefined} required name="personalInformation" formObject={formObject}>
+        <Checkbox checked={isReview ? true : undefined} required name="personalInformation">
           개인정보 수집 ‧ 이용에 동의합니다.
         </Checkbox>
         <Contentbox>{PRIVACY_POLICY}</Contentbox>

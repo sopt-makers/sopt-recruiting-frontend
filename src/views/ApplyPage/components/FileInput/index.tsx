@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import 'firebase/compat/storage';
 import { STATE_CHANGED, storage } from '@constants/firebase.ts';
@@ -12,23 +12,21 @@ interface FileInputProps {
   id: number;
   isReview: boolean;
   disabled?: boolean;
-  formObject: Pick<
-    UseFormReturn,
-    'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue' | 'getValues'
-  >;
   defaultFile?: { id: number; file?: string; fileName?: string };
 }
 
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf, .pptx';
 
-const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInputProps) => {
+const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [file, setFile] = useState<File | null>(null);
+
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
-  const { register, setValue, getValues } = formObject;
+
+  const { register, setValue, getValues } = useFormContext();
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (file: File, id: number) => {

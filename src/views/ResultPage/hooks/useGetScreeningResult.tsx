@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getScreeningResult } from '../apis';
 
-import type { MyError, ScreeningResultResponse } from '../../MyPage/types';
+import type { ScreeningResultResponse } from '../../MyPage/types';
+import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const useGetScreeningResult = () => {
   const { data: screeningResult, isLoading: screeningResultIsLoading } = useQuery<
     AxiosResponse<ScreeningResultResponse, null>,
-    AxiosError<MyError, null>,
+    AxiosError<ErrorResponse, null>,
     AxiosResponse<ScreeningResultResponse, null>,
     string[]
   >({

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
@@ -19,7 +19,7 @@ import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import useScrollToHash from './hooks/useScrollToHash';
-import { buttonWrapper, formContainer, sectionContainer } from './style.css';
+import { buttonWrapper, container, formContainer } from './style.css';
 
 import type { ApplyRequest, ApplyResponse } from './types';
 
@@ -56,13 +56,14 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
   const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
-  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const methods = useForm({ mode: 'onBlur' });
   const {
+    handleSubmit,
     getValues,
     setValue,
     formState: { errors },
     clearErrors,
-  } = formObject;
+  } = methods;
 
   const {
     address,
@@ -94,18 +95,15 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicantDraft]);
 
-  const refCallback = useCallback(
-    (element: HTMLSelectElement) => {
-      if (element) {
-        sectionsRef.current.push(element);
+  const refCallback = useCallback((element: HTMLSelectElement) => {
+    if (element) {
+      sectionsRef.current.push(element);
 
-        if (sectionsRef.current.length === 3) {
-          setSectionsUpdated(true);
-        }
+      if (sectionsRef.current.length === 3) {
+        setSectionsUpdated(true);
       }
-    },
-    [sectionsRef],
-  );
+    }
+  }, []);
 
   useEffect(() => {
     if (!sectionsUpdated) return;
@@ -129,6 +127,10 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     sectionsRef.current.forEach((section) => {
       observer.observe(section);
     });
+
+    return () => {
+      sectionsRef.current.forEach((section) => observer.unobserve(section));
+    };
   }, [sectionsUpdated]);
 
   useEffect(() => {
@@ -167,39 +169,25 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   }, [isReview]);
 
   if (questionsIsLoading || isLoading) return <BigLoading />;
-
   if (!isReview && NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
+
   const selectedPartId = questionTypes?.find((type) => type.typeKr === selectedPart)?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
+
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
       leaveAbsenceValue === '재학' ? false : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? true : undefined;
-    const univYear =
-      univYearValue === '1학년'
-        ? 1
-        : univYearValue === '2학년'
-          ? 2
-          : univYearValue === '3학년'
-            ? 3
-            : univYearValue === '4학년'
-              ? 4
-              : univYearValue === '수료 ‧ 유예 ‧ 졸업'
-                ? 5
-                : undefined;
+    const univYear = ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예 ‧ 졸업'].indexOf(univYearValue) + 1 || undefined;
 
-    const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = [];
-
-    for (const key in getValues()) {
-      if (key.startsWith('file') && getValues()[key] != undefined) {
-        fileValues.push(getValues()[key]);
-      }
-    }
+    const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
+      getValues(),
+    ).filter((value) => typeof value === 'object' && value !== null);
 
     let answersValue: { recruitingQuestionId: number; answer: string; file?: string; fileName?: string }[] = [];
 
@@ -214,6 +202,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             fileName: fileObject ? fileObject.fileName : undefined,
           };
         }) ?? [];
+
       const partAnswers =
         partQuestionIds?.map((id) => {
           const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
@@ -260,12 +249,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
       willAppjam: false,
     };
 
-    for (const key in getValues()) {
-      if (key.startsWith('file')) {
-        formValues[key] = getValues()[key];
-      }
-    }
-
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
 
@@ -274,7 +257,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <DraftDialog ref={draftDialog} />
       <SubmitDialog
         userInfo={{
@@ -290,7 +273,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
           submitDialog.current?.close();
         }}
       />
-      <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+      <div className={container}>
         <ApplyHeader
           isReview={isReview}
           isLoading={draftIsPending || submitIsPending}
@@ -298,19 +281,13 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
-        <div className={sectionContainer}>
-          <DefaultSection
-            isReview={isReview}
-            refCallback={refCallback}
-            applicantDraft={applicantDraft}
-            formObject={formObject}
-          />
+        <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+          <DefaultSection isReview={isReview} refCallback={refCallback} applicantDraft={applicantDraft} />
           <CommonSection
             isReview={isReview}
             refCallback={refCallback}
             questions={commonQuestions?.questions}
             commonQuestionsDraft={commonQuestionsDraft}
-            formObject={formObject}
           />
           <PartSection
             isReview={isReview}
@@ -318,9 +295,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             part={applicantDraft?.part}
             questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
-            formObject={formObject}
           />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} formObject={formObject} />
+          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
           {!isReview && (
             <div className={buttonWrapper}>
               <Button
@@ -334,9 +310,9 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
               </Button>
             </div>
           )}
-        </div>
-      </form>
-    </>
+        </form>
+      </div>
+    </FormProvider>
   );
 };
 

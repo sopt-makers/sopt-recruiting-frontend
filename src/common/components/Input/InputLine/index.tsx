@@ -1,4 +1,5 @@
 import { ChangeEvent, useContext } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { inputLine, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
@@ -15,23 +16,25 @@ const InputLine = ({
   errorText,
   children,
   ...inputElementProps
-}: Omit<TextBoxProps, 'label' | 'size' | 'formObject'>) => {
+}: Omit<TextBoxProps, 'label' | 'size'>) => {
   const {
-    required,
-    formObject: { register, formState, clearErrors, trigger, setValue },
-  } = useContext(FormContext);
-  const { errors } = formState;
+    register,
+    formState: { errors },
+    clearErrors,
+    trigger,
+    setValue,
+  } = useFormContext();
+  const { required } = useContext(FormContext);
   const { maxLength, minLength } = inputElementProps;
   const { defaultValue } = inputElementProps;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    clearErrors && clearErrors(name);
+    clearErrors && errors[name] && clearErrors(name);
 
     if (name === 'birthday') {
       const formattedValue = formatBirthdate(e.target.value);
       setValue('birthday', formattedValue);
     }
-
     if (name === 'phone') {
       const formattedValue = formatPhoneNumber(e.target.value);
       setValue('phone', formattedValue);
@@ -44,7 +47,7 @@ const InputLine = ({
         <input
           id={name}
           defaultValue={defaultValue}
-          className={inputVar[errors?.[name] ? 'error' : 'default']}
+          className={inputVar[errors[name] ? 'error' : 'default']}
           {...inputElementProps}
           {...register(name, {
             required: required && '필수 입력 항목이에요.',

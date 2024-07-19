@@ -1,5 +1,5 @@
 import { ReactNode, TextareaHTMLAttributes, useId } from 'react';
-import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
+import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
 import Input from './Input';
 import Label from './Label';
@@ -7,7 +7,6 @@ import { container } from './style.css';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: Path<T>;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
   maxCount: number;
   children: string | number;
   extraInput?: ReactNode;
@@ -15,7 +14,6 @@ interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HT
 
 const Textarea = <T extends FieldValues>({
   name,
-  formObject,
   maxCount,
   children,
   required = false,
@@ -27,7 +25,7 @@ const Textarea = <T extends FieldValues>({
     register,
     watch,
     formState: { errors },
-  } = formObject;
+  } = useFormContext();
 
   return (
     <div className={container}>

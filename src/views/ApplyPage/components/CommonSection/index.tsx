@@ -1,5 +1,3 @@
-import { UseFormReturn } from 'react-hook-form';
-
 import Textarea from '@components/Textarea';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
@@ -12,13 +10,9 @@ interface CommonSectionProps {
   refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
-  formObject: Pick<
-    UseFormReturn,
-    'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue' | 'getValues'
-  >;
 }
 
-const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft, formObject }: CommonSectionProps) => {
+const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft }: CommonSectionProps) => {
   const commonQuestionsById = commonQuestionsDraft?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
@@ -40,11 +34,10 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft,
             <Textarea
               name={`common${id}`}
               defaultValue={defaultValue}
-              formObject={formObject}
               maxCount={charLimit}
               extraInput={
                 isFile ? (
-                  <FileInput id={id} isReview={isReview} formObject={formObject} defaultFile={defaultFile} />
+                  <FileInput id={id} isReview={isReview} defaultFile={defaultFile} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null

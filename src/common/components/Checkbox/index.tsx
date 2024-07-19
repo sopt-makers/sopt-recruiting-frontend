@@ -1,4 +1,4 @@
-import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
+import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
 import { container, checkboxContainer, checkmark, hiddenCheckbox, requireDot, error } from './style.css';
 
@@ -8,20 +8,18 @@ interface CheckboxProps<T extends FieldValues> extends InputHTMLAttributes<HTMLI
   children?: string | number;
   name: Path<T>;
   showIcon?: boolean;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch'>;
 }
 
 const Checkbox = <T extends FieldValues>({
   children,
   name,
-  formObject,
   required = false,
   ...checkboxElementProps
 }: CheckboxProps<T>) => {
   const {
     register,
     formState: { errors },
-  } = formObject;
+  } = useFormContext();
 
   return (
     <>

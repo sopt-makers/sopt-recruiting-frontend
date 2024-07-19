@@ -4,14 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { sendPasswordChange } from '../apis';
 
-import type { PasswordError, PasswordRequest, PasswordResponse } from '../types';
+import type { PasswordRequest, PasswordResponse } from '../types';
+import type { ErrorResponse } from '@type/errorResponse';
 
 const useMutateChangePassword = () => {
   const navigate = useNavigate();
 
   const { mutate: changePasswordMutate, isPending: changePasswordIsPending } = useMutation<
     AxiosResponse<PasswordResponse, PasswordRequest>,
-    AxiosError<PasswordError, PasswordRequest>,
+    AxiosError<ErrorResponse, PasswordRequest>,
     PasswordRequest
   >({
     mutationFn: (userInfo: PasswordRequest) => sendPasswordChange(userInfo),
