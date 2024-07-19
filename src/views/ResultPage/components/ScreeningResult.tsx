@@ -8,8 +8,10 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { bottomAnimation, bottomImg, container, content, contentWrapper, link, strongText } from './style.css';
-import imgLogo from '../assets/imgLogo.png';
-import imgLogoWebp from '../assets/imgLogo.webp';
+// import imgSoptLogo from '../assets/imgSoptLogo.png';
+// import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
+import imgMakersLogo from '../assets/imgMakersLogo.png';
+import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
@@ -122,8 +124,8 @@ const ScreeningResult = () => {
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
-            <source srcSet={imgLogoWebp} type="image/webp" />
-            <img src={imgLogo} alt="sopt-logo" />
+            <source srcSet={imgMakersLogoWebp} type="image/webp" />
+            <img src={imgMakersLogo} alt="sopt-logo" />
           </picture>
         </>
       )}
