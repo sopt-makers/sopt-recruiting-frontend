@@ -37,10 +37,14 @@ const color = createThemeContract({
 });
 
 export const light = createTheme(color, {
-  primary: '#BDEC00',
-  primaryLight: 'rgba(189, 236, 0, 0.08)',
-  primaryDark: '#99BF00',
-  primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  // primary: '#BDEC00',
+  // primaryLight: 'rgba(189, 236, 0, 0.08)',
+  // primaryDark: '#99BF00',
+  // primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  primary: colors.gray600,
+  primaryLight: colors.gray30,
+  primaryDark: colors.gray950,
+  primaryLinear: colors.gray600,
   error: colors.error,
 
   background: colors.white,
@@ -70,10 +74,14 @@ export const light = createTheme(color, {
 });
 
 export const dark = createTheme(color, {
-  primary: '#BDEC00',
-  primaryLight: 'rgba(189, 236, 0, 0.08)',
-  primaryDark: '#99BF00',
-  primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  // primary: '#BDEC00',
+  // primaryLight: 'rgba(189, 236, 0, 0.08)',
+  // primaryDark: '#99BF00',
+  // primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  primary: colors.gray600,
+  primaryLight: colors.gray30,
+  primaryDark: colors.gray950,
+  primaryLinear: colors.gray600,
   error: colors.error,
 
   background: colors.gray950,

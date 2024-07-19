@@ -57,7 +57,8 @@ export const TextBox이메일 = ({
     watch,
     formState: { errors },
   } = useFormContext();
-  const { email, name, code } = getValues();
+  const { email, name } = getValues();
+  const code = watch('code');
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
@@ -153,9 +154,9 @@ export const TextBox이메일 = ({
 
       // 오류가 없을 때 이메일 확인 요청
       if (!emailError && isDone) {
+        checkUserMutate({ email, name, season, group });
         setValue('code', '');
         clearErrors('email');
-        checkUserMutate({ email, name, season, group });
       }
       return;
     }
