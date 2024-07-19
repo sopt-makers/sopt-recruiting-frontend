@@ -168,39 +168,25 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   }, [isReview]);
 
   if (questionsIsLoading || isLoading) return <BigLoading />;
-
   if (!isReview && NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
+
   const selectedPartId = questionTypes?.find((type) => type.typeKr === selectedPart)?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
+
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
       leaveAbsenceValue === '재학' ? false : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? true : undefined;
-    const univYear =
-      univYearValue === '1학년'
-        ? 1
-        : univYearValue === '2학년'
-          ? 2
-          : univYearValue === '3학년'
-            ? 3
-            : univYearValue === '4학년'
-              ? 4
-              : univYearValue === '수료 ‧ 유예 ‧ 졸업'
-                ? 5
-                : undefined;
+    const univYear = ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예 ‧ 졸업'].indexOf(univYearValue) + 1 || undefined;
 
-    const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = [];
-
-    for (const key in getValues()) {
-      if (key.startsWith('file') && getValues()[key] != undefined) {
-        fileValues.push(getValues()[key]);
-      }
-    }
+    const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
+      getValues(),
+    ).filter((value) => typeof value === 'object' && value !== null);
 
     let answersValue: { recruitingQuestionId: number; answer: string; file?: string; fileName?: string }[] = [];
 
@@ -215,6 +201,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             fileName: fileObject ? fileObject.fileName : undefined,
           };
         }) ?? [];
+
       const partAnswers =
         partQuestionIds?.map((id) => {
           const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
@@ -260,12 +247,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
       answers,
       willAppjam: false,
     };
-
-    for (const key in getValues()) {
-      if (key.startsWith('file')) {
-        formValues[key] = getValues()[key];
-      }
-    }
 
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
