@@ -38,9 +38,9 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
       locale: ko,
     },
   );
-  const formattedFinalPassConfirmStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)', { locale: ko });
-  const formattedInterviewStart = format(new Date(interviewEnd || ''), 'M월 dd일 (E)', { locale: ko });
-  const formattedInterviewEnd = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
 
   return (
     <section className={infoContainer}>
