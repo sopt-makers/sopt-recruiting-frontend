@@ -275,6 +275,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
           isReview={isReview}
           isLoading={draftIsPending || submitIsPending}
           onSaveDraft={() => handleSendData('draft')}
+          onSubmitData={handleApplySubmit}
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />

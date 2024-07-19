@@ -10,9 +10,10 @@ interface ApplyHeaderProps {
   isReview: boolean;
   isLoading: boolean;
   onSaveDraft: () => void;
+  onSubmitData: () => void;
 }
 
-const ApplyHeader = ({ isReview, isLoading, onSaveDraft }: ApplyHeaderProps) => {
+const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
   const {
     recruitingInfo: { season, group },
   } = useContext(RecruitingInfoContext);
@@ -27,7 +28,7 @@ const ApplyHeader = ({ isReview, isLoading, onSaveDraft }: ApplyHeaderProps) => 
           <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
             임시저장
           </Button>
-          <Button isLoading={isLoading} padding="10x24" type="submit">
+          <Button isLoading={isLoading} onClick={onSubmitData} padding="10x24" type="submit">
             제출하기
           </Button>
         </div>
