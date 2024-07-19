@@ -44,7 +44,7 @@ export const light = createTheme(color, {
   primary: colors.gray600,
   primaryLight: colors.gray30,
   primaryDark: colors.gray950,
-  primaryLinear: colors.gray600,
+  primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
   error: colors.error,
 
   background: colors.white,
@@ -81,7 +81,7 @@ export const dark = createTheme(color, {
   primary: colors.gray600,
   primaryLight: colors.gray30,
   primaryDark: colors.gray950,
-  primaryLinear: colors.gray600,
+  primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
   error: colors.error,
 
   background: colors.gray950,
