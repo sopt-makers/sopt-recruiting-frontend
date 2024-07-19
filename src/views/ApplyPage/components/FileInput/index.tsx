@@ -17,28 +17,11 @@ interface FileInputProps {
 
 const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
+  const [uploadPercent, setUploadPercent] = useState(-1);
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
   const { register, setValue } = formObject;
-
-  // const handleChangeFile = (e: ChangeEvent<HTMLInputElement>, id: number) => {
-  //   const file = e.target.files?.[0];
-  //   const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
-  //   if (file) {
-  //     if (LIMIT_SIZE < file.size) {
-  //       setIsError(true);
-  //       if (inputRef.current) {
-  //         inputRef.current.value = '';
-  //         setFile(null);
-  //       }
-  //     } else {
-  //       setIsError(false);
-  //       setFile(file);
-  //       setValue(`file_${id}`, file);
-  //     }
-  //   }
-  // };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
@@ -52,14 +35,15 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         }
       } else {
         setIsError(false);
+        setFile(null);
         const storageRef = storage.ref();
         const uploadTask = storageRef.child('recruiting/applicants/question/' + file.name + nanoid(7)).put(file);
 
         uploadTask.on(
           STATE_CHANGED,
           (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
+            const progress = Math.trunc((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            setUploadPercent(progress);
           },
           (error) => {
             throw error;
@@ -82,6 +66,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         inputRef.current.value = '';
         setFile(null);
         setValue(`file_${id}`, undefined);
+        setUploadPercent(-1);
       } else {
         inputRef.current.click();
       }
@@ -106,7 +91,13 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         <div className={textWrapper}>
           <span>파일</span>
           <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
-            {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
+            {uploadPercent < 0 && fileName === ''
+              ? '50mb 이하 | pdf, pptx'
+              : uploadPercent < 100
+                ? `업로드 중... ${uploadPercent}/100% 완료`
+                : uploadPercent === 100 && fileName === ''
+                  ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
+                  : fileName}
           </span>
         </div>
         <IconPlusButton isSelected={fileName !== ''} onClickIcon={handleClickIcon} disabled={disabled} />
