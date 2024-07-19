@@ -216,7 +216,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         }) ?? [];
       const partAnswers =
         partQuestionIds?.map((id) => {
-          const fileObject = fileValues?.find(({ recruitingQuestionId }) => recruitingQuestionId === id);
+          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
           return {
             recruitingQuestionId: id,
             answer: getValues()[`part${id}`],
@@ -231,10 +231,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         .filter(([question]) => !question.startsWith('file'))
         .map(([question, answer]: [question: string, answer: string]) => {
           const recruitingQuestionId = Number(question.replace(/[^0-9]/g, ''));
-          const fileObject =
-            fileValues.length > 0
-              ? fileValues.find(({ recruitingQuestionId }) => recruitingQuestionId === recruitingQuestionId)
-              : undefined;
+          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === recruitingQuestionId);
           return {
             recruitingQuestionId,
             answer,
