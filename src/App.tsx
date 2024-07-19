@@ -61,7 +61,7 @@ const App = () => {
         if (axiosError.response?.status === 401) {
           sessionRef.current?.showModal();
         } else if (axiosError.response?.status === 500) {
-          // window.location.href = '/error';
+          window.location.href = '/error';
         }
       },
     }),
@@ -72,7 +72,7 @@ const App = () => {
         if (axiosError.response?.status === 401) {
           sessionRef.current?.showModal();
         } else if (axiosError.response?.status === 500) {
-          // window.location.href = '/error';
+          window.location.href = '/error';
         }
       },
     }),

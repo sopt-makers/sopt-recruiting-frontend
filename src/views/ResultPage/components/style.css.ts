@@ -63,5 +63,9 @@ export const bottomImg = style({
   bottom: 0,
   right: 0,
   width: 556,
-  height: 556,
+  // height: 556,
+});
+
+export const link = style({
+  borderBottom: '1px solid currentColor',
 });
