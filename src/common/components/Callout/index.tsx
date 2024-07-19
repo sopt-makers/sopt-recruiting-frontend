@@ -27,7 +27,7 @@ const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: Call
         />
         {children}
       </div>
-      <div className={button}>{Button}</div>
+      {Button && <div className={button}>{Button}</div>}
     </article>
   );
 };

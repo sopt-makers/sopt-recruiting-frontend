@@ -5,7 +5,6 @@ import { theme } from 'styles/theme.css';
 const containerBase = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
 
   wordBreak: 'keep-all',
   padding: '28px 28px',
@@ -28,5 +27,6 @@ export const warningWrapper = style({
 });
 
 export const button = style({
+  marginTop: 8,
   marginLeft: 'auto',
 });
