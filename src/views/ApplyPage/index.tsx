@@ -126,6 +126,10 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     sectionsRef.current.forEach((section) => {
       observer.observe(section);
     });
+
+    return () => {
+      sectionsRef.current.forEach((section) => observer.unobserve(section));
+    };
   }, [sectionsUpdated]);
 
   useEffect(() => {
