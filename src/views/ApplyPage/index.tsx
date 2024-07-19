@@ -171,10 +171,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   if (questionsIsLoading || isLoading) return <BigLoading />;
   if (!isReview && NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
 
-  let selectedPart: string = getValues('part');
-  if (selectedPart === '기획') selectedPart = 'PM';
-
-  const selectedPartId = questionTypes?.find((type) => type.typeKr === selectedPart)?.id;
+  const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
@@ -295,6 +292,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             part={applicantDraft?.part}
             questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
+            questionTypes={questionTypes}
           />
           <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
           {!isReview && (

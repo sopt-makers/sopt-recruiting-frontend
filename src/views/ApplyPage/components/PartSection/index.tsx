@@ -2,7 +2,6 @@ import { useFormContext } from 'react-hook-form';
 
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
-import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
 import { sectionContainer, title } from './style.css';
@@ -19,13 +18,22 @@ interface PartSectionProps {
     questions: Questions[];
   }[];
   partQuestionsDraft?: Answers[];
+  questionTypes?: { id: number; type: string; typeKr: string; typeLegacy: null }[];
 }
 
-const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraft }: PartSectionProps) => {
+const PartSection = ({
+  isReview,
+  refCallback,
+  part,
+  questions,
+  partQuestionsDraft,
+  questionTypes,
+}: PartSectionProps) => {
   const { getValues } = useFormContext();
 
-  let selectedPart: string = getValues('part');
-  if (selectedPart === '기획') selectedPart = 'PM';
+  const partOptions = questionTypes?.sort((a, b) => a.id - b.id).map(({ typeKr }) => typeKr);
+
+  const selectedPart: string = getValues('part');
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
   const partQuestionsById = partQuestionsDraft?.reduce(
     (acc, draft) => {
@@ -43,7 +51,7 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
         label="지원파트"
         name="part"
         placeholder="지원하고 싶은 파트를 선택해주세요."
-        options={SELECT_OPTIONS.지원파트}
+        options={partOptions || []}
         size="lg"
         required
         disabled={isReview}
