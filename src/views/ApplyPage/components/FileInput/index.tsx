@@ -12,7 +12,10 @@ interface FileInputProps {
   id: number;
   isReview: boolean;
   disabled?: boolean;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue' | 'getValues'
+  >;
   defaultFile?: { id: number; file?: string; fileName?: string };
 }
 
@@ -25,7 +28,7 @@ const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInpu
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
-  const { register, setValue } = formObject;
+  const { register, setValue, getValues } = formObject;
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (file: File, id: number) => {
@@ -80,6 +83,9 @@ const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInpu
         setFile(null);
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
+      } else if (defaultFileName) {
+        setUploadPercent(-2);
+        setValue(`file${id}`, undefined);
       } else {
         inputRef.current.click();
       }
@@ -128,7 +134,7 @@ const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInpu
             <span className={fileNameVar['selected']}>{defaultFileName}</span>
           )}
         </div>
-        <IconPlusButton isSelected={fileName !== ''} onClickIcon={handleClickIcon} disabled={disabled} />
+        <IconPlusButton isSelected={getValues()[`file${id}`]} onClickIcon={handleClickIcon} disabled={disabled} />
       </label>
       {isError && <p className={errorText}>첨부파일 용량을 초과했어요</p>}
     </div>
