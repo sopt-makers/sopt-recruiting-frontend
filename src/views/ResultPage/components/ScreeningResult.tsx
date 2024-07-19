@@ -118,9 +118,9 @@ const ScreeningResult = () => {
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content pass={true} />
+        <Content pass={pass} />
       </div>
-      {true && (
+      {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
