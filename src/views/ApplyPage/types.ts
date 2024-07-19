@@ -52,11 +52,6 @@ export interface QuestionsResponse {
   }[];
 }
 
-export interface ApplyError {
-  err: boolean;
-  userMessage: string;
-}
-
 export interface Applicant {
   id: number;
   group: string;

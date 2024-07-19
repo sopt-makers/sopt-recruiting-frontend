@@ -8,12 +8,9 @@ import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePas
 
 import { formWrapper } from './style.css';
 
-interface PasswordFormProps {
-  season?: number;
-  group?: string;
-}
+import type { SeasonGroupType } from '@type/seasonAndGroup';
 
-const PasswordForm = ({ season, group }: PasswordFormProps) => {
+const PasswordForm = ({ season, group }: SeasonGroupType) => {
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;

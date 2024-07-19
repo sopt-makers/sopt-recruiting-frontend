@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getQuestions } from '../apis';
 
-import type { Applicant, ApplyError, QuestionsRequest, QuestionsResponse } from '../types';
+import type { Applicant, QuestionsRequest, QuestionsResponse } from '../types';
+import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const useGetQuestions = (applicantDraft: Applicant | undefined) => {
   const { data: questionsData, isLoading: questionsIsLoading } = useQuery<
     AxiosResponse<QuestionsResponse, QuestionsRequest>,
-    AxiosError<ApplyError, QuestionsRequest>,
+    AxiosError<ErrorResponse, QuestionsRequest>,
     AxiosResponse<QuestionsResponse, QuestionsRequest>,
     string[]
   >({

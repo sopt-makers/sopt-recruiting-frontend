@@ -5,11 +5,9 @@ import Title from '@components/Title';
 
 import { calloutButton, strongText } from './style.css';
 
-interface SignInInfoProps {
-  season?: number;
-}
+import type { SeasonGroupType } from '@type/seasonAndGroup';
 
-const SignInInfo = ({ season }: SignInInfoProps) => {
+const SignInInfo = ({ season }: SeasonGroupType) => {
   return (
     <>
       <Title>{season}기 Makers 지원하기</Title>

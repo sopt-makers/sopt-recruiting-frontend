@@ -8,12 +8,9 @@ import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
 import { inputWrapper, newPasswordButton } from './style.css';
 
-interface SignInFormProps {
-  season?: number;
-  group?: string;
-}
+import type { SeasonGroupType } from '@type/seasonAndGroup';
 
-const SignInForm = ({ season, group }: SignInFormProps) => {
+const SignInForm = ({ season, group }: SeasonGroupType) => {
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
   const { setError } = formObject;
   const { signInMutate, signInIsPending } = useMutateSignIn({

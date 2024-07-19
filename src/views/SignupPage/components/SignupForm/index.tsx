@@ -13,12 +13,9 @@ import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
 
-interface SignupFormProps {
-  season?: number;
-  group?: string;
-}
+import type { SeasonGroupType } from '@type/seasonAndGroup';
 
-const SignupForm = ({ season, group }: SignupFormProps) => {
+const SignupForm = ({ season, group }: SeasonGroupType) => {
   const { isVerified, handleVerified } = useVerificationStatus();
   const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
   const {

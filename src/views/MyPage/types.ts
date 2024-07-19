@@ -5,11 +5,6 @@ export interface MyRequest {
   password: string;
 }
 
-export interface MyError {
-  err: boolean;
-  userMessage: string;
-}
-
 export interface MyResponse {
   err: boolean;
   season: number;

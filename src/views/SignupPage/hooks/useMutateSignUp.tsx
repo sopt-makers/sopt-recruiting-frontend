@@ -5,7 +5,8 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { sendSignUp } from '../apis';
 
-import type { SignUpError, SignUpRequest, SignUpResponse } from '../types';
+import type { SignUpRequest, SignUpResponse } from '../types';
+import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const useMutateSignUp = ({ onSetError }: { onSetError: (name: string, type: string, message: string) => void }) => {
@@ -13,7 +14,7 @@ const useMutateSignUp = ({ onSetError }: { onSetError: (name: string, type: stri
 
   const { mutate: signUpMutate, isPending: signUpIsPending } = useMutation<
     AxiosResponse<SignUpResponse, SignUpRequest>,
-    AxiosError<SignUpError, SignUpRequest>,
+    AxiosError<ErrorResponse, SignUpRequest>,
     SignUpRequest
   >({
     mutationFn: (userInfo: SignUpRequest) => sendSignUp(userInfo),

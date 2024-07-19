@@ -11,13 +11,15 @@ import InputLine from './InputLine';
 import { success } from './style.css';
 import { TextBox } from './TextBox';
 import Timer from './Timer';
-import {
+
+import type {
   CheckUserRequest,
   CheckVerificationCodeRequest,
   SendVerificationCodeRequest,
   TextBoxProps,
   EmailResponse,
 } from './types';
+import type { ErrorResponse } from '@type/errorResponse';
 
 export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
   return (
@@ -61,7 +63,7 @@ export const TextBox이메일 = ({
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
-    AxiosError<EmailResponse, SendVerificationCodeRequest>,
+    AxiosError<ErrorResponse, SendVerificationCodeRequest>,
     SendVerificationCodeRequest
   >({
     mutationFn: ({ email, season, group, isSignup }: SendVerificationCodeRequest) =>
@@ -82,7 +84,7 @@ export const TextBox이메일 = ({
 
   const { mutate: checkUserMutate, isPending: checkUserIsPending } = useMutation<
     AxiosResponse<EmailResponse, CheckUserRequest>,
-    AxiosError<EmailResponse, CheckUserRequest>,
+    AxiosError<ErrorResponse, CheckUserRequest>,
     CheckUserRequest
   >({
     mutationFn: (userInfo: CheckUserRequest) => checkUser(userInfo),
@@ -107,7 +109,7 @@ export const TextBox이메일 = ({
 
   const { mutate: checkVerificationCodeMutate, isPending: checkVerificationCodeIsPending } = useMutation<
     AxiosResponse<EmailResponse, CheckVerificationCodeRequest>,
-    AxiosError<EmailResponse, CheckVerificationCodeRequest>,
+    AxiosError<ErrorResponse, CheckVerificationCodeRequest>,
     CheckVerificationCodeRequest
   >({
     mutationFn: ({ email, code }: CheckVerificationCodeRequest) => checkVerificationCode(email, code),

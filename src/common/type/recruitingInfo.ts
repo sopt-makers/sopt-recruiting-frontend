@@ -30,8 +30,3 @@ export interface RecruitingResponse {
     group: string;
   };
 }
-
-export interface RecruitingError {
-  err: boolean;
-  userMessage: string;
-}
