@@ -12,7 +12,10 @@ interface CommonSectionProps {
   refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue' | 'getValues'
+  >;
 }
 
 const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft, formObject }: CommonSectionProps) => {
@@ -30,6 +33,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft,
       {questions?.map(({ urls, value, id, charLimit, isFile }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
+        const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
 
         return (
           <div key={value}>
@@ -40,7 +44,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft,
               maxCount={charLimit}
               extraInput={
                 isFile ? (
-                  <FileInput id={id} isReview={isReview} formObject={formObject} />
+                  <FileInput id={id} isReview={isReview} formObject={formObject} defaultFile={defaultFile} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null

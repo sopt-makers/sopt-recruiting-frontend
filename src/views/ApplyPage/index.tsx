@@ -193,29 +193,52 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
                 ? 5
                 : undefined;
 
-    let answersValue = [];
+    const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = [];
+
+    for (const key in getValues()) {
+      if (key.startsWith('file') && getValues()[key] != undefined) {
+        fileValues.push(getValues()[key]);
+      }
+    }
+
+    let answersValue: { recruitingQuestionId: number; answer: string; file?: string; fileName?: string }[] = [];
 
     if (type === 'submit') {
       const commonAnswers =
-        commonQuestionIds?.map((id) => ({
-          recruitingQuestionId: id,
-          answer: getValues()[`common${id}`],
-        })) ?? [];
+        commonQuestionIds?.map((id) => {
+          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
+          return {
+            recruitingQuestionId: id,
+            answer: getValues()[`common${id}`],
+            file: fileObject ? fileObject.file : undefined,
+            fileName: fileObject ? fileObject.fileName : undefined,
+          };
+        }) ?? [];
       const partAnswers =
-        partQuestionIds?.map((id) => ({
-          recruitingQuestionId: id,
-          answer: getValues()[`part${id}`],
-        })) ?? [];
+        partQuestionIds?.map((id) => {
+          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
+          return {
+            recruitingQuestionId: id,
+            answer: getValues()[`part${id}`],
+            file: fileObject ? fileObject.file : undefined,
+            fileName: fileObject ? fileObject.fileName : undefined,
+          };
+        }) ?? [];
 
       answersValue = [...commonAnswers, ...partAnswers];
     } else {
-      answersValue = [...Object.entries(rest)].map(([question, answer]: [question: string, answer: string]) => {
-        const recruitingQuestionId = question.replace(/[^0-9]/g, '');
-        return {
-          recruitingQuestionId,
-          answer,
-        };
-      });
+      answersValue = [...Object.entries(rest)]
+        .filter(([question]) => !question.startsWith('file'))
+        .map(([question, answer]: [question: string, answer: string]) => {
+          const recruitingQuestionId = Number(question.replace(/[^0-9]/g, ''));
+          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === recruitingQuestionId);
+          return {
+            recruitingQuestionId,
+            answer,
+            file: fileObject ? fileObject.file : undefined,
+            fileName: fileObject ? fileObject.fileName : undefined,
+          };
+        });
     }
 
     const answers = JSON.stringify(answersValue);

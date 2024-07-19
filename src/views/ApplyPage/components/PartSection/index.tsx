@@ -56,6 +56,7 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
       {filteredQuestions?.map(({ value, charLimit, id, urls, isFile }) => {
         const draftItem = partQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
+        const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
 
         return (
           <div key={value}>
@@ -66,7 +67,7 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
               maxCount={charLimit}
               extraInput={
                 isFile ? (
-                  <FileInput id={id} isReview={isReview} formObject={formObject} />
+                  <FileInput id={id} isReview={isReview} formObject={formObject} defaultFile={defaultFile} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null

@@ -1,5 +1,9 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { nanoid } from 'nanoid';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+
+import 'firebase/compat/storage';
+import { STATE_CHANGED, storage } from '@constants/firebase.ts';
 
 import IconPlusButton from './icons/IconPlusButton';
 import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
@@ -8,30 +12,66 @@ interface FileInputProps {
   id: number;
   isReview: boolean;
   disabled?: boolean;
-  formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue'>;
+  formObject: Pick<
+    UseFormReturn,
+    'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue' | 'getValues'
+  >;
+  defaultFile?: { id: number; file?: string; fileName?: string };
 }
 
-const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
+const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
+const ACCEPTED_FORMATS = '.pdf, .pptx';
+
+const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
+  const [uploadPercent, setUploadPercent] = useState(-1);
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
-  const { register, setValue } = formObject;
+  const { register, setValue, getValues } = formObject;
+  const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+  const handleFileUpload = (file: File, id: number) => {
+    const storageRef = storage.ref();
+    const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
+
+    uploadTask.on(
+      STATE_CHANGED,
+      (snapshot) => {
+        const progress = Math.trunc((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setUploadPercent(progress);
+      },
+      (error) => {
+        console.error(error);
+        throw error;
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+          const urlWithoutToken = url.split('&token=')[0];
+          setFile(file);
+          setValue(`file${id}`, {
+            recruitingQuestionId: id,
+            file: urlWithoutToken,
+            fileName: file.name,
+          });
+        });
+      },
+    );
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
-    const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
         if (inputRef.current) {
           inputRef.current.value = '';
-          setFile(null);
         }
+        setFile(null);
       } else {
         setIsError(false);
-        setFile(file);
-        setValue(`file_${id}`, file);
+        setFile(null);
+        handleFileUpload(file, id);
       }
     }
   };
@@ -41,21 +81,35 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
       if (file) {
         inputRef.current.value = '';
         setFile(null);
-        setValue(`file_${id}`, undefined);
+        setValue(`file${id}`, undefined);
+        setUploadPercent(-1);
+      } else if (defaultFileName) {
+        setUploadPercent(-2);
+        setValue(`file${id}`, undefined);
       } else {
         inputRef.current.click();
       }
     }
   };
 
+  useEffect(() => {
+    if (defaultFileId && defaultFileUrl && defaultFileName) {
+      setValue(`file${defaultFileId}`, {
+        file: defaultFileUrl,
+        fileName: defaultFileName,
+        recruitingQuestionId: defaultFileId,
+      });
+    }
+  }, [defaultFileId, defaultFileUrl, defaultFileName, setValue]);
+
   return (
     <div className={container}>
       <input
         id={`file-${id}`}
         type="file"
-        accept=".pdf, .pptx"
-        {...register(`file_${id}`)}
-        onChange={(e) => handleChangeFile(e, id)}
+        accept={ACCEPTED_FORMATS}
+        {...register(`file${id}`)}
+        onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
         className={fileInput}
         disabled={disabled || isReview}
@@ -65,11 +119,26 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
-          <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
-            {fileName === '' ? '50mb 이하 | pdf, pptx' : fileName}
-          </span>
+          {(uploadPercent !== -1 || !defaultFileName) && (
+            <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
+              {uploadPercent < 0 && fileName === ''
+                ? '50mb 이하 | pdf, pptx'
+                : uploadPercent < 100
+                  ? `업로드 중... ${uploadPercent}/100% 완료`
+                  : uploadPercent === 100 && fileName === ''
+                    ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
+                    : fileName}
+            </span>
+          )}
+          {uploadPercent === -1 && defaultFileName && (
+            <span className={fileNameVar['selected']}>{defaultFileName}</span>
+          )}
         </div>
-        <IconPlusButton isSelected={fileName !== ''} onClickIcon={handleClickIcon} disabled={disabled} />
+        <IconPlusButton
+          isSelected={getValues()[`file${id}`]}
+          onClickIcon={handleClickIcon}
+          disabled={disabled || isReview}
+        />
       </label>
       {isError && <p className={errorText}>첨부파일 용량을 초과했어요</p>}
     </div>
