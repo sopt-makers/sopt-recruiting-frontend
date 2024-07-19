@@ -134,7 +134,11 @@ const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInpu
             <span className={fileNameVar['selected']}>{defaultFileName}</span>
           )}
         </div>
-        <IconPlusButton isSelected={getValues()[`file${id}`]} onClickIcon={handleClickIcon} disabled={disabled} />
+        <IconPlusButton
+          isSelected={getValues()[`file${id}`]}
+          onClickIcon={handleClickIcon}
+          disabled={disabled || isReview}
+        />
       </label>
       {isError && <p className={errorText}>첨부파일 용량을 초과했어요</p>}
     </div>
