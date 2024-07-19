@@ -94,18 +94,15 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicantDraft]);
 
-  const refCallback = useCallback(
-    (element: HTMLSelectElement) => {
-      if (element) {
-        sectionsRef.current.push(element);
+  const refCallback = useCallback((element: HTMLSelectElement) => {
+    if (element) {
+      sectionsRef.current.push(element);
 
-        if (sectionsRef.current.length === 3) {
-          setSectionsUpdated(true);
-        }
+      if (sectionsRef.current.length === 3) {
+        setSectionsUpdated(true);
       }
-    },
-    [sectionsRef],
-  );
+    }
+  }, []);
 
   useEffect(() => {
     if (!sectionsUpdated) return;
