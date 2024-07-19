@@ -52,7 +52,11 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
             uploadTask.snapshot.ref.getDownloadURL().then((url) => {
               const urlWithoutToken = url.split('&token=')[0];
               setFile(file);
-              setValue(`file_${id}`, urlWithoutToken);
+              setValue(`file${id}`, {
+                recruitingQuestionId: id,
+                file: urlWithoutToken,
+                fileName: file.name,
+              });
             });
           },
         );
@@ -65,7 +69,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
       if (file) {
         inputRef.current.value = '';
         setFile(null);
-        setValue(`file_${id}`, undefined);
+        setValue(`file${id}`, undefined);
         setUploadPercent(-1);
       } else {
         inputRef.current.click();
@@ -79,7 +83,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         id={`file-${id}`}
         type="file"
         accept=".pdf, .pptx"
-        {...register(`file_${id}`)}
+        {...register(`file${id}`)}
         onChange={(e) => handleFileUpload(e, id)}
         ref={inputRef}
         className={fileInput}
