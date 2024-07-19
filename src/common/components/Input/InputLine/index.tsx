@@ -25,13 +25,12 @@ const InputLine = ({
   const { defaultValue } = inputElementProps;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    clearErrors && clearErrors(name);
+    clearErrors && errors[name] && clearErrors(name);
 
     if (name === 'birthday') {
       const formattedValue = formatBirthdate(e.target.value);
       setValue('birthday', formattedValue);
     }
-
     if (name === 'phone') {
       const formattedValue = formatPhoneNumber(e.target.value);
       setValue('phone', formattedValue);
