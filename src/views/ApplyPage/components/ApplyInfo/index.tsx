@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 
 import Callout from '@components/Callout';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
@@ -17,7 +17,7 @@ import {
 } from './style.css';
 import { APPLY_INFO } from '../../constant';
 
-const ApplyInfo = ({ isReview }: { isReview: boolean }) => {
+const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
   const {
     recruitingInfo: {
       applicationStart,
@@ -94,6 +94,8 @@ const ApplyInfo = ({ isReview }: { isReview: boolean }) => {
       )}
     </section>
   );
-};
+});
+
+ApplyInfo.displayName = 'ApplyInfo';
 
 export default ApplyInfo;

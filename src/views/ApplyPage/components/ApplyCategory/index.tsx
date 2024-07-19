@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CATEGORY } from './constant';
@@ -6,7 +7,7 @@ import { activeLinkStyle, categoryLinkStyle, categoryList, container } from './s
 interface ApplyCategoryProps {
   minIndex: number;
 }
-const ApplyCategory = ({ minIndex }: ApplyCategoryProps) => {
+const ApplyCategory = memo(({ minIndex }: ApplyCategoryProps) => {
   return (
     <nav className={container}>
       <ul className={categoryList}>
@@ -20,6 +21,8 @@ const ApplyCategory = ({ minIndex }: ApplyCategoryProps) => {
       </ul>
     </nav>
   );
-};
+});
+
+ApplyCategory.displayName = 'ApplyCategory';
 
 export default ApplyCategory;
