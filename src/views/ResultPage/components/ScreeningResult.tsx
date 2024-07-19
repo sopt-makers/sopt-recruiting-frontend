@@ -7,29 +7,52 @@ import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { bottomAnimation, bottomImg, container, content, contentWrapper, strongText } from './style.css';
+import { bottomAnimation, bottomImg, container, content, contentWrapper, link, strongText } from './style.css';
 import imgLogo from '../assets/imgLogo.png';
 import imgLogoWebp from '../assets/imgLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
+  const {
+    recruitingInfo: { name },
+  } = useContext(RecruitingInfoContext);
   const { data, isLoading } = useGetRecruitingInfo();
-  const { name, season, group, ybInterviewStart, ybInterviewEnd, obInterviewStart, obInterviewEnd } =
-    data?.data.season || {};
+  const {
+    name: soptName,
+    season,
+    group,
+    ybApplicationPassConfirmStart,
+    obApplicationPassConfirmStart,
+    ybInterviewStart,
+    ybInterviewEnd,
+    obInterviewStart,
+    obInterviewEnd,
+  } = data?.data.season || {};
 
   if (isLoading) return <BigLoading />;
 
   const interviewStartTime = group === 'OB' ? obInterviewStart : ybInterviewStart;
   const interviewEndTime = group === 'OB' ? obInterviewEnd : ybInterviewEnd;
+  const applicationPassConfirmTime = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
+
+  const applicationDate = new Date(applicationPassConfirmTime || '');
+  const applicationPassConfirmNextDay = new Date(applicationDate);
+  applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
   const formattedInterviewStart = format(new Date(interviewStartTime || ''), 'M/dd(E)', { locale: ko });
   const formattedInterviewEnd = format(new Date(interviewEndTime || ''), 'M/dd(E)', { locale: ko });
+  const formattedApplicationPassConfirmStart = format(applicationDate, 'dd일 EEEE', {
+    locale: ko,
+  });
+  const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'dd일 EEEE', {
+    locale: ko,
+  });
 
   return (
     <>
       {pass ? (
         <p className={content}>
-          <span>{`안녕하세요. ${season}기 NOW SOPT 입니다.\n\n`}</span>
+          <span>{`안녕하세요. ${season}기 ${soptName} 입니다.\n\n`}</span>
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
@@ -39,21 +62,25 @@ const Content = ({ pass }: { pass?: boolean }) => {
               모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
-          <a href="https://sopt.org">https://sopt.org</a>
+          <a className={link} href="https://sopt.org">
+            https://sopt.org
+          </a>
+          <br />
           <span>
             {`
-              위 구글폼은 금일 20시 정각(14일 목요일 오후 8시)까지 제출해주셔야 합니다.
-              면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를 내일(15일 금요일) 오후 12시 전으로 이메일을
-              통해 전해드리겠습니다.
+              위 구글폼은 금일 20시 정각(${formattedApplicationPassConfirmStart} 오후 8시)까지 제출해주셔야 합니다.
+              면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를 
+              내일(${formattedApplicationPassConfirmNextDay}) 오후 12시 전으로 이메일을 통해 전해드리겠습니다.
+
             `}
           </span>
           <span>{`다시 한 번 진심으로 축하드리며, 면접에서 뵙도록 하겠습니다. :)`}</span>
         </p>
       ) : (
         <p className={content}>
-          {`안녕하세요. NOW SOPT입니다.
+          {`안녕하세요. ${soptName}입니다.
               
-            ${name}님은 ${season}기 NOW SOPT 신입회원 서류 모집에 불합격하셨습니다.
+            ${name}님은 ${season}기 ${soptName} 신입회원 서류 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 합격 소식을
             전해드리지 못하게 되었습니다.
@@ -89,9 +116,9 @@ const ScreeningResult = () => {
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content pass={pass} />
+        <Content pass={true} />
       </div>
-      {pass && (
+      {true && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>

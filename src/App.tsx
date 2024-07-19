@@ -17,6 +17,8 @@ import ResultPage from 'views/ResultPage';
 import SignupPage from 'views/SignupPage';
 
 import 'styles/reset.css';
+import FinalResult from 'views/ResultPage/components/FinalResult';
+import ScreeningResult from 'views/ResultPage/components/ScreeningResult';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
       { path: '/password', element: <PasswordPage /> },
       { path: '/result', element: <ResultPage /> },
       { path: '/error', element: <ErrorPage code={500} /> },
+      { path: '/test', element: <ScreeningResult /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],
   },

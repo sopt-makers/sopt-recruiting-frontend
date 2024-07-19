@@ -77,7 +77,7 @@ const MainPage = () => {
   const beforeRecruiting = isAfter(new Date(applicationStart || ''), new Date());
   const afterRecruiting = isBefore(new Date(finalPassConfirmEnd || ''), new Date());
 
-  if (beforeRecruiting || afterRecruiting) return <NoMore content="모집 기간이 아니에요" />;
+  // if (beforeRecruiting || afterRecruiting) return <NoMore content="모집 기간이 아니에요" />;
 
   return <>{isSignedIn ? <SignedInPage /> : <SignInPage />}</>;
 };
