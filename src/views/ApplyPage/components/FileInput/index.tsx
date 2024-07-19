@@ -1,5 +1,9 @@
+import { nanoid } from 'nanoid';
 import { ChangeEvent, useRef, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+
+import 'firebase/compat/storage';
+import { STATE_CHANGED, storage } from '@constants/firebase.ts';
 
 import IconPlusButton from './icons/IconPlusButton';
 import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
@@ -18,7 +22,25 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { register, setValue } = formObject;
 
-  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+  // const handleChangeFile = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+  //   const file = e.target.files?.[0];
+  //   const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
+  //   if (file) {
+  //     if (LIMIT_SIZE < file.size) {
+  //       setIsError(true);
+  //       if (inputRef.current) {
+  //         inputRef.current.value = '';
+  //         setFile(null);
+  //       }
+  //     } else {
+  //       setIsError(false);
+  //       setFile(file);
+  //       setValue(`file_${id}`, file);
+  //     }
+  //   }
+  // };
+
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
     const LIMIT_SIZE = 1024 ** 2 * 50; //50MB
     if (file) {
@@ -30,8 +52,26 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         }
       } else {
         setIsError(false);
-        setFile(file);
-        setValue(`file_${id}`, file);
+        const storageRef = storage.ref();
+        const uploadTask = storageRef.child('recruiting/applicants/question/' + file.name + nanoid(7)).put(file);
+
+        uploadTask.on(
+          STATE_CHANGED,
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+          },
+          (error) => {
+            throw error;
+          },
+          () => {
+            uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+              const urlWithoutToken = url.split('&token=')[0];
+              setFile(file);
+              setValue(`file_${id}`, urlWithoutToken);
+            });
+          },
+        );
       }
     }
   };
@@ -55,7 +95,7 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         type="file"
         accept=".pdf, .pptx"
         {...register(`file_${id}`)}
-        onChange={(e) => handleChangeFile(e, id)}
+        onChange={(e) => handleFileUpload(e, id)}
         ref={inputRef}
         className={fileInput}
         disabled={disabled || isReview}
