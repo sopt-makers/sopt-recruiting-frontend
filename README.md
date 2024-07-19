@@ -14,12 +14,14 @@
 
 ## 만든 사람들
 
+<div align="center">
+<table align="center">
 <tr>
    <tr align="center">
       <td >
-      <b>4기</b>
+       <b>4기</b>
       </td>
-        <td>
+       <td>
             <a href="https://github.com/eonseok-jeon">
               <img src="https://github.com/eonseok-jeon.png" width="50" />
             </a> 
@@ -29,7 +31,7 @@
               <img src="https://github.com/lydiacho.png" width="50" />
             </a>
         </td>
-        <td></td>
+    <td></td>
     </tr>
     <tr align="center">
      <td><sub>24.02 ~ 24.07</sup></td>
@@ -42,3 +44,5 @@
      <td></td>
     </tr>
 </tr>
+</table>
+</div>
