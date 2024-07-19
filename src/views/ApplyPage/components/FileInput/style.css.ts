@@ -5,6 +5,8 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   position: 'relative',
   width: 720,
+  height: 53,
+  maxHeight: 53,
 });
 
 export const fileInput = style({
@@ -64,6 +66,11 @@ export const textWrapper = style({
 });
 
 const fileName = style({
+  width: 570,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+
   selectors: {
     [`${fileInput}:disabled ~ label > div > &`]: {
       color: theme.color.lighterText,
