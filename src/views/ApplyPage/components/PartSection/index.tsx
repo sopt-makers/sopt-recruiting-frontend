@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
@@ -19,14 +19,10 @@ interface PartSectionProps {
     questions: Questions[];
   }[];
   partQuestionsDraft?: Answers[];
-  formObject: Pick<
-    UseFormReturn,
-    'register' | 'formState' | 'watch' | 'clearErrors' | 'setValue' | 'getValues' | 'watch' | 'trigger'
-  >;
 }
 
-const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraft, formObject }: PartSectionProps) => {
-  const { getValues } = formObject;
+const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraft }: PartSectionProps) => {
+  const { getValues } = useFormContext();
 
   let selectedPart: string = getValues('part');
   if (selectedPart === '기획') selectedPart = 'PM';
@@ -48,7 +44,6 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
         name="part"
         placeholder="지원하고 싶은 파트를 선택해주세요."
         options={SELECT_OPTIONS.지원파트}
-        formObject={formObject}
         size="lg"
         required
         disabled={isReview}
@@ -63,11 +58,10 @@ const PartSection = ({ isReview, refCallback, part, questions, partQuestionsDraf
             <Textarea
               name={`part${id}`}
               defaultValue={defaultValue}
-              formObject={formObject}
               maxCount={charLimit}
               extraInput={
                 isFile ? (
-                  <FileInput id={id} isReview={isReview} formObject={formObject} defaultFile={defaultFile} />
+                  <FileInput id={id} isReview={isReview} defaultFile={defaultFile} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null

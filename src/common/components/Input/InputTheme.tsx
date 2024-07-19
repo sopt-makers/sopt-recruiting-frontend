@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
@@ -16,14 +17,13 @@ import type {
   CheckUserRequest,
   CheckVerificationCodeRequest,
   SendVerificationCodeRequest,
-  TextBoxProps,
   EmailResponse,
 } from './types';
 import type { ErrorResponse } from '@type/errorResponse';
 
-export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
+export const TextBox이름 = () => {
   return (
-    <TextBox label="이름" name="name" formObject={formObject} required>
+    <TextBox label="이름" name="name" required>
       <InputLine
         name="name"
         pattern={VALIDATION_CHECK.name.pattern}
@@ -38,14 +38,12 @@ export const TextBox이름 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) 
 
 interface TextBox이메일Props {
   recruitingInfo: { season?: number; group?: string };
-  formObject: TextBoxProps['formObject'];
   isVerified: boolean;
   onChangeVerification: (bool: boolean) => void;
 }
 
 export const TextBox이메일 = ({
   recruitingInfo: { season, group },
-  formObject,
   isVerified,
   onChangeVerification,
 }: TextBox이메일Props) => {
@@ -58,7 +56,7 @@ export const TextBox이메일 = ({
     setValue,
     watch,
     formState: { errors },
-  } = formObject;
+  } = useFormContext();
   const { email, name, code } = getValues();
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
@@ -178,7 +176,7 @@ export const TextBox이메일 = ({
   }, [watch('email')]);
 
   return (
-    <TextBox label="이메일" name="email" formObject={formObject} required>
+    <TextBox label="이메일" name="email" required>
       <InputLine
         style={{ paddingRight: isActive ? 50 : 16 }}
         name="email"
@@ -212,11 +210,11 @@ export const TextBox이메일 = ({
   );
 };
 
-export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObject'>) => {
+export const TextBox비밀번호 = () => {
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
   const name = location.pathname === '/password' ? 'newPassword' : 'password';
-  const { watch, trigger } = formObject;
+  const { watch, trigger } = useFormContext();
 
   const password = watch(name);
   const passwordConfirm = watch('passwordCheck');
@@ -226,7 +224,7 @@ export const TextBox비밀번호 = ({ formObject }: Pick<TextBoxProps, 'formObje
   }, [password, passwordConfirm, trigger]);
 
   return (
-    <TextBox label={textVar} name={name} formObject={formObject} required>
+    <TextBox label={textVar} name={name} required>
       <InputLine
         name={name}
         placeholder={`${textVar}를 입력해주세요.`}

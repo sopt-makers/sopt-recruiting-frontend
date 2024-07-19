@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
@@ -56,13 +56,14 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
   const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
-  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
+  const methods = useForm({ mode: 'onBlur' });
   const {
+    handleSubmit,
     getValues,
     setValue,
     formState: { errors },
     clearErrors,
-  } = formObject;
+  } = methods;
 
   const {
     address,
@@ -256,7 +257,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <DraftDialog ref={draftDialog} />
       <SubmitDialog
         userInfo={{
@@ -281,18 +282,12 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
         <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-          <DefaultSection
-            isReview={isReview}
-            refCallback={refCallback}
-            applicantDraft={applicantDraft}
-            formObject={formObject}
-          />
+          <DefaultSection isReview={isReview} refCallback={refCallback} applicantDraft={applicantDraft} />
           <CommonSection
             isReview={isReview}
             refCallback={refCallback}
             questions={commonQuestions?.questions}
             commonQuestionsDraft={commonQuestionsDraft}
-            formObject={formObject}
           />
           <PartSection
             isReview={isReview}
@@ -300,9 +295,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             part={applicantDraft?.part}
             questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
-            formObject={formObject}
           />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} formObject={formObject} />
+          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
           {!isReview && (
             <div className={buttonWrapper}>
               <Button
@@ -318,7 +312,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
           )}
         </form>
       </div>
-    </>
+    </FormProvider>
   );
 };
 

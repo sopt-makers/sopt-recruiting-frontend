@@ -1,5 +1,6 @@
 import { IconChevronDown } from '@sopt-makers/icons';
 import { ChangeEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import {
   circle,
@@ -14,16 +15,8 @@ import {
 } from './style.css';
 import { SelectBoxProps } from './type';
 
-const SelectBox = ({
-  label,
-  name,
-  options,
-  size = 'sm',
-  formObject,
-  required,
-  ...inputElementProps
-}: SelectBoxProps) => {
-  const { register, formState, clearErrors, setValue } = formObject;
+const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
+  const { register, formState, clearErrors, setValue } = useFormContext();
   const { errors } = formState;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

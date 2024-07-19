@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { type FieldValues, useForm } from 'react-hook-form';
+import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
 import Checkbox from '@components/Checkbox';
@@ -17,12 +17,13 @@ import type { SeasonGroupType } from '@type/seasonAndGroup';
 
 const SignupForm = ({ season, group }: SeasonGroupType) => {
   const { isVerified, handleVerified } = useVerificationStatus();
-  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' }); // 임시
+  const methods = useForm({ mode: 'onBlur' });
   const {
+    handleSubmit,
     setError,
     setFocus,
     formState: { errors },
-  } = formObject;
+  } = methods;
   const { signUpMutate, signUpIsPending } = useMutateSignUp({
     onSetError: (name, type, message) => setError(name, { type, message }),
   });
@@ -58,35 +59,36 @@ const SignupForm = ({ season, group }: SeasonGroupType) => {
   }, [errors.email?.message, setFocus]);
 
   return (
-    <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={formWrapper}>
-      <TextBox이름 formObject={formObject} />
-      <TextBox label="연락처" name="phone" formObject={formObject} required>
-        <InputLine
-          name="phone"
-          placeholder="010-0000-0000"
-          type="tel"
-          pattern={VALIDATION_CHECK.phoneNumber.pattern}
-          maxLength={VALIDATION_CHECK.phoneNumber.maxLength}
-          errorText={VALIDATION_CHECK.phoneNumber.errorText}
+    <FormProvider {...methods}>
+      <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={formWrapper}>
+        <TextBox이름 />
+        <TextBox label="연락처" name="phone" required>
+          <InputLine
+            name="phone"
+            placeholder="010-0000-0000"
+            type="tel"
+            pattern={VALIDATION_CHECK.phoneNumber.pattern}
+            maxLength={VALIDATION_CHECK.phoneNumber.maxLength}
+            errorText={VALIDATION_CHECK.phoneNumber.errorText}
+          />
+        </TextBox>
+        <TextBox이메일
+          recruitingInfo={{ season, group }}
+          isVerified={isVerified}
+          onChangeVerification={handleVerified}
         />
-      </TextBox>
-      <TextBox이메일
-        recruitingInfo={{ season, group }}
-        isVerified={isVerified}
-        onChangeVerification={handleVerified}
-        formObject={formObject}
-      />
-      <TextBox비밀번호 formObject={formObject} />
-      <div>
-        <Checkbox required name="personalInformation" formObject={formObject}>
-          개인정보 수집 ‧ 이용에 동의합니다.
-        </Checkbox>
-        <Contentbox>{PRIVACY_POLICY}</Contentbox>
-      </div>
-      <Button isLoading={signUpIsPending} type="submit" style={{ marginTop: 30 }}>
-        지원서 작성하기
-      </Button>
-    </form>
+        <TextBox비밀번호 />
+        <div>
+          <Checkbox required name="personalInformation">
+            개인정보 수집 ‧ 이용에 동의합니다.
+          </Checkbox>
+          <Contentbox>{PRIVACY_POLICY}</Contentbox>
+        </div>
+        <Button isLoading={signUpIsPending} type="submit" style={{ marginTop: 30 }}>
+          지원서 작성하기
+        </Button>
+      </form>
+    </FormProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useForm, type FieldValues } from 'react-hook-form';
+import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
@@ -12,8 +12,8 @@ import type { SeasonGroupType } from '@type/seasonAndGroup';
 
 const PasswordForm = ({ season, group }: SeasonGroupType) => {
   const { isVerified, handleVerified } = useVerificationStatus();
-  const { handleSubmit, ...formObject } = useForm({ mode: 'onBlur' });
-  const { setError } = formObject;
+  const methods = useForm({ mode: 'onBlur' });
+  const { handleSubmit, setError } = methods;
 
   const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword();
 
@@ -39,23 +39,24 @@ const PasswordForm = ({ season, group }: SeasonGroupType) => {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={formWrapper}>
-      <TextBox이름 formObject={formObject} />
-      <TextBox이메일
-        recruitingInfo={{ season, group }}
-        isVerified={isVerified}
-        onChangeVerification={handleVerified}
-        formObject={formObject}
-      />
-      {isVerified && (
-        <>
-          <TextBox비밀번호 formObject={formObject} />
-          <Button isLoading={changePasswordIsPending} type="submit" style={{ marginTop: 30 }}>
-            저장하기
-          </Button>
-        </>
-      )}
-    </form>
+    <FormProvider {...methods}>
+      <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={formWrapper}>
+        <TextBox이름 />
+        <TextBox이메일
+          recruitingInfo={{ season, group }}
+          isVerified={isVerified}
+          onChangeVerification={handleVerified}
+        />
+        {isVerified && (
+          <>
+            <TextBox비밀번호 />
+            <Button isLoading={changePasswordIsPending} type="submit" style={{ marginTop: 30 }}>
+              저장하기
+            </Button>
+          </>
+        )}
+      </form>
+    </FormProvider>
   );
 };
 

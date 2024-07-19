@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
-import { FieldValues, UseFormReturn, Validate } from 'react-hook-form';
+import { FieldValues, Validate } from 'react-hook-form';
 
 export type SizeType = 'sm' | 'md' | 'lg';
 export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'pattern'> {
@@ -9,10 +9,6 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   errorText?: string;
   pattern?: RegExp;
   validate?: Validate<FieldValues, FieldValues>;
-  formObject: Pick<
-    UseFormReturn,
-    'register' | 'formState' | 'clearErrors' | 'trigger' | 'watch' | 'setError' | 'getValues' | 'setValue'
-  >;
   children?: ReactNode;
   styleType?: 'default' | 'error';
 }
