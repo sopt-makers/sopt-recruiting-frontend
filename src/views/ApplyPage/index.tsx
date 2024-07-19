@@ -49,7 +49,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
 
-  const { NoMoreApply, isLoading } = useDate();
+  const { NoMoreReview, isLoading } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -169,7 +169,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   }, [isReview]);
 
   if (questionsIsLoading || isLoading) return <BigLoading />;
-  if (!isReview && NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
+  if (NoMoreReview) return <NoMore content="모집 기간이 아니에요" />;
 
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
