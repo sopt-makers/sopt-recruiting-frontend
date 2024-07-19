@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import 'firebase/compat/storage';
@@ -13,15 +13,17 @@ interface FileInputProps {
   isReview: boolean;
   disabled?: boolean;
   formObject: Pick<UseFormReturn, 'register' | 'formState' | 'watch' | 'clearErrors' | 'trigger' | 'setValue'>;
+  defaultFile?: { id: number; file?: string; fileName?: string };
 }
 
-const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
+const FileInput = ({ id, isReview, disabled, formObject, defaultFile }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [file, setFile] = useState<File | null>(null);
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
   const { register, setValue } = formObject;
+  const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
@@ -77,6 +79,16 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
     }
   };
 
+  useEffect(() => {
+    if (defaultFileId && defaultFileUrl && defaultFileName) {
+      setValue(`file${defaultFileId}`, {
+        file: defaultFileUrl,
+        fileName: defaultFileName,
+        recruitingQuestionId: defaultFileId,
+      });
+    }
+  }, [defaultFileId, defaultFileUrl, defaultFileName, setValue]);
+
   return (
     <div className={container}>
       <input
@@ -94,15 +106,20 @@ const FileInput = ({ id, isReview, disabled, formObject }: FileInputProps) => {
         className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
-          <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
-            {uploadPercent < 0 && fileName === ''
-              ? '50mb 이하 | pdf, pptx'
-              : uploadPercent < 100
-                ? `업로드 중... ${uploadPercent}/100% 완료`
-                : uploadPercent === 100 && fileName === ''
-                  ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
-                  : fileName}
-          </span>
+          {(uploadPercent !== -1 || !defaultFileName) && (
+            <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
+              {uploadPercent < 0 && fileName === ''
+                ? '50mb 이하 | pdf, pptx'
+                : uploadPercent < 100
+                  ? `업로드 중... ${uploadPercent}/100% 완료`
+                  : uploadPercent === 100 && fileName === ''
+                    ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
+                    : fileName}
+            </span>
+          )}
+          {uploadPercent === -1 && defaultFileName && (
+            <span className={fileNameVar['selected']}>{defaultFileName}</span>
+          )}
         </div>
         <IconPlusButton isSelected={fileName !== ''} onClickIcon={handleClickIcon} disabled={disabled} />
       </label>

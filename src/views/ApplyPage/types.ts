@@ -108,6 +108,8 @@ export interface Answers {
     isForTest: boolean;
     createdAt: string;
     updatedAt: string;
+    file: string;
+    fileName: string;
   };
 }
 
