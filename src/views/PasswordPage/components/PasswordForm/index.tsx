@@ -1,9 +1,11 @@
+import { useRef } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/components/InputTheme';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import { CompleteDialog } from 'views/dialogs';
 import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePassword';
 
 import { formWrapper } from './style.css';
@@ -11,11 +13,18 @@ import { formWrapper } from './style.css';
 import type { SeasonGroupType } from '@type/seasonAndGroup';
 
 const PasswordForm = ({ season, group }: SeasonGroupType) => {
+  const completeDialog = useRef<HTMLDialogElement>(null);
   const { isVerified, handleVerified } = useVerificationStatus();
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
 
-  const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword();
+  const handleCompleteChangePassword = () => {
+    completeDialog.current?.showModal();
+  };
+
+  const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword({
+    onSuccess: handleCompleteChangePassword,
+  });
 
   const handleChangePassword = ({ email, newPassword: password, passwordCheck }: FieldValues) => {
     if (!isVerified) {
@@ -39,24 +48,27 @@ const PasswordForm = ({ season, group }: SeasonGroupType) => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={formWrapper}>
-        <TextBox이름 />
-        <TextBox이메일
-          recruitingInfo={{ season, group }}
-          isVerified={isVerified}
-          onChangeVerification={handleVerified}
-        />
-        {isVerified && (
-          <>
-            <TextBox비밀번호 />
-            <Button isLoading={changePasswordIsPending} type="submit" style={{ marginTop: 30 }}>
-              저장하기
-            </Button>
-          </>
-        )}
-      </form>
-    </FormProvider>
+    <>
+      <CompleteDialog ref={completeDialog} />
+      <FormProvider {...methods}>
+        <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={formWrapper}>
+          <TextBox이름 />
+          <TextBox이메일
+            recruitingInfo={{ season, group }}
+            isVerified={isVerified}
+            onChangeVerification={handleVerified}
+          />
+          {isVerified && (
+            <>
+              <TextBox비밀번호 />
+              <Button isLoading={changePasswordIsPending} type="submit" style={{ marginTop: 30 }}>
+                저장하기
+              </Button>
+            </>
+          )}
+        </form>
+      </FormProvider>
+    </>
   );
 };
 
