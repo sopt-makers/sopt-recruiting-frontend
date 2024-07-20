@@ -2,9 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import useScrollToHash from '@hooks/useScrollToHash';
 
 import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
 import InputButton from './InputButton';
@@ -54,11 +55,14 @@ export const TextBox이메일 = ({
     getValues,
     setError,
     setValue,
+    setFocus,
     watch,
     formState: { errors },
   } = useFormContext();
   const { email, name } = getValues();
+  const navigate = useNavigate();
   const code = watch('code');
+  useScrollToHash('auto');
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
@@ -174,7 +178,12 @@ export const TextBox이메일 = ({
   useEffect(() => {
     onChangeVerification(false);
     setValue('code', '');
+    setIsActive(false);
   }, [watch('email')]);
+
+  useEffect(() => {
+    if (errors.code) navigate('#verification-code');
+  }, [errors.code, setFocus]);
 
   return (
     <TextBox label="이메일" name="email" required>
@@ -195,6 +204,7 @@ export const TextBox이메일 = ({
         <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
+        id="verification-code"
         readOnly={!isActive}
         name="code"
         placeholder="이메일 인증 번호를 작성해주세요."
@@ -206,6 +216,14 @@ export const TextBox이메일 = ({
           onClick={handleVerificationCodeCheck}
         />
       </InputLine>
+      {isActive && (
+        <>
+          <p className={success}>이메일이 전송되었어요.</p>
+          <p className={success} style={{ marginTop: '-8px' }}>
+            네트워크 상황에 따라 약 1분 정도 소요될 수 있어요.
+          </p>
+        </>
+      )}
       {isVerified && <p className={success}>인증에 성공했어요.</p>}
     </TextBox>
   );
