@@ -1,8 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { containerSize } from '@components/Input/constants';
 import { theme } from 'styles/theme.css';
-
-import { containerSize } from '../constants';
 
 export const container = style({
   display: 'flex',

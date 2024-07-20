@@ -1,8 +1,8 @@
 import { ReactNode, TextareaHTMLAttributes, useId } from 'react';
 import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
-import Input from './Input';
-import Label from './Label';
+import Input from './components/Input';
+import Label from './components/Label';
 import { container } from './style.css';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {

@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-import formatTimer from '@components/Input/Timer/utils/formatTimer';
-
 import { timer } from './style.css';
-
-import type { TimerProps } from '../types';
+import { TimerProps } from './types';
+import formatTimer from './utils/formatTimer';
 
 const INITIAL_TIME = 300;
 

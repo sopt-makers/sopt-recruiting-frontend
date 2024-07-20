@@ -3,9 +3,9 @@ import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
 import Checkbox from '@components/Checkbox';
-import Contentbox from '@components/Checkbox/Contentbox';
+import Contentbox from '@components/Checkbox/components/Contentbox';
 import { InputLine, TextBox } from '@components/Input';
-import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
+import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/components/InputTheme';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';

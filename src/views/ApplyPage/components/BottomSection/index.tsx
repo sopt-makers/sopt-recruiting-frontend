@@ -1,5 +1,5 @@
 import Checkbox from '@components/Checkbox';
-import Contentbox from '@components/Checkbox/Contentbox';
+import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';

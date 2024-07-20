@@ -1,26 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { InputButton, TextBox, Timer } from '@components/Input';
+import useMutateCheckCode from '@components/Input/hooks/useMutateCheckCode';
+import useMutateCheckUser from '@components/Input/hooks/useMutateCheckUser';
+import useMutateSendCode from '@components/Input/hooks/useMutateSendCode';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useScrollToHash from '@hooks/useScrollToHash';
 
-import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
-import InputButton from './InputButton';
-import InputLine from './InputLine';
-import { success } from './style.css';
-import { TextBox } from './TextBox';
-import Timer from './Timer';
-
-import type {
-  CheckUserRequest,
-  CheckVerificationCodeRequest,
-  SendVerificationCodeRequest,
-  EmailResponse,
-} from './types';
-import type { ErrorResponse } from '@type/errorResponse';
+import { success } from '../../style.css';
+import InputLine from '../InputLine';
 
 export const TextBox이름 = () => {
   return (
@@ -49,85 +39,39 @@ export const TextBox이메일 = ({
   onChangeVerification,
 }: TextBox이메일Props) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [isActive, setIsActive] = useState(false); // Timer용 state
+
   const {
     clearErrors,
     getValues,
     setError,
     setValue,
-    setFocus,
     watch,
     formState: { errors },
   } = useFormContext();
   const { email, name } = getValues();
-  const navigate = useNavigate();
+
   const code = watch('code');
+
   useScrollToHash('auto');
 
-  const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
-    AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
-    AxiosError<ErrorResponse, SendVerificationCodeRequest>,
-    SendVerificationCodeRequest
-  >({
-    mutationFn: ({ email, season, group, isSignup }: SendVerificationCodeRequest) =>
-      sendVerificationCode(email, season, group, isSignup),
-    onSuccess: () => {
-      onChangeVerification(false);
-      setIsActive(true);
-    },
-    onError: (error) => {
-      if (error.response?.status === 400 || error.response?.status === 403) {
-        setError('email', {
-          type: 'already-existence',
-          message: VALIDATION_CHECK.email.errorTextExistence,
-        });
-      }
-    },
+  const { sendVerificationCodeMutate, sendVerificationCodeIsPending } = useMutateSendCode({
+    onChangeVerification,
+    onSetTimer: () => setIsActive(true),
   });
 
-  const { mutate: checkUserMutate, isPending: checkUserIsPending } = useMutation<
-    AxiosResponse<EmailResponse, CheckUserRequest>,
-    AxiosError<ErrorResponse, CheckUserRequest>,
-    CheckUserRequest
-  >({
-    mutationFn: (userInfo: CheckUserRequest) => checkUser(userInfo),
-    onSuccess: () => {
-      clearErrors();
+  const { checkUserMutate, checkUserIsPending } = useMutateCheckUser({
+    onSendCode: () => {
       if (!season || !group) return;
       sendVerificationCodeMutate({ email, season, group, isSignup: false });
     },
-    onError: (error) => {
-      if (error.response?.status === 400 || error.response?.status === 403) {
-        setError('name', {
-          type: 'non-existence',
-          message: VALIDATION_CHECK.name.errorTextNonexistence,
-        });
-        setError('email', {
-          type: 'non-existence',
-          message: VALIDATION_CHECK.email.errorTextNonexistence,
-        });
-      }
-    },
   });
 
-  const { mutate: checkVerificationCodeMutate, isPending: checkVerificationCodeIsPending } = useMutation<
-    AxiosResponse<EmailResponse, CheckVerificationCodeRequest>,
-    AxiosError<ErrorResponse, CheckVerificationCodeRequest>,
-    CheckVerificationCodeRequest
-  >({
-    mutationFn: ({ email, code }: CheckVerificationCodeRequest) => checkVerificationCode(email, code),
-    onSuccess: () => {
-      setIsActive(false);
-      onChangeVerification(true);
-    },
-    onError(error) {
-      if (error.response?.status === 400) {
-        setError('code', {
-          type: 'not-match',
-          message: VALIDATION_CHECK.verificationCode.errorText,
-        });
-      }
-    },
+  const { checkVerificationCodeMutate, checkVerificationCodeIsPending } = useMutateCheckCode({
+    onChangeVerification,
+    onSetActive: () => setIsActive(false),
   });
 
   const handleResetTimer = useCallback(() => {
@@ -167,6 +111,8 @@ export const TextBox이메일 = ({
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
       if (!season || !group) return;
+      setValue('code', '');
+      clearErrors('email');
       sendVerificationCodeMutate({ email, season, group, isSignup: true });
     }
   };
@@ -183,7 +129,7 @@ export const TextBox이메일 = ({
 
   useEffect(() => {
     if (errors.code) navigate('#verification-code');
-  }, [errors.code, setFocus]);
+  }, [errors.code, navigate]);
 
   return (
     <TextBox label="이메일" name="email" required>

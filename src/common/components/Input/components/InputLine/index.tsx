@@ -4,9 +4,9 @@ import { useFormContext } from 'react-hook-form';
 import { inputLine, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
 import { formatPhoneNumber } from './utils/formatPhoneNumber';
+import { TextBoxProps } from '../../types';
 import Description from '../Description';
 import { FormContext } from '../TextBox';
-import { TextBoxProps } from '../types';
 
 // TextBox 내부 Input
 const InputLine = ({
