@@ -1,9 +1,9 @@
 import { InputHTMLAttributes, useEffect } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 
-import Container from './Container';
-import ErrorMessage from './ErrorMessage';
-import Option from './Option';
+import Container from './components/Container';
+import ErrorMessage from './components/ErrorMessage';
+import Option from './components/Option';
 
 interface RadioProps<T extends FieldValues> extends Omit<InputHTMLAttributes<HTMLInputElement>, 'name'> {
   label: string[];

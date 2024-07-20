@@ -1,5 +1,5 @@
-import { validateBirthdate } from '@components/Input/InputLine/utils/validateBirthdate';
-import { validatePasswordConfirmation } from '@components/Input/InputLine/utils/validatePasswordConfirm';
+import { validateBirthdate } from '@components/Input/components/InputLine/utils/validateBirthdate';
+import { validatePasswordConfirmation } from '@components/Input/components/InputLine/utils/validatePasswordConfirm';
 
 export const VALIDATION_CHECK = {
   name: {

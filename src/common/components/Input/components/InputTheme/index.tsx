@@ -4,22 +4,20 @@ import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { InputButton, TextBox, Timer } from '@components/Input';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useScrollToHash from '@hooks/useScrollToHash';
 
-import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
-import InputButton from './InputButton';
-import InputLine from './InputLine';
-import { success } from './style.css';
-import { TextBox } from './TextBox';
-import Timer from './Timer';
+import { checkUser, checkVerificationCode, sendVerificationCode } from '../../apis';
+import { success } from '../../style.css';
+import InputLine from '../InputLine';
 
 import type {
   CheckUserRequest,
   CheckVerificationCodeRequest,
   SendVerificationCodeRequest,
   EmailResponse,
-} from './types';
+} from '../../types';
 import type { ErrorResponse } from '@type/errorResponse';
 
 export const TextBox이름 = () => {

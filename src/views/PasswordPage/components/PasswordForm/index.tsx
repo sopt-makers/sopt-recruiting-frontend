@@ -1,7 +1,7 @@
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
-import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/InputTheme';
+import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/components/InputTheme';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePassword';

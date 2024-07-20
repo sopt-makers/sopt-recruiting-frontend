@@ -13,17 +13,6 @@ export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>
   styleType?: 'default' | 'error';
 }
 
-export interface InputButtonProps {
-  text: string;
-  isLoading?: boolean;
-  disabled?: boolean;
-  onClick: () => void;
-}
-export interface TimerProps {
-  isActive: boolean;
-  onResetTimer: () => void;
-}
-
 export interface CheckUserRequest {
   email: string;
   name: string;
