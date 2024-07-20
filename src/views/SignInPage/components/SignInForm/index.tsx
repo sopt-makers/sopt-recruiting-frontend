@@ -13,9 +13,8 @@ import type { SeasonGroupType } from '@type/seasonAndGroup';
 
 const SignInForm = ({ season, group }: SeasonGroupType) => {
   const methods = useForm({ mode: 'onBlur' });
-  const { getValues, handleSubmit, setError } = methods;
+  const { handleSubmit, setError } = methods;
   const { signInMutate, signInIsPending } = useMutateSignIn({
-    email: getValues('email'),
     onSetError: (name, type, message) => setError(name, { type, message }),
   });
 
