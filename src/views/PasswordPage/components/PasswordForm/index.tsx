@@ -51,7 +51,12 @@ const PasswordForm = ({ season, group }: SeasonGroupType) => {
     <>
       <CompleteDialog ref={completeDialog} />
       <FormProvider {...methods}>
-        <form noValidate onSubmit={handleSubmit(handleChangePassword)} className={formWrapper}>
+        <form
+          id="password-form"
+          name="password-form"
+          noValidate
+          onSubmit={handleSubmit(handleChangePassword)}
+          className={formWrapper}>
           <TextBox이름 />
           <TextBox이메일
             recruitingInfo={{ season, group }}

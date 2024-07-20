@@ -60,7 +60,12 @@ const SignupForm = ({ season, group }: SeasonGroupType) => {
 
   return (
     <FormProvider {...methods}>
-      <form noValidate onSubmit={handleSubmit(handleSubmitSignUp)} className={formWrapper}>
+      <form
+        id="sign-up-form"
+        name="sign-up-form"
+        noValidate
+        onSubmit={handleSubmit(handleSubmitSignUp)}
+        className={formWrapper}>
         <TextBox이름 />
         <TextBox label="연락처" name="phone" required>
           <InputLine

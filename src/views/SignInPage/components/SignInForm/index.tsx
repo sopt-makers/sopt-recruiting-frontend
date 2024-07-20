@@ -30,7 +30,12 @@ const SignInForm = ({ season, group }: SeasonGroupType) => {
 
   return (
     <FormProvider {...methods}>
-      <form noValidate onSubmit={handleSubmit(handleSignIn)} className={inputWrapper}>
+      <form
+        id="sign-in-form"
+        name="sign-in-form"
+        noValidate
+        onSubmit={handleSubmit(handleSignIn)}
+        className={inputWrapper}>
         <TextBox label="이메일" name="email" required>
           <InputLine
             name="email"

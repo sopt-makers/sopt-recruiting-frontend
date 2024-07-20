@@ -279,7 +279,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
-        <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+        <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
           <DefaultSection isReview={isReview} refCallback={refCallback} applicantDraft={applicantDraft} />
           <CommonSection
             isReview={isReview}
