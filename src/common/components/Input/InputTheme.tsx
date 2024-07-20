@@ -62,7 +62,7 @@ export const TextBox이메일 = ({
   const { email, name } = getValues();
   const navigate = useNavigate();
   const code = watch('code');
-  useScrollToHash();
+  useScrollToHash('auto');
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
     AxiosResponse<EmailResponse, SendVerificationCodeRequest>,

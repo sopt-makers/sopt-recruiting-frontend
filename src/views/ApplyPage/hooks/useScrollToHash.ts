@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const useScrollToHash = () => {
+const useScrollToHash = (behavior: ScrollBehavior = 'smooth') => {
   const location = useLocation();
   const hashRef = useRef('');
 
@@ -10,7 +10,7 @@ const useScrollToHash = () => {
     const offset = document.getElementById(hashRef.current)?.offsetTop;
     window.scrollTo({
       top: offset && offset - 260,
-      behavior: 'smooth',
+      behavior,
     });
   }, [location]);
 };
