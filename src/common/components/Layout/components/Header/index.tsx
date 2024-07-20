@@ -1,3 +1,4 @@
+import * as amplitude from '@amplitude/analytics-browser';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    amplitude.reset();
     localStorage.removeItem('soptApplyAccessToken');
     if (pathname === '/') navigate(0);
     else navigate('/');
