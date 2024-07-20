@@ -1,8 +1,9 @@
+import * as amplitude from '@amplitude/analytics-browser';
 import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -43,6 +44,7 @@ const App = () => {
 
   const [isLight, setIsLight] = useState(true);
   const [recruitingInfo, setRecruitingInfo] = useState<RecruitingInfoType>({});
+  const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -94,6 +96,13 @@ const App = () => {
       setRecruitingInfo((prev) => ({ ...prev, ...obj }));
     }, []),
   };
+
+  useEffect(() => {
+    if (!isAmplitudeInitialized) {
+      amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY);
+      setIsAmplitudeInitialized(true);
+    }
+  }, [isAmplitudeInitialized]);
 
   return (
     <>
