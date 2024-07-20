@@ -174,6 +174,7 @@ export const TextBox이메일 = ({
   useEffect(() => {
     onChangeVerification(false);
     setValue('code', '');
+    setIsActive(false);
   }, [watch('email')]);
 
   return (
