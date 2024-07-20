@@ -54,6 +54,7 @@ export const TextBox이메일 = ({
     getValues,
     setError,
     setValue,
+    setFocus,
     watch,
     formState: { errors },
   } = useFormContext();
@@ -176,6 +177,10 @@ export const TextBox이메일 = ({
     setValue('code', '');
     setIsActive(false);
   }, [watch('email')]);
+
+  useEffect(() => {
+    if (errors.code) setFocus('code');
+  }, [errors.code, setFocus]);
 
   return (
     <TextBox label="이메일" name="email" required>
