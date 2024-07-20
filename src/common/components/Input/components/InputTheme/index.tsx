@@ -39,31 +39,36 @@ export const TextBox이메일 = ({
   onChangeVerification,
 }: TextBox이메일Props) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [isActive, setIsActive] = useState(false); // Timer용 state
+
   const {
     clearErrors,
     getValues,
     setError,
     setValue,
-    setFocus,
     watch,
     formState: { errors },
   } = useFormContext();
   const { email, name } = getValues();
-  const navigate = useNavigate();
+
   const code = watch('code');
+
   useScrollToHash('auto');
 
   const { sendVerificationCodeMutate, sendVerificationCodeIsPending } = useMutateSendCode({
     onChangeVerification,
     onSetTimer: () => setIsActive(true),
   });
+
   const { checkUserMutate, checkUserIsPending } = useMutateCheckUser({
     onSendCode: () => {
       if (!season || !group) return;
       sendVerificationCodeMutate({ email, season, group, isSignup: false });
     },
   });
+
   const { checkVerificationCodeMutate, checkVerificationCodeIsPending } = useMutateCheckCode({
     onChangeVerification,
     onSetActive: () => setIsActive(false),
@@ -122,7 +127,7 @@ export const TextBox이메일 = ({
 
   useEffect(() => {
     if (errors.code) navigate('#verification-code');
-  }, [errors.code, setFocus]);
+  }, [errors.code, navigate]);
 
   return (
     <TextBox label="이메일" name="email" required>
