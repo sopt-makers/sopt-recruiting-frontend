@@ -1,4 +1,4 @@
-import { reset } from '@amplitude/analytics-browser';
+import { reset, track } from '@amplitude/analytics-browser';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -24,6 +24,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    track('click-gnb-logout');
     reset();
     localStorage.removeItem('soptApplyAccessToken');
     if (pathname === '/') navigate(0);
@@ -37,8 +38,8 @@ const Header = () => {
       </button>
       <nav>
         <ul className={menuList}>
-          {MENU_ITEMS.map(({ text, path, target }) => (
-            <MenuItem key={text} text={text} path={path} target={target} />
+          {MENU_ITEMS.map(({ text, path, target, amplitudeId }) => (
+            <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
           ))}
           {isSignedIn ? (
             <>
@@ -46,7 +47,7 @@ const Header = () => {
               {name && <MenuItem key="로그인완료" text={`${name}님`} />}
             </>
           ) : (
-            <MenuItem key="로그인" text="로그인" path="/" />
+            <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
           )}
         </ul>
       </nav>
