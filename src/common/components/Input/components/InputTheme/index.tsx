@@ -111,6 +111,8 @@ export const TextBox이메일 = ({
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
       if (!season || !group) return;
+      setValue('code', '');
+      clearErrors('email');
       sendVerificationCodeMutate({ email, season, group, isSignup: true });
     }
   };
