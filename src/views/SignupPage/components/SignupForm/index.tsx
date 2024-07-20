@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useEffect } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
@@ -89,7 +90,11 @@ const SignupForm = ({ season, group }: SeasonGroupType) => {
           </Checkbox>
           <Contentbox>{PRIVACY_POLICY}</Contentbox>
         </div>
-        <Button isLoading={signUpIsPending} type="submit" style={{ marginTop: 30 }}>
+        <Button
+          isLoading={signUpIsPending}
+          type="submit"
+          style={{ marginTop: 30 }}
+          onClick={() => track('click-signup-apply')}>
           지원서 작성하기
         </Button>
       </form>

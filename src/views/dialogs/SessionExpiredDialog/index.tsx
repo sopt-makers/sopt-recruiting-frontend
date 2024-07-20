@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { forwardRef, type KeyboardEvent } from 'react';
 
 import Dialog from '@components/Dialog';
@@ -10,6 +11,7 @@ const SessionExpiredDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   };
 
   const handleLogout = () => {
+    track('click-session-okay');
     localStorage.removeItem('soptApplyAccessToken');
     if (window.location.pathname === '/') {
       location.reload();

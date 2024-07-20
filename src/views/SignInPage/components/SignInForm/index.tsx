@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -58,12 +59,12 @@ const SignInForm = ({ season, group }: SeasonGroupType) => {
           />
           <Description>
             <p>비밀번호를 잃어버리셨나요?</p>
-            <Link className={newPasswordButton} to="/password">
+            <Link className={newPasswordButton} to="/password" onClick={() => track('click-signin-password')}>
               비밀번호 재설정하기
             </Link>
           </Description>
         </TextBox>
-        <Button isLoading={signInIsPending} type="submit">
+        <Button isLoading={signInIsPending} type="submit" onClick={() => track('click-signin-signin')}>
           로그인
         </Button>
       </form>

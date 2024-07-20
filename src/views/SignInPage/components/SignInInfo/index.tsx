@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { Link } from 'react-router-dom';
 
 import Callout from '@components/Callout';
@@ -13,7 +14,7 @@ const SignInInfo = ({ season }: SeasonGroupType) => {
       <Title>{season}기 Makers 지원하기</Title>
       <Callout
         Button={
-          <Link to="/sign-up" className={calloutButton}>
+          <Link to="/sign-up" className={calloutButton} onClick={() => track('click-signin-signup')}>
             새 지원서 작성하기
           </Link>
         }>

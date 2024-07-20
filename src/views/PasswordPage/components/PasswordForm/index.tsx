@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useRef } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
@@ -66,7 +67,11 @@ const PasswordForm = ({ season, group }: SeasonGroupType) => {
           {isVerified && (
             <>
               <TextBox비밀번호 />
-              <Button isLoading={changePasswordIsPending} type="submit" style={{ marginTop: 30 }}>
+              <Button
+                isLoading={changePasswordIsPending}
+                type="submit"
+                style={{ marginTop: 30 }}
+                onClick={() => track('click-password-password')}>
                 저장하기
               </Button>
             </>
