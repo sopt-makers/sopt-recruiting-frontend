@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import useScrollToHash from 'views/ApplyPage/hooks/useScrollToHash';
+import useScrollToHash from '@hooks/useScrollToHash';
 
 import { checkUser, checkVerificationCode, sendVerificationCode } from './apis';
 import InputButton from './InputButton';

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import useDate from '@hooks/useDate';
+import useScrollToHash from '@hooks/useScrollToHash';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
@@ -18,7 +19,6 @@ import PartSection from './components/PartSection';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
-import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, container, formContainer } from './style.css';
 
 import type { ApplyRequest, ApplyResponse } from './types';
