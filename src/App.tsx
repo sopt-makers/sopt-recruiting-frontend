@@ -1,4 +1,4 @@
-import * as amplitude from '@amplitude/analytics-browser';
+import { init } from '@amplitude/analytics-browser';
 import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -99,7 +99,7 @@ const App = () => {
 
   useEffect(() => {
     if (!isAmplitudeInitialized) {
-      amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY);
+      init(import.meta.env.VITE_AMPLITUDE_API_KEY);
       setIsAmplitudeInitialized(true);
     }
   }, [isAmplitudeInitialized]);

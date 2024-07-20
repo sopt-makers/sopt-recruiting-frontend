@@ -1,4 +1,4 @@
-import * as amplitude from '@amplitude/analytics-browser';
+import { setUserId } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const useMutateSignIn = ({ email, onSetError }: MutateSignInProps) => {
   >({
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
     onSuccess: ({ data: { token } }) => {
-      amplitude.setUserId(email);
+      setUserId(email);
       localStorage.setItem('soptApplyAccessToken', token);
       navigate(0);
     },
