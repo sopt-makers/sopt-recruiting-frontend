@@ -13,4 +13,5 @@ export interface SignInError {
 export interface SignInResponse {
   err: boolean;
   token: string;
+  email: string;
 }

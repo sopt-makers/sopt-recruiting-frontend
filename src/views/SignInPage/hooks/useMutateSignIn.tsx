@@ -1,3 +1,4 @@
+import { setUserId } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,11 @@ import type { SignInRequest, SignInResponse } from '../types';
 import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
-const useMutateSignIn = ({ onSetError }: { onSetError: (name: string, type: string, message: string) => void }) => {
+interface MutateSignInProps {
+  onSetError: (name: string, type: string, message: string) => void;
+}
+
+const useMutateSignIn = ({ onSetError }: MutateSignInProps) => {
   const navigate = useNavigate();
 
   const { mutate: signInMutate, isPending: signInIsPending } = useMutation<
@@ -18,7 +23,8 @@ const useMutateSignIn = ({ onSetError }: { onSetError: (name: string, type: stri
     SignInRequest
   >({
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
-    onSuccess: ({ data: { token } }) => {
+    onSuccess: ({ data: { email, token } }) => {
+      setUserId(email);
       localStorage.setItem('soptApplyAccessToken', token);
       navigate(0);
     },

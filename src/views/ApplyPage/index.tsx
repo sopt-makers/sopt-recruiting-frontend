@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -246,10 +247,12 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
       willAppjam: false,
     };
 
+    type === 'draft' ? track('click-apply-draft') : track('click-apply-confirm_submit');
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
 
   const handleApplySubmit = () => {
+    track('click-apply-submit');
     submitDialog.current?.showModal();
   };
 
@@ -279,7 +282,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
-        <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+        <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
           <DefaultSection isReview={isReview} refCallback={refCallback} applicantDraft={applicantDraft} />
           <CommonSection
             isReview={isReview}

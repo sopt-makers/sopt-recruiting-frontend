@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -102,6 +103,7 @@ export const TextBox이메일 = ({
 
       // 오류가 없을 때 이메일 확인 요청
       if (!emailError && isDone) {
+        track('click-password-email');
         checkUserMutate({ email, name, season, group });
         setValue('code', '');
         clearErrors('email');
@@ -111,6 +113,7 @@ export const TextBox이메일 = ({
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
       if (!season || !group) return;
+      track('click-signup-email');
       setValue('code', '');
       clearErrors('email');
       sendVerificationCodeMutate({ email, season, group, isSignup: true });
