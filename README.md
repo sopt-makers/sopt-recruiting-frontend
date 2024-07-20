@@ -12,6 +12,7 @@
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=white" alt="Firebase Badge"/></a>
 <img src="https://img.shields.io/badge/Lottie--react-8DD6F9?style=flat-square&logo=react&logoColor=white" alt="Lottie-react Badge"/></a>
 <img src="https://img.shields.io/badge/Amplitude-FF9D00?style=flat-square&logo=amplitude&logoColor=white" alt="Amplitude Badge"/></a>
+<img src="https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Badge"/></a>
 
 ## 만든 사람들
 
