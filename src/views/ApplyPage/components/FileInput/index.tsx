@@ -81,7 +81,7 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
         setFile(null);
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
-      } else if (defaultFileName) {
+      } else if (uploadPercent !== -2 && defaultFileName) {
         setUploadPercent(-2);
         setValue(`file${id}`, undefined);
       } else {
