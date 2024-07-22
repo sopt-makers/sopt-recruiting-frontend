@@ -5,6 +5,7 @@
 <img src="https://img.shields.io/badge/HTML5-e34f26?style=flat-square&logo=html5&logoColor=white" alt="HTML5 Badge"/></a>
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3 Badge"/></a>
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React Badge"/></a>
+<img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite Badge"/></a>
 <img src="https://img.shields.io/badge/TypeScript-3776AB?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript Badge"/></a>
 <img src="https://img.shields.io/badge/Vanilla--extract-7F5D4C?style=flat-square&logo=vanilla-extract&logoColor=white" alt="Vanilla Extract Badge"/>
 </a>
