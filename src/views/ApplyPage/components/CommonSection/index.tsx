@@ -35,6 +35,11 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
               name={`common${id}`}
               defaultValue={defaultValue}
               maxCount={charLimit}
+              placeholder={
+                isFile
+                  ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
+                  : ''
+              }
               extraInput={
                 isFile ? (
                   <FileInput id={id} isReview={isReview} defaultFile={defaultFile} />
