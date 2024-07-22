@@ -21,6 +21,7 @@ const MainPage = () => {
     if (!data) return;
 
     const {
+      name,
       season,
       group,
       ybApplicationStart,
@@ -57,6 +58,7 @@ const MainPage = () => {
     const interviewEnd = group === 'YB' ? ybInterviewEnd : obInterviewEnd;
 
     handleSaveRecruitingInfo({
+      soptName: name,
       season,
       group,
       applicationStart, // 서류 지원 시작

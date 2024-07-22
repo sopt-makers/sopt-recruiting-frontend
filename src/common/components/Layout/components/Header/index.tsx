@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersLogo from '@assets/MakersLogo';
-// import NowsoptLogo from '@assets/NowsoptLogo';
+import NowsoptLogo from '@assets/NowsoptLogo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { MENU_ITEMS } from './contants';
@@ -15,8 +15,10 @@ const Header = () => {
   const { pathname } = useLocation();
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
   const {
-    recruitingInfo: { name },
+    recruitingInfo: { name, soptName },
   } = useContext(RecruitingInfoContext);
+
+  const isMakers = soptName?.toLowerCase().includes('makers');
 
   const handleClickLogo = () => {
     if (pathname === '/') navigate(0);
@@ -34,7 +36,7 @@ const Header = () => {
   return (
     <header className={container}>
       <button onClick={handleClickLogo} className={logo}>
-        <MakersLogo />
+        {isMakers ? <MakersLogo /> : <NowsoptLogo />}
       </button>
       <nav>
         <ul className={menuList}>

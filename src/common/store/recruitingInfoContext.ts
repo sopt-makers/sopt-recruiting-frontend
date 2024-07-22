@@ -2,6 +2,7 @@ import { createContext } from 'react';
 
 export type RecruitingInfoType = {
   name?: string;
+  soptName?: string;
   season?: number;
   group?: string;
   applicationStart?: string;
