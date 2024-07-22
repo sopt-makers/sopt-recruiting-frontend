@@ -33,6 +33,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
   if (isLoading) return <BigLoading />;
 
+  const isMakers = soptName?.toLowerCase().includes('makers');
+
   const interviewStartTime = group === 'OB' ? obInterviewStart : ybInterviewStart;
   const interviewEndTime = group === 'OB' ? obInterviewEnd : ybInterviewEnd;
   const applicationPassConfirmTime = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
@@ -60,7 +62,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             {`
               서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
   
-              ${season}기 ${group} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 오프라인 으로 진행될 예정입니다.
+              ${season}기 ${soptName} ${!isMakers ? group : ''} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 오프라인 으로 진행될 예정입니다.
               모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
@@ -82,7 +84,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
         <p className={content}>
           {`안녕하세요. ${soptName}입니다.
               
-            ${name}님은 ${season}기 ${soptName} 신입회원 서류 모집에 불합격하셨습니다.
+            ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 서류 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 합격 소식을
             전해드리지 못하게 되었습니다.

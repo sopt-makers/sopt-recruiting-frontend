@@ -14,12 +14,14 @@ import useGetFinalResult from '../hooks/useGetFinalResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { data, isLoading } = useGetRecruitingInfo();
-  const { name: soptName, season } = data?.data.season || {};
+  const { name: soptName, season, group } = data?.data.season || {};
   const {
     recruitingInfo: { name },
   } = useContext(RecruitingInfoContext);
 
   if (isLoading) return <BigLoading />;
+
+  const isMakers = soptName?.toLowerCase().includes('makers');
 
   return (
     <>
@@ -29,10 +31,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
-              ${name}님은 ${season}기 ${soptName} 신입회원 모집에 최종 합격하셨습니다.
+              ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 모집에 최종 합격하셨습니다.
   
               ${name}님과 함께하게 되어 진심으로 기쁩니다.
-              향후 활동은 ${name} 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
+              향후 활동은 ${soptName} 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
               운영 및 진행됩니다.
           
               오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다.\n
@@ -42,9 +44,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
         </p>
       ) : (
         <p className={content}>
-          {`안녕하세요. ${soptName}입니다.
+          {`안녕하세요. ${soptName} 입니다.
               
-            ${name}님은 ${season}기 ${soptName} 신입회원 모집에 불합격하셨습니다.
+            ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 최종 합격 소식을
             전해드리지 못하게 되었습니다.
