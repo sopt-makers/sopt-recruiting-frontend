@@ -6,6 +6,8 @@
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3 Badge"/></a>
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React Badge"/></a>
 <img src="https://img.shields.io/badge/TypeScript-3776AB?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript Badge"/></a>
+<img src="https://img.shields.io/badge/Vanilla--Extract-7F5D4C?style=flat-square&logo=vanilla-extract&logoColor=white" alt="Vanilla Extract Badge"/>
+</a>
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" alt="Axios Badge"/></a>
 <img src="https://img.shields.io/badge/Tanstack%20Query-FF4154?style=flat-square&logo=react-query&logoColor=white" alt="Tanstack Query Badge"/></a>
 <img src="https://img.shields.io/badge/React--hook--form-EC5990?style=flat-square&logo=react-hook-form&logoColor=white" alt="React-hook-form Badge"/></a>
