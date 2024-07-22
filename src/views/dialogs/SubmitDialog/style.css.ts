@@ -31,6 +31,7 @@ export const infoLabel = style({
 
 export const infoValue = style({
   color: colors.gray950,
+  wordBreak: 'break-all',
   ...theme.font.BODY_2_16_M,
 });
 
