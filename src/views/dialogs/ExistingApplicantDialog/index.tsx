@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import Dialog from '@components/Dialog';
 
@@ -8,9 +9,16 @@ const ExistingApplicantDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   return (
     <Dialog ref={ref}>
       <p className={mainText}>이미 가입된 계정이 있어요.</p>
-      <form method="dialog" className={`${buttonWrapper} ${buttonOutside.solid}`}>
-        <button className={buttonInside.solid}>확인</button>
-      </form>
+      <div className={buttonWrapper}>
+        <form method="dialog" className={buttonOutside.line}>
+          <button className={buttonInside.line}>다시 입력하기</button>
+        </form>
+        <div className={buttonOutside.solid}>
+          <Link to="/" className={buttonInside.solid}>
+            로그인하기
+          </Link>
+        </div>
+      </div>
     </Dialog>
   );
 });
