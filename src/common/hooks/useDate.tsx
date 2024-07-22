@@ -6,7 +6,6 @@ const useDate = () => {
   const { data, isLoading } = useGetRecruitingInfo();
 
   const {
-    season,
     group,
     ybApplicationStart,
     obApplicationStart,
@@ -57,8 +56,7 @@ const useDate = () => {
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
 
   return {
-    season,
-    group,
+    ...data?.data.season,
     NoMoreRecruit,
     NoMoreApply,
     NoMoreScreeningResult,

@@ -3,7 +3,6 @@ import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
-import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -79,38 +78,24 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
 };
 
 const ScreeningResult = () => {
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const {
+    recruitingInfo: { soptName },
+    handleSaveRecruitingInfo,
+  } = useContext(RecruitingInfoContext);
 
-  const { data, isLoading } = useGetRecruitingInfo();
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
 
-  const { name: soptName, obApplicationPassConfirmStart, ybApplicationPassConfirmStart } = data?.data.season || {};
-  const { name, season, group, interviewStart, interviewEnd, pass } = screeningResult?.data || {};
-
-  const applicationPassConfirmStart = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
+  const { name, interviewStart, interviewEnd, pass } = screeningResult?.data || {};
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
-      soptName,
-      season,
-      group,
       interviewStart,
       interviewEnd,
-      applicationPassConfirmStart,
     });
-  }, [
-    name,
-    soptName,
-    season,
-    group,
-    interviewStart,
-    interviewEnd,
-    applicationPassConfirmStart,
-    handleSaveRecruitingInfo,
-  ]);
+  }, [name, interviewStart, interviewEnd, handleSaveRecruitingInfo]);
 
-  if (isLoading || screeningResultIsLoading) return <BigLoading />;
+  if (screeningResultIsLoading) return <BigLoading />;
 
   const isMakers = soptName?.toLowerCase().includes('makers');
 

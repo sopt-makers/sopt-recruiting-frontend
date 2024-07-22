@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
-import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -55,11 +54,12 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
 };
 
 const FinalResult = () => {
-  const { data, isLoading } = useGetRecruitingInfo();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const {
+    recruitingInfo: { soptName },
+    handleSaveRecruitingInfo,
+  } = useContext(RecruitingInfoContext);
 
-  const { name: soptName, season, group } = data?.data.season || {};
   const { name, pass } = finalResult?.data || {};
 
   const isMakers = soptName?.toLowerCase().includes('makers');
@@ -70,13 +70,10 @@ const FinalResult = () => {
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
-      soptName,
-      season,
-      group,
     });
-  }, [name, soptName, season, group, handleSaveRecruitingInfo]);
+  }, [name, handleSaveRecruitingInfo]);
 
-  if (isLoading || finalResultIsLoading) return <BigLoading />;
+  if (finalResultIsLoading) return <BigLoading />;
 
   return (
     <section className={container}>
