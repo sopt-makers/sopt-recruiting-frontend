@@ -26,7 +26,7 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { register, setValue, getValues } = useFormContext();
+  const { register, setValue, clearErrors, getValues } = useFormContext();
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (file: File, id: number) => {
@@ -52,6 +52,8 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
             file: urlWithoutToken,
             fileName: file.name,
           });
+          getValues(`part${id}`) === '' && setValue(`part${id}`, '파일을 업로드 했어요.');
+          clearErrors(`part${id}`);
         });
       },
     );
@@ -81,9 +83,11 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
         setFile(null);
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
+        getValues(`part${id}`) === '파일을 업로드 했어요.' && setValue(`part${id}`, '');
       } else if (uploadPercent !== -2 && defaultFileName) {
         setUploadPercent(-2);
         setValue(`file${id}`, undefined);
+        getValues(`part${id}`) === '파일을 업로드 했어요.' && setValue(`part${id}`, '');
       } else {
         inputRef.current.click();
       }
