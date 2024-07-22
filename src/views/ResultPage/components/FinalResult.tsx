@@ -6,22 +6,16 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { bottomAnimation, bottomImg, container, content, contentWrapper, strongText } from './style.css';
-// import imgSoptLogo from '../assets/imgSoptLogo.png';
-// import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import imgMakersLogo from '../assets/imgMakersLogo.png';
 import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
+import imgSoptLogo from '../assets/imgSoptLogo.png';
+import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
-const Content = ({ pass }: { pass?: boolean }) => {
-  const { data, isLoading } = useGetRecruitingInfo();
-  const { name: soptName, season, group } = data?.data.season || {};
+const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
   const {
-    recruitingInfo: { name },
+    recruitingInfo: { name, soptName, season, group },
   } = useContext(RecruitingInfoContext);
-
-  if (isLoading) return <BigLoading />;
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   return (
     <>
@@ -61,35 +55,41 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const FinalResult = () => {
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const { data, isLoading } = useGetRecruitingInfo();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
-  const { name, season, group } = finalResult?.data || {};
+  const { name: soptName, season, group } = data?.data.season || {};
+  const { name, pass } = finalResult?.data || {};
+
+  const isMakers = soptName?.toLowerCase().includes('makers');
+
+  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
+  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
+      soptName,
       season,
       group,
     });
-  }, [name, season, group, handleSaveRecruitingInfo]);
+  }, [name, soptName, season, group, handleSaveRecruitingInfo]);
 
-  if (finalResultIsLoading) return <BigLoading />;
-
-  const { pass } = finalResult?.data || {};
+  if (isLoading || finalResultIsLoading) return <BigLoading />;
 
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content pass={pass} />
+        <Content isMakers={isMakers} pass={pass} />
       </div>
       {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
-            <source srcSet={imgMakersLogoWebp} type="image/webp" />
-            <img src={imgMakersLogo} alt="sopt-logo" />
+            <source srcSet={imgLogoWebp} type="image/webp" />
+            <img src={imgLogo} alt="sopt-logo" />
           </picture>
         </>
       )}

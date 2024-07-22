@@ -8,43 +8,23 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { bottomAnimation, bottomImg, container, content, contentWrapper, link, strongText } from './style.css';
-// import imgSoptLogo from '../assets/imgSoptLogo.png';
-// import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import imgMakersLogo from '../assets/imgMakersLogo.png';
 import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
+import imgSoptLogo from '../assets/imgSoptLogo.png';
+import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
-const Content = ({ pass }: { pass?: boolean }) => {
+const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
   const {
-    recruitingInfo: { name },
+    recruitingInfo: { name, soptName, season, group, interviewStart, interviewEnd, applicationPassConfirmStart },
   } = useContext(RecruitingInfoContext);
-  const { data, isLoading } = useGetRecruitingInfo();
-  const {
-    name: soptName,
-    season,
-    group,
-    ybApplicationPassConfirmStart,
-    obApplicationPassConfirmStart,
-    ybInterviewStart,
-    ybInterviewEnd,
-    obInterviewStart,
-    obInterviewEnd,
-  } = data?.data.season || {};
 
-  if (isLoading) return <BigLoading />;
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
-
-  const interviewStartTime = group === 'OB' ? obInterviewStart : ybInterviewStart;
-  const interviewEndTime = group === 'OB' ? obInterviewEnd : ybInterviewEnd;
-  const applicationPassConfirmTime = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
-
-  const applicationDate = new Date(applicationPassConfirmTime || '');
+  const applicationDate = new Date(applicationPassConfirmStart || '');
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStart = format(new Date(interviewStartTime || ''), 'M/dd(E)', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEndTime || ''), 'M/dd(E)', { locale: ko });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M/dd(E)', { locale: ko });
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M/dd(E)', { locale: ko });
   const formattedApplicationPassConfirmStart = format(applicationDate, 'dd일 EEEE', {
     locale: ko,
   });
@@ -100,34 +80,55 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
 const ScreeningResult = () => {
   const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+
+  const { data, isLoading } = useGetRecruitingInfo();
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
 
-  const { name, season, group } = screeningResult?.data || {};
+  const { name: soptName, obApplicationPassConfirmStart, ybApplicationPassConfirmStart } = data?.data.season || {};
+  const { name, season, group, interviewStart, interviewEnd, pass } = screeningResult?.data || {};
+
+  const applicationPassConfirmStart = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
+      soptName,
       season,
       group,
+      interviewStart,
+      interviewEnd,
+      applicationPassConfirmStart,
     });
-  }, [name, season, group, handleSaveRecruitingInfo]);
+  }, [
+    name,
+    soptName,
+    season,
+    group,
+    interviewStart,
+    interviewEnd,
+    applicationPassConfirmStart,
+    handleSaveRecruitingInfo,
+  ]);
 
-  if (screeningResultIsLoading) return <BigLoading />;
+  if (isLoading || screeningResultIsLoading) return <BigLoading />;
 
-  const { pass } = screeningResult?.data || {};
+  const isMakers = soptName?.toLowerCase().includes('makers');
+
+  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
+  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
 
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content pass={pass} />
+        <Content isMakers={isMakers} pass={pass} />
       </div>
       {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
-            <source srcSet={imgMakersLogoWebp} type="image/webp" />
-            <img src={imgMakersLogo} alt="sopt-logo" />
+            <source srcSet={imgLogoWebp} type="image/webp" />
+            <img src={imgLogo} alt="sopt-logo" />
           </picture>
         </>
       )}
