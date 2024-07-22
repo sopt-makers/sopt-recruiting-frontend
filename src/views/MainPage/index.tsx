@@ -58,7 +58,7 @@ const MainPage = () => {
     const interviewEnd = group === 'YB' ? ybInterviewEnd : obInterviewEnd;
 
     handleSaveRecruitingInfo({
-      name,
+      soptName: name,
       season,
       group,
       applicationStart, // 서류 지원 시작

@@ -9,10 +9,10 @@ import { calloutButton, strongText } from './style.css';
 import type { SeasonGroupType } from '@type/seasonAndGroup';
 
 interface SignInInfoProps extends SeasonGroupType {
-  name?: string;
+  soptName?: string;
 }
 
-const SignInInfo = ({ name: soptName, season, group }: SignInInfoProps) => {
+const SignInInfo = ({ soptName, season, group }: SignInInfoProps) => {
   return (
     <>
       <Title>
