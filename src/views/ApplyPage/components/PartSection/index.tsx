@@ -74,7 +74,7 @@ const PartSection = ({
               }
               extraInput={
                 isFile ? (
-                  <FileInput id={id} isReview={isReview} defaultFile={defaultFile} />
+                  <FileInput section="part" id={id} isReview={isReview} defaultFile={defaultFile} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null

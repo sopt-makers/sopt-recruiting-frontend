@@ -42,7 +42,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
               }
               extraInput={
                 isFile ? (
-                  <FileInput id={id} isReview={isReview} defaultFile={defaultFile} />
+                  <FileInput section="common" id={id} isReview={isReview} defaultFile={defaultFile} />
                 ) : urls ? (
                   <LinkInput urls={urls} />
                 ) : null
