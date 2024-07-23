@@ -141,7 +141,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           placeholder="성별을 선택해주세요."
           label="성별"
           name="gender"
-          options={SELECT_OPTIONS.성별}
+          options={SELECT_OPTIONS.gender}
           required
           disabled={isReview}
         />
@@ -198,12 +198,12 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
               leaveAbsence == undefined
                 ? undefined
                 : !leaveAbsence
-                  ? SELECT_OPTIONS.재학[0]
+                  ? SELECT_OPTIONS.leaveAbsence[0]
                   : isMakers
-                    ? SELECT_OPTIONS.재학Makers[1]
-                    : SELECT_OPTIONS.재학[1]
+                    ? SELECT_OPTIONS.leaveAbsenceMakers[1]
+                    : SELECT_OPTIONS.leaveAbsence[1]
             }
-            label={isMakers ? SELECT_OPTIONS.재학Makers : SELECT_OPTIONS.재학}
+            label={isMakers ? SELECT_OPTIONS.leaveAbsenceMakers : SELECT_OPTIONS.leaveAbsence}
             name="leaveAbsence"
             required
             disabled={isReview}
@@ -229,13 +229,13 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
               : univYear !== 5
                 ? `${univYear}학년`
                 : isMakers
-                  ? SELECT_OPTIONS.학년Makers[-1]
-                  : SELECT_OPTIONS.학년[-1]
+                  ? SELECT_OPTIONS.univYearMakers[-1]
+                  : SELECT_OPTIONS.univYear[-1]
           }
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."
-          options={SELECT_OPTIONS.학년}
+          options={SELECT_OPTIONS.univYear}
           required
           disabled={isReview}
         />
@@ -245,7 +245,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={SELECT_OPTIONS.이전기수}
+        options={SELECT_OPTIONS.mostRecentSeason}
         required
         size="lg"
         disabled={isReview}

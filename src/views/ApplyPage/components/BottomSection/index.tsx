@@ -20,7 +20,7 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
         name="knownPath"
         defaultValue={knownPath}
         placeholder="지원 경로를 선택해 주세요."
-        options={SELECT_OPTIONS.경로}
+        options={SELECT_OPTIONS.knownPath}
         required
         disabled={isReview}
       />

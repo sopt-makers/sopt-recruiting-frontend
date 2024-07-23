@@ -184,7 +184,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence = leaveAbsenceValue == undefined ? undefined : leaveAbsenceValue === '재학' ? false : true;
     const univYear =
-      (isMakers ? SELECT_OPTIONS.학년Makers : SELECT_OPTIONS.학년).indexOf(univYearValue) + 1 || undefined;
+      (isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
 
     const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
       getValues(),
