@@ -17,6 +17,7 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
+import { SELECT_OPTIONS } from './constant';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
@@ -50,7 +51,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
 
-  const { NoMoreReview, isLoading } = useDate();
+  const { name: soptName, NoMoreReview, isLoading } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -72,7 +73,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     college,
     gender,
     knownPath,
-    leaveAbsence: leaveAbsenceValue,
     major,
     mostRecentSeason: mostRecentSeasonValue,
     nearestStation,
@@ -88,6 +88,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     phone,
     ...rest
   } = getValues();
+
+  const isMakers = soptName?.toLowerCase().includes('makers');
 
   useEffect(() => {
     if (applicantDraft?.part) {
@@ -180,8 +182,9 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
-      leaveAbsenceValue === '재학' ? false : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? true : undefined;
-    const univYear = ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예 ‧ 졸업'].indexOf(univYearValue) + 1 || undefined;
+      getValues('leaveAbsence') == undefined ? undefined : getValues('leaveAbsence') === '재학' ? false : true;
+    const univYear =
+      (isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
 
     const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
       getValues(),
@@ -283,7 +286,12 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
         <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-          <DefaultSection isReview={isReview} refCallback={refCallback} applicantDraft={applicantDraft} />
+          <DefaultSection
+            isMakers={isMakers}
+            isReview={isReview}
+            refCallback={refCallback}
+            applicantDraft={applicantDraft}
+          />
           <CommonSection
             isReview={isReview}
             refCallback={refCallback}

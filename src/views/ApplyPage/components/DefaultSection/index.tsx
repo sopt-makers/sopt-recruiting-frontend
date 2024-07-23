@@ -105,12 +105,13 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 };
 
 interface DefaultSectionProps {
+  isMakers?: boolean;
   isReview: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
 }
 
-const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
+const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
   const {
     address,
     birthday,
@@ -140,7 +141,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
           placeholder="성별을 선택해주세요."
           label="성별"
           name="gender"
-          options={SELECT_OPTIONS.성별}
+          options={SELECT_OPTIONS.gender}
           required
           disabled={isReview}
         />
@@ -193,8 +194,16 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' : '재학'}
-            label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
+            defaultValue={
+              leaveAbsence == undefined
+                ? undefined
+                : !leaveAbsence
+                  ? SELECT_OPTIONS.leaveAbsence[0]
+                  : isMakers
+                    ? SELECT_OPTIONS.leaveAbsenceMakers[1]
+                    : SELECT_OPTIONS.leaveAbsence[1]
+            }
+            label={isMakers ? SELECT_OPTIONS.leaveAbsenceMakers : SELECT_OPTIONS.leaveAbsence}
             name="leaveAbsence"
             required
             disabled={isReview}
@@ -214,11 +223,19 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
           />
         </TextBox>
         <SelectBox
-          defaultValue={univYear == undefined ? undefined : univYear === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${univYear}학년`}
+          defaultValue={
+            univYear == undefined
+              ? undefined
+              : univYear !== 5
+                ? `${univYear}학년`
+                : isMakers
+                  ? SELECT_OPTIONS.univYearMakers.slice(-1)[0]
+                  : SELECT_OPTIONS.univYear.slice(-1)[0]
+          }
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."
-          options={SELECT_OPTIONS.학년}
+          options={isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear}
           required
           disabled={isReview}
         />
@@ -228,7 +245,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={SELECT_OPTIONS.이전기수}
+        options={SELECT_OPTIONS.mostRecentSeason}
         required
         size="lg"
         disabled={isReview}
