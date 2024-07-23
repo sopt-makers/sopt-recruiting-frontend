@@ -105,12 +105,13 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 };
 
 interface DefaultSectionProps {
+  isMakers?: boolean;
   isReview: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
 }
 
-const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
+const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
   const {
     address,
     birthday,
@@ -193,8 +194,16 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' : '재학'}
-            label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
+            defaultValue={
+              leaveAbsence == undefined
+                ? undefined
+                : !leaveAbsence
+                  ? '재학'
+                  : isMakers
+                    ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'
+                    : '휴학 ‧ 수료 ‧ 유예'
+            }
+            label={isMakers ? ['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'] : ['재학', '휴학 ‧ 수료 ‧ 유예']}
             name="leaveAbsence"
             required
             disabled={isReview}
