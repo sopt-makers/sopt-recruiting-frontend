@@ -185,6 +185,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     const leaveAbsence = leaveAbsenceValue == undefined ? undefined : leaveAbsenceValue === '재학' ? false : true;
     const univYear =
       (isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
+    console.log(univYear);
 
     const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
       getValues(),

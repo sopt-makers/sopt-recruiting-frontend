@@ -229,13 +229,13 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
               : univYear !== 5
                 ? `${univYear}학년`
                 : isMakers
-                  ? SELECT_OPTIONS.univYearMakers[-1]
-                  : SELECT_OPTIONS.univYear[-1]
+                  ? SELECT_OPTIONS.univYearMakers.slice(-1)[0]
+                  : SELECT_OPTIONS.univYear.slice(-1)[0]
           }
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."
-          options={SELECT_OPTIONS.univYear}
+          options={isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear}
           required
           disabled={isReview}
         />
