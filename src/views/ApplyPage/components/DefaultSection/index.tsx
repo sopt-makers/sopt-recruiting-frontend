@@ -198,12 +198,12 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
               leaveAbsence == undefined
                 ? undefined
                 : !leaveAbsence
-                  ? '재학'
+                  ? SELECT_OPTIONS.재학[0]
                   : isMakers
-                    ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'
-                    : '휴학 ‧ 수료 ‧ 유예'
+                    ? SELECT_OPTIONS.재학Makers[1]
+                    : SELECT_OPTIONS.재학[1]
             }
-            label={isMakers ? ['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'] : ['재학', '휴학 ‧ 수료 ‧ 유예']}
+            label={isMakers ? SELECT_OPTIONS.재학Makers : SELECT_OPTIONS.재학}
             name="leaveAbsence"
             required
             disabled={isReview}
@@ -223,7 +223,15 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           />
         </TextBox>
         <SelectBox
-          defaultValue={univYear == undefined ? undefined : univYear === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${univYear}학년`}
+          defaultValue={
+            univYear == undefined
+              ? undefined
+              : univYear !== 5
+                ? `${univYear}학년`
+                : isMakers
+                  ? SELECT_OPTIONS.학년Makers[-1]
+                  : SELECT_OPTIONS.학년[-1]
+          }
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."

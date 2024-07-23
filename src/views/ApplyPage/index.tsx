@@ -17,6 +17,7 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
+import { SELECT_OPTIONS } from './constant';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
@@ -183,10 +184,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence = leaveAbsenceValue == undefined ? undefined : leaveAbsenceValue === '재학' ? false : true;
     const univYear =
-      (isMakers
-        ? ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예 ‧ 졸업']
-        : ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예']
-      ).indexOf(univYearValue) + 1 || undefined;
+      (isMakers ? SELECT_OPTIONS.학년Makers : SELECT_OPTIONS.학년).indexOf(univYearValue) + 1 || undefined;
 
     const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
       getValues(),
