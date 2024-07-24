@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { nanoid } from 'nanoid';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -33,6 +34,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   const handleFileUpload = (file: File, id: number) => {
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
+    track(`click-apply-add_file${id}`);
 
     uploadTask.on(
       STATE_CHANGED,
@@ -55,6 +57,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           });
           getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
           clearErrors(`${section}${id}`);
+          track(`done-apply-add_file${id}`);
         });
       },
     );
@@ -85,10 +88,12 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
         getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+        track(`click-apply-remove_file${id}`);
       } else if (uploadPercent !== -2 && defaultFileName) {
         setUploadPercent(-2);
         setValue(`file${id}`, undefined);
         getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+        track(`click-apply-remove_file${id}`);
       } else {
         inputRef.current.click();
       }
