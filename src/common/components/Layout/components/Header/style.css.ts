@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
+import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
@@ -15,7 +16,7 @@ export const container = style({
 
   backgroundColor: theme.color.background,
 
-  zIndex: 99,
+  zIndex: Z_INDEX.gnbHeader,
 });
 
 export const logo = style({ height: 30, cursor: 'pointer' });

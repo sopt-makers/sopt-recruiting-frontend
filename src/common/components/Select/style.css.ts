@@ -2,6 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { containerSize } from '@components/Input/constants';
 import { formColors } from '@constants/styleValues';
+import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
@@ -53,7 +54,7 @@ export const select = style({
 
   cursor: 'pointer',
 
-  zIndex: 1,
+  zIndex: Z_INDEX.select,
 
   transition: '0.3s ease-in-out',
 
@@ -121,7 +122,7 @@ export const optionContainer = style({
   opacity: 0,
   transition: '0.3s ease-in-out',
   visibility: 'hidden',
-  zIndex: 2,
+  zIndex: Z_INDEX.options,
 
   selectors: {
     [`${select}:focus~&`]: {
