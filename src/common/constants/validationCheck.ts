@@ -48,6 +48,7 @@ export const VALIDATION_CHECK = {
   },
   IDPhoto: {
     errorText: '파일 크기가 너무 커요. 10MB 이하로 선택해주세요.',
+    wrongRadioErrorText: '이미지의 비율이 3:4가 아니에요.',
   },
   subway: {
     pattern: /^[가-힣\s.,·()-\d']+$/,

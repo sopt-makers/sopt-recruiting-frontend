@@ -33,11 +33,10 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     register,
     clearErrors,
     setValue,
+    setError,
     formState: { errors },
   } = useFormContext();
   const [image, setImage] = useState('');
-  const [isFileSizeExceeded, setIsFileSizeExceeded] = useState('');
-  const isError = isFileSizeExceeded || errors.picture;
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
@@ -46,7 +45,9 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 
     const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
     if (LIMIT_SIZE < imageFile.size) {
-      setIsFileSizeExceeded(VALIDATION_CHECK.IDPhoto.errorText);
+      setValue('picture', null);
+      setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
+      setImage('');
       return;
     }
 
@@ -61,13 +62,13 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
         const exactRatio = Math.round((width / height) * 100);
         if (exactRatio !== 75) {
           setValue('picture', null);
-          setIsFileSizeExceeded('이미지의 비율이 3:4가 아닙니다.');
+          setError('picture', { type: 'wrong-ratio', message: VALIDATION_CHECK.IDPhoto.wrongRadioErrorText });
           setImage('');
 
           return;
         }
       };
-      setIsFileSizeExceeded('');
+      clearErrors('picture');
       setImage(reader.result as string);
     };
   };
@@ -78,7 +79,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
         <input
           id="picture"
           type="file"
-          accept="image/png, image/jpg, image/jpeg"
+          // accept="image/png, image/jpg, image/jpeg"
           style={{ display: 'none' }}
           disabled={disabled}
           {...register('picture', {
@@ -87,9 +88,11 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
           })}
         />
         <div>
-          <label htmlFor="picture" className={profileLabelVar[disabled ? 'disabled' : isError ? 'error' : 'default']}>
+          <label
+            htmlFor="picture"
+            className={profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']}>
             {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
-            {isError && <p className={errorText}>{isFileSizeExceeded || (errors.picture?.message as string)}</p>}
+            {errors.picture && <p className={errorText}>{errors.picture?.message as string}</p>}
           </label>
         </div>
         <ul className={profileTextWrapper}>
