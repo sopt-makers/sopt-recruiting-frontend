@@ -79,7 +79,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
         <input
           id="picture"
           type="file"
-          // accept="image/png, image/jpg, image/jpeg"
+          accept="image/png, image/jpg, image/jpeg"
           style={{ display: 'none' }}
           disabled={disabled}
           {...register('picture', {
