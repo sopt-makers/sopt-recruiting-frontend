@@ -24,7 +24,7 @@ const NoMore = ({ isMakers, content }: NoMoreProps) => {
       <p className={instruction}>{`문의사항이 있다면\n아래 ‘문의하기’를 이용해 주세요`}</p>
       <a
         id="chat-channel-button"
-        href={isMakers ? 'http://pf.kakao.com/_sxaIWG' : 'https://pf.kakao.com/_JdTKd'}
+        href={isMakers ? 'https://pf.kakao.com/_sxaIWG' : 'https://pf.kakao.com/_JdTKd'}
         className={contactButton}
         onClick={() => track(isMakers ? 'click-nomore-ask_makers' : 'click-nomore-ask')}>
         문의하기

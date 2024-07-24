@@ -29,7 +29,7 @@ export const MENU_ITEMS_MAKERS: menuItemsTypes[] = [
   },
   {
     text: '문의하기',
-    path: 'http://pf.kakao.com/_sxaIWG',
+    path: 'https://pf.kakao.com/_sxaIWG',
     amplitudeId: 'click-gnb-ask_makers',
     target: '_blank',
   },
