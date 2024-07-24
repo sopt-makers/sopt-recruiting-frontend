@@ -13,7 +13,7 @@ const MainPage = () => {
     recruitingInfo: { applicationStart, finalPassConfirmEnd },
     handleSaveRecruitingInfo,
   } = useContext(RecruitingInfoContext);
-  const isSignedIn = localStorage.getItem('soptApplyAccessToken');
+  const isSignedIn = sessionStorage.getItem('soptApplyAccessToken');
 
   const { data, isLoading } = useGetRecruitingInfo();
 

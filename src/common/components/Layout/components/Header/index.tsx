@@ -13,7 +13,7 @@ import { container, logo, menuList } from './style.css';
 const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isSignedIn = localStorage.getItem('soptApplyAccessToken');
+  const isSignedIn = sessionStorage.getItem('soptApplyAccessToken');
   const {
     recruitingInfo: { name, soptName },
   } = useContext(RecruitingInfoContext);
@@ -28,7 +28,7 @@ const Header = () => {
   const handleLogout = () => {
     track('click-gnb-logout');
     reset();
-    localStorage.removeItem('soptApplyAccessToken');
+    sessionStorage.removeItem('soptApplyAccessToken');
     if (pathname === '/') navigate(0);
     else navigate('/');
   };

@@ -25,7 +25,7 @@ const useMutateSignIn = ({ onSetError }: MutateSignInProps) => {
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
     onSuccess: ({ data: { email, token } }) => {
       setUserId(email);
-      localStorage.setItem('soptApplyAccessToken', token);
+      sessionStorage.setItem('soptApplyAccessToken', token);
       navigate(0);
     },
     onError(error) {

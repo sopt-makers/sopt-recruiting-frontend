@@ -11,7 +11,7 @@ export default tokenInstance;
 
 tokenInstance.interceptors.request.use(
   (config) => {
-    const soptApplyAccessToken = localStorage.getItem('soptApplyAccessToken');
+    const soptApplyAccessToken = sessionStorage.getItem('soptApplyAccessToken');
 
     if (!soptApplyAccessToken) {
       window.location.href = '/';
