@@ -40,14 +40,9 @@ const Header = () => {
       </button>
       <nav>
         <ul className={menuList}>
-          {!isMakers &&
-            MENU_ITEMS.map(({ text, path, target, amplitudeId }) => (
-              <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
-            ))}
-          {isMakers &&
-            MENU_ITEMS_MAKERS.map(({ text, path, target, amplitudeId }) => (
-              <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
-            ))}
+          {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
+            <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
+          ))}
           {isSignedIn ? (
             <>
               <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
