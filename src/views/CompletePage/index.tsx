@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,11 @@ const CompletePage = () => {
     recruitingInfo: { name, season, group },
   } = useContext(RecruitingInfoContext);
 
+  const handleClickMyPage = () => {
+    track('click-complete-my');
+    navigate(0);
+  };
+
   return (
     <section className={container}>
       <div className={icon}>
@@ -25,7 +31,7 @@ const CompletePage = () => {
         style={{
           marginBottom: 50,
         }}>{`이메일 도착 시점에 차이가 있을 수 있습니다.\n이메일이 오지 않으면 스팸 메일함을 확인해주세요.`}</Callout>
-      <Button onClick={() => navigate(0)}>마이페이지로 이동하기</Button>
+      <Button onClick={handleClickMyPage}>마이페이지로 이동하기</Button>
     </section>
   );
 };
