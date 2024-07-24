@@ -12,9 +12,9 @@ export const VALIDATION_CHECK = {
   email: {
     pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
     maxLength: 100,
-    errorText: '이메일 형식이 올바르지 않아요.',
+    errorText: '잘못된 이메일 형식이에요. 이메일을 정확하게 입력해주세요.',
     errorTextExistence: '이미 존재하는 계정이에요.',
-    errorTextNonexistence: '존재하지 않은 계정이에요.',
+    errorTextNonexistence: '존재하지 않은 계dh정이에요.',
     notMatchErrorText: '잘못된 이메일 혹은 비밀번호예요.',
   },
   verificationCode: {
@@ -52,11 +52,11 @@ export const VALIDATION_CHECK = {
   subway: {
     pattern: /^[가-힣\s.,·()-\d']+$/,
     maxLength: 20,
-    errorText: '입력 형식이 올바르지 않아요.',
+    errorText: '잘못된 입력 형식이에요.',
   },
   textInput: {
     pattern: /^[가-힣\s.,·()\-a-zA-Z\d]+$/,
     maxLength: 40,
-    errorText: '입력 형식이 올바르지 않아요.',
+    errorText: '잘못된 입력 형식이에요.',
   },
 };
