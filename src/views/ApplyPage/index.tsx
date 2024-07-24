@@ -172,7 +172,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   }, [isReview]);
 
   if (questionsIsLoading || isLoading) return <BigLoading />;
-  if (NoMoreReview) return <NoMore content="모집 기간이 아니에요" />;
+  if (NoMoreReview) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
