@@ -15,10 +15,8 @@ interface ApplyHeaderProps {
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
   const {
-    recruitingInfo: { soptName, season, group },
+    recruitingInfo: { soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   return (
     <header className={headerContainer}>

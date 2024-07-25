@@ -78,6 +78,7 @@ const useDate = () => {
       finalPassConfirmEnd, // 최종 합격 확인 종료
       interviewStart, // 면접 시작
       interviewEnd, // 면접 끝
+      isMakers,
     });
   }, [
     name,
@@ -91,6 +92,7 @@ const useDate = () => {
     finalPassConfirmEnd,
     interviewStart,
     interviewEnd,
+    isMakers,
     handleSaveRecruitingInfo,
   ]);
 

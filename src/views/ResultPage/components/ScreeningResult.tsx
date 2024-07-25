@@ -79,10 +79,9 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
 
 const ScreeningResult = () => {
   const {
-    recruitingInfo: { soptName },
+    recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
   } = useContext(RecruitingInfoContext);
-
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
 
   const { name, interviewStart, interviewEnd, pass } = screeningResult?.data || {};
@@ -96,8 +95,6 @@ const ScreeningResult = () => {
   }, [name, interviewStart, interviewEnd, handleSaveRecruitingInfo]);
 
   if (screeningResultIsLoading) return <BigLoading />;
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
   const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;

@@ -15,10 +15,8 @@ const Header = () => {
   const { pathname } = useLocation();
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
   const {
-    recruitingInfo: { name, soptName },
+    recruitingInfo: { name, isMakers },
   } = useContext(RecruitingInfoContext);
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   const handleClickLogo = () => {
     if (pathname === '/') navigate(0);

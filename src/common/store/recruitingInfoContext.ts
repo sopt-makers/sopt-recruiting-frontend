@@ -15,6 +15,7 @@ export type RecruitingInfoType = {
   finalPassConfirmEnd?: string;
   interviewStart?: string;
   interviewEnd?: string;
+  isMakers?: boolean;
 };
 
 interface RecruitingInfoContextType {
