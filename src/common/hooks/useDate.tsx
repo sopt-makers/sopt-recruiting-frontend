@@ -1,11 +1,18 @@
 import { isAfter, isBefore } from 'date-fns';
+import { useContext, useEffect } from 'react';
+
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import useGetRecruitingInfo from './useGetRecruitingInfo';
 
 const useDate = () => {
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+
   const { data, isLoading } = useGetRecruitingInfo();
 
   const {
+    name,
+    season,
     group,
     ybApplicationStart,
     obApplicationStart,
@@ -23,8 +30,8 @@ const useDate = () => {
     obFinalPassConfirmStart,
     ybFinalPassConfirmEnd,
     obFinalPassConfirmEnd,
-    // ybInterviewStart,
-    // obInterviewStart,
+    ybInterviewStart,
+    obInterviewStart,
     ybInterviewEnd,
     obInterviewEnd,
   } = data?.data.season || {};
@@ -35,12 +42,11 @@ const useDate = () => {
   // const applicationConfirmEndValue = group === 'YB' ? ybApplicationConfirmEnd : obApplicationConfirmEnd; // 서류 검사 마감
   const applicationPassConfirmStart = group === 'YB' ? ybApplicationPassConfirmStart : obApplicationPassConfirmStart; // 서류 합격 시작
   const applicationPassConfirmEnd = group === 'YB' ? ybApplicationPassConfirmEnd : obApplicationPassConfirmEnd; // 서류 합격 마감
-  // const interviewStart = group === 'YB' ? ybInterviewStart : obInterviewStart; // 면접 시작
-  const interviewEnd = group === 'YB' ? ybInterviewEnd : obInterviewEnd; // 면접 마감
+  const interviewStart = group === 'YB' ? ybInterviewStart : obInterviewStart;
+  const interviewEnd = group === 'YB' ? ybInterviewEnd : obInterviewEnd;
   const finalPassConfirmStart = group === 'YB' ? ybFinalPassConfirmStart : obFinalPassConfirmStart; // 최종 합격 시작
   const finalPassConfirmEnd = group === 'YB' ? ybFinalPassConfirmEnd : obFinalPassConfirmEnd; // 최종 합격 마감
 
-  // 서류 전 / 서류 중간 / 서류 마감 / 합격 기다리는 중 / 서류 합격 시작 / 서률 합격 중 / 서류 합격 마감 / 기다리는 중 / 면접 시작 / 면접 마감 / 기다리는 중 / 최종 합격 / 최종 합격 마감
   const beforeRecruiting = isAfter(new Date(applicationStart || ''), new Date());
   const afterRecruiting = isBefore(new Date(finalPassConfirmEnd || ''), new Date());
   const afterApply = isBefore(new Date(applicationEnd || ''), new Date());
@@ -54,6 +60,37 @@ const useDate = () => {
   const NoMoreScreeningResult = beforeScreeningResult || afterScreeningResult; // 서류 합불 확인 기간 아님
   const NoMoreReview = afterInterview; // 면접 마감 -> 지원서 확인 불가
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
+
+  useEffect(() => {
+    handleSaveRecruitingInfo({
+      soptName: name,
+      season,
+      group,
+      applicationStart, // 서류 지원 시작
+      applicationEnd, // 서류 지원 끝
+      // applicationConfirmStart, // 서류 지원 확인 시작
+      // applicationConfirmEnd, // 서류 지원 확인 종료
+      applicationPassConfirmStart, // 서류 합격 확인 시작
+      applicationPassConfirmEnd, // 서류 합격 확인 종료
+      finalPassConfirmStart, // 최종 합격 확인 시작
+      finalPassConfirmEnd, // 최종 합격 확인 종료
+      interviewStart, // 면접 시작
+      interviewEnd, // 면접 끝
+    });
+  }, [
+    name,
+    season,
+    group,
+    applicationStart,
+    applicationEnd,
+    applicationPassConfirmStart,
+    applicationPassConfirmEnd,
+    finalPassConfirmStart,
+    finalPassConfirmEnd,
+    interviewStart,
+    interviewEnd,
+    handleSaveRecruitingInfo,
+  ]);
 
   return {
     ...data?.data.season,
