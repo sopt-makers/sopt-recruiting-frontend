@@ -14,7 +14,7 @@ const SignInPage = () => {
 
   return (
     <div className={container}>
-      <SignInInfo soptName={soptName} season={season} group={group} />
+      <SignInInfo soptName={soptName} isMakers={isMakers} season={season} group={group} />
       <SignInForm season={season} group={group} />
     </div>
   );
