@@ -18,6 +18,8 @@ const Header = () => {
     recruitingInfo: { name, isMakers },
   } = useContext(RecruitingInfoContext);
 
+  console.log(isMakers);
+
   const handleClickLogo = () => {
     if (pathname === '/') navigate(0);
     else navigate('/');
@@ -34,7 +36,7 @@ const Header = () => {
   return (
     <header className={container}>
       <button onClick={handleClickLogo} className={logo}>
-        {isMakers ? <MakersLogo /> : <NowsoptLogo />}
+        {isMakers ? <MakersLogo /> : isMakers === false ? <NowsoptLogo /> : null}
       </button>
       <nav>
         <ul className={menuList}>
