@@ -7,11 +7,13 @@ import PasswordForm from './components/PasswordForm';
 import { container } from './style.css';
 
 const PasswordPage = () => {
-  const { season, group, NoMoreRecruit, isLoading } = useDate();
+  const { name: soptName, season, group, NoMoreRecruit, isLoading } = useDate();
 
   if (isLoading) return <BigLoading />;
 
-  if (NoMoreRecruit) return <NoMore content="모집 기간이 아니에요" />;
+  const isMakers = soptName?.toLowerCase().includes('makers');
+
+  if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
     <div className={container}>

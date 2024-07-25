@@ -6,7 +6,7 @@ import MakersLogo from '@assets/MakersLogo';
 import NowsoptLogo from '@assets/NowsoptLogo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
-import { MENU_ITEMS } from './contants';
+import { MENU_ITEMS, MENU_ITEMS_MAKERS } from './contants';
 import MenuItem from './MenuItem';
 import { container, logo, menuList } from './style.css';
 
@@ -40,7 +40,7 @@ const Header = () => {
       </button>
       <nav>
         <ul className={menuList}>
-          {MENU_ITEMS.map(({ text, path, target, amplitudeId }) => (
+          {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
             <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
           ))}
           {isSignedIn ? (

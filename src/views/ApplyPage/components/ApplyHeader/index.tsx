@@ -15,13 +15,15 @@ interface ApplyHeaderProps {
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
   const {
-    recruitingInfo: { season, group },
+    recruitingInfo: { soptName, season, group },
   } = useContext(RecruitingInfoContext);
+
+  const isMakers = soptName?.toLowerCase().includes('makers');
 
   return (
     <header className={headerContainer}>
       <Title>
-        {season}기 {group} 지원서
+        {season}기 {isMakers ? soptName : group} 지원서
       </Title>
       {!isReview && (
         <div className={buttonWrapper}>

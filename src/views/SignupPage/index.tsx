@@ -7,11 +7,13 @@ import SignupForm from './components/SignupForm';
 import { container } from './style.css';
 
 const SignupPage = () => {
-  const { season, group, NoMoreRecruit, NoMoreApply, isLoading } = useDate();
+  const { name: soptName, season, group, NoMoreRecruit, NoMoreApply, isLoading } = useDate();
 
   if (isLoading) return <BigLoading />;
 
-  if (NoMoreRecruit || NoMoreApply) return <NoMore content="모집 기간이 아니에요" />;
+  const isMakers = soptName?.toLowerCase().includes('makers');
+
+  if (NoMoreRecruit || NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
     <div className={container}>

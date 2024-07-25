@@ -26,6 +26,7 @@ const ResultPage = () => {
   } = useDate();
 
   const applicationPassConfirmStart = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
+  const isMakers = soptName?.toLowerCase().includes('makers');
 
   useEffect(() => {
     handleChangeMode('dark');
@@ -47,7 +48,7 @@ const ResultPage = () => {
   if (isLoading) return <BigLoading />;
 
   if (NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
-    return <NoMore content="합불 확인 기간이 아니에요" />;
+    return <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />;
 
   return (
     <>
