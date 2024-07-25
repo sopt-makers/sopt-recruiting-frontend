@@ -20,9 +20,9 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 
 const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult } = useDate();
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
 
-  if (myInfoIsLoading) return <BigLoading />;
+  if (myInfoIsLoading || isLoading) return <BigLoading />;
 
   const { season, name, part } = myInfoData?.data || {};
 
