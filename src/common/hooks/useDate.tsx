@@ -61,6 +61,8 @@ const useDate = () => {
   const NoMoreReview = afterInterview; // 면접 마감 -> 지원서 확인 불가
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
 
+  const isMakers = name?.toLowerCase().includes('makers');
+
   useEffect(() => {
     handleSaveRecruitingInfo({
       soptName: name,
@@ -100,6 +102,7 @@ const useDate = () => {
     NoMoreReview,
     NoMoreFinalResult,
     isLoading,
+    isMakers,
   };
 };
 
