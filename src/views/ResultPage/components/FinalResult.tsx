@@ -16,6 +16,8 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
     recruitingInfo: { name, soptName, season, group },
   } = useContext(RecruitingInfoContext);
 
+  if (!name) return;
+
   return (
     <>
       {pass ? (
