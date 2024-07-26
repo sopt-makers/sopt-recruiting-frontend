@@ -12,8 +12,9 @@ import { container, icon, mainText, subText } from './style.css';
 const CompletePage = () => {
   const navigate = useNavigate();
   const {
-    recruitingInfo: { name, season, group },
+    recruitingInfo: { name, season, group, soptName },
   } = useContext(RecruitingInfoContext);
+  const isMakers = soptName?.toLowerCase().includes('makers');
 
   const handleClickMyPage = () => {
     track('click-complete-my');
@@ -25,7 +26,7 @@ const CompletePage = () => {
       <div className={icon}>
         <IconCheckmark />
       </div>
-      <p className={mainText}>{`${name}님의\n${season}기 ${group} 지원서가 접수되었습니다.`}</p>
+      <p className={mainText}>{`${name}님의\n${season}기 ${isMakers ? soptName : group} 지원서가 접수되었습니다.`}</p>
       <p className={subText}>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
       <Callout
         style={{
