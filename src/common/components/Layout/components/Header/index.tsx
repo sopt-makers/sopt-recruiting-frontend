@@ -28,6 +28,7 @@ const Header = () => {
     track('click-gnb-logout');
     reset();
     localStorage.removeItem('soptApplyAccessToken');
+    localStorage.removeItem('soptApplyAccessTokenExpiredTime');
     pathname === '/' ? navigate(0) : navigate('/');
   };
 

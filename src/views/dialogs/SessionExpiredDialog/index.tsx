@@ -13,6 +13,7 @@ const SessionExpiredDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   const handleLogout = () => {
     track('click-session-okay');
     localStorage.removeItem('soptApplyAccessToken');
+    localStorage.removeItem('soptApplyAccessTokenExpiredTime');
     if (window.location.pathname === '/') {
       location.reload();
     } else {
