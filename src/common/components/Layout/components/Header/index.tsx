@@ -1,6 +1,5 @@
 import { reset, track } from '@amplitude/analytics-browser';
-import { isBefore } from 'date-fns';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersLogo from '@assets/MakersLogo';
@@ -31,19 +30,6 @@ const Header = () => {
     localStorage.removeItem('soptApplyAccessTokenExpiredTime');
     pathname === '/' ? navigate(0) : navigate('/');
   };
-
-  useEffect(() => {
-    const soptApplyAccessTokenExpiredTime = localStorage.getItem('soptApplyAccessTokenExpiredTime');
-    const afterRecruiting = isBefore(new Date(soptApplyAccessTokenExpiredTime || ''), new Date());
-
-    if (afterRecruiting) {
-      localStorage.removeItem('soptApplyAccessToken');
-      localStorage.removeItem('soptApplyAccessTokenExpiredTime');
-
-      pathname === '/' ? navigate(0) : navigate('/');
-    }
-  }, [isSignedIn, pathname, navigate]);
-
   return (
     <header className={container}>
       <button onClick={handleClickLogo} className={logo}>
