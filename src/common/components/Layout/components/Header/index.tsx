@@ -1,5 +1,6 @@
 import { reset, track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
+import { isBefore } from 'date-fns';
+import { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersLogo from '@assets/MakersLogo';
@@ -14,22 +15,33 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
+
   const {
     recruitingInfo: { name, isMakers },
   } = useContext(RecruitingInfoContext);
 
   const handleClickLogo = () => {
-    if (pathname === '/') navigate(0);
-    else navigate('/');
+    pathname === '/' ? navigate(0) : navigate('/');
   };
 
   const handleLogout = () => {
     track('click-gnb-logout');
     reset();
     localStorage.removeItem('soptApplyAccessToken');
-    if (pathname === '/') navigate(0);
-    else navigate('/');
+    pathname === '/' ? navigate(0) : navigate('/');
   };
+
+  useEffect(() => {
+    const soptApplyAccessTokenExpiredTime = localStorage.getItem('soptApplyAccessTokenExpiredTime');
+    const afterRecruiting = isBefore(new Date(soptApplyAccessTokenExpiredTime || ''), new Date());
+
+    if (afterRecruiting) {
+      localStorage.removeItem('soptApplyAccessToken');
+      localStorage.removeItem('soptApplyAccessTokenExpiredTime');
+
+      pathname === '/' ? navigate(0) : navigate('/');
+    }
+  }, [isSignedIn, pathname, navigate]);
 
   return (
     <header className={container}>
