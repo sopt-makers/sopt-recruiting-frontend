@@ -6,6 +6,7 @@ import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { buttonWidth, container, infoContainer, infoLabel, infoValue, itemWrapper, buttonValue } from './style.css';
@@ -27,9 +28,10 @@ const MyPage = ({ part }: MaPageProps) => {
   const {
     recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;
+  if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
     <section className={container}>
