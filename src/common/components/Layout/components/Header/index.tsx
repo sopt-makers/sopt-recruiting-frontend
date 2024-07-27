@@ -32,32 +32,36 @@ const Header = () => {
   };
 
   return (
-    <header className={container}>
-      <button onClick={handleClickLogo} className={logo}>
-        {isMakers ? <MakersLogo /> : isMakers === false ? <NowsoptLogo /> : null}
-      </button>
-      <nav>
-        <ul className={menuList}>
-          {!isSignedIn && (
-            <>
-              {menuItems.map(({ text, path, target, amplitudeId }) => (
-                <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
-              ))}
-              <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
-            </>
-          )}
-          {isSignedIn && name && (
-            <>
-              {menuItems.map(({ text, path, target, amplitudeId }) => (
-                <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
-              ))}
-              <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
-              <MenuItem key="로그인완료" text={`${name}님`} />
-            </>
-          )}
-        </ul>
-      </nav>
-    </header>
+    <>
+      {isMakers != undefined && (
+        <header className={container}>
+          <button onClick={handleClickLogo} className={logo}>
+            {isMakers ? <MakersLogo /> : <NowsoptLogo />}
+          </button>
+          <nav>
+            <ul className={menuList}>
+              {!isSignedIn && (
+                <>
+                  {menuItems.map(({ text, path, target, amplitudeId }) => (
+                    <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
+                  ))}
+                  <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
+                </>
+              )}
+              {isSignedIn && name && (
+                <>
+                  {menuItems.map(({ text, path, target, amplitudeId }) => (
+                    <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
+                  ))}
+                  <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
+                  <MenuItem key="로그인완료" text={`${name}님`} />
+                </>
+              )}
+            </ul>
+          </nav>
+        </header>
+      )}
+    </>
   );
 };
 
