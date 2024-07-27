@@ -14,9 +14,10 @@ tokenInstance.interceptors.request.use(
   (config) => {
     const soptApplyAccessToken = localStorage.getItem('soptApplyAccessToken');
     const soptApplyAccessTokenExpiredTime = localStorage.getItem('soptApplyAccessTokenExpiredTime');
+    const isValidDate = new Date(soptApplyAccessTokenExpiredTime || '').toDateString() !== 'Invalid Date';
     const afterRecruiting = isBefore(new Date(soptApplyAccessTokenExpiredTime || ''), new Date());
 
-    if (!soptApplyAccessTokenExpiredTime || afterRecruiting) {
+    if (!isValidDate || !soptApplyAccessTokenExpiredTime || afterRecruiting) {
       localStorage.removeItem('soptApplyAccessToken');
       localStorage.removeItem('soptApplyAccessTokenExpiredTime');
 
