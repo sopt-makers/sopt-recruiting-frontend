@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
 import ApplyHeader from 'views/ApplyPage/components/ApplyHeader';
 import ApplyInfo from 'views/ApplyPage/components/ApplyInfo';
@@ -18,6 +19,8 @@ import useGetDraft from 'views/SignedInPage/hooks/useGetDraft';
 
 const ReviewPage = () => {
   const isReview = true;
+
+  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
   const { draftData, draftIsLoading } = useGetDraft();
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
@@ -45,6 +48,10 @@ const ReviewPage = () => {
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
     }
+
+    handleSaveRecruitingInfo({
+      name: applicantDraft?.name,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicantDraft]);
 
