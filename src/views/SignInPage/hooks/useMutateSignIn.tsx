@@ -11,10 +11,11 @@ import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 interface MutateSignInProps {
+  finalPassConfirmEnd?: string;
   onSetError: (name: string, type: string, message: string) => void;
 }
 
-const useMutateSignIn = ({ onSetError }: MutateSignInProps) => {
+const useMutateSignIn = ({ finalPassConfirmEnd, onSetError }: MutateSignInProps) => {
   const navigate = useNavigate();
 
   const { mutate: signInMutate, isPending: signInIsPending } = useMutation<
@@ -26,6 +27,7 @@ const useMutateSignIn = ({ onSetError }: MutateSignInProps) => {
     onSuccess: ({ data: { email, token } }) => {
       setUserId(email);
       localStorage.setItem('soptApplyAccessToken', token);
+      localStorage.setItem('soptApplyAccessTokenExpiredTime', finalPassConfirmEnd || '');
       navigate(0);
     },
     onError(error) {
