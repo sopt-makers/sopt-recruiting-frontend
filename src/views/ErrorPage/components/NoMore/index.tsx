@@ -25,6 +25,8 @@ const NoMore = ({ isMakers, content }: NoMoreProps) => {
       <a
         id="chat-channel-button"
         href={isMakers ? 'https://pf.kakao.com/_sxaIWG' : 'https://pf.kakao.com/_JdTKd'}
+        target="_blank"
+        rel="noreferrer"
         className={contactButton}
         onClick={() => track(isMakers ? 'click-nomore-ask_makers' : 'click-nomore-ask')}>
         문의하기
