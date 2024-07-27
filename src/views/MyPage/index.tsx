@@ -51,7 +51,7 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
         {!NoMoreReview && (
           <li className={buttonValue}>
             <span className={infoLabel}>지원서</span>
-            <Button className={buttonWidth} onClick={onShowReview} padding="15x25">
+            <Button isLink to="/review" className={buttonWidth} onClick={onShowReview} padding="15x25">
               지원서 확인
             </Button>
           </li>

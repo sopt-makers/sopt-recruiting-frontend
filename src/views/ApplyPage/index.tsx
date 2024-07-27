@@ -27,7 +27,7 @@ import type { ApplyRequest, ApplyResponse } from './types';
 
 interface ApplyPageProps {
   isReview: boolean;
-  onSetComplete: () => void;
+  onSetComplete?: () => void;
   draftData?: { data: ApplyResponse };
 }
 

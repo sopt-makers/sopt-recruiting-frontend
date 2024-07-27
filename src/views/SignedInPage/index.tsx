@@ -11,7 +11,6 @@ import useGetDraft from './hooks/useGetDraft';
 
 const SignedInPage = () => {
   const [isComplete, setIsComplete] = useState(false);
-  const [isReview, setIsReview] = useState(false);
 
   const { draftData, draftIsLoading } = useGetDraft();
   const { applicant, isSubmit } = draftData?.data || {};
@@ -20,7 +19,6 @@ const SignedInPage = () => {
 
   const handleShowReview = () => {
     track('click-my-review');
-    setIsReview(true);
   };
 
   const handleSetComplete = () => {
@@ -37,10 +35,10 @@ const SignedInPage = () => {
 
   return (
     <>
-      {!isReview && isComplete && <CompletePage />}
-      {!isReview && !isComplete && isSubmit && <MyPage onShowReview={handleShowReview} />}
-      {(isReview || (!isComplete && !isSubmit)) && (
-        <ApplyPage isReview={isReview} onSetComplete={handleSetComplete} draftData={draftData} />
+      {isComplete && <CompletePage />}
+      {!isComplete && isSubmit && <MyPage onShowReview={handleShowReview} />}
+      {!isComplete && !isSubmit && (
+        <ApplyPage isReview={false} onSetComplete={handleSetComplete} draftData={draftData} />
       )}
     </>
   );
