@@ -18,6 +18,8 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
     recruitingInfo: { name, soptName, season, group, interviewStart, interviewEnd, applicationPassConfirmStart },
   } = useContext(RecruitingInfoContext);
 
+  if (!name) return;
+
   const applicationDate = new Date(applicationPassConfirmStart || '');
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
