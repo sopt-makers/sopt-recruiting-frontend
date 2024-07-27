@@ -20,11 +20,11 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   );
 };
 
-interface MaPageProps {
+interface MyPageProps {
   part?: string;
 }
 
-const MyPage = ({ part }: MaPageProps) => {
+const MyPage = ({ part }: MyPageProps) => {
   const {
     recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);
