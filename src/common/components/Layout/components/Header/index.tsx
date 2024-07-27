@@ -18,17 +18,17 @@ const Header = () => {
     recruitingInfo: { name, isMakers },
   } = useContext(RecruitingInfoContext);
 
+  const menuItems = isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS;
+
   const handleClickLogo = () => {
-    if (pathname === '/') navigate(0);
-    else navigate('/');
+    pathname === '/' ? navigate(0) : navigate('/');
   };
 
   const handleLogout = () => {
     track('click-gnb-logout');
     reset();
     localStorage.removeItem('soptApplyAccessToken');
-    if (pathname === '/') navigate(0);
-    else navigate('/');
+    pathname === '/' ? navigate(0) : navigate('/');
   };
 
   return (
@@ -40,7 +40,7 @@ const Header = () => {
         <ul className={menuList}>
           {!isSignedIn && (
             <>
-              {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
+              {menuItems.map(({ text, path, target, amplitudeId }) => (
                 <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
               ))}
               <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
@@ -48,7 +48,7 @@ const Header = () => {
           )}
           {isSignedIn && name && (
             <>
-              {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
+              {menuItems.map(({ text, path, target, amplitudeId }) => (
                 <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
               ))}
               <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
