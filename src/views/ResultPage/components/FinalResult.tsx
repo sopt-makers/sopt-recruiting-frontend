@@ -56,13 +56,11 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
 const FinalResult = () => {
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
   const {
-    recruitingInfo: { soptName },
+    recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
   } = useContext(RecruitingInfoContext);
 
   const { name, pass } = finalResult?.data || {};
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
   const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;

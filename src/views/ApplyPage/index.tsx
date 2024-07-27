@@ -51,7 +51,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
 
-  const { name: soptName, NoMoreReview, isLoading } = useDate();
+  const { NoMoreReview, isLoading, isMakers } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -88,8 +88,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     phone,
     ...rest
   } = getValues();
-
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   useEffect(() => {
     if (applicantDraft?.part) {

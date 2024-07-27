@@ -10,11 +10,10 @@ import type { SeasonGroupType } from '@type/seasonAndGroup';
 
 interface SignInInfoProps extends SeasonGroupType {
   soptName?: string;
+  isMakers?: boolean;
 }
 
-const SignInInfo = ({ soptName, season, group }: SignInInfoProps) => {
-  const isMakers = soptName?.toLowerCase().includes('makers');
-
+const SignInInfo = ({ soptName, isMakers, season, group }: SignInInfoProps) => {
   return (
     <>
       <Title>
