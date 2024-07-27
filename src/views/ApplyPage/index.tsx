@@ -45,7 +45,7 @@ const ApplyPage = ({ isReview, onSetComplete }: ApplyPageProps) => {
 
   useScrollToHash(); // scrollTo 카테고리
 
-  const { NoMoreReview, isLoading, isMakers } = useDate();
+  const { NoMoreApply, isLoading, isMakers } = useDate();
   const { draftData, draftIsLoading } = useGetDraft();
   const {
     applicant: applicantDraft,
@@ -171,7 +171,7 @@ const ApplyPage = ({ isReview, onSetComplete }: ApplyPageProps) => {
   }, [isReview]);
 
   if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
-  if (NoMoreReview) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
+  if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
