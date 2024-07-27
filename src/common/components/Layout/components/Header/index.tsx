@@ -38,16 +38,22 @@ const Header = () => {
       </button>
       <nav>
         <ul className={menuList}>
-          {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
-            <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
-          ))}
-          {isSignedIn ? (
+          {!isSignedIn && (
             <>
-              <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
-              {name && <MenuItem key="로그인완료" text={`${name}님`} />}
+              {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
+                <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
+              ))}
+              <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
             </>
-          ) : (
-            <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
+          )}
+          {isSignedIn && name && (
+            <>
+              {(isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS).map(({ text, path, target, amplitudeId }) => (
+                <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
+              ))}
+              <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
+              <MenuItem key="로그인완료" text={`${name}님`} />
+            </>
           )}
         </ul>
       </nav>
