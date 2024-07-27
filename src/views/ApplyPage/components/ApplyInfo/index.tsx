@@ -29,6 +29,8 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
     },
   } = useContext(RecruitingInfoContext);
 
+  if (!applicationStart) return;
+
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시', { locale: ko });
   const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시', { locale: ko });
   const formattedApplicationConfirmStart = format(
