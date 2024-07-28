@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
 
@@ -9,12 +8,12 @@ export const container = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  height: calc.subtract('100vh', '74px'),
+  height: '100vh',
   minHeight: 700,
 
   '@supports': {
     'height: (100dvh)': {
-      height: calc.subtract('100dvh', '74px'),
+      height: '100dvh',
     },
   },
 });
