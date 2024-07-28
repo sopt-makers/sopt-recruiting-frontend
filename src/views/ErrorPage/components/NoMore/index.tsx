@@ -9,7 +9,7 @@ interface NoMoreProps {
 
 const NoMore = ({ isMakers, content }: NoMoreProps) => {
   return (
-    <section className={container}>
+    <section className={container[isMakers == undefined ? 'withoutHeader' : 'withHeader']}>
       <article className={article}>
         <p className={errorText}>{content}</p>
         <a
