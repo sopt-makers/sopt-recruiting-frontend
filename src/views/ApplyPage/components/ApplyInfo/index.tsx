@@ -48,7 +48,11 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
         <ul className={infoWrapper}>
           <span key="first-info" className={infoItems}>
             &#183; 지원서 작성 전에{' '}
-            <a href="https://makers.sopt.org/recruit" className={infoItemsBold} target="_blank" rel="noreferrer">
+            <a
+              href="https://makers.sopt.org/recruit"
+              className={infoItemsBold}
+              target="_blank"
+              rel="noreferrer noopener">
               모집 및 활동 일정
             </a>
             을 꼭 숙지하고 지원해 주시기 바랍니다.
