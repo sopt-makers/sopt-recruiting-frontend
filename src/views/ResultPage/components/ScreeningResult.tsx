@@ -47,7 +47,7 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
               모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
-          <a className={link} href="https://sopt.org" target="_blank" rel="noreferrer">
+          <a className={link} href="https://sopt.org" target="_blank" rel="noreferrer noopener">
             https://sopt.org
           </a>
           <br />

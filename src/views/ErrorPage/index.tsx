@@ -39,7 +39,7 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
         id="chat-channel-button"
         href="http://pf.kakao.com/_sxaIWG"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
         className={contactButton}
         onClick={() => track('click-error-ask')}>
         문의하기
