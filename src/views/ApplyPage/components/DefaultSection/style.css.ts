@@ -30,6 +30,7 @@ const profileLabel = style({
   position: 'relative',
   display: 'flex',
   justifyContent: 'center',
+  alignItems: 'center',
   padding: 6,
   width: 134,
   height: 176,
@@ -72,6 +73,7 @@ export const errorText = style({
 export const profileImage = style({
   objectFit: 'cover',
   width: '100%',
+  height: '100%',
 });
 
 export const profileTextWrapper = style({
