@@ -28,12 +28,12 @@
        <b>4기</b>
       </td>
        <td>
-            <a href="https://github.com/eonseok-jeon">
+            <a href="https://github.com/eonseok-jeon" target="_blank" rel="noreferrer noopener">
               <img src="https://github.com/eonseok-jeon.png" width="50" />
             </a> 
         </td>
         <td >
-            <a href="https://github.com/lydiacho">
+            <a href="https://github.com/lydiacho" target="_blank" rel="noreferrer noopener">
               <img src="https://github.com/lydiacho.png" width="50" />
             </a>
         </td>

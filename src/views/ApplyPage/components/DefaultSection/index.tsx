@@ -54,20 +54,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     clearErrors && clearErrors('picture');
     const reader = new FileReader();
     reader.readAsDataURL(imageFile);
-    reader.onloadend = (e) => {
-      const image = new Image();
-      image.src = e.target?.result as string;
-      image.onload = () => {
-        const { width, height } = image;
-        const exactRatio = Math.round((width / height) * 100);
-        if (exactRatio !== 75) {
-          setValue('picture', null);
-          setError('picture', { type: 'wrong-ratio', message: VALIDATION_CHECK.IDPhoto.wrongRadioErrorText });
-          setImage('');
-
-          return;
-        }
-      };
+    reader.onloadend = () => {
       clearErrors('picture');
       setImage(reader.result as string);
     };

@@ -7,7 +7,7 @@ import PasswordForm from './components/PasswordForm';
 import { container } from './style.css';
 
 const PasswordPage = () => {
-  const { season, group, NoMoreRecruit, isLoading, isMakers } = useDate();
+  const { NoMoreRecruit, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
@@ -15,7 +15,7 @@ const PasswordPage = () => {
   return (
     <div className={container}>
       <Title>비밀번호 재설정하기</Title>
-      <PasswordForm season={season} group={group} />
+      <PasswordForm />
     </div>
   );
 };

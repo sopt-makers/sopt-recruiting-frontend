@@ -13,9 +13,18 @@ import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
-const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
+const Content = ({ pass }: { pass?: boolean }) => {
   const {
-    recruitingInfo: { name, soptName, season, group, interviewStart, interviewEnd, applicationPassConfirmStart },
+    recruitingInfo: {
+      name,
+      soptName,
+      season,
+      group,
+      interviewStart,
+      interviewEnd,
+      applicationPassConfirmStart,
+      isMakers,
+    },
   } = useContext(RecruitingInfoContext);
 
   if (!name) return;
@@ -47,7 +56,7 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
               모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
-          <a className={link} href="https://sopt.org">
+          <a className={link} href="https://sopt.org" target="_blank" rel="noreferrer noopener">
             https://sopt.org
           </a>
           <br />
@@ -105,7 +114,7 @@ const ScreeningResult = () => {
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content isMakers={isMakers} pass={pass} />
+        <Content pass={pass} />
       </div>
       {pass && (
         <>
