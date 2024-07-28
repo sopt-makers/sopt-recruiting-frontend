@@ -16,12 +16,19 @@ import {
 import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
-  const { register, formState, clearErrors, setValue } = useFormContext();
+  const { register, formState, clearErrors, getValues, setValue, setError } = useFormContext();
   const { errors } = formState;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    clearErrors && clearErrors(name);
     setValue(name, e.currentTarget.id);
+    clearErrors && clearErrors(name);
+  };
+
+  const handleBlur = async () => {
+    await new Promise((r) => setTimeout(r, 100));
+    if (!getValues(name)) {
+      setError(name, { type: 'required', message: '필수 입력 항목이에요.' });
+    }
   };
 
   return (
@@ -41,6 +48,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
           {...register(name, {
             required: required && '필수 입력 항목이에요.',
           })}
+          onBlur={handleBlur}
         />
         <IconChevronDown className={icon} />
         <ul className={optionContainer}>
