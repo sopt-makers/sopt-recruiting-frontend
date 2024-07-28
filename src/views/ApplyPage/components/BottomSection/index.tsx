@@ -1,18 +1,23 @@
+import { useContext } from 'react';
+
 import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { doubleLineCheck, label, line, sectionContainer } from './style.css';
 
 interface BottomSectionProps {
-  isMakers?: boolean;
   isReview: boolean;
   knownPath?: string;
 }
 
-const BottomSection = ({ isMakers, isReview, knownPath }: BottomSectionProps) => {
+const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
+  const {
+    recruitingInfo: { isMakers },
+  } = useContext(RecruitingInfoContext);
   return (
     <section className={sectionContainer}>
       <hr className={line} />
