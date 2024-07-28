@@ -11,9 +11,9 @@ import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
-const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
+const Content = ({ pass }: { pass?: boolean }) => {
   const {
-    recruitingInfo: { name, soptName, season, group },
+    recruitingInfo: { name, soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);
 
   if (!name) return;
@@ -79,7 +79,7 @@ const FinalResult = () => {
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content isMakers={isMakers} pass={pass} />
+        <Content pass={pass} />
       </div>
       {pass && (
         <>

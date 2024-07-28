@@ -11,11 +11,9 @@ import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
 import { inputWrapper, newPasswordButton } from './style.css';
 
-import type { SeasonGroupType } from '@type/seasonAndGroup';
-
-const SignInForm = ({ season, group }: SeasonGroupType) => {
+const SignInForm = () => {
   const {
-    recruitingInfo: { finalPassConfirmEnd },
+    recruitingInfo: { season, group, finalPassConfirmEnd },
   } = useContext(RecruitingInfoContext);
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
