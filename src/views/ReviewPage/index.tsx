@@ -13,20 +13,22 @@ import DefaultSection from 'views/ApplyPage/components/DefaultSection';
 import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainer } from 'views/ApplyPage/style.css';
+import PreventReviewDialog from 'views/dialogs/PreventReviewDialog';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 import useGetDraft from 'views/SignedInPage/hooks/useGetDraft';
 
 const ReviewPage = () => {
-  const isReview = true;
+  const preventReviewDialog = useRef<HTMLDialogElement>(null);
+  const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
   const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
   const { draftData, draftIsLoading } = useGetDraft();
-  const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
   const [isInView, setIsInView] = useState([true, false, false]);
   const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
+  const isReview = true;
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
@@ -45,6 +47,10 @@ const ReviewPage = () => {
   const { setValue } = methods;
 
   useEffect(() => {
+    if (preventReviewDialog.current && !applicantDraft?.submit) {
+      preventReviewDialog.current.showModal();
+    }
+
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
     }
@@ -53,7 +59,7 @@ const ReviewPage = () => {
       name: applicantDraft?.name,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft]);
+  }, [applicantDraft, preventReviewDialog.current]);
 
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
@@ -97,36 +103,39 @@ const ReviewPage = () => {
   if (NoMoreReview) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
-    <FormProvider {...methods}>
-      <div className={container}>
-        <ApplyHeader isReview={isReview} />
-        <ApplyInfo isReview={isReview} />
-        <ApplyCategory minIndex={minIndex} />
-        <form id="apply-form" name="apply-form" className={formContainer}>
-          <DefaultSection
-            isMakers={isMakers}
-            isReview={isReview}
-            refCallback={refCallback}
-            applicantDraft={applicantDraft}
-          />
-          <CommonSection
-            isReview={isReview}
-            refCallback={refCallback}
-            questions={commonQuestions?.questions}
-            commonQuestionsDraft={commonQuestionsDraft}
-          />
-          <PartSection
-            isReview={isReview}
-            refCallback={refCallback}
-            part={applicantDraft?.part}
-            questions={partQuestions}
-            partQuestionsDraft={partQuestionsDraft}
-            questionTypes={questionTypes}
-          />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
-        </form>
-      </div>
-    </FormProvider>
+    <>
+      <PreventReviewDialog ref={preventReviewDialog} />
+      <FormProvider {...methods}>
+        <div className={container}>
+          <ApplyHeader isReview={isReview} />
+          <ApplyInfo isReview={isReview} />
+          <ApplyCategory minIndex={minIndex} />
+          <form id="apply-form" name="apply-form" className={formContainer}>
+            <DefaultSection
+              isMakers={isMakers}
+              isReview={isReview}
+              refCallback={refCallback}
+              applicantDraft={applicantDraft}
+            />
+            <CommonSection
+              isReview={isReview}
+              refCallback={refCallback}
+              questions={commonQuestions?.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+            />
+            <PartSection
+              isReview={isReview}
+              refCallback={refCallback}
+              part={applicantDraft?.part}
+              questions={partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
+              questionTypes={questionTypes}
+            />
+            <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
+          </form>
+        </div>
+      </FormProvider>
+    </>
   );
 };
 
