@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useContext, useEffect, useState } from 'react';
 
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
@@ -17,6 +18,15 @@ const SignedInPage = () => {
 
   const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
+  const handleShowReview = () => {
+    track('click-my-review');
+    setIsReview(true);
+  };
+
+  const handleSetComplete = () => {
+    setIsComplete(true);
+  };
+
   useEffect(() => {
     handleSaveRecruitingInfo({
       name: applicant?.name,
@@ -28,9 +38,9 @@ const SignedInPage = () => {
   return (
     <>
       {!isReview && isComplete && <CompletePage />}
-      {!isReview && !isComplete && isSubmit && <MyPage onShowReview={() => setIsReview(true)} />}
+      {!isReview && !isComplete && isSubmit && <MyPage onShowReview={handleShowReview} />}
       {(isReview || (!isComplete && !isSubmit)) && (
-        <ApplyPage isReview={isReview} onSetComplete={() => setIsComplete(true)} draftData={draftData} />
+        <ApplyPage isReview={isReview} onSetComplete={handleSetComplete} draftData={draftData} />
       )}
     </>
   );

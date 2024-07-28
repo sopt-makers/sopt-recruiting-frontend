@@ -1,6 +1,7 @@
 import { keyframes, style } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
 
+import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
@@ -29,7 +30,7 @@ export const contentWrapper = style({
 
 export const content = style({
   whiteSpace: 'pre-line',
-  zIndex: 2,
+  zIndex: Z_INDEX.resultContent,
 });
 
 export const strongText = style({

@@ -2,6 +2,7 @@ import { createContext } from 'react';
 
 export type RecruitingInfoType = {
   name?: string;
+  soptName?: string;
   season?: number;
   group?: string;
   applicationStart?: string;
@@ -14,6 +15,7 @@ export type RecruitingInfoType = {
   finalPassConfirmEnd?: string;
   interviewStart?: string;
   interviewEnd?: string;
+  isMakers?: boolean;
 };
 
 interface RecruitingInfoContextType {

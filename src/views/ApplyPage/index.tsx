@@ -1,9 +1,11 @@
+import { track } from '@amplitude/analytics-browser';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import useDate from '@hooks/useDate';
+import useScrollToHash from '@hooks/useScrollToHash';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
@@ -15,10 +17,10 @@ import BottomSection from './components/BottomSection';
 import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
+import { SELECT_OPTIONS } from './constant';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
-import useScrollToHash from './hooks/useScrollToHash';
 import { buttonWrapper, container, formContainer } from './style.css';
 
 import type { ApplyRequest, ApplyResponse } from './types';
@@ -49,7 +51,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
 
-  const { NoMoreReview, isLoading } = useDate();
+  const { NoMoreReview, isLoading, isMakers } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -71,7 +73,6 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     college,
     gender,
     knownPath,
-    leaveAbsence: leaveAbsenceValue,
     major,
     mostRecentSeason: mostRecentSeasonValue,
     nearestStation,
@@ -169,7 +170,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   }, [isReview]);
 
   if (questionsIsLoading || isLoading) return <BigLoading />;
-  if (NoMoreReview) return <NoMore content="모집 기간이 아니에요" />;
+  if (NoMoreReview) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
@@ -179,8 +180,9 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
   const handleSendData = (type: 'draft' | 'submit') => {
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
-      leaveAbsenceValue === '재학' ? false : leaveAbsenceValue === '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' ? true : undefined;
-    const univYear = ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예 ‧ 졸업'].indexOf(univYearValue) + 1 || undefined;
+      getValues('leaveAbsence') == undefined ? undefined : getValues('leaveAbsence') === '재학' ? false : true;
+    const univYear =
+      (isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
 
     const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
       getValues(),
@@ -246,10 +248,12 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
       willAppjam: false,
     };
 
+    type === 'draft' ? track('click-apply-draft') : track('click-apply-confirm_submit');
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
 
   const handleApplySubmit = () => {
+    track('click-apply-submit');
     submitDialog.current?.showModal();
   };
 
@@ -275,12 +279,17 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
           isReview={isReview}
           isLoading={draftIsPending || submitIsPending}
           onSaveDraft={() => handleSendData('draft')}
-          onSubmitData={handleApplySubmit}
+          onSubmitData={handleSubmit(handleApplySubmit)}
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory minIndex={minIndex} />
-        <form onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-          <DefaultSection isReview={isReview} refCallback={refCallback} applicantDraft={applicantDraft} />
+        <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+          <DefaultSection
+            isMakers={isMakers}
+            isReview={isReview}
+            refCallback={refCallback}
+            applicantDraft={applicantDraft}
+          />
           <CommonSection
             isReview={isReview}
             refCallback={refCallback}

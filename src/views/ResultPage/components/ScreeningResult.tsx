@@ -3,46 +3,29 @@ import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
-import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { bottomAnimation, bottomImg, container, content, contentWrapper, link, strongText } from './style.css';
-// import imgSoptLogo from '../assets/imgSoptLogo.png';
-// import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import imgMakersLogo from '../assets/imgMakersLogo.png';
 import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
+import imgSoptLogo from '../assets/imgSoptLogo.png';
+import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
-const Content = ({ pass }: { pass?: boolean }) => {
+const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
   const {
-    recruitingInfo: { name },
+    recruitingInfo: { name, soptName, season, group, interviewStart, interviewEnd, applicationPassConfirmStart },
   } = useContext(RecruitingInfoContext);
-  const { data, isLoading } = useGetRecruitingInfo();
-  const {
-    name: soptName,
-    season,
-    group,
-    ybApplicationPassConfirmStart,
-    obApplicationPassConfirmStart,
-    ybInterviewStart,
-    ybInterviewEnd,
-    obInterviewStart,
-    obInterviewEnd,
-  } = data?.data.season || {};
 
-  if (isLoading) return <BigLoading />;
+  if (!name) return;
 
-  const interviewStartTime = group === 'OB' ? obInterviewStart : ybInterviewStart;
-  const interviewEndTime = group === 'OB' ? obInterviewEnd : ybInterviewEnd;
-  const applicationPassConfirmTime = group === 'OB' ? obApplicationPassConfirmStart : ybApplicationPassConfirmStart;
-
-  const applicationDate = new Date(applicationPassConfirmTime || '');
+  const applicationDate = new Date(applicationPassConfirmStart || '');
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStart = format(new Date(interviewStartTime || ''), 'M/dd(E)', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEndTime || ''), 'M/dd(E)', { locale: ko });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M/dd(E)', { locale: ko });
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M/dd(E)', { locale: ko });
   const formattedApplicationPassConfirmStart = format(applicationDate, 'dd일 EEEE', {
     locale: ko,
   });
@@ -60,7 +43,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             {`
               서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
   
-              ${season}기 ${group} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 오프라인 으로 진행될 예정입니다.
+              ${season}기 ${soptName} ${!isMakers ? group : ''} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 오프라인 으로 진행될 예정입니다.
               모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
@@ -82,7 +65,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
         <p className={content}>
           {`안녕하세요. ${soptName}입니다.
               
-            ${name}님은 ${season}기 ${soptName} 신입회원 서류 모집에 불합격하셨습니다.
+            ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 서류 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 합격 소식을
             전해드리지 못하게 되었습니다.
@@ -97,35 +80,39 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const ScreeningResult = () => {
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const {
+    recruitingInfo: { isMakers },
+    handleSaveRecruitingInfo,
+  } = useContext(RecruitingInfoContext);
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
 
-  const { name, season, group } = screeningResult?.data || {};
+  const { name, interviewStart, interviewEnd, pass } = screeningResult?.data || {};
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
-      season,
-      group,
+      interviewStart,
+      interviewEnd,
     });
-  }, [name, season, group, handleSaveRecruitingInfo]);
+  }, [name, interviewStart, interviewEnd, handleSaveRecruitingInfo]);
 
   if (screeningResultIsLoading) return <BigLoading />;
 
-  const { pass } = screeningResult?.data || {};
+  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
+  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
 
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content pass={pass} />
+        <Content isMakers={isMakers} pass={pass} />
       </div>
       {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
-            <source srcSet={imgMakersLogoWebp} type="image/webp" />
-            <img src={imgMakersLogo} alt="sopt-logo" />
+            <source srcSet={imgLogoWebp} type="image/webp" />
+            <img src={imgLogo} alt="sopt-logo" />
           </picture>
         </>
       )}

@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { type ChangeEvent, forwardRef, useState } from 'react';
 
 import Dialog from '@components/Dialog';
@@ -65,7 +66,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
             method="dialog"
             className={dataIsPending ? buttonOutside.disabled : buttonOutside.line}
             onSubmit={() => setIsChecked(false)}>
-            <button className={buttonInside.line} disabled={dataIsPending}>
+            <button className={buttonInside.line} disabled={dataIsPending} onClick={() => track('click-apply-cancel')}>
               {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
             </button>
           </form>

@@ -1,25 +1,22 @@
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
-import useGetRecruitingInfo from '@hooks/useGetRecruitingInfo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
 import { bottomAnimation, bottomImg, container, content, contentWrapper, strongText } from './style.css';
-// import imgSoptLogo from '../assets/imgSoptLogo.png';
-// import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import imgMakersLogo from '../assets/imgMakersLogo.png';
 import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
+import imgSoptLogo from '../assets/imgSoptLogo.png';
+import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
-const Content = ({ pass }: { pass?: boolean }) => {
-  const { data, isLoading } = useGetRecruitingInfo();
-  const { name: soptName, season } = data?.data.season || {};
+const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
   const {
-    recruitingInfo: { name },
+    recruitingInfo: { name, soptName, season, group },
   } = useContext(RecruitingInfoContext);
 
-  if (isLoading) return <BigLoading />;
+  if (!name) return;
 
   return (
     <>
@@ -29,10 +26,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <strong className={strongText}>{`축하드립니다!`}</strong>
           <span>
             {`
-              ${name}님은 ${season}기 ${soptName} 신입회원 모집에 최종 합격하셨습니다.
+              ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 모집에 최종 합격하셨습니다.
   
               ${name}님과 함께하게 되어 진심으로 기쁩니다.
-              향후 활동은 ${name} 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
+              향후 활동은 ${soptName} 공식 노션과 카카오톡 단체 대화방, SOPT 공식 디스코드를 통해
               운영 및 진행됩니다.
           
               오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다.\n
@@ -42,9 +39,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
         </p>
       ) : (
         <p className={content}>
-          {`안녕하세요. ${soptName}입니다.
+          {`안녕하세요. ${soptName} 입니다.
               
-            ${name}님은 ${season}기 ${soptName} 신입회원 모집에 불합격하셨습니다.
+            ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 모집에 불합격하셨습니다.
 
             지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 최종 합격 소식을
             전해드리지 못하게 되었습니다.
@@ -59,35 +56,37 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const FinalResult = () => {
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
+  const {
+    recruitingInfo: { isMakers },
+    handleSaveRecruitingInfo,
+  } = useContext(RecruitingInfoContext);
 
-  const { name, season, group } = finalResult?.data || {};
+  const { name, pass } = finalResult?.data || {};
+
+  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
+  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
-      season,
-      group,
     });
-  }, [name, season, group, handleSaveRecruitingInfo]);
+  }, [name, handleSaveRecruitingInfo]);
 
   if (finalResultIsLoading) return <BigLoading />;
-
-  const { pass } = finalResult?.data || {};
 
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content pass={pass} />
+        <Content isMakers={isMakers} pass={pass} />
       </div>
       {pass && (
         <>
           <div className={bottomAnimation} />
           <picture className={bottomImg}>
-            <source srcSet={imgMakersLogoWebp} type="image/webp" />
-            <img src={imgMakersLogo} alt="sopt-logo" />
+            <source srcSet={imgLogoWebp} type="image/webp" />
+            <img src={imgLogo} alt="sopt-logo" />
           </picture>
         </>
       )}

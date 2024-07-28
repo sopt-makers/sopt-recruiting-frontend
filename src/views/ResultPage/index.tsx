@@ -10,7 +10,8 @@ import ScreeningResult from './components/ScreeningResult';
 
 const ResultPage = () => {
   const { handleChangeMode } = useContext(ThemeContext);
-  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
+
+  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading, isMakers } = useDate();
 
   useEffect(() => {
     handleChangeMode('dark');
@@ -21,9 +22,8 @@ const ResultPage = () => {
   }, [handleChangeMode]);
 
   if (isLoading) return <BigLoading />;
-
   if (NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
-    return <NoMore content="합불 확인 기간이 아니에요" />;
+    return <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />;
 
   return (
     <>

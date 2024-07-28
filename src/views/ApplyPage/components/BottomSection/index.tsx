@@ -1,5 +1,5 @@
 import Checkbox from '@components/Checkbox';
-import Contentbox from '@components/Checkbox/Contentbox';
+import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
@@ -20,7 +20,7 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
         name="knownPath"
         defaultValue={knownPath}
         placeholder="지원 경로를 선택해 주세요."
-        options={SELECT_OPTIONS.경로}
+        options={SELECT_OPTIONS.knownPath}
         required
         disabled={isReview}
       />

@@ -33,11 +33,10 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     register,
     clearErrors,
     setValue,
+    setError,
     formState: { errors },
   } = useFormContext();
   const [image, setImage] = useState('');
-  const [isFileSizeExceeded, setIsFileSizeExceeded] = useState('');
-  const isError = isFileSizeExceeded || errors.picture;
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
@@ -46,7 +45,9 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 
     const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
     if (LIMIT_SIZE < imageFile.size) {
-      setIsFileSizeExceeded(VALIDATION_CHECK.IDPhoto.errorText);
+      setValue('picture', null);
+      setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
+      setImage('');
       return;
     }
 
@@ -61,13 +62,13 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
         const exactRatio = Math.round((width / height) * 100);
         if (exactRatio !== 75) {
           setValue('picture', null);
-          setIsFileSizeExceeded('이미지의 비율이 3:4가 아닙니다.');
+          setError('picture', { type: 'wrong-ratio', message: VALIDATION_CHECK.IDPhoto.wrongRadioErrorText });
           setImage('');
 
           return;
         }
       };
-      setIsFileSizeExceeded('');
+      clearErrors('picture');
       setImage(reader.result as string);
     };
   };
@@ -87,9 +88,11 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
           })}
         />
         <div>
-          <label htmlFor="picture" className={profileLabelVar[disabled ? 'disabled' : isError ? 'error' : 'default']}>
+          <label
+            htmlFor="picture"
+            className={profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']}>
             {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
-            {isError && <p className={errorText}>{isFileSizeExceeded || (errors.picture?.message as string)}</p>}
+            {errors.picture && <p className={errorText}>{errors.picture?.message as string}</p>}
           </label>
         </div>
         <ul className={profileTextWrapper}>
@@ -105,12 +108,13 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 };
 
 interface DefaultSectionProps {
+  isMakers?: boolean;
   isReview: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
 }
 
-const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
+const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
   const {
     address,
     birthday,
@@ -140,7 +144,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
           placeholder="성별을 선택해주세요."
           label="성별"
           name="gender"
-          options={SELECT_OPTIONS.성별}
+          options={SELECT_OPTIONS.gender}
           required
           disabled={isReview}
         />
@@ -193,8 +197,16 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
         </TextBox>
         <div style={{ margin: '52px 0 0 22px' }}>
           <Radio
-            defaultValue={leaveAbsence == undefined ? undefined : leaveAbsence ? '휴학 ‧ 수료 ‧ 유예 ‧ 졸업' : '재학'}
-            label={['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업']}
+            defaultValue={
+              leaveAbsence == undefined
+                ? undefined
+                : !leaveAbsence
+                  ? SELECT_OPTIONS.leaveAbsence[0]
+                  : isMakers
+                    ? SELECT_OPTIONS.leaveAbsenceMakers[1]
+                    : SELECT_OPTIONS.leaveAbsence[1]
+            }
+            label={isMakers ? SELECT_OPTIONS.leaveAbsenceMakers : SELECT_OPTIONS.leaveAbsence}
             name="leaveAbsence"
             required
             disabled={isReview}
@@ -214,11 +226,19 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
           />
         </TextBox>
         <SelectBox
-          defaultValue={univYear == undefined ? undefined : univYear === 5 ? '수료 ‧ 유예 ‧ 졸업' : `${univYear}학년`}
+          defaultValue={
+            univYear == undefined
+              ? undefined
+              : univYear !== 5
+                ? `${univYear}학년`
+                : isMakers
+                  ? SELECT_OPTIONS.univYearMakers.slice(-1)[0]
+                  : SELECT_OPTIONS.univYear.slice(-1)[0]
+          }
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."
-          options={SELECT_OPTIONS.학년}
+          options={isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear}
           required
           disabled={isReview}
         />
@@ -228,7 +248,7 @@ const DefaultSection = ({ isReview, refCallback, applicantDraft }: DefaultSectio
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={SELECT_OPTIONS.이전기수}
+        options={SELECT_OPTIONS.mostRecentSeason}
         required
         size="lg"
         disabled={isReview}

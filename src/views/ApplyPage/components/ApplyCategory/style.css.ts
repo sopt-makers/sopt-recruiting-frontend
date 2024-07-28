@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
+import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
@@ -12,7 +13,7 @@ export const container = style({
   top: 178,
 
   backgroundColor: theme.color.white,
-  zIndex: 99,
+  zIndex: Z_INDEX.applyCategory,
 });
 
 export const categoryList = style({

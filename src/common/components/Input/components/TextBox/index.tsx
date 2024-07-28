@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
+import { TextBoxProps } from '@components/Input/types';
+
 import { circle, containerVar, title } from './style.css';
-import { TextBoxProps } from '../types';
 
 export const FormContext = createContext({} as Pick<TextBoxProps, 'required'>);
 

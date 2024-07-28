@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
+import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
 export const headerContainer = style({
@@ -13,7 +14,7 @@ export const headerContainer = style({
   margin: '60px auto 0px',
   boxShadow: `0 0 0 1px ${theme.color.white}`,
   backgroundColor: theme.color.white,
-  zIndex: 99,
+  zIndex: Z_INDEX.applyHeader,
 });
 
 export const buttonWrapper = style({

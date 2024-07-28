@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { nanoid } from 'nanoid';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -9,6 +10,7 @@ import IconPlusButton from './icons/IconPlusButton';
 import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
 
 interface FileInputProps {
+  section: string;
   id: number;
   isReview: boolean;
   disabled?: boolean;
@@ -18,7 +20,7 @@ interface FileInputProps {
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf, .pptx';
 
-const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
+const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [file, setFile] = useState<File | null>(null);
@@ -26,12 +28,13 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
   const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { register, setValue, getValues } = useFormContext();
+  const { register, setValue, clearErrors, getValues } = useFormContext();
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (file: File, id: number) => {
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
+    track(`click-apply-add_file${id}`);
 
     uploadTask.on(
       STATE_CHANGED,
@@ -52,6 +55,9 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
             file: urlWithoutToken,
             fileName: file.name,
           });
+          getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
+          clearErrors(`${section}${id}`);
+          track(`done-apply-add_file${id}`);
         });
       },
     );
@@ -81,9 +87,13 @@ const FileInput = ({ id, isReview, disabled, defaultFile }: FileInputProps) => {
         setFile(null);
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
-      } else if (defaultFileName) {
+        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+        track(`click-apply-remove_file${id}`);
+      } else if (uploadPercent !== -2 && defaultFileName) {
         setUploadPercent(-2);
         setValue(`file${id}`, undefined);
+        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+        track(`click-apply-remove_file${id}`);
       } else {
         inputRef.current.click();
       }

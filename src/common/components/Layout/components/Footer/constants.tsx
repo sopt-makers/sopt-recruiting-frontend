@@ -22,7 +22,7 @@ export const CHANNELS = [
     icon: <IconYoutube />,
   },
   {
-    link: 'http://pf.kakao.com/_JdTKd',
+    link: 'https://pf.kakao.com/_JdTKd',
     icon: <IconKakaotalk />,
   },
 ];

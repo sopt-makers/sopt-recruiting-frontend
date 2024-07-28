@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Header from './Header';
+import Header from './components/Header';
 import { container, mainWrapper } from './style.css';
 
 const Layout = ({ children }: PropsWithChildren) => {

@@ -1,3 +1,5 @@
+import { track } from '@amplitude/analytics-browser';
+
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
@@ -18,9 +20,9 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 
 const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult } = useDate();
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
 
-  if (myInfoIsLoading) return <BigLoading />;
+  if (myInfoIsLoading || isLoading) return <BigLoading />;
 
   const { season, name, part } = myInfoData?.data || {};
 
@@ -36,7 +38,12 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
         {(!NoMoreScreeningResult || !NoMoreFinalResult) && (
           <li className={buttonValue}>
             <span className={infoLabel}>지원상태</span>
-            <Button isLink to="/result" className={buttonWidth} padding="15x25">
+            <Button
+              isLink
+              to="/result"
+              className={buttonWidth}
+              onClick={() => track('click-my-result')}
+              padding="15x25">
               결과 확인
             </Button>
           </li>
