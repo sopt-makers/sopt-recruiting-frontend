@@ -13,4 +13,5 @@ export const container = style({
   transition: 'all 0.3s ease',
   marginTop: 12,
   ...theme.font.BODY_2_16_R,
+  letterSpacing: '-0.24px',
 });
