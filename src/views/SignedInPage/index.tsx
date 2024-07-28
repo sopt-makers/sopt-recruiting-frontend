@@ -32,7 +32,7 @@ const SignedInPage = () => {
     <>
       {isComplete && <CompletePage />}
       {!isComplete && submit && <MyPage part={part} />}
-      {!isComplete && !submit && <ApplyPage isReview={false} onSetComplete={handleSetComplete} />}
+      {!isComplete && !submit && <ApplyPage onSetComplete={handleSetComplete} />}
     </>
   );
 };

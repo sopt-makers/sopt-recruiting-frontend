@@ -27,11 +27,10 @@ import { buttonWrapper, container, formContainer } from './style.css';
 import type { ApplyRequest } from './types';
 
 interface ApplyPageProps {
-  isReview: boolean;
   onSetComplete?: () => void;
 }
 
-const ApplyPage = ({ isReview, onSetComplete }: ApplyPageProps) => {
+const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
@@ -41,6 +40,7 @@ const ApplyPage = ({ isReview, onSetComplete }: ApplyPageProps) => {
 
   const navigate = useNavigate();
 
+  const isReview = false;
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
