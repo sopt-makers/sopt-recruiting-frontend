@@ -33,7 +33,7 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
   const CODE_KEY: 'CODE404' | 'CODE500' = `CODE${code}`;
 
   return (
-    <section className={container[isMakers != undefined ? 'withoutHeader' : 'withHeader']}>
+    <section className={container[isMakers == undefined ? 'withoutHeader' : 'withHeader']}>
       <article className={article}>
         <ErrorCode code={code} />
         <p className={errorText}>{ERROR_MESSAGE[CODE_KEY]?.text}</p>
