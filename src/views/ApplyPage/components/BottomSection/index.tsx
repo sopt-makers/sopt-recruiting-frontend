@@ -7,11 +7,12 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { doubleLineCheck, label, line, sectionContainer } from './style.css';
 
 interface BottomSectionProps {
+  isMakers?: boolean;
   isReview: boolean;
   knownPath?: string;
 }
 
-const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
+const BottomSection = ({ isMakers, isReview, knownPath }: BottomSectionProps) => {
   return (
     <section className={sectionContainer}>
       <hr className={line} />
@@ -25,7 +26,11 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
         disabled={isReview}
       />
       <div id="check-necessary" className={doubleLineCheck}>
-        <p className={label}>SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.</p>
+        <p className={label}>
+          {isMakers
+            ? 'SOPT Makers의 행사 및 정기 모임은 매주 일요일에 진행됩니다.'
+            : 'SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.'}
+        </p>
         <Checkbox checked={isReview ? true : undefined} name="attendance" required>
           참석 가능합니다.
         </Checkbox>

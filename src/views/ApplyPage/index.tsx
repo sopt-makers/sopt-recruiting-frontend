@@ -304,7 +304,7 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
             partQuestionsDraft={partQuestionsDraft}
             questionTypes={questionTypes}
           />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
+          <BottomSection isMakers={isMakers} isReview={isReview} knownPath={applicantDraft?.knownPath} />
           {!isReview && (
             <div className={buttonWrapper}>
               <Button
