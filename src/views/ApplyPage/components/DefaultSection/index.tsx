@@ -47,7 +47,8 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     if (LIMIT_SIZE < imageFile.size) {
       setValue('picture', null);
       setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
-      setImage('');
+      setImage('max-size');
+
       return;
     }
 
@@ -78,7 +79,11 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
           <label
             htmlFor="picture"
             className={profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']}>
-            {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
+            {image !== 'max-size' && (pic || image) ? (
+              <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} />
+            ) : (
+              <IconUser />
+            )}
             {errors.picture && <p className={errorText}>{errors.picture?.message as string}</p>}
           </label>
         </div>
