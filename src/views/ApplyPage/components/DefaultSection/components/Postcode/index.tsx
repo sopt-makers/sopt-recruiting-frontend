@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Address } from 'react-daum-postcode';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,15 +9,13 @@ interface PostcodeProps {
 }
 
 const Postcode = ({ disabled, addressDraft }: PostcodeProps) => {
-  const [address, setAddress] = useState('');
-
-  const { clearErrors } = useFormContext();
+  const { getValues, setValue, clearErrors } = useFormContext();
 
   const handleOpenPostcode = () => {
     window.daum &&
       new window.daum.Postcode({
         oncomplete: function ({ address }: Address) {
-          setAddress(address);
+          setValue('address', address);
           clearErrors && clearErrors('address');
         },
         width: 500,
@@ -37,7 +34,7 @@ const Postcode = ({ disabled, addressDraft }: PostcodeProps) => {
         name="address"
         placeholder="예) 서울특별시 관악구 신림동"
         onClick={handleOpenPostcode}
-        value={address || addressDraft || ''}
+        value={getValues('address') || addressDraft || ''}
         style={{ cursor: disabled ? 'not-allowed' : 'pointer', caretColor: 'transparent' }}
         disabled={disabled}
       />
