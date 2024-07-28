@@ -7,15 +7,15 @@ import SignInInfo from './components/SignInInfo';
 import { container } from './style.css';
 
 const SignInPage = () => {
-  const { isLoading, NoMoreRecruit, isMakers } = useDate();
+  const { name: soptName, season, group, isLoading, NoMoreRecruit, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
     <div className={container}>
-      <SignInInfo />
-      <SignInForm />
+      <SignInInfo soptName={soptName} isMakers={isMakers} season={season} group={group} />
+      <SignInForm season={season} group={group} />
     </div>
   );
 };

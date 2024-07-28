@@ -1,18 +1,19 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Callout from '@components/Callout';
 import Title from '@components/Title';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { calloutButton, strongText } from './style.css';
 
-const SignInInfo = () => {
-  const {
-    recruitingInfo: { soptName, isMakers, season, group },
-  } = useContext(RecruitingInfoContext);
+import type { SeasonGroupType } from '@type/seasonAndGroup';
 
+interface SignInInfoProps extends SeasonGroupType {
+  soptName?: string;
+  isMakers?: boolean;
+}
+
+const SignInInfo = ({ soptName, isMakers, season, group }: SignInInfoProps) => {
   return (
     <>
       <Title>

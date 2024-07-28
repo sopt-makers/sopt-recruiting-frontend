@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -10,16 +10,14 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import ExistingApplicantDialog from 'views/dialogs/ExistingApplicantDialog';
 import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
 
-const SignupForm = () => {
-  const {
-    recruitingInfo: { season, group },
-  } = useContext(RecruitingInfoContext);
+import type { SeasonGroupType } from '@type/seasonAndGroup';
+
+const SignupForm = ({ season, group }: SeasonGroupType) => {
   const existingApplicantRef = useRef<HTMLDialogElement>(null);
 
   const { isVerified, handleVerified } = useVerificationStatus();
