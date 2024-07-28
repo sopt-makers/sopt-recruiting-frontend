@@ -30,7 +30,6 @@ const profileLabel = style({
   position: 'relative',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center',
   padding: 6,
   width: 134,
   height: 176,
