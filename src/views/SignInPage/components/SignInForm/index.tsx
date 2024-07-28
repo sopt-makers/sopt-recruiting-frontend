@@ -1,20 +1,17 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import Button from '@components/Button';
 import { Description, InputLine, TextBox } from '@components/Input';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
 import { inputWrapper, newPasswordButton } from './style.css';
 
-const SignInForm = () => {
-  const {
-    recruitingInfo: { season, group },
-  } = useContext(RecruitingInfoContext);
+import type { SeasonGroupType } from '@type/seasonAndGroup';
+
+const SignInForm = ({ season, group }: SeasonGroupType) => {
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
   const { signInMutate, signInIsPending } = useMutateSignIn({
