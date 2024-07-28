@@ -14,23 +14,22 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
+
   const {
     recruitingInfo: { name, isMakers },
   } = useContext(RecruitingInfoContext);
 
   const handleClickLogo = () => {
-    if (pathname === '/') navigate(0);
-    else navigate('/');
+    pathname === '/' ? navigate(0) : navigate('/');
   };
 
   const handleLogout = () => {
     track('click-gnb-logout');
     reset();
     localStorage.removeItem('soptApplyAccessToken');
-    if (pathname === '/') navigate(0);
-    else navigate('/');
+    localStorage.removeItem('soptApplyAccessTokenExpiredTime');
+    pathname === '/' ? navigate(0) : navigate('/');
   };
-
   return (
     <header className={container}>
       <button onClick={handleClickLogo} className={logo}>

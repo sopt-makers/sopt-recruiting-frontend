@@ -13,11 +13,12 @@ import { inputWrapper, newPasswordButton } from './style.css';
 
 const SignInForm = () => {
   const {
-    recruitingInfo: { season, group },
+    recruitingInfo: { season, group, finalPassConfirmEnd },
   } = useContext(RecruitingInfoContext);
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
   const { signInMutate, signInIsPending } = useMutateSignIn({
+    finalPassConfirmEnd,
     onSetError: (name, type, message) => setError(name, { type, message }),
   });
 
