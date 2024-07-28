@@ -1,20 +1,22 @@
 import { track } from '@amplitude/analytics-browser';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/components/InputTheme';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { CompleteDialog } from 'views/dialogs';
 import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePassword';
 
 import { formWrapper } from './style.css';
 
-import type { SeasonGroupType } from '@type/seasonAndGroup';
-
-const PasswordForm = ({ season, group }: SeasonGroupType) => {
+const PasswordForm = () => {
   const completeDialog = useRef<HTMLDialogElement>(null);
+  const {
+    recruitingInfo: { season, group },
+  } = useContext(RecruitingInfoContext);
   const { isVerified, handleVerified } = useVerificationStatus();
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
