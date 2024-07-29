@@ -9,13 +9,13 @@ import { container, mainWrapper } from './style.css';
 
 const Head = () => {
   const {
-    recruitingInfo: { season, group, soptName, isMakers },
+    recruitingInfo: { season, isMakers },
   } = useContext(RecruitingInfoContext);
 
-  const SITE_NAME = 'SOPT 리크루팅';
-  const TITLE = `SOPT ${season}기 ${group} 모집`;
+  const SITE_NAME = `SOPT ${isMakers && 'makers '}리크루팅`;
+  const TITLE = `SOPT ${isMakers && 'makers '}${season}기 모집 지원하기`;
   const IMAGE = '/imgOg.png';
-  const DESCRIPTION = 'SOPT의 신입 기수 모집페이지입니다.';
+  const DESCRIPTION = `SOPT${isMakers && ' makers'}의 신입 기수 모집페이지입니다.`;
 
   return (
     <Helmet>
