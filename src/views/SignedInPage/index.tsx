@@ -1,4 +1,3 @@
-import { track } from '@amplitude/analytics-browser';
 import { useContext, useEffect, useState } from 'react';
 
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
@@ -6,22 +5,15 @@ import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import BigLoading from 'views/loadings/BigLoding';
 import MyPage from 'views/MyPage';
-
-import useGetDraft from './hooks/useGetDraft';
+import useGetMyInfo from 'views/MyPage/hooks/useGetMyInfo';
 
 const SignedInPage = () => {
   const [isComplete, setIsComplete] = useState(false);
-  const [isReview, setIsReview] = useState(false);
 
-  const { draftData, draftIsLoading } = useGetDraft();
-  const { applicant, isSubmit } = draftData?.data || {};
+  const { myInfoData, myInfoIsLoading } = useGetMyInfo();
+  const { name, season, part, submit } = myInfoData?.data || {};
 
   const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
-
-  const handleShowReview = () => {
-    track('click-my-review');
-    setIsReview(true);
-  };
 
   const handleSetComplete = () => {
     setIsComplete(true);
@@ -29,19 +21,18 @@ const SignedInPage = () => {
 
   useEffect(() => {
     handleSaveRecruitingInfo({
-      name: applicant?.name,
+      name,
+      season,
     });
-  }, [applicant, handleSaveRecruitingInfo]);
+  }, [name, season, handleSaveRecruitingInfo]);
 
-  if (draftIsLoading) return <BigLoading />;
+  if (myInfoIsLoading) return <BigLoading />;
 
   return (
     <>
-      {!isReview && isComplete && <CompletePage />}
-      {!isReview && !isComplete && isSubmit && <MyPage onShowReview={handleShowReview} />}
-      {(isReview || (!isComplete && !isSubmit)) && (
-        <ApplyPage isReview={isReview} onSetComplete={handleSetComplete} draftData={draftData} />
-      )}
+      {isComplete && <CompletePage />}
+      {!isComplete && submit && <MyPage part={part} />}
+      {!isComplete && !submit && <ApplyPage onSetComplete={handleSetComplete} />}
     </>
   );
 };

@@ -9,6 +9,7 @@ import useScrollToHash from '@hooks/useScrollToHash';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
+import useGetDraft from 'views/SignedInPage/hooks/useGetDraft';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -23,15 +24,13 @@ import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import { buttonWrapper, container, formContainer } from './style.css';
 
-import type { ApplyRequest, ApplyResponse } from './types';
+import type { ApplyRequest } from './types';
 
 interface ApplyPageProps {
-  isReview: boolean;
-  onSetComplete: () => void;
-  draftData?: { data: ApplyResponse };
+  onSetComplete?: () => void;
 }
 
-const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
+const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
@@ -41,17 +40,19 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
 
   const navigate = useNavigate();
 
+  const isReview = false;
   const minIndex = isInView.findIndex((value) => value === true);
 
   useScrollToHash(); // scrollTo 카테고리
 
+  const { NoMoreApply, isLoading, isMakers } = useDate();
+  const { draftData, draftIsLoading } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
 
-  const { NoMoreReview, isLoading, isMakers } = useDate();
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -169,8 +170,8 @@ const ApplyPage = ({ isReview, onSetComplete, draftData }: ApplyPageProps) => {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isReview]);
 
-  if (questionsIsLoading || isLoading) return <BigLoading />;
-  if (NoMoreReview) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
+  if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
+  if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);

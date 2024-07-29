@@ -1,12 +1,14 @@
 import { track } from '@amplitude/analytics-browser';
+import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
-import useGetMyInfo from './hooks/useGetMyInfo';
 import { buttonWidth, container, infoContainer, infoLabel, infoValue, itemWrapper, buttonValue } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
@@ -18,13 +20,18 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   );
 };
 
-const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
-  const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
+interface MyPageProps {
+  part?: string;
+}
 
-  if (myInfoIsLoading || isLoading) return <BigLoading />;
+const MyPage = ({ part }: MyPageProps) => {
+  const {
+    recruitingInfo: { name, season },
+  } = useContext(RecruitingInfoContext);
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading, isMakers } = useDate();
 
-  const { season, name, part } = myInfoData?.data || {};
+  if (isLoading) return <BigLoading />;
+  if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
     <section className={container}>
@@ -51,7 +58,12 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
         {!NoMoreReview && (
           <li className={buttonValue}>
             <span className={infoLabel}>지원서</span>
-            <Button className={buttonWidth} onClick={onShowReview} padding="15x25">
+            <Button
+              isLink
+              to="/review"
+              className={buttonWidth}
+              onClick={() => track('click-my-review')}
+              padding="15x25">
               지원서 확인
             </Button>
           </li>
