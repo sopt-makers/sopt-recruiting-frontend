@@ -33,7 +33,7 @@ const textareaBase = style({
 
 export const textareaHeight = styleVariants({
   sm: {
-    height: 113,
+    height: 112,
   },
   lg: {
     height: 507,
