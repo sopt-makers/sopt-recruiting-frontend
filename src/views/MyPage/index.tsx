@@ -52,19 +52,22 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
         {NoMoreScreeningResult && NoMoreFinalResult && (
-          <MyInfoItem label="지원상태" value={applicationPass ? '서류 합격' : '서류 불합격'} />
+          <MyInfoItem
+            label="지원상태"
+            value={applicationPass == null ? '제출 완료' : applicationPass ? '서류 합격' : '서류 불합격'}
+          />
         )}
         {!NoMoreScreeningResult && <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />}
-        {!NoMoreFinalResult && applicationPass ? (
-          <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
+        {!NoMoreFinalResult &&
+          (applicationPass ? (
+            <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
+          ) : (
+            <MyInfoItem label="지원상태" value="서류 불합격" />
+          ))}
+        {NoMoreReview ? (
+          <MyInfoItem label="지원서" value="제출 완료" />
         ) : (
-          <MyInfoItem label="지원상태" value="서류 불합격" />
-        )}
-        {!NoMoreReview && <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />}
-        {NoMoreReview && applicationPass ? (
-          <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
-        ) : (
-          <MyInfoItem label="지원상태" value="서류 불합격" />
+          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />
         )}
       </ol>
     </section>
