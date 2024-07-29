@@ -8,6 +8,18 @@ import { partInfo, partInfoWrapper, sectionContainer, title } from './style.css'
 import FileInput from '../FileInput';
 import LinkInput from '../LinkInput';
 
+const PartInfo = ({ value }: { value: string }) => {
+  return (
+    <article className={partInfoWrapper}>
+      {value.split('\n').map((text) => (
+        <p className={partInfo} key={text}>
+          &#183; {text}
+        </p>
+      ))}
+    </article>
+  );
+};
+
 interface PartSectionProps {
   isReview: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
@@ -63,15 +75,7 @@ const PartSection = ({
 
         return (
           <div key={value}>
-            {charLimit == null && (
-              <article className={partInfoWrapper}>
-                {value.split('\n').map((text) => (
-                  <p className={partInfo} key={text}>
-                    &#183; {text}
-                  </p>
-                ))}
-              </article>
-            )}
+            {charLimit == null && <PartInfo value={value} />}
             {charLimit != null && (
               <Textarea
                 name={`part${id}`}
