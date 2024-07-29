@@ -43,27 +43,40 @@ export const strongText = styleVariants({
   },
 });
 
-const animatedGradient = keyframes({
-  '0%': {
-    width: '40%',
-    boxShadow: `0px 100px 100px 70px ${theme.color.primary}`,
-  },
-
-  '100%': {
-    width: '80%',
-    boxShadow: `0px 100px 100px 100px ${theme.color.primary}`,
-  },
-});
-
-export const bottomAnimation = style({
+const bottomAnimationBase = style({
   position: 'absolute',
   bottom: '-100px',
   left: '50%',
   transform: 'translateX(-50%)',
   height: 100,
   borderRadius: '100%',
-  animation: `${animatedGradient} ease-in-out 3s alternate infinite`,
 });
+
+const animatedGradient = (bgColor: string) =>
+  keyframes({
+    '0%': {
+      width: '40%',
+      boxShadow: `0px 100px 100px 70px ${bgColor}`,
+    },
+
+    '100%': {
+      width: '80%',
+      boxShadow: `0px 100px 100px 100px ${bgColor}`,
+    },
+  });
+
+export const bottomAnimation = styleVariants(
+  {
+    sopt: theme.color.primary,
+    makers: '#d8d8d8',
+  },
+  (color) => [
+    bottomAnimationBase,
+    {
+      animation: `${animatedGradient(color)} ease-in-out 3s alternate infinite`,
+    },
+  ],
+);
 
 export const bottomImg = style({
   position: 'absolute',
