@@ -52,7 +52,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
   return (
     <>
-      {!pass ? (
+      {pass ? (
         <p className={content}>
           <span>{`안녕하세요. ${season}기 ${soptName} 입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
@@ -121,7 +121,7 @@ const ScreeningResult = () => {
         <Title>결과 확인</Title>
         <Content pass={pass} />
       </div>
-      {!pass && (
+      {pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (
