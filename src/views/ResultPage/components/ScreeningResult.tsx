@@ -47,7 +47,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
       {pass ? (
         <p className={content}>
           <span>{`안녕하세요. ${season}기 ${soptName} 입니다.\n\n`}</span>
-          <strong className={strongText}>{`축하드립니다!`}</strong>
+          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span>
             {`
               서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.

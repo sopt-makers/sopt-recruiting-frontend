@@ -1,4 +1,5 @@
-import { keyframes, style } from '@vanilla-extract/css';
+import { colors } from '@sopt-makers/colors';
+import { keyframes, style, styleVariants } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
 
 import { Z_INDEX } from '@constants/zIndex';
@@ -33,8 +34,13 @@ export const content = style({
   zIndex: Z_INDEX.resultContent,
 });
 
-export const strongText = style({
-  color: theme.color.primary,
+export const strongText = styleVariants({
+  sopt: {
+    color: theme.color.primary,
+  },
+  makers: {
+    color: colors.secondary,
+  },
 });
 
 const animatedGradient = keyframes({
