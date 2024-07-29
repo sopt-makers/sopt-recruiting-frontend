@@ -12,7 +12,6 @@ export const container = style({
 
 const textareaBase = style({
   width: '100%',
-  height: 507,
   padding: '16px 16px',
   borderRadius: 12,
   backgroundColor: theme.color.background,
@@ -29,6 +28,15 @@ const textareaBase = style({
 
   '::placeholder': {
     color: theme.color.placeholder,
+  },
+});
+
+export const textareaHeight = styleVariants({
+  sm: {
+    height: 112,
+  },
+  lg: {
+    height: 507,
   },
 });
 
