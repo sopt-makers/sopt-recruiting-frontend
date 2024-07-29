@@ -22,9 +22,10 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 
 interface MyPageProps {
   part?: string;
+  applicationPass?: boolean;
 }
 
-const MyPage = ({ part }: MyPageProps) => {
+const MyPage = ({ part, applicationPass }: MyPageProps) => {
   const {
     recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);
@@ -41,8 +42,10 @@ const MyPage = ({ part }: MyPageProps) => {
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        {NoMoreScreeningResult && NoMoreFinalResult && <MyInfoItem label="지원상태" value="지원 완료" />}
-        {(!NoMoreScreeningResult || !NoMoreFinalResult) && (
+        {NoMoreScreeningResult && NoMoreFinalResult && (
+          <MyInfoItem label="지원상태" value={applicationPass ? '서류 합격' : '서류 불합격'} />
+        )}
+        {!NoMoreScreeningResult && (
           <li className={buttonValue}>
             <span className={infoLabel}>지원상태</span>
             <Button
@@ -54,6 +57,21 @@ const MyPage = ({ part }: MyPageProps) => {
               결과 확인
             </Button>
           </li>
+        )}
+        {!NoMoreFinalResult && applicationPass ? (
+          <li className={buttonValue}>
+            <span className={infoLabel}>지원상태</span>
+            <Button
+              isLink
+              to="/result"
+              className={buttonWidth}
+              onClick={() => track('click-my-result')}
+              padding="15x25">
+              결과 확인
+            </Button>
+          </li>
+        ) : (
+          <MyInfoItem label="지원상태" value="서류 불합격" />
         )}
         {!NoMoreReview && (
           <li className={buttonValue}>
@@ -68,7 +86,21 @@ const MyPage = ({ part }: MyPageProps) => {
             </Button>
           </li>
         )}
-        {NoMoreReview && <MyInfoItem label="지원서" value="제출 완료" />}
+        {NoMoreReview && applicationPass ? (
+          <li className={buttonValue}>
+            <span className={infoLabel}>지원상태</span>
+            <Button
+              isLink
+              to="/result"
+              className={buttonWidth}
+              onClick={() => track('click-my-result')}
+              padding="15x25">
+              결과 확인
+            </Button>
+          </li>
+        ) : (
+          <MyInfoItem label="지원상태" value="서류 불합격" />
+        )}
       </ol>
     </section>
   );

@@ -11,6 +11,8 @@ export interface MyResponse {
   name: string;
   part: string;
   submit: boolean;
+  applicationPass: boolean;
+  finalPass: boolean;
 }
 
 export interface ScreeningResultResponse {
