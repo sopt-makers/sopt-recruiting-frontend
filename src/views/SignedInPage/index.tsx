@@ -5,7 +5,8 @@ import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import BigLoading from 'views/loadings/BigLoding';
 import MyPage from 'views/MyPage';
-import useGetMyInfo from 'views/MyPage/hooks/useGetMyInfo';
+
+import useGetMyInfo from './hooks/useGetMyInfo';
 
 const SignedInPage = () => {
   const [isComplete, setIsComplete] = useState(false);

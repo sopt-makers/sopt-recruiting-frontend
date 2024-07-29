@@ -11,12 +11,12 @@ import BottomSection from 'views/ApplyPage/components/BottomSection';
 import CommonSection from 'views/ApplyPage/components/CommonSection';
 import DefaultSection from 'views/ApplyPage/components/DefaultSection';
 import PartSection from 'views/ApplyPage/components/PartSection';
+import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainer } from 'views/ApplyPage/style.css';
 import PreventReviewDialog from 'views/dialogs/PreventReviewDialog';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
-import useGetDraft from 'views/SignedInPage/hooks/useGetDraft';
 
 const ReviewPage = () => {
   const preventReviewDialog = useRef<HTMLDialogElement>(null);
