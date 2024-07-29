@@ -17,6 +17,9 @@
           font-size: 12px !important;
           line-height: 20px !important;
         }
+        .code {
+          padding: 10px !important;
+        }
         .blank {
           height: 20px !important;
         }
@@ -27,6 +30,9 @@
         .vertical-blank {
           height: 7px !important;
           line-height: 10px !important;
+        }
+        .horizontal-blank {
+          width: 0 !important;
         }
       }
     </style>
@@ -148,51 +154,30 @@
               <td style="font-size: 0; line-height: 0; height: 48px" class="blank">&nbsp;</td>
             </tr>
             <tr>
-              <td style="width: 100%">
-                <table
-                  style="border: 0; border-spacing: 0; margin-inline-start: auto; margin-inline-end: auto"
-                  cellpadding="0">
-                  <tr>
-                    <td style="border-top-left-radius: 12px; background-color: #f0f0f0">&nbsp;</td>
-                    <td
-                      style="font-size: 0; line-height: 0; background-color: #f0f0f0; height: 15px"
-                      class="vertical-blank">
-                      &nbsp;
-                    </td>
-                    <td style="border-top-right-radius: 12px; background-color: #f0f0f0">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td style="font-size: 0; line-height: 0; width: 32px; background-color: #f0f0f0">&nbsp;</td>
-                    <td
-                      style="
-                        color: #0f1012;
-                        font-family: 'SUIT', sans-serif;
-                        font-size: 16px;
-                        font-weight: 600;
-                        line-height: 24px;
-                        letter-spacing: 3.5px;
-                        background-color: #f0f0f0;
-                        text-align: center;
-                      "
-                      class="text vertical-blank">
-                      <span><%= verificationCode %></span>
-                    </td>
-                    <td style="font-size: 0; line-height: 0; width: 32px; background-color: #f0f0f0">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td style="border-bottom-left-radius: 12px; background-color: #f0f0f0">&nbsp;</td>
-                    <td
-                      style="font-size: 0; line-height: 0; background-color: #f0f0f0; height: 15px"
-                      class="vertical-blank">
-                      &nbsp;
-                    </td>
-                    <td style="border-bottom-right-radius: 12px; background-color: #f0f0f0">&nbsp;</td>
-                  </tr>
-                </table>
+              <td style="text-align: center; height: 40px">
+                <span
+                  style="
+                    color: #0f1012;
+                    font-family: 'SUIT', sans-serif;
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 24px;
+                    letter-spacing: 3.5px;
+                    background-color: #f0f0f0;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    text-align: center;
+                  "
+                  class="text code"
+                  ><%= verificationCode %></span
+                >
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0; height: 62px" class="blank">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; height: 30px" class="blank">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="font-size: 0; line-height: 0; height: 30px" class="blank">&nbsp;</td>
             </tr>
           </table>
         </td>
@@ -207,7 +192,7 @@
             style="border: 0; border-spacing: 0; width: 600px; margin-inline-start: auto; margin-inline-end: auto"
             cellpadding="0">
             <tr>
-              <td style="font-size: 0; line-height: 0; width: 22px">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; width: 22px" class="horizontal-blank">&nbsp;</td>
               <td
                 style="
                   color: #66666d;
@@ -222,7 +207,7 @@
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0; width: 22px">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; width: 22px" class="horizontal-blank">&nbsp;</td>
               <td
                 style="
                   color: #66666d;
