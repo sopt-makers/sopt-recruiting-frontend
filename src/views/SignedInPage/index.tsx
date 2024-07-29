@@ -5,13 +5,14 @@ import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import BigLoading from 'views/loadings/BigLoding';
 import MyPage from 'views/MyPage';
-import useGetMyInfo from 'views/MyPage/hooks/useGetMyInfo';
+
+import useGetMyInfo from './hooks/useGetMyInfo';
 
 const SignedInPage = () => {
   const [isComplete, setIsComplete] = useState(false);
 
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { name, season, part, submit } = myInfoData?.data || {};
+  const { name, season, part, submit, applicationPass } = myInfoData?.data || {};
 
   const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
@@ -31,7 +32,7 @@ const SignedInPage = () => {
   return (
     <>
       {isComplete && <CompletePage />}
-      {!isComplete && submit && <MyPage part={part} />}
+      {!isComplete && submit && <MyPage part={part} applicationPass={applicationPass} />}
       {!isComplete && !submit && <ApplyPage onSetComplete={handleSetComplete} />}
     </>
   );

@@ -20,11 +20,21 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   );
 };
 
+const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => (
+  <li className={buttonValue}>
+    <span className={infoLabel}>{label}</span>
+    <Button isLink to={to} className={buttonWidth} onClick={() => track(trackingEvent)} padding="15x25">
+      {label === '지원서' ? '지원서 확인' : '결과 확인'}
+    </Button>
+  </li>
+);
+
 interface MyPageProps {
   part?: string;
+  applicationPass?: boolean;
 }
 
-const MyPage = ({ part }: MyPageProps) => {
+const MyPage = ({ part, applicationPass }: MyPageProps) => {
   const {
     recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);
@@ -41,34 +51,24 @@ const MyPage = ({ part }: MyPageProps) => {
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        {NoMoreScreeningResult && NoMoreFinalResult && <MyInfoItem label="지원상태" value="지원 완료" />}
-        {(!NoMoreScreeningResult || !NoMoreFinalResult) && (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원상태</span>
-            <Button
-              isLink
-              to="/result"
-              className={buttonWidth}
-              onClick={() => track('click-my-result')}
-              padding="15x25">
-              결과 확인
-            </Button>
-          </li>
+        {NoMoreScreeningResult && NoMoreFinalResult && (
+          <MyInfoItem
+            label="지원상태"
+            value={applicationPass == null ? '제출 완료' : applicationPass ? '서류 합격' : '서류 불합격'}
+          />
         )}
-        {!NoMoreReview && (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원서</span>
-            <Button
-              isLink
-              to="/review"
-              className={buttonWidth}
-              onClick={() => track('click-my-review')}
-              padding="15x25">
-              지원서 확인
-            </Button>
-          </li>
+        {!NoMoreScreeningResult && <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />}
+        {!NoMoreFinalResult &&
+          (applicationPass ? (
+            <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
+          ) : (
+            <MyInfoItem label="지원상태" value="서류 불합격" />
+          ))}
+        {NoMoreReview ? (
+          <MyInfoItem label="지원서" value="제출 완료" />
+        ) : (
+          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />
         )}
-        {NoMoreReview && <MyInfoItem label="지원서" value="제출 완료" />}
       </ol>
     </section>
   );

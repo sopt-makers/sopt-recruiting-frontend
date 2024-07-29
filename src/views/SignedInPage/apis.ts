@@ -1,7 +1,7 @@
 import tokenInstance from '@apis/tokenInstance';
 
-export const getDraft = async () => {
-  const res = await tokenInstance.get('/recruiting-answer/store');
+export const getMyInfo = async () => {
+  const res = await tokenInstance.get('/recruiting-auth/my');
 
   return res;
 };

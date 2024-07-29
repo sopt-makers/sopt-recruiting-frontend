@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getFinalResult } from '../apis';
 
-import type { FinalResultResponse } from '../../MyPage/types';
+import type { FinalResultResponse } from '../types';
 import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
