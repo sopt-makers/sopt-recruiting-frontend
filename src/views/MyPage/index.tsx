@@ -20,6 +20,15 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   );
 };
 
+const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => (
+  <li className={buttonValue}>
+    <span className={infoLabel}>{label}</span>
+    <Button isLink to={to} className={buttonWidth} onClick={() => track(trackingEvent)} padding="15x25">
+      {label === '지원서' ? '지원서 확인' : '결과 확인'}
+    </Button>
+  </li>
+);
+
 interface MyPageProps {
   part?: string;
   applicationPass?: boolean;
@@ -45,59 +54,15 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
         {NoMoreScreeningResult && NoMoreFinalResult && (
           <MyInfoItem label="지원상태" value={applicationPass ? '서류 합격' : '서류 불합격'} />
         )}
-        {!NoMoreScreeningResult && (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원상태</span>
-            <Button
-              isLink
-              to="/result"
-              className={buttonWidth}
-              onClick={() => track('click-my-result')}
-              padding="15x25">
-              결과 확인
-            </Button>
-          </li>
-        )}
+        {!NoMoreScreeningResult && <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />}
         {!NoMoreFinalResult && applicationPass ? (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원상태</span>
-            <Button
-              isLink
-              to="/result"
-              className={buttonWidth}
-              onClick={() => track('click-my-result')}
-              padding="15x25">
-              결과 확인
-            </Button>
-          </li>
+          <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
         ) : (
           <MyInfoItem label="지원상태" value="서류 불합격" />
         )}
-        {!NoMoreReview && (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원서</span>
-            <Button
-              isLink
-              to="/review"
-              className={buttonWidth}
-              onClick={() => track('click-my-review')}
-              padding="15x25">
-              지원서 확인
-            </Button>
-          </li>
-        )}
+        {!NoMoreReview && <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />}
         {NoMoreReview && applicationPass ? (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원상태</span>
-            <Button
-              isLink
-              to="/result"
-              className={buttonWidth}
-              onClick={() => track('click-my-result')}
-              padding="15x25">
-              결과 확인
-            </Button>
-          </li>
+          <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
         ) : (
           <MyInfoItem label="지원상태" value="서류 불합격" />
         )}
