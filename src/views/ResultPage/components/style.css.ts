@@ -86,6 +86,14 @@ export const bottomImg = style({
   // height: 556,
 });
 
+export const bottomSvg = style({
+  position: 'absolute',
+  bottom: 0,
+  right: 0,
+  margin: '0px 130px 140px 0px',
+  width: 584,
+});
+
 export const link = style({
   borderBottom: '1px solid currentColor',
 });

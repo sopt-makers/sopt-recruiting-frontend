@@ -6,7 +6,17 @@ import Title from '@components/Title';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { bottomAnimation, bottomImg, container, content, contentWrapper, link, strongText } from './style.css';
+import {
+  bottomAnimation,
+  bottomImg,
+  bottomSvg,
+  container,
+  content,
+  contentWrapper,
+  link,
+  strongText,
+} from './style.css';
+import IconMakersLogo from '../assets/IconMakersLogo';
 import imgMakersLogo from '../assets/imgMakersLogo.png';
 import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
@@ -44,7 +54,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
   return (
     <>
-      {pass ? (
+      {!pass ? (
         <p className={content}>
           <span>{`안녕하세요. ${season}기 ${soptName} 입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
@@ -116,13 +126,19 @@ const ScreeningResult = () => {
         <Title>결과 확인</Title>
         <Content pass={pass} />
       </div>
-      {pass && (
+      {!pass && (
         <>
-          <div className={bottomAnimation} />
-          <picture className={bottomImg}>
-            <source srcSet={imgLogoWebp} type="image/webp" />
-            <img src={imgLogo} alt="sopt-logo" />
-          </picture>
+          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
+          {isMakers ? (
+            <i className={bottomSvg}>
+              <IconMakersLogo />
+            </i>
+          ) : (
+            <picture className={bottomImg}>
+              <source srcSet={imgLogoWebp} type="image/webp" />
+              <img src={imgLogo} alt="sopt-logo" />
+            </picture>
+          )}
         </>
       )}
     </section>
