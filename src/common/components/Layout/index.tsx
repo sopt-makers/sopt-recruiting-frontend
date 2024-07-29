@@ -12,18 +12,24 @@ const Head = () => {
     recruitingInfo: { season, isMakers },
   } = useContext(RecruitingInfoContext);
 
-  const SITE_NAME = `SOPT ${isMakers && 'makers '}리크루팅`;
-  const TITLE = `SOPT ${isMakers && 'makers '}${season}기 모집 지원하기`;
-  const IMAGE = '/imgOg.png';
-  const DESCRIPTION = `SOPT${isMakers && ' makers'}의 신입 기수 모집페이지입니다.`;
+  const TOUCH_ICON = isMakers ? '/makers-touch-icon.png' : '/apple-touch-icon.png';
+  const ICON = isMakers ? '/makersIcon.svg' : '/icon.svg';
+  const FAVICON = isMakers ? '/makersFavicon.ico' : '/favicon.ico';
+  const SITE_NAME = isMakers === undefined ? 'SOPT 리크루팅' : `SOPT ${isMakers && 'makers '}리크루팅`;
+  const TITLE = season ? 'SOPT 모집 지원하기' : `SOPT ${isMakers && 'makers '}${season}기 모집 지원하기`;
+  const IMAGE = isMakers ? '/makersOg.png' : '/imgOg.png';
+  const DESCRIPTION =
+    isMakers === undefined
+      ? `SOPT의 신입 기수 모집페이지입니다.`
+      : `SOPT${isMakers && ' makers'}의 신입 기수 모집페이지입니다.`;
 
   return (
     <Helmet>
       <link rel="manifest" href="/manifest.webmanifest" />
 
-      <link rel="icon" href="/favicon.ico" sizes="32x32" />
-      <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="icon" href={FAVICON} sizes="32x32" />
+      <link rel="icon" href={ICON} type="image/svg+xml" />
+      <link rel="apple-touch-icon" href={TOUCH_ICON} />
 
       <meta property="og:title" content={TITLE} />
       <meta property="og:description" content={DESCRIPTION} />
