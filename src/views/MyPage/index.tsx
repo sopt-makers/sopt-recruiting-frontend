@@ -1,12 +1,14 @@
 import { track } from '@amplitude/analytics-browser';
+import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
+import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
-import useGetMyInfo from './hooks/useGetMyInfo';
 import { buttonWidth, container, infoContainer, infoLabel, infoValue, itemWrapper, buttonValue } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
@@ -18,13 +20,28 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   );
 };
 
-const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
-  const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
+const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => (
+  <li className={buttonValue}>
+    <span className={infoLabel}>{label}</span>
+    <Button isLink to={to} className={buttonWidth} onClick={() => track(trackingEvent)} padding="15x25">
+      {label === '지원서' ? '지원서 확인' : '결과 확인'}
+    </Button>
+  </li>
+);
 
-  if (myInfoIsLoading || isLoading) return <BigLoading />;
+interface MyPageProps {
+  part?: string;
+  applicationPass?: boolean;
+}
 
-  const { season, name, part } = myInfoData?.data || {};
+const MyPage = ({ part, applicationPass }: MyPageProps) => {
+  const {
+    recruitingInfo: { name, season },
+  } = useContext(RecruitingInfoContext);
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading, isMakers } = useDate();
+
+  if (isLoading) return <BigLoading />;
+  if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
     <section className={container}>
@@ -34,29 +51,24 @@ const MyPage = ({ onShowReview }: { onShowReview: () => void }) => {
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        {NoMoreScreeningResult && NoMoreFinalResult && <MyInfoItem label="지원상태" value="지원 완료" />}
-        {(!NoMoreScreeningResult || !NoMoreFinalResult) && (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원상태</span>
-            <Button
-              isLink
-              to="/result"
-              className={buttonWidth}
-              onClick={() => track('click-my-result')}
-              padding="15x25">
-              결과 확인
-            </Button>
-          </li>
+        {NoMoreScreeningResult && NoMoreFinalResult && (
+          <MyInfoItem
+            label="지원상태"
+            value={applicationPass == null ? '제출 완료' : applicationPass ? '서류 합격' : '서류 불합격'}
+          />
         )}
-        {!NoMoreReview && (
-          <li className={buttonValue}>
-            <span className={infoLabel}>지원서</span>
-            <Button className={buttonWidth} onClick={onShowReview} padding="15x25">
-              지원서 확인
-            </Button>
-          </li>
+        {!NoMoreScreeningResult && <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />}
+        {!NoMoreFinalResult &&
+          (applicationPass ? (
+            <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
+          ) : (
+            <MyInfoItem label="지원상태" value="서류 불합격" />
+          ))}
+        {NoMoreReview ? (
+          <MyInfoItem label="지원서" value="제출 완료" />
+        ) : (
+          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />
         )}
-        {NoMoreReview && <MyInfoItem label="지원서" value="제출 완료" />}
       </ol>
     </section>
   );

@@ -4,6 +4,7 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -15,6 +16,7 @@ import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
 import PasswordPage from 'views/PasswordPage';
 import ResultPage from 'views/ResultPage';
+import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
 
 import 'styles/reset.css';
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
       { path: '/result', element: <ResultPage /> },
+      { path: '/review', element: <ReviewPage /> },
       { path: '/error', element: <ErrorPage code={500} /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],
@@ -107,16 +110,18 @@ const App = () => {
   return (
     <>
       <SessionExpiredDialog ref={sessionRef} />
-      <ThemeContext.Provider value={themeContextValue}>
-        <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
-          <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
-            <div className={isLight ? light : dark}>
-              <RouterProvider router={router} />
-            </div>
-          </QueryClientProvider>
-        </RecruitingInfoContext.Provider>
-      </ThemeContext.Provider>
+      <HelmetProvider>
+        <ThemeContext.Provider value={themeContextValue}>
+          <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
+            <QueryClientProvider client={queryClient}>
+              <ReactQueryDevtools />
+              <div className={isLight ? light : dark}>
+                <RouterProvider router={router} />
+              </div>
+            </QueryClientProvider>
+          </RecruitingInfoContext.Provider>
+        </ThemeContext.Provider>
+      </HelmetProvider>
     </>
   );
 };

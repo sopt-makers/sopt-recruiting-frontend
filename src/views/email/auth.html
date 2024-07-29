@@ -4,20 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원 인증 메일</title>
+    <style>
+      @media screen and (max-width: 600px) {
+        .content {
+          width: 330px !important;
+        }
+        .title {
+          font-size: 20px !important;
+          line-height: 35px !important;
+        }
+        .text {
+          font-size: 12px !important;
+          line-height: 20px !important;
+        }
+        .code {
+          padding: 10px !important;
+        }
+        .blank {
+          height: 20px !important;
+        }
+        .small-text {
+          font-size: 10px !important;
+          line-height: 15px !important;
+        }
+        .vertical-blank {
+          height: 7px !important;
+          line-height: 10px !important;
+        }
+        .horizontal-blank {
+          width: 0 !important;
+        }
+      }
+    </style>
   </head>
   <body style="margin: 0; padding: 0">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table style="border: 0; border-spacing: 0; width: 100%">
       <tr>
-        <td style="font-size: 0; line-height: 0" width="600" height="20">&nbsp;</td>
+        <td class="content" style="font-size: 0; line-height: 0; width: 600px; height: 20px">&nbsp;</td>
       </tr>
       <tr>
         <td>
           <table
-            bgcolor="#ffffff"
-            align="center"
             cellpadding="0"
-            cellspacing="0"
-            width="600"
+            class="content"
             style="
               border-top-left-radius: 10px;
               border-top-right-radius: 10px;
@@ -26,21 +55,30 @@
               border-color: #c7c7c7;
               border-width: 1px;
               border-style: solid;
+              background-color: #ffffff;
+              border-spacing: 0;
+              margin-inline-start: auto;
+              margin-inline-end: auto;
+              width: 600px;
             ">
             <tr>
-              <td style="font-size: 0; line-height: 0" height="75">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; height: 35px" class="blank">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center">
-                <img src="iconLogo.svg" alt="sopt-logo" width="94" height="32" style="display: block" />
+              <td style="font-size: 0; line-height: 0; height: 35px" class="blank">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <div style="width: 100%; text-align: center">
+                  <img src="iconLogo.svg" alt="sopt-logo" width="94" height="32" />
+                </div>
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0" height="13">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; height: 13px">&nbsp;</td>
             </tr>
             <tr>
               <td
-                align="center"
                 style="
                   color: #0f1012;
                   font-family: 'SUIT', sans-serif;
@@ -48,19 +86,34 @@
                   font-weight: 700;
                   line-height: 60px;
                   letter-spacing: -0.32px;
-                ">
-                회원 인증 메일
+                  text-align: center;
+                "
+                class="title">
+                <div style="width: 100%; text-align: center">
+                  <span
+                    style="
+                      color: #0f1012;
+                      font-family: 'SUIT', sans-serif;
+                      font-size: 40px;
+                      font-weight: 700;
+                      line-height: 60px;
+                      letter-spacing: -0.32px;
+                      text-align: center;
+                    "
+                    class="title"
+                    >회원 인증 메일</span
+                  >
+                </div>
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0" height="49">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; height: 49px" class="blank">&nbsp;</td>
             </tr>
             <tr>
               <td>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <table style="border: 0; border-spacing: 0; width: 100%" cellpadding="0">
                   <tr>
                     <td
-                      align="center"
                       style="
                         color: #0f1012;
                         font-family: 'SUIT', sans-serif;
@@ -68,16 +121,17 @@
                         font-weight: 400;
                         line-height: 26px;
                         letter-spacing: -0.24px;
-                      ">
+                        text-align: center;
+                      "
+                      class="text">
                       본 이메일 인증은 SOPT계정 설정을 위한 필수사항입니다.
                     </td>
                   </tr>
                   <tr>
-                    <td style="font-size: 0; line-height: 0" height="4">&nbsp;</td>
+                    <td style="font-size: 0; line-height: 0; height: 4px">&nbsp;</td>
                   </tr>
                   <tr>
                     <td
-                      align="center"
                       style="
                         color: #0f1012;
                         font-family: 'SUIT', sans-serif;
@@ -85,16 +139,17 @@
                         font-weight: 400;
                         line-height: 26px;
                         letter-spacing: -0.24px;
-                      ">
+                        text-align: center;
+                      "
+                      class="text">
                       아래 <b style="font-weight: 700; letter-spacing: -0.32px">인증번호 6자리를</b> 입력한 후
                     </td>
                   </tr>
                   <tr>
-                    <td style="font-size: 0; line-height: 0" height="4">&nbsp;</td>
+                    <td style="font-size: 0; line-height: 0; height: 4px">&nbsp;</td>
                   </tr>
                   <tr>
                     <td
-                      align="center"
                       style="
                         color: #0f1012;
                         font-family: 'SUIT', sans-serif;
@@ -102,7 +157,9 @@
                         font-weight: 400;
                         line-height: 26px;
                         letter-spacing: -0.24px;
-                      ">
+                        text-align: center;
+                      "
+                      class="text">
                       홈페이지에서 남은 절차를 완료하여 주시길 바랍니다.
                     </td>
                   </tr>
@@ -110,64 +167,50 @@
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0" height="48">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; height: 48px" class="blank">&nbsp;</td>
             </tr>
             <tr>
-              <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="142px">
-                  <tr>
-                    <td
-                      bgcolor="#F0F0F0"
-                      style="font-size: 0; line-height: 0; border-top-left-radius: 12px; border-top-right-radius: 12px"
-                      height="15">
-                      &nbsp;
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      bgcolor="#F0F0F0"
-                      align="center"
-                      style="
-                        color: #0f1012;
-                        font-family: 'SUIT', sans-serif;
-                        font-size: 16px;
-                        font-weight: 600;
-                        line-height: 24px;
-                        letter-spacing: 3.5px;
-                      ">
-                      <span><%= verificationCode %></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      bgcolor="#F0F0F0"
-                      style="
-                        font-size: 0;
-                        line-height: 0;
-                        border-bottom-left-radius: 12px;
-                        border-bottom-right-radius: 12px;
-                      "
-                      height="15">
-                      &nbsp;
-                    </td>
-                  </tr>
-                </table>
+              <td style="text-align: center; width: 100%">
+                <div style="text-align: center; width: 100%">
+                  <span
+                    style="
+                      color: #0f1012;
+                      font-family: 'SUIT', sans-serif;
+                      font-size: 16px;
+                      font-weight: 600;
+                      line-height: 24px;
+                      letter-spacing: 3.5px;
+                      background-color: #f0f0f0;
+                      padding: 15px 20px 15px 20px;
+                      border-radius: 8px 8px 8px 8px;
+                      text-align: center;
+                    "
+                    class="text code"
+                    ><%= verificationCode %></span
+                  >
+                </div>
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0" height="62">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; height: 30px" class="blank">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="font-size: 0; line-height: 0; height: 30px" class="blank">&nbsp;</td>
             </tr>
           </table>
         </td>
       </tr>
       <tr>
-        <td style="font-size: 0; line-height: 0" height="17">&nbsp;</td>
+        <td style="font-size: 0; line-height: 0; height: 17px">&nbsp;</td>
       </tr>
       <tr>
         <td>
-          <table align="center" border="0" cellpadding="0" cellspacing="0" width="600px">
+          <table
+            class="content"
+            style="border: 0; border-spacing: 0; width: 600px; margin-inline-start: auto; margin-inline-end: auto"
+            cellpadding="0">
             <tr>
-              <td style="font-size: 0; line-height: 0" width="22">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; width: 22px" class="horizontal-blank">&nbsp;</td>
               <td
                 style="
                   color: #66666d;
@@ -176,12 +219,13 @@
                   font-weight: 400;
                   line-height: 20px;
                   letter-spacing: -0.32px;
-                ">
+                "
+                class="small-text">
                 본 메일은 발신전용 메일로, 문의 및 회신하실 경우 답변되지 않습니다.
               </td>
             </tr>
             <tr>
-              <td style="font-size: 0; line-height: 0" width="22">&nbsp;</td>
+              <td style="font-size: 0; line-height: 0; width: 22px" class="horizontal-blank">&nbsp;</td>
               <td
                 style="
                   color: #66666d;
@@ -190,16 +234,17 @@
                   font-weight: 400;
                   line-height: 20px;
                   letter-spacing: -0.32px;
-                ">
+                "
+                class="small-text">
                 메일내용에 대해 궁금한 사항이 있으시다면 ‘문의하기' 링크를 통해 문의해주시길 바랍니다.
-                <a href="https://pf.kakao.com/_JdTKd">문의하기</a>
+                <a href="https://pf.kakao.com/_JdTKd" target="_blank" rel="noreferrer noopener">문의하기</a>
               </td>
             </tr>
           </table>
         </td>
       </tr>
       <tr>
-        <td style="font-size: 0; line-height: 0" height="30">&nbsp;</td>
+        <td style="font-size: 0; line-height: 0; height: 30px">&nbsp;</td>
       </tr>
     </table>
   </body>

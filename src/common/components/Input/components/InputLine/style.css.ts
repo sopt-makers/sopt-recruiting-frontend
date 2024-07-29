@@ -41,6 +41,7 @@ const input = style({
       backgroundColor: theme.color.subBackground,
       color: theme.color.lighterText,
       boxShadow: 'none',
+      pointerEvents: 'none',
     },
   },
 });

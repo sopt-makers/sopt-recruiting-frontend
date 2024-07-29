@@ -22,3 +22,9 @@ export const sendData = async (api: string, formValues: ApplyRequest) => {
 
   return res;
 };
+
+export const getDraft = async () => {
+  const res = await tokenInstance.get('/recruiting-answer/store');
+
+  return res;
+};

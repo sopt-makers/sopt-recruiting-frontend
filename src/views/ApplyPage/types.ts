@@ -30,6 +30,8 @@ export interface Questions {
   urls: string[];
   charLimit: number;
   isFile: boolean;
+  placeholder: string;
+  optional: boolean;
 }
 
 export interface QuestionsResponse {

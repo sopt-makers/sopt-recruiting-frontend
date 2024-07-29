@@ -6,16 +6,33 @@ import Title from '@components/Title';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { bottomAnimation, bottomImg, container, content, contentWrapper, link, strongText } from './style.css';
-import imgMakersLogo from '../assets/imgMakersLogo.png';
-import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
+import {
+  bottomAnimation,
+  bottomImg,
+  bottomSvg,
+  container,
+  content,
+  contentWrapper,
+  link,
+  strongText,
+} from './style.css';
+import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
-const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
+const Content = ({ pass }: { pass?: boolean }) => {
   const {
-    recruitingInfo: { name, soptName, season, group, interviewStart, interviewEnd, applicationPassConfirmStart },
+    recruitingInfo: {
+      name,
+      soptName,
+      season,
+      group,
+      interviewStart,
+      interviewEnd,
+      applicationPassConfirmStart,
+      isMakers,
+    },
   } = useContext(RecruitingInfoContext);
 
   if (!name) return;
@@ -38,7 +55,7 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
       {pass ? (
         <p className={content}>
           <span>{`안녕하세요. ${season}기 ${soptName} 입니다.\n\n`}</span>
-          <strong className={strongText}>{`축하드립니다!`}</strong>
+          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span>
             {`
               서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
@@ -47,7 +64,7 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
               모든 면접 대상자 분들은 아래 구글폼을 제출해주세요.
             `}
           </span>
-          <a className={link} href="https://sopt.org">
+          <a className={link} href="https://sopt.org" target="_blank" rel="noreferrer noopener">
             https://sopt.org
           </a>
           <br />
@@ -98,22 +115,25 @@ const ScreeningResult = () => {
 
   if (screeningResultIsLoading) return <BigLoading />;
 
-  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
-  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
-
   return (
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content isMakers={isMakers} pass={pass} />
+        <Content pass={pass} />
       </div>
       {pass && (
         <>
-          <div className={bottomAnimation} />
-          <picture className={bottomImg}>
-            <source srcSet={imgLogoWebp} type="image/webp" />
-            <img src={imgLogo} alt="sopt-logo" />
-          </picture>
+          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
+          {isMakers ? (
+            <i className={bottomSvg}>
+              <IconMakersLogo />
+            </i>
+          ) : (
+            <picture className={bottomImg}>
+              <source srcSet={imgSoptLogoWebp} type="image/webp" />
+              <img src={imgSoptLogo} alt="sopt-logo" />
+            </picture>
+          )}
         </>
       )}
     </section>

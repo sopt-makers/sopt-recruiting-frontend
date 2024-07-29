@@ -73,6 +73,7 @@ export const errorText = style({
 export const profileImage = style({
   objectFit: 'cover',
   width: '100%',
+  height: '100%',
 });
 
 export const profileTextWrapper = style({

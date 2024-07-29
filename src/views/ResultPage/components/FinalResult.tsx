@@ -4,16 +4,15 @@ import Title from '@components/Title';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
-import { bottomAnimation, bottomImg, container, content, contentWrapper, strongText } from './style.css';
-import imgMakersLogo from '../assets/imgMakersLogo.png';
-import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
+import { bottomAnimation, bottomImg, bottomSvg, container, content, contentWrapper, strongText } from './style.css';
+import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
-const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => {
+const Content = ({ pass }: { pass?: boolean }) => {
   const {
-    recruitingInfo: { name, soptName, season, group },
+    recruitingInfo: { name, soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);
 
   if (!name) return;
@@ -23,7 +22,7 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
       {pass ? (
         <p className={content}>
           <span>{`안녕하세요. ${season}기 ${soptName} 입니다.\n\n`}</span>
-          <strong className={strongText}>{`축하드립니다!`}</strong>
+          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span>
             {`
               ${name}님은 ${season}기 ${soptName} ${!isMakers ? group : ''} 신입회원 모집에 최종 합격하셨습니다.
@@ -35,7 +34,10 @@ const Content = ({ isMakers, pass }: { isMakers?: boolean; pass?: boolean }) => 
               오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다.\n
             `}
           </span>
-          <strong className={strongText}>{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</strong>
+          <strong
+            className={
+              strongText[isMakers ? 'makers' : 'sopt']
+            }>{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</strong>
         </p>
       ) : (
         <p className={content}>
@@ -64,9 +66,6 @@ const FinalResult = () => {
 
   const { name, pass } = finalResult?.data || {};
 
-  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
-  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
-
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
@@ -79,15 +78,21 @@ const FinalResult = () => {
     <section className={container}>
       <div className={contentWrapper}>
         <Title>결과 확인</Title>
-        <Content isMakers={isMakers} pass={pass} />
+        <Content pass={pass} />
       </div>
       {pass && (
         <>
-          <div className={bottomAnimation} />
-          <picture className={bottomImg}>
-            <source srcSet={imgLogoWebp} type="image/webp" />
-            <img src={imgLogo} alt="sopt-logo" />
-          </picture>
+          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
+          {isMakers ? (
+            <i className={bottomSvg}>
+              <IconMakersLogo />
+            </i>
+          ) : (
+            <picture className={bottomImg}>
+              <source srcSet={imgSoptLogoWebp} type="image/webp" />
+              <img src={imgSoptLogo} alt="sopt-logo" />
+            </picture>
+          )}
         </>
       )}
     </section>

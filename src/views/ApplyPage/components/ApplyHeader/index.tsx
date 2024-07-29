@@ -8,9 +8,9 @@ import { buttonWrapper, headerContainer } from './style.css';
 
 interface ApplyHeaderProps {
   isReview: boolean;
-  isLoading: boolean;
-  onSaveDraft: () => void;
-  onSubmitData: () => void;
+  isLoading?: boolean;
+  onSaveDraft?: () => void;
+  onSubmitData?: () => void;
 }
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {

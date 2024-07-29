@@ -1,22 +1,48 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+const containerBase = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  height: calc.subtract('100vh', '74px'),
   minHeight: 700,
 
   '@supports': {
     'height: (100dvh)': {
-      height: calc.subtract('100dvh', '74px'),
+      height: '100dvh',
     },
   },
+});
+
+export const container = styleVariants({
+  withHeader: [
+    containerBase,
+    {
+      height: calc.subtract('100vh', '74px'),
+
+      '@supports': {
+        'height: (100dvh)': {
+          height: calc.subtract('100dvh', '74px'),
+        },
+      },
+    },
+  ],
+  withoutHeader: [
+    containerBase,
+    {
+      height: '100vh',
+
+      '@supports': {
+        'height: (100dvh)': {
+          height: '100dvh',
+        },
+      },
+    },
+  ],
 });
 
 export const article = style({

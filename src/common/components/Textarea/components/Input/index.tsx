@@ -1,33 +1,44 @@
-import { FieldErrors, FieldValues, Path, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { useEffect, type TextareaHTMLAttributes } from 'react';
+import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
-import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
-
-import type { TextareaHTMLAttributes } from 'react';
+import {
+  container,
+  errorMsgStyle,
+  maxCountStyle,
+  textCountStyle,
+  textareaStyle,
+  bottomStyle,
+  textareaHeight,
+} from './style.css';
 
 interface InputProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  watch: UseFormWatch<T>;
-  register: UseFormRegister<T>;
   name: Path<T>;
-  errors: FieldErrors<FieldValues>;
   maxCount: number;
 }
 
-const Input = <T extends FieldValues>({
-  watch,
-  register,
-  name,
-  errors,
-  maxCount,
-  required,
-  ...textareaElements
-}: InputProps<T>) => {
+const Input = <T extends FieldValues>({ name, maxCount, required, ...textareaElements }: InputProps<T>) => {
+  const {
+    watch,
+    register,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useFormContext();
+
   const state = errors[name] ? 'error' : 'default';
+  const textareaSize = maxCount > 100 ? 'lg' : 'sm';
   const textCount = watch(name)?.length;
+
+  useEffect(() => {
+    maxCount < textCount
+      ? setError(name, { type: 'maxLength', message: '최대 글자 수를 초과했어요.' })
+      : clearErrors(name);
+  }, [textCount, maxCount, name, setError, clearErrors]);
 
   return (
     <div className={container}>
       <textarea
-        className={textareaStyle[state]}
+        className={`${textareaStyle[state]} ${textareaHeight[textareaSize]}`}
         {...register(name, {
           ...(required && { required: '필수 입력 항목이에요.' }),
           maxLength: {
