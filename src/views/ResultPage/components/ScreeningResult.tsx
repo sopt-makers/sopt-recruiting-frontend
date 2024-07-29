@@ -17,8 +17,6 @@ import {
   strongText,
 } from './style.css';
 import IconMakersLogo from '../assets/IconMakersLogo';
-import imgMakersLogo from '../assets/imgMakersLogo.png';
-import imgMakersLogoWebp from '../assets/imgMakersLogo.webp';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
@@ -117,9 +115,6 @@ const ScreeningResult = () => {
 
   if (screeningResultIsLoading) return <BigLoading />;
 
-  const imgLogo = isMakers ? imgMakersLogo : imgSoptLogo;
-  const imgLogoWebp = isMakers ? imgMakersLogoWebp : imgSoptLogoWebp;
-
   return (
     <section className={container}>
       <div className={contentWrapper}>
@@ -135,8 +130,8 @@ const ScreeningResult = () => {
             </i>
           ) : (
             <picture className={bottomImg}>
-              <source srcSet={imgLogoWebp} type="image/webp" />
-              <img src={imgLogo} alt="sopt-logo" />
+              <source srcSet={imgSoptLogoWebp} type="image/webp" />
+              <img src={imgSoptLogo} alt="sopt-logo" />
             </picture>
           )}
         </>
