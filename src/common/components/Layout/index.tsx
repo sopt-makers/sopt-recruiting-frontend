@@ -25,7 +25,7 @@ const Head = () => {
 
   return (
     <Helmet>
-      <link rel="manifest" href="/manifest.webmanifest" />
+      <link rel="manifest" href={isMakers ? '/makersManifest.webmanifest' : '/manifest.webmanifest'} />
 
       <link rel="icon" href={FAVICON} sizes="32x32" />
       <link rel="icon" href={ICON} type="image/svg+xml" />
