@@ -56,10 +56,11 @@ const PartSection = ({
         required
         disabled={isReview}
       />
-      {filteredQuestions?.map(({ value, charLimit, id, urls, isFile }) => {
+      {filteredQuestions?.map(({ value, charLimit, id, urls, isFile, question }) => {
         const draftItem = partQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
+        const parsedPlaceholder = question.includes('<플레이스홀더>') && question.split('<플레이스홀더>')[1].trim();
 
         return (
           <div key={value}>
@@ -70,7 +71,7 @@ const PartSection = ({
               placeholder={
                 isFile
                   ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
-                  : ''
+                  : parsedPlaceholder || ''
               }
               extraInput={
                 isFile ? (
