@@ -1,8 +1,7 @@
+import { useEffect, type TextareaHTMLAttributes } from 'react';
 import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
 import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
-
-import type { TextareaHTMLAttributes } from 'react';
 
 interface InputProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: Path<T>;
@@ -13,11 +12,19 @@ const Input = <T extends FieldValues>({ name, maxCount, required, ...textareaEle
   const {
     watch,
     register,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useFormContext();
 
   const state = errors[name] ? 'error' : 'default';
   const textCount = watch(name)?.length;
+
+  useEffect(() => {
+    maxCount < textCount
+      ? setError(name, { type: 'maxLength', message: '최대 글자 수를 초과했어요.' })
+      : clearErrors(name);
+  }, [textCount, maxCount, name, setError, clearErrors]);
 
   return (
     <div className={container}>
