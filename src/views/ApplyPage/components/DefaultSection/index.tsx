@@ -38,6 +38,8 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
   } = useFormContext();
   const [image, setImage] = useState('');
 
+  const hasImage = image !== 'max-size' && (pic || image);
+
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
 
@@ -47,7 +49,8 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     if (LIMIT_SIZE < imageFile.size) {
       setValue('picture', null);
       setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
-      setImage('');
+      setImage('max-size');
+
       return;
     }
 
@@ -70,7 +73,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
           style={{ display: 'none' }}
           disabled={disabled}
           {...register('picture', {
-            required: !pic && true && '필수 입력 항목이에요.',
+            required: !hasImage && '필수 입력 항목이에요.',
             onChange: handleChangeImage,
           })}
         />
@@ -78,7 +81,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
           <label
             htmlFor="picture"
             className={profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']}>
-            {pic || image ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
+            {hasImage ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
             {errors.picture && <p className={errorText}>{errors.picture?.message as string}</p>}
           </label>
         </div>
