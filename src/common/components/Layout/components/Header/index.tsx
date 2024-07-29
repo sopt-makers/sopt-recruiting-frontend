@@ -2,9 +2,11 @@ import { reset, track } from '@amplitude/analytics-browser';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
 import NowsoptLogo from '@assets/NowsoptLogo';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { ThemeContext } from '@store/themeContext';
 
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from './contants';
 import MenuItem from './MenuItem';
@@ -18,6 +20,7 @@ const Header = () => {
   const {
     recruitingInfo: { name, isMakers },
   } = useContext(RecruitingInfoContext);
+  const { isLight } = useContext(ThemeContext);
 
   const menuItems = isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS;
 
@@ -37,7 +40,7 @@ const Header = () => {
       {isMakers != undefined && (
         <header className={container}>
           <button onClick={handleClickLogo} className={logo}>
-            {isMakers ? <MakersLogo /> : <NowsoptLogo />}
+            {isMakers ? isLight ? <MakersLogo /> : <MakersDarkLogo /> : <NowsoptLogo />}
           </button>
           <nav>
             <ul className={menuList}>
