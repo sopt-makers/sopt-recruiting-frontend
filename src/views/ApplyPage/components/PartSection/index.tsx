@@ -4,7 +4,7 @@ import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
-import { sectionContainer, title } from './style.css';
+import { partInfo, partInfoWrapper, sectionContainer, title } from './style.css';
 import FileInput from '../FileInput';
 import LinkInput from '../LinkInput';
 
@@ -63,26 +63,37 @@ const PartSection = ({
 
         return (
           <div key={value}>
-            <Textarea
-              name={`part${id}`}
-              defaultValue={defaultValue}
-              maxCount={charLimit}
-              placeholder={
-                isFile
-                  ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
-                  : ''
-              }
-              extraInput={
-                isFile ? (
-                  <FileInput section="part" id={id} isReview={isReview} defaultFile={defaultFile} />
-                ) : urls ? (
-                  <LinkInput urls={urls} />
-                ) : null
-              }
-              required
-              disabled={isReview}>
-              {value}
-            </Textarea>
+            {charLimit == null && (
+              <article className={partInfoWrapper}>
+                {value.split('\n').map((text) => (
+                  <p className={partInfo} key={text}>
+                    &#183; {text}
+                  </p>
+                ))}
+              </article>
+            )}
+            {charLimit != null && (
+              <Textarea
+                name={`part${id}`}
+                defaultValue={defaultValue}
+                maxCount={charLimit}
+                placeholder={
+                  isFile
+                    ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
+                    : ''
+                }
+                extraInput={
+                  isFile ? (
+                    <FileInput section="part" id={id} isReview={isReview} defaultFile={defaultFile} />
+                  ) : urls ? (
+                    <LinkInput urls={urls} />
+                  ) : null
+                }
+                required
+                disabled={isReview}>
+                {value}
+              </Textarea>
+            )}
           </div>
         );
       })}
