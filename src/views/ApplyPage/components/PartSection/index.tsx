@@ -4,21 +4,10 @@ import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
-import { partInfo, partInfoWrapper, sectionContainer, title } from './style.css';
+import { sectionContainer, title } from './style.css';
 import FileInput from '../FileInput';
+import Info from '../Info';
 import LinkInput from '../LinkInput';
-
-const PartInfo = ({ value }: { value: string }) => {
-  return (
-    <article className={partInfoWrapper}>
-      {value.split('\n').map((text) => (
-        <p className={partInfo} key={text}>
-          {text && <>&#183;</>} {text}
-        </p>
-      ))}
-    </article>
-  );
-};
 
 interface PartSectionProps {
   isReview: boolean;
@@ -75,7 +64,7 @@ const PartSection = ({
 
         return (
           <div key={value}>
-            {charLimit == null && <PartInfo value={value} />}
+            {charLimit == null && <Info value={value} />}
             {charLimit != null && (
               <Textarea
                 name={`part${id}`}
