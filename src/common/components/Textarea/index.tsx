@@ -1,9 +1,10 @@
-import { ReactNode, TextareaHTMLAttributes, useId } from 'react';
-import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
+import { type ReactNode, type TextareaHTMLAttributes, useId } from 'react';
 
 import Input from './components/Input';
 import Label from './components/Label';
 import { container } from './style.css';
+
+import type { FieldValues, Path } from 'react-hook-form';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: Path<T>;
@@ -21,11 +22,6 @@ const Textarea = <T extends FieldValues>({
   ...textareaElements
 }: TextareaProps<T>) => {
   const id = useId();
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <div className={container}>
@@ -33,16 +29,7 @@ const Textarea = <T extends FieldValues>({
         {children}
       </Label>
       {extraInput}
-      <Input
-        id={id}
-        name={name}
-        register={register}
-        watch={watch}
-        required={required}
-        errors={errors}
-        maxCount={maxCount}
-        {...textareaElements}
-      />
+      <Input id={id} name={name} required={required} maxCount={maxCount} {...textareaElements} />
     </div>
   );
 };

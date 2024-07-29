@@ -1,26 +1,21 @@
-import { FieldErrors, FieldValues, Path, UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
 import { container, errorMsgStyle, maxCountStyle, textCountStyle, textareaStyle, bottomStyle } from './style.css';
 
 import type { TextareaHTMLAttributes } from 'react';
 
 interface InputProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  watch: UseFormWatch<T>;
-  register: UseFormRegister<T>;
   name: Path<T>;
-  errors: FieldErrors<FieldValues>;
   maxCount: number;
 }
 
-const Input = <T extends FieldValues>({
-  watch,
-  register,
-  name,
-  errors,
-  maxCount,
-  required,
-  ...textareaElements
-}: InputProps<T>) => {
+const Input = <T extends FieldValues>({ name, maxCount, required, ...textareaElements }: InputProps<T>) => {
+  const {
+    watch,
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   const state = errors[name] ? 'error' : 'default';
   const textCount = watch(name)?.length;
 
