@@ -13,7 +13,7 @@ const PartInfo = ({ value }: { value: string }) => {
     <article className={partInfoWrapper}>
       {value.split('\n').map((text) => (
         <p className={partInfo} key={text}>
-          &#183; {text}
+          {text && <>&#183;</>} {text}
         </p>
       ))}
     </article>
