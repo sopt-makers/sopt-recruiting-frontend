@@ -16,7 +16,7 @@ const Head = () => {
   const ICON = isMakers ? '/makersIcon.svg' : '/icon.svg';
   const FAVICON = isMakers ? '/makersFavicon.ico' : '/favicon.ico';
   const SITE_NAME = isMakers === undefined ? 'SOPT 리크루팅' : `SOPT ${isMakers && 'makers '}리크루팅`;
-  const TITLE = season ? 'SOPT 모집 지원하기' : `SOPT ${isMakers && 'makers '}${season}기 모집 지원하기`;
+  const TITLE = season === undefined ? 'SOPT 모집 지원하기' : `SOPT ${isMakers && 'makers '}${season}기 모집 지원하기`;
   const IMAGE = isMakers ? '/makersOg.png' : '/imgOg.png';
   const DESCRIPTION =
     isMakers === undefined
