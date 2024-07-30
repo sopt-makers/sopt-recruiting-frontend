@@ -32,8 +32,8 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
 
         return (
           <div key={value}>
-            {charLimit == null && <Info value={value} />}
-            {charLimit != null && (
+            {!charLimit && <Info value={value} />}
+            {!!charLimit && (
               <Textarea
                 name={`common${id}`}
                 defaultValue={defaultValue}
