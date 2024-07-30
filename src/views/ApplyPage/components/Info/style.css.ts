@@ -16,4 +16,8 @@ export const info = style({
   marginLeft: 20,
   whiteSpace: 'pre-line',
   letterSpacing: '-0.27px',
+
+  '::marker': {
+    fontSize: 10,
+  },
 });
