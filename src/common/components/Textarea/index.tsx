@@ -1,4 +1,4 @@
-import { type ReactNode, type TextareaHTMLAttributes, useId } from 'react';
+import { type ReactElement, type TextareaHTMLAttributes, useId } from 'react';
 
 import Input from './components/Input';
 import Label from './components/Label';
@@ -10,7 +10,7 @@ interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HT
   name: Path<T>;
   maxCount: number;
   children: string;
-  extraInput?: ReactNode;
+  extraInput?: ReactElement;
 }
 
 const Textarea = <T extends FieldValues>({
@@ -29,7 +29,14 @@ const Textarea = <T extends FieldValues>({
         {children}
       </Label>
       {extraInput}
-      <Input id={id} name={name} required={required} maxCount={maxCount} {...textareaElements} />
+      <Input
+        id={id}
+        name={name}
+        required={required}
+        maxCount={maxCount}
+        isFileInput={extraInput?.props.defaultFile}
+        {...textareaElements}
+      />
     </div>
   );
 };

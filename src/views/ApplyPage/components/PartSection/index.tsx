@@ -81,7 +81,7 @@ const PartSection = ({
                     <FileInput section="part" id={id} isReview={isReview} defaultFile={defaultFile} />
                   ) : urls ? (
                     <LinkInput urls={urls} />
-                  ) : null
+                  ) : undefined
                 }
                 required={!optional}
                 disabled={isReview}>
