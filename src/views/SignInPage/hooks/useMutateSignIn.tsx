@@ -1,6 +1,5 @@
 import { setUserId } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 
@@ -16,8 +15,6 @@ interface MutateSignInProps {
 }
 
 const useMutateSignIn = ({ finalPassConfirmEnd, onSetError }: MutateSignInProps) => {
-  const navigate = useNavigate();
-
   const { mutate: signInMutate, isPending: signInIsPending } = useMutation<
     AxiosResponse<SignInResponse, SignInRequest>,
     AxiosError<ErrorResponse, SignInRequest>,
@@ -28,7 +25,7 @@ const useMutateSignIn = ({ finalPassConfirmEnd, onSetError }: MutateSignInProps)
       setUserId(email);
       localStorage.setItem('soptApplyAccessToken', token);
       localStorage.setItem('soptApplyAccessTokenExpiredTime', finalPassConfirmEnd || '');
-      navigate(0);
+      window.location.reload();
     },
     onError(error) {
       if (error.response?.status === 403) {
