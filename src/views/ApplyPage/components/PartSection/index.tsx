@@ -64,8 +64,8 @@ const PartSection = ({
 
         return (
           <div key={value}>
-            {charLimit == null && <Info value={value} />}
-            {charLimit != null && (
+            {!charLimit && <Info value={value} />}
+            {!!charLimit && (
               <Textarea
                 name={`part${id}`}
                 defaultValue={defaultValue}
