@@ -25,7 +25,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
   return (
     <section ref={refCallback} id="common" className={sectionContainer}>
       <h2 className={title}>공통 질문</h2>
-      {questions?.map(({ urls, value, id, charLimit, isFile }) => {
+      {questions?.map(({ urls, value, id, charLimit, isFile, placeholder, optional }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
@@ -39,9 +39,10 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
                 defaultValue={defaultValue}
                 maxCount={charLimit}
                 placeholder={
-                  isFile
+                  placeholder ||
+                  (isFile
                     ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
-                    : ''
+                    : '')
                 }
                 extraInput={
                   isFile ? (
@@ -50,7 +51,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
                     <LinkInput urls={urls} />
                   ) : null
                 }
-                required
+                required={!optional}
                 disabled={isReview}>
                 {value}
               </Textarea>
