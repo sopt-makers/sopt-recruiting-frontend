@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 
-import useCheckBrowser from '@hooks/useCheckBrowser';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
@@ -10,8 +9,6 @@ import MyPage from 'views/MyPage';
 import useGetMyInfo from './hooks/useGetMyInfo';
 
 const SignedInPage = () => {
-  useCheckBrowser(); // 크롬 브라우저 권장 알럿
-
   const [isComplete, setIsComplete] = useState(false);
 
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();

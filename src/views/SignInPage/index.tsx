@@ -1,4 +1,3 @@
-import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
@@ -9,7 +8,6 @@ import { container } from './style.css';
 
 const SignInPage = () => {
   const { isLoading, NoMoreRecruit, isMakers } = useDate();
-  useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
