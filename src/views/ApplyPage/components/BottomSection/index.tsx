@@ -21,15 +21,17 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
   return (
     <section className={sectionContainer}>
       <hr className={line} />
-      <SelectBox
-        label="동아리를 알게 된 경로"
-        name="knownPath"
-        defaultValue={knownPath}
-        placeholder="지원 경로를 선택해 주세요."
-        options={SELECT_OPTIONS.knownPath}
-        required
-        disabled={isReview}
-      />
+      {!isMakers && (
+        <SelectBox
+          label="동아리를 알게 된 경로"
+          name="knownPath"
+          defaultValue={knownPath}
+          placeholder="지원 경로를 선택해 주세요."
+          options={SELECT_OPTIONS.knownPath}
+          required
+          disabled={isReview}
+        />
+      )}
       <div id="check-necessary" className={doubleLineCheck}>
         <p className={label}>
           {isMakers
