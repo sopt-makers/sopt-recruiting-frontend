@@ -48,8 +48,8 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
     <section className={infoContainer}>
       {!isReview && (
         <ul className={infoWrapper}>
-          <span key="first-info" className={infoItems}>
-            &#183; 지원서 작성 전에{' '}
+          <li key="first-info" className={infoItems}>
+            지원서 작성 전에{` `}
             <a
               href="https://makers.sopt.org/recruit"
               className={infoItemsBold}
@@ -58,12 +58,11 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
               모집 및 활동 일정
             </a>
             을 꼭 숙지하고 지원해 주시기 바랍니다.
-          </span>
+          </li>
           {APPLY_INFO.sections.map(({ id, content }) => (
-            <li key={id}>
-              &#183;{' '}
+            <li key={id} className={infoItems}>
               {content.map(({ text, weight }) => (
-                <span key={text} className={weight === 'normal' ? infoItems : infoItemsBold}>
+                <span key={text} className={weight === 'strong' ? infoItemsBold : ''}>
                   {text}
                 </span>
               ))}
