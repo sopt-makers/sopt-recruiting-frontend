@@ -25,7 +25,7 @@ const Header = () => {
   const menuItems = isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS;
 
   const handleClickLogo = () => {
-    pathname === '/' ? navigate(0) : navigate('/');
+    pathname === '/' ? window.location.reload() : navigate('/');
   };
 
   const handleLogout = () => {
@@ -33,7 +33,7 @@ const Header = () => {
     reset();
     localStorage.removeItem('soptApplyAccessToken');
     localStorage.removeItem('soptApplyAccessTokenExpiredTime');
-    pathname === '/' ? navigate(0) : navigate('/');
+    pathname === '/' ? window.location.reload() : navigate('/');
   };
   return (
     <>

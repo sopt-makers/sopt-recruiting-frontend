@@ -1,6 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
@@ -10,7 +9,6 @@ import IconCheckmark from './icons/IconCheckmark';
 import { container, icon, mainText, subText } from './style.css';
 
 const CompletePage = () => {
-  const navigate = useNavigate();
   const {
     recruitingInfo: { name, season, group, soptName },
   } = useContext(RecruitingInfoContext);
@@ -18,7 +16,7 @@ const CompletePage = () => {
 
   const handleClickMyPage = () => {
     track('click-complete-my');
-    navigate(0);
+    window.location.reload();
   };
 
   return (
