@@ -4,7 +4,7 @@ const Info = ({ value }: { value: string }) => {
   return (
     <article>
       <ol className={container}>
-        {value.split('\n').map((text) => (
+        {value?.split('\n').map((text) => (
           <li className={info} key={text}>
             {text}
           </li>
