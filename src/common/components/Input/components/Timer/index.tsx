@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { differenceInSeconds } from 'date-fns';
+import { useEffect, useState } from 'react';
 
 import { timer } from './style.css';
 import { TimerProps } from './types';
@@ -8,29 +9,37 @@ const INITIAL_TIME = 300;
 
 // TextBox 내부 타이머
 const Timer = ({ isActive, onResetTimer }: TimerProps) => {
-  const [seconds, setSeconds] = useState(INITIAL_TIME);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const clearTimer = () => {
-    setSeconds(INITIAL_TIME);
-    timerRef.current && clearInterval(timerRef.current);
-  };
+  const [seconds, setSeconds] = useState(INITIAL_TIME - 1);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout | null = null;
+
     if (isActive) {
-      timerRef.current = setInterval(() => {
-        setSeconds((prev) => {
-          if (prev <= 1) {
-            onResetTimer();
-            clearTimer();
-            return INITIAL_TIME;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+      const initialDate = new Date();
+      const newExpiryTime = new Date(initialDate.getTime() + INITIAL_TIME * 1000);
+
+      const tick = () => {
+        const now = new Date();
+        const diffInSeconds = differenceInSeconds(newExpiryTime, now);
+
+        if (diffInSeconds > 0) {
+          setSeconds(diffInSeconds === INITIAL_TIME ? INITIAL_TIME - 1 : diffInSeconds);
+          timeout = setTimeout(tick, 1000 - (now.getTime() % 1000));
+        } else {
+          onResetTimer();
+          setSeconds(INITIAL_TIME - 1);
+        }
+      };
+
+      tick();
+    } else {
+      setSeconds(INITIAL_TIME - 1);
     }
 
     return () => {
-      clearTimer();
+      if (timeout) {
+        clearTimeout(timeout);
+      }
     };
   }, [isActive, onResetTimer]);
 
