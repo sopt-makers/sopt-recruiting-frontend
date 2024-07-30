@@ -43,6 +43,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const isMobile = /Mobi/i.test(window.navigator.userAgent);
+  if (isMobile) {
+    alert('PC로 지원해주세요.');
+    window.location.href = 'https://makers.sopt.org/recruit';
+  }
+
   const sessionRef = useRef<HTMLDialogElement>(null);
 
   const [isLight, setIsLight] = useState(true);
