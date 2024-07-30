@@ -120,7 +120,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
         className={fileInput}
-        disabled={disabled || isReview}
+        disabled={disabled || isReview || (uploadPercent >= 0 && uploadPercent < 100)}
       />
       <label
         htmlFor={`file-${id}`}
