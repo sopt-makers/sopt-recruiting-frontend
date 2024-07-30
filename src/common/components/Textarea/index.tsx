@@ -9,7 +9,7 @@ import type { FieldValues, Path } from 'react-hook-form';
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: Path<T>;
   maxCount: number;
-  children: string | number;
+  children: string;
   extraInput?: ReactElement;
 }
 
