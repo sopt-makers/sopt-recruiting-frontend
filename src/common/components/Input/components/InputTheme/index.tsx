@@ -137,7 +137,7 @@ export const TextBox이메일 = ({
   return (
     <TextBox label="이메일" name="email" required>
       <InputLine
-        style={{ paddingRight: isActive ? 50 : 16 }}
+        style={{ width: 308, paddingRight: isActive ? 50 : 16 }}
         name="email"
         placeholder="이메일을 입력해주세요."
         type="email"
@@ -153,6 +153,7 @@ export const TextBox이메일 = ({
         <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
+        style={{ width: 308 }}
         id="verification-code"
         readOnly={!isActive}
         name="code"
