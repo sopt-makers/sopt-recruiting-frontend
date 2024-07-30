@@ -16,11 +16,11 @@ const Timer = ({ isActive, onResetTimer }: TimerProps) => {
 
     if (isActive) {
       const initialDate = new Date();
-      const newExpiryTime = new Date(initialDate.getTime() + INITIAL_TIME * 1000);
+      const ExpiryTime = new Date(initialDate.getTime() + INITIAL_TIME * 1000);
 
       const tick = () => {
         const now = new Date();
-        const diffInSeconds = differenceInSeconds(newExpiryTime, now);
+        const diffInSeconds = differenceInSeconds(ExpiryTime, now);
 
         if (diffInSeconds > 0) {
           setSeconds(diffInSeconds === INITIAL_TIME ? INITIAL_TIME - 1 : diffInSeconds);
