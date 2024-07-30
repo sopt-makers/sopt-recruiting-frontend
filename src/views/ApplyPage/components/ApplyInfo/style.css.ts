@@ -19,16 +19,19 @@ export const infoWrapper = style({
 export const infoItems = style({
   color: theme.color.lighterText,
   ...theme.font.BODY_1_18_M,
+  marginLeft: 20,
+  listStyle: 'outside',
   whiteSpace: 'pre-wrap',
   letterSpacing: '-0.27px',
+
+  '::marker': {
+    fontSize: 10,
+  },
 });
 
-export const infoItemsBold = style([
-  infoItems,
-  {
-    fontWeight: 700,
-  },
-]);
+export const infoItemsBold = style({
+  fontWeight: 700,
+});
 
 export const dateWrapper = style({
   display: 'flex',
