@@ -1,4 +1,4 @@
-import { Fragment, useId, type HTMLAttributes } from 'react';
+import { Fragment, type HTMLAttributes } from 'react';
 
 import { requireDot, labelStyle } from './style.css';
 
@@ -10,7 +10,6 @@ interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Label = ({ children, maxCount, required, label, ...headerElementProps }: LabelProps) => {
-  const keyId = useId();
   const questionArray = children.split('\n');
   const firstEmptyIndex = questionArray.indexOf('');
 
@@ -23,10 +22,11 @@ const Label = ({ children, maxCount, required, label, ...headerElementProps }: L
     ));
 
   const renderRestQuestions = (questions: string[]) =>
-    questions.slice(firstEmptyIndex).map((item, idx) => {
-      if (item === '') return <br key={`${keyId}-${idx}`} />;
-      return <Fragment key={`${item}-${idx}`}>{item}</Fragment>;
-    });
+    questions.slice(firstEmptyIndex).map((item, idx) => (
+      <Fragment key={`${item}-${idx}`}>
+        {item} {`\n`}
+      </Fragment>
+    ));
 
   return (
     <h4 className={labelStyle} {...headerElementProps}>
