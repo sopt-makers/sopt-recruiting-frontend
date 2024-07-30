@@ -48,10 +48,6 @@ const App = () => {
     alert('PC로 지원해주세요.');
     window.location.href = 'https://makers.sopt.org/recruit';
   }
-  const isChrome = /Chrome/i.test(window.navigator.userAgent);
-  if (!isChrome) {
-    alert('원활한 지원을 위해 크롬(Chrome) 브라우저 사용을 권장드려요.');
-  }
 
   const sessionRef = useRef<HTMLDialogElement>(null);
 
