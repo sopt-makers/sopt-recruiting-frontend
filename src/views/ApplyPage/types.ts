@@ -30,7 +30,7 @@ export interface Questions {
   urls: string[];
   charLimit: number;
   isFile: boolean;
-  placeholder: string;
+  placeholder?: string;
   optional: boolean;
 }
 

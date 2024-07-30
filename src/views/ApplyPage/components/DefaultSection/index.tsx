@@ -238,7 +238,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={SELECT_OPTIONS.mostRecentSeason}
+        options={isMakers ? SELECT_OPTIONS.mostRecentSeason.slice(1) : SELECT_OPTIONS.mostRecentSeason}
         required
         size="lg"
         disabled={isReview}

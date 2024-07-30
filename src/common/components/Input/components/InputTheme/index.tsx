@@ -167,9 +167,9 @@ export const TextBox이메일 = ({
       </InputLine>
       {isActive && (
         <>
-          <p className={success}>이메일이 전송되었어요.</p>
+          <p className={success}>이메일이 전송되었어요. 약 1분 정도 소요될 수 있어요.</p>
           <p className={success} style={{ marginTop: '-8px' }}>
-            네트워크 상황에 따라 약 1분 정도 소요될 수 있어요.
+            메일이 오지 않는다면 스팸 메일함을 확인해주세요.
           </p>
         </>
       )}
