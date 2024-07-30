@@ -49,7 +49,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
                     <FileInput section="common" id={id} isReview={isReview} defaultFile={defaultFile} />
                   ) : urls ? (
                     <LinkInput urls={urls} />
-                  ) : null
+                  ) : undefined
                 }
                 required={!optional}
                 disabled={isReview}>
