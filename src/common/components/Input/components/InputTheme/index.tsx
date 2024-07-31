@@ -71,8 +71,11 @@ export const TextBox이메일 = ({
   });
 
   const { checkVerificationCodeMutate, checkVerificationCodeIsPending } = useMutateCheckCode({
-    onChangeVerification,
-    onSetActive: () => setIsActive(false),
+    onSuccess: () => {
+      onChangeVerification(true);
+      setIsActive(false);
+      clearErrors('email');
+    },
   });
 
   const handleResetTimer = useCallback(() => {
