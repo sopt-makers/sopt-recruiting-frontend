@@ -55,7 +55,7 @@ export const VALIDATION_CHECK = {
     errorText: '잘못된 입력 형식이에요.',
   },
   textInput: {
-    pattern: /^[가-힣\s.,·()\-a-zA-Z\d]+$/,
+    pattern: /^[가-힣\s.,·()\-a-zA-Z\d&]+$/,
     maxLength: 40,
     errorText: '잘못된 입력 형식이에요.',
   },

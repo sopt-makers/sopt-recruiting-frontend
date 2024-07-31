@@ -32,8 +32,8 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
 
         return (
           <div key={value}>
-            {charLimit == null && <Info value={value} />}
-            {charLimit != null && (
+            {!charLimit && <Info value={value} />}
+            {!!charLimit && (
               <Textarea
                 name={`common${id}`}
                 defaultValue={defaultValue}
@@ -49,7 +49,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
                     <FileInput section="common" id={id} isReview={isReview} defaultFile={defaultFile} />
                   ) : urls ? (
                     <LinkInput urls={urls} />
-                  ) : null
+                  ) : undefined
                 }
                 required={!optional}
                 disabled={isReview}>

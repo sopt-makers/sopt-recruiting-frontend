@@ -12,7 +12,6 @@ export const labelStyle = style({
 export const requireDot = style({
   position: 'absolute',
   bottom: 5,
-  right: -10,
   display: 'inline-block',
   borderRadius: '100%',
   width: 8,

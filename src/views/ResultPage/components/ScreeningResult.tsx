@@ -65,7 +65,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <a className={link} href="https://sopt.org" target="_blank" rel="noreferrer noopener">
-            https://sopt.org
+            {import.meta.env.VITE_PASS_LINK}
           </a>
           <br />
           <span>

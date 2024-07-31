@@ -64,8 +64,8 @@ const PartSection = ({
 
         return (
           <div key={value}>
-            {charLimit == null && <Info value={value} />}
-            {charLimit != null && (
+            {!charLimit && <Info value={value} />}
+            {!!charLimit && (
               <Textarea
                 name={`part${id}`}
                 defaultValue={defaultValue}
@@ -81,7 +81,7 @@ const PartSection = ({
                     <FileInput section="part" id={id} isReview={isReview} defaultFile={defaultFile} />
                   ) : urls ? (
                     <LinkInput urls={urls} />
-                  ) : null
+                  ) : undefined
                 }
                 required={!optional}
                 disabled={isReview}>

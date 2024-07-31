@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
+import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
@@ -31,6 +32,8 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
+  useCheckBrowser(); // 크롬 브라우저 권장 알럿
+
   const draftDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);

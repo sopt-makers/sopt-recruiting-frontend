@@ -10,9 +10,11 @@ export const container = style({
 
   position: 'sticky',
   top: 0,
-  width: 1440,
+  maxWidth: 1440,
+  width: '100%',
+  minWidth: 1000,
   margin: '0 auto',
-  padding: '22px 376px 22px 360px',
+  padding: '22px 156px 22px 150px',
 
   backgroundColor: theme.color.background,
 

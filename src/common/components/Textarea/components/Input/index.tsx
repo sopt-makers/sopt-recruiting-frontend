@@ -14,9 +14,16 @@ import {
 interface InputProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: Path<T>;
   maxCount: number;
+  isFileInput?: boolean;
 }
 
-const Input = <T extends FieldValues>({ name, maxCount, required, ...textareaElements }: InputProps<T>) => {
+const Input = <T extends FieldValues>({
+  name,
+  maxCount,
+  required,
+  isFileInput,
+  ...textareaElements
+}: InputProps<T>) => {
   const {
     watch,
     register,
@@ -26,7 +33,7 @@ const Input = <T extends FieldValues>({ name, maxCount, required, ...textareaEle
   } = useFormContext();
 
   const state = errors[name] ? 'error' : 'default';
-  const textareaSize = maxCount > 100 ? 'lg' : 'sm';
+  const textareaSize = isFileInput || maxCount <= 100 ? 'sm' : 'lg';
   const textCount = watch(name)?.length;
 
   useEffect(() => {
