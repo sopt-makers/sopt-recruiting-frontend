@@ -21,12 +21,15 @@ const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf, .pptx';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [isError, setIsError] = useState(false);
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [file, setFile] = useState<File | null>(null);
 
   const fileName = file ? file.name : '';
-  const inputRef = useRef<HTMLInputElement>(null);
+  const disabledStatus =
+    disabled || isReview || (uploadPercent >= 0 && uploadPercent < 100) || (uploadPercent === 100 && fileName === '');
 
   const { register, setValue, clearErrors, getValues } = useFormContext();
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
@@ -109,9 +112,6 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       });
     }
   }, [defaultFileId, defaultFileUrl, defaultFileName, setValue]);
-  console.log(fileName);
-  console.log(getValues(`file${id}`));
-  console.log(uploadPercent);
 
   return (
     <div className={container}>
@@ -123,12 +123,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
         className={`amp-unmask ${fileInput}`}
-        disabled={
-          disabled ||
-          isReview ||
-          (uploadPercent >= 0 && uploadPercent < 100) ||
-          (uploadPercent === 100 && fileName === '')
-        }
+        disabled={disabledStatus}
       />
       <label
         htmlFor={`file-${id}`}
@@ -156,11 +151,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
             </>
           )}
         </div>
-        <IconPlusButton
-          isSelected={getValues()[`file${id}`]}
-          onClickIcon={handleClickIcon}
-          disabled={disabled || isReview}
-        />
+        <IconPlusButton isSelected={getValues()[`file${id}`]} onClickIcon={handleClickIcon} disabled={disabledStatus} />
       </label>
       {isError && <p className={errorText}>첨부파일 용량을 초과했어요</p>}
     </div>
