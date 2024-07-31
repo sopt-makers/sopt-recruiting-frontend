@@ -10,11 +10,10 @@ import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 interface MutateCheckCodeProps {
-  onChangeVerification: (bool: boolean) => void;
-  onSetActive: () => void;
+  onSuccess: () => void;
 }
 
-const useMutateCheckCode = ({ onChangeVerification, onSetActive }: MutateCheckCodeProps) => {
+const useMutateCheckCode = ({ onSuccess }: MutateCheckCodeProps) => {
   const { setError } = useFormContext();
 
   const { mutate: checkVerificationCodeMutate, isPending: checkVerificationCodeIsPending } = useMutation<
@@ -23,10 +22,7 @@ const useMutateCheckCode = ({ onChangeVerification, onSetActive }: MutateCheckCo
     CheckVerificationCodeRequest
   >({
     mutationFn: ({ email, code }: CheckVerificationCodeRequest) => checkVerificationCode(email, code),
-    onSuccess: () => {
-      onSetActive();
-      onChangeVerification(true);
-    },
+    onSuccess,
     onError(error) {
       if (error.response?.status === 400) {
         setError('code', {
