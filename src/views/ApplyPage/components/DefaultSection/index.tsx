@@ -81,7 +81,11 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
           <label
             htmlFor="picture"
             className={profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']}>
-            {hasImage ? <img src={image || pic} alt="지원서 프로필 사진" className={profileImage} /> : <IconUser />}
+            {hasImage ? (
+              <img src={image || pic} alt="지원서 프로필 사진" className={`amp-block ${profileImage}`} />
+            ) : (
+              <IconUser />
+            )}
             {errors.picture && <p className={errorText}>{errors.picture?.message as string}</p>}
           </label>
         </div>
