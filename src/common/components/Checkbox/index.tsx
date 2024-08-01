@@ -30,7 +30,7 @@ const Checkbox = <T extends FieldValues>({
               ...(required && { required: '필수 동의 항목이에요.' }),
             })}
             type="checkbox"
-            className={hiddenCheckbox}
+            className={`amp-unmask ${hiddenCheckbox}`}
             {...checkboxElementProps}
           />
           <span className={checkmark[errors && errors[name] ? 'error' : 'default']} />

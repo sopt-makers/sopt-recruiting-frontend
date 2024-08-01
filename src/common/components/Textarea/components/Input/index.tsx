@@ -45,7 +45,7 @@ const Input = <T extends FieldValues>({
   return (
     <div className={container}>
       <textarea
-        className={`${textareaStyle[state]} ${textareaHeight[textareaSize]}`}
+        className={`amp-unmask ${textareaStyle[state]} ${textareaHeight[textareaSize]}`}
         {...register(name, {
           ...(required && { required: '필수 입력 항목이에요.' }),
           maxLength: {
