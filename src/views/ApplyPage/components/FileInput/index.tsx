@@ -18,7 +18,7 @@ interface FileInputProps {
 }
 
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
-const ACCEPTED_FORMATS = '.pdf, .pptx';
+const ACCEPTED_FORMATS = '.pdf, .pptx, .mov';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -71,6 +71,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
+        setValue(`file${id}`, undefined);
+        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
         if (inputRef.current) {
           inputRef.current.value = '';
         }
