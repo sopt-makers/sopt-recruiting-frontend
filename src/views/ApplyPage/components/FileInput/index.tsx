@@ -28,7 +28,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   const [fileName, setFileName] = useState('');
 
   const isFileUploading = uploadPercent < 100 && uploadPercent >= 0;
-  const isFileSending = uploadPercent === 100 && fileName === '';
+  const isFileSending = uploadPercent === 100;
   const disabledStatus = disabled || isReview || isFileUploading || isFileSending;
 
   const {
@@ -66,6 +66,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
             fileName: file.name,
           });
           getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
+          setUploadPercent(-1);
           clearErrors(`${section}${id}`);
           track(`done-apply-add_file${id}`);
         });
@@ -94,7 +95,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleClickIcon = () => {
     if (inputRef.current) {
-      if (fileName || getValues(`file${id}`)) {
+      if (fileName) {
         inputRef.current.value = '';
         setFileName('');
         setValue(`file${id}`, undefined);
@@ -139,28 +140,24 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         className={fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
-          {getValues(`file${id}`) ? (
-            <span className={fileNameVar['selected']}>{getValues(`file${id}`)?.fileName}</span>
-          ) : (
-            <>
-              {(uploadPercent !== -1 || !defaultFileName) && (
-                <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
-                  {uploadPercent < 0 && fileName === ''
-                    ? '50mb 이하 | pdf, pptx'
-                    : isFileUploading
-                      ? `업로드 중... ${uploadPercent}/100% 완료`
-                      : isFileSending
-                        ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
-                        : fileName}
-                </span>
-              )}
-              {uploadPercent === -1 && (defaultFileName || getValues(`file${id}`)) && (
-                <span className={fileNameVar['selected']}>{defaultFileName}</span>
-              )}
-            </>
-          )}
+          <>
+            {(uploadPercent !== -1 || !defaultFileName) && (
+              <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
+                {uploadPercent < 0 && fileName === ''
+                  ? '50mb 이하 | pdf, pptx'
+                  : isFileUploading
+                    ? `업로드 중... ${uploadPercent}/100% 완료`
+                    : isFileSending
+                      ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
+                      : fileName}
+              </span>
+            )}
+            {uploadPercent === -1 && defaultFileName && (
+              <span className={fileNameVar['selected']}>{defaultFileName}</span>
+            )}
+          </>
         </div>
-        <IconPlusButton isSelected={getValues()[`file${id}`]} onClickIcon={handleClickIcon} disabled={disabledStatus} />
+        <IconPlusButton isSelected={getValues(`file${id}`)} onClickIcon={handleClickIcon} disabled={disabledStatus} />
       </label>
       {errors[`file${id}`] && <p className={errorText}>{errors[`file${id}`]?.message as string}</p>}
     </div>
