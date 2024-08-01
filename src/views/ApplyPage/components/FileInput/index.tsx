@@ -71,6 +71,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setIsError(true);
+        setUploadPercent(-1);
         setValue(`file${id}`, undefined);
         getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
         if (inputRef.current) {
