@@ -19,7 +19,7 @@ interface FileInputProps {
 }
 
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
-const ACCEPTED_FORMATS = '.pdf, .pptx, .mov';
+const ACCEPTED_FORMATS = '.pdf, .pptx';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
