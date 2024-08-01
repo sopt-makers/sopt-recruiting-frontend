@@ -18,7 +18,7 @@ interface FileInputProps {
 }
 
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
-const ACCEPTED_FORMATS = '.pdf, .pptx';
+const ACCEPTED_FORMATS = '.pdf';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const [isError, setIsError] = useState(false);
@@ -135,7 +135,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           {(uploadPercent !== -1 || !defaultFileName) && (
             <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
               {uploadPercent < 0 && fileName === ''
-                ? '50mb 이하 | pdf, pptx'
+                ? '50mb 이하 | pdf'
                 : uploadPercent < 100
                   ? `업로드 중... ${uploadPercent}/100% 완료`
                   : uploadPercent === 100 && fileName === ''
