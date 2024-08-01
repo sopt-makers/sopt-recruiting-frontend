@@ -113,6 +113,25 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     }
   };
 
+  const getFileNameClass = () => {
+    if (uploadPercent === -1 && defaultFileName) {
+      return fileName === 'delete-file' ? 'default' : 'selected';
+    } else {
+      return fileName === '' ? 'default' : 'selected';
+    }
+  };
+
+  const getDisplayText = () => {
+    if (uploadPercent === -1 && defaultFileName) {
+      return fileName === 'delete-file' ? '50mb 이하 | pdf' : defaultFileName;
+    } else {
+      if (uploadPercent < 0 && fileName === '') return '50mb 이하 | pdf';
+      else if (isFileUploading) return `업로드 중... ${uploadPercent}/100% 완료`;
+      else if (isFileSending) return '파일을 전송하고 있어요... 잠시만 기다려주세요...';
+      else return fileName;
+    }
+  };
+
   useEffect(() => {
     if (defaultFileId && defaultFileUrl && defaultFileName) {
       setValue(`file${defaultFileId}`, {
@@ -147,24 +166,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         className={fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
-          <>
-            {(uploadPercent !== -1 || !defaultFileName) && (
-              <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
-                {uploadPercent < 0 && fileName === ''
-                  ? '50mb 이하 | pdf'
-                  : isFileUploading
-                    ? `업로드 중... ${uploadPercent}/100% 완료`
-                    : isFileSending
-                      ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
-                      : fileName}
-              </span>
-            )}
-            {uploadPercent === -1 && defaultFileName && (
-              <span className={fileNameVar[fileName === 'delete-file' ? 'default' : 'selected']}>
-                {fileName === 'delete-file' ? '50mb 이하 | pdf' : defaultFileName}
-              </span>
-            )}
-          </>
+          <span className={fileNameVar[getFileNameClass()]}>{getDisplayText()}</span>
         </div>
         <IconPlusButton
           isSelected={fileName !== 'delete-file' && getValues(`file${id}`)}
