@@ -1,4 +1,5 @@
-import { init } from '@amplitude/analytics-browser';
+import { add, init } from '@amplitude/analytics-browser';
+import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -112,6 +113,14 @@ const App = () => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
       setIsAmplitudeInitialized(true);
+
+      const sessionReplayTracking = sessionReplayPlugin({
+        // Set sample rate (required)
+        // sampleRate of 1 captures 100% of all sessions - not advisable for production environment
+        sampleRate: 0.7,
+      });
+
+      add(sessionReplayTracking);
     }
   }, [isAmplitudeInitialized]);
 

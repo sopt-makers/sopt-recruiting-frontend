@@ -56,7 +56,12 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
         </ol>
         <div className={checkboxContainer}>
           <label className={checkboxWrapper}>
-            <input type="checkbox" checked={isChecked} className={hiddenCheckbox} onChange={handleCheck} />
+            <input
+              type="checkbox"
+              checked={isChecked}
+              className={`amp-unmask ${hiddenCheckbox}`}
+              onChange={handleCheck}
+            />
             <span className={checkmark} />
             <span>확인했습니다.</span>
           </label>
