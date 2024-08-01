@@ -19,7 +19,7 @@ interface FileInputProps {
 }
 
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
-const ACCEPTED_FORMATS = '.pdf, .pptx';
+const ACCEPTED_FORMATS = '.pdf, .pptx, .mov';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -85,7 +85,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         if (inputRef.current) {
           inputRef.current.value = '';
         }
-        setFileName('');
+        setFileName('delete-file');
       } else {
         clearErrors(`file${id}`);
         handleFileUpload(file, id);
@@ -97,7 +97,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     if (inputRef.current) {
       if (fileName) {
         inputRef.current.value = '';
-        setFileName('');
+        setFileName('delete-file');
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
         getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
@@ -153,11 +153,17 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
               </span>
             )}
             {uploadPercent === -1 && defaultFileName && (
-              <span className={fileNameVar['selected']}>{defaultFileName}</span>
+              <span className={fileNameVar[fileName === 'delete-file' ? 'default' : 'selected']}>
+                {fileName === 'delete-file' ? '50mb 이하 | pdf, pptx' : defaultFileName}
+              </span>
             )}
           </>
         </div>
-        <IconPlusButton isSelected={getValues(`file${id}`)} onClickIcon={handleClickIcon} disabled={disabledStatus} />
+        <IconPlusButton
+          isSelected={fileName !== 'delete-file' && getValues(`file${id}`)}
+          onClickIcon={handleClickIcon}
+          disabled={disabledStatus}
+        />
       </label>
       {errors[`file${id}`] && <p className={errorText}>{errors[`file${id}`]?.message as string}</p>}
     </div>
