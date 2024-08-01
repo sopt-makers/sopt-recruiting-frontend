@@ -122,6 +122,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       });
     }
 
+    if (getValues(`file${id}`) && getValues(`${section}${id}`) === '') setValue(`${section}${id}`, '파일 제출');
+
     return () => {
       setValue(`file${id}`, undefined);
       getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
