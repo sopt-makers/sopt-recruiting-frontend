@@ -25,11 +25,11 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [uploadPercent, setUploadPercent] = useState(-1);
-  const [file, setFile] = useState<File | null>(null);
+  const [fileName, setFileName] = useState('');
 
-  const fileName = file ? file.name : '';
-  const disabledStatus =
-    disabled || isReview || (uploadPercent >= 0 && uploadPercent < 100) || (uploadPercent === 100 && fileName === '');
+  const isFileUploading = uploadPercent < 100 && uploadPercent >= 0;
+  const isFileSending = uploadPercent === 100 && fileName === '';
+  const disabledStatus = disabled || isReview || isFileUploading || isFileSending;
 
   const {
     register,
@@ -59,7 +59,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           const urlWithoutToken = url.split('&token=')[0];
-          setFile(file);
+          setFileName(file.name);
           setValue(`file${id}`, {
             recruitingQuestionId: id,
             file: urlWithoutToken,
@@ -84,7 +84,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         if (inputRef.current) {
           inputRef.current.value = '';
         }
-        setFile(null);
+        setFileName('');
       } else {
         clearErrors(`file${id}`);
         handleFileUpload(file, id);
@@ -94,9 +94,9 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleClickIcon = () => {
     if (inputRef.current) {
-      if (file || getValues(`file${id}`)) {
+      if (fileName || getValues(`file${id}`)) {
         inputRef.current.value = '';
-        setFile(null);
+        setFileName('');
         setValue(`file${id}`, undefined);
         setUploadPercent(-1);
         getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
@@ -147,9 +147,9 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
                 <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
                   {uploadPercent < 0 && fileName === ''
                     ? '50mb 이하 | pdf, pptx'
-                    : uploadPercent < 100
+                    : isFileUploading
                       ? `업로드 중... ${uploadPercent}/100% 완료`
-                      : uploadPercent === 100 && fileName === ''
+                      : isFileSending
                         ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
                         : fileName}
                 </span>
