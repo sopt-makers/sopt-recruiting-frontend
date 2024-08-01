@@ -17,15 +17,20 @@ interface FileInputProps {
   disabled?: boolean;
   defaultFile?: { id: number; file?: string; fileName?: string };
 }
+
 const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf';
+
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [fileName, setFileName] = useState('');
+
   const isFileUploading = uploadPercent < 100 && uploadPercent >= 0;
   const isFileSending = uploadPercent === 100;
   const disabledStatus = disabled || isReview || isFileUploading || isFileSending;
+
   const {
     register,
     setValue,
@@ -34,11 +39,15 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     getValues,
     formState: { errors },
   } = useFormContext();
+
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
+
   const handleFileUpload = (file: File, id: number) => {
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
+
     track(`click-apply-add_file${id}`);
+
     uploadTask.on(
       STATE_CHANGED,
       (snapshot) => {
@@ -52,6 +61,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           const urlWithoutToken = url.split('&token=')[0];
+
           setFileName(file.name);
           setValue(`file${id}`, {
             recruitingQuestionId: id,
@@ -66,14 +76,17 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       },
     );
   };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
+
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setError(`file${id}`, { type: 'maxLength', message: VALIDATION_CHECK.fileInput.errorText });
         setUploadPercent(-1);
         setValue(`file${id}`, undefined);
         getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+
         if (inputRef.current) {
           inputRef.current.value = '';
         }
@@ -84,6 +97,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       }
     }
   };
+
   const handleClickIcon = () => {
     if (inputRef.current) {
       if (fileName) {
@@ -103,6 +117,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       }
     }
   };
+
   const getFileNameClass = () => {
     if (uploadPercent === -1 && defaultFileName) {
       return fileName === 'delete-file' ? 'default' : 'selected';
@@ -110,6 +125,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       return fileName === '' ? 'default' : 'selected';
     }
   };
+
   const getDisplayText = () => {
     if (uploadPercent === -1 && defaultFileName) {
       return fileName === 'delete-file' ? '50mb 이하 | pdf' : defaultFileName;
@@ -120,6 +136,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       else return fileName;
     }
   };
+
   useEffect(() => {
     if (defaultFileId && defaultFileUrl && defaultFileName) {
       setValue(`file${defaultFileId}`, {
@@ -128,12 +145,15 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         recruitingQuestionId: defaultFileId,
       });
     }
+
     if (getValues(`file${id}`) && getValues(`${section}${id}`) === '') setValue(`${section}${id}`, '파일 제출');
+
     return () => {
       setValue(`file${id}`, undefined);
       getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
     };
   }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, getValues, setValue]);
+
   return (
     <div className={container}>
       <input
