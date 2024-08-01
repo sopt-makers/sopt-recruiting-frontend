@@ -66,7 +66,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
             fileName: file.name,
           });
           getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
-          setUploadPercent(-1);
+          setUploadPercent(-2);
           clearErrors(`${section}${id}`);
           track(`done-apply-add_file${id}`);
         });
