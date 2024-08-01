@@ -121,7 +121,12 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         recruitingQuestionId: defaultFileId,
       });
     }
-  }, [defaultFileId, defaultFileUrl, defaultFileName, setValue]);
+
+    return () => {
+      setValue(`file${id}`, undefined);
+      getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+    };
+  }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, getValues, setValue]);
 
   return (
     <div className={container}>
