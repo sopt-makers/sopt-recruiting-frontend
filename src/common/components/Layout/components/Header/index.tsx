@@ -58,7 +58,7 @@ const Header = () => {
                     <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
                   ))}
                   <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
-                  <MenuItem key="로그인완료" text={`${name}님`} />
+                  <MenuItem key="로그인완료" text={`${name}님`} className="amp-block" />
                 </>
               )}
             </ul>

@@ -8,12 +8,13 @@ interface MenuItemProps {
   path?: string;
   target?: '_blank' | '_self';
   amplitudeId?: string;
+  className?: string;
   onClick?: () => void;
 }
 
-const MenuItem = ({ text, path, target, amplitudeId, onClick }: MenuItemProps) => {
+const MenuItem = ({ text, path, target, amplitudeId, className, onClick }: MenuItemProps) => {
   return (
-    <li className={menuItem}>
+    <li className={`${className} ${menuItem}`}>
       {path ? (
         <NavLink
           to={path}
