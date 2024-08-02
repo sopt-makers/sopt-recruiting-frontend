@@ -44,3 +44,29 @@ export const subText = style({
   textAlign: 'center',
   ...theme.font.BODY_1_18_M,
 });
+
+export const surveyBox = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: 16,
+  padding: '30px 55px',
+  marginTop: 90,
+  color: theme.color.lightestText,
+  ...theme.font.BODY_2_16_M,
+  border: `1px solid ${theme.color.border}`,
+  borderRadius: 15,
+});
+
+export const pointContainer = style({
+  display: 'flex',
+  gap: 4,
+});
+
+export const pointBox = style({
+  padding: '7px 12.5px',
+  borderRadius: 8,
+  backgroundColor: theme.color.subBackground,
+  color: theme.color.baseText,
+});
