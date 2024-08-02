@@ -51,18 +51,39 @@ export const surveyBox = style({
   justifyContent: 'center',
   alignItems: 'center',
   gap: 12,
-  padding: '22px 75px',
+  width: 466,
+  padding: '22px 0px',
   marginTop: 50,
   color: theme.color.lightestText,
   ...theme.font.BODY_2_16_M,
   border: `1px solid ${theme.color.border}`,
   borderRadius: 15,
-  transition: 'all 0.3s ease',
 });
 
 export const pointContainer = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
   display: 'flex',
   gap: 4,
+  transition: 'all 0.3s ease',
+});
+
+export const pointContainerVar = styleVariants({
+  default: [
+    pointContainer,
+    {
+      opacity: 1,
+    },
+  ],
+  out: [
+    pointContainer,
+    {
+      opacity: 0,
+    },
+  ],
 });
 
 const pointBox = style({
@@ -94,10 +115,31 @@ export const pointBoxVar = styleVariants({
 });
 
 export const thanksText = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  paddingTop: 5,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: 36,
   ...theme.font.TITLE_6_16_SB,
   color: theme.color.lighterText,
+  transition: 'all 0.3s ease',
+});
+
+export const thanksTextVar = styleVariants({
+  default: [
+    thanksText,
+    {
+      opacity: 1,
+    },
+  ],
+  out: [
+    thanksText,
+    {
+      opacity: 0,
+    },
+  ],
 });

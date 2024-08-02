@@ -1,12 +1,21 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import IconCheckmark from './icons/IconCheckmark';
-import { container, icon, mainText, pointBoxVar, pointContainer, subText, surveyBox, thanksText } from './style.css';
+import {
+  container,
+  icon,
+  mainText,
+  pointBoxVar,
+  pointContainerVar,
+  subText,
+  surveyBox,
+  thanksTextVar,
+} from './style.css';
 
 const CompletePage = () => {
   const {
@@ -24,7 +33,10 @@ const CompletePage = () => {
     setPoint(i);
     setTimeout(() => {
       setPoint('CHANGED');
-    }, 1000);
+    }, 500);
+    setTimeout(() => {
+      setPoint(-1);
+    }, 2500);
   };
 
   return (
@@ -45,10 +57,9 @@ const CompletePage = () => {
             textAlign: 'center',
             whiteSpace: 'pre-line',
           }}>{`지원서 이용 만족도를 0-10점 중에 선택해주세요.\n의견을 주시면 프로덕트 개선에 도움이 됩니다.`}</span>
-        {point === 'CHANGED' ? (
-          <span className={thanksText}>소중한 의견 감사합니다 :&#41;</span>
-        ) : (
-          <ul className={pointContainer}>
+        <div style={{ position: 'relative', width: 348, height: 36 }}>
+          <span className={thanksTextVar[point === 'CHANGED' ? 'default' : 'out']}>소중한 의견 감사합니다 :&#41;</span>
+          <ul className={pointContainerVar[point !== 'CHANGED' ? 'default' : 'out']}>
             {Array.from({ length: 11 }, (_, i) => i).map((v) => (
               <li
                 key={v}
@@ -58,7 +69,7 @@ const CompletePage = () => {
               </li>
             ))}
           </ul>
-        )}
+        </div>
       </div>
     </section>
   );
