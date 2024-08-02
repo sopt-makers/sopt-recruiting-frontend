@@ -1,19 +1,19 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import IconCheckmark from './icons/IconCheckmark';
-import { container, icon, mainText, pointBoxVar, pointContainer, subText, surveyBox } from './style.css';
+import { container, icon, mainText, pointBoxVar, pointContainer, subText, surveyBox, thanksText } from './style.css';
 
 const CompletePage = () => {
   const {
     recruitingInfo: { name, season, group, soptName },
   } = useContext(RecruitingInfoContext);
   const isMakers = soptName?.toLowerCase().includes('makers');
-  const [point, setPoint] = useState(0);
+  const [point, setPoint] = useState<number | 'CHANGED'>(-1);
 
   const handleClickMyPage = () => {
     track('click-complete-my');
@@ -22,6 +22,9 @@ const CompletePage = () => {
 
   const handleClickPoint = (i: number) => {
     setPoint(i);
+    setTimeout(() => {
+      setPoint('CHANGED');
+    }, 1000);
   };
 
   return (
@@ -42,16 +45,20 @@ const CompletePage = () => {
             textAlign: 'center',
             whiteSpace: 'pre-line',
           }}>{`지원서 이용 만족도를 0-10점 중에 선택해주세요.\n의견을 주시면 프로덕트 개선에 도움이 됩니다.`}</span>
-        <ul className={pointContainer}>
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => (
-            <li
-              key={v}
-              className={pointBoxVar[v === point ? 'selected' : 'default']}
-              onClick={() => handleClickPoint(v)}>
-              <span>{v}</span>
-            </li>
-          ))}
-        </ul>
+        {point === 'CHANGED' ? (
+          <span className={thanksText}>소중한 의견 감사합니다 :&#41;</span>
+        ) : (
+          <ul className={pointContainer}>
+            {Array.from({ length: 11 }, (_, i) => i).map((v) => (
+              <li
+                key={v}
+                className={pointBoxVar[v === point ? 'selected' : 'default']}
+                onClick={() => handleClickPoint(v)}>
+                <span style={{ paddingTop: 5 }}>{v}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );

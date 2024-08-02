@@ -57,6 +57,7 @@ export const surveyBox = style({
   ...theme.font.BODY_2_16_M,
   border: `1px solid ${theme.color.border}`,
   borderRadius: 15,
+  transition: 'all 0.3s ease',
 });
 
 export const pointContainer = style({
@@ -90,4 +91,13 @@ export const pointBoxVar = styleVariants({
       color: theme.color.white,
     },
   ],
+});
+
+export const thanksText = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: 36,
+  ...theme.font.TITLE_6_16_SB,
+  color: theme.color.lighterText,
 });
