@@ -48,7 +48,7 @@ const CompletePage = () => {
               key={v}
               className={pointBoxVar[v === point ? 'selected' : 'default']}
               onClick={() => handleClickPoint(v)}>
-              {v}
+              <span>{v}</span>
             </li>
           ))}
         </ul>

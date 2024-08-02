@@ -23,7 +23,7 @@ export const icon = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: '32px',
+  marginBottom: 20,
   width: 66,
   height: 66,
   borderRadius: '50%',
@@ -31,7 +31,7 @@ export const icon = style({
 });
 
 export const mainText = style({
-  marginBottom: 24,
+  marginBottom: 8,
   color: theme.color.baseText,
   textAlign: 'center',
   whiteSpace: 'pre-line',
@@ -39,7 +39,7 @@ export const mainText = style({
 });
 
 export const subText = style({
-  marginBottom: 50,
+  marginBottom: 30,
   color: theme.color.baseText,
   textAlign: 'center',
   ...theme.font.BODY_1_18_M,
@@ -50,9 +50,9 @@ export const surveyBox = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: 16,
-  padding: '30px 55px',
-  marginTop: 90,
+  gap: 12,
+  padding: '22px 75px',
+  marginTop: 50,
   color: theme.color.lightestText,
   ...theme.font.BODY_2_16_M,
   border: `1px solid ${theme.color.border}`,
@@ -68,9 +68,9 @@ const pointBox = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: 32,
-  height: 40,
-  borderRadius: 8,
+  width: 28,
+  height: 36,
+  borderRadius: 6,
   transition: 'all 0.3s ease',
   cursor: 'pointer',
 });
