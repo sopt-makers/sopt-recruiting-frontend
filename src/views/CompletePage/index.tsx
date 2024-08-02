@@ -1,22 +1,27 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import IconCheckmark from './icons/IconCheckmark';
-import { container, icon, mainText, pointBox, pointContainer, subText, surveyBox } from './style.css';
+import { container, icon, mainText, pointBoxVar, pointContainer, subText, surveyBox } from './style.css';
 
 const CompletePage = () => {
   const {
     recruitingInfo: { name, season, group, soptName },
   } = useContext(RecruitingInfoContext);
   const isMakers = soptName?.toLowerCase().includes('makers');
+  const [point, setPoint] = useState(0);
 
   const handleClickMyPage = () => {
     track('click-complete-my');
     window.location.reload();
+  };
+
+  const handleClickPoint = (i: number) => {
+    setPoint(i);
   };
 
   return (
@@ -39,7 +44,10 @@ const CompletePage = () => {
           }}>{`지원서 이용 만족도를 0-10점 중에 선택해주세요.\n의견을 주시면 프로덕트 개선에 도움이 됩니다.`}</span>
         <ul className={pointContainer}>
           {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => (
-            <li key={v} className={pointBox}>
+            <li
+              key={v}
+              className={pointBoxVar[v === point ? 'selected' : 'default']}
+              onClick={() => handleClickPoint(v)}>
               {v}
             </li>
           ))}

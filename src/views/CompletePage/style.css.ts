@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
@@ -64,9 +64,30 @@ export const pointContainer = style({
   gap: 4,
 });
 
-export const pointBox = style({
-  padding: '7px 12.5px',
+const pointBox = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 32,
+  height: 40,
   borderRadius: 8,
-  backgroundColor: theme.color.subBackground,
-  color: theme.color.baseText,
+  transition: 'all 0.3s ease',
+  cursor: 'pointer',
+});
+
+export const pointBoxVar = styleVariants({
+  default: [
+    pointBox,
+    {
+      backgroundColor: theme.color.subBackground,
+      color: theme.color.baseText,
+    },
+  ],
+  selected: [
+    pointBox,
+    {
+      backgroundColor: theme.color.primary,
+      color: theme.color.white,
+    },
+  ],
 });
