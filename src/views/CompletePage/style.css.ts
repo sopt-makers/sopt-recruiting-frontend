@@ -8,7 +8,7 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 466,
+  width: 550,
   height: calc.subtract('100vh', '74px'),
   minHeight: 700,
 
@@ -53,7 +53,7 @@ export const surveyBox = style({
   gap: 12,
   width: 466,
   padding: '22px 0px',
-  marginTop: 50,
+  marginTop: 35,
   color: theme.color.lightestText,
   ...theme.font.BODY_2_16_M,
   border: `1px solid ${theme.color.border}`,
@@ -72,7 +72,7 @@ export const pointContainer = style({
 });
 
 export const pointContainerVar = styleVariants({
-  default: [
+  in: [
     pointContainer,
     {
       opacity: 1,
@@ -112,6 +112,12 @@ export const pointBoxVar = styleVariants({
       color: theme.color.white,
     },
   ],
+  changed: [
+    pointBox,
+    {
+      cursor: 'default',
+    },
+  ],
 });
 
 export const thanksText = style({
@@ -130,7 +136,7 @@ export const thanksText = style({
 });
 
 export const thanksTextVar = styleVariants({
-  default: [
+  in: [
     thanksText,
     {
       opacity: 1,
