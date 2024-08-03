@@ -5,6 +5,7 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
+import useMutateSatisfaction from './hooks/useMutateSatisfaction';
 import IconCheckmark from './icons/IconCheckmark';
 import {
   container,
@@ -29,7 +30,9 @@ const CompletePage = () => {
     window.location.reload();
   };
 
+  const { mutate } = useMutateSatisfaction();
   const handleClickPoint = (i: number) => {
+    mutate({ satisfaction: i });
     setPoint(i);
     setTimeout(() => {
       setPoint('CHANGED');
