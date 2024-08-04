@@ -1,8 +1,8 @@
-export interface postSatisfactionRequest {
+export interface PostSatisfactionRequest {
   satisfaction: number;
 }
 
-export interface postSatisfactionResponse {
+export interface PostSatisfactionResponse {
   err: boolean;
   userMessage: string;
 }
