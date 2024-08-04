@@ -5,19 +5,22 @@ import { pointBoxVar, pointContainerVar, surveyBox, thanksTextVar } from '../sty
 
 const Survey = () => {
   const [point, setPoint] = useState<number | 'CHANGED'>(-1);
-  const { mutate } = useMutateSatisfaction();
 
-  const handleClickPoint = (i: number) => {
-    if (point === 'CHANGED') return;
-
-    mutate({ satisfaction: i });
-    setPoint(i);
+  const handleSatisfaction = () => {
     setTimeout(() => {
       setPoint('CHANGED');
     }, 200);
     setTimeout(() => {
       setPoint(-1);
-    }, 2500);
+    }, 2200);
+  };
+
+  const { mutate } = useMutateSatisfaction({ onSuccess: handleSatisfaction });
+
+  const handleClickPoint = (i: number) => {
+    if (point === 'CHANGED') return;
+    mutate({ satisfaction: i });
+    setPoint(i);
   };
 
   return (

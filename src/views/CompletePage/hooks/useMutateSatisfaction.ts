@@ -6,13 +6,14 @@ import { ErrorResponse } from '@type/errorResponse';
 import { postSatisfaction } from '../apis';
 import { PostSatisfactionRequest, PostSatisfactionResponse } from '../types';
 
-const useMutateSatisfaction = () => {
+const useMutateSatisfaction = ({ onSuccess }: { onSuccess?: () => void }) => {
   const { mutate } = useMutation<
     AxiosResponse<PostSatisfactionResponse, PostSatisfactionRequest>,
     AxiosError<ErrorResponse, PostSatisfactionRequest>,
     PostSatisfactionRequest
   >({
     mutationFn: ({ satisfaction }) => postSatisfaction(satisfaction),
+    onSuccess,
   });
 
   return { mutate };
