@@ -5,6 +5,7 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
+import Survey from './components/Survey';
 import IconCheckmark from './icons/IconCheckmark';
 import { container, icon, mainText, subText } from './style.css';
 
@@ -28,9 +29,10 @@ const CompletePage = () => {
       <p className={subText}>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
       <Callout
         style={{
-          marginBottom: 50,
+          marginBottom: 35,
         }}>{`이메일 도착 시점에 차이가 있을 수 있습니다.\n이메일이 오지 않으면 스팸 메일함을 확인해주세요.`}</Callout>
       <Button onClick={handleClickMyPage}>마이페이지로 이동하기</Button>
+      <Survey />
     </section>
   );
 };
