@@ -1,9 +1,9 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+export const containerBase = style({
   display: 'flex',
   justifyContent: 'center',
   width: 1440,
@@ -14,6 +14,23 @@ export const container = style({
 
   backgroundColor: theme.color.white,
   zIndex: Z_INDEX.applyCategory,
+  transition: 'all 0.5s ease',
+});
+
+export const container = styleVariants({
+  up: [
+    containerBase,
+    {
+      opacity: 1,
+    },
+  ],
+  down: [
+    containerBase,
+    {
+      opacity: 0,
+      transform: 'translateY(-41px)',
+    },
+  ],
 });
 
 export const categoryList = style({
