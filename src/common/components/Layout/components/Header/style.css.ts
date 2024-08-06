@@ -22,9 +22,3 @@ export const container = style({
 });
 
 export const logo = style({ height: 30, cursor: 'pointer' });
-
-export const menuList = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 40,
-});
