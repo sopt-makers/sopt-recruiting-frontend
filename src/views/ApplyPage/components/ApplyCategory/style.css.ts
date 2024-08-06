@@ -18,13 +18,13 @@ export const containerBase = style({
 });
 
 export const container = styleVariants({
-  up: [
+  scrollUp: [
     containerBase,
     {
       opacity: 1,
     },
   ],
-  down: [
+  scrollDown: [
     containerBase,
     {
       opacity: 0,

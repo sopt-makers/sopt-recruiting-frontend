@@ -13,7 +13,7 @@ const ApplyCategory = memo(({ minIndex }: ApplyCategoryProps) => {
   const { isScrollingDown, isScrollTop } = useScrollPosition(950);
 
   return (
-    <nav className={container[minIndex !== -1 && isScrollingDown && !isScrollTop ? 'down' : 'up']}>
+    <nav className={container[minIndex !== -1 && isScrollingDown && !isScrollTop ? 'scrollDown' : 'scrollUp']}>
       <ul className={categoryList}>
         {CATEGORY.map(({ index, text, path }) => (
           <li key={path}>
