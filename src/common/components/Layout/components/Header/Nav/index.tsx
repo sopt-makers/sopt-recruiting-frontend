@@ -1,4 +1,5 @@
 import { reset, track } from '@amplitude/analytics-browser';
+import { IconMenu } from '@sopt-makers/icons';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -6,7 +7,7 @@ import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import MenuItem from './MenuItem';
-import { menuList } from './style.css';
+import { menuIcon, menuList } from './style.css';
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../contants';
 
 const Nav = () => {
@@ -30,7 +31,11 @@ const Nav = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
 
-  return (
+  return isTablet || isMobile ? (
+    <i className={menuIcon}>
+      <IconMenu />
+    </i>
+  ) : (
     <nav>
       <ul className={menuList}>
         {!isSignedIn && (

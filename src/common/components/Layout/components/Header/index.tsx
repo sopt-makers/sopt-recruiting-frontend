@@ -9,7 +9,7 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
 
 import Nav from './Nav';
-import { container, logo } from './style.css';
+import { container, logoVar } from './style.css';
 
 const Header = () => {
   const { isTablet, isMobile } = useDevice();
@@ -26,12 +26,21 @@ const Header = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
 
+  const logoVariant = logoVar[isTablet || isMobile ? 'mobile' : 'desktop'];
   return (
     <>
       {isMakers != undefined && (
         <header className={container}>
-          <button onClick={handleClickLogo} className={logo}>
-            {isMakers ? isLight ? <MakersLogo /> : <MakersDarkLogo /> : <NowsoptLogo />}
+          <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
+            {isMakers ? (
+              isLight ? (
+                <MakersLogo className={logoVariant} />
+              ) : (
+                <MakersDarkLogo className={logoVariant} />
+              )
+            ) : (
+              <NowsoptLogo className={logoVariant} />
+            )}
           </button>
           <Nav />
         </header>

@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
@@ -21,4 +21,14 @@ export const container = style({
   zIndex: Z_INDEX.gnbHeader,
 });
 
-export const logo = style({ height: 30, cursor: 'pointer' });
+export const logoVar = styleVariants(
+  {
+    desktop: 30,
+    mobile: 24,
+  },
+  (height) => [
+    {
+      height,
+    },
+  ],
+);
