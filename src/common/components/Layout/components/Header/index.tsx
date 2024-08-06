@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
 import NowsoptLogo from '@assets/NowsoptLogo';
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
 
@@ -11,6 +12,8 @@ import Nav from './Nav';
 import { container, logo } from './style.css';
 
 const Header = () => {
+  const { isTablet, isMobile } = useDevice();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

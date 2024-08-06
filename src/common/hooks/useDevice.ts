@@ -22,3 +22,10 @@ export function useIsMobile(maxWidth = '428px') {
   }, [mobile]);
   return isMobile;
 }
+
+export function useDevice() {
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+
+  return { isTablet, isMobile };
+}

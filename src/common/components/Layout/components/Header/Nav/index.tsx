@@ -2,6 +2,7 @@ import { reset, track } from '@amplitude/analytics-browser';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import MenuItem from './MenuItem';
@@ -9,6 +10,8 @@ import { menuList } from './style.css';
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../contants';
 
 const Nav = () => {
+  const { isTablet, isMobile } = useDevice();
+
   const isOpen = true;
   const navigate = useNavigate();
   const { pathname } = useLocation();
