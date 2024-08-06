@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +22,7 @@ const useMutateSignUp = ({ onCheckExistence }: MutateSignUpProps) => {
   >({
     mutationFn: (userInfo: SignUpRequest) => sendSignUp(userInfo),
     onSuccess: () => {
+      track('done-signup-apply');
       navigate('/');
     },
     onError: (error) => {
