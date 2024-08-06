@@ -10,10 +10,9 @@ import MenuItem from './MenuItem';
 import { menuIcon, menuList } from './style.css';
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../contants';
 
-const Nav = () => {
+const Nav = ({ onClickMenuToggle }: { onClickMenuToggle: () => void }) => {
   const { isTablet, isMobile } = useDevice();
 
-  const isOpen = true;
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -32,7 +31,7 @@ const Nav = () => {
   };
 
   return isTablet || isMobile ? (
-    <i className={menuIcon}>
+    <i className={menuIcon} onClick={onClickMenuToggle}>
       <IconMenu />
     </i>
   ) : (

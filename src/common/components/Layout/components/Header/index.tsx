@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersDarkLogo from '@assets/MakersDarkLogo';
@@ -9,10 +9,14 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
 
 import Nav from './Nav';
-import { container, logoVar } from './style.css';
+import { containerVar, logoVar } from './style.css';
 
 const Header = () => {
   const { isTablet, isMobile } = useDevice();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleClickMenuToggle = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -30,10 +34,10 @@ const Header = () => {
   return (
     <>
       {isMakers != undefined && (
-        <header className={container}>
+        <header className={containerVar[isMenuOpen && (isTablet || isMobile) ? 'open' : 'default']}>
           <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
             {isMakers ? (
-              isLight ? (
+              !isMenuOpen && isLight ? (
                 <MakersLogo className={logoVariant} />
               ) : (
                 <MakersDarkLogo className={logoVariant} />
@@ -42,7 +46,7 @@ const Header = () => {
               <NowsoptLogo className={logoVariant} />
             )}
           </button>
-          <Nav />
+          <Nav onClickMenuToggle={handleClickMenuToggle} />
         </header>
       )}
     </>

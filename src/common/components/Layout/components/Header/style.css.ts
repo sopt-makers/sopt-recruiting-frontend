@@ -3,7 +3,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+const container = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -16,9 +16,24 @@ export const container = style({
   margin: '0 auto',
   padding: '22px 156px 22px 150px',
 
-  backgroundColor: theme.color.background,
-
   zIndex: Z_INDEX.gnbHeader,
+  transition: 'all 0.3s ease',
+});
+
+export const containerVar = styleVariants({
+  default: [
+    container,
+    {
+      backgroundColor: theme.color.background,
+    },
+  ],
+  open: [
+    container,
+    {
+      backgroundColor: theme.color.blackBackground,
+      color: theme.color.whiteButtonFill,
+    },
+  ],
 });
 
 export const logoVar = styleVariants(
