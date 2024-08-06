@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const useScrollPosition = () => {
+const useScrollPosition = (topYScrollPosition: number = 20) => {
   const lastScrollPositionRef = useRef(0);
   const [isScrollingDown, setIsScrollingDown] = useState(true);
   const [isScrollTop, setIsScrollTop] = useState(true);
@@ -9,7 +9,7 @@ const useScrollPosition = () => {
     const scrollHandler = () => {
       const currentScrollPosition = window.scrollY;
 
-      setIsScrollTop(currentScrollPosition < 20);
+      setIsScrollTop(currentScrollPosition < topYScrollPosition);
       setIsScrollingDown(lastScrollPositionRef.current < currentScrollPosition);
 
       lastScrollPositionRef.current = currentScrollPosition;
@@ -20,7 +20,7 @@ const useScrollPosition = () => {
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
-  }, []);
+  }, [topYScrollPosition]);
 
   return {
     isScrollingDown,
