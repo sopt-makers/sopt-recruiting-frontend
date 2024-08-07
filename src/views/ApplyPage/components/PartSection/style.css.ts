@@ -6,7 +6,7 @@ export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 50,
-  paddingTop: 90,
+  paddingTop: 40,
 });
 
 export const title = style({
