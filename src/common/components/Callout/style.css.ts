@@ -9,7 +9,7 @@ const containerBase = style({
   padding: '28px 28px',
   borderRadius: 15,
   backgroundColor: theme.color.subBackground,
-  whiteSpace: 'pre-line',
+  whiteSpace: 'pre-wrap',
   ...theme.font.HEADING_6_18_B,
   letterSpacing: -0.36,
 });
