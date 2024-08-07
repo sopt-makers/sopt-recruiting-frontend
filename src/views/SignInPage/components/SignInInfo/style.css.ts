@@ -1,12 +1,17 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const calloutButton = style({
+const calloutButton = style({
   marginRight: 18,
   borderBottom: '1px solid currentColor',
   color: theme.color.lighterText,
-  ...theme.font.TITLE_5_18_SB,
+});
+
+export const calloutButtonVar = styleVariants({
+  DESK: [calloutButton, { ...theme.font.TITLE_5_18_SB }],
+  TAB: [calloutButton, { ...theme.font.TITLE_6_16_SB, border: 'none' }],
+  MOB: [calloutButton, { ...theme.font.TITLE_7_14_SB, border: 'none' }],
 });
 
 export const strongText = style({
