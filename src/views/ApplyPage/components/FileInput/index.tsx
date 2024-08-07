@@ -69,7 +69,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
             fileName: file.name,
           });
           getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
-          setUploadPercent(-2);
+          setUploadPercent(-1);
           track(`done-apply-add_file${id}`);
         });
       },
@@ -88,12 +88,12 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       if (LIMIT_SIZE < file.size) {
         setError(`file${id}`, { type: 'maxLength', message: VALIDATION_CHECK.fileInput.errorText });
         setUploadPercent(-1);
+        setFileName('delete-file');
         handleDeleteFileValue();
 
         if (inputRef.current) {
           inputRef.current.value = '';
         }
-        setFileName('delete-file');
       } else {
         clearErrors(`file${id}`);
         handleFileUpload(file, id);
@@ -103,15 +103,11 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleClickIcon = () => {
     if (inputRef.current) {
-      if (fileName && fileName !== 'delete-file') {
+      if (fileName !== 'delete-file' && (fileName || defaultFile)) {
         inputRef.current.value = '';
         setFileName('delete-file');
         handleDeleteFileValue();
         setUploadPercent(-1);
-        track(`click-apply-remove_file${id}`);
-      } else if (uploadPercent !== -2 && defaultFileName) {
-        setUploadPercent(-2);
-        handleDeleteFileValue();
         track(`click-apply-remove_file${id}`);
       } else {
         inputRef.current.click();
