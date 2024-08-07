@@ -11,7 +11,7 @@ import { menuIcon, menuList } from './style.css';
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../contants';
 
 const Nav = ({ onClickMenuToggle }: { onClickMenuToggle: () => void }) => {
-  const { isTablet, isMobile } = useDevice();
+  const DEVICE_TYPE = useDevice();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -30,7 +30,7 @@ const Nav = ({ onClickMenuToggle }: { onClickMenuToggle: () => void }) => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
 
-  return isTablet || isMobile ? (
+  return DEVICE_TYPE !== 'DESK' ? (
     <i className={menuIcon} onClick={onClickMenuToggle}>
       <IconMenu />
     </i>

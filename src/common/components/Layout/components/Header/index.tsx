@@ -12,7 +12,7 @@ import Nav from './Nav';
 import { containerVar, logoVar } from './style.css';
 
 const Header = () => {
-  const { isTablet, isMobile } = useDevice();
+  const DEVICE_TYPE = useDevice();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleClickMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -30,11 +30,11 @@ const Header = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
 
-  const logoVariant = logoVar[isTablet || isMobile ? 'mobile' : 'desktop'];
+  const logoVariant = logoVar[DEVICE_TYPE];
   return (
     <>
       {isMakers != undefined && (
-        <header className={containerVar[isMenuOpen && (isTablet || isMobile) ? 'open' : 'default']}>
+        <header className={containerVar[isMenuOpen ? 'open' : 'default']}>
           <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
             {isMakers ? (
               !isMenuOpen && isLight ? (

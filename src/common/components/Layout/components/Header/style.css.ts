@@ -37,8 +37,9 @@ export const containerVar = styleVariants({
 
 export const logoVar = styleVariants(
   {
-    desktop: 30,
-    mobile: 24,
+    DESK: 30,
+    TAB: 24,
+    MOB: 24,
   },
   (height) => [
     {
