@@ -3,7 +3,7 @@ import { IconAlertCircle } from '@sopt-makers/icons';
 
 import { useDevice } from '@hooks/useDevice';
 
-import { button, container, warningWrapperVar } from './style.css';
+import { buttonVar, container, warningWrapperVar } from './style.css';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
@@ -30,7 +30,7 @@ const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: Call
         />
         {children}
       </div>
-      {Button && <div className={button}>{Button}</div>}
+      {Button && <div className={buttonVar[DEVICE_TYPE]}>{Button}</div>}
     </article>
   );
 };

@@ -6,7 +6,6 @@ const containerBase = style({
   display: 'flex',
   flexDirection: 'column',
 
-  wordBreak: 'keep-all',
   padding: '28px 28px',
   borderRadius: 15,
   backgroundColor: theme.color.subBackground,
@@ -24,6 +23,7 @@ export const container = styleVariants({
       width: 367,
       padding: '28px 16px',
       ...theme.font.HEADING_7_16_B,
+      letterSpacing: '-0.24px',
     },
   ],
   MOB: [
@@ -32,6 +32,7 @@ export const container = styleVariants({
       width: 312,
       padding: '28px 16px',
       ...theme.font.TITLE_7_14_SB,
+      letterSpacing: '-0.21px',
     },
   ],
 });
@@ -61,4 +62,20 @@ export const warningWrapperVar = styleVariants({
 export const button = style({
   marginTop: 8,
   marginLeft: 'auto',
+});
+
+export const buttonVar = styleVariants({
+  DESK: [button],
+  TAB: [
+    button,
+    {
+      marginTop: 20,
+    },
+  ],
+  MOB: [
+    button,
+    {
+      marginTop: 12,
+    },
+  ],
 });
