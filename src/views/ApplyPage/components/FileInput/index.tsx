@@ -100,7 +100,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleClickIcon = () => {
     if (inputRef.current) {
-      if (fileName) {
+      if (fileName && fileName !== 'delete-file') {
         inputRef.current.value = '';
         setFileName('delete-file');
         setValue(`file${id}`, undefined);
@@ -122,7 +122,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     if (uploadPercent === -1 && defaultFileName) {
       return fileName === 'delete-file' ? 'default' : 'selected';
     } else {
-      return fileName === '' ? 'default' : 'selected';
+      return fileName === '' || fileName === 'delete-file' ? 'default' : 'selected';
     }
   };
 
@@ -130,7 +130,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     if (uploadPercent === -1 && defaultFileName) {
       return fileName === 'delete-file' ? '50mb 이하 | pdf' : defaultFileName;
     } else {
-      if (uploadPercent < 0 && fileName === '') return '50mb 이하 | pdf';
+      if (uploadPercent < 0 && (fileName === '' || fileName === 'delete-file')) return '50mb 이하 | pdf';
       else if (isFileUploading) return `업로드 중... ${uploadPercent}/100% 완료`;
       else if (isFileSending) return '파일을 전송하고 있어요... 잠시만 기다려주세요...';
       else return fileName;
