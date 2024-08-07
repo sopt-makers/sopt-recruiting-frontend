@@ -37,7 +37,7 @@ export const containerVar = styleVariants({
 export const containerSizeVer = styleVariants({
   DESK: { padding: '22px 100px' },
   TAB: { padding: '22px 40px' },
-  MOB: { padding: '12px 20px' },
+  MOB: { padding: '22px 20px' },
 });
 
 export const logoVar = styleVariants(
