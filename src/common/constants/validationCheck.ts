@@ -61,7 +61,6 @@ export const VALIDATION_CHECK = {
   },
   fileInput: {
     errorText: '파일 크기가 너무 커요. 50MB 이하로 선택해주세요.',
-    errorTextUnknownError:
-      '파일 업로드에 실패했어요. 다시 시도해주세요. 문제가 반복된다면 상단 문의하기 버튼을 통해 문의주세요.',
+    errorTextUnknownError: '파일 업로드에 실패했어요. 문제가 반복된다면 상단 ‘문의하기’를 이용해주세요.',
   },
 };
