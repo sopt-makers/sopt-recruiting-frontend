@@ -77,6 +77,11 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     );
   };
 
+  const handleDeleteFileValue = () => {
+    setValue(`file${id}`, undefined);
+    getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+  };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
 
@@ -84,8 +89,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       if (LIMIT_SIZE < file.size) {
         setError(`file${id}`, { type: 'maxLength', message: VALIDATION_CHECK.fileInput.errorText });
         setUploadPercent(-1);
-        setValue(`file${id}`, undefined);
-        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+        handleDeleteFileValue();
 
         if (inputRef.current) {
           inputRef.current.value = '';
@@ -103,14 +107,12 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       if (fileName && fileName !== 'delete-file') {
         inputRef.current.value = '';
         setFileName('delete-file');
-        setValue(`file${id}`, undefined);
+        handleDeleteFileValue();
         setUploadPercent(-1);
-        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
         track(`click-apply-remove_file${id}`);
       } else if (uploadPercent !== -2 && defaultFileName) {
         setUploadPercent(-2);
-        setValue(`file${id}`, undefined);
-        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+        handleDeleteFileValue();
         track(`click-apply-remove_file${id}`);
       } else {
         inputRef.current.click();
