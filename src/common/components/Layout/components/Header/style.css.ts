@@ -8,7 +8,7 @@ const container = style({
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
   maxWidth: 1440,
   width: '100%',
