@@ -9,7 +9,7 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
 
 import Nav from './Nav';
-import { containerVar, logoVar } from './style.css';
+import { containerSizeVer, containerVar, logoVar } from './style.css';
 
 const Header = () => {
   const DEVICE_TYPE = useDevice();
@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <>
       {isMakers != undefined && (
-        <header className={containerVar[isMenuOpen ? 'open' : 'default']}>
+        <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[DEVICE_TYPE]}`}>
           <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
             {isMakers ? (
               !isMenuOpen && isLight ? (

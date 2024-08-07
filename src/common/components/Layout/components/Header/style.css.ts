@@ -13,7 +13,6 @@ const container = style({
   maxWidth: 1440,
   width: '100%',
   margin: '0 auto',
-  padding: '22px 156px 22px 150px',
 
   zIndex: Z_INDEX.gnbHeader,
   transition: 'all 0.3s ease',
@@ -33,6 +32,12 @@ export const containerVar = styleVariants({
       color: theme.color.whiteButtonFill,
     },
   ],
+});
+
+export const containerSizeVer = styleVariants({
+  DESK: { padding: '22px 100px' },
+  TAB: { padding: '22px 40px' },
+  MOB: { padding: '12px 20px' },
 });
 
 export const logoVar = styleVariants(
