@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, subMinutes } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { memo, useContext } from 'react';
 
@@ -34,7 +34,9 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분', {
     locale: ko,
   });
-  const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시 mm분', { locale: ko });
+  const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분', {
+    locale: ko,
+  });
   const formattedApplicationConfirmStart = format(
     new Date(applicationPassConfirmStart || ''),
     'M월 dd일 (E) aaa HH시 mm분',
