@@ -69,6 +69,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
             fileName: file.name,
           });
           getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
+          setValue(`file${id}Deleted`, false);
           setUploadPercent(-1);
           track(`done-apply-add_file${id}`);
         });
@@ -78,6 +79,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleDeleteFileValue = () => {
     setValue(`file${id}`, undefined);
+    setValue(`file${id}Deleted`, true);
     getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
   };
 
@@ -116,11 +118,16 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   };
 
   const getFileNameClass = () => {
-    return (!defaultFileName && fileName === '') || fileName === 'delete-file' ? 'default' : 'selected';
+    return (!defaultFileName && fileName === '') ||
+      (defaultFileName && getValues(`file${id}Deleted`)) ||
+      fileName === 'delete-file'
+      ? 'default'
+      : 'selected';
   };
 
   const getDisplayText = () => {
-    if (uploadPercent === -1 && fileName === '' && defaultFileName) return defaultFileName;
+    if (uploadPercent === -1 && fileName === '' && defaultFileName && !getValues(`file${id}Deleted`))
+      return defaultFileName;
     else if (uploadPercent === -1 && (fileName === '' || fileName === 'delete-file')) return '50mb 이하 | pdf';
     else if (isFileUploading) return `업로드 중... ${uploadPercent}/100% 완료`;
     else if (isFileSending) return '파일을 전송하고 있어요... 잠시만 기다려주세요...';
@@ -128,6 +135,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   };
 
   useEffect(() => {
+    if (getValues(`file${id}Deleted`)) return;
+
     if (getValues(`file${id}`)) {
       setFileName(getValues(`file${id}`).fileName);
       return;
