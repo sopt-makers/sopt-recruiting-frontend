@@ -5,8 +5,6 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   position: 'relative',
   width: 720,
-  height: 53,
-  maxHeight: 53,
 });
 
 export const fileInput = style({

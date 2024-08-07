@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { useContext, useEffect, useState } from 'react';
 
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
@@ -17,6 +18,7 @@ const SignedInPage = () => {
   const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
 
   const handleSetComplete = () => {
+    track('done-apply-confirm_submit');
     setIsComplete(true);
   };
 
