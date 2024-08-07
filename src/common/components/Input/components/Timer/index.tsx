@@ -1,7 +1,9 @@
 import { differenceInSeconds } from 'date-fns';
 import { useEffect, useState } from 'react';
 
-import { timer } from './style.css';
+import { useDevice } from '@hooks/useDevice';
+
+import { timerVar } from './style.css';
 import { TimerProps } from './types';
 import formatTimer from './utils/formatTimer';
 
@@ -9,6 +11,7 @@ const INITIAL_TIME = 300;
 
 // TextBox 내부 타이머
 const Timer = ({ isActive, onResetTimer }: TimerProps) => {
+  const DEVICE_TYPE = useDevice();
   const [seconds, setSeconds] = useState(INITIAL_TIME - 1);
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const Timer = ({ isActive, onResetTimer }: TimerProps) => {
     };
   }, [isActive, onResetTimer]);
 
-  return <span className={timer}>{isActive && formatTimer(seconds)}</span>;
+  return <span className={timerVar[DEVICE_TYPE]}>{isActive && formatTimer(seconds)}</span>;
 };
 
 export default Timer;
