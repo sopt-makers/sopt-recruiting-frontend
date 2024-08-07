@@ -1,7 +1,9 @@
 import { colors } from '@sopt-makers/colors';
 import { IconAlertCircle } from '@sopt-makers/icons';
 
-import { button, container, warningWrapper } from './style.css';
+import { useDevice } from '@hooks/useDevice';
+
+import { buttonVar, container, warningWrapperVar } from './style.css';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
@@ -12,9 +14,10 @@ interface CalloutProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: CalloutProps) => {
+  const DEVICE_TYPE = useDevice();
   return (
-    <article className={container[size]} {...calloutElementProps}>
-      <div className={warningWrapper}>
+    <article className={container[DEVICE_TYPE === 'DESK' ? size : DEVICE_TYPE]} {...calloutElementProps}>
+      <div className={warningWrapperVar[DEVICE_TYPE]}>
         <IconAlertCircle
           style={{
             width: 32,
@@ -27,7 +30,7 @@ const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: Call
         />
         {children}
       </div>
-      {Button && <div className={button}>{Button}</div>}
+      {Button && <div className={buttonVar[DEVICE_TYPE]}>{Button}</div>}
     </article>
   );
 };

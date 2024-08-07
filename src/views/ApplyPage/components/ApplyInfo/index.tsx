@@ -31,11 +31,13 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
 
   if (!applicationStart) return;
 
-  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시', { locale: ko });
-  const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시', { locale: ko });
+  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분', {
+    locale: ko,
+  });
+  const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시 mm분', { locale: ko });
   const formattedApplicationConfirmStart = format(
     new Date(applicationPassConfirmStart || ''),
-    'M월 dd일 (E) aaa HH시',
+    'M월 dd일 (E) aaa HH시 mm분',
     {
       locale: ko,
     },
@@ -89,7 +91,7 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>면접 평가</span>
-            <span className={dateText}>{`${formattedInterviewStart} - ${formattedInterviewEnd} (오프라인 면접)`}</span>
+            <span className={dateText}>{`${formattedInterviewStart} - ${formattedInterviewEnd}`}</span>
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>최종 발표</span>
