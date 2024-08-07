@@ -9,6 +9,7 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
 
 import Nav from './Nav';
+import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 
 const Header = () => {
@@ -34,20 +35,24 @@ const Header = () => {
   return (
     <>
       {isMakers != undefined && (
-        <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[DEVICE_TYPE]}`}>
-          <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
-            {isMakers ? (
-              !isMenuOpen && isLight ? (
-                <MakersLogo className={logoVariant} />
+        <>
+          <header
+            className={`${containerVar[isMenuOpen && DEVICE_TYPE !== 'DESK' ? 'open' : 'default']} ${containerSizeVer[DEVICE_TYPE]}`}>
+            <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
+              {isMakers ? (
+                !isMenuOpen && isLight ? (
+                  <MakersLogo className={logoVariant} />
+                ) : (
+                  <MakersDarkLogo className={logoVariant} />
+                )
               ) : (
-                <MakersDarkLogo className={logoVariant} />
-              )
-            ) : (
-              <NowsoptLogo className={logoVariant} />
-            )}
-          </button>
-          <Nav onClickMenuToggle={handleClickMenuToggle} />
-        </header>
+                <NowsoptLogo className={logoVariant} />
+              )}
+            </button>
+            <Nav onClickMenuToggle={handleClickMenuToggle} />
+          </header>
+          {isMenuOpen && <MenuList />}
+        </>
       )}
     </>
   );

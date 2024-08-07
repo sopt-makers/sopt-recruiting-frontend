@@ -1,13 +1,23 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
-export const menuList = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 40,
-});
-
-export const menuIcon = style({
+const menuIcon = style({
   width: 24,
   height: 24,
   cursor: 'pointer',
+  position: 'absolute',
+});
+
+export const menuIconVar = styleVariants({
+  TAB: [
+    menuIcon,
+    {
+      right: 40,
+    },
+  ],
+  MOB: [
+    menuIcon,
+    {
+      right: 20,
+    },
+  ],
 });
