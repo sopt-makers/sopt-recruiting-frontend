@@ -18,12 +18,44 @@ const containerBase = style({
 export const container = styleVariants({
   sm: [containerBase, { width: 466 }],
   lg: [containerBase, { width: 720 }],
+  TAB: [
+    containerBase,
+    {
+      width: 367,
+      padding: '28px 16px',
+      ...theme.font.HEADING_7_16_B,
+    },
+  ],
+  MOB: [
+    containerBase,
+    {
+      width: 312,
+      padding: '28px 16px',
+      ...theme.font.TITLE_7_14_SB,
+    },
+  ],
 });
 
-export const warningWrapper = style({
+const warningWrapper = style({
   display: 'flex',
   gap: 22,
   alignItems: 'center',
+});
+
+export const warningWrapperVar = styleVariants({
+  DESK: [warningWrapper],
+  TAB: [
+    warningWrapper,
+    {
+      gap: 8,
+    },
+  ],
+  MOB: [
+    warningWrapper,
+    {
+      gap: 8,
+    },
+  ],
 });
 
 export const button = style({
