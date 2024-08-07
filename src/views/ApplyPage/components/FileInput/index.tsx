@@ -56,7 +56,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       },
       (error) => {
         console.error(error);
-        throw error;
+        setError(`file${id}`, { type: 'unknownError', message: VALIDATION_CHECK.fileInput.errorTextUnknownError });
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
