@@ -91,7 +91,7 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>면접 평가</span>
-            <span className={dateText}>{`${formattedInterviewStart} - ${formattedInterviewEnd} (오프라인 면접)`}</span>
+            <span className={dateText}>{`${formattedInterviewStart} - ${formattedInterviewEnd}`}</span>
           </li>
           <li className={dateItems}>
             <span className={dateLabel}>최종 발표</span>
