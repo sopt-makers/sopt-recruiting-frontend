@@ -128,6 +128,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   };
 
   useEffect(() => {
+    if (getValues(`file${id}`)) return;
+
     if (defaultFileId && defaultFileUrl && defaultFileName) {
       setValue(`file${defaultFileId}`, {
         file: defaultFileUrl,
@@ -137,11 +139,6 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     }
 
     if (getValues(`file${id}`) && getValues(`${section}${id}`) === '') setValue(`${section}${id}`, '파일 제출');
-
-    return () => {
-      setValue(`file${id}`, undefined);
-      getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
-    };
   }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, getValues, setValue]);
 
   return (
