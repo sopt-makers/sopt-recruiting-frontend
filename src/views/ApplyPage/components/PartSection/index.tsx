@@ -34,9 +34,7 @@ const PartSection = ({
 
   const partOptions = questionTypes?.sort((a, b) => a.id - b.id).map(({ typeKr }) => typeKr);
   // 지원 연장 파트
-  const filteredPartOptions = partOptions?.filter(
-    (part) => part === '안드로이드' || part === '디자인' || part === 'PM',
-  );
+  const filteredPartOptions = partOptions?.filter((part) => part === '안드로이드' || part === 'PM');
 
   const selectedPart: string = getValues('part');
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
