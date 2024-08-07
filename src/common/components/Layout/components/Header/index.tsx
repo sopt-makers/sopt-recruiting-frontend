@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersDarkLogo from '@assets/MakersDarkLogo';
@@ -31,13 +31,18 @@ const Header = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
 
+  useEffect(() => {
+    if (DEVICE_TYPE === 'DESK') {
+      setIsMenuOpen(false);
+    }
+  }, [DEVICE_TYPE]);
+
   const logoVariant = logoVar[DEVICE_TYPE];
   return (
     <>
       {isMakers != undefined && (
         <>
-          <header
-            className={`${containerVar[isMenuOpen && DEVICE_TYPE !== 'DESK' ? 'open' : 'default']} ${containerSizeVer[DEVICE_TYPE]}`}>
+          <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[DEVICE_TYPE]}`}>
             <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
               {isMakers ? (
                 !isMenuOpen && isLight ? (
