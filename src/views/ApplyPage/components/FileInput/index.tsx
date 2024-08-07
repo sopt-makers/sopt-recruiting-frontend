@@ -128,7 +128,10 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   };
 
   useEffect(() => {
-    if (getValues(`file${id}`)) return;
+    if (getValues(`file${id}`)) {
+      setFileName(getValues(`file${id}`).fileName);
+      return;
+    }
 
     if (defaultFileId && defaultFileUrl && defaultFileName) {
       setValue(`file${defaultFileId}`, {
