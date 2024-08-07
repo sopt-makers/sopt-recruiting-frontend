@@ -40,6 +40,10 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     formState: { errors },
   } = useFormContext();
 
+  const fileAnswer = getValues(`${section}${id}`);
+  const isFileDeleted = getValues(`file${id}Deleted`);
+  const fileValue = getValues(`file${id}`);
+
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (file: File, id: number) => {
@@ -68,7 +72,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
             file: urlWithoutToken,
             fileName: file.name,
           });
-          getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
+          fileAnswer === '' && setValue(`${section}${id}`, '파일 제출');
           setValue(`file${id}Deleted`, false);
           setUploadPercent(-1);
           track(`done-apply-add_file${id}`);
@@ -80,7 +84,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   const handleDeleteFileValue = () => {
     setValue(`file${id}`, undefined);
     setValue(`file${id}Deleted`, true);
-    getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
+    fileAnswer === '파일 제출' && setValue(`${section}${id}`, '');
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
@@ -118,16 +122,13 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   };
 
   const getFileNameClass = () => {
-    return (!defaultFileName && fileName === '') ||
-      (defaultFileName && getValues(`file${id}Deleted`)) ||
-      fileName === 'delete-file'
+    return (!defaultFileName && fileName === '') || (defaultFileName && isFileDeleted) || fileName === 'delete-file'
       ? 'default'
       : 'selected';
   };
 
   const getDisplayText = () => {
-    if (uploadPercent === -1 && fileName === '' && defaultFileName && !getValues(`file${id}Deleted`))
-      return defaultFileName;
+    if (uploadPercent === -1 && fileName === '' && defaultFileName && !isFileDeleted) return defaultFileName;
     else if (uploadPercent === -1 && (fileName === '' || fileName === 'delete-file')) return '50mb 이하 | pdf';
     else if (isFileUploading) return `업로드 중... ${uploadPercent}/100% 완료`;
     else if (isFileSending) return '파일을 전송하고 있어요... 잠시만 기다려주세요...';
@@ -135,10 +136,10 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   };
 
   useEffect(() => {
-    if (getValues(`file${id}Deleted`)) return;
+    if (isFileDeleted) return;
 
-    if (getValues(`file${id}`)) {
-      setFileName(getValues(`file${id}`).fileName);
+    if (fileValue) {
+      setFileName(fileValue.fileName);
       return;
     }
 
@@ -150,8 +151,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       });
     }
 
-    if (getValues(`file${id}`) && getValues(`${section}${id}`) === '') setValue(`${section}${id}`, '파일 제출');
-  }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, getValues, setValue]);
+    if (fileValue && fileAnswer === '') setValue(`${section}${id}`, '파일 제출');
+  }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, fileValue, fileAnswer, isFileDeleted, setValue]);
 
   return (
     <div className={container}>
@@ -173,7 +174,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           <span className={fileNameVar[getFileNameClass()]}>{getDisplayText()}</span>
         </div>
         <IconPlusButton
-          isSelected={fileName !== 'delete-file' && getValues(`file${id}`)}
+          isSelected={fileName !== 'delete-file' && fileValue}
           onClickIcon={handleClickIcon}
           disabled={disabledStatus}
         />
