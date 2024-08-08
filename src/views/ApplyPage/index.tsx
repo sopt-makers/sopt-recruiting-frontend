@@ -1,5 +1,4 @@
 import { track } from '@amplitude/analytics-browser';
-import { DevTool } from '@hookform/devtools';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
