@@ -8,10 +8,9 @@ import useMutateCheckCode from '@components/Input/hooks/useMutateCheckCode';
 import useMutateCheckUser from '@components/Input/hooks/useMutateCheckUser';
 import useMutateSendCode from '@components/Input/hooks/useMutateSendCode';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useDevice } from '@hooks/useDevice';
 import useScrollToHash from '@hooks/useScrollToHash';
 
-import { successVar } from './style.css';
+import { success } from '../../style.css';
 import InputLine from '../InputLine';
 
 export const TextBox이름 = () => {
@@ -40,7 +39,6 @@ export const TextBox이메일 = ({
   isVerified,
   onChangeVerification,
 }: TextBox이메일Props) => {
-  const DEVICE_TYPE = useDevice();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -173,20 +171,18 @@ export const TextBox이메일 = ({
       </InputLine>
       {isActive && (
         <>
-          <p className={successVar[DEVICE_TYPE]}>이메일이 전송되었어요. 약 1분 정도 소요될 수 있어요.</p>
-          <p className={successVar[DEVICE_TYPE]} style={{ marginTop: '-8px' }}>
+          <p className={success}>이메일이 전송되었어요. 약 1분 정도 소요될 수 있어요.</p>
+          <p className={success} style={{ marginTop: '-8px' }}>
             메일이 오지 않는다면 스팸 메일함을 확인해주세요.
           </p>
         </>
       )}
-      {isVerified && <p className={successVar[DEVICE_TYPE]}>인증에 성공했어요.</p>}
+      {isVerified && <p className={success}>인증에 성공했어요.</p>}
     </TextBox>
   );
 };
 
 export const TextBox비밀번호 = () => {
-  const DEVICE_TYPE = useDevice();
-
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
   const name = location.pathname === '/password' ? 'newPassword' : 'password';
@@ -219,9 +215,7 @@ export const TextBox비밀번호 = () => {
         errorText={VALIDATION_CHECK.passwordConfirm.errorText}
         validate={VALIDATION_CHECK.passwordConfirm.validate(watch, name)}
       />
-      {passwordConfirm && password === passwordConfirm && (
-        <p className={successVar[DEVICE_TYPE]}>비밀번호가 일치해요.</p>
-      )}
+      {passwordConfirm && password === passwordConfirm && <p className={success}>비밀번호가 일치해요.</p>}
     </TextBox>
   );
 };

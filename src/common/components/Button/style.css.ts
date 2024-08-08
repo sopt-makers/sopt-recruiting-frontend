@@ -39,6 +39,7 @@ const containerBase = style({
   width: 'fit-content',
   borderRadius: 12,
   transition: 'background-color 0.3s ease-out',
+  ...theme.font.TITLE_5_18_SB,
 
   selectors: {
     '&:disabled, &:disabled:hover': {
@@ -120,16 +121,4 @@ export const container = styleVariants({
       pointerEvents: 'none',
     },
   ],
-});
-
-export const buttonFontVar = styleVariants({
-  DESK: {
-    ...theme.font.TITLE_5_18_SB,
-  },
-  TAB: {
-    ...theme.font.TITLE_5_18_SB,
-  },
-  MOB: {
-    ...theme.font.TITLE_6_16_SB,
-  },
 });

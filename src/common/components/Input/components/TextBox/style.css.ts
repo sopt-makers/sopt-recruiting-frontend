@@ -13,7 +13,7 @@ export const container = style({
 
 export const containerVar = styleVariants(containerSize, (size) => [container, { width: size }]);
 
-const title = style({
+export const title = style({
   display: 'flex',
   alignItems: 'center',
   gap: 6,
@@ -21,14 +21,9 @@ const title = style({
   width: 'fit-content',
 
   color: theme.color.baseText,
+  ...theme.font.TITLE_5_18_SB,
 
   cursor: 'pointer',
-});
-
-export const titleVar = styleVariants({
-  DESK: [title, { ...theme.font.TITLE_5_18_SB }],
-  TAB: [title, { ...theme.font.TITLE_5_18_SB }],
-  MOB: [title, { ...theme.font.TITLE_6_16_SB }],
 });
 
 export const circle = style({

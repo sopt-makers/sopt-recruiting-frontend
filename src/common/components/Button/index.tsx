@@ -1,10 +1,9 @@
 import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, To } from 'react-router-dom';
 
-import { useDevice } from '@hooks/useDevice';
 import ButtonLoading from 'views/loadings/ButtonLoading';
 
-import { buttonFontVar, container, outsideBox, paddings } from './style.css';
+import { container, outsideBox, paddings } from './style.css';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   children?: ReactNode;
@@ -26,7 +25,6 @@ const Button = ({
   isLink = false,
   ...buttonElementProps
 }: ButtonProps) => {
-  const DEVICE_TYPE = useDevice();
   const { disabled, type = 'button' } = buttonElementProps;
   const Tag = isLink ? Link : 'button';
 
@@ -46,7 +44,7 @@ const Button = ({
       disabled={isLoading || disabled}
       {...buttonElementProps}>
       <div
-        className={`${container[isLoading || disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${buttonFontVar[DEVICE_TYPE]} ${className}`}>
+        className={`${container[isLoading || disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${className}`}>
         {isLoading ? <ButtonLoading width={loadingWidth} /> : children}
       </div>
     </Tag>
