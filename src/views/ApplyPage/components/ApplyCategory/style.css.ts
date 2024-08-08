@@ -28,6 +28,8 @@ export const container = styleVariants({
     containerBase,
     {
       opacity: 0,
+      pointerEvents: 'none',
+      cursor: 'default',
       transform: 'translateY(-41px)',
     },
   ],
