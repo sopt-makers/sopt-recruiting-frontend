@@ -70,6 +70,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     setValue,
     formState: { errors },
     clearErrors,
+    control,
+    watch,
   } = methods;
 
   const {
@@ -236,7 +238,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
     const answers = JSON.stringify(answersValue);
     const formValues: ApplyRequest = {
-      picture: picture?.[0],
+      picture,
       pictureUrl: errors.picture ? undefined : applicantDraft?.pic,
       part,
       address,
@@ -327,6 +329,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           </form>
         </div>
       </FormProvider>
+      <DevTool control={control} />
     </>
   );
 };

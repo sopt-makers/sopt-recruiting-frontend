@@ -43,10 +43,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
 
-    if (!imageFile) {
-      setImage(null);
-      return;
-    }
+    if (!imageFile) return;
 
     const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
     if (LIMIT_SIZE < imageFile.size) {
@@ -63,6 +60,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     reader.onloadend = () => {
       clearErrors('picture');
       setImage(reader.result as string);
+      setValue('picture', imageFile);
     };
   };
 
