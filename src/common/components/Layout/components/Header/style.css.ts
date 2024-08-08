@@ -52,3 +52,13 @@ export const logoVar = styleVariants(
     },
   ],
 );
+
+export const dimmedBg = style({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100dvh',
+  backgroundColor: theme.color.backgroundDimmed,
+  zIndex: Z_INDEX.gnbBg,
+});

@@ -1,5 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
 export const menuList = style({
@@ -17,6 +18,7 @@ const menuMobList = style({
   left: 0,
   width: '100%',
   backgroundColor: theme.color.blackBackground,
+  zIndex: Z_INDEX.gnbMenu,
 });
 
 export const menuMobListVar = styleVariants({

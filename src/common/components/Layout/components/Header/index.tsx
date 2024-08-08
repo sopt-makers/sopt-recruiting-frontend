@@ -10,7 +10,7 @@ import { ThemeContext } from '@store/themeContext';
 
 import Nav from './Nav';
 import MenuList from './Nav/MenuList';
-import { containerSizeVer, containerVar, logoVar } from './style.css';
+import { containerSizeVer, containerVar, dimmedBg, logoVar } from './style.css';
 
 const Header = () => {
   const DEVICE_TYPE = useDevice();
@@ -56,7 +56,12 @@ const Header = () => {
             </button>
             <Nav isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
           </header>
-          {isMenuOpen && <MenuList />}
+          {isMenuOpen && (
+            <>
+              <MenuList />
+              <div className={dimmedBg} />
+            </>
+          )}
         </>
       )}
     </>
