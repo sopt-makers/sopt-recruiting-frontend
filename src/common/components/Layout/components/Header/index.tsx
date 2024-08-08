@@ -54,7 +54,7 @@ const Header = () => {
                 <NowsoptLogo className={logoVariant} />
               )}
             </button>
-            <Nav onClickMenuToggle={handleClickMenuToggle} />
+            <Nav isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
           </header>
           {isMenuOpen && <MenuList />}
         </>
