@@ -18,6 +18,7 @@ const Checkbox = <T extends FieldValues>({
 }: CheckboxProps<T>) => {
   const {
     register,
+    trigger,
     formState: { errors },
   } = useFormContext();
 
@@ -28,6 +29,7 @@ const Checkbox = <T extends FieldValues>({
           <input
             {...register(name, {
               ...(required && { required: '필수 동의 항목이에요.' }),
+              onChange: () => trigger(name),
             })}
             type="checkbox"
             className={`amp-unmask ${hiddenCheckbox}`}
