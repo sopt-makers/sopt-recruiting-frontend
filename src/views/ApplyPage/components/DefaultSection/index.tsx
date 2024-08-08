@@ -36,18 +36,15 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     setError,
     formState: { errors },
   } = useFormContext();
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | null>('');
 
   const hasImage = image !== 'max-size' && (pic || image);
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
 
-    // TEST
-    console.log('IMAGE : ', imageFile);
     if (!imageFile) {
-      // TEST
-      console.log('NO IMAGE');
+      setImage(null);
       return;
     }
 
