@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import useScrollPosition from '@hooks/useScrollPosition';
 
@@ -10,7 +10,9 @@ interface ApplyCategoryProps {
   minIndex: number;
 }
 const ApplyCategory = memo(({ minIndex }: ApplyCategoryProps) => {
-  const { isScrollingDown, isScrollTop } = useScrollPosition(950);
+  const { pathname } = useLocation();
+
+  const { isScrollingDown, isScrollTop } = useScrollPosition(pathname === '/review' ? 380 : 950);
 
   return (
     <nav className={container[minIndex !== -1 && isScrollingDown && !isScrollTop ? 'scrollDown' : 'scrollUp']}>
