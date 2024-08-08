@@ -43,10 +43,18 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
 
-    if (!imageFile) return;
+    // TEST
+    console.log('IMAGE : ', imageFile);
+    if (!imageFile) {
+      // TEST
+      console.log('NO IMAGE');
+      return;
+    }
 
     const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
     if (LIMIT_SIZE < imageFile.size) {
+      // TEST
+      console.log('🤬ERROR : ', imageFile);
       setValue('picture', null);
       setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
       setImage('max-size');
