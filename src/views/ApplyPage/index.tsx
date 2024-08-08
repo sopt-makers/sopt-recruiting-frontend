@@ -70,7 +70,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     setValue,
     formState: { errors },
     clearErrors,
-    control,
   } = methods;
 
   const {
@@ -328,7 +327,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           </form>
         </div>
       </FormProvider>
-      <DevTool control={control} />
     </>
   );
 };
