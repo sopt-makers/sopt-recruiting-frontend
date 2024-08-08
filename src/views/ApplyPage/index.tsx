@@ -157,13 +157,11 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   }, [errors.picture]);
 
   useEffect(() => {
-    if (errors.attendance || errors.personalInformation) {
-      if (
-        (Object.keys(errors).length === 2 && errors.attendance && errors.personalInformation) ||
-        (Object.keys(errors).length === 1 && (errors.attendance || errors.personalInformation))
-      )
-        navigate('#check-necessary');
-    }
+    if (
+      (Object.keys(errors).length === 2 && errors.attendance && errors.personalInformation) ||
+      (Object.keys(errors).length === 1 && (errors.attendance || errors.personalInformation))
+    )
+      navigate('#check-necessary');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.attendance, errors.personalInformation]);
 
