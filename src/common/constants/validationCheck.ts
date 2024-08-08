@@ -59,4 +59,8 @@ export const VALIDATION_CHECK = {
     maxLength: 40,
     errorText: '잘못된 입력 형식이에요.',
   },
+  fileInput: {
+    errorText: '파일 크기가 너무 커요. 50MB 이하로 선택해주세요.',
+    errorTextUnknownError: '파일 업로드에 실패했어요. 문제가 반복된다면 상단 ‘문의하기’를 이용해주세요.',
+  },
 };
