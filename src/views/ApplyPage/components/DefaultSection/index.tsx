@@ -36,7 +36,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     setError,
     formState: { errors },
   } = useFormContext();
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | null>('');
 
   const hasImage = image !== 'max-size' && (pic || image);
 
@@ -60,6 +60,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
     reader.onloadend = () => {
       clearErrors('picture');
       setImage(reader.result as string);
+      setValue('picture', imageFile);
     };
   };
 

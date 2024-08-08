@@ -1,4 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
+import { DevTool } from '@hookform/devtools';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -235,7 +236,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
     const answers = JSON.stringify(answersValue);
     const formValues: ApplyRequest = {
-      picture: picture?.[0],
+      picture,
       pictureUrl: errors.picture ? undefined : applicantDraft?.pic,
       part,
       address,
