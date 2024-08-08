@@ -109,7 +109,7 @@ const ReviewPage = () => {
         <div className={container}>
           <ApplyHeader isReview={isReview} />
           <ApplyInfo isReview={isReview} />
-          <ApplyCategory minIndex={minIndex} />
+          <ApplyCategory isReview={isReview} minIndex={minIndex} />
           <form id="apply-form" name="apply-form" className={formContainer}>
             <DefaultSection
               isMakers={isMakers}

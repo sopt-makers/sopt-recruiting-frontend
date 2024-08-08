@@ -286,7 +286,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           onSubmitData={handleSubmit(handleApplySubmit)}
         />
         <ApplyInfo isReview={isReview} />
-        <ApplyCategory minIndex={minIndex} />
+        <ApplyCategory isReview={isReview} minIndex={minIndex} />
         <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
           <DefaultSection
             isMakers={isMakers}
