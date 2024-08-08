@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 
 import 'firebase/compat/storage';
 import { STATE_CHANGED, storage } from '@constants/firebase.ts';
+import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import IconPlusButton from './icons/IconPlusButton';
 import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
@@ -21,19 +22,34 @@ const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
-  const [isError, setIsError] = useState(false);
-  const [uploadPercent, setUploadPercent] = useState(-1);
-  const [file, setFile] = useState<File | null>(null);
-
-  const fileName = file ? file.name : '';
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { register, setValue, clearErrors, getValues } = useFormContext();
+  const [uploadPercent, setUploadPercent] = useState(-1);
+  const [fileName, setFileName] = useState('');
+
+  const isFileUploading = uploadPercent < 100 && uploadPercent >= 0;
+  const isFileSending = uploadPercent === 100;
+  const disabledStatus = disabled || isReview || isFileUploading || isFileSending;
+
+  const {
+    register,
+    setValue,
+    setError,
+    clearErrors,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
+
+  const fileAnswer = getValues(`${section}${id}`);
+  const isFileDeleted = getValues(`file${id}Deleted`);
+  const fileValue = getValues(`file${id}`);
+
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
   const handleFileUpload = (file: File, id: number) => {
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
+
     track(`click-apply-add_file${id}`);
 
     uploadTask.on(
@@ -44,37 +60,48 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       },
       (error) => {
         console.error(error);
-        throw error;
+        setError(`file${id}`, { type: 'unknownError', message: VALIDATION_CHECK.fileInput.errorTextUnknownError });
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           const urlWithoutToken = url.split('&token=')[0];
-          setFile(file);
+
+          setFileName(file.name);
           setValue(`file${id}`, {
             recruitingQuestionId: id,
             file: urlWithoutToken,
             fileName: file.name,
           });
-          getValues(`${section}${id}`) === '' && setValue(`${section}${id}`, '파일 제출');
-          clearErrors(`${section}${id}`);
+          fileAnswer === '' && setValue(`${section}${id}`, '파일 제출');
+          setValue(`file${id}Deleted`, false);
+          setUploadPercent(-1);
           track(`done-apply-add_file${id}`);
         });
       },
     );
   };
 
+  const handleDeleteFileValue = () => {
+    setValue(`file${id}`, undefined);
+    setValue(`file${id}Deleted`, true);
+    fileAnswer === '파일 제출' && setValue(`${section}${id}`, '');
+  };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
+
     if (file) {
       if (LIMIT_SIZE < file.size) {
-        setIsError(true);
+        setError(`file${id}`, { type: 'maxLength', message: VALIDATION_CHECK.fileInput.errorText });
+        setUploadPercent(-1);
+        setFileName('delete-file');
+        handleDeleteFileValue();
+
         if (inputRef.current) {
           inputRef.current.value = '';
         }
-        setFile(null);
       } else {
-        setIsError(false);
-        setFile(null);
+        clearErrors(`file${id}`);
         handleFileUpload(file, id);
       }
     }
@@ -82,17 +109,11 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleClickIcon = () => {
     if (inputRef.current) {
-      if (file) {
+      if (fileName !== 'delete-file' && (fileName || defaultFileName)) {
         inputRef.current.value = '';
-        setFile(null);
-        setValue(`file${id}`, undefined);
+        setFileName('delete-file');
+        handleDeleteFileValue();
         setUploadPercent(-1);
-        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
-        track(`click-apply-remove_file${id}`);
-      } else if (uploadPercent !== -2 && defaultFileName) {
-        setUploadPercent(-2);
-        setValue(`file${id}`, undefined);
-        getValues(`${section}${id}`) === '파일 제출' && setValue(`${section}${id}`, '');
         track(`click-apply-remove_file${id}`);
       } else {
         inputRef.current.click();
@@ -100,7 +121,28 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     }
   };
 
+  const getFileNameClass = () => {
+    return (!defaultFileName && fileName === '') || (defaultFileName && isFileDeleted) || fileName === 'delete-file'
+      ? 'default'
+      : 'selected';
+  };
+
+  const getDisplayText = () => {
+    if (uploadPercent === -1 && fileName === '' && defaultFileName && !isFileDeleted) return defaultFileName;
+    else if (uploadPercent === -1 && (fileName === '' || fileName === 'delete-file')) return '50mb 이하 | pdf';
+    else if (isFileUploading) return `업로드 중... ${uploadPercent}/100% 완료`;
+    else if (isFileSending) return '파일을 전송하고 있어요... 잠시만 기다려주세요...';
+    else return fileName;
+  };
+
   useEffect(() => {
+    if (isFileDeleted) return;
+
+    if (fileValue) {
+      setFileName(fileValue.fileName);
+      return;
+    }
+
     if (defaultFileId && defaultFileUrl && defaultFileName) {
       setValue(`file${defaultFileId}`, {
         file: defaultFileUrl,
@@ -108,7 +150,9 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         recruitingQuestionId: defaultFileId,
       });
     }
-  }, [defaultFileId, defaultFileUrl, defaultFileName, setValue]);
+
+    if (fileValue && fileAnswer === '') setValue(`${section}${id}`, '파일 제출');
+  }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, fileValue, fileAnswer, isFileDeleted, setValue]);
 
   return (
     <div className={container}>
@@ -120,42 +164,23 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
         className={`amp-unmask ${fileInput}`}
-        disabled={
-          disabled ||
-          isReview ||
-          (uploadPercent >= 0 && uploadPercent < 100) ||
-          (uploadPercent === 100 && fileName === '')
-        }
+        disabled={disabledStatus}
       />
       <label
         htmlFor={`file-${id}`}
-        className={fileLabelVar[isError ? 'error' : fileName === '' ? 'default' : 'selected']}>
+        className={fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
-          {(uploadPercent !== -1 || !defaultFileName) && (
-            <span className={fileNameVar[fileName === '' ? 'default' : 'selected']}>
-              {uploadPercent < 0 && fileName === ''
-                ? '50mb 이하 | pdf'
-                : uploadPercent < 100
-                  ? `업로드 중... ${uploadPercent}/100% 완료`
-                  : uploadPercent === 100 && fileName === ''
-                    ? '파일을 전송하고 있어요... 잠시만 기다려주세요...'
-                    : fileName}
-            </span>
-          )}
-          {uploadPercent === -1 && defaultFileName && (
-            <span className={fileNameVar['selected']}>{defaultFileName}</span>
-          )}
+          <span className={fileNameVar[getFileNameClass()]}>{getDisplayText()}</span>
         </div>
         <IconPlusButton
-          isSelected={getValues()[`file${id}`]}
+          isSelected={fileName !== 'delete-file' && fileValue}
           onClickIcon={handleClickIcon}
-          disabled={disabled || isReview}
+          disabled={disabledStatus}
         />
       </label>
-      {isError && <p className={errorText}>첨부파일 용량을 초과했어요</p>}
+      {errors[`file${id}`] && <p className={errorText}>{errors[`file${id}`]?.message as string}</p>}
     </div>
   );
 };
-
 export default FileInput;

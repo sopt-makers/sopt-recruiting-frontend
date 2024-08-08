@@ -1,4 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
+import { DevTool } from '@hookform/devtools';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -153,12 +154,17 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       return;
     }
 
-    if (errors.attendance || errors.personalInformation) {
-      if (Object.keys(errors).length > 2) return;
-      navigate('#check-necessary');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errors.picture, errors.attendance, errors.personalInformation]);
+  }, [errors.picture]);
+
+  useEffect(() => {
+    if (
+      (Object.keys(errors).length === 2 && errors.attendance && errors.personalInformation) ||
+      (Object.keys(errors).length === 1 && (errors.attendance || errors.personalInformation))
+    )
+      navigate('#check-necessary');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors.attendance, errors.personalInformation]);
 
   useEffect(() => {
     if (isReview) return;
@@ -235,7 +241,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
     const answers = JSON.stringify(answersValue);
     const formValues: ApplyRequest = {
-      picture: picture?.[0],
+      picture,
       pictureUrl: errors.picture ? undefined : applicantDraft?.pic,
       part,
       address,
