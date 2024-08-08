@@ -1,4 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
+import { DevTool } from '@hookform/devtools';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -69,6 +70,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     setValue,
     formState: { errors },
     clearErrors,
+    control,
   } = methods;
 
   const {
@@ -262,69 +264,72 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <DraftDialog ref={draftDialog} />
-      <SubmitDialog
-        userInfo={{
-          name,
-          email,
-          phone,
-          part,
-        }}
-        dataIsPending={submitIsPending}
-        ref={submitDialog}
-        onSendData={() => {
-          handleSendData('submit');
-          submitDialog.current?.close();
-        }}
-      />
-      <div className={container}>
-        <ApplyHeader
-          isReview={isReview}
-          isLoading={draftIsPending || submitIsPending}
-          onSaveDraft={() => handleSendData('draft')}
-          onSubmitData={handleSubmit(handleApplySubmit)}
+    <>
+      <FormProvider {...methods}>
+        <DraftDialog ref={draftDialog} />
+        <SubmitDialog
+          userInfo={{
+            name,
+            email,
+            phone,
+            part,
+          }}
+          dataIsPending={submitIsPending}
+          ref={submitDialog}
+          onSendData={() => {
+            handleSendData('submit');
+            submitDialog.current?.close();
+          }}
         />
-        <ApplyInfo isReview={isReview} />
-        <ApplyCategory minIndex={minIndex} />
-        <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
-          <DefaultSection
-            isMakers={isMakers}
+        <div className={container}>
+          <ApplyHeader
             isReview={isReview}
-            refCallback={refCallback}
-            applicantDraft={applicantDraft}
+            isLoading={draftIsPending || submitIsPending}
+            onSaveDraft={() => handleSendData('draft')}
+            onSubmitData={handleSubmit(handleApplySubmit)}
           />
-          <CommonSection
-            isReview={isReview}
-            refCallback={refCallback}
-            questions={commonQuestions?.questions}
-            commonQuestionsDraft={commonQuestionsDraft}
-          />
-          <PartSection
-            isReview={isReview}
-            refCallback={refCallback}
-            part={applicantDraft?.part}
-            questions={partQuestions}
-            partQuestionsDraft={partQuestionsDraft}
-            questionTypes={questionTypes}
-          />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
-          {!isReview && (
-            <div className={buttonWrapper}>
-              <Button
-                isLoading={draftIsPending || submitIsPending}
-                onClick={() => handleSendData('draft')}
-                buttonStyle="line">
-                임시저장
-              </Button>
-              <Button isLoading={draftIsPending || submitIsPending} type="submit">
-                제출하기
-              </Button>
-            </div>
-          )}
-        </form>
-      </div>
-    </FormProvider>
+          <ApplyInfo isReview={isReview} />
+          <ApplyCategory minIndex={minIndex} />
+          <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+            <DefaultSection
+              isMakers={isMakers}
+              isReview={isReview}
+              refCallback={refCallback}
+              applicantDraft={applicantDraft}
+            />
+            <CommonSection
+              isReview={isReview}
+              refCallback={refCallback}
+              questions={commonQuestions?.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+            />
+            <PartSection
+              isReview={isReview}
+              refCallback={refCallback}
+              part={applicantDraft?.part}
+              questions={partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
+              questionTypes={questionTypes}
+            />
+            <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
+            {!isReview && (
+              <div className={buttonWrapper}>
+                <Button
+                  isLoading={draftIsPending || submitIsPending}
+                  onClick={() => handleSendData('draft')}
+                  buttonStyle="line">
+                  임시저장
+                </Button>
+                <Button isLoading={draftIsPending || submitIsPending} type="submit">
+                  제출하기
+                </Button>
+              </div>
+            )}
+          </form>
+        </div>
+      </FormProvider>
+      <DevTool control={control} />
+    </>
   );
 };
 
