@@ -1,7 +1,9 @@
 import { ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { inputLine, inputVar } from './style.css';
+import { useDevice } from '@hooks/useDevice';
+
+import { inputFontVar, inputLineVar, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
 import { formatPhoneNumber } from './utils/formatPhoneNumber';
 import { TextBoxProps } from '../../types';
@@ -17,6 +19,7 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'label' | 'size'>) => {
+  const DEVICE_TYPE = useDevice();
   const {
     register,
     formState: { errors },
@@ -43,11 +46,11 @@ const InputLine = ({
 
   return (
     <>
-      <div className={inputLine}>
+      <div className={inputLineVar[DEVICE_TYPE]}>
         <input
           id={name}
           defaultValue={defaultValue}
-          className={inputVar[errors[name] ? 'error' : 'default']}
+          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFontVar[DEVICE_TYPE]}`}
           {...inputElementProps}
           {...register(name, {
             required: required && '필수 입력 항목이에요.',

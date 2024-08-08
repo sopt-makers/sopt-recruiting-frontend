@@ -7,7 +7,6 @@ const description = style({
   gap: 10,
 
   color: theme.color.lightestText,
-  ...theme.font.LABEL_2_16_SB,
 });
 
 export const descriptionVar = styleVariants(
@@ -22,3 +21,9 @@ export const descriptionVar = styleVariants(
     },
   ],
 );
+
+export const descriptionFontVar = styleVariants({
+  DESK: { ...theme.font.LABEL_2_16_SB },
+  TAB: { ...theme.font.LABEL_2_16_SB },
+  MOB: { ...theme.font.LABEL_3_14_SB },
+});

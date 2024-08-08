@@ -12,7 +12,6 @@ export const container = style({
   top: 0,
   maxWidth: 1440,
   width: '100%',
-  minWidth: 1000,
   margin: '0 auto',
   padding: '22px 156px 22px 150px',
 
