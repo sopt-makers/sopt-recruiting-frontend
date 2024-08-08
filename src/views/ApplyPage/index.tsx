@@ -56,10 +56,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
-  useEffect(() => {
-    // TEST
-    console.log('🟡', applicantDraft?.pic);
-  }, []);
 
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
@@ -260,8 +256,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
     type === 'draft' ? track('click-apply-draft') : track('click-apply-confirm_submit');
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
-    //TEST
-    console.log('🔴', { picture: formValues.picture, pictureUrl: formValues.pictureUrl });
   };
 
   const handleApplySubmit = () => {

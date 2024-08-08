@@ -50,8 +50,6 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 
     const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
     if (LIMIT_SIZE < imageFile.size) {
-      // TEST
-      console.log('🤬ERROR : ', imageFile);
       setValue('picture', null);
       setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
       setImage('max-size');
