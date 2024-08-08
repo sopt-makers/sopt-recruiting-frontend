@@ -153,12 +153,16 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       return;
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors.picture]);
+
+  useEffect(() => {
     if (errors.attendance || errors.personalInformation) {
-      if (Object.keys(errors).length > 2) return;
-      navigate('#check-necessary');
+      if (Object.keys(errors).length === 1 && (errors.attendance || errors.personalInformation))
+        navigate('#check-necessary');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errors.picture, errors.attendance, errors.personalInformation]);
+  }, [errors.attendance, errors.personalInformation]);
 
   useEffect(() => {
     if (isReview) return;
