@@ -7,13 +7,14 @@ import { CATEGORY } from './constant';
 import { activeLinkStyle, categoryLinkStyle, categoryList, container } from './style.css';
 
 interface ApplyCategoryProps {
+  isReview: boolean;
   minIndex: number;
 }
-const ApplyCategory = memo(({ minIndex }: ApplyCategoryProps) => {
-  const { isScrollingDown, isScrollTop } = useScrollPosition(950);
+const ApplyCategory = memo(({ isReview, minIndex }: ApplyCategoryProps) => {
+  const { isScrollingDown, isScrollTop } = useScrollPosition(isReview ? 380 : 950);
 
   return (
-    <nav className={container[minIndex !== -1 && isScrollingDown && !isScrollTop ? 'scrollDown' : 'scrollUp']}>
+    <nav className={container[isScrollingDown && !isScrollTop ? 'scrollDown' : 'scrollUp']}>
       <ul className={categoryList}>
         {CATEGORY.map(({ index, text, path }) => (
           <li key={path}>
