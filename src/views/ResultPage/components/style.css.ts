@@ -19,14 +19,38 @@ export const container = style({
   },
 });
 
-export const contentWrapper = style({
+const contentWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  width: 720,
-  gap: 50,
-  margin: '90px auto 0',
   color: theme.color.baseText,
   ...theme.font.BODY_1_18_M,
+});
+
+export const contentWrapperVar = styleVariants({
+  DESK: [
+    contentWrapper,
+    {
+      margin: '90px auto 0',
+      width: 720,
+      gap: 50,
+    },
+  ],
+  TAB: [
+    contentWrapper,
+    {
+      margin: '90px auto 0',
+      width: 367,
+      gap: 50,
+    },
+  ],
+  MOB: [
+    contentWrapper,
+    {
+      margin: '43px auto 0',
+      width: 312,
+      gap: 30,
+    },
+  ],
 });
 
 export const content = style({

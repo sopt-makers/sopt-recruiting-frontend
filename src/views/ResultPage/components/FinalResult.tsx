@@ -3,6 +3,7 @@ import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -12,7 +13,7 @@ import {
   bottomSvg,
   container,
   content,
-  contentWrapper,
+  contentWrapperVar,
   link,
   strongText,
 } from './style.css';
@@ -88,6 +89,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const FinalResult = () => {
+  const DEVICE_TYPE = useDevice();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
   const {
     recruitingInfo: { isMakers },
@@ -106,7 +108,7 @@ const FinalResult = () => {
 
   return (
     <section className={container}>
-      <div className={contentWrapper}>
+      <div className={contentWrapperVar[DEVICE_TYPE]}>
         <Title>결과 확인</Title>
         <Content pass={pass} />
       </div>
