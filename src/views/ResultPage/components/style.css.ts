@@ -114,7 +114,8 @@ export const bottomSvg = style({
   position: 'absolute',
   bottom: 0,
   right: 0,
-  margin: '0px 130px 140px 0px',
+  marginBottom: 'calc(56px + (64 * ((100vw - 768px) / 672)))',
+  marginRight: 'calc(40px + (60 * ((100vw - 768px) / 672)))',
   width: 584,
 });
 
