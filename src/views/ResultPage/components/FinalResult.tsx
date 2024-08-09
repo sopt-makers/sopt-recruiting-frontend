@@ -15,6 +15,7 @@ import {
   contentVar,
   contentWrapperVar,
   link,
+  scrollBottomGradVar,
   strongText,
 } from './style.css';
 import IconMakersLogo from '../assets/IconMakersLogo';
@@ -130,6 +131,7 @@ const FinalResult = () => {
           )}
         </>
       )}
+      <div className={scrollBottomGradVar[DEVICE_TYPE]} />
     </section>
   );
 };

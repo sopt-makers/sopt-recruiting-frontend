@@ -143,3 +143,33 @@ export const bottomSvg = style({
 export const link = style({
   borderBottom: '1px solid currentColor',
 });
+
+const scrollBottomGrad = style({
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);',
+  zIndex: Z_INDEX.resultGrad,
+});
+
+export const scrollBottomGradVar = styleVariants({
+  DESK: [
+    scrollBottomGrad,
+    {
+      height: 220,
+    },
+  ],
+  TAB: [
+    scrollBottomGrad,
+    {
+      height: 220,
+    },
+  ],
+  MOB: [
+    scrollBottomGrad,
+    {
+      height: 110,
+    },
+  ],
+});
