@@ -58,6 +58,27 @@ export const content = style({
   zIndex: Z_INDEX.resultContent,
 });
 
+export const contentVar = styleVariants({
+  DESK: [
+    content,
+    {
+      paddingBottom: 202,
+    },
+  ],
+  TAB: [
+    content,
+    {
+      paddingBottom: 170,
+    },
+  ],
+  MOB: [
+    content,
+    {
+      paddingBottom: 107,
+    },
+  ],
+});
+
 export const strongText = styleVariants({
   sopt: {
     color: theme.color.primary,

@@ -12,7 +12,7 @@ import {
   bottomImg,
   bottomSvg,
   container,
-  content,
+  contentVar,
   contentWrapperVar,
   link,
   strongText,
@@ -23,6 +23,7 @@ import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
+  const DEVICE_TYPE = useDevice();
   const {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
   } = useContext(RecruitingInfoContext);
@@ -36,8 +37,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
   return (
     <>
-      {pass ? (
-        <p className={content}>
+      {!pass ? (
+        <p className={contentVar[DEVICE_TYPE]}>
           <span>{`안녕하세요. SOPT ${soptName} 입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span>
@@ -67,7 +68,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           </span>
         </p>
       ) : (
-        <p className={content}>
+        <p className={contentVar[DEVICE_TYPE]}>
           {`안녕하세요, SOPT ${soptName}입니다.
           
           SOPT makers에 관심을 갖고 지원해 주셔서 감사드립니다.
@@ -108,11 +109,13 @@ const FinalResult = () => {
 
   return (
     <section className={container}>
+      <div style={{ overflow: 'auto', height: '100%' }}>
       <div className={contentWrapperVar[DEVICE_TYPE]}>
         <Title>결과 확인</Title>
         <Content pass={pass} />
       </div>
-      {pass && (
+      </div>
+      {DEVICE_TYPE !== 'MOB' && pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (
