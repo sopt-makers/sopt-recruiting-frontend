@@ -38,7 +38,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
   return (
     <>
-      {!pass ? (
+      {pass ? (
         <p className={contentVar[DEVICE_TYPE]}>
           <span>{`안녕하세요. SOPT ${soptName} 입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
