@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
+import { MouseEvent, useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
@@ -34,15 +34,25 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => {
   const DEVICE_TYPE = useDevice();
 
+  const handlePreventMobile = (e: MouseEvent<HTMLButtonElement>) => {
+    track(trackingEvent);
+
+    const isMobile = /Mobi/i.test(window.navigator.userAgent);
+    if (isMobile) {
+      alert('PC로 이용해주세요.');
+      e.preventDefault();
+      return;
+    }
+    if (DEVICE_TYPE !== 'DESK') {
+      alert('전체화면 이용을 권장드려요.');
+      return;
+    }
+  };
+
   return (
     <li className={buttonValue}>
       <span className={infoLabelVar[DEVICE_TYPE]}>{label}</span>
-      <Button
-        isLink
-        to={to}
-        className={buttonWidthVar[DEVICE_TYPE]}
-        onClick={() => track(trackingEvent)}
-        padding="15x25">
+      <Button isLink to={to} className={buttonWidthVar[DEVICE_TYPE]} onClick={handlePreventMobile} padding="15x25">
         {label === '지원서' ? '지원서 확인' : '결과 확인'}
       </Button>
     </li>
