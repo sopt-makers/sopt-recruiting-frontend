@@ -54,8 +54,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span>{`( 구글폼 : `}</span>
-          <a className={link} href={import.meta.env.VITE_FINAL_PASS_LINK} target="_blank" rel="noreferrer noopener">
-            {import.meta.env.VITE_FINAL_PASS_LINK}
+          <a
+            className={link}
+            href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
+            target="_blank"
+            rel="noreferrer noopener">
+            {`https://${DEVICE_TYPE !== 'DESK' && '\n'}${import.meta.env.VITE_FINAL_PASS_LINK}`}
           </a>
           <span>{` )\n`}</span>
           <br />
@@ -64,7 +68,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
             제출해주신 구글 폼을 통해 순차적으로 워크스페이스 초대해드릴 예정이며
             금일 중으로 카카오톡 단체 대화방에 초대해드릴 예정이니 참고 부탁드립니다. 
             
-            다시 한 번 SOPT ${soptName} ${season}기 합류를 진심으로 축하드립니다! SOPT ${soptName} 운영진 드림
+            다시 한 번 SOPT ${soptName} ${season}기 합류를 진심으로 축하드립니다! 
+            
+            SOPT ${soptName} 운영진 드림
             `}
           </span>
         </p>

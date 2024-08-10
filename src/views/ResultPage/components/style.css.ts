@@ -163,7 +163,7 @@ export const scrollBottomGradVar = styleVariants({
   TAB: [
     scrollBottomGrad,
     {
-      height: 220,
+      height: 170,
     },
   ],
   MOB: [

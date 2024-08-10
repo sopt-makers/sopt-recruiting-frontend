@@ -59,8 +59,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span>{`( 구글폼 : `}</span>
-          <a className={link} href={import.meta.env.VITE_SCREENING_PASS_LINK} target="_blank" rel="noreferrer noopener">
-            {import.meta.env.VITE_SCREENING_PASS_LINK}
+          <a
+            className={link}
+            href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+            target="_blank"
+            rel="noreferrer noopener">
+            {`https://${DEVICE_TYPE !== 'DESK' && '\n'}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
           </a>
           <span>{` )\n`}</span>
           <br />
