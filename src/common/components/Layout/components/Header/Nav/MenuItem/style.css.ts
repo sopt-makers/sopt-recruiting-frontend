@@ -50,6 +50,7 @@ export const menuLinkVar = styleVariants(
       },
       active: {
         color: theme.color.whiteButtonFill,
+        fontWeight: 'bolder',
       },
     },
     MOB: {
@@ -58,6 +59,7 @@ export const menuLinkVar = styleVariants(
       },
       active: {
         color: theme.color.whiteButtonFill,
+        fontWeight: 'bolder',
       },
     },
   },
