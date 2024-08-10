@@ -127,17 +127,31 @@ export const buttonValue = style([
   },
 ]);
 
+const buttonWidth = style({
+  paddingLeft: 0,
+  paddingRight: 0,
+});
+
 export const buttonWidthVar = styleVariants({
-  DESK: {
-    width: 132,
-    letterSpacing: '-0.36px',
-  },
-  TAB: {
-    width: 132,
-    letterSpacing: '-0.36px',
-  },
-  MOB: {
-    width: 111,
-    letterSpacing: '-0.24px',
-  },
+  DESK: [
+    buttonWidth,
+    {
+      width: 132,
+      letterSpacing: '-0.36px',
+    },
+  ],
+  TAB: [
+    buttonWidth,
+    {
+      width: 132,
+      letterSpacing: '-0.36px',
+    },
+  ],
+  MOB: [
+    buttonWidth,
+    {
+      width: 111,
+      letterSpacing: '-0.24px',
+    },
+  ],
 });
