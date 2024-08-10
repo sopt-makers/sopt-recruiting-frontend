@@ -15,7 +15,6 @@ const container = style({
   margin: '0 auto',
 
   zIndex: Z_INDEX.gnbHeader,
-  transition: 'all 0.3s ease',
 });
 
 export const containerVar = styleVariants({
@@ -61,4 +60,6 @@ export const dimmedBg = style({
   height: '100dvh',
   backgroundColor: theme.color.backgroundDimmed,
   zIndex: Z_INDEX.gnbBg,
+
+  cursor: 'pointer',
 });

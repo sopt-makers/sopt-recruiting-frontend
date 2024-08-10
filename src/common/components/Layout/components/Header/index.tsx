@@ -59,7 +59,7 @@ const Header = () => {
           {isMenuOpen && (
             <>
               <MenuList />
-              <div className={dimmedBg} />
+              <div className={dimmedBg} onClick={handleClickMenuToggle} />
             </>
           )}
         </>
