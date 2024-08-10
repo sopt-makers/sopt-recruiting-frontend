@@ -23,6 +23,7 @@ import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
+  const DEVICE_TYPE = useDevice();
   const {
     recruitingInfo: { name, soptName, season, interviewStart, interviewEnd, applicationPassConfirmStart, isMakers },
   } = useContext(RecruitingInfoContext);
