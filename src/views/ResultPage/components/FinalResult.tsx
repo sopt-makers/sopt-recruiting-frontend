@@ -117,10 +117,10 @@ const FinalResult = () => {
   return (
     <section className={container}>
       <div style={{ overflow: 'auto', height: '100%' }}>
-      <div className={contentWrapperVar[DEVICE_TYPE]}>
-        <Title>결과 확인</Title>
-        <Content pass={pass} />
-      </div>
+        <div className={contentWrapperVar[DEVICE_TYPE]}>
+          <Title>결과 확인</Title>
+          <Content pass={pass} />
+        </div>
       </div>
       {DEVICE_TYPE !== 'MOB' && pass && (
         <>
