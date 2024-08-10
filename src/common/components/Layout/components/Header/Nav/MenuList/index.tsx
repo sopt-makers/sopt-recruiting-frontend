@@ -1,18 +1,31 @@
 import { reset, track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
-import { menuList, menuMobListVar } from './style.css';
+import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style.css';
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../../contants';
 import MenuItem from '../MenuItem';
 
-const MenuList = () => {
+const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
   const DEVICE_TYPE = useDevice();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [isShown, setIsShown] = useState(isMenuOpen);
+  const [animation, setAnimation] = useState<'open' | 'close'>(isMenuOpen ? 'open' : 'close');
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsShown(true);
+      setAnimation('open');
+    } else {
+      setAnimation('close');
+      const timer = setTimeout(() => setIsShown(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isMenuOpen]);
 
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
@@ -28,9 +41,12 @@ const MenuList = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
 
+  if (onClickMenuToggle && !isShown) return null;
+
   return (
     <nav>
-      <ul className={DEVICE_TYPE !== 'DESK' ? menuMobListVar[DEVICE_TYPE] : menuList}>
+      <ul
+        className={DEVICE_TYPE !== 'DESK' ? `${menuMobListVar[DEVICE_TYPE]} ${menuContainerVar[animation]}` : menuList}>
         {!isSignedIn && (
           <>
             {menuItems.map(({ text, path, target, amplitudeId }) => (
@@ -49,6 +65,7 @@ const MenuList = () => {
           </>
         )}
       </ul>
+      {onClickMenuToggle && isShown && <div className={dimmedBgVar[animation]} onClick={onClickMenuToggle} />}
     </nav>
   );
 };

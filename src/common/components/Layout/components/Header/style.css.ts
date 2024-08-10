@@ -15,6 +15,7 @@ const container = style({
   margin: '0 auto',
 
   zIndex: Z_INDEX.gnbHeader,
+  transition: 'background-color 0.3s ease',
 });
 
 export const containerVar = styleVariants({
@@ -51,15 +52,3 @@ export const logoVar = styleVariants(
     },
   ],
 );
-
-export const dimmedBg = style({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100dvh',
-  backgroundColor: theme.color.backgroundDimmed,
-  zIndex: Z_INDEX.gnbBg,
-
-  cursor: 'pointer',
-});
