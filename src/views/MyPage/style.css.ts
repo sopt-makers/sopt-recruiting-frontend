@@ -13,21 +13,21 @@ export const containerVar = styleVariants({
     container,
     {
       gap: 50,
-      marginTop: 90,
+      margin: '90px 0 70px',
     },
   ],
   TAB: [
     container,
     {
       gap: 50,
-      marginTop: 90,
+      margin: '90px 0 191px',
     },
   ],
   MOB: [
     container,
     {
       gap: 30,
-      marginTop: 23,
+      margin: '23px 0 74px',
     },
   ],
 });
