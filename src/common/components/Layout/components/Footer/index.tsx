@@ -1,10 +1,12 @@
+import { useDevice } from '@hooks/useDevice';
+
 import { CHANNELS } from './constants';
 import IconArrowRight from './icons/IconArrowRight';
 import {
   channelWrapper,
-  container,
+  containerVar,
   copyRightText,
-  leftWrapper,
+  leftWrapperVar,
   rightWrapper,
   ruleButton,
   ruleText,
@@ -12,9 +14,10 @@ import {
 } from './style.css';
 
 const Footer = () => {
+  const DEVICE_TYPE = useDevice();
   return (
-    <footer className={container}>
-      <div className={leftWrapper}>
+    <footer className={containerVar[DEVICE_TYPE]}>
+      <div className={leftWrapperVar[DEVICE_TYPE]}>
         <a className={ruleButton} href="https://www.sopt.org/rules" target="_blank" rel="noreferrer noopener">
           <span className={ruleText}>SOPT 회칙</span>
           <IconArrowRight />
