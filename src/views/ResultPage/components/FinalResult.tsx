@@ -36,6 +36,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
     locale: ko,
   });
 
+  const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
     <>
       {pass ? (

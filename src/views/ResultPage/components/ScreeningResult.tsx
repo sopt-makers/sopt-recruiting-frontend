@@ -135,7 +135,7 @@ const ScreeningResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {DEVICE_TYPE !== 'MOB' && !pass && (
+      {DEVICE_TYPE !== 'MOB' && pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (

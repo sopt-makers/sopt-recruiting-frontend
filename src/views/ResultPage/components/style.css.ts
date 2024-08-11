@@ -95,6 +95,7 @@ const bottomAnimationBase = style({
   transform: 'translateX(-50%)',
   height: 100,
   borderRadius: '100%',
+  zIndex: Z_INDEX.resultAnim,
 });
 
 const animatedGradient = (bgColor: string) =>
