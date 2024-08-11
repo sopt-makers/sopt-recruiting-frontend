@@ -36,6 +36,7 @@ const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string;
 
   const handlePreventMobile = (e: MouseEvent<HTMLButtonElement>) => {
     track(trackingEvent);
+    if (label === '지원상태') return;
 
     const isMobile = /Mobi/i.test(window.navigator.userAgent);
     if (isMobile) {
@@ -82,19 +83,7 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        {NoMoreScreeningResult && NoMoreFinalResult && (
-          <MyInfoItem
-            label="지원상태"
-            value={applicationPass == null ? '제출 완료' : applicationPass ? '서류 합격' : '서류 불합격'}
-          />
-        )}
-        {!NoMoreScreeningResult && <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />}
-        {!NoMoreFinalResult &&
-          (applicationPass ? (
-            <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
-          ) : (
-            <MyInfoItem label="지원상태" value="서류 불합격" />
-          ))}
+        <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
         {NoMoreReview ? (
           <MyInfoItem label="지원서" value="제출 완료" />
         ) : (
