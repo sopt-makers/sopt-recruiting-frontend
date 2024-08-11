@@ -53,7 +53,7 @@ export const contentWrapperVar = styleVariants({
   ],
 });
 
-export const content = style({
+const content = style({
   whiteSpace: 'pre-line',
   zIndex: Z_INDEX.resultContent,
 });

@@ -12,9 +12,10 @@ import {
   bottomImg,
   bottomSvg,
   container,
-  content,
+  contentVar,
   contentWrapperVar,
   link,
+  scrollBottomGradVar,
   strongText,
 } from './style.css';
 import IconMakersLogo from '../assets/IconMakersLogo';
@@ -43,17 +44,18 @@ const Content = ({ pass }: { pass?: boolean }) => {
     locale: ko,
   });
 
+  const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
     <>
-      {pass ? (
-        <p className={content}>
-          <span>{`안녕하세요. SOPT ${soptName} 입니다.\n\n`}</span>
+      {!pass ? (
+        <p className={contentVar[DEVICE_TYPE]}>
+          <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span>
             {`
               서류 검토 결과, ${name}님은 인터뷰 대상자로 선정되셨습니다.
 
-              ${season}기 SOPT ${soptName} 인터뷰는 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 기간 중 진행될 예정입니다.
+              ${season}기 ${SOPT_NAME} 인터뷰는 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 기간 중 진행될 예정입니다.
   
               원할한 면접 진행을 위해, 아래 구글 폼에 불가능한 시간대를 모두 선택해 제출 부탁드립니다.
               ( 제출 마감 : ${formattedApplicationPassConfirmStart} 오후 8시 )
@@ -79,25 +81,25 @@ const Content = ({ pass }: { pass?: boolean }) => {
             정동규 : 010-8696-3713 
             감사합니다. 
               
-            SOPT makers 운영진 드림
+            ${SOPT_NAME} 운영진 드림
             `}
           </span>
         </p>
       ) : (
-        <p className={content}>
-          {`안녕하세요, SOPT ${soptName}입니다.
+        <p className={contentVar[DEVICE_TYPE]}>
+          {`안녕하세요, ${SOPT_NAME}입니다.
           
-          SOPT makers에 관심을 갖고 지원해 주셔서 감사드립니다.
+          ${SOPT_NAME}에 관심을 갖고 지원해 주셔서 감사드립니다.
 
           ${name}님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 합격 소식을 전해드리지 못하게 되었습니다.
 
           비록 이번 ${season}기 ${soptName}에 모시지 못하게 되었으나, ${soptName}에 지원하시고자 쓰인 소중한 시간과 노력이 지원자님께서 IT 창업인으로서 멋진 역할을 해나가시는 데 작게나마 도움이 되는 경험이 되시길 바랍니다.
 
-          SOPT ${soptName}에 귀한 시간을 내어주셔서 다시 한 번 깊이 감사드립니다 :)
+          ${SOPT_NAME}에 귀한 시간을 내어주셔서 다시 한 번 깊이 감사드립니다 :)
           향후에 더 좋은 인연으로 뵙기를 기다리겠습니다.
           감사합니다. 
           
-          SOPT ${soptName} 운영진 드림
+          ${SOPT_NAME} 운영진 드림
           `}
         </p>
       )}
@@ -127,11 +129,13 @@ const ScreeningResult = () => {
 
   return (
     <section className={container}>
-      <div className={contentWrapperVar[DEVICE_TYPE]}>
-        <Title>결과 확인</Title>
-        <Content pass={pass} />
+      <div style={{ overflow: 'auto', height: '100%' }}>
+        <div className={contentWrapperVar[DEVICE_TYPE]}>
+          <Title>결과 확인</Title>
+          <Content pass={pass} />
+        </div>
       </div>
-      {pass && (
+      {DEVICE_TYPE !== 'MOB' && !pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (
@@ -146,6 +150,7 @@ const ScreeningResult = () => {
           )}
         </>
       )}
+      <div className={scrollBottomGradVar[DEVICE_TYPE]} />
     </section>
   );
 };
