@@ -1,38 +1,10 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
-import { containerSize } from '@components/Input/constants';
 import { formColors } from '@constants/styleValues';
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
-export const container = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 9,
-
-  color: theme.color.black,
-  ...theme.font.BODY_1_18_M,
-});
-
-export const containerVar = styleVariants(containerSize, (size) => [container, { width: size }]);
-
-export const title = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 6,
-  width: 'fit-content',
-
-  color: theme.color.baseText,
-  cursor: 'pointer',
-  ...theme.font.TITLE_5_18_SB,
-});
-
-export const circle = style({
-  width: 8,
-  height: 8,
-  borderRadius: 4,
-  backgroundColor: theme.color.primary,
-});
+// Input과 공통되는 스타일 Input style 적용
 
 export const selectContainer = style({
   display: 'flex',

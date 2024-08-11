@@ -2,20 +2,15 @@ import { IconChevronDown } from '@sopt-makers/icons';
 import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import {
-  circle,
-  containerVar,
-  error,
-  icon,
-  optionContainer,
-  optionLabel,
-  selectContainer,
-  selectVariant,
-  title,
-} from './style.css';
+import { circle, containerVar, titleVar } from '@components/Input/components/TextBox/style.css';
+import { SizeType } from '@components/Input/types';
+import { useDevice } from '@hooks/useDevice';
+
+import { error, icon, optionContainer, optionLabel, selectContainer, selectVariant } from './style.css';
 import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
+  const DEVICE_TYPE = useDevice();
   const ampUnmask = name === 'part' || name === 'knownPath';
 
   const { register, formState, clearErrors, getValues, setValue, setError } = useFormContext();
@@ -33,9 +28,10 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
     }
   };
 
+  const STYLE_TYPE: SizeType = DEVICE_TYPE === 'MOB' ? DEVICE_TYPE : `${size}_${DEVICE_TYPE}`;
   return (
-    <div className={containerVar[size]}>
-      <label className={title} htmlFor={name}>
+    <div className={containerVar[STYLE_TYPE]}>
+      <label className={titleVar[DEVICE_TYPE]} htmlFor={name}>
         <span>{label}</span>
         {required && <i className={circle} />}
       </label>
