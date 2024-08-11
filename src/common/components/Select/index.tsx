@@ -6,7 +6,15 @@ import { circle, containerVar, titleVar } from '@components/Input/components/Tex
 import { SizeType } from '@components/Input/types';
 import { useDevice } from '@hooks/useDevice';
 
-import { error, icon, optionContainer, optionLabel, selectContainer, selectVariant } from './style.css';
+import {
+  errorVar,
+  iconVar,
+  optionContainerVar,
+  optionLabel,
+  selectContainer,
+  selectPaddingVar,
+  selectVariant,
+} from './style.css';
 import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
@@ -39,7 +47,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         <input
           id={name}
           type="text"
-          className={`${ampUnmask ? 'amp-unmask' : ''} ${selectVariant[errors?.[name] ? 'error' : 'selected']}`}
+          className={`${ampUnmask ? 'amp-unmask' : ''} ${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar[DEVICE_TYPE]}`}
           role="combobox"
           readOnly
           {...inputElementProps}
@@ -48,8 +56,8 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
           })}
           onBlur={handleBlur}
         />
-        <IconChevronDown className={icon} />
-        <ul className={optionContainer}>
+        <IconChevronDown className={iconVar[DEVICE_TYPE]} />
+        <ul className={optionContainerVar[DEVICE_TYPE]}>
           {options.map((option) => (
             <li role="option" key={option}>
               <input id={option} type="radio" name={name} onChange={handleChange} style={{ display: 'none' }} />
@@ -61,7 +69,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         </ul>
       </div>
       {errors?.[name] && (
-        <div className={error}>
+        <div className={errorVar[DEVICE_TYPE]}>
           <p>{errors[name]?.message as string}</p>
         </div>
       )}

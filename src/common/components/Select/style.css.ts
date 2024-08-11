@@ -18,7 +18,6 @@ export const select = style({
 
   flex: 1,
 
-  padding: 16,
   borderRadius: 12,
 
   ...theme.font.BODY_2_16_R,
@@ -54,10 +53,20 @@ export const selectVariant = styleVariants(formColors, ({ boxShadow, focusShadow
   },
 ]);
 
-export const icon = style({
+export const selectPaddingVar = styleVariants({
+  DESK: {
+    padding: 16,
+  },
+  TAB: {
+    padding: 16,
+  },
+  MOB: {
+    padding: '14px 16px',
+  },
+});
+
+const icon = style({
   position: 'absolute',
-  top: 17,
-  right: 16,
   width: 24,
   color: theme.color.dropdownButton,
 
@@ -74,13 +83,36 @@ export const icon = style({
   },
 });
 
+export const iconVar = styleVariants({
+  DESK: [
+    icon,
+    {
+      top: 17,
+      right: 16,
+    },
+  ],
+  TAB: [
+    icon,
+    {
+      top: 17,
+      right: 16,
+    },
+  ],
+  MOB: [
+    icon,
+    {
+      top: 14,
+      right: 16,
+    },
+  ],
+});
+
 export const optionContainer = style({
   display: 'flex',
   flexDirection: 'column',
 
   position: 'absolute',
   width: '100%',
-  top: 67,
 
   padding: '15px 8px',
   maxHeight: 224,
@@ -102,6 +134,27 @@ export const optionContainer = style({
       visibility: 'visible',
     },
   },
+});
+
+export const optionContainerVar = styleVariants({
+  DESK: [
+    optionContainer,
+    {
+      top: 67,
+    },
+  ],
+  TAB: [
+    optionContainer,
+    {
+      top: 67,
+    },
+  ],
+  MOB: [
+    optionContainer,
+    {
+      top: 63,
+    },
+  ],
 });
 export const optionLabel = style({
   display: 'flex',
@@ -126,7 +179,17 @@ export const optionLabel = style({
   },
 });
 
-export const error = style({
-  ...theme.font.LABEL_2_16_SB,
-  color: theme.color.error,
+export const errorVar = styleVariants({
+  DESK: {
+    ...theme.font.LABEL_2_16_SB,
+    color: theme.color.error,
+  },
+  TAB: {
+    ...theme.font.LABEL_2_16_SB,
+    color: theme.color.error,
+  },
+  MOB: {
+    ...theme.font.LABEL_3_14_SB,
+    color: theme.color.error,
+  },
 });
