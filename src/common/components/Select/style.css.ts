@@ -87,7 +87,7 @@ export const icon = style({
   top: 17,
   right: 16,
   width: 24,
-  color: theme.color.dropdownButton,
+  color: theme.color.grayButtonFill,
 
   transition: 'transform 0.3s ease-out',
 

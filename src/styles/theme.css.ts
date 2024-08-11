@@ -23,14 +23,14 @@ const color = createThemeContract({
 
   border: null, // border
 
-  resultBackground: null, // 합격페이지 background
+  blackBackground: null, // 합격페이지 background
   buttonText: null, // 마이페이지 button text
   errorButtonBackground: null, // 에러페이지 button background
   stickyButtonText: null, // 지원서 페이지 sticky button 선택안 된 항목 text
   fileUploadButton: null, // input file upload button
   fileUploadButtonHover: null, // input file upload button hover
-  fileUploadButtonInside: null, // input file upload button 안의 십자가
-  dropdownButton: null, // dropdown button 화살표
+  whiteButtonFill: null, // input file upload button 안의 십자가
+  grayButtonFill: null, // dropdown button 화살표
 
   white: null, // white
   black: null, // black
@@ -60,14 +60,14 @@ export const light = createTheme(color, {
 
   border: colors.gray50,
 
-  resultBackground: colors.gray950,
+  blackBackground: colors.gray950,
   buttonText: colors.gray400,
   errorButtonBackground: colors.gray30,
   stickyButtonText: colors.gray100,
   fileUploadButton: colors.gray400,
   fileUploadButtonHover: colors.gray900,
-  fileUploadButtonInside: colors.gray10,
-  dropdownButton: colors.gray300,
+  whiteButtonFill: colors.gray10,
+  grayButtonFill: colors.gray300,
 
   white: colors.white,
   black: colors.black,
@@ -97,14 +97,14 @@ export const dark = createTheme(color, {
 
   border: colors.gray50,
 
-  resultBackground: colors.gray950,
+  blackBackground: colors.gray950,
   buttonText: colors.gray400,
   errorButtonBackground: colors.gray30,
   stickyButtonText: colors.gray100,
   fileUploadButton: colors.gray400,
   fileUploadButtonHover: colors.gray900,
-  fileUploadButtonInside: colors.gray10,
-  dropdownButton: colors.gray300,
+  whiteButtonFill: colors.gray10,
+  grayButtonFill: colors.gray300,
 
   white: colors.white,
   black: colors.black,

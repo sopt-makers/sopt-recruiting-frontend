@@ -1,7 +1,9 @@
 import { track } from '@amplitude/analytics-browser';
 import { NavLink } from 'react-router-dom';
 
-import { menuItem, menuLink } from './style.css';
+import { useDevice } from '@hooks/useDevice';
+
+import { menuItemVar, menuLinkVar } from './style.css';
 
 interface MenuItemProps {
   text: string;
@@ -13,18 +15,20 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ text, path, target, amplitudeId, className, onClick }: MenuItemProps) => {
+  const DEVICE_TYPE = useDevice();
+
   return (
-    <li className={`${className} ${menuItem}`}>
+    <li className={`${className} ${menuItemVar[DEVICE_TYPE]}`}>
       {path ? (
         <NavLink
           to={path}
-          className={menuLink}
+          className={menuLinkVar[DEVICE_TYPE]}
           onClick={() => (amplitudeId ? track(amplitudeId) : null)}
           target={target}>
           {text}
         </NavLink>
       ) : (
-        <p className={`${onClick ? menuLink : null}`} onClick={onClick}>
+        <p className={`${onClick ? menuLinkVar[DEVICE_TYPE] : null}`} onClick={onClick}>
           {text}
         </p>
       )}
