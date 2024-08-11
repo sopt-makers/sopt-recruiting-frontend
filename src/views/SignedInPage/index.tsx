@@ -34,9 +34,9 @@ const SignedInPage = () => {
   return (
     <>
       <MyPage part={part} applicationPass={applicationPass} />
-      {/* {isComplete && <CompletePage />}
+      {isComplete && <CompletePage />}
       {!isComplete && submit && <MyPage part={part} applicationPass={applicationPass} />}
-      {!isComplete && !submit && <ApplyPage onSetComplete={handleSetComplete} />} */}
+      {!isComplete && !submit && <ApplyPage onSetComplete={handleSetComplete} />}
     </>
   );
 };
