@@ -1,6 +1,12 @@
-const MakersLogo = () => {
+const MakersLogo = ({ className }: { className?: string }) => {
   return (
-    <svg width="87" height="30" viewBox="0 0 87 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="87"
+      height="30"
+      viewBox="0 0 87 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}>
       <g clipPath="url(#clip0_2311_4700)">
         <path
           fillRule="evenodd"
