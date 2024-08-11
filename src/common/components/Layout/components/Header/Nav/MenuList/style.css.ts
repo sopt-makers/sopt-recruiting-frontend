@@ -1,44 +1,8 @@
-import { keyframes, style, styleVariants } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { Z_INDEX } from '@constants/zIndex';
+import { fadeIn, fadeInDown, fadeOut, fadeOutUp } from 'styles/animation.css';
 import { theme } from 'styles/theme.css';
-
-const fadeIn = keyframes({
-  '0%': {
-    opacity: 0,
-  },
-  '100%': {
-    opacity: 1,
-  },
-});
-const fadeOut = keyframes({
-  '0%': {
-    opacity: 1,
-  },
-  '100%': {
-    opacity: 0,
-  },
-});
-const fadeInDown = keyframes({
-  '0%': {
-    opacity: 0,
-    transform: 'translateY(-300px)',
-  },
-  '100%': {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-});
-const fadeOutUp = keyframes({
-  '0%': {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-  '100%': {
-    opacity: 0,
-    transform: 'translateY(-300px)',
-  },
-});
 
 export const menuContainerVar = styleVariants({
   open: {
