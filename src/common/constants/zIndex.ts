@@ -7,4 +7,6 @@ export const Z_INDEX = {
   applyCategory: 99,
   applyHeader: 99,
   resultContent: 2,
+  resultGrad: 3,
+  resultAnim: 4,
 };

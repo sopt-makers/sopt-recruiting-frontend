@@ -36,6 +36,7 @@ const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string;
 
   const handlePreventMobile = (e: MouseEvent<HTMLButtonElement>) => {
     track(trackingEvent);
+    if (label === '지원상태') return;
 
     const isMobile = /Mobi/i.test(window.navigator.userAgent);
     if (isMobile) {
