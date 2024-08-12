@@ -67,7 +67,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
             target="_blank"
             rel="noreferrer noopener">
-            {`https://${DEVICE_TYPE !== 'DESK' && '\n'}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+            {`https://${DEVICE_TYPE !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
           </a>
           <span>{` )\n`}</span>
           <br />
