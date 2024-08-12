@@ -12,6 +12,7 @@ const container = style({
   top: 0,
   maxWidth: 1440,
   width: '100%',
+  minWidth: 1000,
   margin: '0 auto',
 
   zIndex: Z_INDEX.gnbHeader,

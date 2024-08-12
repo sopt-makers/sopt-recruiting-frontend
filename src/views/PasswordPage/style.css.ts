@@ -1,33 +1,10 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
-const container = style({
+export const container = style({
   display: 'flex',
   flexDirection: 'column',
-});
+  gap: 50,
 
-export const containerVar = styleVariants({
-  DESK: [
-    container,
-    {
-      gap: 50,
-      margin: '90px 0 144px 0',
-      width: 466,
-    },
-  ],
-  TAB: [
-    container,
-    {
-      gap: 50,
-      margin: '75px 0 129px 0',
-      width: 367,
-    },
-  ],
-  MOB: [
-    container,
-    {
-      gap: 30,
-      margin: '43px 0 75px 0',
-      width: 312,
-    },
-  ],
+  margin: '90px auto 144px',
+  width: 466,
 });
