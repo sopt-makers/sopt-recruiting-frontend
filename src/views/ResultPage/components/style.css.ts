@@ -1,6 +1,5 @@
 import { colors } from '@sopt-makers/colors';
 import { keyframes, style, styleVariants } from '@vanilla-extract/css';
-import { calc } from '@vanilla-extract/css-utils';
 
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
@@ -8,15 +7,8 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   position: 'relative',
   width: '100%',
-  height: calc.subtract('100vh', '74px'),
   minHeight: 700,
   overflow: 'hidden',
-
-  '@supports': {
-    '(height: 100dvh)': {
-      height: calc.subtract('100dvh', '74px'),
-    },
-  },
 });
 
 const contentWrapper = style({
