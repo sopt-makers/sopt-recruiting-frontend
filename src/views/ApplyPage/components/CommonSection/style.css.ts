@@ -3,6 +3,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
 });
 
 export const sectionContainerVar = styleVariants({

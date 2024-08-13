@@ -5,6 +5,7 @@ import { theme } from 'styles/theme.css';
 const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
 });
 
 export const sectionContainerVar = styleVariants({
