@@ -4,7 +4,7 @@ export const Z_INDEX = {
   gnbBg: 97,
   select: 1,
   options: 2,
-  applyCategory: 90,
+  applyCategory: 80,
   applyHeader: 90,
   resultContent: 2,
   resultGrad: 3,
