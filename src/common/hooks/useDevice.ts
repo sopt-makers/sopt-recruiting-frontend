@@ -23,9 +23,9 @@ export function useIsMobile(maxWidth = '431px') {
   return isMobile;
 }
 
-export function useDevice(tabPoint?: string, mobPoint?: string): 'TAB' | 'MOB' | 'DESK' {
-  const isTablet = useIsTablet(mobPoint, tabPoint);
-  const isMobile = useIsMobile(mobPoint);
+export function useDevice({ mobMax, tabMax }: { mobMax?: string; tabMax?: string }): 'TAB' | 'MOB' | 'DESK' {
+  const isTablet = useIsTablet(mobMax, tabMax);
+  const isMobile = useIsMobile(mobMax);
 
   return isTablet ? 'TAB' : isMobile ? 'MOB' : 'DESK';
 }
