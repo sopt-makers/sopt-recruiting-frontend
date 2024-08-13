@@ -2,7 +2,7 @@ import { track } from '@amplitude/analytics-browser';
 
 import { useDevice } from '@hooks/useDevice';
 
-import { article, contactButtonVar, container, errorButtonVar, errorText, instructionVar } from '../../style.css';
+import { article, contactButtonVar, container, errorButtonVar, errorTextVar, instructionVar } from '../../style.css';
 
 interface NoMoreProps {
   isMakers?: boolean;
@@ -15,7 +15,7 @@ const NoMore = ({ isMakers, content }: NoMoreProps) => {
   return (
     <section className={container}>
       <article className={article}>
-        <p className={errorText}>{content}</p>
+        <p className={errorTextVar[DEVICE_TYPE]}>{content}</p>
         <a
           href={isMakers ? 'https://makers.sopt.org/' : 'https://www.sopt.org/'}
           className={errorButtonVar[DEVICE_TYPE]}

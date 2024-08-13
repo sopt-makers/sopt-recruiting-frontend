@@ -26,7 +26,7 @@ export const article = style({
   width: '100%',
 });
 
-export const errorText = style({
+const errorText = style({
   color: theme.color.baseText,
 });
 
