@@ -14,10 +14,10 @@ import {
 } from './style.css';
 
 const Footer = () => {
-  const DEVICE_TYPE = useDevice({ mobMax: '580px' });
+  const deviceType = useDevice({ mobMax: '580px' });
   return (
-    <footer className={containerVar[DEVICE_TYPE]}>
-      <div className={leftWrapperVar[DEVICE_TYPE]}>
+    <footer className={containerVar[deviceType]}>
+      <div className={leftWrapperVar[deviceType]}>
         <a className={ruleButton} href="https://www.sopt.org/rules" target="_blank" rel="noreferrer noopener">
           <span className={ruleText}>SOPT 회칙</span>
           <IconArrowRight />

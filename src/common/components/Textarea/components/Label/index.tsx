@@ -12,7 +12,7 @@ interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Label = ({ children, maxCount, required, label, ...headerElementProps }: LabelProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const questionArray = children.split('\n');
   const firstEmptyIndex = questionArray.indexOf('');
 
@@ -32,7 +32,7 @@ const Label = ({ children, maxCount, required, label, ...headerElementProps }: L
     ));
 
   return (
-    <h4 className={labelStyleVar[DEVICE_TYPE]} {...headerElementProps}>
+    <h4 className={labelStyleVar[deviceType]} {...headerElementProps}>
       <label style={{ cursor: 'pointer' }} htmlFor={label}>
         <span>
           {firstEmptyIndex === -1 ? children : renderQuestions(questionArray, firstEmptyIndex)}

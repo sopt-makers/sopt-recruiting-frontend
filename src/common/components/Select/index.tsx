@@ -17,7 +17,7 @@ import {
 import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const ampUnmask = name === 'part' || name === 'knownPath';
 
   const { register, formState, clearErrors, getValues, setValue, setError } = useFormContext();
@@ -36,8 +36,8 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
   };
 
   return (
-    <div className={containerVar[DEVICE_TYPE === 'DESK' ? size : DEVICE_TYPE]}>
-      <label className={titleVar[DEVICE_TYPE]} htmlFor={name}>
+    <div className={containerVar[deviceType === 'DESK' ? size : deviceType]}>
+      <label className={titleVar[deviceType]} htmlFor={name}>
         <span>{label}</span>
         {required && <i className={circle} />}
       </label>
@@ -45,7 +45,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         <input
           id={name}
           type="text"
-          className={`${ampUnmask ? 'amp-unmask' : ''} ${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar[DEVICE_TYPE]}`}
+          className={`${ampUnmask ? 'amp-unmask' : ''} ${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar[deviceType]}`}
           role="combobox"
           readOnly
           {...inputElementProps}
@@ -54,8 +54,8 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
           })}
           onBlur={handleBlur}
         />
-        <IconChevronDown className={iconVar[DEVICE_TYPE]} />
-        <ul className={optionContainerVar[DEVICE_TYPE]}>
+        <IconChevronDown className={iconVar[deviceType]} />
+        <ul className={optionContainerVar[deviceType]}>
           {options.map((option) => (
             <li role="option" key={option}>
               <input id={option} type="radio" name={name} onChange={handleChange} style={{ display: 'none' }} />
@@ -67,7 +67,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         </ul>
       </div>
       {errors?.[name] && (
-        <div className={errorVar[DEVICE_TYPE]}>
+        <div className={errorVar[deviceType]}>
           <p>{errors[name]?.message as string}</p>
         </div>
       )}

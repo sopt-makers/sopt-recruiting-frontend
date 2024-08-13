@@ -26,7 +26,7 @@ const Input = <T extends FieldValues>({
   isFileInput,
   ...textareaElements
 }: InputProps<T>) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
 
   const {
     watch,
@@ -47,7 +47,7 @@ const Input = <T extends FieldValues>({
   }, [textCount, maxCount, name, setError, clearErrors]);
 
   return (
-    <div className={containerVar[DEVICE_TYPE]}>
+    <div className={containerVar[deviceType]}>
       <textarea
         className={`amp-unmask ${textareaStyle[state]} ${textareaHeight[textareaSize]}`}
         {...register(name, {

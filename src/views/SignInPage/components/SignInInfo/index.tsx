@@ -10,7 +10,7 @@ import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { calloutButtonVar } from './style.css';
 
 const SignInInfo = () => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     recruitingInfo: { soptName, isMakers, season, group },
   } = useContext(RecruitingInfoContext);
@@ -22,7 +22,7 @@ const SignInInfo = () => {
       </Title>
       <Callout
         Button={
-          <Link to="/sign-up" className={calloutButtonVar[DEVICE_TYPE]} onClick={() => track('click-signin-signup')}>
+          <Link to="/sign-up" className={calloutButtonVar[deviceType]} onClick={() => track('click-signin-signup')}>
             새 지원서 작성하기
           </Link>
         }>
