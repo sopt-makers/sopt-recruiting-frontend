@@ -21,12 +21,14 @@ import {
 } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
+  const isMasking = label !== '지원서';
+
   const DEVICE_TYPE = useDevice();
 
   return (
     <li className={itemWrapper}>
       <span className={infoLabelVar[DEVICE_TYPE]}>{label}</span>
-      <span className={infoValueVar[DEVICE_TYPE]}>{value}</span>
+      <span className={`${isMasking ? 'amp-block' : ''} ${infoValueVar[DEVICE_TYPE]}`}>{value}</span>
     </li>
   );
 };
