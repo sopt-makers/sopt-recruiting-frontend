@@ -26,8 +26,8 @@ export const fileLabel = style({
 
   selectors: {
     [`${container}:hover > ${fileInput}:enabled ~ &`]: {
-      backgroundColor: theme.color.fileUploadButtonInside,
-      stroke: theme.color.fileUploadButtonInside,
+      backgroundColor: theme.color.whiteButtonFill,
+      stroke: theme.color.whiteButtonFill,
     },
     [`${fileInput}:disabled ~ &`]: {
       color: theme.color.lighterText,
@@ -42,8 +42,8 @@ export const fileLabelVar = styleVariants({
   selected: [
     fileLabel,
     {
-      backgroundColor: theme.color.fileUploadButtonInside,
-      stroke: theme.color.fileUploadButtonInside,
+      backgroundColor: theme.color.whiteButtonFill,
+      stroke: theme.color.whiteButtonFill,
     },
   ],
   error: [

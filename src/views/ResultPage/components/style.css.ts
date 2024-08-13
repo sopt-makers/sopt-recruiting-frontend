@@ -1,6 +1,5 @@
 import { colors } from '@sopt-makers/colors';
 import { keyframes, style, styleVariants } from '@vanilla-extract/css';
-import { calc } from '@vanilla-extract/css-utils';
 
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
@@ -8,30 +7,68 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   position: 'relative',
   width: '100%',
-  height: calc.subtract('100vh', '74px'),
   minHeight: 700,
   overflow: 'hidden',
-
-  '@supports': {
-    '(height: 100dvh)': {
-      height: calc.subtract('100dvh', '74px'),
-    },
-  },
 });
 
-export const contentWrapper = style({
+const contentWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  width: 720,
-  gap: 50,
-  margin: '90px auto 0',
   color: theme.color.baseText,
   ...theme.font.BODY_1_18_M,
 });
 
-export const content = style({
+export const contentWrapperVar = styleVariants({
+  DESK: [
+    contentWrapper,
+    {
+      margin: '90px auto 0',
+      width: 720,
+      gap: 50,
+    },
+  ],
+  TAB: [
+    contentWrapper,
+    {
+      margin: '90px auto 0',
+      width: 367,
+      gap: 50,
+    },
+  ],
+  MOB: [
+    contentWrapper,
+    {
+      margin: '43px auto 0',
+      width: 312,
+      gap: 30,
+    },
+  ],
+});
+
+const content = style({
   whiteSpace: 'pre-line',
   zIndex: Z_INDEX.resultContent,
+});
+
+export const contentVar = styleVariants({
+  DESK: [
+    content,
+    {
+      paddingBottom: 202,
+    },
+  ],
+  TAB: [
+    content,
+    {
+      paddingBottom: 170,
+    },
+  ],
+  MOB: [
+    content,
+    {
+      paddingBottom: 107,
+    },
+  ],
 });
 
 export const strongText = styleVariants({
@@ -50,6 +87,7 @@ const bottomAnimationBase = style({
   transform: 'translateX(-50%)',
   height: 100,
   borderRadius: '100%',
+  zIndex: Z_INDEX.resultAnim,
 });
 
 const animatedGradient = (bgColor: string) =>
@@ -90,10 +128,41 @@ export const bottomSvg = style({
   position: 'absolute',
   bottom: 0,
   right: 0,
-  margin: '0px 130px 140px 0px',
+  marginBottom: 'calc(56px + (64 * ((100vw - 768px) / 672)))',
+  marginRight: 'calc(40px + (60 * ((100vw - 768px) / 672)))',
   width: 584,
 });
 
 export const link = style({
   borderBottom: '1px solid currentColor',
+});
+
+const scrollBottomGrad = style({
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);',
+  zIndex: Z_INDEX.resultGrad,
+});
+
+export const scrollBottomGradVar = styleVariants({
+  DESK: [
+    scrollBottomGrad,
+    {
+      height: 220,
+    },
+  ],
+  TAB: [
+    scrollBottomGrad,
+    {
+      height: 170,
+    },
+  ],
+  MOB: [
+    scrollBottomGrad,
+    {
+      height: 110,
+    },
+  ],
 });

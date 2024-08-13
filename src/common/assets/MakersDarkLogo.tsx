@@ -1,6 +1,12 @@
-const MakersDarkLogo = () => {
+const MakersDarkLogo = ({ className }: { className?: string }) => {
   return (
-    <svg width="87" height="31" viewBox="0 0 87 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="87"
+      height="31"
+      viewBox="0 0 87 31"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}>
       <g clipPath="url(#clip0_2501_966)">
         <path
           fillRule="evenodd"
