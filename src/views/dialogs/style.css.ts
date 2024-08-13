@@ -3,24 +3,86 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const mainText = style({
+const mainText = style({
   color: colors.gray950,
-  ...theme.font.HEADING_5_20_B,
 });
 
-export const subText = style({
+export const mainTextVar = styleVariants({
+  DESK: [
+    mainText,
+    {
+      ...theme.font.HEADING_5_20_B,
+    },
+  ],
+  TAB: [
+    mainText,
+    {
+      ...theme.font.HEADING_5_20_B,
+    },
+  ],
+  MOB: [
+    mainText,
+    {
+      ...theme.font.HEADING_7_16_B,
+    },
+  ],
+});
+
+const subText = style({
   marginTop: 2,
   color: colors.gray300,
   ...theme.font.BODY_2_16_M,
 });
 
-export const buttonWrapper = style({
+export const subTextVar = styleVariants({
+  DESK: [
+    subText,
+    {
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  TAB: [
+    subText,
+    {
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  MOB: [
+    subText,
+    {
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+});
+
+const buttonWrapper = style({
   display: 'flex',
-  gap: 12,
+
   alignItems: 'center',
   justifyContent: 'flex-end',
   marginLeft: 'auto',
   marginTop: 20,
+});
+
+export const buttonWrapperVar = styleVariants({
+  DESK: [
+    buttonWrapper,
+    {
+      gap: 12,
+    },
+  ],
+  TAB: [
+    buttonWrapper,
+    {
+      gap: 12,
+    },
+  ],
+  MOB: [
+    buttonWrapper,
+    {
+      gap: 8,
+    },
+  ],
 });
 
 const buttonOutsideBase = style({

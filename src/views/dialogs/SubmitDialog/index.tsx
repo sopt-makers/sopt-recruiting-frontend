@@ -2,6 +2,7 @@ import { track } from '@amplitude/analytics-browser';
 import { type ChangeEvent, forwardRef, useState } from 'react';
 
 import Dialog from '@components/Dialog';
+import { useDevice } from '@hooks/useDevice';
 import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import {
@@ -9,18 +10,26 @@ import {
   checkboxWrapper,
   checkmark,
   hiddenCheckbox,
-  infoContainer,
-  infoLabel,
-  infoValue,
-  infoWrapper,
+  infoContainerVar,
+  infoLabelVar,
+  infoValueVar,
+  infoWrapperVar,
 } from './style.css';
-import { buttonInside, buttonOutside, buttonWrapper, mainText, subText } from '../style.css';
+import { buttonInside, buttonOutside, buttonWrapperVar, mainTextVar, subTextVar } from '../style.css';
 
-const MyInfoItem = ({ label, value }: { label: string; value: string }) => {
+const MyInfoItem = ({
+  DEVICE_TYPE,
+  label,
+  value,
+}: {
+  DEVICE_TYPE: 'MOB' | 'TAB' | 'DESK';
+  label: string;
+  value: string;
+}) => {
   return (
-    <li className={infoWrapper}>
-      <label className={infoLabel}>{label}</label>
-      <span className={infoValue}>{value}</span>
+    <li className={infoWrapperVar[DEVICE_TYPE]}>
+      <label className={infoLabelVar[DEVICE_TYPE]}>{label}</label>
+      <span className={infoValueVar[DEVICE_TYPE]}>{value}</span>
     </li>
   );
 };
@@ -40,19 +49,21 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
   ({ userInfo: { name, email, phone, part }, dataIsPending, onSendData }, ref) => {
     const [isChecked, setIsChecked] = useState(false);
 
+    const DEVICE_TYPE = useDevice();
+
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
       setIsChecked(e.target.checked);
     };
 
     return (
       <Dialog ref={ref}>
-        <p className={mainText}>이대로 제출하시겠어요?</p>
-        <p className={subText}>제출 완료하신 지원서는 수정하실 수 없어요.</p>
-        <ol className={infoContainer}>
-          <MyInfoItem label="이름" value={name} />
-          <MyInfoItem label="이메일" value={email} />
-          <MyInfoItem label="전화번호" value={phone} />
-          <MyInfoItem label="지원파트" value={part} />
+        <p className={mainTextVar[DEVICE_TYPE]}>이대로 제출하시겠어요?</p>
+        <p className={subTextVar[DEVICE_TYPE]}>제출 완료하신 지원서는 수정하실 수 없어요.</p>
+        <ol className={infoContainerVar[DEVICE_TYPE]}>
+          <MyInfoItem DEVICE_TYPE={DEVICE_TYPE} label="이름" value={name} />
+          <MyInfoItem DEVICE_TYPE={DEVICE_TYPE} label="이메일" value={email} />
+          <MyInfoItem DEVICE_TYPE={DEVICE_TYPE} label="전화번호" value={phone} />
+          <MyInfoItem DEVICE_TYPE={DEVICE_TYPE} label="지원파트" value={part} />
         </ol>
         <div className={checkboxContainer}>
           <label className={checkboxWrapper}>
@@ -66,7 +77,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
             <span>확인했습니다.</span>
           </label>
         </div>
-        <div className={buttonWrapper}>
+        <div className={buttonWrapperVar[DEVICE_TYPE]}>
           <form
             method="dialog"
             className={dataIsPending ? buttonOutside.disabled : buttonOutside.line}
