@@ -68,7 +68,7 @@ export const selectPaddingVar = styleVariants({
 const icon = style({
   position: 'absolute',
   width: 24,
-  color: theme.color.dropdownButton,
+  color: theme.color.grayButtonFill,
 
   transition: 'transform 0.3s ease-out',
 

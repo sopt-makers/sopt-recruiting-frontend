@@ -9,6 +9,7 @@ import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { DraftDialog, SubmitDialog } from 'views/dialogs';
+import PreventApplyDialog from 'views/dialogs/PreventApplyDialog';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -36,6 +37,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   const draftDialog = useRef<HTMLDialogElement>(null);
+  const preventApplyDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
@@ -188,6 +190,12 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
 
   const handleSendData = (type: 'draft' | 'submit') => {
+    if (NoMoreApply) {
+      preventApplyDialog.current?.showModal();
+
+      return;
+    }
+
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
       getValues('leaveAbsence') == undefined ? undefined : getValues('leaveAbsence') === '재학' ? false : true;
@@ -270,6 +278,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   return (
     <FormProvider {...methods}>
       <DraftDialog ref={draftDialog} />
+      <PreventApplyDialog ref={preventApplyDialog} />
       <SubmitDialog
         userInfo={{
           name,

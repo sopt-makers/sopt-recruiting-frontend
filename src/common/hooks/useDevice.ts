@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 export type DeviceType = 'TAB' | 'MOB' | 'DESK';
+
 export function useIsTablet(minWidth = '431px', maxWidth = '768px') {
   const [isTablet, setIsTablet] = useState(false);
   const tablet = useMediaQuery({

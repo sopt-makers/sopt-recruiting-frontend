@@ -3,46 +3,20 @@ import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
 
-const containerBase = style({
+export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
+  height: calc.subtract('100vh', '80px'),
   minHeight: 700,
 
   '@supports': {
     'height: (100dvh)': {
-      height: '100dvh',
+      height: calc.subtract('100dvh', '80px'),
     },
   },
-});
-
-export const container = styleVariants({
-  withHeader: [
-    containerBase,
-    {
-      height: calc.subtract('100vh', '74px'),
-
-      '@supports': {
-        'height: (100dvh)': {
-          height: calc.subtract('100dvh', '74px'),
-        },
-      },
-    },
-  ],
-  withoutHeader: [
-    containerBase,
-    {
-      height: '100vh',
-
-      '@supports': {
-        'height: (100dvh)': {
-          height: '100dvh',
-        },
-      },
-    },
-  ],
 });
 
 export const article = style({
@@ -52,39 +26,130 @@ export const article = style({
   width: '100%',
 });
 
-export const errorText = style({
-  marginBottom: 28,
+const errorText = style({
   color: theme.color.baseText,
-  ...theme.font.TITLE_2_28_SB,
 });
 
-export const errorButton = style({
+export const errorTextVar = styleVariants({
+  DESK: [
+    errorText,
+    {
+      marginBottom: 28,
+      ...theme.font.TITLE_2_28_SB,
+    },
+  ],
+  TAB: [
+    errorText,
+    {
+      marginBottom: 28,
+      ...theme.font.TITLE_2_28_SB,
+    },
+  ],
+  MOB: [
+    errorText,
+    {
+      marginBottom: 24,
+      ...theme.font.TITLE_3_24_SB,
+    },
+  ],
+});
+
+const errorButton = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 231,
-  height: 60,
-  marginBottom: 135,
+
   borderRadius: 99,
   backgroundColor: theme.color.errorButtonBackground,
-  ...theme.font.TITLE_3_24_SB,
 });
 
-export const instruction = style({
-  marginBottom: 20,
+export const errorButtonVar = styleVariants({
+  DESK: [
+    errorButton,
+    {
+      width: 231,
+      height: 60,
+      marginBottom: 135,
+      ...theme.font.TITLE_3_24_SB,
+    },
+  ],
+  TAB: [
+    errorButton,
+    {
+      width: 202,
+      height: 54,
+      marginBottom: 140,
+      ...theme.font.TITLE_4_20_SB,
+    },
+  ],
+  MOB: [
+    errorButton,
+    {
+      width: 175,
+      height: 44,
+      marginBottom: 140,
+      ...theme.font.TITLE_5_18_SB,
+    },
+  ],
+});
+
+const instruction = style({
   color: theme.color.lightestText,
   textAlign: 'center',
   whiteSpace: 'pre-line',
-  ...theme.font.BODY_1_18_M,
 });
 
-export const contactButton = style({
+export const instructionVar = styleVariants({
+  DESK: [
+    instruction,
+    {
+      marginBottom: 20,
+      ...theme.font.BODY_1_18_M,
+    },
+  ],
+  TAB: [
+    instruction,
+    {
+      marginBottom: 24,
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  MOB: [
+    instruction,
+    {
+      marginBottom: 24,
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+});
+
+const contactButton = style({
   display: 'block',
-  fontSize: 24,
-  fontWeight: '600',
-  lineHeight: '150%' /* 36px */,
-  letterSpacing: '-0.48px',
   textDecorationLine: 'underline',
   margin: '0 auto',
   color: theme.color.buttonText,
+});
+
+export const contactButtonVar = styleVariants({
+  DESK: [
+    contactButton,
+    {
+      fontSize: 24,
+      fontWeight: '600',
+      lineHeight: '150%' /* 36px */,
+      letterSpacing: '-0.48px',
+    },
+  ],
+  TAB: [
+    contactButton,
+    {
+      ...theme.font.HEADING_5_20_B,
+    },
+  ],
+  MOB: [
+    contactButton,
+    {
+      ...theme.font.TITLE_5_18_SB,
+    },
+  ],
 });
