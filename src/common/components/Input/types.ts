@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { FieldValues, Validate } from 'react-hook-form';
 
-export type SizeType = 'sm_DESK' | 'md_DESK' | 'lg_DESK' | 'sm_TAB' | 'md_TAB' | 'lg_TAB' | 'MOB';
+export type SizeType = 'sm' | 'md' | 'lg' | 'TAB' | 'MOB';
 export interface TextBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'pattern'> {
   label: string;
   name: string;
