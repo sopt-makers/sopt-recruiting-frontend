@@ -10,8 +10,8 @@ const calloutButton = style({
 
 export const calloutButtonVar = styleVariants({
   DESK: [calloutButton, { ...theme.font.TITLE_5_18_SB }],
-  TAB: [calloutButton, { ...theme.font.TITLE_6_16_SB, border: 'none' }],
-  MOB: [calloutButton, { ...theme.font.TITLE_7_14_SB, border: 'none' }],
+  TAB: [calloutButton, { ...theme.font.TITLE_6_16_SB }],
+  MOB: [calloutButton, { ...theme.font.TITLE_7_14_SB }],
 });
 
 export const strongText = style({
