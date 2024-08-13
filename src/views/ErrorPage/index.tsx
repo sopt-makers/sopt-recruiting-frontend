@@ -1,9 +1,7 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDevice } from '@hooks/useDevice';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import ErrorCode from './components/ErrorCode';
 import { ERROR_MESSAGE } from './constants';
@@ -12,10 +10,6 @@ import { article, contactButtonVar, container, errorButtonVar, errorTextVar, ins
 const ErrorPage = ({ code }: { code: 404 | 500 }) => {
   const DEVICE_TYPE = useDevice();
   const navigate = useNavigate();
-
-  const {
-    recruitingInfo: { isMakers },
-  } = useContext(RecruitingInfoContext);
 
   const handleGoBack = (code: 404 | 500) => {
     const hasPreviousPage = window.history.length > 1;
@@ -35,7 +29,7 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
   const CODE_KEY: 'CODE404' | 'CODE500' = `CODE${code}`;
 
   return (
-    <section className={container[isMakers == undefined ? 'withoutHeader' : 'withHeader']}>
+    <section className={container}>
       <article className={article}>
         <ErrorCode code={code} />
         <p className={errorTextVar[DEVICE_TYPE]}>{ERROR_MESSAGE[CODE_KEY]?.text}</p>

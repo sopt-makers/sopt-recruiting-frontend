@@ -13,7 +13,7 @@ const NoMore = ({ isMakers, content }: NoMoreProps) => {
   const DEVICE_TYPE = useDevice();
 
   return (
-    <section className={container[isMakers == undefined ? 'withoutHeader' : 'withHeader']}>
+    <section className={container}>
       <article className={article}>
         <p className={errorText}>{content}</p>
         <a

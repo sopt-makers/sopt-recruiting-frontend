@@ -3,48 +3,20 @@ import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
 
-const containerBase = style({
+export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
+  height: calc.subtract('100vh', '80px'),
   minHeight: 700,
 
   '@supports': {
     'height: (100dvh)': {
-      height: '100dvh',
+      height: calc.subtract('100dvh', '80px'),
     },
   },
-});
-
-export const container = styleVariants({
-  withHeader: [
-    containerBase,
-    {
-      height: calc.subtract('100vh', '80px'),
-
-      '@supports': {
-        'height: (100dvh)': {
-          height: calc.subtract('100dvh', '80px'),
-        },
-      },
-    },
-  ],
-  withoutHeader: [
-    containerBase,
-    {
-      // height: '100vh',
-      height: calc.subtract('100vh', '80px'),
-
-      '@supports': {
-        'height: (100dvh)': {
-          // height: '100dvh',
-          height: calc.subtract('100dvh', '80px'),
-        },
-      },
-    },
-  ],
 });
 
 export const article = style({
