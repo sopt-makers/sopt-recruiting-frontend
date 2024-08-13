@@ -12,7 +12,7 @@ export function useIsTablet(minWidth = '431px', maxWidth = '768px') {
   return isTablet;
 }
 
-export function useIsMobile(maxWidth = '430.999px') {
+export function useIsMobile(maxWidth = '431px') {
   const [isMobile, setIsMobile] = useState(false);
   const mobile = useMediaQuery({
     query: `(max-width:${maxWidth})`,
@@ -24,7 +24,7 @@ export function useIsMobile(maxWidth = '430.999px') {
 }
 
 export function useDevice(tabPoint?: string, mobPoint?: string): 'TAB' | 'MOB' | 'DESK' {
-  const isTablet = useIsTablet(tabPoint);
+  const isTablet = useIsTablet(mobPoint, tabPoint);
   const isMobile = useIsMobile(mobPoint);
 
   return isTablet ? 'TAB' : isMobile ? 'MOB' : 'DESK';
