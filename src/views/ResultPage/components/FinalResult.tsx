@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
@@ -59,7 +60,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
             className={link}
             href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
             target="_blank"
-            rel="noreferrer noopener">
+            rel="noreferrer noopener"
+            onClick={() => track('click-final-google_form')}>
             {`https://${DEVICE_TYPE !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
           </a>
           <span>{` )\n`}</span>
