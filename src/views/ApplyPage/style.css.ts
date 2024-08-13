@@ -1,4 +1,6 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
+
+import { theme } from 'styles/theme.css';
 
 // ApplyPage.tsx
 export const container = style({
@@ -25,4 +27,19 @@ export const buttonWrapper = style({
   gap: 12,
 
   marginTop: 46,
+});
+
+export const sectionTitleVar = styleVariants({
+  DESK: {
+    ...theme.font.TITLE_2_28_SB,
+    color: theme.color.baseText,
+  },
+  TAB: {
+    ...theme.font.TITLE_3_24_SB,
+    color: theme.color.baseText,
+  },
+  MOB: {
+    ...theme.font.TITLE_5_18_SB,
+    color: theme.color.baseText,
+  },
 });

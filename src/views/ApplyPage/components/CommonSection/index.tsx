@@ -1,8 +1,9 @@
 import Textarea from '@components/Textarea';
 import { useDevice } from '@hooks/useDevice';
+import { sectionTitleVar } from 'views/ApplyPage/style.css';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
-import { sectionContainerVar, titleVar } from './style.css';
+import { sectionContainerVar } from './style.css';
 import FileInput from '../FileInput';
 import Info from '../Info';
 import LinkInput from '../LinkInput';
@@ -26,7 +27,7 @@ const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft 
 
   return (
     <section ref={refCallback} id="common" className={sectionContainerVar[DEVICE_TYPE]}>
-      <h2 className={titleVar[DEVICE_TYPE]}>공통 질문</h2>
+      <h2 className={sectionTitleVar[DEVICE_TYPE]}>공통 질문</h2>
       {questions?.map(({ urls, value, id, charLimit, isFile, placeholder, optional }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';

@@ -5,30 +5,33 @@ import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { useDevice } from '@hooks/useDevice';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
+import { sectionTitleVar } from 'views/ApplyPage/style.css';
 import { Applicant } from 'views/ApplyPage/types';
 
 import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
 import IconUser from './icons/IconUser';
 import {
-  doubleWrapper,
-  errorText,
+  doubleWrapperVar,
+  errorTextVar,
   profileImage,
+  profileLabelSizeVar,
   profileLabelVar,
-  profileText,
+  profileTextVar,
   profileTextWrapper,
-  profileWrapper,
-  sectionContainer,
-  title,
+  profileWrapperVar,
+  sectionContainerVar,
 } from './style.css';
 
 interface ProfileImageProps {
   disabled: boolean;
   pic?: string;
+  deviceType: 'DESK' | 'TAB' | 'MOB';
 }
 
-const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
+const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
   const {
     register,
     clearErrors,
@@ -66,7 +69,7 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
 
   return (
     <TextBox label="사진" name="picture" size="lg" required>
-      <div className={profileWrapper}>
+      <div className={profileWrapperVar[deviceType]}>
         <input
           id="picture"
           type="file"
@@ -81,18 +84,18 @@ const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
         <div>
           <label
             htmlFor="picture"
-            className={profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']}>
+            className={`${profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']} ${profileLabelSizeVar[deviceType]}`}>
             {hasImage ? (
               <img src={image || pic} alt="지원서 프로필 사진" className={`amp-block ${profileImage}`} />
             ) : (
               <IconUser />
             )}
-            {errors.picture && <p className={errorText}>{errors.picture?.message as string}</p>}
+            {errors.picture && <p className={errorTextVar[deviceType]}>{errors.picture?.message as string}</p>}
           </label>
         </div>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (
-            <li key={el} className={profileText}>
+            <li key={el} className={profileTextVar[deviceType]}>
               &#183; {el}
             </li>
           ))}
@@ -110,6 +113,7 @@ interface DefaultSectionProps {
 }
 
 const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
+  const DEVICE_TYPE = useDevice();
   const {
     address,
     birthday,
@@ -127,10 +131,10 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
   } = applicantDraft || {};
 
   return (
-    <section ref={refCallback} id="default" className={sectionContainer}>
-      <h2 className={title}>기본 인적사항</h2>
-      <ProfileImage pic={pic} disabled={isReview} />
-      <div className={doubleWrapper}>
+    <section ref={refCallback} id="default" className={sectionContainerVar[DEVICE_TYPE]}>
+      <h2 className={sectionTitleVar[DEVICE_TYPE]}>기본 인적사항</h2>
+      <ProfileImage pic={pic} disabled={isReview} deviceType={DEVICE_TYPE} />
+      <div className={doubleWrapperVar[DEVICE_TYPE]}>
         <TextBox label="이름" name="name" required size="sm">
           <InputLine value={name} name="name" readOnly disabled={isReview} />
         </TextBox>
@@ -144,7 +148,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           disabled={isReview}
         />
       </div>
-      <div className={doubleWrapper}>
+      <div className={doubleWrapperVar[DEVICE_TYPE]}>
         <TextBox label="생년월일" name="birthday" required size="sm">
           <InputLine
             name="birthday"
@@ -178,7 +182,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           disabled={isReview}
         />
       </TextBox>
-      <div className={doubleWrapper}>
+      <div className={doubleWrapperVar[DEVICE_TYPE]}>
         <TextBox label="학교" name="college" required size="sm">
           <InputLine
             defaultValue={college}
@@ -208,7 +212,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           />
         </div>
       </div>
-      <div className={doubleWrapper}>
+      <div className={doubleWrapperVar[DEVICE_TYPE]}>
         <TextBox label="학과" name="major" required size="sm">
           <InputLine
             defaultValue={major}
