@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
-import Footer from './components/Footer';
 import Header from './components/Header';
 import { container, mainWrapper } from './style.css';
 
