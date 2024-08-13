@@ -8,7 +8,6 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 550,
   height: calc.subtract('100vh', '80px'),
   minHeight: 700,
 
@@ -19,30 +18,96 @@ export const container = style({
   },
 });
 
-export const icon = style({
+const icon = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   marginBottom: 20,
-  width: 66,
-  height: 66,
   borderRadius: '50%',
   background: theme.color.primaryLinear,
 });
 
-export const mainText = style({
-  marginBottom: 8,
+export const iconVar = styleVariants({
+  DESK: [
+    icon,
+    {
+      width: 66,
+      height: 66,
+    },
+  ],
+  TAB: [
+    icon,
+    {
+      width: 66,
+      height: 66,
+    },
+  ],
+  MOB: [
+    icon,
+    {
+      width: 46,
+      height: 46,
+    },
+  ],
+});
+
+const mainText = style({
   color: theme.color.baseText,
   textAlign: 'center',
   whiteSpace: 'pre-line',
-  ...theme.font.HEADING_2_32_B,
 });
 
-export const subText = style({
-  marginBottom: 30,
+export const mainTextVar = styleVariants({
+  DESK: [
+    mainText,
+    {
+      marginBottom: 8,
+      ...theme.font.HEADING_2_32_B,
+    },
+  ],
+  TAB: [
+    mainText,
+    {
+      marginBottom: 8,
+      ...theme.font.HEADING_3_28_B,
+    },
+  ],
+  MOB: [
+    mainText,
+    {
+      marginBottom: 8,
+      ...theme.font.HEADING_5_20_B,
+    },
+  ],
+});
+
+const subText = style({
   color: theme.color.baseText,
   textAlign: 'center',
-  ...theme.font.BODY_1_18_M,
+});
+
+export const subTextVar = styleVariants({
+  DESK: [
+    subText,
+    {
+      marginBottom: 30,
+      ...theme.font.BODY_1_18_M,
+    },
+  ],
+  TAB: [
+    subText,
+    {
+      marginBottom: 30,
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  MOB: [
+    subText,
+    {
+      marginBottom: 30,
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
 });
 
 export const surveyBox = style({
