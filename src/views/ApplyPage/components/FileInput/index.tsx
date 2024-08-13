@@ -168,10 +168,10 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       />
       <label
         htmlFor={`file-${id}`}
-        className={`amp-mask ${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']}`}>
+        className={fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']}>
         <div className={textWrapper}>
           <span>파일</span>
-          <span className={fileNameVar[getFileNameClass()]}>{getDisplayText()}</span>
+          <span className={`amp-mask ${fileNameVar[getFileNameClass()]}`}>{getDisplayText()}</span>
         </div>
         <IconPlusButton
           isSelected={fileName !== 'delete-file' && fileValue}
