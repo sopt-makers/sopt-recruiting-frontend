@@ -17,16 +17,15 @@ export const containerVar = styleVariants({
     {
       height: '162px',
       paddingTop: 33,
-      paddingRight: 'calc(50px + (150 * ((100vw - 768px) / 672)))',
+      paddingLeft: 'calc(50px + (150 * ((100vw - 768px) / 672)))',
       paddingBottom: 38,
-      paddingLeft: 'calc(50px + (126 * ((100vw - 768px) / 672)))',
+      paddingRight: 'calc(50px + (126 * ((100vw - 768px) / 672)))',
     },
   ],
   TAB: [
     container,
     {
-      flexDirection: 'column',
-      height: '292px',
+      height: '162px',
       padding: '33px 50px',
     },
   ],
@@ -34,6 +33,7 @@ export const containerVar = styleVariants({
     container,
     {
       flexDirection: 'column',
+      gap: 50,
       height: '292px',
       padding: '34px 22px',
     },
@@ -53,19 +53,19 @@ export const leftWrapperVar = styleVariants({
   DESK: [
     leftWrapper,
     {
-      gap: 'calc(27px + (2 * ((100vw - 768px) / 672)))',
+      gap: 27,
     },
   ],
   TAB: [
     leftWrapper,
     {
-      gap: 27,
+      gap: 23,
     },
   ],
   MOB: [
     leftWrapper,
     {
-      gap: 27,
+      gap: 23,
     },
   ],
 });
