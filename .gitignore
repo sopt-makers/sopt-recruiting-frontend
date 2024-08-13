@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env
+src/views/SignedInPage/index.tsx
+src/views/ApplyPage/index.tsx
