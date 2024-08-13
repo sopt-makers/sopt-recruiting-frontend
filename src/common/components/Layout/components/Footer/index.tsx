@@ -14,7 +14,7 @@ import {
 } from './style.css';
 
 const Footer = () => {
-  const DEVICE_TYPE = useDevice();
+  const DEVICE_TYPE = useDevice({ mobMax: '580px' });
   return (
     <footer className={containerVar[DEVICE_TYPE]}>
       <div className={leftWrapperVar[DEVICE_TYPE]}>
