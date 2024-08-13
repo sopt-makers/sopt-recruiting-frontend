@@ -22,11 +22,11 @@ export const container = styleVariants({
   withHeader: [
     containerBase,
     {
-      height: calc.subtract('100vh', '74px'),
+      height: calc.subtract('100vh', '80px'),
 
       '@supports': {
         'height: (100dvh)': {
-          height: calc.subtract('100dvh', '74px'),
+          height: calc.subtract('100dvh', '80px'),
         },
       },
     },
@@ -34,11 +34,13 @@ export const container = styleVariants({
   withoutHeader: [
     containerBase,
     {
-      height: '100vh',
+      // height: '100vh',
+      height: calc.subtract('100vh', '80px'),
 
       '@supports': {
         'height: (100dvh)': {
-          height: '100dvh',
+          // height: '100dvh',
+          height: calc.subtract('100dvh', '80px'),
         },
       },
     },

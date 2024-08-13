@@ -9,11 +9,11 @@ export const container = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  height: calc.subtract('100vh', '74px'),
+  height: calc.subtract('100vh', '80px'),
 
   '@supports': {
     'height: (100dvh)': {
-      height: calc.subtract('100dvh', '74px'),
+      height: calc.subtract('100dvh', '80px'),
     },
   },
 });
