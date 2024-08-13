@@ -3,7 +3,6 @@ import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { circle, containerVar, titleVar } from '@components/Input/components/TextBox/style.css';
-import { SizeType } from '@components/Input/types';
 import { useDevice } from '@hooks/useDevice';
 
 import {
@@ -36,9 +35,8 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
     }
   };
 
-  const STYLE_TYPE: SizeType = DEVICE_TYPE === 'MOB' ? DEVICE_TYPE : `${size}_${DEVICE_TYPE}`;
   return (
-    <div className={containerVar[STYLE_TYPE]}>
+    <div className={containerVar[DEVICE_TYPE === 'DESK' ? size : DEVICE_TYPE]}>
       <label className={titleVar[DEVICE_TYPE]} htmlFor={name}>
         <span>{label}</span>
         {required && <i className={circle} />}
