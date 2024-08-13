@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
 import { TextBoxProps } from '@components/Input/types';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceType, useDevice } from '@hooks/useDevice';
 
 import { circle, containerVar, titleVar } from './style.css';
 
-export const FormContext = createContext({} as Pick<TextBoxProps, 'required'>);
+export const FormContext = createContext({} as Pick<TextBoxProps, 'required'> & { deviceType: DeviceType });
 
 // TextBox Container
 export const TextBox = ({
@@ -18,7 +18,7 @@ export const TextBox = ({
   const DEVICE_TYPE = useDevice();
 
   return (
-    <FormContext.Provider value={{ required }}>
+    <FormContext.Provider value={{ required, deviceType: DEVICE_TYPE }}>
       <div className={containerVar[DEVICE_TYPE === 'DESK' ? size : DEVICE_TYPE]}>
         <label className={titleVar[DEVICE_TYPE]} htmlFor={name}>
           <span>{label}</span>
