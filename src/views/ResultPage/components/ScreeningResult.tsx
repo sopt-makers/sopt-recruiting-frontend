@@ -52,7 +52,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
         <p className={contentVar[DEVICE_TYPE]}>
           <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
-          <span className="amp-block">
+          <span className="amp-mask">
             {`
               서류 검토 결과, ${name}님은 인터뷰 대상자로 선정되셨습니다.
 
@@ -88,7 +88,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           </span>
         </p>
       ) : (
-        <p className={`amp-block ${contentVar[DEVICE_TYPE]}`}>
+        <p className={`amp-mask ${contentVar[DEVICE_TYPE]}`}>
           {`안녕하세요, ${SOPT_NAME}입니다.
           
           ${SOPT_NAME}에 관심을 갖고 지원해 주셔서 감사드립니다.

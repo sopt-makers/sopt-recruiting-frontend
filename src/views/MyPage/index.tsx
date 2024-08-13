@@ -28,7 +28,7 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
   return (
     <li className={itemWrapper}>
       <span className={infoLabelVar[DEVICE_TYPE]}>{label}</span>
-      <span className={`${isMasking ? 'amp-block' : ''} ${infoValueVar[DEVICE_TYPE]}`}>{value}</span>
+      <span className={`${isMasking ? 'amp-mask' : ''} ${infoValueVar[DEVICE_TYPE]}`}>{value}</span>
     </li>
   );
 };
