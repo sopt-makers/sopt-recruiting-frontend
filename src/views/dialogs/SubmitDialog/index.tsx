@@ -15,7 +15,7 @@ import {
   infoValueVar,
   infoWrapperVar,
 } from './style.css';
-import { buttonInside, buttonOutside, buttonWrapperVar, mainTextVar, subTextVar } from '../style.css';
+import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar, subTextVar } from '../style.css';
 
 const MyInfoItem = ({
   DEVICE_TYPE,
@@ -80,13 +80,13 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
         <div className={buttonWrapperVar[DEVICE_TYPE]}>
           <form
             method="dialog"
-            className={dataIsPending ? buttonOutside.disabled : buttonOutside.line}
+            className={`${dataIsPending ? buttonOutside.disabled : buttonOutside.line} ${buttonOutsideVar[DEVICE_TYPE]}`}
             onSubmit={() => setIsChecked(false)}>
             <button className={buttonInside.line} disabled={dataIsPending} onClick={() => track('click-apply-cancel')}>
               {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
             </button>
           </form>
-          <div className={buttonOutside[!isChecked ? 'disabled' : 'solid']}>
+          <div className={`${buttonOutside[!isChecked ? 'disabled' : 'solid']} ${buttonOutsideVar[DEVICE_TYPE]}`}>
             <button className={buttonInside.solid} onClick={onSendData} disabled={!isChecked || dataIsPending}>
               {dataIsPending ? <ButtonLoading width={48} height={18} /> : '제출하기'}
             </button>

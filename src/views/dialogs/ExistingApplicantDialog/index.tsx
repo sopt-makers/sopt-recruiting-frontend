@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Dialog from '@components/Dialog';
 import { useDevice } from '@hooks/useDevice';
 
-import { buttonInside, buttonOutside, buttonWrapperVar, mainTextVar } from '../style.css';
+import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar } from '../style.css';
 
 const ExistingApplicantDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   const DEVICE_TYPE = useDevice();
@@ -13,7 +13,7 @@ const ExistingApplicantDialog = forwardRef<HTMLDialogElement>((_, ref) => {
     <Dialog ref={ref}>
       <p className={mainTextVar[DEVICE_TYPE]}>이미 가입된 계정이 있어요.</p>
       <div className={buttonWrapperVar[DEVICE_TYPE]}>
-        <form method="dialog" className={buttonOutside.line}>
+        <form method="dialog" className={`${buttonOutside.line} ${buttonOutsideVar[DEVICE_TYPE]}`}>
           <button className={buttonInside.line}>다시 입력하기</button>
         </form>
         <div className={buttonOutside.solid}>

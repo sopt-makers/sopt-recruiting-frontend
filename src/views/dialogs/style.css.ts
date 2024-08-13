@@ -116,6 +116,12 @@ export const buttonOutside = styleVariants({
   ],
 });
 
+export const buttonOutsideVar = styleVariants({
+  DESK: { ...theme.font.LABEL_3_14_SB },
+  TAB: { ...theme.font.LABEL_3_14_SB },
+  MOB: { ...theme.font.LABEL_4_12_SB },
+});
+
 const buttonInsideBase = style({
   display: 'flex',
   alignItems: 'center',
@@ -124,7 +130,6 @@ const buttonInsideBase = style({
   padding: '13px 20px',
   borderRadius: 12,
   transition: 'background-color 0.3s ease-out',
-  ...theme.font.LABEL_3_14_SB,
 
   ':active': {
     margin: '0 auto',
