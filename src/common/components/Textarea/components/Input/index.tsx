@@ -1,8 +1,10 @@
-import { useEffect, type TextareaHTMLAttributes } from 'react';
+import { useDebugValue, useEffect, type TextareaHTMLAttributes } from 'react';
 import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
+import { useDevice } from '@hooks/useDevice';
+
 import {
-  container,
+  containerVar,
   errorMsgStyle,
   maxCountStyle,
   textCountStyle,
@@ -24,6 +26,8 @@ const Input = <T extends FieldValues>({
   isFileInput,
   ...textareaElements
 }: InputProps<T>) => {
+  const DEVICE_TYPE = useDevice();
+
   const {
     watch,
     register,
@@ -43,7 +47,7 @@ const Input = <T extends FieldValues>({
   }, [textCount, maxCount, name, setError, clearErrors]);
 
   return (
-    <div className={container}>
+    <div className={containerVar[DEVICE_TYPE]}>
       <textarea
         className={`amp-unmask ${textareaStyle[state]} ${textareaHeight[textareaSize]}`}
         {...register(name, {
