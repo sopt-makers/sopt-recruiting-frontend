@@ -7,8 +7,7 @@ import Button from '@components/Button';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DraftDialog, SubmitDialog } from 'views/dialogs';
-import PreventApplyDialog from 'views/dialogs/PreventApplyDialog';
+import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
