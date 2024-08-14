@@ -13,7 +13,7 @@ import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 
 const Header = () => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleClickMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -32,17 +32,17 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (DEVICE_TYPE === 'DESK') {
+    if (deviceType === 'DESK') {
       setIsMenuOpen(false);
     }
-  }, [DEVICE_TYPE]);
+  }, [deviceType]);
 
-  const logoVariant = logoVar[DEVICE_TYPE];
+  const logoVariant = logoVar[deviceType];
   return (
     <>
       {isMakers != undefined && (
         <>
-          <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[DEVICE_TYPE]}`}>
+          <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[deviceType]}`}>
             <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
               {isMakers ? (
                 !isMenuOpen && isLight ? (

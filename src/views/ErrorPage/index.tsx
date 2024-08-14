@@ -8,7 +8,7 @@ import { ERROR_MESSAGE } from './constants';
 import { article, contactButtonVar, container, errorButtonVar, errorTextVar, instructionVar } from './style.css';
 
 const ErrorPage = ({ code }: { code: 404 | 500 }) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const navigate = useNavigate();
 
   const handleGoBack = (code: 404 | 500) => {
@@ -32,21 +32,21 @@ const ErrorPage = ({ code }: { code: 404 | 500 }) => {
     <section className={container}>
       <article className={article}>
         <ErrorCode code={code} />
-        <p className={errorTextVar[DEVICE_TYPE]}>{ERROR_MESSAGE[CODE_KEY]?.text}</p>
-        <button className={errorButtonVar[DEVICE_TYPE]} onClick={handleClickErrorButton}>
+        <p className={errorTextVar[deviceType]}>{ERROR_MESSAGE[CODE_KEY]?.text}</p>
+        <button className={errorButtonVar[deviceType]} onClick={handleClickErrorButton}>
           {ERROR_MESSAGE[CODE_KEY]?.button}
         </button>
       </article>
       <p
         className={
-          instructionVar[DEVICE_TYPE]
+          instructionVar[deviceType]
         }>{`문제가 지속적으로 발생하거나 문의사항이 있다면\n아래 ‘문의하기’를 이용해 주세요`}</p>
       <a
         id="chat-channel-button"
         href="http://pf.kakao.com/_sxaIWG"
         target="_blank"
         rel="noreferrer noopener"
-        className={contactButtonVar[DEVICE_TYPE]}
+        className={contactButtonVar[deviceType]}
         onClick={() => track('click-error-ask')}>
         문의하기
       </a>

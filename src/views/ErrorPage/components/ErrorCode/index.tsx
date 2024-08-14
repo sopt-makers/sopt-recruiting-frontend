@@ -9,11 +9,11 @@ import IconGhost from 'views/ErrorPage/icons/IconGhost';
 import { backText, frontText, iconWrapperVar, showIconVar } from './style.css';
 
 export default function ErrorCode({ code }: { code: 404 | 500 }) {
-  const DEVICE_TYPE = useDevice();
-  const isMobile = DEVICE_TYPE === 'MOB';
+  const deviceType = useDevice();
+  const isMobile = deviceType === 'MOB';
 
   return (
-    <div className={iconWrapperVar[DEVICE_TYPE]}>
+    <div className={iconWrapperVar[deviceType]}>
       {code === 404 ? (
         <>
           {!isMobile && (
@@ -21,7 +21,7 @@ export default function ErrorCode({ code }: { code: 404 | 500 }) {
               <Icon404Front />
             </i>
           )}
-          <i className={showIconVar[DEVICE_TYPE]}>
+          <i className={showIconVar[deviceType]}>
             <IconGhost />
           </i>
           {!isMobile && (
@@ -37,7 +37,7 @@ export default function ErrorCode({ code }: { code: 404 | 500 }) {
               <Icon500Front />
             </i>
           )}
-          <i className={showIconVar[DEVICE_TYPE]}>
+          <i className={showIconVar[deviceType]}>
             <IconCone />
           </i>
           {!isMobile && (

@@ -8,14 +8,14 @@ import SignupForm from './components/SignupForm';
 import { containerVar } from './style.css';
 
 const SignupPage = () => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const { NoMoreRecruit, NoMoreApply, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit || NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   return (
-    <div className={containerVar[DEVICE_TYPE]}>
+    <div className={containerVar[deviceType]}>
       <Title>새 지원서 작성하기</Title>
       <SignupForm />
     </div>

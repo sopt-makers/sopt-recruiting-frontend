@@ -15,20 +15,20 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ text, path, target, amplitudeId, className, onClick }: MenuItemProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
 
   return (
-    <li className={`${className} ${menuItemVar[DEVICE_TYPE]}`}>
+    <li className={`${className} ${menuItemVar[deviceType]}`}>
       {path ? (
         <NavLink
           to={path}
-          className={menuLinkVar[DEVICE_TYPE]}
+          className={menuLinkVar[deviceType]}
           onClick={() => (amplitudeId ? track(amplitudeId) : null)}
           target={target}>
           {text}
         </NavLink>
       ) : (
-        <p className={`${onClick ? menuLinkVar[DEVICE_TYPE] : null}`} onClick={onClick}>
+        <p className={`${onClick ? menuLinkVar[deviceType] : null}`} onClick={onClick}>
           {text}
         </p>
       )}
