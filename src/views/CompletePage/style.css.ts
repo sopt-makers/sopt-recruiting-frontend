@@ -200,7 +200,7 @@ const pointBox = style({
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: 6,
-  transition: 'all 0.3s ease',
+  transition: 'color 0.3s ease, background-color 0.3s ease',
   cursor: 'pointer',
 });
 
