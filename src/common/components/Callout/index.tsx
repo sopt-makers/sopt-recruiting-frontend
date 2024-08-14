@@ -14,10 +14,10 @@ interface CalloutProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: CalloutProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   return (
-    <article className={container[DEVICE_TYPE === 'DESK' ? size : DEVICE_TYPE]} {...calloutElementProps}>
-      <div className={warningWrapperVar[DEVICE_TYPE]}>
+    <article className={container[deviceType === 'DESK' ? size : deviceType]} {...calloutElementProps}>
+      <div className={warningWrapperVar[deviceType]}>
         <IconAlertCircle
           style={{
             width: 32,
@@ -30,7 +30,7 @@ const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: Call
         />
         {children}
       </div>
-      {Button && <div className={buttonVar[DEVICE_TYPE]}>{Button}</div>}
+      {Button && <div className={buttonVar[deviceType]}>{Button}</div>}
     </article>
   );
 };

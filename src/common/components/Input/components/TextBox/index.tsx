@@ -15,12 +15,12 @@ export const TextBox = ({
   size = 'md',
   required,
 }: Pick<TextBoxProps, 'children' | 'label' | 'name' | 'size' | 'required'>) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
 
   return (
     <FormContext.Provider value={{ required }}>
-      <div className={containerVar[DEVICE_TYPE === 'DESK' ? size : DEVICE_TYPE]}>
-        <label className={titleVar[DEVICE_TYPE]} htmlFor={name}>
+      <div className={containerVar[deviceType === 'DESK' ? size : deviceType]}>
+        <label className={titleVar[deviceType]} htmlFor={name}>
           <span>{label}</span>
           {required && <i className={circle} />}
         </label>

@@ -19,7 +19,7 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'label' | 'size'>) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     register,
     formState: { errors },
@@ -46,11 +46,11 @@ const InputLine = ({
 
   return (
     <>
-      <div className={inputLineVar[DEVICE_TYPE]}>
+      <div className={inputLineVar[deviceType]}>
         <input
           id={name}
           defaultValue={defaultValue}
-          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFontVar[DEVICE_TYPE]}`}
+          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFontVar[deviceType]}`}
           {...inputElementProps}
           {...register(name, {
             required: required && '필수 입력 항목이에요.',
