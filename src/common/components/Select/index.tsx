@@ -18,7 +18,6 @@ import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
   const deviceType = useDevice();
-  const ampUnmask = name === 'part' || name === 'knownPath';
 
   const { register, formState, clearErrors, getValues, setValue, setError } = useFormContext();
   const { errors } = formState;
@@ -45,7 +44,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         <input
           id={name}
           type="text"
-          className={`${ampUnmask ? 'amp-unmask' : ''} ${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar[deviceType]}`}
+          className={`${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar[deviceType]}`}
           role="combobox"
           readOnly
           {...inputElementProps}
