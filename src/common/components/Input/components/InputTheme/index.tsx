@@ -143,7 +143,7 @@ export const TextBox이메일 = ({
     <TextBox label="이메일" name="email" required>
       <InputLine
         style={{
-          width: DEVICE_TYPE === 'DESK' ? 308 : DEVICE_TYPE === 'TAB' ? 246 : 208,
+          width: deviceType === 'DESK' ? 308 : deviceType === 'TAB' ? 246 : 208,
           paddingRight: isActive ? 50 : 16,
         }}
         name="email"
@@ -161,7 +161,7 @@ export const TextBox이메일 = ({
         <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
-        style={{ width: DEVICE_TYPE === 'DESK' ? 308 : DEVICE_TYPE === 'TAB' ? 246 : 208 }}
+        style={{ width: deviceType === 'DESK' ? 308 : deviceType === 'TAB' ? 246 : 208 }}
         id="verification-code"
         readOnly={!isActive}
         name="code"
