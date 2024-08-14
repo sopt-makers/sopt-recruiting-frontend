@@ -23,11 +23,11 @@ import {
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
   const deviceType = useDevice();
   const isMasking = label !== '지원서';
-        
+
   return (
     <li className={itemWrapper}>
       <span className={infoLabelVar[deviceType]}>{label}</span>
-      <span className={`${isMasking ? 'amp-mask' : ''} ${infoValueVar[DEVICE_TYPE]}`}>{value}</span>
+      <span className={`${isMasking ? 'amp-mask' : ''} ${infoValueVar[deviceType]}`}>{value}</span>
     </li>
   );
 };
