@@ -14,7 +14,7 @@ import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainer } from 'views/ApplyPage/style.css';
-import PreventReviewDialog from 'views/dialogs/PreventReviewDialog';
+import { PreventReviewDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
