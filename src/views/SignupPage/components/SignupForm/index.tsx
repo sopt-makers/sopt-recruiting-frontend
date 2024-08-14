@@ -11,7 +11,7 @@ import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
-import ExistingApplicantDialog from 'views/dialogs/ExistingApplicantDialog';
+import { ExistingApplicantDialog } from 'views/dialogs';
 import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
