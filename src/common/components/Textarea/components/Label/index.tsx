@@ -1,6 +1,8 @@
 import { Fragment, type HTMLAttributes } from 'react';
 
-import { requireDot, labelStyle } from './style.css';
+import { useDevice } from '@hooks/useDevice';
+
+import { requireDot, labelStyleVar } from './style.css';
 
 interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
   children: string;
@@ -10,6 +12,7 @@ interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Label = ({ children, maxCount, required, label, ...headerElementProps }: LabelProps) => {
+  const deviceType = useDevice();
   const questionArray = children.split('\n');
   const firstEmptyIndex = questionArray.indexOf('');
 
@@ -29,7 +32,7 @@ const Label = ({ children, maxCount, required, label, ...headerElementProps }: L
     ));
 
   return (
-    <h4 className={labelStyle} {...headerElementProps}>
+    <h4 className={labelStyleVar[deviceType]} {...headerElementProps}>
       <label style={{ cursor: 'pointer' }} htmlFor={label}>
         <span>
           {firstEmptyIndex === -1 ? children : renderQuestions(questionArray, firstEmptyIndex)}

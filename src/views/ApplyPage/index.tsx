@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
+import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
@@ -338,6 +339,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           )}
         </form>
       </div>
+      <Footer />
     </FormProvider>
   );
 };

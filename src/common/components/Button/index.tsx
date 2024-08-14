@@ -26,7 +26,7 @@ const Button = ({
   isLink = false,
   ...buttonElementProps
 }: ButtonProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const { disabled, type = 'button' } = buttonElementProps;
   const Tag = isLink ? Link : 'button';
 
@@ -46,7 +46,7 @@ const Button = ({
       disabled={isLoading || disabled}
       {...buttonElementProps}>
       <div
-        className={`${container[isLoading || disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${buttonFontVar[DEVICE_TYPE]} ${className}`}>
+        className={`${container[isLoading || disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${buttonFontVar[deviceType]} ${className}`}>
         {isLoading ? <ButtonLoading width={loadingWidth} /> : children}
       </div>
     </Tag>
