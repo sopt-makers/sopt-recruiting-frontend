@@ -174,7 +174,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         {...register(`file${id}`)}
         onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
-        className={`amp-unmask ${fileInput}`}
+        className={fileInput}
         disabled={disabledStatus}
       />
       <label

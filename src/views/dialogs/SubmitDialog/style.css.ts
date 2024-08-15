@@ -1,19 +1,45 @@
 import { colors } from '@sopt-makers/colors';
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const infoContainer = style({
+const infoContainer = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  width: 352,
-  height: 252,
-  marginTop: 20,
-  padding: '33px 44px',
   // FIXME: gray20으로 수정해야 함.
   backgroundColor: colors.gray30,
   borderRadius: 10,
+});
+
+export const infoContainerVar = styleVariants({
+  DESK: [
+    infoContainer,
+    {
+      width: 352,
+      height: 252,
+      marginTop: 20,
+      padding: '33px 44px',
+    },
+  ],
+  TAB: [
+    infoContainer,
+    {
+      width: 352,
+      height: 252,
+      marginTop: 20,
+      padding: '33px 44px',
+    },
+  ],
+  MOB: [
+    infoContainer,
+    {
+      width: 265,
+      height: 245,
+      marginTop: 14,
+      padding: '35px 30px',
+    },
+  ],
 });
 
 export const infoWrapper = style({
@@ -22,17 +48,80 @@ export const infoWrapper = style({
   alignItems: 'center',
 });
 
-export const infoLabel = style({
+export const infoWrapperVar = styleVariants({
+  DESK: [
+    infoWrapper,
+    {
+      gap: 48,
+    },
+  ],
+  TAB: [
+    infoWrapper,
+    {
+      gap: 48,
+    },
+  ],
+  MOB: [
+    infoWrapper,
+    {
+      gap: 39,
+    },
+  ],
+});
+
+const infoLabel = style({
   width: 56,
   minWidth: 56,
   color: colors.gray300,
   ...theme.font.BODY_2_16_R,
 });
 
-export const infoValue = style({
+export const infoLabelVar = styleVariants({
+  DESK: [
+    infoLabel,
+    {
+      ...theme.font.BODY_2_16_R,
+    },
+  ],
+  TAB: [
+    infoLabel,
+    {
+      ...theme.font.BODY_2_16_R,
+    },
+  ],
+  MOB: [
+    infoLabel,
+    {
+      ...theme.font.BODY_3_14_R,
+    },
+  ],
+});
+
+const infoValue = style({
   color: colors.gray950,
   wordBreak: 'break-all',
   ...theme.font.BODY_2_16_M,
+});
+
+export const infoValueVar = styleVariants({
+  DESK: [
+    infoValue,
+    {
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  TAB: [
+    infoValue,
+    {
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  MOB: [
+    infoValue,
+    {
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
 });
 
 export const checkboxContainer = style({

@@ -9,11 +9,11 @@ import MenuList from './MenuList';
 import { menuIconVar } from './style.css';
 
 const Nav = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen: boolean; onClickMenuToggle: () => void }) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const { isLight } = useContext(ThemeContext);
 
-  return DEVICE_TYPE !== 'DESK' ? (
-    <i className={menuIconVar[DEVICE_TYPE]} onClick={onClickMenuToggle}>
+  return deviceType !== 'DESK' ? (
+    <i className={menuIconVar[deviceType]} onClick={onClickMenuToggle}>
       {isMenuOpen ? <IconXClose /> : <IconMenu color={isLight ? 'currentColor' : theme.color.white} />}
     </i>
   ) : (

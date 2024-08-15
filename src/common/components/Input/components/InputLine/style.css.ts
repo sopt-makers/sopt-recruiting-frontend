@@ -68,7 +68,7 @@ export const inputFontVar = styleVariants(
   {
     DESK: theme.font.BODY_2_16_R,
     TAB: theme.font.BODY_2_16_R,
-    MOB: theme.font.BODY_4_13_R,
+    MOB: theme.font.BODY_3_14_R,
   },
   (font) => [
     {

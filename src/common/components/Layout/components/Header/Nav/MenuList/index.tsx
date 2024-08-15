@@ -10,7 +10,7 @@ import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../../contants';
 import MenuItem from '../MenuItem';
 
 const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isShown, setIsShown] = useState(isMenuOpen);
@@ -45,8 +45,7 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
 
   return (
     <nav>
-      <ul
-        className={DEVICE_TYPE !== 'DESK' ? `${menuMobListVar[DEVICE_TYPE]} ${menuContainerVar[animation]}` : menuList}>
+      <ul className={deviceType !== 'DESK' ? `${menuMobListVar[deviceType]} ${menuContainerVar[animation]}` : menuList}>
         {!isSignedIn && (
           <>
             {menuItems.map(({ text, path, target, amplitudeId }) => (

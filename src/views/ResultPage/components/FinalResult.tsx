@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
@@ -24,7 +25,7 @@ import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
   } = useContext(RecruitingInfoContext);
@@ -40,10 +41,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
   return (
     <>
       {pass ? (
-        <p className={contentVar[DEVICE_TYPE]}>
+        <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
-          <span>
+          <span className="amp-mask">
             {`
               ${name}님은 ${season}기 ${SOPT_NAME} ${!isMakers ? group : ''} 신입회원 모집에 최종 합격하셨습니다.
   
@@ -59,8 +60,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
             className={link}
             href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
             target="_blank"
-            rel="noreferrer noopener">
-            {`https://${DEVICE_TYPE !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
+            rel="noreferrer noopener"
+            onClick={() => track('click-final-google_form')}>
+            {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
           </a>
           <span>{` )\n`}</span>
           <br />
@@ -76,7 +78,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           </span>
         </p>
       ) : (
-        <p className={contentVar[DEVICE_TYPE]}>
+        <p className={`amp-mask ${contentVar[deviceType]}`}>
           {`안녕하세요, ${SOPT_NAME}입니다.
           
           ${SOPT_NAME}에 관심을 갖고 지원해 주셔서 감사드립니다.
@@ -98,7 +100,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const FinalResult = () => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
   const {
     recruitingInfo: { isMakers },
@@ -118,12 +120,12 @@ const FinalResult = () => {
   return (
     <section className={container}>
       <div style={{ overflow: 'auto', height: '100%' }}>
-        <div className={contentWrapperVar[DEVICE_TYPE]}>
+        <div className={contentWrapperVar[deviceType]}>
           <Title>결과 확인</Title>
           <Content pass={pass} />
         </div>
       </div>
-      {DEVICE_TYPE !== 'MOB' && pass && (
+      {deviceType !== 'MOB' && pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (
@@ -138,7 +140,7 @@ const FinalResult = () => {
           )}
         </>
       )}
-      <div className={scrollBottomGradVar[DEVICE_TYPE]} />
+      <div className={scrollBottomGradVar[deviceType]} />
     </section>
   );
 };
