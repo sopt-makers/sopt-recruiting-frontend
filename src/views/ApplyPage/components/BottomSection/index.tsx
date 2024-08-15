@@ -23,7 +23,7 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
   return (
     <section className={sectionContainer}>
       <hr className={line} />
-      {isMakers && (
+      {!isMakers && (
         <SelectBox
           label="동아리를 알게 된 경로"
           name="knownPath"
