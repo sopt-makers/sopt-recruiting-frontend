@@ -16,7 +16,7 @@ interface BottomSectionProps {
 }
 
 const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     recruitingInfo: { isMakers },
   } = useContext(RecruitingInfoContext);
@@ -35,7 +35,7 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
         />
       )}
       <div id="check-necessary" className={doubleLineCheck}>
-        <p className={labelVar[DEVICE_TYPE]}>
+        <p className={labelVar[deviceType]}>
           {isMakers
             ? 'SOPT makers의 행사 및 정기 모임은 일요일에 진행됩니다.'
             : 'SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.'}

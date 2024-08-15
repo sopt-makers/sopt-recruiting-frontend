@@ -16,9 +16,28 @@ export const formContainer = style({
   gap: 100,
 
   marginBottom: 362,
-  width: 720,
 });
 
+export const formContainerVar = styleVariants({
+  DESK: [
+    formContainer,
+    {
+      width: 720,
+    },
+  ],
+  TAB: [
+    formContainer,
+    {
+      width: 367,
+    },
+  ],
+  MOB: [
+    formContainer,
+    {
+      width: 312,
+    },
+  ],
+});
 export const content = style({});
 
 export const buttonWrapper = style({
@@ -33,14 +52,17 @@ export const buttonWrapper = style({
 
 export const sectionTitleVar = styleVariants({
   DESK: {
+    width: 720,
     ...theme.font.TITLE_2_28_SB,
     color: theme.color.baseText,
   },
   TAB: {
+    width: 367,
     ...theme.font.TITLE_3_24_SB,
     color: theme.color.baseText,
   },
   MOB: {
+    width: 312,
     ...theme.font.TITLE_5_18_SB,
     color: theme.color.baseText,
   },
@@ -49,7 +71,6 @@ export const sectionTitleVar = styleVariants({
 export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
 });
 
 export const sectionContainerVar = styleVariants({

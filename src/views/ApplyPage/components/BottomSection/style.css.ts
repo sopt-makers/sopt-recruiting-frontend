@@ -5,7 +5,6 @@ import { theme } from 'styles/theme.css';
 export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
 
   gap: 50,
 });
