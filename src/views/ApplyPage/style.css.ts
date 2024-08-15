@@ -29,6 +29,8 @@ export const buttonWrapper = style({
   marginTop: 46,
 });
 
+// section common styles
+
 export const sectionTitleVar = styleVariants({
   DESK: {
     ...theme.font.TITLE_2_28_SB,
@@ -42,4 +44,34 @@ export const sectionTitleVar = styleVariants({
     ...theme.font.TITLE_5_18_SB,
     color: theme.color.baseText,
   },
+});
+
+export const sectionContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+export const sectionContainerVar = styleVariants({
+  DESK: [
+    sectionContainer,
+    {
+      paddingTop: 166,
+      gap: 50,
+    },
+  ],
+  TAB: [
+    sectionContainer,
+    {
+      paddingTop: 100,
+      gap: 50,
+    },
+  ],
+  MOB: [
+    sectionContainer,
+    {
+      paddingTop: 49,
+      gap: 40,
+    },
+  ],
 });
