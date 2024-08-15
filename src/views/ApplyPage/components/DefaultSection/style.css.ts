@@ -2,28 +2,70 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const sectionContainer = style({
+const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 50,
-  paddingTop: 90,
 });
 
-export const title = style({
-  ...theme.font.TITLE_2_28_SB,
-  color: theme.color.baseText,
+export const sectionContainerVar = styleVariants({
+  DESK: [
+    sectionContainer,
+    {
+      gap: 50,
+      paddingTop: 100,
+    },
+  ],
+  TAB: [
+    sectionContainer,
+    {
+      gap: 50,
+      paddingTop: 100,
+    },
+  ],
+  MOB: [
+    sectionContainer,
+    {
+      gap: 30,
+      paddingTop: 70,
+    },
+  ],
 });
 
-export const doubleWrapper = style({
-  display: 'flex',
-  gap: 8,
+export const doubleWrapperVar = styleVariants({
+  DESK: {
+    display: 'flex',
+    gap: 8,
+  },
+  TAB: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 50,
+  },
+  MOB: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
+  },
 });
 
 // ProfileImage styles
 
-export const profileWrapper = style({
-  display: 'flex',
-  gap: 28,
+export const profileWrapperVar = styleVariants({
+  DESK: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 28,
+  },
+  TAB: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 17,
+  },
+  MOB: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 16,
+  },
 });
 
 const profileLabel = style({
@@ -32,8 +74,6 @@ const profileLabel = style({
   justifyContent: 'center',
   alignItems: 'center',
   padding: 6,
-  width: 134,
-  height: 176,
   border: `1px solid ${theme.color.border}`,
   borderRadius: 10,
   cursor: 'pointer',
@@ -61,13 +101,50 @@ export const profileLabelVar = styleVariants({
   ],
 });
 
-export const errorText = style({
+export const profileLabelSizeVar = styleVariants({
+  DESK: {
+    width: 134,
+    height: 176,
+  },
+  TAB: {
+    width: 134,
+    height: 176,
+  },
+  MOB: {
+    width: 106,
+    height: 140,
+  },
+});
+
+const errorText = style({
   position: 'absolute',
-  bottom: -30,
   left: 0,
-  width: 330,
+  width: 'max-content',
   color: theme.color.error,
-  ...theme.font.LABEL_2_16_SB,
+});
+
+export const errorTextVar = styleVariants({
+  DESK: [
+    errorText,
+    {
+      bottom: -30,
+      ...theme.font.LABEL_2_16_SB,
+    },
+  ],
+  TAB: [
+    errorText,
+    {
+      bottom: -30,
+      ...theme.font.LABEL_2_16_SB,
+    },
+  ],
+  MOB: [
+    errorText,
+    {
+      bottom: -26,
+      ...theme.font.LABEL_3_14_SB,
+    },
+  ],
 });
 
 export const profileImage = style({
@@ -80,11 +157,31 @@ export const profileTextWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  marginTop: 19,
+  paddingBottom: 28,
 });
 
-export const profileText = style({
-  ...theme.font.BODY_2_16_R,
+const profileText = style({
   color: theme.color.lighterText,
-  whiteSpace: 'pre-wrap',
+});
+
+export const profileTextVar = styleVariants({
+  DESK: [
+    profileText,
+    {
+      whiteSpace: 'pre-wrap',
+      ...theme.font.BODY_2_16_R,
+    },
+  ],
+  TAB: [
+    profileText,
+    {
+      ...theme.font.BODY_3_14_R,
+    },
+  ],
+  MOB: [
+    profileText,
+    {
+      ...theme.font.BODY_4_13_R,
+    },
+  ],
 });

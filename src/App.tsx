@@ -12,6 +12,7 @@ import Layout from '@components/Layout';
 import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
 import { dark, light } from 'styles/theme.css';
+import { SessionExpiredDialog } from 'views/dialogs';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
 import PasswordPage from 'views/PasswordPage';
@@ -20,7 +21,6 @@ import ReviewPage from 'views/ReviewPage';
 import SignupPage from 'views/SignupPage';
 
 import 'styles/reset.css';
-import { SessionExpiredDialog } from 'views/dialogs';
 
 const router = createBrowserRouter([
   {

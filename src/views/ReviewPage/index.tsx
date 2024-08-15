@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import useDate from '@hooks/useDate';
+import { useDevice } from '@hooks/useDevice';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
@@ -13,12 +14,13 @@ import DefaultSection from 'views/ApplyPage/components/DefaultSection';
 import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
-import { container, formContainer } from 'views/ApplyPage/style.css';
+import { container, formContainerVar } from 'views/ApplyPage/style.css';
 import { PreventReviewDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 const ReviewPage = () => {
+  const deviceType = useDevice();
   const preventReviewDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
@@ -110,7 +112,7 @@ const ReviewPage = () => {
           <ApplyHeader isReview={isReview} />
           <ApplyInfo isReview={isReview} />
           <ApplyCategory isReview={isReview} minIndex={minIndex} />
-          <form id="apply-form" name="apply-form" className={formContainer}>
+          <form id="apply-form" name="apply-form" className={formContainerVar[deviceType]}>
             <DefaultSection
               isMakers={isMakers}
               isReview={isReview}

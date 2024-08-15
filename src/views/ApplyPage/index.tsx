@@ -7,6 +7,7 @@ import Button from '@components/Button';
 import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
+import { useDevice } from '@hooks/useDevice';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
@@ -24,7 +25,7 @@ import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
-import { buttonWrapper, container, formContainer } from './style.css';
+import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
 
@@ -33,6 +34,7 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
+  const deviceType = useDevice();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   const draftDialog = useRef<HTMLDialogElement>(null);
@@ -301,7 +303,11 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory isReview={isReview} minIndex={minIndex} />
-        <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+        <form
+          id="apply-form"
+          name="apply-form"
+          onSubmit={handleSubmit(handleApplySubmit)}
+          className={formContainerVar[deviceType]}>
           <DefaultSection
             isMakers={isMakers}
             isReview={isReview}

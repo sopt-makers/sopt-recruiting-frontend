@@ -2,9 +2,10 @@ import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Title from '@components/Title';
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
-import { buttonWrapper, headerContainer } from './style.css';
+import { buttonWrapper, headerContainerVar } from './style.css';
 
 interface ApplyHeaderProps {
   isReview: boolean;
@@ -14,16 +15,17 @@ interface ApplyHeaderProps {
 }
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
+  const deviceType = useDevice();
   const {
     recruitingInfo: { soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);
 
   return (
-    <header className={headerContainer}>
+    <header className={headerContainerVar[deviceType]}>
       <Title>
         {season}기 {isMakers ? soptName : group} 지원서
       </Title>
-      {!isReview && (
+      {!isReview && deviceType !== 'MOB' && (
         <div className={buttonWrapper}>
           <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
             임시저장

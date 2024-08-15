@@ -3,21 +3,23 @@ import { ko } from 'date-fns/locale';
 import { memo, useContext } from 'react';
 
 import Callout from '@components/Callout';
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import {
   dateItems,
-  dateLabel,
-  dateText,
+  dateLabelVar,
+  dateTextVar,
   dateWrapper,
-  infoContainer,
-  infoItems,
+  infoContainerVar,
   infoItemsBold,
-  infoWrapper,
+  infoItemsVar,
+  infoWrapperVar,
 } from './style.css';
 import { APPLY_INFO } from '../../constant';
 
 const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
+  const deviceType = useDevice();
   const {
     recruitingInfo: {
       applicationStart,
@@ -49,10 +51,10 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
   const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
 
   return (
-    <section className={infoContainer}>
+    <section className={infoContainerVar[deviceType]}>
       {!isReview && (
-        <ul className={infoWrapper}>
-          <li key="first-info" className={infoItems}>
+        <ul className={infoWrapperVar[deviceType]}>
+          <li key="first-info" className={infoItemsVar[deviceType]}>
             지원서 작성 전에{` `}
             <a
               href="https://makers.sopt.org/recruit"
@@ -64,7 +66,7 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
             을 꼭 숙지하고 지원해 주시기 바랍니다.
           </li>
           {APPLY_INFO.sections.map(({ id, content }) => (
-            <li key={id} className={infoItems}>
+            <li key={id} className={infoItemsVar[deviceType]}>
               {content.map(({ text, weight }) => (
                 <span key={text} className={weight === 'strong' ? infoItemsBold : ''}>
                   {text}
@@ -82,20 +84,23 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
       {!isReview && (
         <ol className={dateWrapper}>
           <li className={dateItems}>
-            <span className={dateLabel}>지원 기간</span>
-            <span className={dateText}>{`${formattedApplicationStart} - ${formattedApplicationEnd}`}</span>
+            <span className={dateLabelVar[deviceType]}>지원 기간</span>
+            <span
+              className={
+                dateTextVar[deviceType]
+              }>{`${formattedApplicationStart} ${deviceType !== 'DESK' ? '\n' : ''}- ${formattedApplicationEnd}`}</span>
           </li>
           <li className={dateItems}>
-            <span className={dateLabel}>서류 발표</span>
-            <span className={dateText}>{formattedApplicationConfirmStart}</span>
+            <span className={dateLabelVar[deviceType]}>서류 발표</span>
+            <span className={dateTextVar[deviceType]}>{formattedApplicationConfirmStart}</span>
           </li>
           <li className={dateItems}>
-            <span className={dateLabel}>면접 평가</span>
-            <span className={dateText}>{`${formattedInterviewStart} - ${formattedInterviewEnd}`}</span>
+            <span className={dateLabelVar[deviceType]}>면접 평가</span>
+            <span className={dateTextVar[deviceType]}>{`${formattedInterviewStart} - ${formattedInterviewEnd}`}</span>
           </li>
           <li className={dateItems}>
-            <span className={dateLabel}>최종 발표</span>
-            <span className={dateText}>{formattedFinalPassConfirmStart}</span>
+            <span className={dateLabelVar[deviceType]}>최종 발표</span>
+            <span className={dateTextVar[deviceType]}>{formattedFinalPassConfirmStart}</span>
           </li>
         </ol>
       )}

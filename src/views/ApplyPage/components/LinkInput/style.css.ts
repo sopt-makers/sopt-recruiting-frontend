@@ -1,27 +1,52 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+const container = style({
   display: 'flex',
-  gap: 24,
   alignItems: 'center',
-  width: 720,
-  height: 53,
-  padding: '12px 22px',
+  justifyContent: 'space-between',
   borderRadius: 12,
   color: theme.color.lighterText,
   backgroundColor: theme.color.subBackground,
 });
 
+export const containerVar = styleVariants({
+  DESK: [
+    container,
+    {
+      width: 720,
+      padding: '12px 22px',
+      ...theme.font.BODY_1_18_M,
+    },
+  ],
+  TAB: [
+    container,
+    {
+      width: 367,
+      padding: '12px 14px 11px 22px',
+      ...theme.font.BODY_1_18_M,
+    },
+  ],
+  MOB: [
+    container,
+    {
+      width: 312,
+      padding: '13px 16px',
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+});
+
 export const label = style({
   width: 'fit-content',
-  ...theme.font.BODY_1_18_M,
 });
 
 export const link = style({
-  width: 'fit-content',
-  ...theme.font.HEADING_6_18_B,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  fontWeight: 600,
 
   '::placeholder': {
     color: theme.color.placeholder,
@@ -33,4 +58,25 @@ export const link = style({
       textDecoration: 'underline',
     },
   },
+});
+
+export const linkVar = styleVariants({
+  DESK: [
+    link,
+    {
+      width: 620,
+    },
+  ],
+  TAB: [
+    link,
+    {
+      width: 267,
+    },
+  ],
+  MOB: [
+    link,
+    {
+      width: 235,
+    },
+  ],
 });
