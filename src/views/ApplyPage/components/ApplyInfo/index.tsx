@@ -19,7 +19,7 @@ import {
 import { APPLY_INFO } from '../../constant';
 
 const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     recruitingInfo: {
       applicationStart,
@@ -51,10 +51,10 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
   const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
 
   return (
-    <section className={infoContainerVar[DEVICE_TYPE]}>
+    <section className={infoContainerVar[deviceType]}>
       {!isReview && (
-        <ul className={infoWrapperVar[DEVICE_TYPE]}>
-          <li key="first-info" className={infoItemsVar[DEVICE_TYPE]}>
+        <ul className={infoWrapperVar[deviceType]}>
+          <li key="first-info" className={infoItemsVar[deviceType]}>
             지원서 작성 전에{` `}
             <a
               href="https://makers.sopt.org/recruit"
@@ -66,7 +66,7 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
             을 꼭 숙지하고 지원해 주시기 바랍니다.
           </li>
           {APPLY_INFO.sections.map(({ id, content }) => (
-            <li key={id} className={infoItemsVar[DEVICE_TYPE]}>
+            <li key={id} className={infoItemsVar[deviceType]}>
               {content.map(({ text, weight }) => (
                 <span key={text} className={weight === 'strong' ? infoItemsBold : ''}>
                   {text}
@@ -84,23 +84,23 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
       {!isReview && (
         <ol className={dateWrapper}>
           <li className={dateItems}>
-            <span className={dateLabelVar[DEVICE_TYPE]}>지원 기간</span>
+            <span className={dateLabelVar[deviceType]}>지원 기간</span>
             <span
               className={
-                dateTextVar[DEVICE_TYPE]
-              }>{`${formattedApplicationStart} ${DEVICE_TYPE !== 'DESK' ? '\n' : ''}- ${formattedApplicationEnd}`}</span>
+                dateTextVar[deviceType]
+              }>{`${formattedApplicationStart} ${deviceType !== 'DESK' ? '\n' : ''}- ${formattedApplicationEnd}`}</span>
           </li>
           <li className={dateItems}>
-            <span className={dateLabelVar[DEVICE_TYPE]}>서류 발표</span>
-            <span className={dateTextVar[DEVICE_TYPE]}>{formattedApplicationConfirmStart}</span>
+            <span className={dateLabelVar[deviceType]}>서류 발표</span>
+            <span className={dateTextVar[deviceType]}>{formattedApplicationConfirmStart}</span>
           </li>
           <li className={dateItems}>
-            <span className={dateLabelVar[DEVICE_TYPE]}>면접 평가</span>
-            <span className={dateTextVar[DEVICE_TYPE]}>{`${formattedInterviewStart} - ${formattedInterviewEnd}`}</span>
+            <span className={dateLabelVar[deviceType]}>면접 평가</span>
+            <span className={dateTextVar[deviceType]}>{`${formattedInterviewStart} - ${formattedInterviewEnd}`}</span>
           </li>
           <li className={dateItems}>
-            <span className={dateLabelVar[DEVICE_TYPE]}>최종 발표</span>
-            <span className={dateTextVar[DEVICE_TYPE]}>{formattedFinalPassConfirmStart}</span>
+            <span className={dateLabelVar[deviceType]}>최종 발표</span>
+            <span className={dateTextVar[deviceType]}>{formattedFinalPassConfirmStart}</span>
           </li>
         </ol>
       )}

@@ -15,17 +15,17 @@ interface ApplyHeaderProps {
 }
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     recruitingInfo: { soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);
 
   return (
-    <header className={headerContainerVar[DEVICE_TYPE]}>
+    <header className={headerContainerVar[deviceType]}>
       <Title>
         {season}기 {isMakers ? soptName : group} 지원서
       </Title>
-      {!isReview && DEVICE_TYPE !== 'MOB' && (
+      {!isReview && deviceType !== 'MOB' && (
         <div className={buttonWrapper}>
           <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
             임시저장

@@ -10,10 +10,10 @@ interface DialogProps extends DialogHTMLAttributes<HTMLDialogElement> {
 }
 
 const Dialog = forwardRef<HTMLDialogElement, DialogProps>(({ children, ...dialogElementProps }: DialogProps, ref) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
 
   return createPortal(
-    <dialog ref={ref} className={containerVar[DEVICE_TYPE]} {...dialogElementProps}>
+    <dialog ref={ref} className={containerVar[deviceType]} {...dialogElementProps}>
       {children}
     </dialog>,
     document.getElementById('modal')!,

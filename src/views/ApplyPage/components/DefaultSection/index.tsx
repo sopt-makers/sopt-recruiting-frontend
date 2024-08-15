@@ -113,7 +113,7 @@ interface DefaultSectionProps {
 }
 
 const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
-  const DEVICE_TYPE = useDevice();
+  const deviceType = useDevice();
   const {
     address,
     birthday,
@@ -131,10 +131,10 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
   } = applicantDraft || {};
 
   return (
-    <section ref={refCallback} id="default" className={sectionContainerVar[DEVICE_TYPE]}>
-      <h2 className={sectionTitleVar[DEVICE_TYPE]}>기본 인적사항</h2>
-      <ProfileImage pic={pic} disabled={isReview} deviceType={DEVICE_TYPE} />
-      <div className={doubleWrapperVar[DEVICE_TYPE]}>
+    <section ref={refCallback} id="default" className={sectionContainerVar[deviceType]}>
+      <h2 className={sectionTitleVar[deviceType]}>기본 인적사항</h2>
+      <ProfileImage pic={pic} disabled={isReview} deviceType={deviceType} />
+      <div className={doubleWrapperVar[deviceType]}>
         <TextBox label="이름" name="name" required size="sm">
           <InputLine value={name} name="name" readOnly disabled={isReview} />
         </TextBox>
@@ -148,7 +148,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           disabled={isReview}
         />
       </div>
-      <div className={doubleWrapperVar[DEVICE_TYPE]}>
+      <div className={doubleWrapperVar[deviceType]}>
         <TextBox label="생년월일" name="birthday" required size="sm">
           <InputLine
             name="birthday"
@@ -182,7 +182,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           disabled={isReview}
         />
       </TextBox>
-      <div className={doubleWrapperVar[DEVICE_TYPE]}>
+      <div className={doubleWrapperVar[deviceType]}>
         <TextBox label="학교" name="college" required size="sm">
           <InputLine
             defaultValue={college}
@@ -212,7 +212,7 @@ const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: Def
           />
         </div>
       </div>
-      <div className={doubleWrapperVar[DEVICE_TYPE]}>
+      <div className={doubleWrapperVar[deviceType]}>
         <TextBox label="학과" name="major" required size="sm">
           <InputLine
             defaultValue={major}
