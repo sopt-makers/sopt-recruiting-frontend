@@ -43,6 +43,9 @@ export const containerVar = styleVariants({
   MOB: {
     top: 153,
   },
+  REVIEW_TAB: {
+    top: 177,
+  },
 });
 
 export const categoryList = style({

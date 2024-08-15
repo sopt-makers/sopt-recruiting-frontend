@@ -17,7 +17,7 @@ const ApplyCategory = memo(({ isReview, minIndex }: ApplyCategoryProps) => {
 
   return (
     <nav
-      className={`${container[isScrollingDown && !isScrollTop ? 'scrollDown' : 'scrollUp']} ${containerVar[deviceType]}`}>
+      className={`${container[isScrollingDown && !isScrollTop ? 'scrollDown' : 'scrollUp']} ${containerVar[isReview && deviceType === 'TAB' ? 'REVIEW_TAB' : deviceType]}`}>
       <ul className={categoryList}>
         {CATEGORY.map(({ index, text, path }) => (
           <li key={path}>
