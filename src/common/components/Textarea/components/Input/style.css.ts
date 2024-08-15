@@ -2,12 +2,32 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
   justifyContent: 'center',
-  width: 720,
+});
+
+export const containerVar = styleVariants({
+  DESK: [
+    container,
+    {
+      width: 720,
+    },
+  ],
+  TAB: [
+    container,
+    {
+      width: 367,
+    },
+  ],
+  MOB: [
+    container,
+    {
+      width: 312,
+    },
+  ],
 });
 
 const textareaBase = style({

@@ -1,8 +1,6 @@
 import { ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { useDevice } from '@hooks/useDevice';
-
 import { inputFontVar, inputLineVar, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
 import { formatPhoneNumber } from './utils/formatPhoneNumber';
@@ -19,7 +17,6 @@ const InputLine = ({
   children,
   ...inputElementProps
 }: Omit<TextBoxProps, 'label' | 'size'>) => {
-  const DEVICE_TYPE = useDevice();
   const {
     register,
     formState: { errors },
@@ -27,7 +24,7 @@ const InputLine = ({
     trigger,
     setValue,
   } = useFormContext();
-  const { required } = useContext(FormContext);
+  const { required, deviceType } = useContext(FormContext);
   const { maxLength, minLength } = inputElementProps;
   const { defaultValue } = inputElementProps;
 
@@ -46,11 +43,11 @@ const InputLine = ({
 
   return (
     <>
-      <div className={inputLineVar[DEVICE_TYPE]}>
+      <div className={inputLineVar[deviceType]}>
         <input
           id={name}
           defaultValue={defaultValue}
-          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFontVar[DEVICE_TYPE]}`}
+          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFontVar[deviceType]}`}
           {...inputElementProps}
           {...register(name, {
             required: required && '필수 입력 항목이에요.',

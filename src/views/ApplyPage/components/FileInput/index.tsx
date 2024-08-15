@@ -6,9 +6,19 @@ import { useFormContext } from 'react-hook-form';
 import 'firebase/compat/storage';
 import { STATE_CHANGED, storage } from '@constants/firebase.ts';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { useDevice } from '@hooks/useDevice';
 
 import IconPlusButton from './icons/IconPlusButton';
-import { container, errorText, fileInput, fileLabelVar, fileNameVar, textWrapper } from './style.css';
+import {
+  containerVar,
+  errorTextVar,
+  fileInput,
+  fileLabelSizeVar,
+  fileLabelVar,
+  fileNameSizeVar,
+  fileNameVar,
+  textWrapperVar,
+} from './style.css';
 
 interface FileInputProps {
   section: string;
@@ -22,6 +32,7 @@ const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
+  const deviceType = useDevice();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [uploadPercent, setUploadPercent] = useState(-1);
@@ -155,7 +166,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, fileValue, fileAnswer, isFileDeleted, setValue]);
 
   return (
-    <div className={container}>
+    <div className={containerVar[deviceType]}>
       <input
         id={`file-${id}`}
         type="file"
@@ -163,15 +174,17 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         {...register(`file${id}`)}
         onChange={(e) => handleFileChange(e, id)}
         ref={inputRef}
-        className={`amp-unmask ${fileInput}`}
+        className={fileInput}
         disabled={disabledStatus}
       />
       <label
         htmlFor={`file-${id}`}
-        className={fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']}>
-        <div className={textWrapper}>
-          <span>파일</span>
-          <span className={fileNameVar[getFileNameClass()]}>{getDisplayText()}</span>
+        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar[deviceType]}`}>
+        <div className={textWrapperVar[deviceType]}>
+          <span>참고 자료</span>
+          <span className={`${fileNameVar[getFileNameClass()]} ${fileNameSizeVar[deviceType]}`}>
+            {getDisplayText()}
+          </span>
         </div>
         <IconPlusButton
           isSelected={fileName !== 'delete-file' && fileValue}
@@ -179,7 +192,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           disabled={disabledStatus}
         />
       </label>
-      {errors[`file${id}`] && <p className={errorText}>{errors[`file${id}`]?.message as string}</p>}
+      {errors[`file${id}`] && <p className={errorTextVar[deviceType]}>{errors[`file${id}`]?.message as string}</p>}
     </div>
   );
 };

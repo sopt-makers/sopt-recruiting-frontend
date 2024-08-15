@@ -8,56 +8,163 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 550,
-  height: calc.subtract('100vh', '74px'),
+  height: calc.subtract('100vh', '80px'),
   minHeight: 700,
 
   '@supports': {
     '(height: 100dvh)': {
-      height: calc.subtract('100dvh', '74px'),
+      height: calc.subtract('100dvh', '80px'),
     },
   },
 });
 
-export const icon = style({
+const icon = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   marginBottom: 20,
-  width: 66,
-  height: 66,
   borderRadius: '50%',
   background: theme.color.primaryLinear,
 });
 
-export const mainText = style({
-  marginBottom: 8,
+export const iconVar = styleVariants({
+  DESK: [
+    icon,
+    {
+      width: 66,
+      height: 66,
+    },
+  ],
+  TAB: [
+    icon,
+    {
+      width: 66,
+      height: 66,
+    },
+  ],
+  MOB: [
+    icon,
+    {
+      width: 46,
+      height: 46,
+    },
+  ],
+});
+
+const mainText = style({
   color: theme.color.baseText,
   textAlign: 'center',
   whiteSpace: 'pre-line',
-  ...theme.font.HEADING_2_32_B,
+  marginBottom: 8,
 });
 
-export const subText = style({
-  marginBottom: 30,
+export const mainTextVar = styleVariants({
+  DESK: [
+    mainText,
+    {
+      ...theme.font.HEADING_2_32_B,
+    },
+  ],
+  TAB: [
+    mainText,
+    {
+      ...theme.font.HEADING_3_28_B,
+    },
+  ],
+  MOB: [
+    mainText,
+    {
+      ...theme.font.HEADING_5_20_B,
+    },
+  ],
+});
+
+const subText = style({
   color: theme.color.baseText,
   textAlign: 'center',
-  ...theme.font.BODY_1_18_M,
 });
 
-export const surveyBox = style({
+export const subTextVar = styleVariants({
+  DESK: [
+    subText,
+    {
+      marginBottom: 30,
+      ...theme.font.BODY_1_18_M,
+    },
+  ],
+  TAB: [
+    subText,
+    {
+      marginBottom: 30,
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  MOB: [
+    subText,
+    {
+      marginBottom: 20,
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+});
+
+const surveyBox = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: 12,
-  width: 466,
-  padding: '22px 0px',
-  marginTop: 35,
+  marginTop: 50,
   color: theme.color.lightestText,
-  ...theme.font.BODY_2_16_M,
   border: `1px solid ${theme.color.border}`,
   borderRadius: 15,
+});
+
+export const surveyBoxVar = styleVariants({
+  DESK: [
+    surveyBox,
+    {
+      gap: 12,
+      width: 466,
+      padding: '22px 0px',
+      ...theme.font.BODY_2_16_M,
+    },
+  ],
+  TAB: [
+    surveyBox,
+    {
+      gap: 12,
+      width: 387,
+      padding: '22px 0px',
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+  MOB: [
+    surveyBox,
+    {
+      gap: 14,
+      width: 312,
+      padding: '22px 0px',
+      ...theme.font.BODY_4_13_M,
+    },
+  ],
+});
+
+export const bottomContainer = styleVariants({
+  DESK: {
+    position: 'relative',
+    width: 348,
+    height: 36,
+  },
+  TAB: {
+    position: 'relative',
+    width: 326,
+    height: 34,
+  },
+  MOB: {
+    position: 'relative',
+    width: 180,
+    height: 78,
+  },
 });
 
 export const pointContainer = style({
@@ -67,6 +174,8 @@ export const pointContainer = style({
   width: '100%',
   height: '100%',
   display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
   gap: 4,
   transition: 'all 0.3s ease',
 });
@@ -90,11 +199,24 @@ const pointBox = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: 28,
-  height: 36,
   borderRadius: 6,
-  transition: 'all 0.3s ease',
+  transition: 'color 0.3s ease, background-color 0.3s ease',
   cursor: 'pointer',
+});
+
+export const pointBoxSizeVar = styleVariants({
+  DESK: {
+    width: 28,
+    height: 36,
+  },
+  TAB: {
+    width: 26,
+    height: 34,
+  },
+  MOB: {
+    width: 26,
+    height: 34,
+  },
 });
 
 export const pointBoxVar = styleVariants({

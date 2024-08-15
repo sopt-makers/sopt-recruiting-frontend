@@ -1,16 +1,17 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
 export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
+
   gap: 50,
 });
 
 export const line = style({
   width: '100%',
-  margin: '100px 0 67px 0',
+  margin: '100px 0',
   border: `1px solid ${theme.color.border}`,
 });
 
@@ -20,7 +21,7 @@ export const doubleLineCheck = style({
   flexDirection: 'column',
 });
 
-export const label = style({
+const label = style({
   display: 'flex',
   alignItems: 'center',
   marginBottom: 16,
@@ -28,7 +29,27 @@ export const label = style({
   width: 'fit-content',
 
   color: theme.color.baseText,
-  ...theme.font.TITLE_5_18_SB,
+});
+
+export const labelVar = styleVariants({
+  DESK: [
+    label,
+    {
+      ...theme.font.TITLE_5_18_SB,
+    },
+  ],
+  TAB: [
+    label,
+    {
+      ...theme.font.TITLE_5_18_SB,
+    },
+  ],
+  MOB: [
+    label,
+    {
+      ...theme.font.TITLE_6_16_SB,
+    },
+  ],
 });
 
 export const circle = style({

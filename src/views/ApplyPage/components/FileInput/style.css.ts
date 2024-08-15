@@ -2,9 +2,28 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+const container = style({
   position: 'relative',
-  width: 720,
+});
+export const containerVar = styleVariants({
+  DESK: [
+    container,
+    {
+      width: 720,
+    },
+  ],
+  TAB: [
+    container,
+    {
+      width: 367,
+    },
+  ],
+  MOB: [
+    container,
+    {
+      width: 312,
+    },
+  ],
 });
 
 export const fileInput = style({
@@ -16,7 +35,6 @@ export const fileLabel = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  padding: '12px 22px',
   border: `1px solid ${theme.color.border}`,
   borderRadius: 12,
   backgroundColor: theme.color.subBackground,
@@ -37,6 +55,27 @@ export const fileLabel = style({
   },
 });
 
+export const fileLabelSizeVar = styleVariants({
+  DESK: [
+    fileLabel,
+    {
+      padding: '12px 22px',
+    },
+  ],
+  TAB: [
+    fileLabel,
+    {
+      padding: '12px 14px 11px 22px',
+    },
+  ],
+  MOB: [
+    fileLabel,
+    {
+      padding: '13px 16px',
+    },
+  ],
+});
+
 export const fileLabelVar = styleVariants({
   default: [fileLabel, {}],
   selected: [
@@ -54,17 +93,39 @@ export const fileLabelVar = styleVariants({
   ],
 });
 
-export const textWrapper = style({
+const textWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: 24,
+  width: '100%',
 
   color: theme.color.lighterText,
-  ...theme.font.BODY_1_18_M,
+});
+
+export const textWrapperVar = styleVariants({
+  DESK: [
+    textWrapper,
+    {
+      ...theme.font.BODY_1_18_M,
+      gap: 24,
+    },
+  ],
+  TAB: [
+    textWrapper,
+    {
+      ...theme.font.BODY_1_18_M,
+      gap: 24,
+    },
+  ],
+  MOB: [
+    textWrapper,
+    {
+      ...theme.font.BODY_3_14_M,
+      gap: 12,
+    },
+  ],
 });
 
 const fileName = style({
-  width: 570,
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
@@ -74,6 +135,18 @@ const fileName = style({
       color: theme.color.lighterText,
       cursor: 'not-allowed',
     },
+  },
+});
+
+export const fileNameSizeVar = styleVariants({
+  DESK: {
+    width: 555,
+  },
+  TAB: {
+    width: 210,
+  },
+  MOB: {
+    width: 185,
   },
 });
 export const fileNameVar = styleVariants({
@@ -91,10 +164,30 @@ export const fileNameVar = styleVariants({
   ],
 });
 
-export const errorText = style({
+const errorText = style({
   marginTop: 8,
   color: theme.color.error,
-  ...theme.font.LABEL_2_16_SB,
+});
+
+export const errorTextVar = styleVariants({
+  DESK: [
+    errorText,
+    {
+      ...theme.font.LABEL_2_16_SB,
+    },
+  ],
+  TAB: [
+    errorText,
+    {
+      ...theme.font.LABEL_2_16_SB,
+    },
+  ],
+  MOB: [
+    errorText,
+    {
+      ...theme.font.LABEL_3_14_SB,
+    },
+  ],
 });
 
 // IconPlusButton style

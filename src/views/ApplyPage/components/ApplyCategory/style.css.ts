@@ -6,11 +6,9 @@ import { theme } from 'styles/theme.css';
 export const containerBase = style({
   display: 'flex',
   justifyContent: 'center',
-  width: 1440,
   margin: '0px auto',
 
   position: 'sticky',
-  top: 178,
 
   backgroundColor: theme.color.white,
   zIndex: Z_INDEX.applyCategory,
@@ -35,21 +33,32 @@ export const container = styleVariants({
   ],
 });
 
+export const containerVar = styleVariants({
+  DESK: {
+    top: 178,
+  },
+  TAB: {
+    top: 238,
+  },
+  MOB: {
+    top: 153,
+  },
+  REVIEW_TAB: {
+    top: 177,
+  },
+});
+
 export const categoryList = style({
   display: 'flex',
 });
 
-export const categoryLinkStyle = style({
+const categoryLinkStyle = style({
   display: 'flex',
   justifyContent: 'center',
-  width: 240,
-  padding: '26px 0',
-  ...theme.font.HEADING_6_18_B,
-  color: theme.color.lightestText,
   backgroundColor: theme.color.white,
-  borderBottom: `2px solid transparent`,
+  minWidth: 104,
 
-  transition: 'all 0.2s ease-out',
+  transition: 'background-color 0.2s ease-out, color 0.2s ease',
 
   selectors: {
     '&:hover': {
@@ -59,10 +68,40 @@ export const categoryLinkStyle = style({
   },
 });
 
-export const activeLinkStyle = style([
-  categoryLinkStyle,
-  {
+export const activeLinkStyleVar = styleVariants({
+  active: {
     color: theme.color.primary,
-    borderBottom: `2px solid ${theme.color.primary}`,
+    borderBottom: `4px solid ${theme.color.primary}`,
   },
-]);
+  default: {
+    color: theme.color.lightestText,
+    borderBottom: `2px solid transparent`,
+  },
+});
+
+export const categoryLinkStyleVar = styleVariants({
+  DESK: [
+    categoryLinkStyle,
+    {
+      width: 240,
+      padding: '26px 0',
+      ...theme.font.HEADING_6_18_B,
+    },
+  ],
+  TAB: [
+    categoryLinkStyle,
+    {
+      width: 'calc(129px + (111 * ((100vw - 431px) / 337)))',
+      padding: '26px 0',
+      ...theme.font.HEADING_7_16_B,
+    },
+  ],
+  MOB: [
+    categoryLinkStyle,
+    {
+      width: 'calc(104px + (25 * ((100vw - 375px) / 56)))',
+      padding: '16px 0',
+      ...theme.font.HEADING_7_16_B,
+    },
+  ],
+});

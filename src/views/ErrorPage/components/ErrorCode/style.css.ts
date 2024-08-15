@@ -1,10 +1,30 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
-export const iconWrapper = style({
+const iconWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: 43,
+});
+
+export const iconWrapperVar = styleVariants({
+  DESK: [
+    iconWrapper,
+    {
+      marginBottom: 43,
+    },
+  ],
+  TAB: [
+    iconWrapper,
+    {
+      marginBottom: 43,
+    },
+  ],
+  MOB: [
+    iconWrapper,
+    {
+      marginBottom: 24,
+    },
+  ],
 });
 
 export const frontText = style({
@@ -18,8 +38,7 @@ export const frontText = style({
   },
 });
 
-export const showIcon = style({
-  opacity: 0,
+const showIcon = style({
   transition: 'all 0.3s ease',
 
   selectors: {
@@ -27,6 +46,27 @@ export const showIcon = style({
       opacity: 1,
     },
   },
+});
+
+export const showIconVar = styleVariants({
+  DESK: [
+    showIcon,
+    {
+      opacity: 0,
+    },
+  ],
+  TAB: [
+    showIcon,
+    {
+      opacity: 0,
+    },
+  ],
+  MOB: [
+    showIcon,
+    {
+      opacity: 1,
+    },
+  ],
 });
 
 export const backText = style({

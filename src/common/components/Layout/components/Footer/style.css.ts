@@ -1,26 +1,73 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+const container = style({
   display: 'flex',
   justifyContent: 'space-between',
 
   width: '100%',
-  height: '162px',
-  padding: '33px 176px 38px 200px',
 
   backgroundColor: theme.color.subBackground,
+});
+
+export const containerVar = styleVariants({
+  DESK: [
+    container,
+    {
+      height: '162px',
+      paddingTop: 33,
+      paddingLeft: 'calc(50px + (150 * ((100vw - 768px) / 672)))',
+      paddingBottom: 38,
+      paddingRight: 'calc(50px + (126 * ((100vw - 768px) / 672)))',
+    },
+  ],
+  TAB: [
+    container,
+    {
+      height: '162px',
+      padding: '33px 50px',
+    },
+  ],
+  MOB: [
+    container,
+    {
+      flexDirection: 'column',
+      gap: 50,
+      height: '292px',
+      padding: '34px 22px',
+    },
+  ],
 });
 
 const text = style({
   color: theme.color.lighterText,
 });
 
-export const leftWrapper = style({
+const leftWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 27,
+});
+
+export const leftWrapperVar = styleVariants({
+  DESK: [
+    leftWrapper,
+    {
+      gap: 27,
+    },
+  ],
+  TAB: [
+    leftWrapper,
+    {
+      gap: 23,
+    },
+  ],
+  MOB: [
+    leftWrapper,
+    {
+      gap: 23,
+    },
+  ],
 });
 
 export const titleText = style([

@@ -1,14 +1,19 @@
 import { forwardRef } from 'react';
 
 import Dialog from '@components/Dialog';
+import { useDevice } from '@hooks/useDevice';
 
-import { buttonInside, buttonOutside, buttonWrapper, mainText } from '../style.css';
+import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar } from '../style.css';
 
 const DraftDialog = forwardRef<HTMLDialogElement>((_, ref) => {
+  const deviceType = useDevice();
+
   return (
     <Dialog ref={ref}>
-      <p className={mainText}>임시 저장이 완료되었어요.</p>
-      <form method="dialog" className={`${buttonWrapper} ${buttonOutside.solid}`}>
+      <p className={mainTextVar[deviceType]}>임시 저장이 완료되었어요.</p>
+      <form
+        method="dialog"
+        className={`${buttonWrapperVar[deviceType]} ${buttonOutside.solid} ${buttonOutsideVar[deviceType]}`}>
         <button className={buttonInside.solid}>확인</button>
       </form>
     </Dialog>

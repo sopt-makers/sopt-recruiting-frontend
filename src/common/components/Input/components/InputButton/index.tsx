@@ -1,14 +1,16 @@
+import { useContext } from 'react';
+
 import Button from '@components/Button';
-import { useDevice } from '@hooks/useDevice';
 
 import { buttonVar } from './style.css';
 import { InputButtonProps } from './types';
+import { FormContext } from '../TextBox';
 
 // TextBox 내부 InputLine 우측 버튼
 const InputButton = ({ isLoading, text, ...props }: InputButtonProps) => {
-  const DEVICE_TYPE = useDevice();
+  const { deviceType } = useContext(FormContext);
   return (
-    <Button isLoading={isLoading} className={buttonVar[DEVICE_TYPE]} {...props}>
+    <Button isLoading={isLoading} className={buttonVar[deviceType]} {...props}>
       {text}
     </Button>
   );

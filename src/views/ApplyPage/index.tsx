@@ -4,10 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
+import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
+import { useDevice } from '@hooks/useDevice';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DraftDialog, SubmitDialog } from 'views/dialogs';
+import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -23,7 +25,7 @@ import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
-import { buttonWrapper, container, formContainer } from './style.css';
+import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
 
@@ -32,9 +34,11 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
+  const deviceType = useDevice();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   const draftDialog = useRef<HTMLDialogElement>(null);
+  const preventApplyDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
@@ -187,6 +191,12 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
 
   const handleSendData = (type: 'draft' | 'submit') => {
+    if (NoMoreApply) {
+      preventApplyDialog.current?.showModal();
+
+      return;
+    }
+
     const mostRecentSeason = mostRecentSeasonValue === '해당사항 없음' ? 0 : mostRecentSeasonValue;
     const leaveAbsence =
       getValues('leaveAbsence') == undefined ? undefined : getValues('leaveAbsence') === '재학' ? false : true;
@@ -269,6 +279,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   return (
     <FormProvider {...methods}>
       <DraftDialog ref={draftDialog} />
+      <PreventApplyDialog ref={preventApplyDialog} />
       <SubmitDialog
         userInfo={{
           name,
@@ -292,7 +303,11 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
         />
         <ApplyInfo isReview={isReview} />
         <ApplyCategory isReview={isReview} minIndex={minIndex} />
-        <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
+        <form
+          id="apply-form"
+          name="apply-form"
+          onSubmit={handleSubmit(handleApplySubmit)}
+          className={formContainerVar[deviceType]}>
           <DefaultSection
             isMakers={isMakers}
             isReview={isReview}
@@ -329,6 +344,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           )}
         </form>
       </div>
+      <Footer />
     </FormProvider>
   );
 };

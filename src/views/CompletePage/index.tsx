@@ -3,13 +3,15 @@ import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import Survey from './components/Survey';
 import IconCheckmark from './icons/IconCheckmark';
-import { container, icon, mainText, subText } from './style.css';
+import { container, iconVar, mainTextVar, subTextVar } from './style.css';
 
 const CompletePage = () => {
+  const deviceType = useDevice();
   const {
     recruitingInfo: { name, season, group, soptName },
   } = useContext(RecruitingInfoContext);
@@ -22,11 +24,14 @@ const CompletePage = () => {
 
   return (
     <section className={container}>
-      <div className={icon}>
+      <div className={iconVar[deviceType]}>
         <IconCheckmark />
       </div>
-      <p className={mainText}>{`${name}님의\n${season}기 ${isMakers ? soptName : group} 지원서가 접수되었습니다.`}</p>
-      <p className={subText}>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
+      <p
+        className={
+          mainTextVar[deviceType]
+        }>{`${name}님의\n${season}기 ${isMakers ? soptName : group} 지원서가 접수되었습니다.`}</p>
+      <p className={subTextVar[deviceType]}>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
       <Callout
         style={{
           marginBottom: 35,

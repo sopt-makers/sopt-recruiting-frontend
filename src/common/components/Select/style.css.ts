@@ -1,38 +1,10 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
-import { containerSize } from '@components/Input/constants';
 import { formColors } from '@constants/styleValues';
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
 
-export const container = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 9,
-
-  color: theme.color.black,
-  ...theme.font.BODY_1_18_M,
-});
-
-export const containerVar = styleVariants(containerSize, (size) => [container, { width: size }]);
-
-export const title = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 6,
-  width: 'fit-content',
-
-  color: theme.color.baseText,
-  cursor: 'pointer',
-  ...theme.font.TITLE_5_18_SB,
-});
-
-export const circle = style({
-  width: 8,
-  height: 8,
-  borderRadius: 4,
-  backgroundColor: theme.color.primary,
-});
+// Input과 공통되는 스타일 Input style 적용
 
 export const selectContainer = style({
   display: 'flex',
@@ -46,7 +18,6 @@ export const select = style({
 
   flex: 1,
 
-  padding: 16,
   borderRadius: 12,
 
   ...theme.font.BODY_2_16_R,
@@ -82,10 +53,20 @@ export const selectVariant = styleVariants(formColors, ({ boxShadow, focusShadow
   },
 ]);
 
-export const icon = style({
+export const selectPaddingVar = styleVariants({
+  DESK: {
+    padding: 16,
+  },
+  TAB: {
+    padding: 16,
+  },
+  MOB: {
+    padding: '14px 16px',
+  },
+});
+
+const icon = style({
   position: 'absolute',
-  top: 17,
-  right: 16,
   width: 24,
   color: theme.color.grayButtonFill,
 
@@ -102,13 +83,36 @@ export const icon = style({
   },
 });
 
+export const iconVar = styleVariants({
+  DESK: [
+    icon,
+    {
+      top: 17,
+      right: 16,
+    },
+  ],
+  TAB: [
+    icon,
+    {
+      top: 17,
+      right: 16,
+    },
+  ],
+  MOB: [
+    icon,
+    {
+      top: 14,
+      right: 16,
+    },
+  ],
+});
+
 export const optionContainer = style({
   display: 'flex',
   flexDirection: 'column',
 
   position: 'absolute',
   width: '100%',
-  top: 67,
 
   padding: '15px 8px',
   maxHeight: 224,
@@ -130,6 +134,27 @@ export const optionContainer = style({
       visibility: 'visible',
     },
   },
+});
+
+export const optionContainerVar = styleVariants({
+  DESK: [
+    optionContainer,
+    {
+      top: 67,
+    },
+  ],
+  TAB: [
+    optionContainer,
+    {
+      top: 67,
+    },
+  ],
+  MOB: [
+    optionContainer,
+    {
+      top: 63,
+    },
+  ],
 });
 export const optionLabel = style({
   display: 'flex',
@@ -154,7 +179,17 @@ export const optionLabel = style({
   },
 });
 
-export const error = style({
-  ...theme.font.LABEL_2_16_SB,
-  color: theme.color.error,
+export const errorVar = styleVariants({
+  DESK: {
+    ...theme.font.LABEL_2_16_SB,
+    color: theme.color.error,
+  },
+  TAB: {
+    ...theme.font.LABEL_2_16_SB,
+    color: theme.color.error,
+  },
+  MOB: {
+    ...theme.font.LABEL_3_14_SB,
+    color: theme.color.error,
+  },
 });

@@ -4,10 +4,11 @@ import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
+import { useDevice } from '@hooks/useDevice';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
-import { doubleLineCheck, label, line, sectionContainer } from './style.css';
+import { doubleLineCheck, labelVar, line, sectionContainer } from './style.css';
 
 interface BottomSectionProps {
   isReview: boolean;
@@ -15,6 +16,7 @@ interface BottomSectionProps {
 }
 
 const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
+  const deviceType = useDevice();
   const {
     recruitingInfo: { isMakers },
   } = useContext(RecruitingInfoContext);
@@ -33,7 +35,7 @@ const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
         />
       )}
       <div id="check-necessary" className={doubleLineCheck}>
-        <p className={label}>
+        <p className={labelVar[deviceType]}>
           {isMakers
             ? 'SOPT makers의 행사 및 정기 모임은 일요일에 진행됩니다.'
             : 'SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.'}

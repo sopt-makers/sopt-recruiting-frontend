@@ -1,3 +1,4 @@
+import { useDevice } from '@hooks/useDevice';
 import Icon404Back from 'views/ErrorPage/icons/Icon404Back';
 import Icon404Front from 'views/ErrorPage/icons/Icon404Front';
 import Icon500Back from 'views/ErrorPage/icons/Icon500Back';
@@ -5,34 +6,45 @@ import Icon500Front from 'views/ErrorPage/icons/Icon500Front';
 import IconCone from 'views/ErrorPage/icons/IconCone';
 import IconGhost from 'views/ErrorPage/icons/IconGhost';
 
-import { backText, frontText, iconWrapper, showIcon } from './style.css';
+import { backText, frontText, iconWrapperVar, showIconVar } from './style.css';
 
 export default function ErrorCode({ code }: { code: 404 | 500 }) {
+  const deviceType = useDevice();
+  const isMobile = deviceType === 'MOB';
+
   return (
-    <div className={iconWrapper}>
+    <div className={iconWrapperVar[deviceType]}>
       {code === 404 ? (
         <>
-          <i className={frontText}>
-            <Icon404Front />
-          </i>
-          <i className={showIcon}>
+          {!isMobile && (
+            <i className={frontText}>
+              <Icon404Front />
+            </i>
+          )}
+          <i className={showIconVar[deviceType]}>
             <IconGhost />
           </i>
-          <i className={backText}>
-            <Icon404Back />
-          </i>
+          {!isMobile && (
+            <i className={backText}>
+              <Icon404Back />
+            </i>
+          )}
         </>
       ) : (
         <>
-          <i className={frontText}>
-            <Icon500Front />
-          </i>
-          <i className={showIcon}>
+          {!isMobile && (
+            <i className={frontText}>
+              <Icon500Front />
+            </i>
+          )}
+          <i className={showIconVar[deviceType]}>
             <IconCone />
           </i>
-          <i className={backText}>
-            <Icon500Back />
-          </i>
+          {!isMobile && (
+            <i className={backText}>
+              <Icon500Back />
+            </i>
+          )}
         </>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,11 +8,11 @@ import useMutateCheckCode from '@components/Input/hooks/useMutateCheckCode';
 import useMutateCheckUser from '@components/Input/hooks/useMutateCheckUser';
 import useMutateSendCode from '@components/Input/hooks/useMutateSendCode';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useDevice } from '@hooks/useDevice';
 import useScrollToHash from '@hooks/useScrollToHash';
 
 import { successVar } from './style.css';
 import InputLine from '../InputLine';
+import { FormContext } from '../TextBox';
 
 export const TextBox이름 = () => {
   return (
@@ -40,7 +40,7 @@ export const TextBox이메일 = ({
   isVerified,
   onChangeVerification,
 }: TextBox이메일Props) => {
-  const DEVICE_TYPE = useDevice();
+  const { deviceType } = useContext(FormContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -143,7 +143,7 @@ export const TextBox이메일 = ({
     <TextBox label="이메일" name="email" required>
       <InputLine
         style={{
-          width: DEVICE_TYPE === 'DESK' ? 308 : DEVICE_TYPE === 'TAB' ? 246 : 208,
+          width: deviceType === 'DESK' ? 308 : deviceType === 'TAB' ? 246 : 208,
           paddingRight: isActive ? 50 : 16,
         }}
         name="email"
@@ -161,7 +161,7 @@ export const TextBox이메일 = ({
         <Timer isActive={isActive} onResetTimer={handleResetTimer} />
       </InputLine>
       <InputLine
-        style={{ width: DEVICE_TYPE === 'DESK' ? 308 : DEVICE_TYPE === 'TAB' ? 246 : 208 }}
+        style={{ width: deviceType === 'DESK' ? 308 : deviceType === 'TAB' ? 246 : 208 }}
         id="verification-code"
         readOnly={!isActive}
         name="code"
@@ -176,19 +176,19 @@ export const TextBox이메일 = ({
       </InputLine>
       {isActive && (
         <>
-          <p className={successVar[DEVICE_TYPE]}>이메일이 전송되었어요. 약 1분 정도 소요될 수 있어요.</p>
-          <p className={successVar[DEVICE_TYPE]} style={{ marginTop: '-8px' }}>
+          <p className={successVar[deviceType]}>이메일이 전송되었어요. 약 1분 정도 소요될 수 있어요.</p>
+          <p className={successVar[deviceType]} style={{ marginTop: '-8px' }}>
             메일이 오지 않는다면 스팸 메일함을 확인해주세요.
           </p>
         </>
       )}
-      {isVerified && <p className={successVar[DEVICE_TYPE]}>인증에 성공했어요.</p>}
+      {isVerified && <p className={successVar[deviceType]}>인증에 성공했어요.</p>}
     </TextBox>
   );
 };
 
 export const TextBox비밀번호 = () => {
-  const DEVICE_TYPE = useDevice();
+  const { deviceType } = useContext(FormContext);
 
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';
@@ -223,7 +223,7 @@ export const TextBox비밀번호 = () => {
         validate={VALIDATION_CHECK.passwordConfirm.validate(watch, name)}
       />
       {passwordConfirm && password === passwordConfirm && (
-        <p className={successVar[DEVICE_TYPE]}>비밀번호가 일치해요.</p>
+        <p className={successVar[deviceType]}>비밀번호가 일치해요.</p>
       )}
     </TextBox>
   );

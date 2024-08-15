@@ -12,7 +12,7 @@ import Layout from '@components/Layout';
 import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
 import { dark, light } from 'styles/theme.css';
-import SessionExpiredDialog from 'views/dialogs/SessionExpiredDialog';
+import { SessionExpiredDialog } from 'views/dialogs';
 import ErrorPage from 'views/ErrorPage';
 import MainPage from 'views/MainPage';
 import PasswordPage from 'views/PasswordPage';
