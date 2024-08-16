@@ -15,7 +15,6 @@ export const checkboxContainer = style({
   gap: 6,
   position: 'relative',
   width: 'fit-content',
-  cursor: 'pointer',
   WebkitUserSelect: 'none',
   MozUserSelect: 'none',
   msUserSelect: 'none',
@@ -38,6 +37,7 @@ const checkmarkBase = style({
   width: 22,
   borderRadius: 5,
   transition: 'all 0.3s ease',
+  cursor: 'pointer',
 
   selectors: {
     /* Create the checkmark/indicator (hidden when not checked) */
@@ -85,6 +85,11 @@ const checkmarkBase = style({
     [`${checkboxContainer} input:focus-visible ~ &`]: {
       outline: `2px dotted ${theme.color.primary}`,
       outlineOffset: 2,
+    },
+
+    /* ReviewPage에서는 disabled 처리 */
+    [`${checkboxContainer} input:disabled ~ &`]: {
+      cursor: 'not-allowed',
     },
   },
 });
