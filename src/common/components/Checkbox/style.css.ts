@@ -15,7 +15,6 @@ export const checkboxContainer = style({
   gap: 6,
   position: 'relative',
   width: 'fit-content',
-  cursor: 'pointer',
   WebkitUserSelect: 'none',
   MozUserSelect: 'none',
   msUserSelect: 'none',
@@ -38,6 +37,7 @@ const checkmarkBase = style({
   width: 22,
   borderRadius: 5,
   transition: 'all 0.3s ease',
+  cursor: 'pointer',
 
   selectors: {
     /* Create the checkmark/indicator (hidden when not checked) */
@@ -48,7 +48,7 @@ const checkmarkBase = style({
     },
 
     /* 마우스 hover시 */
-    [`${checkboxContainer}:hover input ~ &`]: {
+    [`${checkboxContainer}:hover input:enabled ~ &`]: {
       backgroundColor: theme.color.subBackground,
     },
 
@@ -58,7 +58,7 @@ const checkmarkBase = style({
       backgroundColor: theme.color.primary,
     },
 
-    [`${checkboxContainer} input:checked:hover ~ &`]: {
+    [`${checkboxContainer} input:checked:enabled:hover ~ &`]: {
       border: `1px solid ${theme.color.primaryDark}`,
       backgroundColor: theme.color.primaryDark,
     },
@@ -85,6 +85,11 @@ const checkmarkBase = style({
     [`${checkboxContainer} input:focus-visible ~ &`]: {
       outline: `2px dotted ${theme.color.primary}`,
       outlineOffset: 2,
+    },
+
+    /* ReviewPage에서는 disabled 처리 */
+    [`${checkboxContainer} input:disabled ~ &`]: {
+      cursor: 'not-allowed',
     },
   },
 });

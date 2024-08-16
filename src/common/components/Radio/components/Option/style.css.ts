@@ -16,10 +16,6 @@ const inputBase = style({
   transition: 'all 0.3s ease',
   cursor: 'pointer',
 
-  ':hover': {
-    backgroundColor: theme.color.subBackground,
-  },
-
   ':checked': {
     border: `6px solid ${theme.color.primary}`,
   },
@@ -29,7 +25,15 @@ const inputBase = style({
     outlineOffset: 2,
   },
 
+  ':disabled': {
+    cursor: 'not-allowed',
+  },
+
   selectors: {
+    '&:enabled:hover': {
+      backgroundColor: theme.color.subBackground,
+    },
+
     '&:checked:hover': {
       backgroundColor: theme.color.background,
       border: `6px solid ${theme.color.primaryDark}`,
@@ -55,4 +59,10 @@ export const inputStyle = styleVariants({
 export const labelStyle = style({
   ...theme.font.BODY_2_16_M,
   cursor: 'pointer',
+
+  selectors: {
+    [`${container} input:disabled ~ &`]: {
+      cursor: 'not-allowed',
+    },
+  },
 });
