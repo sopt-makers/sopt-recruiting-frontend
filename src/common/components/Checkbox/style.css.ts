@@ -48,7 +48,7 @@ const checkmarkBase = style({
     },
 
     /* 마우스 hover시 */
-    [`${checkboxContainer}:hover input ~ &`]: {
+    [`${checkboxContainer}:hover input:enabled ~ &`]: {
       backgroundColor: theme.color.subBackground,
     },
 
@@ -58,7 +58,7 @@ const checkmarkBase = style({
       backgroundColor: theme.color.primary,
     },
 
-    [`${checkboxContainer} input:checked:hover ~ &`]: {
+    [`${checkboxContainer} input:checked:enabled:hover ~ &`]: {
       border: `1px solid ${theme.color.primaryDark}`,
       backgroundColor: theme.color.primaryDark,
     },
