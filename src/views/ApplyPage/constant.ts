@@ -1,10 +1,19 @@
 export const APPLY_INFO = {
   sections: [
     {
+      id: 0,
+      content: [
+        {
+          text: '지원서 작성 전에 SOPT 커리큘럼을 꼭 숙지하고 지원해 주시기 바랍니다.',
+          weight: 'normal',
+        },
+      ],
+    },
+    {
       id: 1,
       content: [
         {
-          text: '8월 25일 일요일 OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.',
+          text: '9월 28일 토요일 OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.',
           weight: 'normal',
         },
       ],
