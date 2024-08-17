@@ -4,7 +4,7 @@ import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
@@ -16,7 +16,7 @@ interface BottomSectionProps {
 }
 
 const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { isMakers },
   } = useContext(RecruitingInfoContext);

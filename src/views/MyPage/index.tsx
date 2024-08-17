@@ -1,11 +1,11 @@
 import { track } from '@amplitude/analytics-browser';
-import { MouseEvent, useContext } from 'react';
+import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
@@ -21,7 +21,7 @@ import {
 } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const isMasking = label !== '지원서';
 
   return (
@@ -33,28 +33,17 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 };
 
 const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => {
-  const deviceType = useDevice();
-
-  const handlePreventMobile = (e: MouseEvent<HTMLButtonElement>) => {
-    track(trackingEvent);
-    if (label === '지원상태') return;
-
-    const isMobile = /Mobi/i.test(window.navigator.userAgent);
-    if (isMobile) {
-      alert('PC로 이용해주세요.');
-      e.preventDefault();
-      return;
-    }
-    if (deviceType !== 'DESK') {
-      alert('전체화면 이용을 권장드려요.');
-      return;
-    }
-  };
+  const { deviceType } = useContext(DeviceTypeContext);
 
   return (
     <li className={buttonValue}>
       <span className={infoLabelVar[deviceType]}>{label}</span>
-      <Button isLink to={to} className={buttonWidthVar[deviceType]} onClick={handlePreventMobile} padding="15x25">
+      <Button
+        isLink
+        to={to}
+        className={buttonWidthVar[deviceType]}
+        onClick={() => track(trackingEvent)}
+        padding="15x25">
         {label === '지원서' ? '지원서 확인' : '결과 확인'}
       </Button>
     </li>
@@ -67,7 +56,7 @@ interface MyPageProps {
 }
 
 const MyPage = ({ part, applicationPass }: MyPageProps) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);

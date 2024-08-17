@@ -1,6 +1,8 @@
 import { ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { DeviceTypeContext } from '@store/deviceTypeContext';
+
 import { inputFontVar, inputLineVar, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
 import { formatPhoneNumber } from './utils/formatPhoneNumber';
@@ -24,7 +26,8 @@ const InputLine = ({
     trigger,
     setValue,
   } = useFormContext();
-  const { required, deviceType } = useContext(FormContext);
+  const { required } = useContext(FormContext);
+  const { deviceType } = useContext(DeviceTypeContext);
   const { maxLength, minLength } = inputElementProps;
   const { defaultValue } = inputElementProps;
 

@@ -1,5 +1,7 @@
+import { useContext } from 'react';
+
 import useDate from '@hooks/useDate';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -8,7 +10,7 @@ import SignInInfo from './components/SignInInfo';
 import { containerVar } from './style.css';
 
 const SignInPage = () => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const { isLoading, NoMoreRecruit, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;

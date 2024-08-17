@@ -1,9 +1,11 @@
-import { useDevice } from '@hooks/useDevice';
+import { useContext } from 'react';
+
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 
 import { containerVar, infoVar } from './style.css';
 
 const Info = ({ value }: { value: string }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   return (
     <article>
       <ol className={containerVar[deviceType]}>

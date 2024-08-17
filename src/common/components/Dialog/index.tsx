@@ -1,7 +1,7 @@
-import { forwardRef, type DialogHTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, useContext, type DialogHTMLAttributes, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 
 import { containerVar } from './style.css';
 
@@ -10,7 +10,7 @@ interface DialogProps extends DialogHTMLAttributes<HTMLDialogElement> {
 }
 
 const Dialog = forwardRef<HTMLDialogElement, DialogProps>(({ children, ...dialogElementProps }: DialogProps, ref) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
 
   return createPortal(
     <dialog ref={ref} className={containerVar[deviceType]} {...dialogElementProps}>

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
 import NowsoptLogo from '@assets/NowsoptLogo';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
 
@@ -13,7 +13,7 @@ import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 
 const Header = () => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleClickMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);

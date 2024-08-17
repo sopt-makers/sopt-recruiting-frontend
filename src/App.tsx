@@ -5,10 +5,11 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
+import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
 import { dark, light } from 'styles/theme.css';
@@ -109,6 +110,8 @@ const App = () => {
     }, []),
   };
 
+  const deviceType = useDevice();
+
   useEffect(() => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
@@ -127,8 +130,8 @@ const App = () => {
   return (
     <>
       <SessionExpiredDialog ref={sessionRef} />
-      <HelmetProvider>
-        <ThemeContext.Provider value={themeContextValue}>
+      <ThemeContext.Provider value={themeContextValue}>
+        <DeviceTypeContext.Provider value={{ deviceType }}>
           <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
             <QueryClientProvider client={queryClient}>
               <ReactQueryDevtools />
@@ -137,8 +140,8 @@ const App = () => {
               </div>
             </QueryClientProvider>
           </RecruitingInfoContext.Provider>
-        </ThemeContext.Provider>
-      </HelmetProvider>
+        </DeviceTypeContext.Provider>
+      </ThemeContext.Provider>
     </>
   );
 };
