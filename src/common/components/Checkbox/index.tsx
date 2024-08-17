@@ -33,6 +33,7 @@ const Checkbox = <T extends FieldValues>({
             })}
             type="checkbox"
             className={`amp-unmask ${hiddenCheckbox}`}
+            disabled
             {...checkboxElementProps}
           />
           <span className={checkmark[errors && errors[name] ? 'error' : 'default']} />
