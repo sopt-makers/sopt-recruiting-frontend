@@ -1,4 +1,4 @@
-const MakersLogo = ({ className }: { className?: string }) => {
+const MakersLogoLight = ({ className }: { className?: string }) => {
   return (
     <svg
       width="87"
@@ -24,4 +24,4 @@ const MakersLogo = ({ className }: { className?: string }) => {
   );
 };
 
-export default MakersLogo;
+export default MakersLogoLight;

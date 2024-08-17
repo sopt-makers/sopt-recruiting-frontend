@@ -1,4 +1,4 @@
-const MakersDarkLogo = ({ className }: { className?: string }) => {
+const MakersLogoDark = ({ className }: { className?: string }) => {
   return (
     <svg
       width="87"
@@ -24,4 +24,4 @@ const MakersDarkLogo = ({ className }: { className?: string }) => {
   );
 };
 
-export default MakersDarkLogo;
+export default MakersLogoDark;
