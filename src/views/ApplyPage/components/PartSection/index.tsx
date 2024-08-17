@@ -35,9 +35,6 @@ const PartSection = ({
   const { getValues } = useFormContext();
 
   const partOptions = questionTypes?.sort((a, b) => a.id - b.id).map(({ typeKr }) => typeKr);
-  // 지원 연장 파트
-  const filteredPartOptions = partOptions?.filter((part) => part === '안드로이드');
-
   const selectedPart: string = getValues('part');
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
   const partQuestionsById = partQuestionsDraft?.reduce(
@@ -56,7 +53,7 @@ const PartSection = ({
         label="지원파트"
         name="part"
         placeholder="지원하고 싶은 파트를 선택해주세요."
-        options={filteredPartOptions || []}
+        options={partOptions || []}
         size="lg"
         required
         disabled={isReview}
