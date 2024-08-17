@@ -1,4 +1,6 @@
-import { useDevice } from '@hooks/useDevice';
+import { useContext } from 'react';
+
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import Icon404Back from 'views/ErrorPage/icons/Icon404Back';
 import Icon404Front from 'views/ErrorPage/icons/Icon404Front';
 import Icon500Back from 'views/ErrorPage/icons/Icon500Back';
@@ -9,7 +11,7 @@ import IconGhost from 'views/ErrorPage/icons/IconGhost';
 import { backText, frontText, iconWrapperVar, showIconVar } from './style.css';
 
 export default function ErrorCode({ code }: { code: 404 | 500 }) {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const isMobile = deviceType === 'MOB';
 
   return (

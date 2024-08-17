@@ -1,13 +1,13 @@
 import { track } from '@amplitude/analytics-browser';
-import { forwardRef, type KeyboardEvent } from 'react';
+import { forwardRef, useContext, type KeyboardEvent } from 'react';
 
 import Dialog from '@components/Dialog';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 
 import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar, subTextVar } from '../style.css';
 
 const SessionExpiredDialog = forwardRef<HTMLDialogElement>((_, ref) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
 
   const handlePreventESCKeyPress = (e: KeyboardEvent<HTMLDialogElement>) => {
     if (e.key === 'Escape') e.preventDefault();

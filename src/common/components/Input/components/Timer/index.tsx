@@ -1,16 +1,17 @@
 import { differenceInSeconds } from 'date-fns';
 import { useContext, useEffect, useState } from 'react';
 
+import { DeviceTypeContext } from '@store/deviceTypeContext';
+
 import { timerVar } from './style.css';
 import { TimerProps } from './types';
 import formatTimer from './utils/formatTimer';
-import { FormContext } from '../TextBox';
 
 const INITIAL_TIME = 300;
 
 // TextBox 내부 타이머
 const Timer = ({ isActive, onResetTimer }: TimerProps) => {
-  const { deviceType } = useContext(FormContext);
+  const { deviceType } = useContext(DeviceTypeContext);
   const [seconds, setSeconds] = useState(INITIAL_TIME - 1);
 
   useEffect(() => {

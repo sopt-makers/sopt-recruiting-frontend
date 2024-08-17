@@ -9,6 +9,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
+import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
 import { dark, light } from 'styles/theme.css';
@@ -109,6 +111,8 @@ const App = () => {
     }, []),
   };
 
+  const deviceType = useDevice();
+
   useEffect(() => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
@@ -129,14 +133,16 @@ const App = () => {
       <SessionExpiredDialog ref={sessionRef} />
       <HelmetProvider>
         <ThemeContext.Provider value={themeContextValue}>
-          <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
-            <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools />
-              <div className={isLight ? light : dark}>
-                <RouterProvider router={router} />
-              </div>
-            </QueryClientProvider>
-          </RecruitingInfoContext.Provider>
+          <DeviceTypeContext.Provider value={{ deviceType }}>
+            <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
+              <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <div className={isLight ? light : dark}>
+                  <RouterProvider router={router} />
+                </div>
+              </QueryClientProvider>
+            </RecruitingInfoContext.Provider>
+          </DeviceTypeContext.Provider>
         </ThemeContext.Provider>
       </HelmetProvider>
     </>

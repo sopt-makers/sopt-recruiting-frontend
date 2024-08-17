@@ -2,7 +2,7 @@ import { reset, track } from '@amplitude/analytics-browser';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style.css';
@@ -10,7 +10,7 @@ import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../../contants';
 import MenuItem from '../MenuItem';
 
 const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [isShown, setIsShown] = useState(isMenuOpen);
