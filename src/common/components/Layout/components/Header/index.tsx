@@ -17,7 +17,6 @@ const Header = () => {
   const { deviceType } = useContext(DeviceTypeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const deviceType = useDevice();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
