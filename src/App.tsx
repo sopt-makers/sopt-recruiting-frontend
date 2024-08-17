@@ -5,7 +5,6 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -131,20 +130,18 @@ const App = () => {
   return (
     <>
       <SessionExpiredDialog ref={sessionRef} />
-      <HelmetProvider>
-        <ThemeContext.Provider value={themeContextValue}>
-          <DeviceTypeContext.Provider value={{ deviceType }}>
-            <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
-              <QueryClientProvider client={queryClient}>
-                <ReactQueryDevtools />
-                <div className={isLight ? light : dark}>
-                  <RouterProvider router={router} />
-                </div>
-              </QueryClientProvider>
-            </RecruitingInfoContext.Provider>
-          </DeviceTypeContext.Provider>
-        </ThemeContext.Provider>
-      </HelmetProvider>
+      <ThemeContext.Provider value={themeContextValue}>
+        <DeviceTypeContext.Provider value={{ deviceType }}>
+          <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
+            <QueryClientProvider client={queryClient}>
+              <ReactQueryDevtools />
+              <div className={isLight ? light : dark}>
+                <RouterProvider router={router} />
+              </div>
+            </QueryClientProvider>
+          </RecruitingInfoContext.Provider>
+        </DeviceTypeContext.Provider>
+      </ThemeContext.Provider>
     </>
   );
 };
