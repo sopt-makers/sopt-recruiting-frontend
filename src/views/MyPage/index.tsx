@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { MouseEvent, useContext } from 'react';
+import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
