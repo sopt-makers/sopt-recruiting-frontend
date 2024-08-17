@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import MakersDarkLogo from '@assets/MakersDarkLogo';
-import MakersLogo from '@assets/MakersLogo';
-import NowsoptLogo from '@assets/NowsoptLogo';
+import MakersLogoDark from '@assets/MakersLogoDark';
+import MakersLogoLight from '@assets/MakersLogoLight';
+import SoptLogoDark from '@assets/SoptLogoDark';
+import SoptLogoLight from '@assets/SoptLogoLight';
 import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { ThemeContext } from '@store/themeContext';
@@ -15,10 +16,8 @@ import { containerSizeVer, containerVar, logoVar } from './style.css';
 const Header = () => {
   const { deviceType } = useContext(DeviceTypeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const handleClickMenuToggle = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
 
+  const deviceType = useDevice();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -26,6 +25,14 @@ const Header = () => {
     recruitingInfo: { isMakers },
   } = useContext(RecruitingInfoContext);
   const { isLight } = useContext(ThemeContext);
+
+  const MakersLogo = isLight ? MakersLogoLight : MakersLogoDark;
+  const SoptLogo = isLight ? SoptLogoLight : SoptLogoDark;
+  const logoVariant = logoVar[deviceType];
+
+  const handleClickMenuToggle = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   const handleClickLogo = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
@@ -37,22 +44,13 @@ const Header = () => {
     }
   }, [deviceType]);
 
-  const logoVariant = logoVar[deviceType];
   return (
     <>
       {isMakers != undefined && (
         <>
           <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[deviceType]}`}>
             <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
-              {isMakers ? (
-                !isMenuOpen && isLight ? (
-                  <MakersLogo className={logoVariant} />
-                ) : (
-                  <MakersDarkLogo className={logoVariant} />
-                )
-              ) : (
-                <NowsoptLogo className={logoVariant} />
-              )}
+              {isMakers ? !isMenuOpen && <MakersLogo className={logoVariant} /> : <SoptLogo className={logoVariant} />}
             </button>
             <Nav isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
           </header>

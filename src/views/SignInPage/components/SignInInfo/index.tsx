@@ -27,7 +27,7 @@ const SignInInfo = () => {
           </Link>
         }>
         <p>
-          {season}기 {isMakers ? '' : group} 지원서 작성이 처음이라면 ‘새 지원서 작성하기’를 진행해주세요. 이전에
+          {season}기 {isMakers ? '' : `${group} `}지원서 작성이 처음이라면 ‘새 지원서 작성하기’를 진행해주세요. 이전에
           지원서를 제출한 적이 있더라도 새 지원서를 작성해야 해요.
         </p>
       </Callout>
