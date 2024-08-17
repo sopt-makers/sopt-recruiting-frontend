@@ -3,7 +3,7 @@ import { ko } from 'date-fns/locale';
 import { memo, useContext } from 'react';
 
 import Callout from '@components/Callout';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import {
@@ -19,7 +19,7 @@ import {
 import { APPLY_INFO } from '../../constant';
 
 const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: {
       applicationStart,

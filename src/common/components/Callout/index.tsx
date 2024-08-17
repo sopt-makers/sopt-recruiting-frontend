@@ -1,11 +1,10 @@
 import { colors } from '@sopt-makers/colors';
 import { IconAlertCircle } from '@sopt-makers/icons';
+import { useContext, type HTMLAttributes, type ReactNode } from 'react';
 
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 
 import { buttonVar, container, warningWrapperVar } from './style.css';
-
-import type { HTMLAttributes, ReactNode } from 'react';
 
 interface CalloutProps extends HTMLAttributes<HTMLElement> {
   children?: ReactNode;
@@ -14,7 +13,7 @@ interface CalloutProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Callout = ({ children, size = 'sm', Button, ...calloutElementProps }: CalloutProps) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   return (
     <article className={container[deviceType === 'DESK' ? size : deviceType]} {...calloutElementProps}>
       <div className={warningWrapperVar[deviceType]}>

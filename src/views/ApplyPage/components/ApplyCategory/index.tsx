@@ -1,8 +1,8 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useDevice } from '@hooks/useDevice';
 import useScrollPosition from '@hooks/useScrollPosition';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 
 import { CATEGORY } from './constant';
 import { activeLinkStyleVar, categoryLinkStyleVar, categoryList, container, containerVar } from './style.css';
@@ -12,7 +12,7 @@ interface ApplyCategoryProps {
   minIndex: number;
 }
 const ApplyCategory = memo(({ isReview, minIndex }: ApplyCategoryProps) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const { isScrollingDown, isScrollTop } = useScrollPosition(isReview ? 380 : 950);
 
   return (

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Title from '@components/Title';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { buttonWrapper, headerContainerVar } from './style.css';
@@ -15,7 +15,7 @@ interface ApplyHeaderProps {
 }
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);

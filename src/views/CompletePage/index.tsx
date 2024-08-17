@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import Survey from './components/Survey';
@@ -11,7 +11,7 @@ import IconCheckmark from './icons/IconCheckmark';
 import { container, iconVar, mainTextVar, subTextVar } from './style.css';
 
 const CompletePage = () => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { name, season, group, soptName },
   } = useContext(RecruitingInfoContext);

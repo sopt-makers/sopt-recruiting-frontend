@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 import Callout from '@components/Callout';
 import Title from '@components/Title';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 
 import { calloutButtonVar } from './style.css';
 
 const SignInInfo = () => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { soptName, isMakers, season, group },
   } = useContext(RecruitingInfoContext);

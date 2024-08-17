@@ -1,9 +1,11 @@
-import { useDevice } from '@hooks/useDevice';
+import { useContext } from 'react';
+
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 
 import { containerVar, label, linkVar } from './style.css';
 
 const LinkInput = ({ urls }: { urls: string[] }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   return (
     <>
       {urls.length === 1 && (

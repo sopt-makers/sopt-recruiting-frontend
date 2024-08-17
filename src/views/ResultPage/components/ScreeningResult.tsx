@@ -4,7 +4,7 @@ import { ko } from 'date-fns/locale';
 import { useContext, useEffect } from 'react';
 
 import Title from '@components/Title';
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -25,7 +25,7 @@ import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { name, soptName, season, interviewStart, interviewEnd, applicationPassConfirmStart, isMakers },
   } = useContext(RecruitingInfoContext);
@@ -110,7 +110,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const ScreeningResult = () => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const {
     recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,

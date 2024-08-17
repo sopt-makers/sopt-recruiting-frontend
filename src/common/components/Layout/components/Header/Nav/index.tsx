@@ -1,7 +1,7 @@
 import { IconMenu, IconXClose } from '@sopt-makers/icons';
 import { useContext } from 'react';
 
-import { useDevice } from '@hooks/useDevice';
+import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { ThemeContext } from '@store/themeContext';
 import { theme } from 'styles/theme.css';
 
@@ -9,7 +9,7 @@ import MenuList from './MenuList';
 import { menuIconVar } from './style.css';
 
 const Nav = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen: boolean; onClickMenuToggle: () => void }) => {
-  const deviceType = useDevice();
+  const { deviceType } = useContext(DeviceTypeContext);
   const { isLight } = useContext(ThemeContext);
 
   return deviceType !== 'DESK' ? (
