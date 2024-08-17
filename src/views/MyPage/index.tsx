@@ -35,26 +35,15 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => {
   const deviceType = useDevice();
 
-  const handlePreventMobile = (e: MouseEvent<HTMLButtonElement>) => {
-    track(trackingEvent);
-    if (label === '지원상태') return;
-
-    const isMobile = /Mobi/i.test(window.navigator.userAgent);
-    if (isMobile) {
-      alert('PC로 이용해주세요.');
-      e.preventDefault();
-      return;
-    }
-    if (deviceType !== 'DESK') {
-      alert('전체화면 이용을 권장드려요.');
-      return;
-    }
-  };
-
   return (
     <li className={buttonValue}>
       <span className={infoLabelVar[deviceType]}>{label}</span>
-      <Button isLink to={to} className={buttonWidthVar[deviceType]} onClick={handlePreventMobile} padding="15x25">
+      <Button
+        isLink
+        to={to}
+        className={buttonWidthVar[deviceType]}
+        onClick={() => track(trackingEvent)}
+        padding="15x25">
         {label === '지원서' ? '지원서 확인' : '결과 확인'}
       </Button>
     </li>
