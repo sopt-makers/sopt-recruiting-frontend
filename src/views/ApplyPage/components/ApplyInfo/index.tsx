@@ -56,14 +56,7 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
         <ul className={infoWrapperVar[deviceType]}>
           <li key="first-info" className={infoItemsVar[deviceType]}>
             지원서 작성 전에{` `}
-            <a
-              href="https://makers.sopt.org/recruit"
-              className={infoItemsBold}
-              target="_blank"
-              rel="noreferrer noopener">
-              모집 및 활동 일정
-            </a>
-            을 꼭 숙지하고 지원해 주시기 바랍니다.
+            <span className={infoItemsBold}>모집 및 활동 일정</span>을 꼭 숙지하고 지원해 주시기 바랍니다.
           </li>
           {APPLY_INFO.sections.map(({ id, content }) => (
             <li key={id} className={infoItemsVar[deviceType]}>
