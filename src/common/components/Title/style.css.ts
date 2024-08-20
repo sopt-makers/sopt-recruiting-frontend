@@ -10,6 +10,8 @@ export const headingVar = styleVariants({
     lineHeight: '60px',
     letterSpacing: -0.8,
     color: theme.color.baseText,
+    wordBreak: 'keep-all',
+    wordWrap: 'break-word',
   },
   TAB: {
     /* Heading/40_B */
@@ -18,8 +20,12 @@ export const headingVar = styleVariants({
     lineHeight: '60px',
     letterSpacing: -0.8,
     color: theme.color.baseText,
+    wordBreak: 'keep-all',
+    wordWrap: 'break-word',
   },
   MOB: {
     ...theme.font.HEADING_4_24_B,
+    wordBreak: 'keep-all',
+    wordWrap: 'break-word',
   },
 });
