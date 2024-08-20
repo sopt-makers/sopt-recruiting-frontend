@@ -10,7 +10,6 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import {
   bottomAnimation,
-  bottomImg,
   bottomSvg,
   container,
   contentVar,
@@ -142,21 +141,7 @@ const ScreeningResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {deviceType !== 'MOB' && pass && (
-        <>
-          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
-          {isMakers ? (
-            <i className={bottomSvg}>
-              <IconMakersLogo />
-            </i>
-          ) : (
-            <picture className={bottomImg}>
-              <source srcSet={imgSoptLogoWebp} type="image/webp" />
-              <img src={imgSoptLogo} alt="sopt-logo" />
-            </picture>
-          )}
-        </>
-      )}
+      {pass && <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />}
       <div className={scrollBottomGradVar[deviceType]} />
     </section>
   );

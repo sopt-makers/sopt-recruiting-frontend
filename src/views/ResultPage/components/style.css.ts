@@ -15,7 +15,6 @@ const contentWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   color: theme.color.baseText,
-  ...theme.font.BODY_1_18_M,
 });
 
 export const contentWrapperVar = styleVariants({
@@ -25,6 +24,7 @@ export const contentWrapperVar = styleVariants({
       margin: '90px auto 0',
       width: 720,
       gap: 50,
+      ...theme.font.BODY_1_18_M,
     },
   ],
   TAB: [
@@ -33,6 +33,7 @@ export const contentWrapperVar = styleVariants({
       margin: '90px auto 0',
       width: 367,
       gap: 50,
+      ...theme.font.BODY_1_18_M,
     },
   ],
   MOB: [
@@ -41,6 +42,8 @@ export const contentWrapperVar = styleVariants({
       margin: '43px auto 0',
       width: 312,
       gap: 30,
+      ...theme.font.BODY_3_14_M,
+      letterSpacing: -0.21,
     },
   ],
 });
@@ -81,12 +84,14 @@ export const strongText = styleVariants({
 });
 
 const bottomAnimationBase = style({
-  position: 'absolute',
-  bottom: '-100px',
+  position: 'fixed',
+  bottom: '-200px',
   left: '50%',
+  opacity: '30%',
   transform: 'translateX(-50%)',
   height: 100,
   borderRadius: '100%',
+  backgroundColor: theme.color.primary,
   zIndex: Z_INDEX.resultAnim,
 });
 
@@ -94,12 +99,12 @@ const animatedGradient = (bgColor: string) =>
   keyframes({
     '0%': {
       width: '40%',
-      boxShadow: `0px 100px 100px 70px ${bgColor}`,
+      boxShadow: `0px 0px 300px 150px ${bgColor}`,
     },
 
     '100%': {
       width: '80%',
-      boxShadow: `0px 100px 100px 100px ${bgColor}`,
+      boxShadow: `0px 0px 300px 200px ${bgColor}`,
     },
   });
 
@@ -116,12 +121,36 @@ export const bottomAnimation = styleVariants(
   ],
 );
 
-export const bottomImg = style({
-  position: 'absolute',
+const bottomImg = style({
+  position: 'fixed',
   bottom: 0,
   right: 0,
-  width: 556,
-  // height: 556,
+});
+
+export const bottomImgVar = styleVariants({
+  DESK: [
+    bottomImg,
+    {
+      width: 750,
+      marginRight: 115,
+    },
+  ],
+  TAB: [
+    bottomImg,
+    {
+      width: 79,
+      marginRight: 40,
+      marginBottom: 80,
+    },
+  ],
+  MOB: [
+    bottomImg,
+    {
+      width: 66,
+      marginRight: 20,
+      marginBottom: 50,
+    },
+  ],
 });
 
 export const bottomSvg = style({

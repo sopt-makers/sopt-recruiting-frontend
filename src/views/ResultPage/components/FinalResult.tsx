@@ -7,17 +7,17 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import {
   bottomAnimation,
-  bottomImg,
-  bottomSvg,
+  bottomImgVar,
   container,
   contentVar,
   contentWrapperVar,
   scrollBottomGradVar,
   strongText,
 } from './style.css';
-import IconMakersLogo from '../assets/IconMakersLogo';
-import imgSoptLogo from '../assets/imgSoptLogo.png';
-import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
+import imgResultDesktop from '../assets/imgResultDesktop.png';
+import imgResultDesktopWebp from '../assets/imgResultDesktop.webp';
+import imgResultMobile from '../assets/imgResultMobile.png';
+import imgResultMobileWebp from '../assets/imgResultMobile.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
@@ -37,12 +37,11 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span className="amp-mask">
             {`
-              ${name}님은 ${season}기 ${SOPT_NAME} 회원 모집에 최종 합격하셨습니다.
+              ${name}님은 ${season}기 ${SOPT_NAME} ${group}회원 모집에 최종 합격하셨습니다.
 
               ${name}님과 ${season}기 ${SOPT_NAME}를 함께하게 되어 진심으로 기쁩니다. 
 
-              향후 활동은 ${SOPT_NAME} 공식 노션과 카카오톡 단체 대화방, 디스코드를 통해 운영 및 진행됩니다.
-              오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정입니다.
+              향후 활동은 ${SOPT_NAME} 공식 노션과 카카오톡 단체 대화방, 디스코드를 통해 운영 및 진행됩니다. 오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정입니다.
 
               SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!
             `}
@@ -97,18 +96,21 @@ const FinalResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {deviceType !== 'MOB' && pass && (
+      {pass && (
         <>
-          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
-          {isMakers ? (
-            <i className={bottomSvg}>
-              <IconMakersLogo />
-            </i>
-          ) : (
-            <picture className={bottomImg}>
-              <source srcSet={imgSoptLogoWebp} type="image/webp" />
-              <img src={imgSoptLogo} alt="sopt-logo" />
+          {deviceType === 'DESK' ? (
+            <picture className={bottomImgVar['DESK']}>
+              <source srcSet={imgResultDesktopWebp} type="image/webp" />
+              <img src={imgResultDesktop} alt="sopt-logo" />
             </picture>
+          ) : (
+            <>
+              <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
+              <picture className={bottomImgVar[deviceType]}>
+                <source srcSet={imgResultMobileWebp} type="image/webp" />
+                <img src={imgResultMobile} alt="sopt-logo" />
+              </picture>
+            </>
           )}
         </>
       )}
