@@ -34,6 +34,7 @@ export const contentWrapperVar = styleVariants({
       width: 367,
       gap: 50,
       ...theme.font.BODY_1_18_M,
+      letterSpacing: -0.27,
     },
   ],
   MOB: [

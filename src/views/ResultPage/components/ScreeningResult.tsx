@@ -10,7 +10,6 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import {
   bottomAnimation,
-  bottomSvg,
   container,
   contentVar,
   contentWrapperVar,
@@ -18,9 +17,6 @@ import {
   scrollBottomGradVar,
   strongText,
 } from './style.css';
-import IconMakersLogo from '../assets/IconMakersLogo';
-import imgSoptLogo from '../assets/imgSoptLogo.png';
-import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
@@ -62,13 +58,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span className="amp-mask">
             {`
-              서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
+              서류 검토 결과,${deviceType !== 'DESK' ? '\n' : ''} ${name}님은 면접 대상자로 선정되셨습니다.
 
               ${season}기 ${group} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 
               오프라인으로 진행될 예정입니다.
   
-              모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다.
-              아래 구글폼을 금일 20시 (${formattedApplicationPassConfirmStart} 오후 8시) 까지 제출해주세요.
+              모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다. ${deviceType === 'DESK' ? '\n' : ''}아래 구글폼을 금일 20시 (${formattedApplicationPassConfirmStart} 오후 8시) 까지 제출해주세요.
             `}
           </span>
           <a
@@ -77,13 +72,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
             target="_blank"
             rel="noreferrer noopener"
             onClick={() => track('click-screening-google_form')}>
-            {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+            {`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
           </a>
           <br />
           <span>
             {`
-            면접 안내 사항 및 폼 제출 내용을 기반으로 한  면접 시간표를
-            내일 (${formattedApplicationPassConfirmNextDay}) 오후 12시 전으로  이메일을 통해 전해드리겠습니다. 
+            면접 안내 사항 및 폼 제출 내용을 기반으로 한${deviceType !== 'DESK' ? '\n' : ''} 면접 시간표를 ${deviceType === 'DESK' ? '\n' : ''}내일 (${formattedApplicationPassConfirmNextDay}) 오후 12시 전으로${deviceType !== 'DESK' ? '\n' : ''} 이메일을 통해 전해드리겠습니다. 
 
             다시 한 번 진심으로 축하드리며,
             면접에서 뵙도록 하겠습니다:)
@@ -102,8 +96,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           지원자님의 뛰어난 역량과 잠재력에도 불구하고 
           안타깝게도 귀하의 서류 합격 소식을 전해드리지 못하게 되었습니다.
 
-          한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나 저희 SOPT에 지원하셨던 경험이 
-          IT 창업인으로서 멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다.  
+          한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나 저희 SOPT에 지원하셨던 경험이 ${deviceType === 'DESK' ? '\n' : ''}IT 창업인으로서 멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다.  
 
           감사합니다.
           `}
