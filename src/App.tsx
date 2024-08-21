@@ -11,11 +11,13 @@ import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
-import { SessionExpiredDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
 
+const SessionExpiredDialog = lazy(() =>
+  import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
+);
 const MainPage = lazy(() => import('views/MainPage'));
 const PasswordPage = lazy(() => import('views/PasswordPage'));
 const ResultPage = lazy(() => import('views/ResultPage'));

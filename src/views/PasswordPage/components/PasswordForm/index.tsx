@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useRef } from 'react';
+import { lazy, useRef } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -7,10 +7,11 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
-import { CompleteDialog } from 'views/dialogs';
 import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePassword';
 
 import { formWrapper } from './style.css';
+
+const CompleteDialog = lazy(() => import('views/dialogs').then(({ CompleteDialog }) => ({ default: CompleteDialog })));
 
 const PasswordForm = () => {
   const completeDialog = useRef<HTMLDialogElement>(null);

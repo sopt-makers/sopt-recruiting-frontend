@@ -15,9 +15,11 @@ import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainerVar } from 'views/ApplyPage/style.css';
-import { PreventReviewDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
+const PreventReviewDialog = lazy(() =>
+  import('views/dialogs').then(({ PreventReviewDialog }) => ({ default: PreventReviewDialog })),
+);
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const ReviewPage = () => {

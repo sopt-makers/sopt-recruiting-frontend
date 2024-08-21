@@ -9,7 +9,6 @@ import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
 import BigLoading from 'views/loadings/BigLoding';
 
 import ApplyCategory from './components/ApplyCategory';
@@ -28,6 +27,11 @@ import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
 
+const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
+const PreventApplyDialog = lazy(() =>
+  import('views/dialogs').then(({ PreventApplyDialog }) => ({ default: PreventApplyDialog })),
+);
+const SubmitDialog = lazy(() => import('views/dialogs').then(({ SubmitDialog }) => ({ default: SubmitDialog })));
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 interface ApplyPageProps {
