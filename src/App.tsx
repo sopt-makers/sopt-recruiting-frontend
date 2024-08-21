@@ -3,7 +3,7 @@ import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -12,14 +12,16 @@ import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
 import { SessionExpiredDialog } from 'views/dialogs';
-import ErrorPage from 'views/ErrorPage';
-import MainPage from 'views/MainPage';
-import PasswordPage from 'views/PasswordPage';
-import ResultPage from 'views/ResultPage';
-import ReviewPage from 'views/ReviewPage';
-import SignupPage from 'views/SignupPage';
+import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
+
+const MainPage = lazy(() => import('views/MainPage'));
+const PasswordPage = lazy(() => import('views/PasswordPage'));
+const ResultPage = lazy(() => import('views/ResultPage'));
+const ReviewPage = lazy(() => import('views/ReviewPage'));
+const SignupPage = lazy(() => import('views/SignupPage'));
+const ErrorPage = lazy(() => import('views/ErrorPage'));
 
 const router = createBrowserRouter([
   {
@@ -113,7 +115,9 @@ const App = () => {
             <QueryClientProvider client={queryClient}>
               <ReactQueryDevtools />
               <div className={isLight ? light : dark}>
-                <RouterProvider router={router} />
+                <Suspense fallback={<BigLoading />}>
+                  <RouterProvider router={router} />
+                </Suspense>
               </div>
             </QueryClientProvider>
           </RecruitingInfoProvider>

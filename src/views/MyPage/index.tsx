@@ -1,4 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
+import { lazy } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
@@ -6,7 +7,6 @@ import Title from '@components/Title';
 import useDate from '@hooks/useDate';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
-import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import {
@@ -18,6 +18,8 @@ import {
   infoValueVar,
   buttonWidthVar,
 } from './style.css';
+
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
   const { deviceType } = useDeviceType();

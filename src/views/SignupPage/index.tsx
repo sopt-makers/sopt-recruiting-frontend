@@ -1,11 +1,14 @@
+import { lazy } from 'react';
+
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import SignupForm from './components/SignupForm';
 import { containerVar } from './style.css';
+
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const SignupPage = () => {
   const { deviceType } = useDeviceType();
