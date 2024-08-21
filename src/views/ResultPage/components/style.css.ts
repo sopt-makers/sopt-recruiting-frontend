@@ -132,8 +132,9 @@ export const bottomImgVar = styleVariants({
   DESK: [
     bottomImg,
     {
-      width: 750,
-      marginRight: 115,
+      width: 428,
+      marginRight: 100,
+      marginBottom: 72,
     },
   ],
   TAB: [

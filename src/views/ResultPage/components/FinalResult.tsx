@@ -97,19 +97,17 @@ const FinalResult = () => {
       </div>
       {pass && (
         <>
+          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {deviceType === 'DESK' ? (
             <picture className={bottomImgVar['DESK']}>
               <source srcSet={imgResultDesktopWebp} type="image/webp" />
               <img src={imgResultDesktop} alt="sopt-logo" />
             </picture>
           ) : (
-            <>
-              <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
-              <picture className={bottomImgVar[deviceType]}>
-                <source srcSet={imgResultMobileWebp} type="image/webp" />
-                <img src={imgResultMobile} alt="sopt-logo" />
-              </picture>
-            </>
+            <picture className={bottomImgVar[deviceType]}>
+              <source srcSet={imgResultMobileWebp} type="image/webp" />
+              <img src={imgResultMobile} alt="sopt-logo" />
+            </picture>
           )}
         </>
       )}
