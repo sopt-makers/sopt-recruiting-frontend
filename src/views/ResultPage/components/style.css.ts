@@ -1,5 +1,6 @@
 import { colors } from '@sopt-makers/colors';
 import { keyframes, style, styleVariants } from '@vanilla-extract/css';
+import { calc } from '@vanilla-extract/css-utils';
 
 import { Z_INDEX } from '@constants/zIndex';
 import { theme } from 'styles/theme.css';
@@ -7,7 +8,7 @@ import { theme } from 'styles/theme.css';
 export const container = style({
   position: 'relative',
   width: '100%',
-  minHeight: 700,
+  minHeight: calc.subtract('100vh', '80px'),
   overflow: 'hidden',
 });
 
@@ -31,6 +32,7 @@ export const contentWrapperVar = styleVariants({
     contentWrapper,
     {
       margin: '90px auto 0',
+      paddingBottom: 150,
       width: 367,
       gap: 50,
       ...theme.font.BODY_1_18_M,
@@ -40,7 +42,9 @@ export const contentWrapperVar = styleVariants({
   MOB: [
     contentWrapper,
     {
-      margin: '43px auto 0',
+      margin: '23px auto 0',
+      paddingBottom: 150,
+
       width: 312,
       gap: 30,
       ...theme.font.BODY_3_14_M,
@@ -49,30 +53,9 @@ export const contentWrapperVar = styleVariants({
   ],
 });
 
-const content = style({
+export const content = style({
   whiteSpace: 'pre-line',
   zIndex: Z_INDEX.resultContent,
-});
-
-export const contentVar = styleVariants({
-  DESK: [
-    content,
-    {
-      paddingBottom: 202,
-    },
-  ],
-  TAB: [
-    content,
-    {
-      paddingBottom: 170,
-    },
-  ],
-  MOB: [
-    content,
-    {
-      paddingBottom: 107,
-    },
-  ],
 });
 
 export const strongText = styleVariants({
@@ -85,7 +68,7 @@ export const strongText = styleVariants({
 });
 
 const bottomAnimationBase = style({
-  position: 'fixed',
+  position: 'absolute',
   bottom: '-200px',
   left: '50%',
   opacity: '30%',
@@ -122,35 +105,35 @@ export const bottomAnimation = styleVariants(
   ],
 );
 
-const bottomImg = style({
-  position: 'fixed',
-  bottom: 0,
-  right: 0,
+export const bottomImgContainer = style({
+  display: 'flex',
+  justifyContent: 'end',
+  width: '100%',
 });
 
 export const bottomImgVar = styleVariants({
   DESK: [
-    bottomImg,
     {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
       width: 428,
       marginRight: 100,
       marginBottom: 72,
     },
   ],
   TAB: [
-    bottomImg,
     {
       width: 79,
-      marginRight: 40,
-      marginBottom: 80,
+      marginRight: calc.subtract('100px', '25vw'),
+      marginBottom: 0,
     },
   ],
   MOB: [
-    bottomImg,
     {
       width: 66,
-      marginRight: 20,
-      marginBottom: 50,
+      marginRight: 0,
+      marginBottom: 0,
     },
   ],
 });

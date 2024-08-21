@@ -24,15 +24,16 @@ const ResultPage = () => {
     };
   }, [handleChangeMode]);
 
-  if (isLoading || myInfoIsLoading) return <BigLoading />;
-  if (!submit || NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
-    return <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />;
+  // if (isLoading || myInfoIsLoading) return <BigLoading />;
+  // if (!submit || NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
+  //   return <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />;
 
   return (
     <>
-      {!NoMoreScreeningResult && <ScreeningResult />}
+      <ScreeningResult />
+      {/* {!NoMoreScreeningResult && <ScreeningResult />}
       {!NoMoreFinalResult &&
-        (applicationPass ? <FinalResult /> : <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />)}
+        (applicationPass ? <FinalResult /> : <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />)} */}
     </>
   );
 };

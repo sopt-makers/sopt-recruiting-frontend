@@ -11,7 +11,7 @@ import BigLoading from 'views/loadings/BigLoding';
 import {
   bottomAnimation,
   container,
-  contentVar,
+  content,
   contentWrapperVar,
   link,
   scrollBottomGradVar,
@@ -53,7 +53,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
   return (
     <>
       {pass ? (
-        <p className={contentVar[deviceType]}>
+        <p className={content}>
           <span>{`안녕하세요. ${season}기 ${SOPT_NAME}입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
           <span className="amp-mask">
@@ -85,7 +85,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           </span>
         </p>
       ) : (
-        <p className={`amp-mask ${contentVar[deviceType]}`}>
+        <p className={`amp-mask ${content}`}>
           {`안녕하세요, ${season}기 ${SOPT_NAME}입니다.
           
           먼저 ${season}기 ${SOPT_NAME} ${group}회원 모집에 관심을 가지고 
@@ -132,9 +132,9 @@ const ScreeningResult = () => {
         <div className={contentWrapperVar[deviceType]}>
           <Title>결과 확인</Title>
           <Content pass={pass} />
+          {pass && <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />}
         </div>
       </div>
-      {pass && <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />}
       <div className={scrollBottomGradVar[deviceType]} />
     </section>
   );
