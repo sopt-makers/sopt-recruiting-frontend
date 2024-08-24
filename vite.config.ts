@@ -17,6 +17,15 @@ export default defineConfig({
       brotliSize: true,
     }) as PluginOption,
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('firebase')) return 'firebase';
+        },
+      },
+    },
+  },
   resolve: {
     alias: [
       { find: '@apis', replacement: path.resolve(__dirname, 'src/common/apis') },
