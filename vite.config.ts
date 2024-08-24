@@ -12,7 +12,6 @@ export default defineConfig({
     vanillaExtractPlugin(),
     visualizer({
       filename: './dist/report.html',
-      open: true,
       gzipSize: true,
       brotliSize: true,
     }) as PluginOption,
