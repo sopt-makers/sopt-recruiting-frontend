@@ -70,6 +70,5 @@ export const inputFont = style({
 
   '::placeholder': {
     color: theme.color.placeholder,
-    ...theme.font.BODY_2_16_R,
   },
 });
