@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { DeviceTypeContext } from '@store/deviceTypeContext';
 
-import { inputFontVar, inputLineVar, inputVar } from './style.css';
+import { inputFont, inputLineVar, inputVar } from './style.css';
 import { formatBirthdate } from './utils/formatBirthdate';
 import { formatPhoneNumber } from './utils/formatPhoneNumber';
 import { TextBoxProps } from '../../types';
@@ -50,7 +50,7 @@ const InputLine = ({
         <input
           id={name}
           defaultValue={defaultValue}
-          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFontVar[deviceType]}`}
+          className={`${inputVar[errors[name] ? 'error' : 'default']} ${inputFont}`}
           {...inputElementProps}
           {...register(name, {
             required: required && '필수 입력 항목이에요.',

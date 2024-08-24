@@ -64,21 +64,11 @@ export const inputVar = styleVariants(formColors, ({ boxShadow, focusShadow }) =
   },
 ]);
 
-export const inputFontVar = styleVariants(
-  {
-    DESK: theme.font.BODY_2_16_R,
-    TAB: theme.font.BODY_2_16_R,
-    MOB: theme.font.BODY_3_14_R,
-  },
-  (font) => [
-    {
-      color: theme.color.baseText,
-      ...font,
+export const inputFont = style({
+  color: theme.color.baseText,
+  ...theme.font.BODY_2_16_R,
 
-      '::placeholder': {
-        color: theme.color.placeholder,
-        ...font,
-      },
-    },
-  ],
-);
+  '::placeholder': {
+    color: theme.color.placeholder,
+  },
+});
