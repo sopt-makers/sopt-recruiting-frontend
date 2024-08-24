@@ -1,4 +1,5 @@
-import lottie, { type AnimationConfigWithData, type AnimationItem } from 'lottie-web';
+import { type AnimationConfigWithData, type AnimationItem } from 'lottie-web';
+import lottie from 'lottie-web/build/player/lottie_light';
 import { type CSSProperties, useEffect, useRef } from 'react';
 
 const Lottie = ({ animationData, style }: { animationData: unknown; style?: CSSProperties }) => {
