@@ -20,9 +20,6 @@ const Survey = () => {
     setTimeout(() => {
       setPoint('CHANGED');
     }, 200);
-    setTimeout(() => {
-      setPoint(-1);
-    }, 2200);
   };
 
   const { mutate } = useMutateSatisfaction({ onSuccess: handleSatisfaction });
