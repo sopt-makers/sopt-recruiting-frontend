@@ -1,12 +1,11 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -59,7 +58,7 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, season },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
   const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;

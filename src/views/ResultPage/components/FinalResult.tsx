@@ -1,11 +1,11 @@
 import { track } from '@amplitude/analytics-browser';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Title from '@components/Title';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 
 import {
@@ -28,7 +28,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   if (!name) return;
 
@@ -105,7 +105,7 @@ const FinalResult = () => {
   const {
     recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   const { name, pass } = finalResult?.data || {};
 

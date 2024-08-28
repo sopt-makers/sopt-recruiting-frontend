@@ -1,10 +1,9 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import Survey from './components/Survey';
 import IconCheckmark from './icons/IconCheckmark';
@@ -14,7 +13,7 @@ const CompletePage = () => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, season, group, soptName },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
   const isMakers = soptName?.toLowerCase().includes('makers');
 
   const handleClickMyPage = () => {

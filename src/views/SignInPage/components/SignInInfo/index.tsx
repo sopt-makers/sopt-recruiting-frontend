@@ -1,11 +1,10 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Callout from '@components/Callout';
 import Title from '@components/Title';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { calloutButtonVar } from './style.css';
 
@@ -13,7 +12,7 @@ const SignInInfo = () => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { soptName, isMakers, season, group },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   return (
     <>

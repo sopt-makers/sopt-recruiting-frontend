@@ -4,13 +4,13 @@ import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
 import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
+import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import { dark, light } from 'styles/theme.css';
 import { SessionExpiredDialog } from 'views/dialogs';
 import ErrorPage from 'views/ErrorPage';
@@ -55,7 +55,6 @@ const App = () => {
   const sessionRef = useRef<HTMLDialogElement>(null);
 
   const [isLight, setIsLight] = useState(true);
-  const [recruitingInfo, setRecruitingInfo] = useState<RecruitingInfoType>({});
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
 
   const queryClient = new QueryClient({
@@ -102,13 +101,6 @@ const App = () => {
     },
   };
 
-  const recruitingInfoContextValue = {
-    recruitingInfo,
-    handleSaveRecruitingInfo: useCallback((obj: RecruitingInfoType) => {
-      setRecruitingInfo((prev) => ({ ...prev, ...obj }));
-    }, []),
-  };
-
   useEffect(() => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
@@ -129,14 +121,14 @@ const App = () => {
       <SessionExpiredDialog ref={sessionRef} />
       <ThemeContext.Provider value={themeContextValue}>
         <DeviceTypeProvider>
-          <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
+          <RecruitingInfoProvider>
             <QueryClientProvider client={queryClient}>
               <ReactQueryDevtools />
               <div className={isLight ? light : dark}>
                 <RouterProvider router={router} />
               </div>
             </QueryClientProvider>
-          </RecruitingInfoContext.Provider>
+          </RecruitingInfoProvider>
         </DeviceTypeProvider>
       </ThemeContext.Provider>
     </>

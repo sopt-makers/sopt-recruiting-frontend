@@ -1,9 +1,7 @@
-import { useContext } from 'react';
-
 import Button from '@components/Button';
 import Title from '@components/Title';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { buttonWrapper, headerContainerVar } from './style.css';
 
@@ -18,7 +16,7 @@ const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHe
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { soptName, season, group, isMakers },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   return (
     <header className={headerContainerVar[deviceType]}>
