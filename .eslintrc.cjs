@@ -11,6 +11,9 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    'plugin:testing-library/react',
+    'plugin:vitest/recommended',
+    'plugin:jest-dom/recommended',
   ],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
