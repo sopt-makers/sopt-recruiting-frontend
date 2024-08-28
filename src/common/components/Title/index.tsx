@@ -1,6 +1,6 @@
-import { ReactNode, useContext } from 'react';
+import { ReactNode } from 'react';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { headingVar } from './style.css';
 
@@ -8,7 +8,7 @@ interface TitleProps {
   children: ReactNode;
 }
 const Title = ({ children }: TitleProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   return <h1 className={headingVar[deviceType]}>{children}</h1>;
 };
 

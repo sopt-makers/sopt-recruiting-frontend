@@ -1,8 +1,8 @@
 import { track } from '@amplitude/analytics-browser';
-import { type ChangeEvent, forwardRef, useContext, useState } from 'react';
+import { type ChangeEvent, forwardRef, useState } from 'react';
 
 import Dialog from '@components/Dialog';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import {
@@ -49,7 +49,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
   ({ userInfo: { name, email, phone, part }, dataIsPending, onSendData }, ref) => {
     const [isChecked, setIsChecked] = useState(false);
 
-    const { deviceType } = useContext(DeviceTypeContext);
+    const { deviceType } = useDeviceType();
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
       setIsChecked(e.target.checked);

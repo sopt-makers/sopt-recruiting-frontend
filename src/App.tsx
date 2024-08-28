@@ -1,17 +1,15 @@
 import { add, init } from '@amplitude/analytics-browser';
 import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
-import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { useDevice } from '@hooks/useDevice';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
-import { ModeType, ThemeContext } from '@store/themeContext';
+import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
+import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
+import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
 import { SessionExpiredDialog } from 'views/dialogs';
 import ErrorPage from 'views/ErrorPage';
@@ -54,10 +52,8 @@ const App = () => {
   // }, []);
 
   const sessionRef = useRef<HTMLDialogElement>(null);
-
-  const [isLight, setIsLight] = useState(true);
-  const [recruitingInfo, setRecruitingInfo] = useState<RecruitingInfoType>({});
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
+  const { isLight } = useTheme();
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -93,25 +89,6 @@ const App = () => {
     }),
   });
 
-  const themeContextValue = {
-    isLight,
-    handleChangeMode: (mode: ModeType) => {
-      setIsLight(mode === 'light' ? true : false);
-      const body = document.body;
-      const bodyColor = mode === 'light' ? colors.white : colors.gray950; // theme.color.background
-      body.style.backgroundColor = bodyColor;
-    },
-  };
-
-  const recruitingInfoContextValue = {
-    recruitingInfo,
-    handleSaveRecruitingInfo: useCallback((obj: RecruitingInfoType) => {
-      setRecruitingInfo((prev) => ({ ...prev, ...obj }));
-    }, []),
-  };
-
-  const deviceType = useDevice();
-
   useEffect(() => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
@@ -130,18 +107,18 @@ const App = () => {
   return (
     <>
       <SessionExpiredDialog ref={sessionRef} />
-      <ThemeContext.Provider value={themeContextValue}>
-        <DeviceTypeContext.Provider value={{ deviceType }}>
-          <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
+      <ThemeProvider>
+        <DeviceTypeProvider>
+          <RecruitingInfoProvider>
             <QueryClientProvider client={queryClient}>
               <ReactQueryDevtools />
               <div className={isLight ? light : dark}>
                 <RouterProvider router={router} />
               </div>
             </QueryClientProvider>
-          </RecruitingInfoContext.Provider>
-        </DeviceTypeContext.Provider>
-      </ThemeContext.Provider>
+          </RecruitingInfoProvider>
+        </DeviceTypeProvider>
+      </ThemeProvider>
     </>
   );
 };

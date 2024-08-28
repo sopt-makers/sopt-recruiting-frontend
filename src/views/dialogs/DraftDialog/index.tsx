@@ -1,12 +1,12 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 
 import Dialog from '@components/Dialog';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar } from '../style.css';
 
 const DraftDialog = forwardRef<HTMLDialogElement>((_, ref) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   return (
     <Dialog ref={ref}>

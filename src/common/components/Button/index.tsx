@@ -1,7 +1,7 @@
-import { useContext, useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, To } from 'react-router-dom';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import { buttonFontVar, container, outsideBox, paddings } from './style.css';
@@ -26,7 +26,7 @@ const Button = ({
   isLink = false,
   ...buttonElementProps
 }: ButtonProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { disabled, type = 'button' } = buttonElementProps;
   const Tag = isLink ? Link : 'button';
 

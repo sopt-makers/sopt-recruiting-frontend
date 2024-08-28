@@ -1,9 +1,9 @@
 import { IconChevronDown } from '@sopt-makers/icons';
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { circle, containerVar, titleVar } from '@components/Input/components/TextBox/style.css';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import {
   errorVar,
@@ -17,7 +17,7 @@ import {
 import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   const { register, formState, clearErrors, getValues, setValue, setError } = useFormContext();
   const { errors } = formState;

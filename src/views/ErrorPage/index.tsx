@@ -1,15 +1,14 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import ErrorCode from './components/ErrorCode';
 import { ERROR_MESSAGE } from './constants';
 import { article, contactButtonVar, container, errorButtonVar, errorTextVar, instructionVar } from './style.css';
 
 const ErrorPage = ({ code }: { code: 404 | 500 }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const navigate = useNavigate();
 
   const handleGoBack = (code: 404 | 500) => {

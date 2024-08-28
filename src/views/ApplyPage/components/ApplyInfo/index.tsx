@@ -1,10 +1,10 @@
 import { format, subMinutes } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 
 import Callout from '@components/Callout';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
   dateItems,
@@ -19,7 +19,7 @@ import {
 import { APPLY_INFO } from '../../constant';
 
 const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: {
       applicationStart,
@@ -29,7 +29,7 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
       interviewEnd,
       finalPassConfirmStart,
     },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   if (!applicationStart) return;
 

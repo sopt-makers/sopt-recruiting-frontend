@@ -1,19 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
 import NowsoptLogo from '@assets/NowsoptLogo';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
-import { ThemeContext } from '@store/themeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
+import { useTheme } from 'contexts/ThemeProvider';
 
 import Nav from './Nav';
 import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 
 const Header = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleClickMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -24,8 +24,8 @@ const Header = () => {
 
   const {
     recruitingInfo: { isMakers },
-  } = useContext(RecruitingInfoContext);
-  const { isLight } = useContext(ThemeContext);
+  } = useRecruitingInfo();
+  const { isLight } = useTheme();
 
   const handleClickLogo = () => {
     pathname === '/' ? window.location.reload() : navigate('/');

@@ -1,12 +1,12 @@
 import { isAfter, isBefore } from 'date-fns';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import useGetRecruitingInfo from './useGetRecruitingInfo';
 
 const useDate = () => {
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
   const { data, isLoading } = useGetRecruitingInfo();
 

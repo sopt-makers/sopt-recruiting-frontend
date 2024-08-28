@@ -1,7 +1,6 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { article, contactButtonVar, container, errorButtonVar, errorTextVar, instructionVar } from '../../style.css';
 
@@ -11,7 +10,7 @@ interface NoMoreProps {
 }
 
 const NoMore = ({ isMakers, content }: NoMoreProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   return (
     <section className={container}>

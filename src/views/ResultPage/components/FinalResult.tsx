@@ -1,11 +1,11 @@
 import { track } from '@amplitude/analytics-browser';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Title from '@components/Title';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 
 import {
@@ -25,10 +25,10 @@ import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 
 const Content = ({ pass }: { pass?: boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   if (!name) return;
 
@@ -100,12 +100,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const FinalResult = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
   const {
     recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   const { name, pass } = finalResult?.data || {};
 

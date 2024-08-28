@@ -1,11 +1,9 @@
-import { useContext } from 'react';
-
 import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { doubleLineCheck, labelVar, line, sectionContainer } from './style.css';
@@ -16,10 +14,10 @@ interface BottomSectionProps {
 }
 
 const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { isMakers },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
   return (
     <section className={sectionContainer}>
       <hr className={line} />
