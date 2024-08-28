@@ -1,6 +1,5 @@
 import { add, init } from '@amplitude/analytics-browser';
 import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
-import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
@@ -8,9 +7,9 @@ import { useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { ModeType, ThemeContext } from '@store/themeContext';
 import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
+import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
 import { SessionExpiredDialog } from 'views/dialogs';
 import ErrorPage from 'views/ErrorPage';
@@ -53,9 +52,8 @@ const App = () => {
   // }, []);
 
   const sessionRef = useRef<HTMLDialogElement>(null);
-
-  const [isLight, setIsLight] = useState(true);
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
+  const { isLight } = useTheme();
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -91,16 +89,6 @@ const App = () => {
     }),
   });
 
-  const themeContextValue = {
-    isLight,
-    handleChangeMode: (mode: ModeType) => {
-      setIsLight(mode === 'light' ? true : false);
-      const body = document.body;
-      const bodyColor = mode === 'light' ? colors.white : colors.gray950; // theme.color.background
-      body.style.backgroundColor = bodyColor;
-    },
-  };
-
   useEffect(() => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
@@ -119,7 +107,7 @@ const App = () => {
   return (
     <>
       <SessionExpiredDialog ref={sessionRef} />
-      <ThemeContext.Provider value={themeContextValue}>
+      <ThemeProvider>
         <DeviceTypeProvider>
           <RecruitingInfoProvider>
             <QueryClientProvider client={queryClient}>
@@ -130,7 +118,7 @@ const App = () => {
             </QueryClientProvider>
           </RecruitingInfoProvider>
         </DeviceTypeProvider>
-      </ThemeContext.Provider>
+      </ThemeProvider>
     </>
   );
 };

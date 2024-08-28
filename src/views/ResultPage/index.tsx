@@ -1,7 +1,7 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import useDate from '@hooks/useDate';
-import { ThemeContext } from '@store/themeContext';
+import { useTheme } from 'contexts/ThemeProvider';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 import useGetMyInfo from 'views/SignedInPage/hooks/useGetMyInfo';
@@ -10,7 +10,7 @@ import FinalResult from './components/FinalResult';
 import ScreeningResult from './components/ScreeningResult';
 
 const ResultPage = () => {
-  const { handleChangeMode } = useContext(ThemeContext);
+  const { handleChangeMode } = useTheme();
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
   const { submit, applicationPass } = myInfoData?.data || {};
 
