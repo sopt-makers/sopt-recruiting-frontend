@@ -33,7 +33,7 @@ export const useRecruitingInfo = () => {
   const contextValue = useContext(RecruitingInfoContext);
 
   if (!contextValue) {
-    throw new Error('RecruitingInfoContext must be called from within an DeviceTypeProvider');
+    throw new Error('RecruitingInfoContext는 RecruitingInfoProvider 내부에 있어야 함');
   }
 
   return contextValue;

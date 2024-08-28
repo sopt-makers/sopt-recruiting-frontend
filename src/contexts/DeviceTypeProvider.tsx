@@ -15,7 +15,7 @@ export const useDeviceType = () => {
   const deviceType = useContext(DeviceTypeContext);
 
   if (!deviceType) {
-    throw new Error('DeviceTypeContext must be called from within an DeviceTypeProvider');
+    throw new Error('DeviceTypeContext는 DeviceTypeProvider 내부에 있어야 함');
   }
 
   return deviceType;
