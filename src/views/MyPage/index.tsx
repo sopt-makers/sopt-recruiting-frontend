@@ -5,8 +5,8 @@ import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -21,7 +21,7 @@ import {
 } from './style.css';
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const isMasking = label !== '지원서';
 
   return (
@@ -33,7 +33,7 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 };
 
 const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   return (
     <li className={buttonValue}>
@@ -56,7 +56,7 @@ interface MyPageProps {
 }
 
 const MyPage = ({ part, applicationPass }: MyPageProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, season },
   } = useContext(RecruitingInfoContext);

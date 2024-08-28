@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import Button from '@components/Button';
 import Title from '@components/Title';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { buttonWrapper, headerContainerVar } from './style.css';
 
@@ -15,7 +15,7 @@ interface ApplyHeaderProps {
 }
 
 const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { soptName, season, group, isMakers },
   } = useContext(RecruitingInfoContext);

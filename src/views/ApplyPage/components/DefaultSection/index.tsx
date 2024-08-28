@@ -1,11 +1,11 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { sectionTitleVar } from 'views/ApplyPage/style.css';
 import { Applicant } from 'views/ApplyPage/types';
@@ -113,7 +113,7 @@ interface DefaultSectionProps {
 }
 
 const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     address,
     birthday,

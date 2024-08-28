@@ -3,8 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
 import ApplyHeader from 'views/ApplyPage/components/ApplyHeader';
 import ApplyInfo from 'views/ApplyPage/components/ApplyInfo';
@@ -20,7 +20,7 @@ import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 const ReviewPage = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const preventReviewDialog = useRef<HTMLDialogElement>(null);
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 

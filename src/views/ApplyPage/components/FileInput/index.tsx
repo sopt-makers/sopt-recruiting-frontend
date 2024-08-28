@@ -1,12 +1,12 @@
 import { track } from '@amplitude/analytics-browser';
 import { nanoid } from 'nanoid';
-import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import 'firebase/compat/storage';
 import { STATE_CHANGED, storage } from '@constants/firebase.ts';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import IconPlusButton from './icons/IconPlusButton';
 import {
@@ -32,7 +32,7 @@ const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [uploadPercent, setUploadPercent] = useState(-1);

@@ -1,7 +1,7 @@
-import { useContext, useEffect, type TextareaHTMLAttributes } from 'react';
+import { useEffect, type TextareaHTMLAttributes } from 'react';
 import { type FieldValues, type Path, useFormContext } from 'react-hook-form';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import {
   containerVar,
@@ -26,7 +26,7 @@ const Input = <T extends FieldValues>({
   isFileInput,
   ...textareaElements
 }: InputProps<T>) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   const {
     watch,

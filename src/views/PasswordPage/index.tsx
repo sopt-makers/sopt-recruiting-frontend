@@ -1,8 +1,6 @@
-import { useContext } from 'react';
-
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -10,7 +8,7 @@ import PasswordForm from './components/PasswordForm';
 import { containerVar } from './style.css';
 
 const PasswordPage = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { NoMoreRecruit, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;

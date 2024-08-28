@@ -1,12 +1,12 @@
-import { forwardRef, useContext, type KeyboardEvent } from 'react';
+import { forwardRef, type KeyboardEvent } from 'react';
 
 import Dialog from '@components/Dialog';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar } from '../style.css';
 
 const PreventApplyDialog = forwardRef<HTMLDialogElement>((_, ref) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   const handlePreventESCKeyPress = (e: KeyboardEvent<HTMLDialogElement>) => {
     if (e.key === 'Escape') e.preventDefault();

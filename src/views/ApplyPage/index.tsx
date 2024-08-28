@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
 import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
@@ -34,7 +34,7 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   const draftDialog = useRef<HTMLDialogElement>(null);
