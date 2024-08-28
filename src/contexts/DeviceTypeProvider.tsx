@@ -12,13 +12,13 @@ export const DeviceTypeContext = createContext<DeviceTypeContextType>({
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useDeviceType = () => {
-  const deviceType = useContext(DeviceTypeContext);
+  const contextValue = useContext(DeviceTypeContext);
 
-  if (!deviceType) {
+  if (!contextValue) {
     throw new Error('DeviceTypeContext는 DeviceTypeProvider 내부에 있어야 함');
   }
 
-  return deviceType;
+  return contextValue;
 };
 
 const DeviceTypeProvider = ({ children }: { children: ReactNode }) => {
