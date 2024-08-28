@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, useCallback, useContext, useState } from 'react';
 
-export type RecruitingInfoType = {
+type RecruitingInfoType = {
   name?: string;
   soptName?: string;
   season?: number;
@@ -23,7 +23,7 @@ interface RecruitingInfoContextType {
   handleSaveRecruitingInfo: (obj: RecruitingInfoType) => void;
 }
 
-export const RecruitingInfoContext = createContext<RecruitingInfoContextType>({
+const RecruitingInfoContext = createContext<RecruitingInfoContextType>({
   recruitingInfo: {},
   handleSaveRecruitingInfo: () => {},
 });

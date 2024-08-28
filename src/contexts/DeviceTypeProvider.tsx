@@ -2,11 +2,11 @@ import { createContext, type ReactNode, useContext } from 'react';
 
 import { useDevice } from '@hooks/useDevice';
 
-export interface DeviceTypeContextType {
+interface DeviceTypeContextType {
   deviceType: 'DESK' | 'TAB' | 'MOB';
 }
 
-export const DeviceTypeContext = createContext<DeviceTypeContextType>({
+const DeviceTypeContext = createContext<DeviceTypeContextType>({
   deviceType: 'DESK',
 });
 
