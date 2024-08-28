@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import path from 'path';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -39,5 +40,10 @@ export default defineConfig({
       { find: 'styles', replacement: path.resolve(__dirname, 'src/styles') },
       { find: 'views', replacement: path.resolve(__dirname, 'src/views') },
     ],
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    // setupFiles: './src/tests/setupTests.ts', // msw 생성 시
   },
 });
