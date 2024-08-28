@@ -8,10 +8,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { useDevice } from '@hooks/useDevice';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
 import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
 import { ModeType, ThemeContext } from '@store/themeContext';
+import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import { dark, light } from 'styles/theme.css';
 import { SessionExpiredDialog } from 'views/dialogs';
 import ErrorPage from 'views/ErrorPage';
@@ -110,8 +109,6 @@ const App = () => {
     }, []),
   };
 
-  const deviceType = useDevice();
-
   useEffect(() => {
     if (!isAmplitudeInitialized) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
@@ -131,7 +128,7 @@ const App = () => {
     <>
       <SessionExpiredDialog ref={sessionRef} />
       <ThemeContext.Provider value={themeContextValue}>
-        <DeviceTypeContext.Provider value={{ deviceType }}>
+        <DeviceTypeProvider>
           <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
             <QueryClientProvider client={queryClient}>
               <ReactQueryDevtools />
@@ -140,7 +137,7 @@ const App = () => {
               </div>
             </QueryClientProvider>
           </RecruitingInfoContext.Provider>
-        </DeviceTypeContext.Provider>
+        </DeviceTypeProvider>
       </ThemeContext.Provider>
     </>
   );
