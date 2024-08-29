@@ -36,6 +36,7 @@
       "@utils/*": ["common/utils/*"],
       "contexts/*": ["contexts/*"],
       "styles/*": ["styles/*"],
+      "tests/*": ["tests/*"],
       "views/*": ["views/*"]
     }
   },
