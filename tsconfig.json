@@ -39,6 +39,6 @@
       "views/*": ["views/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "./src/tests/setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
