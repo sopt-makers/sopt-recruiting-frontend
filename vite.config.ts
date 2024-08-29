@@ -45,6 +45,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/tests/setupTests.ts', // msw 생성 시
+    setupFiles: './src/tests/setupTests.ts',
   },
 });
