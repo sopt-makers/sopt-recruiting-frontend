@@ -14,7 +14,7 @@ const AllTheProviders = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const renderWithContext = (ui: ReactNode, options: RenderOptions) =>
+const renderWithContext = (ui: ReactNode, options?: RenderOptions) =>
   render(ui, { wrapper: AllTheProviders, ...options });
 
 // re-export everything
