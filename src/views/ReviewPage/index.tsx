@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import useDate from '@hooks/useDate';
@@ -15,9 +15,12 @@ import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainerVar } from 'views/ApplyPage/style.css';
-import { PreventReviewDialog } from 'views/dialogs';
-import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
+
+const PreventReviewDialog = lazy(() =>
+  import('views/dialogs').then(({ PreventReviewDialog }) => ({ default: PreventReviewDialog })),
+);
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const ReviewPage = () => {
   const { deviceType } = useDeviceType();
