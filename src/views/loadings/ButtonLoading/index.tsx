@@ -1,9 +1,8 @@
-import Lottie from 'lottie-react';
-
+import Lottie from '../Lottie';
 import buttonLoadingWhite from '../lotties/buttonLoadingWhite.json';
 
 const ButtonLoading = ({ width, height = 28 }: { width: number | undefined; height?: number }) => {
-  return <Lottie animationData={buttonLoadingWhite} style={{ width: width, height }} />;
+  return <Lottie animationData={buttonLoadingWhite} style={{ width, height }} />;
 };
 
 export default ButtonLoading;
