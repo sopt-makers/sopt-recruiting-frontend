@@ -122,7 +122,7 @@ const FinalResult = () => {
       <div style={{ overflow: 'auto', height: '100%' }}>
         <div className={contentWrapperVar[deviceType]}>
           <Title>결과 확인</Title>
-          <Content pass={true} />
+          <Content pass={pass} />
         </div>
       </div>
       {deviceType !== 'MOB' && pass && (
