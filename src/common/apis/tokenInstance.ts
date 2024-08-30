@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { isBefore } from 'date-fns';
+import { isBefore } from 'date-fns/isBefore';
 
 const tokenInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

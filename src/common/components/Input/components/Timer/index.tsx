@@ -1,4 +1,4 @@
-import { differenceInSeconds } from 'date-fns';
+import { differenceInSeconds } from 'date-fns/differenceInSeconds';
 import { useEffect, useState } from 'react';
 
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
