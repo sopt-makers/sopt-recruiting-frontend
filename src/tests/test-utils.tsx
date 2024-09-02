@@ -4,6 +4,7 @@ import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import ThemeProvider from 'contexts/ThemeProvider';
 import type { ReactElement, ReactNode } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
 
 interface AllTheProvidersProps extends MemoryRouterProps {
@@ -23,15 +24,19 @@ export const AllTheProviders = ({ children, ...memoryRouterProps }: AllTheProvid
     },
   });
 
+  const method = useForm({ mode: 'onBlur' });
+
   return (
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter {...memoryRouterProps}>
-        <ThemeProvider>
-          <DeviceTypeProvider>
-            <RecruitingInfoProvider>{children}</RecruitingInfoProvider>
-          </DeviceTypeProvider>
-        </ThemeProvider>
-      </MemoryRouter>
+      <FormProvider {...method}>
+        <MemoryRouter {...memoryRouterProps}>
+          <ThemeProvider>
+            <DeviceTypeProvider>
+              <RecruitingInfoProvider>{children}</RecruitingInfoProvider>
+            </DeviceTypeProvider>
+          </ThemeProvider>
+        </MemoryRouter>
+      </FormProvider>
     </QueryClientProvider>
   );
 };
