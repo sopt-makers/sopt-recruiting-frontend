@@ -34,6 +34,7 @@ const PreventApplyDialog = lazy(() =>
 );
 const SubmitDialog = lazy(() => import('views/dialogs').then(({ SubmitDialog }) => ({ default: SubmitDialog })));
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
+const IS_REVIEW = false;
 
 interface ApplyPageProps {
   onSetComplete?: () => void;
@@ -43,9 +44,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   // 반응형 페이지
   const { deviceType } = useDeviceType();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
-
-  // 1. review page가 아님
-  const isReview = false;
 
   // 2. 모달 관련 ref
   const draftDialog = useRef<HTMLDialogElement>(null);
@@ -304,13 +302,13 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       />
       <div className={container}>
         <ApplyHeader
-          isReview={isReview}
+          isReview={IS_REVIEW}
           isLoading={draftIsPending || submitIsPending}
           onSaveDraft={() => handleSendData('draft')}
           onSubmitData={handleSubmit(handleApplySubmit)}
         />
-        <ApplyInfo isReview={isReview} />
-        <ApplyCategory isReview={isReview} minIndex={minIndex} />
+        <ApplyInfo isReview={IS_REVIEW} />
+        <ApplyCategory isReview={IS_REVIEW} minIndex={minIndex} />
         <form
           id="apply-form"
           name="apply-form"
@@ -318,38 +316,36 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           className={formContainerVar[deviceType]}>
           <DefaultSection
             isMakers={isMakers}
-            isReview={isReview}
+            isReview={IS_REVIEW}
             refCallback={refCallback}
             applicantDraft={applicantDraft}
           />
           <CommonSection
-            isReview={isReview}
+            isReview={IS_REVIEW}
             refCallback={refCallback}
             questions={commonQuestions?.questions}
             commonQuestionsDraft={commonQuestionsDraft}
           />
           <PartSection
-            isReview={isReview}
+            isReview={IS_REVIEW}
             refCallback={refCallback}
             part={applicantDraft?.part}
             questions={partQuestions}
             partQuestionsDraft={partQuestionsDraft}
             questionTypes={questionTypes}
           />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
-          {!isReview && (
-            <div className={buttonWrapper}>
-              <Button
-                isLoading={draftIsPending || submitIsPending}
-                onClick={() => handleSendData('draft')}
-                buttonStyle="line">
-                임시저장
-              </Button>
-              <Button isLoading={draftIsPending || submitIsPending} type="submit">
-                제출하기
-              </Button>
-            </div>
-          )}
+          <BottomSection isReview={IS_REVIEW} knownPath={applicantDraft?.knownPath} />
+          <div className={buttonWrapper}>
+            <Button
+              isLoading={draftIsPending || submitIsPending}
+              onClick={() => handleSendData('draft')}
+              buttonStyle="line">
+              임시저장
+            </Button>
+            <Button isLoading={draftIsPending || submitIsPending} type="submit">
+              제출하기
+            </Button>
+          </div>
         </form>
       </div>
       <Footer />
