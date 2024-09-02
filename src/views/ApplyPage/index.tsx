@@ -39,38 +39,46 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
+  // 반응형 페이지
   const { deviceType } = useDeviceType();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
+  // 1. review page가 아님
+  const isReview = false;
+
+  // 2. 모달 관련 ref
   const draftDialog = useRef<HTMLDialogElement>(null);
   const preventApplyDialog = useRef<HTMLDialogElement>(null);
   const submitDialog = useRef<HTMLDialogElement>(null);
-  const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
+  // 3. category active 상태 관리
+  useScrollToHash(); // scrollTo 카테고리
   const [isInView, setIsInView] = useState([true, false, false]);
-  const [sectionsUpdated, setSectionsUpdated] = useState(false);
-
-  const navigate = useNavigate();
-
-  const isReview = false;
   const minIndex = isInView.findIndex((value) => value === true);
 
-  useScrollToHash(); // scrollTo 카테고리
-
-  const { NoMoreApply, isLoading, isMakers } = useDate();
+  // 4. 데이터 불러오기
   const { draftData, draftIsLoading } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
-
   const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
+  // 5. 임시저장된 part data 붙이기
+  useEffect(() => {
+    if (applicantDraft?.part) {
+      setValue('part', applicantDraft?.part);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applicantDraft]);
+
+  // 6. 데이터 보내기
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
   const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
+  // 7. react hook form method 생성
   const methods = useForm({ mode: 'onBlur' });
   const {
     handleSubmit,
@@ -102,12 +110,9 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     ...rest
   } = getValues();
 
-  useEffect(() => {
-    if (applicantDraft?.part) {
-      setValue('part', applicantDraft?.part);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft]);
+  // 8. intersection observer 연결
+  const sectionsRef = useRef<HTMLSelectElement[]>([]);
+  const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
@@ -147,6 +152,9 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     };
   }, [sectionsUpdated]);
 
+  // 9. 입력값 에러 관련 로직
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (errors.picture) {
       navigate('#default');
@@ -174,9 +182,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.attendance, errors.personalInformation]);
 
+  // 10. 페이지 이탈 시 alert 띄우기
   useEffect(() => {
-    if (isReview) return;
-
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
       e.returnValue = ''; // Included for legacy support, e.g. Chrome/Edeg < 119;
@@ -185,11 +192,16 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [isReview]);
+  }, []);
 
-  if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
+  // 11. 지원 기간 아니면 에러 페이지 띄우기
+  const { NoMoreApply, isLoading, isMakers } = useDate();
   if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
+  // 12. 로딩
+  if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
+
+  // 13. data 전송 로직
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
