@@ -12,6 +12,9 @@ interface AllTheProvidersProps extends MemoryRouterProps {
 }
 
 export const AllTheProviders = ({ children, ...memoryRouterProps }: AllTheProvidersProps) => {
+  window.alert = vi.fn();
+  window.scrollTo = vi.fn();
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
