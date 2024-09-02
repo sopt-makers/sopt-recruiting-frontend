@@ -2,7 +2,7 @@ import { render, type RenderOptions } from '@testing-library/react';
 import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import ThemeProvider from 'contexts/ThemeProvider';
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 const AllTheProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -14,11 +14,8 @@ const AllTheProviders = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const renderWithContext = (ui: ReactNode, options?: RenderOptions) =>
+const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
   render(ui, { wrapper: AllTheProviders, ...options });
 
-// re-export everything
 export * from '@testing-library/react';
-
-// override render method
-export { renderWithContext as render };
+export { customRender as render };
