@@ -7,3 +7,12 @@ HTMLCanvasElement.prototype.getContext = () => {
     fillRect: vitest.fn(),
   };
 };
+
+beforeAll(() => {
+  const portalEl = document.createElement('div');
+  portalEl.id = 'modal';
+  document.body.appendChild(portalEl);
+});
+
+// beforeEach(() => {});
+// afterAll(() => {});
