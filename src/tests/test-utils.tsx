@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, type RenderOptions } from '@testing-library/react';
 import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
@@ -9,15 +10,29 @@ interface AllTheProvidersProps extends MemoryRouterProps {
   children: ReactNode;
 }
 
-const AllTheProviders = ({ children, ...memoryRouterProps }: AllTheProvidersProps) => {
+export const AllTheProviders = ({ children, ...memoryRouterProps }: AllTheProvidersProps) => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        gcTime: 1000 * 60 * 60,
+        retry: false,
+      },
+    },
+  });
+
   return (
-    <MemoryRouter {...memoryRouterProps}>
-      <ThemeProvider>
-        <DeviceTypeProvider>
-          <RecruitingInfoProvider>{children}</RecruitingInfoProvider>
-        </DeviceTypeProvider>
-      </ThemeProvider>
-    </MemoryRouter>
+    <QueryClientProvider client={queryClient}>
+      <MemoryRouter {...memoryRouterProps}>
+        <ThemeProvider>
+          <DeviceTypeProvider>
+            <RecruitingInfoProvider>{children}</RecruitingInfoProvider>
+          </DeviceTypeProvider>
+        </ThemeProvider>
+      </MemoryRouter>
+    </QueryClientProvider>
   );
 };
 
