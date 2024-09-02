@@ -19,6 +19,7 @@ import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
 import { SELECT_OPTIONS } from './constant';
+import useBeforeExitPageAlert from './hooks/useBeforeExitPageAlert';
 import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
@@ -182,17 +183,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.attendance, errors.personalInformation]);
 
-  // 10. 페이지 이탈 시 alert 띄우기
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = ''; // Included for legacy support, e.g. Chrome/Edeg < 119;
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, []);
+  useBeforeExitPageAlert();
 
   // 11. 지원 기간 아니면 에러 페이지 띄우기
   const { NoMoreApply, isLoading, isMakers } = useDate();
