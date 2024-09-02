@@ -3,11 +3,29 @@ import path from 'path';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig, type PluginOption } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin()],
+  plugins: [
+    react(),
+    vanillaExtractPlugin(),
+    visualizer({
+      filename: './dist/report.html',
+      gzipSize: true,
+      brotliSize: true,
+    }) as PluginOption,
+  ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('firebase')) return 'firebase';
+        },
+      },
+    },
+  },
   resolve: {
     alias: [
       { find: '@apis', replacement: path.resolve(__dirname, 'src/common/apis') },

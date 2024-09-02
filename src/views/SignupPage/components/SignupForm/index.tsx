@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useEffect, useRef } from 'react';
+import { lazy, useEffect, useRef } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -11,10 +11,13 @@ import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
-import { ExistingApplicantDialog } from 'views/dialogs';
 import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
+
+const ExistingApplicantDialog = lazy(() =>
+  import('views/dialogs').then(({ ExistingApplicantDialog }) => ({ default: ExistingApplicantDialog })),
+);
 
 const SignupForm = () => {
   const {

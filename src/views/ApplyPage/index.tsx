@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,6 @@ import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
-import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
 
 import ApplyCategory from './components/ApplyCategory';
@@ -28,6 +26,13 @@ import useMutateSubmit from './hooks/useMutateSubmit';
 import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
+
+const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
+const PreventApplyDialog = lazy(() =>
+  import('views/dialogs').then(({ PreventApplyDialog }) => ({ default: PreventApplyDialog })),
+);
+const SubmitDialog = lazy(() => import('views/dialogs').then(({ SubmitDialog }) => ({ default: SubmitDialog })));
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 interface ApplyPageProps {
   onSetComplete?: () => void;

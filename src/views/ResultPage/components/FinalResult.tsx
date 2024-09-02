@@ -1,6 +1,6 @@
 import { track } from '@amplitude/analytics-browser';
-import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
+import { format } from 'date-fns/format';
+import { ko } from 'date-fns/locale/ko';
 import { useEffect } from 'react';
 
 import Title from '@components/Title';
