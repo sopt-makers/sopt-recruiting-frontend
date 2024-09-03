@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import path from 'path';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -55,7 +56,13 @@ export default defineConfig({
       },
       { find: 'contexts', replacement: path.resolve(__dirname, 'src/contexts') },
       { find: 'styles', replacement: path.resolve(__dirname, 'src/styles') },
+      { find: 'tests', replacement: path.resolve(__dirname, 'src/tests') },
       { find: 'views', replacement: path.resolve(__dirname, 'src/views') },
     ],
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/tests/setupTests.ts',
   },
 });

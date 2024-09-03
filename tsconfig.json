@@ -14,6 +14,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* testing library */
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -33,9 +36,10 @@
       "@utils/*": ["common/utils/*"],
       "contexts/*": ["contexts/*"],
       "styles/*": ["styles/*"],
+      "tests/*": ["tests/*"],
       "views/*": ["views/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "./src/tests/setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
