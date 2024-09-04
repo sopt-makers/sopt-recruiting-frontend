@@ -26,6 +26,7 @@ import useMutateSubmit from './hooks/useMutateSubmit';
 import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
+import useDialog from '@hooks/useDialog';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
 const PreventApplyDialog = lazy(() =>
@@ -45,9 +46,9 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   // 2. 모달 관련 ref
-  const draftDialog = useRef<HTMLDialogElement>(null);
-  const preventApplyDialog = useRef<HTMLDialogElement>(null);
-  const submitDialog = useRef<HTMLDialogElement>(null);
+  const { ref: draftDialogRef, handleShowDialog: handleShowDraftDialog } = useDialog();
+  const { ref: preventApplyDialogRef, handleShowDialog: handleShowPreventApplyDialog } = useDialog();
+  const { ref: submitDialogRef, handleShowDialog: handleShowSubmitDialog } = useDialog();
 
   // 3. category active 상태 관리
   useScrollToHash(); // scrollTo 카테고리
@@ -73,7 +74,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   }, [applicantDraft]);
 
   // 6. 데이터 보내기
-  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
+  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => handleShowDraftDialog });
   const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
   // 7. react hook form method 생성
@@ -194,7 +195,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
   const handleSendData = (type: 'draft' | 'submit') => {
     if (NoMoreApply) {
-      preventApplyDialog.current?.showModal();
+      handleShowPreventApplyDialog();
 
       return;
     }
@@ -275,13 +276,13 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
   const handleApplySubmit = () => {
     track('click-apply-submit');
-    submitDialog.current?.showModal();
+    handleShowSubmitDialog();
   };
 
   return (
     <FormProvider {...methods}>
-      <DraftDialog ref={draftDialog} />
-      <PreventApplyDialog ref={preventApplyDialog} />
+      <DraftDialog ref={draftDialogRef} />
+      <PreventApplyDialog ref={preventApplyDialogRef} />
       <SubmitDialog
         userInfo={{
           name,
@@ -290,7 +291,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           part,
         }}
         dataIsPending={submitIsPending}
-        ref={submitDialog}
+        ref={submitDialogRef}
         onSendData={() => {
           handleSendData('submit');
           submitDialog.current?.close();
