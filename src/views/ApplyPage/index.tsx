@@ -9,7 +9,6 @@ import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import BigLoading from 'views/loadings/BigLoding';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -56,13 +55,13 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const minIndex = isInView.findIndex((value) => value === true);
 
   // 4. 데이터 불러오기
-  const { draftData, draftIsLoading } = useGetDraft();
+  const { draftData } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
-  const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
+  const { questionsData } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
   // 5. 임시저장된 part data 붙이기
@@ -184,11 +183,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   useBeforeExitPageAlert();
 
   // 11. 지원 기간 아니면 에러 페이지 띄우기
-  const { NoMoreApply, isLoading, isMakers } = useDate();
+  const { NoMoreApply, isMakers } = useDate();
   if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
-
-  // 12. 로딩
-  if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
 
   // 13. data 전송 로직
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
