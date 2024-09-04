@@ -48,7 +48,11 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   // 2. 모달 관련 ref
   const { ref: draftDialogRef, handleShowDialog: handleShowDraftDialog } = useDialog();
   const { ref: preventApplyDialogRef, handleShowDialog: handleShowPreventApplyDialog } = useDialog();
-  const { ref: submitDialogRef, handleShowDialog: handleShowSubmitDialog } = useDialog();
+  const {
+    ref: submitDialogRef,
+    handleShowDialog: handleShowSubmitDialog,
+    handleCloseDialog: handleCloseSubmitDialog,
+  } = useDialog();
 
   // 3. category active 상태 관리
   useScrollToHash(); // scrollTo 카테고리
@@ -294,7 +298,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
         ref={submitDialogRef}
         onSendData={() => {
           handleSendData('submit');
-          submitDialog.current?.close();
+          handleCloseSubmitDialog();
         }}
       />
       <div className={container}>

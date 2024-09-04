@@ -16,6 +16,7 @@ import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainerVar } from 'views/ApplyPage/style.css';
 import BigLoading from 'views/loadings/BigLoding';
+import useDialog from '@hooks/useDialog';
 
 const PreventReviewDialog = lazy(() =>
   import('views/dialogs').then(({ PreventReviewDialog }) => ({ default: PreventReviewDialog })),
@@ -24,7 +25,7 @@ const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const ReviewPage = () => {
   const { deviceType } = useDeviceType();
-  const preventReviewDialog = useRef<HTMLDialogElement>(null);
+  const { ref: preventReviewDialogRef, handleShowDialog: handleShowPreventReviewDialog } = useDialog();
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
@@ -52,8 +53,8 @@ const ReviewPage = () => {
   const { setValue } = methods;
 
   useEffect(() => {
-    if (preventReviewDialog.current && !applicantDraft?.submit) {
-      preventReviewDialog.current.showModal();
+    if (preventReviewDialogRef.current && !applicantDraft?.submit) {
+      handleShowPreventReviewDialog();
     }
 
     if (applicantDraft?.part) {
@@ -64,7 +65,7 @@ const ReviewPage = () => {
       name: applicantDraft?.name,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft, preventReviewDialog.current]);
+  }, [applicantDraft, preventReviewDialogRef.current]);
 
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
@@ -109,7 +110,7 @@ const ReviewPage = () => {
 
   return (
     <>
-      <PreventReviewDialog ref={preventReviewDialog} />
+      <PreventReviewDialog ref={preventReviewDialogRef} />
       <FormProvider {...methods}>
         <div className={container}>
           <ApplyHeader isReview={isReview} />

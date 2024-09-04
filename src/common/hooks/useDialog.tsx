@@ -7,7 +7,11 @@ const useDialog = () => {
     ref.current?.showModal();
   };
 
-  return { ref, handleShowDialog };
+  const handleCloseDialog = () => {
+    ref.current?.close();
+  };
+
+  return { ref, handleShowDialog, handleCloseDialog };
 };
 
 export default useDialog;
