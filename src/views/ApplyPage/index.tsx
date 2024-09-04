@@ -284,7 +284,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   };
 
   return (
-    <FormProvider {...methods}>
+    <>
       <DraftDialog ref={draftDialogRef} />
       <PreventApplyDialog ref={preventApplyDialogRef} />
       <SubmitDialog
@@ -301,56 +301,58 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           handleCloseSubmitDialog();
         }}
       />
-      <div className={container}>
-        <ApplyHeader
-          isReview={IS_REVIEW}
-          isLoading={draftIsPending || submitIsPending}
-          onSaveDraft={() => handleSendData('draft')}
-          onSubmitData={handleSubmit(handleApplySubmit)}
-        />
-        <ApplyInfo isReview={IS_REVIEW} />
-        <ApplyCategory isReview={IS_REVIEW} minIndex={minIndex} />
-        <form
-          id="apply-form"
-          name="apply-form"
-          onSubmit={handleSubmit(handleApplySubmit)}
-          className={formContainerVar[deviceType]}>
-          <DefaultSection
-            isMakers={isMakers}
+      <FormProvider {...methods}>
+        <div className={container}>
+          <ApplyHeader
             isReview={IS_REVIEW}
-            refCallback={refCallback}
-            applicantDraft={applicantDraft}
+            isLoading={draftIsPending || submitIsPending}
+            onSaveDraft={() => handleSendData('draft')}
+            onSubmitData={handleSubmit(handleApplySubmit)}
           />
-          <CommonSection
-            isReview={IS_REVIEW}
-            refCallback={refCallback}
-            questions={commonQuestions?.questions}
-            commonQuestionsDraft={commonQuestionsDraft}
-          />
-          <PartSection
-            isReview={IS_REVIEW}
-            refCallback={refCallback}
-            part={applicantDraft?.part}
-            questions={partQuestions}
-            partQuestionsDraft={partQuestionsDraft}
-            questionTypes={questionTypes}
-          />
-          <BottomSection isReview={IS_REVIEW} knownPath={applicantDraft?.knownPath} />
-          <div className={buttonWrapper}>
-            <Button
-              isLoading={draftIsPending || submitIsPending}
-              onClick={() => handleSendData('draft')}
-              buttonStyle="line">
-              임시저장
-            </Button>
-            <Button isLoading={draftIsPending || submitIsPending} type="submit">
-              제출하기
-            </Button>
-          </div>
-        </form>
-      </div>
-      <Footer />
-    </FormProvider>
+          <ApplyInfo isReview={IS_REVIEW} />
+          <ApplyCategory isReview={IS_REVIEW} minIndex={minIndex} />
+          <form
+            id="apply-form"
+            name="apply-form"
+            onSubmit={handleSubmit(handleApplySubmit)}
+            className={formContainerVar[deviceType]}>
+            <DefaultSection
+              isMakers={isMakers}
+              isReview={IS_REVIEW}
+              refCallback={refCallback}
+              applicantDraft={applicantDraft}
+            />
+            <CommonSection
+              isReview={IS_REVIEW}
+              refCallback={refCallback}
+              questions={commonQuestions?.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+            />
+            <PartSection
+              isReview={IS_REVIEW}
+              refCallback={refCallback}
+              part={applicantDraft?.part}
+              questions={partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
+              questionTypes={questionTypes}
+            />
+            <BottomSection isReview={IS_REVIEW} knownPath={applicantDraft?.knownPath} />
+            <div className={buttonWrapper}>
+              <Button
+                isLoading={draftIsPending || submitIsPending}
+                onClick={() => handleSendData('draft')}
+                buttonStyle="line">
+                임시저장
+              </Button>
+              <Button isLoading={draftIsPending || submitIsPending} type="submit">
+                제출하기
+              </Button>
+            </div>
+          </form>
+        </div>
+        <Footer />
+      </FormProvider>
+    </>
   );
 };
 
