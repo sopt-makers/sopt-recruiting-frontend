@@ -34,7 +34,6 @@ const PreventApplyDialog = lazy(() =>
 );
 const SubmitDialog = lazy(() => import('views/dialogs').then(({ SubmitDialog }) => ({ default: SubmitDialog })));
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
-const IS_REVIEW = false;
 
 interface ApplyPageProps {
   onSetComplete?: () => void;
@@ -304,39 +303,31 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       <FormProvider {...methods}>
         <div className={container}>
           <ApplyHeader
-            isReview={IS_REVIEW}
             isLoading={draftIsPending || submitIsPending}
             onSaveDraft={() => handleSendData('draft')}
             onSubmitData={handleSubmit(handleApplySubmit)}
           />
-          <ApplyInfo isReview={IS_REVIEW} />
-          <ApplyCategory isReview={IS_REVIEW} minIndex={minIndex} />
+          <ApplyInfo />
+          <ApplyCategory minIndex={minIndex} />
           <form
             id="apply-form"
             name="apply-form"
             onSubmit={handleSubmit(handleApplySubmit)}
             className={formContainerVar[deviceType]}>
-            <DefaultSection
-              isMakers={isMakers}
-              isReview={IS_REVIEW}
-              refCallback={refCallback}
-              applicantDraft={applicantDraft}
-            />
+            <DefaultSection isMakers={isMakers} refCallback={refCallback} applicantDraft={applicantDraft} />
             <CommonSection
-              isReview={IS_REVIEW}
               refCallback={refCallback}
               questions={commonQuestions?.questions}
               commonQuestionsDraft={commonQuestionsDraft}
             />
             <PartSection
-              isReview={IS_REVIEW}
               refCallback={refCallback}
               part={applicantDraft?.part}
               questions={partQuestions}
               partQuestionsDraft={partQuestionsDraft}
               questionTypes={questionTypes}
             />
-            <BottomSection isReview={IS_REVIEW} knownPath={applicantDraft?.knownPath} />
+            <BottomSection knownPath={applicantDraft?.knownPath} />
             <div className={buttonWrapper}>
               <Button
                 isLoading={draftIsPending || submitIsPending}
