@@ -1,7 +1,9 @@
 const baseURL = import.meta.env.VITE_BASE_URL;
 
+type StandardHeaders = 'Content-Type' | 'Authorization' | 'Accept' | 'Cache-Control' | 'User-Agent';
+
 interface FetchOptions extends RequestInit {
-  headers?: Record<string, string>;
+  headers?: Record<StandardHeaders, string>;
 }
 
 const instance = async (url: string, options: FetchOptions = {}) => {
