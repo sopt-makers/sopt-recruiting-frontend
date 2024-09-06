@@ -78,7 +78,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   }, [applicantDraft]);
 
   // 6. 데이터 보내기
-  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => handleShowDraftDialog });
+  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: handleShowDraftDialog });
   const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
   // 7. react hook form method 생성
