@@ -1,8 +1,10 @@
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 type StandardHeaders = 'Content-Type' | 'Authorization' | 'Accept' | 'Cache-Control' | 'User-Agent';
+type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 interface FetchOptions extends RequestInit {
+  method?: RequestMethod;
   headers?: Record<StandardHeaders, string>;
 }
 
