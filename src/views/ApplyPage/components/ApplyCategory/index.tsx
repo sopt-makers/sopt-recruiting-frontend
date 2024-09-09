@@ -8,10 +8,10 @@ import { CATEGORY } from './constant';
 import { activeLinkStyleVar, categoryLinkStyleVar, categoryList, container, containerVar } from './style.css';
 
 interface ApplyCategoryProps {
-  isReview: boolean;
+  isReview?: boolean;
   minIndex: number;
 }
-const ApplyCategory = memo(({ isReview, minIndex }: ApplyCategoryProps) => {
+const ApplyCategory = memo(({ minIndex, isReview = false }: ApplyCategoryProps) => {
   const { deviceType } = useDeviceType();
   const { isScrollingDown, isScrollTop } = useScrollPosition(isReview ? 380 : 950);
 

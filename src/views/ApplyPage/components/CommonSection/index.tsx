@@ -8,13 +8,13 @@ import Info from '../Info';
 import LinkInput from '../LinkInput';
 
 interface CommonSectionProps {
-  isReview: boolean;
+  isReview?: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
 }
 
-const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft }: CommonSectionProps) => {
+const CommonSection = ({ refCallback, questions, commonQuestionsDraft, isReview = false }: CommonSectionProps) => {
   const { deviceType } = useDeviceType();
   const commonQuestionsById = commonQuestionsDraft?.reduce(
     (acc, draft) => {

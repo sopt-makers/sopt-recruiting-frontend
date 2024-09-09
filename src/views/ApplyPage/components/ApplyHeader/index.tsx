@@ -6,13 +6,13 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { buttonWrapper, headerContainerVar } from './style.css';
 
 interface ApplyHeaderProps {
-  isReview: boolean;
+  isReview?: boolean;
   isLoading?: boolean;
   onSaveDraft?: () => void;
   onSubmitData?: () => void;
 }
 
-const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
+const ApplyHeader = ({ isLoading, onSaveDraft, onSubmitData, isReview = false }: ApplyHeaderProps) => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { soptName, season, group, isMakers },

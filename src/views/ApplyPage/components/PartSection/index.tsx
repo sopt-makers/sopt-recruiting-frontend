@@ -11,7 +11,7 @@ import Info from '../Info';
 import LinkInput from '../LinkInput';
 
 interface PartSectionProps {
-  isReview: boolean;
+  isReview?: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
   part?: string;
   questions?: {
@@ -24,12 +24,12 @@ interface PartSectionProps {
 }
 
 const PartSection = ({
-  isReview,
   refCallback,
   part,
   questions,
   partQuestionsDraft,
   questionTypes,
+  isReview = false,
 }: PartSectionProps) => {
   const { deviceType } = useDeviceType();
   const { getValues } = useFormContext();

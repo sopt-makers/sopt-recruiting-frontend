@@ -9,11 +9,11 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { doubleLineCheck, labelVar, line, sectionContainer } from './style.css';
 
 interface BottomSectionProps {
-  isReview: boolean;
+  isReview?: boolean;
   knownPath?: string;
 }
 
-const BottomSection = ({ isReview, knownPath }: BottomSectionProps) => {
+const BottomSection = ({ knownPath, isReview = false }: BottomSectionProps) => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { isMakers },
