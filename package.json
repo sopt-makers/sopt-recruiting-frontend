@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:makers": "vite --mode makers",
+    "dev:sopt": "vite --mode sopt",
     "build": "tsc && vite build",
+    "build:makers": "tsc && NODE_ENV=makers vite build --mode makers",
+    "build:sopt": "tsc && NODE_ENV=sopt vite build --mode sopt",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest"
