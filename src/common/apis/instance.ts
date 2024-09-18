@@ -12,18 +12,24 @@ export class CustomError extends Error {
   }
 }
 
-interface FetchOptions extends RequestInit {
+interface FetchOptions extends Omit<RequestInit, 'body'> {
   method?: RequestMethod;
   headers?: Record<StandardHeaders, string>;
+  body?: Record<string, unknown>;
+  params?: Record<string, any>;
 }
 
 const instance = async (url: string, options: FetchOptions = {}) => {
-  const response = await fetch(`${baseURL}${url}`, {
+  const { body, params, headers, ...rest } = options;
+  const urlWithParams = params ? `${url}?${new URLSearchParams(params).toString()}` : url;
+
+  const response = await fetch(`${baseURL}${urlWithParams}`, {
     headers: {
       'Content-Type': 'application/json',
-      ...options.headers,
+      ...headers,
     },
-    ...options,
+    body: JSON.stringify(body),
+    ...rest,
   });
 
   if (!response.ok) {
