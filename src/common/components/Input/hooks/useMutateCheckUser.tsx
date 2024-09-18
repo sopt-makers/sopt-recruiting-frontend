@@ -6,8 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { checkUser } from '../apis';
 
 import type { CheckUserRequest, EmailResponse } from '../types';
-import type { ErrorResponse } from '@type/errorResponse';
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { CustomError } from '@apis/instance';
 
 interface MutateCheckUserProps {
   onSendCode: () => void;
@@ -17,8 +16,8 @@ const useMutateCheckUser = ({ onSendCode }: MutateCheckUserProps) => {
   const { clearErrors, setError } = useFormContext();
 
   const { mutate: checkUserMutate, isPending: checkUserIsPending } = useMutation<
-    AxiosResponse<EmailResponse, CheckUserRequest>,
-    AxiosError<ErrorResponse, CheckUserRequest>,
+    EmailResponse,
+    CustomError,
     CheckUserRequest
   >({
     mutationFn: (userInfo: CheckUserRequest) => checkUser(userInfo),
@@ -27,7 +26,7 @@ const useMutateCheckUser = ({ onSendCode }: MutateCheckUserProps) => {
       onSendCode();
     },
     onError: (error) => {
-      if (error.response?.status === 400 || error.response?.status === 403) {
+      if (error.status === 400 || error.status === 403) {
         setError('name', {
           type: 'non-existence',
           message: VALIDATION_CHECK.name.errorTextNonexistence,

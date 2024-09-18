@@ -2,17 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getRecruitingInfo } from '@apis/getRecruitingInfo';
 
-import type { ErrorResponse } from '@type/errorResponse';
 import type { RecruitingResponse } from '@type/recruitingInfo';
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { CustomError } from '@apis/instance';
 
 const useGetRecruitingInfo = () => {
-  const { data, isLoading } = useQuery<
-    AxiosResponse<RecruitingResponse, null>,
-    AxiosError<ErrorResponse, null>,
-    AxiosResponse<RecruitingResponse, null>,
-    string[]
-  >({
+  const { data, isLoading } = useQuery<RecruitingResponse, CustomError, RecruitingResponse, string[]>({
     queryKey: ['get-recruiting-info'],
     queryFn: getRecruitingInfo,
   });
