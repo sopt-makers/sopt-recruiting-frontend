@@ -14,21 +14,23 @@ export class CustomError extends Error {
 
 interface FetchOptions extends Omit<RequestInit, 'body'> {
   method?: RequestMethod;
-  headers?: Record<StandardHeaders, string>;
+  headers?: Partial<Record<StandardHeaders, string>>;
   body?: Record<string, unknown>;
   params?: Record<string, any>;
 }
 
 const instance = async (url: string, options: FetchOptions = {}) => {
-  const { body, params, headers, ...rest } = options;
+  const { body, params, headers = {}, ...rest } = options;
   const urlWithParams = params ? `${url}?${new URLSearchParams(params).toString()}` : url;
+  const isFormData = body instanceof FormData;
+
+  if (!isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   const response = await fetch(`${baseURL}${urlWithParams}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: JSON.stringify(body),
+    headers,
+    body: isFormData ? body : JSON.stringify(body),
     ...rest,
   });
 
