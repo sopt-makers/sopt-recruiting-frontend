@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
-    "supportedBrowsers": "echo \"export default $(browserslist-useragent-regexp --allowHigherVersions);\" > ./src/views/UnsupportedPage/supportedBrowsers.js"
+    "supportedBrowsers": "echo \"export default $(browserslist-useragent-regexp --allowHigherVersions);\" > ./src/views/UnsupportedPage/supportedBrowsers.ts"
   },
   "browserslist": [
     "> 0.3%",
