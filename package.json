@@ -10,6 +10,17 @@
     "preview": "vite preview",
     "test": "vitest"
   },
+  "browserslist": [
+    "> 0.3%",
+    "chrome >0 and last 2.5 years",
+    "edge >0 and last 2.5 years",
+    "safari >0 and last 2.5 years",
+    "firefox >0 and last 2.5 years",
+    "and_chr >0 and last 2.5 years",
+    "and_ff >0 and last 2.5 years",
+    "ios >0 and last 2.5 years",
+    "not dead"
+  ],
   "dependencies": {
     "@amplitude/analytics-browser": "^2.9.3",
     "@amplitude/plugin-session-replay-browser": "^1.6.13",
