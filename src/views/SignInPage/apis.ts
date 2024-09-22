@@ -6,12 +6,12 @@ export const sendSignIn = async (userInfo: SignInRequest) => {
   const { email, season, group, password } = userInfo;
   const res = await instance('/recruiting-auth/login', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       season,
       group,
       password,
-    }),
+    },
   });
 
   return res;

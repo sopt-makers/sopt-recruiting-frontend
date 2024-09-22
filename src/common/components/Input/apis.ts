@@ -6,12 +6,12 @@ export const checkUser = async (userInfo: CheckUserRequest) => {
   const { email, name, season, group } = userInfo;
   const res = await instance('/recruiting-auth/check/user', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       name,
       season,
       group,
-    }),
+    },
   });
 
   return res;
@@ -20,12 +20,12 @@ export const checkUser = async (userInfo: CheckUserRequest) => {
 export const sendVerificationCode = async (email: string, season: number, group: string, isSignup: boolean) => {
   const res = await instance('/recruiting-auth/verify/send', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       season,
       group,
       isSignup,
-    }),
+    },
   });
 
   return res;
@@ -34,10 +34,10 @@ export const sendVerificationCode = async (email: string, season: number, group:
 export const checkVerificationCode = async (email: string, code: string) => {
   const res = await instance('/recruiting-auth/verify/email', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       code,
-    }),
+    },
   });
 
   return res;

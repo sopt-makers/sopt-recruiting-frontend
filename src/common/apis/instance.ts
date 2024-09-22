@@ -3,22 +3,40 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 type StandardHeaders = 'Content-Type' | 'Authorization' | 'Accept' | 'Cache-Control' | 'User-Agent';
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-interface FetchOptions extends RequestInit {
+export class CustomError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
+interface FetchOptions extends Omit<RequestInit, 'body'> {
   method?: RequestMethod;
-  headers?: Record<StandardHeaders, string>;
+  headers?: Partial<Record<StandardHeaders, string>>;
+  body?: Record<string, unknown>;
+  params?: Record<string, any>;
 }
 
 const instance = async (url: string, options: FetchOptions = {}) => {
-  const response = await fetch(`${baseURL}${url}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-    ...options,
+  const { body, params, headers = {}, ...rest } = options;
+  const urlWithParams = params ? `${url}?${new URLSearchParams(params).toString()}` : url;
+  const isFormData = body instanceof FormData;
+
+  if (!isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  const response = await fetch(`${baseURL}${urlWithParams}`, {
+    headers,
+    body: isFormData ? body : JSON.stringify(body),
+    ...rest,
   });
 
   if (!response.ok) {
-    throw new Error('network response가 도착하지 않았어요');
+    const errMsg = await response.json();
+    throw new CustomError(errMsg.userMessage, response.status);
   }
 
   return response.json();

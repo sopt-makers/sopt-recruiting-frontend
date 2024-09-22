@@ -35,7 +35,7 @@ const useDate = () => {
     obInterviewStart,
     ybInterviewEnd,
     obInterviewEnd,
-  } = data?.data.season || {};
+  } = data?.season || {};
 
   const applicationStart = group === 'YB' ? ybApplicationStart : obApplicationStart; // 서류 시작
   const applicationEnd = group === 'YB' ? ybApplicationEnd : obApplicationEnd; // 서류 마감
@@ -98,7 +98,7 @@ const useDate = () => {
   ]);
 
   return {
-    ...data?.data.season,
+    ...data?.season,
     NoMoreRecruit,
     NoMoreApply,
     NoMoreScreeningResult,

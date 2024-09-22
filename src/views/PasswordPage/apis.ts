@@ -6,13 +6,13 @@ export const sendPasswordChange = async (userInfo: PasswordRequest) => {
   const { email, season, group, password, passwordCheck } = userInfo;
   const res = await instance('/recruiting-auth/change/password', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       season,
       group,
       password,
       passwordCheck,
-    }),
+    },
   });
 
   return res;

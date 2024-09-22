@@ -1,10 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
 
 import { sendPasswordChange } from '../apis';
 
 import type { PasswordRequest, PasswordResponse } from '../types';
-import type { ErrorResponse } from '@type/errorResponse';
+import type { CustomError } from '@apis/instance';
 
 interface MutateChangePasswordProps {
   onSuccess: () => void;
@@ -12,8 +11,8 @@ interface MutateChangePasswordProps {
 
 const useMutateChangePassword = ({ onSuccess }: MutateChangePasswordProps) => {
   const { mutate: changePasswordMutate, isPending: changePasswordIsPending } = useMutation<
-    AxiosResponse<PasswordResponse, PasswordRequest>,
-    AxiosError<ErrorResponse, PasswordRequest>,
+    PasswordResponse,
+    CustomError,
     PasswordRequest
   >({
     mutationFn: (userInfo: PasswordRequest) => sendPasswordChange(userInfo),

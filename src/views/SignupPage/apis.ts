@@ -6,7 +6,7 @@ export const sendSignUp = async (userInfo: SignUpRequest) => {
   const { email, password, passwordCheck, name, phone, season, group } = userInfo;
   const res = await instance('/recruiting-auth/signup', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       password,
       passwordCheck,
@@ -14,7 +14,7 @@ export const sendSignUp = async (userInfo: SignUpRequest) => {
       phone,
       season,
       group,
-    }),
+    },
   });
 
   return res;
