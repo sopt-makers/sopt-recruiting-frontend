@@ -48,16 +48,8 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  // useEffect(() => {
-  //   const isMobile = /Mobi/i.test(window.navigator.userAgent);
-  //   if (isMobile) {
-  //     alert('PC로 지원해주세요.');
-  //     window.location.href = 'https://makers.sopt.org/recruit';
-  //   }
-  // }, []);
-
   const sessionRef = useRef<HTMLDialogElement>(null);
-  // const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
+  const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
   const { isLight } = useTheme();
 
   const queryClient = new QueryClient({
@@ -94,20 +86,20 @@ const App = () => {
     }),
   });
 
-  // useEffect(() => {
-  //   if (!isAmplitudeInitialized) {
-  //     init(import.meta.env.VITE_AMPLITUDE_API_KEY);
-  //     setIsAmplitudeInitialized(true);
+  useEffect(() => {
+    if (!isAmplitudeInitialized) {
+      init(import.meta.env.VITE_AMPLITUDE_API_KEY);
+      setIsAmplitudeInitialized(true);
 
-  //     const sessionReplayTracking = sessionReplayPlugin({
-  //       // Set sample rate (required)
-  //       // sampleRate of 1 captures 100% of all sessions - not advisable for production environment
-  //       sampleRate: 0.7,
-  //     });
+      const sessionReplayTracking = sessionReplayPlugin({
+        // Set sample rate (required)
+        // sampleRate of 1 captures 100% of all sessions - not advisable for production environment
+        sampleRate: 0.7,
+      });
 
-  //     add(sessionReplayTracking);
-  //   }
-  // }, [isAmplitudeInitialized]);
+      add(sessionReplayTracking);
+    }
+  }, [isAmplitudeInitialized]);
 
   return (
     <>
