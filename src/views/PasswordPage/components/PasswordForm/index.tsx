@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { lazy, useRef } from 'react';
+import { lazy } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -10,11 +10,13 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePassword';
 
 import { formWrapper } from './style.css';
+import useDialog from '@hooks/useDialog';
 
 const CompleteDialog = lazy(() => import('views/dialogs').then(({ CompleteDialog }) => ({ default: CompleteDialog })));
 
 const PasswordForm = () => {
-  const completeDialog = useRef<HTMLDialogElement>(null);
+  const { ref: completeDialogRef, handleShowDialog: handleShowCompleteDialog } = useDialog();
+
   const {
     recruitingInfo: { season, group },
   } = useRecruitingInfo();
@@ -23,7 +25,7 @@ const PasswordForm = () => {
   const { handleSubmit, setError } = methods;
 
   const handleCompleteChangePassword = () => {
-    completeDialog.current?.showModal();
+    handleShowCompleteDialog();
   };
 
   const { changePasswordMutate, changePasswordIsPending } = useMutateChangePassword({
@@ -53,7 +55,7 @@ const PasswordForm = () => {
 
   return (
     <>
-      <CompleteDialog ref={completeDialog} />
+      <CompleteDialog ref={completeDialogRef} />
       <FormProvider {...methods}>
         <form
           id="password-form"

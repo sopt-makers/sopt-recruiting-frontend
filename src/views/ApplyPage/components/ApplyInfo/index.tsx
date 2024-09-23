@@ -19,7 +19,7 @@ import {
 } from './style.css';
 import { APPLY_INFO } from '../../constant';
 
-const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
+const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: {

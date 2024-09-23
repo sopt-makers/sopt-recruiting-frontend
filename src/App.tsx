@@ -3,7 +3,7 @@ import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -15,6 +15,7 @@ import { dark, light } from 'styles/theme.css';
 import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
+import useDialog from '@hooks/useDialog';
 
 const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
@@ -48,7 +49,15 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const sessionRef = useRef<HTMLDialogElement>(null);
+  // useEffect(() => {
+  //   const isMobile = /Mobi/i.test(window.navigator.userAgent);
+  //   if (isMobile) {
+  //     alert('PC로 지원해주세요.');
+  //     window.location.href = 'https://makers.sopt.org/recruit';
+  //   }
+  // }, []);
+
+  const { ref: sessionExpiredDialogRef, handleShowDialog: handleShowSessionExpiredDialog } = useDialog();
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
   const { isLight } = useTheme();
 
@@ -67,7 +76,7 @@ const App = () => {
         const axiosError = error as AxiosError;
 
         if (axiosError.response?.status === 401) {
-          sessionRef.current?.showModal();
+          handleShowSessionExpiredDialog();
         } else if (axiosError.response?.status === 500) {
           window.location.href = '/error';
         }
@@ -78,7 +87,7 @@ const App = () => {
         const axiosError = error as AxiosError;
 
         if (axiosError.response?.status === 401) {
-          sessionRef.current?.showModal();
+          handleShowSessionExpiredDialog();
         } else if (axiosError.response?.status === 500) {
           window.location.href = '/error';
         }
@@ -103,7 +112,7 @@ const App = () => {
 
   return (
     <>
-      <SessionExpiredDialog ref={sessionRef} />
+      <SessionExpiredDialog ref={sessionExpiredDialogRef} />
       <ThemeProvider>
         <DeviceTypeProvider>
           <RecruitingInfoProvider>

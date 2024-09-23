@@ -107,12 +107,12 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
 
 interface DefaultSectionProps {
   isMakers?: boolean;
-  isReview: boolean;
+  isReview?: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
   applicantDraft?: Applicant;
 }
 
-const DefaultSection = ({ isMakers, isReview, refCallback, applicantDraft }: DefaultSectionProps) => {
+const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = false }: DefaultSectionProps) => {
   const { deviceType } = useDeviceType();
   const {
     address,

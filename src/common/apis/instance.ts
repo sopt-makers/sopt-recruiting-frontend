@@ -1,10 +1,27 @@
-import axios from 'axios';
+const baseURL = import.meta.env.VITE_BASE_URL;
 
-const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+type StandardHeaders = 'Content-Type' | 'Authorization' | 'Accept' | 'Cache-Control' | 'User-Agent';
+type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+interface FetchOptions extends RequestInit {
+  method?: RequestMethod;
+  headers?: Record<StandardHeaders, string>;
+}
+
+const instance = async (url: string, options: FetchOptions = {}) => {
+  const response = await fetch(`${baseURL}${url}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+    ...options,
+  });
+
+  if (!response.ok) {
+    throw new Error('network response가 도착하지 않았어요');
+  }
+
+  return response.json();
+};
 
 export default instance;

@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { lazy, useEffect, useRef } from 'react';
+import { lazy, useEffect } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -14,6 +14,7 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
+import useDialog from '@hooks/useDialog';
 
 const ExistingApplicantDialog = lazy(() =>
   import('views/dialogs').then(({ ExistingApplicantDialog }) => ({ default: ExistingApplicantDialog })),
@@ -23,7 +24,7 @@ const SignupForm = () => {
   const {
     recruitingInfo: { season, group },
   } = useRecruitingInfo();
-  const existingApplicantRef = useRef<HTMLDialogElement>(null);
+  const { ref: existingApplicantDialogRef, handleShowDialog: handleShowExistingApplicantDialog } = useDialog();
 
   const { isVerified, handleVerified } = useVerificationStatus();
   const methods = useForm({ mode: 'onBlur' });
@@ -34,7 +35,7 @@ const SignupForm = () => {
     formState: { errors },
   } = methods;
   const { signUpMutate, signUpIsPending } = useMutateSignUp({
-    onCheckExistence: () => existingApplicantRef.current?.showModal(),
+    onCheckExistence: () => handleShowExistingApplicantDialog(),
   });
 
   const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
@@ -69,7 +70,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <ExistingApplicantDialog ref={existingApplicantRef} />
+      <ExistingApplicantDialog ref={existingApplicantDialogRef} />
       <FormProvider {...methods}>
         <form
           id="sign-up-form"
