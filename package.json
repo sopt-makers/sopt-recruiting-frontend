@@ -57,6 +57,7 @@
     "eslint-plugin-testing-library": "^6.3.0",
     "eslint-plugin-vitest": "^0.5.4",
     "jsdom": "^25.0.0",
+    "msw": "^2.4.9",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "^5.2.2",
