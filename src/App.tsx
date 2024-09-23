@@ -11,6 +11,7 @@ import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
+
 import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
@@ -56,7 +57,7 @@ const App = () => {
   // }, []);
 
   const sessionRef = useRef<HTMLDialogElement>(null);
-  const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
+  // const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
   const { isLight } = useTheme();
 
   const queryClient = new QueryClient({
@@ -93,20 +94,20 @@ const App = () => {
     }),
   });
 
-  useEffect(() => {
-    if (!isAmplitudeInitialized) {
-      init(import.meta.env.VITE_AMPLITUDE_API_KEY);
-      setIsAmplitudeInitialized(true);
+  // useEffect(() => {
+  //   if (!isAmplitudeInitialized) {
+  //     init(import.meta.env.VITE_AMPLITUDE_API_KEY);
+  //     setIsAmplitudeInitialized(true);
 
-      const sessionReplayTracking = sessionReplayPlugin({
-        // Set sample rate (required)
-        // sampleRate of 1 captures 100% of all sessions - not advisable for production environment
-        sampleRate: 0.7,
-      });
+  //     const sessionReplayTracking = sessionReplayPlugin({
+  //       // Set sample rate (required)
+  //       // sampleRate of 1 captures 100% of all sessions - not advisable for production environment
+  //       sampleRate: 0.7,
+  //     });
 
-      add(sessionReplayTracking);
-    }
-  }, [isAmplitudeInitialized]);
+  //     add(sessionReplayTracking);
+  //   }
+  // }, [isAmplitudeInitialized]);
 
   return (
     <>
