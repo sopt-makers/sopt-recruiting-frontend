@@ -15,6 +15,7 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
 import useDialog from '@hooks/useDialog';
+import { HelmetProvider } from 'react-helmet-async';
 
 const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
@@ -112,20 +113,22 @@ const App = () => {
   return (
     <>
       <SessionExpiredDialog ref={sessionExpiredDialogRef} />
-      <ThemeProvider>
-        <DeviceTypeProvider>
-          <RecruitingInfoProvider>
-            <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools />
-              <div className={isLight ? light : dark}>
-                <Suspense fallback={<BigLoading />}>
-                  <RouterProvider router={router} />
-                </Suspense>
-              </div>
-            </QueryClientProvider>
-          </RecruitingInfoProvider>
-        </DeviceTypeProvider>
-      </ThemeProvider>
+      <HelmetProvider>
+        <ThemeProvider>
+          <DeviceTypeProvider>
+            <RecruitingInfoProvider>
+              <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <div className={isLight ? light : dark}>
+                  <Suspense fallback={<BigLoading />}>
+                    <RouterProvider router={router} />
+                  </Suspense>
+                </div>
+              </QueryClientProvider>
+            </RecruitingInfoProvider>
+          </DeviceTypeProvider>
+        </ThemeProvider>
+      </HelmetProvider>
     </>
   );
 };
