@@ -62,7 +62,7 @@ const useDate = () => {
   const NoMoreReview = afterInterview; // 면접 마감 -> 지원서 확인 불가
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
 
-  const isMakers = name?.toLowerCase().includes('makers');
+  const isMakers = import.meta.env.MODE.includes('makers');
 
   useEffect(() => {
     handleSaveRecruitingInfo({
