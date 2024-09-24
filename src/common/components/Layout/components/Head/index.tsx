@@ -1,10 +1,7 @@
-import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { Helmet } from 'react-helmet-async';
 
 const Head = () => {
-  const {
-    recruitingInfo: { isMakers },
-  } = useRecruitingInfo();
+  const isMakers = !import.meta.env.VITE_TEAM_NAME.includes('makers');
 
   const TOUCH_ICON = isMakers ? '/makers-touch-icon.png' : '/apple-touch-icon.png';
   const ICON = isMakers ? '/makersIcon.svg' : '/icon.svg';
