@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const Head = () => {
-  const isMakers = import.meta.env.VITE_TEAM_NAME.includes('makers');
+  const isMakers = import.meta.env.MODE.includes('makers');
 
   const TOUCH_ICON = isMakers ? '/makers-touch-icon.png' : '/apple-touch-icon.png';
   const ICON = isMakers ? '/makersIcon.svg' : '/icon.svg';
