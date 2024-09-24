@@ -13,6 +13,7 @@ const Head = () => {
   const TITLE = `SOPT ${isMakers ? 'makers ' : ''}모집 지원하기`;
   const IMAGE = isMakers ? '/makersOg.png' : '/imgOg.png';
   const DESCRIPTION = `SOPT${isMakers ? ' makers' : ''}의 신입 기수 모집페이지입니다.`;
+  const URL = isMakers ? 'https://recruiting.sopt.org' : 'https://recruit.sopt.org';
 
   return (
     <Helmet>
@@ -23,6 +24,7 @@ const Head = () => {
       <meta property="og:title" content={TITLE} />
       <meta property="og:description" content={DESCRIPTION} />
       <meta property="og:site_name" content={SITE_NAME} />
+      <meta property="og:url" content={URL} />
 
       <meta property="og:image" content={IMAGE} />
       <meta property="og:image:alt" content={SITE_NAME} />
@@ -38,6 +40,7 @@ const Head = () => {
       <title>{TITLE}</title>
       <meta name="author" content="sopt makers team official 4th" />
       <meta name="description" content={DESCRIPTION} />
+      <meta property="twitter:site" content={URL} />
     </Helmet>
   );
 };
