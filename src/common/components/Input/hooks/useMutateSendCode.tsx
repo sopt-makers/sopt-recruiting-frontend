@@ -6,7 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { sendVerificationCode } from '../apis';
 
 import type { EmailResponse, SendVerificationCodeRequest } from '../types';
-import type { CustomError } from '@apis/instance';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateSendCodeProps {
   onChangeVerification: (bool: boolean) => void;

@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { sendPasswordChange } from '../apis';
 
 import type { PasswordRequest, PasswordResponse } from '../types';
-import type { CustomError } from '@apis/instance';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateChangePasswordProps {
   onSuccess: () => void;

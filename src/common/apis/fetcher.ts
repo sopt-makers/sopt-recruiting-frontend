@@ -19,7 +19,7 @@ interface FetchOptions extends Omit<RequestInit, 'body'> {
   params?: Record<string, any>;
 }
 
-const instance = async (url: string, options: FetchOptions = {}) => {
+const fetcher = async (url: string, options: FetchOptions = {}) => {
   const { body, params, headers = {}, ...rest } = options;
   const urlWithParams = params ? `${url}?${new URLSearchParams(params).toString()}` : url;
   const isFormData = body instanceof FormData;
@@ -42,4 +42,4 @@ const instance = async (url: string, options: FetchOptions = {}) => {
   return response.json();
 };
 
-export default instance;
+export default fetcher;

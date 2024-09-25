@@ -6,7 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { sendSignIn } from '../apis';
 
 import type { SignInRequest, SignInResponse } from '../types';
-import type { CustomError } from '@apis/instance';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateSignInProps {
   finalPassConfirmEnd?: string;
