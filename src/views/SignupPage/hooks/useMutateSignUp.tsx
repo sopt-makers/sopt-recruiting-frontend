@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { sendSignUp } from '../apis';
 
 import type { SignUpRequest, SignUpResponse } from '../types';
-import type { CustomError } from '@apis/instance';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateSignUpProps {
   onCheckExistence: () => void;

@@ -1,10 +1,10 @@
-import instance from '@apis/instance';
+import fetcher from '@apis/fetcher';
 
 import { CheckUserRequest } from './types';
 
 export const checkUser = async (userInfo: CheckUserRequest) => {
   const { email, name, season, group } = userInfo;
-  const res = await instance('/recruiting-auth/check/user', {
+  const res = await fetcher('/recruiting-auth/check/user', {
     method: 'POST',
     body: {
       email,
@@ -18,7 +18,7 @@ export const checkUser = async (userInfo: CheckUserRequest) => {
 };
 
 export const sendVerificationCode = async (email: string, season: number, group: string, isSignup: boolean) => {
-  const res = await instance('/recruiting-auth/verify/send', {
+  const res = await fetcher('/recruiting-auth/verify/send', {
     method: 'POST',
     body: {
       email,
@@ -32,7 +32,7 @@ export const sendVerificationCode = async (email: string, season: number, group:
 };
 
 export const checkVerificationCode = async (email: string, code: string) => {
-  const res = await instance('/recruiting-auth/verify/email', {
+  const res = await fetcher('/recruiting-auth/verify/email', {
     method: 'POST',
     body: {
       email,

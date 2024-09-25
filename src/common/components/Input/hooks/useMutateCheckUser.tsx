@@ -6,7 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { checkUser } from '../apis';
 
 import type { CheckUserRequest, EmailResponse } from '../types';
-import type { CustomError } from '@apis/instance';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateCheckUserProps {
   onSendCode: () => void;

@@ -6,7 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { checkVerificationCode } from '../apis';
 
 import type { CheckVerificationCodeRequest, EmailResponse } from '../types';
-import type { CustomError } from '@apis/instance';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateCheckCodeProps {
   onSuccess: () => void;
