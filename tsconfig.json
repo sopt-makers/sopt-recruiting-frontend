@@ -37,7 +37,8 @@
       "contexts/*": ["contexts/*"],
       "styles/*": ["styles/*"],
       "tests/*": ["tests/*"],
-      "views/*": ["views/*"]
+      "views/*": ["views/*"],
+      "mocks/*": ["mocks/*"]
     }
   },
   "include": ["src", "./src/tests/setupTests.ts"],
