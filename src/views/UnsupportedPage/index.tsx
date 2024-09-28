@@ -12,10 +12,10 @@ import {
   updateInfoTitle,
   updateInfoWrapper,
 } from './style.css';
-import imgChrome from './assets/imgChrome.png';
-import imgEdge from './assets/imgEdge.png';
-import imgFirefox from './assets/imgFirefox.png';
-import imgSafari from './assets/imgSafari.png';
+import ChromeIcon from './assets/ChromeIcon';
+import EdgeIcon from './assets/EdgeIcon';
+import FirefoxIcon from './assets/FirefoxIcon';
+import SafariIcon from './assets/SafariIcon';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 const UnsupportedPage = () => {
@@ -43,7 +43,7 @@ const UnsupportedPage = () => {
             href="https://www.google.com/chrome/update/"
             target="_blank"
             rel="noreferrer noopener">
-            <img src={imgChrome} />
+            <ChromeIcon />
             Chrome
           </a>
           <a
@@ -51,7 +51,7 @@ const UnsupportedPage = () => {
             href="https://support.apple.com/en-us/102665"
             target="_blank"
             rel="noreferrer noopener">
-            <img src={imgSafari} />
+            <SafariIcon />
             Safari
           </a>
           <a
@@ -59,7 +59,7 @@ const UnsupportedPage = () => {
             href="https://support.microsoft.com/en-au/topic/microsoft-edge-update-settings-af8aaca2-1b69-4870-94fe-18822dbb7ef1"
             target="_blank"
             rel="noreferrer noopener">
-            <img src={imgEdge} />
+            <EdgeIcon />
             Edge
           </a>
           <a
@@ -67,7 +67,7 @@ const UnsupportedPage = () => {
             href="https://support.mozilla.org/en-US/kb/update-firefox-latest-release"
             target="_blank"
             rel="noreferrer noopener">
-            <img src={imgFirefox} />
+            <FirefoxIcon />
             Firefox
           </a>
         </div>
