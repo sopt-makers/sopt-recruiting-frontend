@@ -7,10 +7,8 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  height: calc.subtract('100vh', '80px'),
-  minHeight: 713,
-  // marginTop: calc.subtract('50vh', '80px'),
-  // transform: 'translateY(-50%)',
+  height: calc.subtract('100vh', '160px'),
+  minHeight: 753,
 });
 
 export const headingVar = styleVariants({
