@@ -10,6 +10,7 @@
     "build": "tsc && NODE_ENV=makers vite build --mode makers",
     "build:makers": "tsc && vite build --mode development",
     "build:sopt": "tsc && NODE_ENV=sopt vite build --mode sopt",
+    "build:ssg": "tsc && vite build --ssr src/views/UnsupportedPage/pre-render.tsx && node dist/pre-render.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
