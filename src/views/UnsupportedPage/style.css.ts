@@ -2,7 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
 import { theme } from 'styles/theme.css';
 
-export const container = style({
+export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
