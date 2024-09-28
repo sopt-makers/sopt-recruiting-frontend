@@ -79,7 +79,7 @@ const UnsupportedPage = () => {
         }>{`문제가 지속적으로 발생하거나 문의사항이 있다면\n아래 ‘문의하기’를 이용해 주세요`}</p>
       <a
         id="chat-channel-button"
-        href={isMakers ? 'https://makers.sopt.org/' : 'https://www.sopt.org/'}
+        href={isMakers ? 'https://pf.kakao.com/_sxaIWG' : 'https://pf.kakao.com/_JdTKd'}
         target="_blank"
         rel="noreferrer noopener"
         className={contactButtonVar[deviceType]}>
