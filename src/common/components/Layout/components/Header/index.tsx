@@ -5,7 +5,6 @@ import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
 import NowsoptLogo from '@assets/NowsoptLogo';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { useTheme } from 'contexts/ThemeProvider';
 
 import Nav from './Nav';
@@ -21,11 +20,8 @@ const Header = () => {
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  const {
-    recruitingInfo: { isMakers },
-  } = useRecruitingInfo();
   const { isLight } = useTheme();
+  const isMakers = (import.meta.env.MODE = 'makers');
 
   const handleClickLogo = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
