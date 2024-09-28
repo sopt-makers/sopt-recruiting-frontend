@@ -1,16 +1,17 @@
 import Callout from '@components/Callout';
 import '../../common/components/Callout/style.css';
 import {
-  browserButton,
+  browserButtonVar,
+  browserIconVar,
   browsersWrapper,
   contactButtonVar,
   container,
-  heading,
+  headingVar,
   infoText,
   infoTitle,
   instructionVar,
   updateInfoTitle,
-  updateInfoWrapper,
+  updateInfoWrapperVar,
 } from './style.css';
 import ChromeIcon from './assets/ChromeIcon';
 import EdgeIcon from './assets/EdgeIcon';
@@ -24,7 +25,7 @@ const UnsupportedPage = () => {
 
   return (
     <section className={container}>
-      <h1 className={heading}>지원되지 않는 브라우저예요</h1>
+      <h1 className={headingVar[deviceType]}>지원되지 않는 브라우저예요</h1>
       <Callout>
         <div>
           <p className={infoTitle}>지원하지 않는 브라우저 목록이에요.</p>
@@ -35,40 +36,40 @@ const UnsupportedPage = () => {
           </ol>
         </div>
       </Callout>
-      <article className={updateInfoWrapper}>
+      <article className={updateInfoWrapperVar[deviceType]}>
         <p className={updateInfoTitle}>브라우저 업데이트 하기</p>
         <div className={browsersWrapper}>
           <a
-            className={browserButton}
+            className={browserButtonVar[deviceType]}
             href="https://www.google.com/chrome/update/"
             target="_blank"
             rel="noreferrer noopener">
-            <ChromeIcon />
-            Chrome
+            <ChromeIcon className={browserIconVar[deviceType]} />
+            <span>Chrome</span>
           </a>
           <a
-            className={browserButton}
+            className={browserButtonVar[deviceType]}
             href="https://support.apple.com/en-us/102665"
             target="_blank"
             rel="noreferrer noopener">
-            <SafariIcon />
-            Safari
+            <SafariIcon className={browserIconVar[deviceType]} />
+            <span>Safari</span>
           </a>
           <a
-            className={browserButton}
+            className={browserButtonVar[deviceType]}
             href="https://support.microsoft.com/en-au/topic/microsoft-edge-update-settings-af8aaca2-1b69-4870-94fe-18822dbb7ef1"
             target="_blank"
             rel="noreferrer noopener">
-            <EdgeIcon />
-            Edge
+            <EdgeIcon className={browserIconVar[deviceType]} />
+            <span>Edge</span>
           </a>
           <a
-            className={browserButton}
+            className={browserButtonVar[deviceType]}
             href="https://support.mozilla.org/en-US/kb/update-firefox-latest-release"
             target="_blank"
             rel="noreferrer noopener">
-            <FirefoxIcon />
-            Firefox
+            <FirefoxIcon className={browserIconVar[deviceType]} />
+            <span>Firefox</span>
           </a>
         </div>
       </article>

@@ -7,9 +7,25 @@ export const container = style({
   alignItems: 'center',
 });
 
-export const heading = style({
-  ...theme.font.HEADING_3_28_B,
-  marginBottom: 32,
+export const headingVar = styleVariants({
+  DESK: [
+    {
+      marginBottom: 38,
+      ...theme.font.HEADING_3_28_B,
+    },
+  ],
+  TAB: [
+    {
+      marginBottom: 32,
+      ...theme.font.HEADING_3_28_B,
+    },
+  ],
+  MOB: [
+    {
+      marginBottom: 26,
+      ...theme.font.HEADING_4_24_B,
+    },
+  ],
 });
 
 export const infoTitle = style({
@@ -20,13 +36,35 @@ export const infoText = style({
   ...theme.font.BODY_2_16_M,
 });
 
-export const updateInfoWrapper = style({
+const updateInfoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
   alignItems: 'center',
-  marginTop: 50,
   marginBottom: 90,
+});
+
+export const updateInfoWrapperVar = styleVariants({
+  DESK: [
+    updateInfoWrapper,
+    {
+      gap: 16,
+      marginTop: 60,
+    },
+  ],
+  TAB: [
+    updateInfoWrapper,
+    {
+      gap: 16,
+      marginTop: 50,
+    },
+  ],
+  MOB: [
+    updateInfoWrapper,
+    {
+      gap: 14,
+      marginTop: 50,
+    },
+  ],
 });
 
 export const updateInfoTitle = style({
@@ -40,18 +78,65 @@ export const browsersWrapper = style({
   alignItems: 'center',
 });
 
-export const browserButton = style({
+const browserButton = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 9,
   justifyContent: 'center',
-  width: 90,
-  height: 99,
   alignItems: 'center',
   border: `1px solid ${theme.color.border}`,
   borderRadius: 15,
   color: theme.color.lighterText,
-  ...theme.font.BODY_3_14_M,
+});
+
+export const browserButtonVar = styleVariants({
+  DESK: [
+    browserButton,
+    {
+      gap: 9,
+      width: 90,
+      height: 99,
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+  TAB: [
+    browserButton,
+    {
+      gap: 9,
+      width: 90,
+      height: 99,
+      ...theme.font.BODY_3_14_M,
+    },
+  ],
+  MOB: [
+    browserButton,
+    {
+      gap: 6,
+      width: 72,
+      height: 80,
+      ...theme.font.BODY_4_13_M,
+    },
+  ],
+});
+
+export const browserIconVar = styleVariants({
+  DESK: [
+    {
+      width: 48,
+      height: 48,
+    },
+  ],
+  TAB: [
+    {
+      width: 40,
+      height: 40,
+    },
+  ],
+  MOB: [
+    {
+      width: 32,
+      height: 32,
+    },
+  ],
 });
 
 const instruction = style({

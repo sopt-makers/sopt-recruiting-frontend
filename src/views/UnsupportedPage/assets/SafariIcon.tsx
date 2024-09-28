@@ -1,6 +1,12 @@
-const SafariIcon = () => {
+const SafariIcon = ({ className }: { className?: string }) => {
   return (
-    <svg width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="51"
+      height="51"
+      viewBox="0 0 51 51"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}>
       <path
         d="M50.0441 25.5221C50.0441 32.0258 47.4606 38.263 42.8618 42.8618C38.263 47.4606 32.0257 50.0442 25.522 50.0442C19.0184 50.0442 12.7811 47.4606 8.18233 42.8618C3.58356 38.263 1 32.0257 1 25.5221C1 19.0184 3.58356 12.7812 8.18233 8.18238C12.7811 3.5836 19.0184 1.00002 25.522 1C32.0257 1 38.263 3.58356 42.8618 8.18234C47.4606 12.7811 50.0441 19.0184 50.0441 25.5221Z"
         fill="url(#paint0_linear_255_3211)"

@@ -1,6 +1,12 @@
-const ChromeIcon = () => {
+const ChromeIcon = ({ className }: { className?: string }) => {
   return (
-    <svg width="49" height="50" viewBox="0 0 49 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="49"
+      height="50"
+      viewBox="0 0 49 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}>
       <path
         d="M24.4376 0.00434282C24.4376 0.00434282 38.8402 -0.64198 46.4762 13.8349H23.212C23.212 13.8349 18.8216 13.6934 15.0712 19.0196C13.9939 21.2551 12.8359 23.558 14.1354 28.0964C12.2634 24.9248 4.19678 10.879 4.19678 10.879C4.19678 10.879 9.88652 0.576663 24.4374 0.00434282H24.4376Z"
         fill="#EF3F36"
