@@ -1,10 +1,16 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { calc } from '@vanilla-extract/css-utils';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
   alignItems: 'center',
+  height: calc.subtract('100vh', '80px'),
+  minHeight: 713,
+  // marginTop: calc.subtract('50vh', '80px'),
+  // transform: 'translateY(-50%)',
 });
 
 export const headingVar = styleVariants({
