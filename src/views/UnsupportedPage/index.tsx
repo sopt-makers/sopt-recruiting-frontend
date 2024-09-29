@@ -17,10 +17,10 @@ import EdgeIcon from './assets/EdgeIcon';
 import FirefoxIcon from './assets/FirefoxIcon';
 import SafariIcon from './assets/SafariIcon';
 import MakersLogo from '@assets/MakersLogo';
-import NowsoptLogo from '@assets/NowsoptLogo';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { containerSizeVer, containerVar, logoVar } from '@components/Layout/components/Header/style.css';
 import { container, mainWrapper } from '@components/Layout/style.css';
+import SoptLogo from '@assets/SoptLogo';
 
 const UnsupportedPage = () => {
   const { deviceType } = useDeviceType();
@@ -30,7 +30,7 @@ const UnsupportedPage = () => {
   return (
     <div className={container}>
       <header className={`${containerVar['default']} ${containerSizeVer[deviceType]}`}>
-        {isMakers ? <MakersLogo className={logoVariant} /> : <NowsoptLogo className={logoVariant} />}
+        {isMakers ? <MakersLogo className={logoVariant} /> : <SoptLogo className={logoVariant} />}
       </header>
       <main className={mainWrapper}>
         <section className={wrapper}>

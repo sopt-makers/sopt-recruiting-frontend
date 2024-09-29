@@ -3,13 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
-import NowsoptLogo from '@assets/NowsoptLogo';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useTheme } from 'contexts/ThemeProvider';
 
 import Nav from './Nav';
 import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
+import SoptLogo from '@assets/SoptLogo';
 
 const Header = () => {
   const { deviceType } = useDeviceType();
@@ -47,7 +47,7 @@ const Header = () => {
                   <MakersDarkLogo className={logoVariant} />
                 )
               ) : (
-                <NowsoptLogo className={logoVariant} />
+                <SoptLogo className={logoVariant} />
               )}
             </button>
             <Nav isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
