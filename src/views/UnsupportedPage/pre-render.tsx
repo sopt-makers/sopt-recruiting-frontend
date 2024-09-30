@@ -1,9 +1,9 @@
-import ReactDOM from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 import fs from 'node:fs';
 import path from 'node:path';
 import UnsupportedPage from './index';
 
-const str = ReactDOM.renderToString(<UnsupportedPage />);
+const str = renderToStaticMarkup(<UnsupportedPage />);
 
 const html = `
   <html lang="ko">
