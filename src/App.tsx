@@ -15,7 +15,6 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
 import useDialog from '@hooks/useDialog';
-import UnsupportedPage from 'views/UnsupportedPage';
 import { HelmetProvider } from 'react-helmet-async';
 
 const SessionExpiredDialog = lazy(() =>
@@ -44,7 +43,6 @@ const router = createBrowserRouter([
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
       { path: '/error', element: <ErrorPage code={500} /> },
-      { path: '/unsupported', element: <UnsupportedPage /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],
   },

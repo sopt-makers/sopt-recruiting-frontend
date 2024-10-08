@@ -21,6 +21,17 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
+          // unsupported css 추출
+          // if (
+          //   !id.includes('ApplyHeader') &&
+          //   (id.includes('reset') ||
+          //     id.includes('Callout') ||
+          //     id.includes('Header') ||
+          //     id.includes('Layout') ||
+          //     id.includes('Unsupported'))
+          // ) {
+          //   return 'unsupported';
+          // }
           if (id.includes('firebase')) return 'firebase';
         },
       },
