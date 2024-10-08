@@ -21,7 +21,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isLight } = useTheme();
-  const isMakers = (import.meta.env.MODE = 'makers');
+  const isMakers = import.meta.env.MODE === 'makers';
 
   const handleClickLogo = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
