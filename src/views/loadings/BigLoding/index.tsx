@@ -1,5 +1,5 @@
 import { container, loadingText, wrapper } from './style.css';
-import Lottie from '../Lottie';
+import Lottie from 'lottie-react';
 import mainLoading from '../lotties/mainLoading.json';
 
 const BigLoading = () => {

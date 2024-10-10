@@ -1,4 +1,4 @@
-import Lottie from '../Lottie';
+import Lottie from 'lottie-react';
 import buttonLoadingWhite from '../lotties/buttonLoadingWhite.json';
 
 const ButtonLoading = ({ width, height = 28 }: { width: number | undefined; height?: number }) => {
