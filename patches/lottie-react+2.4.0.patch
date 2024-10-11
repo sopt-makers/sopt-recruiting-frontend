@@ -1,0 +1,12 @@
+diff --git a/node_modules/lottie-react/build/index.es.js b/node_modules/lottie-react/build/index.es.js
+index a2d9d48..1f08a0b 100644
+--- a/node_modules/lottie-react/build/index.es.js
++++ b/node_modules/lottie-react/build/index.es.js
+@@ -1,5 +1,5 @@
+-import lottie from 'lottie-web';
+-export { default as LottiePlayer } from 'lottie-web';
++import lottie from "lottie-web/build/player/lottie_light";
++export { default as LottiePlayer } from 'lottie-web/build/player/lottie_light';
+ import React, { useState, useRef, useEffect } from 'react';
+ 
+ function _iterableToArrayLimit(arr, i) {
