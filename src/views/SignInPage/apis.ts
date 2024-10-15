@@ -1,17 +1,17 @@
-import instance from '@apis/instance';
+import fetcher from '@apis/fetcher';
 
 import type { SignInRequest } from './types';
 
 export const sendSignIn = async (userInfo: SignInRequest) => {
   const { email, season, group, password } = userInfo;
-  const res = await instance('/recruiting-auth/login', {
+  const res = await fetcher('/recruiting-auth/login', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       email,
       season,
       group,
       password,
-    }),
+    },
   });
 
   return res;

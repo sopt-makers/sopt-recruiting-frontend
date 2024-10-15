@@ -6,8 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { sendSignIn } from '../apis';
 
 import type { SignInRequest, SignInResponse } from '../types';
-import type { ErrorResponse } from '@type/errorResponse';
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateSignInProps {
   finalPassConfirmEnd?: string;
@@ -15,20 +14,16 @@ interface MutateSignInProps {
 }
 
 const useMutateSignIn = ({ finalPassConfirmEnd, onSetError }: MutateSignInProps) => {
-  const { mutate: signInMutate, isPending: signInIsPending } = useMutation<
-    AxiosResponse<SignInResponse, SignInRequest>,
-    AxiosError<ErrorResponse, SignInRequest>,
-    SignInRequest
-  >({
+  const { mutate: signInMutate, isPending: signInIsPending } = useMutation<SignInResponse, CustomError, SignInRequest>({
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
-    onSuccess: ({ data: { email, token } }) => {
+    onSuccess: ({ email, token }) => {
       setUserId(email);
       localStorage.setItem('soptApplyAccessToken', token);
       localStorage.setItem('soptApplyAccessTokenExpiredTime', finalPassConfirmEnd || '');
       window.location.reload();
     },
     onError(error) {
-      if (error.response?.status === 403) {
+      if (error.status === 403) {
         onSetError('email', 'not-match', VALIDATION_CHECK.email.notMatchErrorText);
         onSetError('password', 'not-match', VALIDATION_CHECK.password.notMatchErrorText);
       }

@@ -12,9 +12,8 @@ import { container, iconVar, mainTextVar, subTextVar } from './style.css';
 const CompletePage = () => {
   const { deviceType } = useDeviceType();
   const {
-    recruitingInfo: { name, season, group, soptName },
+    recruitingInfo: { name, season, group, soptName, isMakers },
   } = useRecruitingInfo();
-  const isMakers = soptName?.toLowerCase().includes('makers');
 
   const handleClickMyPage = () => {
     track('click-complete-my');
