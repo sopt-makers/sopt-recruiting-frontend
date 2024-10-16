@@ -30,17 +30,3 @@ export const _format = (date: Date, formatStr: string): string => {
 
   return formatStr.replace(/M|dd|E|aaa|HH|hh|mm/g, (substr) => formatter[substr]);
 };
-
-interface formatIntlOptions {
-  year: 'numeric' | '2-digit';
-  month: 'numeric' | 'long';
-  day: 'numeric' | '2-digit';
-  weekday: 'long' | 'short' | 'narrow';
-  // 오전 오후 표시할 수 있는 건 없네...
-  hour: 'numeric' | '2-digit';
-  minute: 'numeric' | '2-digit';
-}
-
-export const _formatIntl = (date: Date, options: Partial<formatIntlOptions>): string => {
-  return new Intl.DateTimeFormat('ko-KR', { ...options, timeZone: 'Asia/Seoul' }).format(date);
-};
