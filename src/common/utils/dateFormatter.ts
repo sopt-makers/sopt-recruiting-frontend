@@ -15,3 +15,32 @@ export const _subMinutes = (date: Date, amount: number): Date => {
   newDate.setTime(date.getTime() - amount * 60 * 1000);
   return newDate;
 };
+
+export const _format = (date: Date, formatStr: string): string => {
+  const days = ['월', '화', '수', '목', '금', '토', '일'];
+  const formatter: { [key: string]: string } = {
+    M: (date.getMonth() + 1).toString(),
+    dd: date.getDate().toString().padStart(2, '0'),
+    E: days[date.getDay() - 1],
+    aaa: date.getHours() < 12 ? '오전' : '오후',
+    HH: date.getHours().toString().padStart(2, '0'),
+    hh: (date.getHours() % 12 || 12).toString().padStart(2, '0'),
+    mm: date.getMinutes().toString().padStart(2, '0'),
+  };
+
+  return formatStr.replace(/M|dd|E|aaa|HH|hh|mm/g, (substr) => formatter[substr]);
+};
+
+interface formatIntlOptions {
+  year: 'numeric' | '2-digit';
+  month: 'numeric' | 'long';
+  day: 'numeric' | '2-digit';
+  weekday: 'long' | 'short' | 'narrow';
+  // 오전 오후 표시할 수 있는 건 없네...
+  hour: 'numeric' | '2-digit';
+  minute: 'numeric' | '2-digit';
+}
+
+export const _formatIntl = (date: Date, options: Partial<formatIntlOptions>): string => {
+  return new Intl.DateTimeFormat('ko-KR', { ...options, timeZone: 'Asia/Seoul' }).format(date);
+};
