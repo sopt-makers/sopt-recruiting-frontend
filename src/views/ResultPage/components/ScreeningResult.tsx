@@ -1,6 +1,4 @@
 import { track } from '@amplitude/analytics-browser';
-import { format } from 'date-fns/format';
-import { ko } from 'date-fns/locale/ko';
 import { useEffect } from 'react';
 
 import Title from '@components/Title';
@@ -23,6 +21,7 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
+import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -36,14 +35,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일', { locale: ko });
-  const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 EEEE', {
-    locale: ko,
-  });
-  const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일', {
-    locale: ko,
-  });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
+  const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 EEEE');
+  const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
