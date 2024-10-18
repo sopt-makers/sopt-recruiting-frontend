@@ -1,3 +1,11 @@
+const toDate = (date: Date | string): Date => {
+  const newDate = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(newDate.getTime())) {
+    throw new Error('변환할 수 없는 날짜입니다.');
+  }
+  return newDate;
+};
+
 export const isBefore = (date: Date | string, dateToCompare: Date | string): boolean => {
   if (typeof date === 'string') date = new Date(date);
   if (typeof dateToCompare === 'string') dateToCompare = new Date(dateToCompare);
