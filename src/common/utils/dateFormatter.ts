@@ -1,38 +1,37 @@
 const toDate = (date: Date | string): Date => {
   const newDate = typeof date === 'string' ? new Date(date) : date;
   if (isNaN(newDate.getTime())) {
-    throw new Error('변환할 수 없는 날짜입니다.');
+    console.error(`${date} is invalid date.`);
   }
   return newDate;
 };
 
 export const isBefore = (date: Date | string, dateToCompare: Date | string): boolean => {
-  if (typeof date === 'string') date = new Date(date);
-  if (typeof dateToCompare === 'string') dateToCompare = new Date(dateToCompare);
-  return date.getTime() < dateToCompare.getTime();
+  return toDate(date).getTime() < toDate(dateToCompare).getTime();
 };
 
 export const isAfter = (date: Date | string, dateToCompare: Date | string): boolean => {
-  if (typeof date === 'string') date = new Date(date);
-  if (typeof dateToCompare === 'string') dateToCompare = new Date(dateToCompare);
-  return date.getTime() > dateToCompare.getTime();
+  return toDate(date).getTime() > toDate(dateToCompare).getTime();
 };
 
 export const differenceInSeconds = (laterDate: Date | string, earlierDate: Date | string): number => {
-  if (typeof laterDate === 'string') laterDate = new Date(laterDate);
-  if (typeof earlierDate === 'string') earlierDate = new Date(earlierDate);
-  return Math.floor((laterDate.getTime() - earlierDate.getTime()) / 1000);
+  return Math.floor((toDate(laterDate).getTime() - toDate(earlierDate).getTime()) / 1000);
 };
 
 export const subMinutes = (date: Date | string, amount: number): Date => {
-  if (typeof date === 'string') date = new Date(date);
   const newDate = new Date();
-  newDate.setTime(date.getTime() - amount * 60 * 1000);
+  newDate.setTime(toDate(date).getTime() - amount * 60 * 1000);
   return newDate;
 };
 
+export const _subMinutes = (date: Date | string, amount: number): Date => {
+  date = toDate(date);
+  date.setTime(date.getTime() - amount * 60 * 1000);
+  return date;
+};
+
 export const format = (date: Date | string, formatStr: string): string => {
-  if (typeof date === 'string') date = new Date(date);
+  date = toDate(date);
   const days = ['일', '월', '화', '수', '목', '금', '토'];
   const formatter: { [key: string]: string } = {
     M: (date.getMonth() + 1).toString(),
