@@ -33,12 +33,12 @@ export const subMinutes = (date: Date | string, amount: number): Date => {
 
 export const format = (date: Date | string, formatStr: string): string => {
   if (typeof date === 'string') date = new Date(date);
-  const days = ['월', '화', '수', '목', '금', '토', '일'];
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
   const formatter: { [key: string]: string } = {
     M: (date.getMonth() + 1).toString(),
     dd: date.getDate().toString().padStart(2, '0'),
-    E: days[date.getDay() - 1],
-    EEEE: days[date.getDay() - 1] + '요일',
+    E: days[date.getDay()],
+    EEEE: days[date.getDay()] + '요일',
     aaa: date.getHours() < 12 ? '오전' : '오후',
     HH: date.getHours().toString().padStart(2, '0'),
     hh: (date.getHours() % 12 || 12).toString().padStart(2, '0'),
