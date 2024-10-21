@@ -1,7 +1,8 @@
 const toDate = (date: Date | string): Date => {
   const newDate = typeof date === 'string' ? new Date(date) : date;
   if (isNaN(newDate.getTime())) {
-    console.error(`${date} is invalid date.`);
+    // TODO : 배포 시 주석 해제
+    // throw new Error('변환할 수 없는 날짜입니다.');
   }
   return newDate;
 };
