@@ -11,6 +11,7 @@ import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
+
 import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
