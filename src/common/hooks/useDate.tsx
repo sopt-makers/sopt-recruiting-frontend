@@ -1,10 +1,9 @@
-import { isAfter } from 'date-fns/isAfter';
-import { isBefore } from 'date-fns/isBefore';
 import { useEffect } from 'react';
 
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import useGetRecruitingInfo from './useGetRecruitingInfo';
+import { isAfter, isBefore } from '@utils/dateFormatter';
 
 const useDate = () => {
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
