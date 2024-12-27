@@ -18,7 +18,7 @@
     "supportedBrowsers": "echo \"export default $(browserslist-useragent-regexp --allowHigherVersions);\" > ./src/views/UnsupportedPage/supportedBrowsers.ts",
     "postinstall": "patch-package",
     "openapi-typescript": "npx openapi-typescript ./src/__generated__/api-spec.yml -o ./src/__generated__/api.d.ts",
-    "swagger-typescript-api": "swagger-typescript-api -p ./src/__generated__/api-spec.yml -r -o ./src/__generated__/org-types --modular -d --extract-request-body --extract-response-body --extract-response-error",
+    "swagger-typescript-api": "swagger-typescript-api -p ./src/__generated__/api-spec.yml -r -o ./src/__generated__/api-types --modular -d --extract-request-body --extract-response-body --extract-response-error",
     "api-spec": "yarn openapi-typescript && yarn swagger-typescript-api"
   },
   "browserslist": [
