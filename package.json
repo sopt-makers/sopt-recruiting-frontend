@@ -16,7 +16,10 @@
     "preview": "vite preview",
     "test": "vitest",
     "supportedBrowsers": "echo \"export default $(browserslist-useragent-regexp --allowHigherVersions);\" > ./src/views/UnsupportedPage/supportedBrowsers.ts",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "openapi-typescript": "npx openapi-typescript ./src/__generated__/api-spec.yml -o ./src/__generated__/api.d.ts",
+    "swagger-typescript-api": "swagger-typescript-api -p ./src/__generated__/api-spec.yml -r -o ./src/__generated__/org-types --modular -d --extract-request-body --extract-response-body --extract-response-error",
+    "api-spec": "yarn openapi-typescript && yarn swagger-typescript-api"
   },
   "browserslist": [
     "> 0.3%",
@@ -53,7 +56,8 @@
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",
     "react-responsive": "^10.0.0",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "swagger-typescript-api": "^13.0.23"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
