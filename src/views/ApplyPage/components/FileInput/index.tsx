@@ -19,6 +19,7 @@ import {
   fileNameVar,
   textWrapperVar,
 } from './style.css';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 interface FileInputProps {
   section: string;
@@ -60,8 +61,6 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   const handleFileUpload = (file: File, id: number) => {
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
-
-    track(`click-apply-add_file${id}`);
 
     uploadTask.on(
       STATE_CHANGED,
@@ -167,16 +166,18 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   return (
     <div className={containerVar[deviceType]}>
-      <input
-        id={`file-${id}`}
-        type="file"
-        accept={ACCEPTED_FORMATS}
-        {...register(`file${id}`)}
-        onChange={(e) => handleFileChange(e, id)}
-        ref={inputRef}
-        className={fileInput}
-        disabled={disabledStatus}
-      />
+      <AmplitudeEventTrack eventName={`click-apply-add_file${id}`}>
+        <input
+          id={`file-${id}`}
+          type="file"
+          accept={ACCEPTED_FORMATS}
+          {...register(`file${id}`)}
+          onChange={(e) => handleFileChange(e, id)}
+          ref={inputRef}
+          className={fileInput}
+          disabled={disabledStatus}
+        />
+      </AmplitudeEventTrack>
       <label
         htmlFor={`file-${id}`}
         className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar[deviceType]}`}>

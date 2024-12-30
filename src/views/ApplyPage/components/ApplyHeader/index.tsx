@@ -25,7 +25,12 @@ const ApplyHeader = ({ isLoading, onSaveDraft, onSubmitData, isReview = false }:
       </Title>
       {!isReview && deviceType !== 'MOB' && (
         <div className={buttonWrapper}>
-          <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
+          <Button
+            isLoading={isLoading}
+            eventName="click-apply-draft"
+            onClick={onSaveDraft}
+            buttonStyle="line"
+            padding="10x24">
             임시저장
           </Button>
           <Button isLoading={isLoading} onClick={onSubmitData} padding="10x24" type="submit">

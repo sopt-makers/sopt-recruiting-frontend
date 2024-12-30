@@ -1,4 +1,3 @@
-import { track } from '@amplitude/analytics-browser';
 import { format } from 'date-fns/format';
 import { ko } from 'date-fns/locale/ko';
 import { useEffect } from 'react';
@@ -23,6 +22,7 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -56,14 +56,15 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span>{`( 구글폼 : `}</span>
-          <a
-            className={link}
-            href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
-            target="_blank"
-            rel="noreferrer noopener"
-            onClick={() => track('click-final-google_form')}>
-            {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
-          </a>
+          <AmplitudeEventTrack eventName="click-final-google_form">
+            <a
+              className={link}
+              href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
+              target="_blank"
+              rel="noreferrer noopener">
+              {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
+            </a>
+          </AmplitudeEventTrack>
           <span>{` )\n`}</span>
           <br />
           <span>

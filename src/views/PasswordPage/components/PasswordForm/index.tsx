@@ -1,4 +1,3 @@
-import { track } from '@amplitude/analytics-browser';
 import { lazy } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
@@ -76,7 +75,7 @@ const PasswordForm = () => {
                 isLoading={changePasswordIsPending}
                 type="submit"
                 style={{ marginTop: 30 }}
-                onClick={() => track('click-password-password')}>
+                eventName="click-password-password">
                 저장하기
               </Button>
             </>
