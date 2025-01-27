@@ -1,4 +1,3 @@
-import { format } from 'date-fns/format';
 import { useEffect } from 'react';
 
 import Title from '@components/Title';
@@ -22,6 +21,7 @@ import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
 import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
+import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
