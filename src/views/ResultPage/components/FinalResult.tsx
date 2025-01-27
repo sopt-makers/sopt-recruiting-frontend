@@ -1,6 +1,4 @@
 import { track } from '@amplitude/analytics-browser';
-import { format } from 'date-fns/format';
-import { ko } from 'date-fns/locale/ko';
 import { useEffect } from 'react';
 
 import Title from '@components/Title';
@@ -23,6 +21,7 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
+import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -33,9 +32,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
   if (!name) return;
 
   const finalDate = new Date(finalPassConfirmStart || '');
-  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 EEEE', {
-    locale: ko,
-  });
+  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 EEEE');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (

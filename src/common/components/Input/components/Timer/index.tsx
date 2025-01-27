@@ -1,4 +1,3 @@
-import { differenceInSeconds } from 'date-fns/differenceInSeconds';
 import { useEffect, useState } from 'react';
 
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
@@ -6,6 +5,7 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { timerVar } from './style.css';
 import { TimerProps } from './types';
 import formatTimer from './utils/formatTimer';
+import { differenceInSeconds } from '@utils/dateFormatter';
 
 const INITIAL_TIME = 300;
 
