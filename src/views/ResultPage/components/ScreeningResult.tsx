@@ -1,4 +1,3 @@
-import { track } from '@amplitude/analytics-browser';
 import { useEffect } from 'react';
 
 import Title from '@components/Title';
@@ -21,6 +20,7 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
@@ -58,14 +58,15 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span>{`( 구글폼 : `}</span>
-          <a
-            className={link}
-            href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
-            target="_blank"
-            rel="noreferrer noopener"
-            onClick={() => track('click-screening-google_form')}>
-            {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
-          </a>
+          <AmplitudeEventTrack eventName="click-screening-google_form">
+            <a
+              className={link}
+              href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+              target="_blank"
+              rel="noreferrer noopener">
+              {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+            </a>
+          </AmplitudeEventTrack>
           <span>{` )\n`}</span>
           <br />
           <span>

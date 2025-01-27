@@ -273,7 +273,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       willAppjam: false,
     };
 
-    type === 'draft' ? track('click-apply-draft') : track('click-apply-confirm_submit');
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
 

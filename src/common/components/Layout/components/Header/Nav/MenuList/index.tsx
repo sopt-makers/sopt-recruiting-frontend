@@ -1,4 +1,4 @@
-import { reset, track } from '@amplitude/analytics-browser';
+import { reset } from '@amplitude/analytics-browser';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style.css';
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../../contants';
 import MenuItem from '../MenuItem';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
   const { deviceType } = useDeviceType();
@@ -34,7 +35,6 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
   } = useRecruitingInfo();
   const menuItems = isMakers ? MENU_ITEMS_MAKERS : MENU_ITEMS;
   const handleLogout = () => {
-    track('click-gnb-logout');
     reset();
     localStorage.removeItem('soptApplyAccessToken');
     localStorage.removeItem('soptApplyAccessTokenExpiredTime');
@@ -59,7 +59,9 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
             {menuItems.map(({ text, path, target, amplitudeId }) => (
               <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
             ))}
-            <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
+            <AmplitudeEventTrack eventName="click-gnb-logout">
+              <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
+            </AmplitudeEventTrack>
             <MenuItem key="로그인완료" text={`${name}님`} className="amp-block" />
           </>
         )}

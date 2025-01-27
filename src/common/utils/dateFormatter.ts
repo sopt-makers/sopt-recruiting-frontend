@@ -37,7 +37,7 @@ export const format = (date: Date | string, formatStr: string): string => {
   const formatter: { [key: string]: string } = {
     M: (date.getMonth() + 1).toString(),
     dd: date.getDate().toString().padStart(2, '0'),
-    E: days[date.getDay()],
+    E: days[date.getDay()] || '',
     EEEE: days[date.getDay()] + '요일',
     aaa: date.getHours() < 12 ? '오전' : '오후',
     HH: date.getHours().toString().padStart(2, '0'),
@@ -45,5 +45,5 @@ export const format = (date: Date | string, formatStr: string): string => {
     mm: date.getMinutes().toString().padStart(2, '0'),
   };
 
-  return formatStr.replace(/M|dd|E|EEE|aaa|HH|hh|mm/g, (substr) => formatter[substr]);
+  return formatStr.replace(/M|dd|E|EEE|aaa|HH|hh|mm/g, (substr) => formatter[substr] || '');
 };

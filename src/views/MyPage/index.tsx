@@ -1,4 +1,3 @@
-import { track } from '@amplitude/analytics-browser';
 import { lazy } from 'react';
 
 import Button from '@components/Button';
@@ -39,12 +38,7 @@ const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string;
   return (
     <li className={buttonValue}>
       <span className={infoLabelVar[deviceType]}>{label}</span>
-      <Button
-        isLink
-        to={to}
-        className={buttonWidthVar[deviceType]}
-        onClick={() => track(trackingEvent)}
-        padding="15x25">
+      <Button isLink to={to} className={buttonWidthVar[deviceType]} eventName={trackingEvent} padding="15x25">
         {label === '지원서' ? '지원서 확인' : '결과 확인'}
       </Button>
     </li>
