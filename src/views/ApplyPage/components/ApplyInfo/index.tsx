@@ -1,6 +1,3 @@
-import { format } from 'date-fns/format';
-import { ko } from 'date-fns/locale/ko';
-import { subMinutes } from 'date-fns/subMinutes';
 import { memo } from 'react';
 
 import Callout from '@components/Callout';
@@ -18,6 +15,7 @@ import {
   infoWrapperVar,
 } from './style.css';
 import { APPLY_INFO } from '../../constant';
+import { format, subMinutes } from '@utils/dateFormatter';
 
 const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -34,22 +32,15 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
 
   if (!applicationStart) return;
 
-  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분', {
-    locale: ko,
-  });
-  const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분', {
-    locale: ko,
-  });
+  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
+  const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationConfirmStart = format(
     new Date(applicationPassConfirmStart || ''),
     'M월 dd일 (E) aaa HH시 mm분',
-    {
-      locale: ko,
-    },
   );
-  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)', { locale: ko });
-  const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)');
+  const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)');
 
   return (
     <section className={infoContainerVar[deviceType]}>

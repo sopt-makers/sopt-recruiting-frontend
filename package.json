@@ -16,7 +16,10 @@
     "preview": "vite preview",
     "test": "vitest",
     "supportedBrowsers": "echo \"export default $(browserslist-useragent-regexp --allowHigherVersions);\" > ./src/views/UnsupportedPage/supportedBrowsers.ts",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "openapi-typescript": "npx openapi-typescript ./src/__generated__/api-spec.yml -o ./src/__generated__/api.d.ts",
+    "swagger-typescript-api": "swagger-typescript-api -p ./src/__generated__/api-spec.yml -r -o ./src/__generated__/api-types --modular -d --extract-request-body --extract-response-body --extract-response-error",
+    "api-spec": "yarn openapi-typescript && yarn swagger-typescript-api"
   },
   "browserslist": [
     "> 0.3%",
@@ -40,10 +43,10 @@
     "@vanilla-extract/css": "^1.15.1",
     "@vanilla-extract/css-utils": "^0.1.4",
     "axios": "^1.6.8",
-    "date-fns": "^3.6.0",
     "firebase": "^10.12.4",
     "lottie-react": "^2.4.0",
     "nanoid": "^5.0.7",
+    "openapi-fetch": "^0.13.0",
     "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
@@ -52,7 +55,8 @@
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",
     "react-responsive": "^10.0.0",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "swagger-typescript-api": "^13.0.23"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
@@ -81,6 +85,7 @@
     "eslint-plugin-vitest": "^0.5.4",
     "jsdom": "^25.0.0",
     "msw": "^2.4.9",
+    "openapi-typescript": "^7.4.3",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "^5.2.2",
