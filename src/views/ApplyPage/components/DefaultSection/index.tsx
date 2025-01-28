@@ -24,6 +24,7 @@ import {
   profileWrapperVar,
   sectionContainerVar,
 } from './style.css';
+import { getMostRecentSeasonArray } from './utils';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -115,6 +116,7 @@ interface DefaultSectionProps {
 const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = false }: DefaultSectionProps) => {
   const { deviceType } = useDeviceType();
   const {
+    season,
     address,
     birthday,
     college,
@@ -247,7 +249,7 @@ const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = fals
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={isMakers ? SELECT_OPTIONS.mostRecentSeason.slice(1) : SELECT_OPTIONS.mostRecentSeason}
+        options={getMostRecentSeasonArray(season || 0, isMakers || false)}
         required
         size="lg"
         disabled={isReview}
