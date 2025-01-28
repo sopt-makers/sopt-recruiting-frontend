@@ -60,11 +60,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
   // 4. 데이터 불러오기
   const { draftData } = useGetDraft();
-  const {
-    applicant: applicantDraft,
-    commonQuestions: commonQuestionsDraft,
-    partQuestions: partQuestionsDraft,
-  } = draftData?.data || {};
+
+  const { applicant: applicantDraft } = draftData?.data || {};
   const { questionsData } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -314,18 +311,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
             onSubmit={handleSubmit(handleApplySubmit)}
             className={formContainerVar[deviceType]}>
             <DefaultSection refCallback={refCallback} />
-            <CommonSection
-              refCallback={refCallback}
-              questions={commonQuestions?.questions}
-              commonQuestionsDraft={commonQuestionsDraft}
-            />
-            <PartSection
-              refCallback={refCallback}
-              part={applicantDraft?.part}
-              questions={partQuestions}
-              partQuestionsDraft={partQuestionsDraft}
-              questionTypes={questionTypes}
-            />
+            <CommonSection refCallback={refCallback} />
+            <PartSection refCallback={refCallback} />
             <BottomSection knownPath={applicantDraft?.knownPath} />
             <div className={buttonWrapper}>
               <Button

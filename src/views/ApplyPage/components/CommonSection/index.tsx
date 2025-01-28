@@ -1,22 +1,28 @@
 import Textarea from '@components/Textarea';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
-import { Answers, Questions } from 'views/ApplyPage/types';
+import { Answers } from 'views/ApplyPage/types';
 
 import FileInput from '../FileInput';
 import Info from '../Info';
 import LinkInput from '../LinkInput';
+import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
+import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 
 interface CommonSectionProps {
   isReview?: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
-  questions?: Questions[];
-  commonQuestionsDraft?: Answers[];
 }
 
-const CommonSection = ({ refCallback, questions, commonQuestionsDraft, isReview = false }: CommonSectionProps) => {
+const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) => {
   const { deviceType } = useDeviceType();
-  const commonQuestionsById = commonQuestionsDraft?.reduce(
+  const { draftData } = useGetDraft();
+  const { applicant, commonQuestions } = draftData?.data || {};
+
+  const { questionsData } = useGetQuestions(applicant);
+  const { commonQuestions: questions } = questionsData?.data || {};
+
+  const commonQuestionsById = commonQuestions?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
       return acc;
@@ -27,7 +33,7 @@ const CommonSection = ({ refCallback, questions, commonQuestionsDraft, isReview 
   return (
     <section ref={refCallback} id="common" className={sectionContainerVar[deviceType]}>
       <h2 className={sectionTitleVar[deviceType]}>공통 질문</h2>
-      {questions?.map(({ urls, value, id, charLimit, isFile, placeholder, optional }) => {
+      {questions?.questions.map(({ urls, value, id, charLimit, isFile, placeholder, optional }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
