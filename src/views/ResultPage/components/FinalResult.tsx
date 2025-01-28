@@ -29,15 +29,15 @@ const Content = ({ pass }: { pass?: boolean }) => {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
   } = useRecruitingInfo();
 
-  if (!name) return;
+  // if (!name) return;
 
   const finalDate = new Date(finalPassConfirmStart || '');
-  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 EEEE');
+  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 E');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
     <>
-      {pass ? (
+      {true ? (
         <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
