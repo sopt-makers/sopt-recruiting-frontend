@@ -27,6 +27,7 @@ import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
 import useDialog from '@hooks/useDialog';
+import BigLoading from 'views/loadings/BigLoding';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
 const PreventApplyDialog = lazy(() =>
@@ -59,8 +60,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const minIndex = isInView.findIndex((value) => value === true);
 
   // 4. 데이터 불러오기
-  const { draftData } = useGetDraft();
-
+  const { draftData, draftIsLoading } = useGetDraft();
   const { applicant: applicantDraft } = draftData?.data || {};
   const { questionsData } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
@@ -277,6 +277,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     track('click-apply-submit');
     handleShowSubmitDialog();
   };
+
+  if (draftIsLoading) return <BigLoading />;
 
   return (
     <>
