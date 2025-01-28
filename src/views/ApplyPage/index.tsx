@@ -27,6 +27,7 @@ import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
 import useDialog from '@hooks/useDialog';
+import BigLoading from 'views/loadings/BigLoding';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
 const PreventApplyDialog = lazy(() =>
@@ -59,12 +60,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const minIndex = isInView.findIndex((value) => value === true);
 
   // 4. 데이터 불러오기
-  const { draftData } = useGetDraft();
-  const {
-    applicant: applicantDraft,
-    commonQuestions: commonQuestionsDraft,
-    partQuestions: partQuestionsDraft,
-  } = draftData?.data || {};
+  const { draftData, draftIsLoading } = useGetDraft();
+  const { applicant: applicantDraft } = draftData?.data || {};
   const { questionsData } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
@@ -263,7 +260,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       birthday,
       college,
       gender,
-      knownPath,
+      knownPath: knownPath ? knownPath : '',
       leaveAbsence,
       major,
       mostRecentSeason,
@@ -280,6 +277,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     track('click-apply-submit');
     handleShowSubmitDialog();
   };
+
+  if (draftIsLoading) return <BigLoading />;
 
   return (
     <>
@@ -313,19 +312,9 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
             name="apply-form"
             onSubmit={handleSubmit(handleApplySubmit)}
             className={formContainerVar[deviceType]}>
-            <DefaultSection isMakers={isMakers} refCallback={refCallback} applicantDraft={applicantDraft} />
-            <CommonSection
-              refCallback={refCallback}
-              questions={commonQuestions?.questions}
-              commonQuestionsDraft={commonQuestionsDraft}
-            />
-            <PartSection
-              refCallback={refCallback}
-              part={applicantDraft?.part}
-              questions={partQuestions}
-              partQuestionsDraft={partQuestionsDraft}
-              questionTypes={questionTypes}
-            />
+            <DefaultSection refCallback={refCallback} />
+            <CommonSection refCallback={refCallback} />
+            <PartSection refCallback={refCallback} />
             <BottomSection knownPath={applicantDraft?.knownPath} />
             <div className={buttonWrapper}>
               <Button

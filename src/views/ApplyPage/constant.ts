@@ -1,3 +1,5 @@
+const isMakers = import.meta.env.MODE === 'makers';
+
 export const APPLY_INFO = {
   sections: [
     {
@@ -13,7 +15,7 @@ export const APPLY_INFO = {
       id: 1,
       content: [
         {
-          text: '9월 28일 토요일 OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.',
+          text: `${isMakers ? '2월 23일 일요일 ' : '9월 28일 토요일 '}OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
           weight: 'normal',
         },
       ],
@@ -51,7 +53,6 @@ export const SELECT_OPTIONS = {
   univYearMakers: ['1학년', '2학년', '3학년', '4학년', '수료 ‧ 유예 ‧ 졸업'],
   leaveAbsence: ['재학', '휴학 ‧ 수료 ‧ 유예'],
   leaveAbsenceMakers: ['재학', '휴학 ‧ 수료 ‧ 유예 ‧ 졸업'],
-  mostRecentSeason: ['해당사항 없음', '34', '33', '32', '31', '30', '29', '28', '27', '26', '25'],
   knownPath: [
     'SOPT 페이스북 페이지',
     'SOPT 인스타그램',

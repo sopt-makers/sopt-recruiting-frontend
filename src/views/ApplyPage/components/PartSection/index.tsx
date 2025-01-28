@@ -4,40 +4,34 @@ import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
-import { Answers, Questions } from 'views/ApplyPage/types';
+import { Answers } from 'views/ApplyPage/types';
 
 import FileInput from '../FileInput';
 import Info from '../Info';
 import LinkInput from '../LinkInput';
+import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
+import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 
 interface PartSectionProps {
   isReview?: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
-  part?: string;
-  questions?: {
-    part: string;
-    recruitingQuestionTypeId: number;
-    questions: Questions[];
-  }[];
-  partQuestionsDraft?: Answers[];
-  questionTypes?: { id: number; type: string; typeKr: string; typeLegacy: null }[];
 }
 
-const PartSection = ({
-  refCallback,
-  part,
-  questions,
-  partQuestionsDraft,
-  questionTypes,
-  isReview = false,
-}: PartSectionProps) => {
+const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
   const { deviceType } = useDeviceType();
   const { getValues } = useFormContext();
+
+  const { draftData } = useGetDraft();
+  const { applicant, partQuestions } = draftData?.data || {};
+  const { part } = applicant || {};
+
+  const { questionsData } = useGetQuestions(applicant);
+  const { partQuestions: questions, questionTypes } = questionsData?.data || {};
 
   const partOptions = questionTypes?.sort((a, b) => a.id - b.id).map(({ typeKr }) => typeKr);
   const selectedPart: string = getValues('part');
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
-  const partQuestionsById = partQuestionsDraft?.reduce(
+  const partQuestionsById = partQuestions?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
       return acc;

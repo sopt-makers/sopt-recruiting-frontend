@@ -8,7 +8,6 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { sectionTitleVar } from 'views/ApplyPage/style.css';
-import { Applicant } from 'views/ApplyPage/types';
 
 import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
@@ -24,6 +23,9 @@ import {
   profileWrapperVar,
   sectionContainerVar,
 } from './style.css';
+import { getMostRecentSeasonArray } from './utils';
+import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
+import useDate from '@hooks/useDate';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -106,15 +108,18 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
 };
 
 interface DefaultSectionProps {
-  isMakers?: boolean;
   isReview?: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
-  applicantDraft?: Applicant;
 }
 
-const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = false }: DefaultSectionProps) => {
+const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) => {
   const { deviceType } = useDeviceType();
+  const { isMakers } = useDate();
+  const { draftData } = useGetDraft();
+
+  const { applicant } = draftData?.data || {};
   const {
+    season,
     address,
     birthday,
     college,
@@ -128,7 +133,7 @@ const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = fals
     pic,
     univYear,
     leaveAbsence,
-  } = applicantDraft || {};
+  } = applicant || {};
 
   return (
     <section ref={refCallback} id="default" className={sectionContainerVar[deviceType]}>
@@ -247,7 +252,7 @@ const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = fals
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={isMakers ? SELECT_OPTIONS.mostRecentSeason.slice(1) : SELECT_OPTIONS.mostRecentSeason}
+        options={getMostRecentSeasonArray(season || 0, isMakers || false)}
         required
         size="lg"
         disabled={isReview}

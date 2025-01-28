@@ -70,6 +70,10 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       },
       (error) => {
         console.error(error);
+        uploadTask.cancel(); // 업로드 취소
+        setUploadPercent(-1); // 진행 상태 초기화
+        setFileName(''); // 파일 이름 초기화
+        handleDeleteFileValue(); // 파일 값 제거
         setError(`file${id}`, { type: 'unknownError', message: VALIDATION_CHECK.fileInput.errorTextUnknownError });
       },
       () => {

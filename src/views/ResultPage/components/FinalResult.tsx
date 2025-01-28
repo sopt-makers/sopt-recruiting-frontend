@@ -32,7 +32,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
   if (!name) return;
 
   const finalDate = new Date(finalPassConfirmStart || '');
-  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 EEEE');
+  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 E');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
