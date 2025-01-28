@@ -1,11 +1,8 @@
-import { track } from '@amplitude/analytics-browser';
-import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Title from '@components/Title';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 
 import {
@@ -23,19 +20,19 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
+import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   if (!name) return;
 
   const finalDate = new Date(finalPassConfirmStart || '');
-  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 EEEE', {
-    locale: ko,
-  });
+  const formattedFinalPassConfirmStart = format(finalDate, 'M월 dd일 EEEE');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
@@ -56,14 +53,15 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span>{`( 구글폼 : `}</span>
-          <a
-            className={link}
-            href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
-            target="_blank"
-            rel="noreferrer noopener"
-            onClick={() => track('click-final-google_form')}>
-            {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
-          </a>
+          <AmplitudeEventTrack eventName="click-final-google_form">
+            <a
+              className={link}
+              href={`https://${import.meta.env.VITE_FINAL_PASS_LINK}`}
+              target="_blank"
+              rel="noreferrer noopener">
+              {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_FINAL_PASS_LINK}`}
+            </a>
+          </AmplitudeEventTrack>
           <span>{` )\n`}</span>
           <br />
           <span>
@@ -100,12 +98,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const FinalResult = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
   const {
     recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   const { name, pass } = finalResult?.data || {};
 

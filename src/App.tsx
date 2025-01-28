@@ -1,27 +1,32 @@
 import { add, init } from '@amplitude/analytics-browser';
 import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
-import { colors } from '@sopt-makers/colors';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import { useDevice } from '@hooks/useDevice';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext, RecruitingInfoType } from '@store/recruitingInfoContext';
-import { ModeType, ThemeContext } from '@store/themeContext';
+import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
+import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
+import ThemeProvider, { useTheme } from 'contexts/ThemeProvider';
 import { dark, light } from 'styles/theme.css';
-import { SessionExpiredDialog } from 'views/dialogs';
-import ErrorPage from 'views/ErrorPage';
-import MainPage from 'views/MainPage';
-import PasswordPage from 'views/PasswordPage';
-import ResultPage from 'views/ResultPage';
-import ReviewPage from 'views/ReviewPage';
-import SignupPage from 'views/SignupPage';
+
+import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
+import useDialog from '@hooks/useDialog';
+import { HelmetProvider } from 'react-helmet-async';
+
+const SessionExpiredDialog = lazy(() =>
+  import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
+);
+const MainPage = lazy(() => import('views/MainPage'));
+const PasswordPage = lazy(() => import('views/PasswordPage'));
+const ResultPage = lazy(() => import('views/ResultPage'));
+const ReviewPage = lazy(() => import('views/ReviewPage'));
+const SignupPage = lazy(() => import('views/SignupPage'));
+const ErrorPage = lazy(() => import('views/ErrorPage'));
 
 const router = createBrowserRouter([
   {
@@ -53,11 +58,9 @@ const App = () => {
   //   }
   // }, []);
 
-  const sessionRef = useRef<HTMLDialogElement>(null);
-
-  const [isLight, setIsLight] = useState(true);
-  const [recruitingInfo, setRecruitingInfo] = useState<RecruitingInfoType>({});
+  const { ref: sessionExpiredDialogRef, handleShowDialog: handleShowSessionExpiredDialog } = useDialog();
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
+  const { isLight } = useTheme();
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -74,7 +77,7 @@ const App = () => {
         const axiosError = error as AxiosError;
 
         if (axiosError.response?.status === 401) {
-          sessionRef.current?.showModal();
+          handleShowSessionExpiredDialog();
         } else if (axiosError.response?.status === 500) {
           window.location.href = '/error';
         }
@@ -85,32 +88,13 @@ const App = () => {
         const axiosError = error as AxiosError;
 
         if (axiosError.response?.status === 401) {
-          sessionRef.current?.showModal();
+          handleShowSessionExpiredDialog();
         } else if (axiosError.response?.status === 500) {
           window.location.href = '/error';
         }
       },
     }),
   });
-
-  const themeContextValue = {
-    isLight,
-    handleChangeMode: (mode: ModeType) => {
-      setIsLight(mode === 'light' ? true : false);
-      const body = document.body;
-      const bodyColor = mode === 'light' ? colors.white : colors.gray950; // theme.color.background
-      body.style.backgroundColor = bodyColor;
-    },
-  };
-
-  const recruitingInfoContextValue = {
-    recruitingInfo,
-    handleSaveRecruitingInfo: useCallback((obj: RecruitingInfoType) => {
-      setRecruitingInfo((prev) => ({ ...prev, ...obj }));
-    }, []),
-  };
-
-  const deviceType = useDevice();
 
   useEffect(() => {
     if (!isAmplitudeInitialized) {
@@ -129,19 +113,23 @@ const App = () => {
 
   return (
     <>
-      <SessionExpiredDialog ref={sessionRef} />
-      <ThemeContext.Provider value={themeContextValue}>
-        <DeviceTypeContext.Provider value={{ deviceType }}>
-          <RecruitingInfoContext.Provider value={recruitingInfoContextValue}>
-            <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools />
-              <div className={isLight ? light : dark}>
-                <RouterProvider router={router} />
-              </div>
-            </QueryClientProvider>
-          </RecruitingInfoContext.Provider>
-        </DeviceTypeContext.Provider>
-      </ThemeContext.Provider>
+      <SessionExpiredDialog ref={sessionExpiredDialogRef} />
+      <HelmetProvider>
+        <ThemeProvider>
+          <DeviceTypeProvider>
+            <RecruitingInfoProvider>
+              <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <div className={isLight ? light : dark}>
+                  <Suspense fallback={<BigLoading />}>
+                    <RouterProvider router={router} />
+                  </Suspense>
+                </div>
+              </QueryClientProvider>
+            </RecruitingInfoProvider>
+          </DeviceTypeProvider>
+        </ThemeProvider>
+      </HelmetProvider>
     </>
   );
 };

@@ -1,10 +1,8 @@
-import { format, subMinutes } from 'date-fns';
-import { ko } from 'date-fns/locale';
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 
 import Callout from '@components/Callout';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
   dateItems,
@@ -17,9 +15,10 @@ import {
   infoWrapperVar,
 } from './style.css';
 import { APPLY_INFO } from '../../constant';
+import { format, subMinutes } from '@utils/dateFormatter';
 
-const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: {
       applicationStart,
@@ -29,26 +28,19 @@ const ApplyInfo = memo(({ isReview }: { isReview: boolean }) => {
       interviewEnd,
       finalPassConfirmStart,
     },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   if (!applicationStart) return;
 
-  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분', {
-    locale: ko,
-  });
-  const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분', {
-    locale: ko,
-  });
+  const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
+  const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationConfirmStart = format(
     new Date(applicationPassConfirmStart || ''),
     'M월 dd일 (E) aaa HH시 mm분',
-    {
-      locale: ko,
-    },
   );
-  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)', { locale: ko });
-  const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)', { locale: ko });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)');
+  const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)');
 
   return (
     <section className={infoContainerVar[deviceType]}>

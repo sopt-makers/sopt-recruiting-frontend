@@ -1,8 +1,7 @@
-import { track } from '@amplitude/analytics-browser';
-import { type ChangeEvent, forwardRef, useContext, useState } from 'react';
+import { type ChangeEvent, forwardRef, useState } from 'react';
 
 import Dialog from '@components/Dialog';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import {
@@ -16,6 +15,7 @@ import {
   infoWrapperVar,
 } from './style.css';
 import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar, subTextVar } from '../style.css';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 const MyInfoItem = ({
   deviceType,
@@ -49,7 +49,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
   ({ userInfo: { name, email, phone, part }, dataIsPending, onSendData }, ref) => {
     const [isChecked, setIsChecked] = useState(false);
 
-    const { deviceType } = useContext(DeviceTypeContext);
+    const { deviceType } = useDeviceType();
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
       setIsChecked(e.target.checked);
@@ -82,14 +82,18 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
             method="dialog"
             className={`${dataIsPending ? buttonOutside.disabled : buttonOutside.line} ${buttonOutsideVar[deviceType]}`}
             onSubmit={() => setIsChecked(false)}>
-            <button className={buttonInside.line} disabled={dataIsPending} onClick={() => track('click-apply-cancel')}>
-              {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
-            </button>
+            <AmplitudeEventTrack eventName="click-apply-cancel">
+              <button className={buttonInside.line} disabled={dataIsPending}>
+                {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
+              </button>
+            </AmplitudeEventTrack>
           </form>
           <div className={`${buttonOutside[!isChecked ? 'disabled' : 'solid']} ${buttonOutsideVar[deviceType]}`}>
-            <button className={buttonInside.solid} onClick={onSendData} disabled={!isChecked || dataIsPending}>
-              {dataIsPending ? <ButtonLoading width={48} height={18} /> : '제출하기'}
-            </button>
+            <AmplitudeEventTrack eventName="click-apply-confirm_submit">
+              <button className={buttonInside.solid} onClick={onSendData} disabled={!isChecked || dataIsPending}>
+                {dataIsPending ? <ButtonLoading width={48} height={18} /> : '제출하기'}
+              </button>
+            </AmplitudeEventTrack>
           </div>
         </div>
       </Dialog>

@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,10 +8,7 @@ import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { DraftDialog, PreventApplyDialog, SubmitDialog } from 'views/dialogs';
-import NoMore from 'views/ErrorPage/components/NoMore';
-import BigLoading from 'views/loadings/BigLoding';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -21,6 +18,7 @@ import CommonSection from './components/CommonSection';
 import DefaultSection from './components/DefaultSection';
 import PartSection from './components/PartSection';
 import { SELECT_OPTIONS } from './constant';
+import useBeforeExitPageAlert from './hooks/useBeforeExitPageAlert';
 import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
@@ -28,44 +26,61 @@ import useMutateSubmit from './hooks/useMutateSubmit';
 import { buttonWrapper, container, formContainerVar } from './style.css';
 
 import type { ApplyRequest } from './types';
+import useDialog from '@hooks/useDialog';
+
+const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
+const PreventApplyDialog = lazy(() =>
+  import('views/dialogs').then(({ PreventApplyDialog }) => ({ default: PreventApplyDialog })),
+);
+const SubmitDialog = lazy(() => import('views/dialogs').then(({ SubmitDialog }) => ({ default: SubmitDialog })));
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 interface ApplyPageProps {
   onSetComplete?: () => void;
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  // 반응형 페이지
+  const { deviceType } = useDeviceType();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
-  const draftDialog = useRef<HTMLDialogElement>(null);
-  const preventApplyDialog = useRef<HTMLDialogElement>(null);
-  const submitDialog = useRef<HTMLDialogElement>(null);
-  const sectionsRef = useRef<HTMLSelectElement[]>([]);
+  // 2. 모달 관련 ref
+  const { ref: draftDialogRef, handleShowDialog: handleShowDraftDialog } = useDialog();
+  const { ref: preventApplyDialogRef, handleShowDialog: handleShowPreventApplyDialog } = useDialog();
+  const {
+    ref: submitDialogRef,
+    handleShowDialog: handleShowSubmitDialog,
+    handleCloseDialog: handleCloseSubmitDialog,
+  } = useDialog();
 
+  // 3. category active 상태 관리
+  useScrollToHash(); // scrollTo 카테고리
   const [isInView, setIsInView] = useState([true, false, false]);
-  const [sectionsUpdated, setSectionsUpdated] = useState(false);
-
-  const navigate = useNavigate();
-
-  const isReview = false;
   const minIndex = isInView.findIndex((value) => value === true);
 
-  useScrollToHash(); // scrollTo 카테고리
-
-  const { NoMoreApply, isLoading, isMakers } = useDate();
-  const { draftData, draftIsLoading } = useGetDraft();
+  // 4. 데이터 불러오기
+  const { draftData } = useGetDraft();
   const {
     applicant: applicantDraft,
     commonQuestions: commonQuestionsDraft,
     partQuestions: partQuestionsDraft,
   } = draftData?.data || {};
-
-  const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
+  const { questionsData } = useGetQuestions(applicantDraft);
   const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
 
-  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: () => draftDialog.current?.showModal() });
+  // 5. 임시저장된 part data 붙이기
+  useEffect(() => {
+    if (applicantDraft?.part) {
+      setValue('part', applicantDraft?.part);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applicantDraft]);
+
+  // 6. 데이터 보내기
+  const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: handleShowDraftDialog });
   const { submitMutate, submitIsPending } = useMutateSubmit({ onSuccess: onSetComplete });
 
+  // 7. react hook form method 생성
   const methods = useForm({ mode: 'onBlur' });
   const {
     handleSubmit,
@@ -97,12 +112,9 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     ...rest
   } = getValues();
 
-  useEffect(() => {
-    if (applicantDraft?.part) {
-      setValue('part', applicantDraft?.part);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft]);
+  // 8. intersection observer 연결
+  const sectionsRef = useRef<HTMLSelectElement[]>([]);
+  const [sectionsUpdated, setSectionsUpdated] = useState(false);
 
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
@@ -142,6 +154,9 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     };
   }, [sectionsUpdated]);
 
+  // 9. 입력값 에러 관련 로직
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (errors.picture) {
       navigate('#default');
@@ -169,22 +184,13 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.attendance, errors.personalInformation]);
 
-  useEffect(() => {
-    if (isReview) return;
+  useBeforeExitPageAlert();
 
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = ''; // Included for legacy support, e.g. Chrome/Edeg < 119;
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [isReview]);
-
-  if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
+  // 11. 지원 기간 아니면 에러 페이지 띄우기
+  const { NoMoreApply, isMakers } = useDate();
   if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
+  // 13. data 전송 로직
   const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
   const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
@@ -192,7 +198,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
   const handleSendData = (type: 'draft' | 'submit') => {
     if (NoMoreApply) {
-      preventApplyDialog.current?.showModal();
+      handleShowPreventApplyDialog();
 
       return;
     }
@@ -267,19 +273,18 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       willAppjam: false,
     };
 
-    type === 'draft' ? track('click-apply-draft') : track('click-apply-confirm_submit');
     type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
   };
 
   const handleApplySubmit = () => {
     track('click-apply-submit');
-    submitDialog.current?.showModal();
+    handleShowSubmitDialog();
   };
 
   return (
-    <FormProvider {...methods}>
-      <DraftDialog ref={draftDialog} />
-      <PreventApplyDialog ref={preventApplyDialog} />
+    <>
+      <DraftDialog ref={draftDialogRef} />
+      <PreventApplyDialog ref={preventApplyDialogRef} />
       <SubmitDialog
         userInfo={{
           name,
@@ -288,48 +293,40 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           part,
         }}
         dataIsPending={submitIsPending}
-        ref={submitDialog}
+        ref={submitDialogRef}
         onSendData={() => {
           handleSendData('submit');
-          submitDialog.current?.close();
+          handleCloseSubmitDialog();
         }}
       />
-      <div className={container}>
-        <ApplyHeader
-          isReview={isReview}
-          isLoading={draftIsPending || submitIsPending}
-          onSaveDraft={() => handleSendData('draft')}
-          onSubmitData={handleSubmit(handleApplySubmit)}
-        />
-        <ApplyInfo isReview={isReview} />
-        <ApplyCategory isReview={isReview} minIndex={minIndex} />
-        <form
-          id="apply-form"
-          name="apply-form"
-          onSubmit={handleSubmit(handleApplySubmit)}
-          className={formContainerVar[deviceType]}>
-          <DefaultSection
-            isMakers={isMakers}
-            isReview={isReview}
-            refCallback={refCallback}
-            applicantDraft={applicantDraft}
+      <FormProvider {...methods}>
+        <div className={container}>
+          <ApplyHeader
+            isLoading={draftIsPending || submitIsPending}
+            onSaveDraft={() => handleSendData('draft')}
+            onSubmitData={handleSubmit(handleApplySubmit)}
           />
-          <CommonSection
-            isReview={isReview}
-            refCallback={refCallback}
-            questions={commonQuestions?.questions}
-            commonQuestionsDraft={commonQuestionsDraft}
-          />
-          <PartSection
-            isReview={isReview}
-            refCallback={refCallback}
-            part={applicantDraft?.part}
-            questions={partQuestions}
-            partQuestionsDraft={partQuestionsDraft}
-            questionTypes={questionTypes}
-          />
-          <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
-          {!isReview && (
+          <ApplyInfo />
+          <ApplyCategory minIndex={minIndex} />
+          <form
+            id="apply-form"
+            name="apply-form"
+            onSubmit={handleSubmit(handleApplySubmit)}
+            className={formContainerVar[deviceType]}>
+            <DefaultSection isMakers={isMakers} refCallback={refCallback} applicantDraft={applicantDraft} />
+            <CommonSection
+              refCallback={refCallback}
+              questions={commonQuestions?.questions}
+              commonQuestionsDraft={commonQuestionsDraft}
+            />
+            <PartSection
+              refCallback={refCallback}
+              part={applicantDraft?.part}
+              questions={partQuestions}
+              partQuestionsDraft={partQuestionsDraft}
+              questionTypes={questionTypes}
+            />
+            <BottomSection knownPath={applicantDraft?.knownPath} />
             <div className={buttonWrapper}>
               <Button
                 isLoading={draftIsPending || submitIsPending}
@@ -341,11 +338,11 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
                 제출하기
               </Button>
             </div>
-          )}
-        </form>
-      </div>
-      <Footer />
-    </FormProvider>
+          </form>
+        </div>
+        <Footer />
+      </FormProvider>
+    </>
   );
 };
 

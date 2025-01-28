@@ -6,8 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { sendVerificationCode } from '../apis';
 
 import type { EmailResponse, SendVerificationCodeRequest } from '../types';
-import type { ErrorResponse } from '@type/errorResponse';
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { CustomError } from '@apis/fetcher';
 
 interface MutateSendCodeProps {
   onChangeVerification: (bool: boolean) => void;
@@ -18,8 +17,8 @@ const useMutateSendCode = ({ onChangeVerification, onSetTimer }: MutateSendCodeP
   const { setError } = useFormContext();
 
   const { mutate: sendVerificationCodeMutate, isPending: sendVerificationCodeIsPending } = useMutation<
-    AxiosResponse<EmailResponse, SendVerificationCodeRequest>,
-    AxiosError<ErrorResponse, SendVerificationCodeRequest>,
+    EmailResponse,
+    CustomError,
     SendVerificationCodeRequest
   >({
     mutationFn: ({ email, season, group, isSignup }: SendVerificationCodeRequest) =>
@@ -29,7 +28,7 @@ const useMutateSendCode = ({ onChangeVerification, onSetTimer }: MutateSendCodeP
       onSetTimer();
     },
     onError: (error) => {
-      if (error.response?.status === 400 || error.response?.status === 403) {
+      if (error.status === 400 || error.status === 403) {
         setError('email', {
           type: 'already-existence',
           message: VALIDATION_CHECK.email.errorTextExistence,

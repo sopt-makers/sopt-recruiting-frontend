@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+public/unsupported.html
 *.local
 
 # Editor directories and files
@@ -24,3 +25,5 @@ dist-ssr
 *.sw?
 
 .env
+.env.makers
+.env.sopt

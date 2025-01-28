@@ -1,11 +1,8 @@
-import { track } from '@amplitude/analytics-browser';
-import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Title from '@components/Title';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 
 import {
@@ -23,12 +20,14 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
+import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, soptName, season, interviewStart, interviewEnd, applicationPassConfirmStart, isMakers },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   if (!name) return;
 
@@ -36,14 +35,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일', { locale: ko });
-  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일', { locale: ko });
-  const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 EEEE', {
-    locale: ko,
-  });
-  const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일', {
-    locale: ko,
-  });
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
+  const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 EEEE');
+  const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
@@ -63,14 +58,15 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span>{`( 구글폼 : `}</span>
-          <a
-            className={link}
-            href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
-            target="_blank"
-            rel="noreferrer noopener"
-            onClick={() => track('click-screening-google_form')}>
-            {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
-          </a>
+          <AmplitudeEventTrack eventName="click-screening-google_form">
+            <a
+              className={link}
+              href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+              target="_blank"
+              rel="noreferrer noopener">
+              {`https://${deviceType !== 'DESK' ? '\n' : ''}${import.meta.env.VITE_SCREENING_PASS_LINK}`}
+            </a>
+          </AmplitudeEventTrack>
           <span>{` )\n`}</span>
           <br />
           <span>
@@ -110,11 +106,11 @@ const Content = ({ pass }: { pass?: boolean }) => {
 };
 
 const ScreeningResult = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
 
   const { name, interviewStart, interviewEnd, pass } = screeningResult?.data || {};

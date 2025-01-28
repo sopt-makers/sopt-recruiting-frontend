@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
@@ -12,7 +11,7 @@ import Info from '../Info';
 import LinkInput from '../LinkInput';
 
 interface PartSectionProps {
-  isReview: boolean;
+  isReview?: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
   part?: string;
   questions?: {
@@ -25,14 +24,14 @@ interface PartSectionProps {
 }
 
 const PartSection = ({
-  isReview,
   refCallback,
   part,
   questions,
   partQuestionsDraft,
   questionTypes,
+  isReview = false,
 }: PartSectionProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { getValues } = useFormContext();
 
   const partOptions = questionTypes?.sort((a, b) => a.id - b.id).map(({ typeKr }) => typeKr);

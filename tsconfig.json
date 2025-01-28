@@ -8,11 +8,15 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
+    "noUncheckedIndexedAccess": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+
+    /* testing library */
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
 
     /* Linting */
     "strict": true,
@@ -31,11 +35,13 @@
       "@store/*": ["common/store/*"],
       "@type/*": ["common/type/*"],
       "@utils/*": ["common/utils/*"],
-      "pages/*": ["pages/*"],
+      "contexts/*": ["contexts/*"],
       "styles/*": ["styles/*"],
-      "views/*": ["views/*"]
+      "tests/*": ["tests/*"],
+      "views/*": ["views/*"],
+      "mocks/*": ["mocks/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "./src/tests/setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

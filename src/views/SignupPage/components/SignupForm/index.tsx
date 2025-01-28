@@ -1,5 +1,4 @@
-import { track } from '@amplitude/analytics-browser';
-import { useContext, useEffect, useRef } from 'react';
+import { lazy, useEffect } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -10,17 +9,21 @@ import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@component
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useVerificationStatus from '@hooks/useVerificationStatus';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
-import { ExistingApplicantDialog } from 'views/dialogs';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
+import useDialog from '@hooks/useDialog';
+
+const ExistingApplicantDialog = lazy(() =>
+  import('views/dialogs').then(({ ExistingApplicantDialog }) => ({ default: ExistingApplicantDialog })),
+);
 
 const SignupForm = () => {
   const {
     recruitingInfo: { season, group },
-  } = useContext(RecruitingInfoContext);
-  const existingApplicantRef = useRef<HTMLDialogElement>(null);
+  } = useRecruitingInfo();
+  const { ref: existingApplicantDialogRef, handleShowDialog: handleShowExistingApplicantDialog } = useDialog();
 
   const { isVerified, handleVerified } = useVerificationStatus();
   const methods = useForm({ mode: 'onBlur' });
@@ -31,7 +34,7 @@ const SignupForm = () => {
     formState: { errors },
   } = methods;
   const { signUpMutate, signUpIsPending } = useMutateSignUp({
-    onCheckExistence: () => existingApplicantRef.current?.showModal(),
+    onCheckExistence: () => handleShowExistingApplicantDialog(),
   });
 
   const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
@@ -66,7 +69,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <ExistingApplicantDialog ref={existingApplicantRef} />
+      <ExistingApplicantDialog ref={existingApplicantDialogRef} />
       <FormProvider {...methods}>
         <form
           id="sign-up-form"
@@ -97,11 +100,7 @@ const SignupForm = () => {
             </Checkbox>
             <Contentbox>{PRIVACY_POLICY}</Contentbox>
           </div>
-          <Button
-            isLoading={signUpIsPending}
-            type="submit"
-            style={{ marginTop: 30 }}
-            onClick={() => track('click-signup-apply')}>
+          <Button isLoading={signUpIsPending} type="submit" style={{ marginTop: 30 }} eventName="click-signup-apply">
             지원서 작성하기
           </Button>
         </form>

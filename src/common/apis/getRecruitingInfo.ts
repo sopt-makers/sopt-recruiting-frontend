@@ -1,7 +1,7 @@
-import instance from '@apis/instance';
+import fetcher from '@apis/fetcher';
 
 export const getRecruitingInfo = async () => {
-  const res = await instance.get('/recruiting-season/latest');
+  const res = await fetcher('/recruiting-season/latest', { method: 'GET' });
 
   return res;
 };

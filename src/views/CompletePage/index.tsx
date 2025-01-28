@@ -1,24 +1,19 @@
-import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
-
 import Button from '@components/Button';
 import Callout from '@components/Callout';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import Survey from './components/Survey';
 import IconCheckmark from './icons/IconCheckmark';
 import { container, iconVar, mainTextVar, subTextVar } from './style.css';
 
 const CompletePage = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
-    recruitingInfo: { name, season, group, soptName },
-  } = useContext(RecruitingInfoContext);
-  const isMakers = soptName?.toLowerCase().includes('makers');
+    recruitingInfo: { name, season, group, soptName, isMakers },
+  } = useRecruitingInfo();
 
   const handleClickMyPage = () => {
-    track('click-complete-my');
     window.location.reload();
   };
 
@@ -36,7 +31,9 @@ const CompletePage = () => {
         style={{
           marginBottom: 35,
         }}>{`이메일 도착 시점에 차이가 있을 수 있습니다.\n이메일이 오지 않으면 스팸 메일함을 확인해주세요.`}</Callout>
-      <Button onClick={handleClickMyPage}>마이페이지로 이동하기</Button>
+      <Button eventName="click-complete-my" onClick={handleClickMyPage}>
+        마이페이지로 이동하기
+      </Button>
       <Survey />
     </section>
   );

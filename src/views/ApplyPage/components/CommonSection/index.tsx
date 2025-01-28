@@ -1,7 +1,5 @@
-import { useContext } from 'react';
-
 import Textarea from '@components/Textarea';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
 import { Answers, Questions } from 'views/ApplyPage/types';
 
@@ -10,14 +8,14 @@ import Info from '../Info';
 import LinkInput from '../LinkInput';
 
 interface CommonSectionProps {
-  isReview: boolean;
+  isReview?: boolean;
   refCallback: (elem: HTMLSelectElement) => void;
   questions?: Questions[];
   commonQuestionsDraft?: Answers[];
 }
 
-const CommonSection = ({ isReview, refCallback, questions, commonQuestionsDraft }: CommonSectionProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+const CommonSection = ({ refCallback, questions, commonQuestionsDraft, isReview = false }: CommonSectionProps) => {
+  const { deviceType } = useDeviceType();
   const commonQuestionsById = commonQuestionsDraft?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;

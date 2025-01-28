@@ -1,24 +1,22 @@
-import { useContext } from 'react';
-
 import Button from '@components/Button';
 import Title from '@components/Title';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { buttonWrapper, headerContainerVar } from './style.css';
 
 interface ApplyHeaderProps {
-  isReview: boolean;
+  isReview?: boolean;
   isLoading?: boolean;
   onSaveDraft?: () => void;
   onSubmitData?: () => void;
 }
 
-const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHeaderProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+const ApplyHeader = ({ isLoading, onSaveDraft, onSubmitData, isReview = false }: ApplyHeaderProps) => {
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { soptName, season, group, isMakers },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
 
   return (
     <header className={headerContainerVar[deviceType]}>
@@ -27,7 +25,12 @@ const ApplyHeader = ({ isReview, isLoading, onSaveDraft, onSubmitData }: ApplyHe
       </Title>
       {!isReview && deviceType !== 'MOB' && (
         <div className={buttonWrapper}>
-          <Button isLoading={isLoading} onClick={onSaveDraft} buttonStyle="line" padding="10x24">
+          <Button
+            isLoading={isLoading}
+            eventName="click-apply-draft"
+            onClick={onSaveDraft}
+            buttonStyle="line"
+            padding="10x24">
             임시저장
           </Button>
           <Button isLoading={isLoading} onClick={onSubmitData} padding="10x24" type="submit">

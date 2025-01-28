@@ -1,7 +1,7 @@
 import { track } from '@amplitude/analytics-browser';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import BigLoading from 'views/loadings/BigLoding';
@@ -15,7 +15,7 @@ const SignedInPage = () => {
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
   const { name, season, part, submit, applicationPass } = myInfoData?.data || {};
 
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
   const handleSetComplete = () => {
     track('done-apply-confirm_submit');

@@ -1,6 +1,6 @@
-import { Fragment, useContext, type HTMLAttributes } from 'react';
+import { Fragment, type HTMLAttributes } from 'react';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { requireDot, labelStyleVar } from './style.css';
 
@@ -12,7 +12,7 @@ interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Label = ({ children, maxCount, required, label, ...headerElementProps }: LabelProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const questionArray = children.split('\n');
   const firstEmptyIndex = questionArray.indexOf('');
 

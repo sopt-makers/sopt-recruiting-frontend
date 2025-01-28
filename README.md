@@ -13,10 +13,12 @@
 <img src="https://img.shields.io/badge/Tanstack%20Query-FF4154?style=flat-square&logo=react-query&logoColor=white" alt="Tanstack Query Badge"/></a>
 <img src="https://img.shields.io/badge/React--hook--form-EC5990?style=flat-square&logo=react-hook-form&logoColor=white" alt="React-hook-form Badge"/></a>
 <img src="https://img.shields.io/badge/Date--fns-3D7DCA?style=flat-square&logo=date-fns&logoColor=white" alt="Date-fns Badge"/></a>
-<img src="https://img.shields.io/badge/Lottie--react-8DD6F9?style=flat-square&logo=lottie-react&logoColor=white" alt="Lottie-react Badge"/></a>
+<img src="https://img.shields.io/badge/Lottie--react-4F8DF5?style=flat-square&logo=lottie-react&logoColor=white" alt="Lottie-react Badge"/></a>
 <img src="https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Badge"/></a>
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=white" alt="Firebase Badge"/></a>
 <img src="https://img.shields.io/badge/Amplitude-FF9D00?style=flat-square&logo=amplitude&logoColor=white" alt="Amplitude Badge"/></a>
+<img src="https://img.shields.io/badge/Testing%20Library-E33332?style=flat-square&logo=testing-library&logoColor=white" alt="Testing Library Badge"/>
+<img src="https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white" alt="Vitest Badge"/>
 
 ## 만든 사람들
 
@@ -39,7 +41,7 @@
         </td>
     </tr>
     <tr align="center">
-     <td><sub>24.02 ~ 24.07</sup></td>
+     <td><sub>24.02 ~ 현재</sup></td>
         <td>
             전언석 <br />
         </td>

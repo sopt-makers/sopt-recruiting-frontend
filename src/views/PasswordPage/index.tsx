@@ -1,16 +1,17 @@
-import { useContext } from 'react';
+import { lazy } from 'react';
 
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import NoMore from 'views/ErrorPage/components/NoMore';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import BigLoading from 'views/loadings/BigLoding';
 
 import PasswordForm from './components/PasswordForm';
 import { containerVar } from './style.css';
 
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
+
 const PasswordPage = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { NoMoreRecruit, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;

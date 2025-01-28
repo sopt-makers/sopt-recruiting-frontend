@@ -1,14 +1,16 @@
-import { useContext, useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, To } from 'react-router-dom';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import ButtonLoading from 'views/loadings/ButtonLoading';
 
 import { buttonFontVar, container, outsideBox, paddings } from './style.css';
+import AmplitudeEventTrack from './AmplitudeEventTrack';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   children?: ReactNode;
   className?: string;
+  eventName?: string;
   buttonStyle?: 'solid' | 'line';
   isLoading?: boolean;
   padding?: '15x32' | '13x20' | '10x24' | '15x25';
@@ -19,6 +21,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAncho
 const Button = ({
   children,
   className,
+  eventName,
   buttonStyle = 'solid',
   padding = '15x32',
   isLoading = false,
@@ -26,7 +29,7 @@ const Button = ({
   isLink = false,
   ...buttonElementProps
 }: ButtonProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const { disabled, type = 'button' } = buttonElementProps;
   const Tag = isLink ? Link : 'button';
 
@@ -38,18 +41,20 @@ const Button = ({
   }
 
   return (
-    <Tag
-      id={id}
-      to={to as To}
-      type={type}
-      className={`${className} ${outsideBox[isLoading || disabled ? 'disabled' : buttonStyle]}`}
-      disabled={isLoading || disabled}
-      {...buttonElementProps}>
-      <div
-        className={`${container[isLoading || disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${buttonFontVar[deviceType]} ${className}`}>
-        {isLoading ? <ButtonLoading width={loadingWidth} /> : children}
-      </div>
-    </Tag>
+    <AmplitudeEventTrack eventName={eventName}>
+      <Tag
+        id={id}
+        to={to as To}
+        type={type}
+        className={`${className} ${outsideBox[isLoading || disabled ? 'disabled' : buttonStyle]}`}
+        disabled={isLoading || disabled}
+        {...buttonElementProps}>
+        <div
+          className={`${container[isLoading || disabled ? 'disabled' : buttonStyle]} ${paddings[padding]} ${buttonFontVar[deviceType]} ${className}`}>
+          {isLoading ? <ButtonLoading width={loadingWidth} /> : children}
+        </div>
+      </Tag>
+    </AmplitudeEventTrack>
   );
 };
 

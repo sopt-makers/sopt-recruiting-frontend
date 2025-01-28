@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import useMutateSatisfaction from '../hooks/useMutateSatisfaction';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../style.css';
 
 const Survey = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const [point, setPoint] = useState<number | 'CHANGED'>(-1);
 
   const handleSatisfaction = () => {

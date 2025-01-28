@@ -1,5 +1,5 @@
 import { track } from '@amplitude/analytics-browser';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import useMutateCheckUser from '@components/Input/hooks/useMutateCheckUser';
 import useMutateSendCode from '@components/Input/hooks/useMutateSendCode';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { successVar } from './style.css';
 import InputLine from '../InputLine';
@@ -40,7 +40,7 @@ export const TextBox이메일 = ({
   isVerified,
   onChangeVerification,
 }: TextBox이메일Props) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -188,7 +188,7 @@ export const TextBox이메일 = ({
 };
 
 export const TextBox비밀번호 = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   const location = useLocation();
   const textVar = location.pathname === '/password' ? '새 비밀번호' : '비밀번호';

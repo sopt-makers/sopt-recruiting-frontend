@@ -1,16 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 
 import useDate from '@hooks/useDate';
-import { ThemeContext } from '@store/themeContext';
-import NoMore from 'views/ErrorPage/components/NoMore';
+import { useTheme } from 'contexts/ThemeProvider';
 import BigLoading from 'views/loadings/BigLoding';
 import useGetMyInfo from 'views/SignedInPage/hooks/useGetMyInfo';
 
 import FinalResult from './components/FinalResult';
 import ScreeningResult from './components/ScreeningResult';
 
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
+
 const ResultPage = () => {
-  const { handleChangeMode } = useContext(ThemeContext);
+  const { handleChangeMode } = useTheme();
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
   const { submit, applicationPass } = myInfoData?.data || {};
 

@@ -1,12 +1,12 @@
-import { isAfter, isBefore } from 'date-fns';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import useGetRecruitingInfo from './useGetRecruitingInfo';
+import { isAfter, isBefore } from '@utils/dateFormatter';
 
 const useDate = () => {
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
   const { data, isLoading } = useGetRecruitingInfo();
 
@@ -34,7 +34,7 @@ const useDate = () => {
     obInterviewStart,
     ybInterviewEnd,
     obInterviewEnd,
-  } = data?.data.season || {};
+  } = data?.season || {};
 
   const applicationStart = group === 'YB' ? ybApplicationStart : obApplicationStart; // 서류 시작
   const applicationEnd = group === 'YB' ? ybApplicationEnd : obApplicationEnd; // 서류 마감
@@ -61,7 +61,7 @@ const useDate = () => {
   const NoMoreReview = afterInterview; // 면접 마감 -> 지원서 확인 불가
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
 
-  const isMakers = name?.toLowerCase().includes('makers');
+  const isMakers = import.meta.env.MODE.includes('makers');
 
   useEffect(() => {
     handleSaveRecruitingInfo({
@@ -97,7 +97,7 @@ const useDate = () => {
   ]);
 
   return {
-    ...data?.data.season,
+    ...data?.season,
     NoMoreRecruit,
     NoMoreApply,
     NoMoreScreeningResult,

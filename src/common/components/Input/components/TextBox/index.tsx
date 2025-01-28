@@ -1,7 +1,7 @@
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 
 import { TextBoxProps } from '@components/Input/types';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { circle, containerVar, titleVar } from './style.css';
 
@@ -15,7 +15,7 @@ export const TextBox = ({
   size = 'md',
   required,
 }: Pick<TextBoxProps, 'children' | 'label' | 'name' | 'size' | 'required'>) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   return (
     <FormContext.Provider value={{ required }}>

@@ -1,13 +1,11 @@
-import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
+import { lazy } from 'react';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
-import NoMore from 'views/ErrorPage/components/NoMore';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 
 import {
@@ -20,8 +18,10 @@ import {
   buttonWidthVar,
 } from './style.css';
 
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
+
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const isMasking = label !== '지원서';
 
   return (
@@ -33,17 +33,12 @@ const MyInfoItem = ({ label, value }: { label: string; value?: string | number |
 };
 
 const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
 
   return (
     <li className={buttonValue}>
       <span className={infoLabelVar[deviceType]}>{label}</span>
-      <Button
-        isLink
-        to={to}
-        className={buttonWidthVar[deviceType]}
-        onClick={() => track(trackingEvent)}
-        padding="15x25">
+      <Button isLink to={to} className={buttonWidthVar[deviceType]} eventName={trackingEvent} padding="15x25">
         {label === '지원서' ? '지원서 확인' : '결과 확인'}
       </Button>
     </li>
@@ -56,10 +51,10 @@ interface MyPageProps {
 }
 
 const MyPage = ({ part, applicationPass }: MyPageProps) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, season },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
   const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading, isMakers } = useDate();
 
   if (isLoading) return <BigLoading />;

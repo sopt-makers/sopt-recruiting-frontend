@@ -1,0 +1,3083 @@
+openapi: 3.0.0
+info:
+  title: Sopt Recruting
+  version: 1.0.0
+servers:
+  - url: http://{{host}}
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /auth/sign-up/email:
+    post:
+      tags:
+        - default
+      summary: Admin Signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: 35th_makers_recruiting@sopt.org
+                password: makers!35
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Etag:
+              schema:
+                type: string
+                example: W/"573-CTZy6UUHUhSnLVhVYTU7RRE1UKQ"
+            Function-Execution-Id:
+              schema:
+                type: string
+                example: o8siwlsjt53y
+            X-Cloud-Trace-Context:
+              schema:
+                type: string
+                example: df8b0658817c64b2f432308c6703eaa5;o=1
+            Date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 05:36:55 GMT
+            Server:
+              schema:
+                type: string
+                example: Google Frontend
+            Content-Length:
+              schema:
+                type: integer
+                example: '1395'
+            Alt-Svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                user:
+                  id: 2
+                  email: makers_test1@sopt.org
+                  isAdmin: true
+                  isDeleted: false
+                  idFirebase: cgAknoZQKwaRh0IBZCJsfZgSADC3
+                  createdAt: '2024-07-04T05:36:55.637Z'
+                  updatedAt: '2024-07-04T05:36:55.637Z'
+                idFirebase: cgAknoZQKwaRh0IBZCJsfZgSADC3
+                firebaseToken: >-
+                  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImlhdCI6MTcyMDA3MTQxNSwiZXhwIjoxNzIwMDc1MDE1LCJpc3MiOiJmaXJlYmFzZS1hZG1pbnNkay13dGJpNkBzb3B0LXJlY3J1aXRpbmctZGV2LmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZmlyZWJhc2UtYWRtaW5zZGstd3RiaTZAc29wdC1yZWNydWl0aW5nLWRldi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInVpZCI6ImNnQWtub1pRS3dhUmgwSUJaQ0pzZlpnU0FEQzMiLCJjbGFpbXMiOnsic3RhdHVzIjoiRU1BSUxfU0lHTl9VUCJ9fQ.R3_PScP1h6tmJbO-qclvtAmId90L0VAd91VrVEto5R2DPOr6Rqb5t1tZ123-3kI6svPTJlWP2sfK0R71XwHeDfbjSRJ1hAtYeXdsA1hgipWEMy9ArPyvEzKiX01HWTYOGrSy2NjEU0ED4UFtCUYi8UjKeAmZKWxIsTewm3Drx7d-lPig1gYlAWw3hEp-YRnDSVc8BYwrWJGYhs4gCViSMfBCMVNbRBXLOGUMPV1jKVX6PMUiWMZjOB9Xe4bXA6L5FTjAcb1mS0eODRF4yIEmG63t-Me88rzJLW_m-oxNRJQxqix1Mw8iA9cve7Z6COkt2ikImXqJXnXlNTm4Nrg34g
+                accesstoken: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWtlcnNfdGVzdDFAc29wdC5vcmciLCJmaXJzdE5hbWUiOm51bGwsImxhc3ROYW1lIjpudWxsLCJpYXQiOjE3MjAwNzE0MTUsImV4cCI6MTcyMjY2MzQxNSwiaXNzIjoic29wdCJ9.sPgelg1Z91Ukow6Gq-MliYzpeQnw2uGCdptkYqKWM58
+  /recruiting-season/latest:
+    get:
+      tags:
+        - default
+      summary: 최신 기수 정보 조회 (From Admin)
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '1196'
+            etag:
+              schema:
+                type: string
+                example: W/"4ac-S9MX7STKm3GGV7FEsI1d5bF2qRk"
+            date:
+              schema:
+                type: string
+                example: Mon, 15 Jul 2024 01:33:02 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                season:
+                  id: 1
+                  season: 1
+                  ybApplicationStart: '2024-06-20T15:27:45.000Z'
+                  ybApplicationEnd: '2024-06-20T15:27:45.000Z'
+                  ybApplicationConfirmStart: '2024-06-20T15:27:45.000Z'
+                  ybApplicationConfirmEnd: '2024-06-20T15:27:45.000Z'
+                  ybApplicationPassConfirmStart: '2024-06-20T15:27:45.000Z'
+                  ybApplicationPassConfirmEnd: '2024-06-20T15:27:45.000Z'
+                  ybFinalPassConfirmStart: '2024-06-20T15:27:45.000Z'
+                  ybFinalPassConfirmEnd: '2024-06-20T15:27:45.000Z'
+                  obApplicationStart: '2024-06-20T15:27:45.000Z'
+                  obApplicationEnd: '2024-06-20T15:27:45.000Z'
+                  obApplicationConfirmStart: '2024-06-20T15:27:45.000Z'
+                  obApplicationConfirmEnd: '2024-06-20T15:27:45.000Z'
+                  obApplicationPassConfirmStart: '2024-06-20T15:27:45.000Z'
+                  obApplicationPassConfirmEnd: '2024-06-20T15:27:45.000Z'
+                  obFinalPassConfirmStart: '2024-06-20T15:27:45.000Z'
+                  obFinalPassConfirmEnd: '2024-06-20T15:27:45.000Z'
+                  name: MAKERS Test
+                  obInterviewStart: '2024-06-20T15:27:45.000Z'
+                  obInterviewEnd: '2024-06-20T15:27:45.000Z'
+                  ybInterviewStart: '2024-06-20T15:27:45.000Z'
+                  ybInterviewEnd: '2024-06-20T15:27:45.000Z'
+                  isDeleted: false
+                  createdAt: '2024-06-21T00:27:45.564Z'
+                  updatedAt: '2024-06-21T00:27:45.564Z'
+                  group: null
+  /recruiting-auth/verify/send:
+    post:
+      tags:
+        - default
+      summary: "\b이메일 인증 코드 전송"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: limchangi@naver.com
+                season: 44
+                group: OB
+                isSignup: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Etag:
+              schema:
+                type: string
+                example: W/"50-6ANWR4XcvY1IAQgNtZ7cm+pHeOU"
+            Function-Execution-Id:
+              schema:
+                type: string
+                example: 83qon3zaxsob
+            X-Cloud-Trace-Context:
+              schema:
+                type: string
+                example: c2d32f36afc8c119f93ef8b3399b9518;o=1
+            Date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 07:56:06 GMT
+            Server:
+              schema:
+                type: string
+                example: Google Frontend
+            Content-Length:
+              schema:
+                type: integer
+                example: '80'
+            Alt-Svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                message: 성공적으로 인증코드를 전송하였습니다.
+  /recruiting-auth/verify/email:
+    post:
+      tags:
+        - default
+      summary: 이메일 인증 코드 확인
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: limchangi@naver.com
+                code: WJPQIX
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '58'
+            etag:
+              schema:
+                type: string
+                example: W/"3a-wW2EjdoQVpgJKV0pc6SYA1mK0dM"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 05:35:37 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                message: 인증에 성공하였습니다.
+        '400':
+          description: Bad Request
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '57'
+            etag:
+              schema:
+                type: string
+                example: W/"39-64gz37xnsWcNrWL6+eyQZoTN8pQ"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 06:58:24 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                message: 인증에 실패하였습니다.
+  /recruiting-auth/signup:
+    post:
+      tags:
+        - default
+      summary: 지원자 회원가입
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: limchangi@naver.com
+                password: '1234'
+                passwordCheck: '1234'
+                name: 홍길동
+                phone: 010-1234-1234
+                season: 6
+                group: OB
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '274'
+            etag:
+              schema:
+                type: string
+                example: W/"112-BHf2kWRUqi8pvrpCrOe7Sag4Kmk"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 06:02:35 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                email: limchangi@naver.com
+                token: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsaW1jaGFuZ2lAbmF2ZXIuY29tIiwibmFtZSI6Iu2Zjeq4uOuPmSIsImlhdCI6MTcxOTkwMDE1NSwiZXhwIjoxNzE5OTg2NTU1LCJpc3MiOiJzb3B0In0.ymIzjsSXa7CKYUsZsDIYXf1rD6PnRKnhnP629EGJep8
+        '400':
+          description: Bad Request
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '61'
+            etag:
+              schema:
+                type: string
+                example: W/"3d-2yz+4HbRTctrEwSyULZt+RKp6DM"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 05:59:26 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                message: 이미 존재하는 계정입니다.
+        '403':
+          description: Forbidden
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '74'
+            etag:
+              schema:
+                type: string
+                example: W/"4a-2Zbb/qhjPO84EHOVVAiYznUXXQQ"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 06:01:31 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                message: 비밀번호 확인이 일치하지 않습니다.
+  /recruiting-auth/check/user:
+    post:
+      tags:
+        - default
+      summary: 유저 확인 (비밀번호 변경)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: limchangi@naver.com
+                name: 홍길동
+                season: 1
+                group: OB
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '65'
+            etag:
+              schema:
+                type: string
+                example: W/"41-y8H1S6dfGUiDNMMOZV3F112tEHQ"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 07:11:09 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                message: 계정 조회에 성공하였습니다.
+        '400':
+          description: Bad Request
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '62'
+            etag:
+              schema:
+                type: string
+                example: W/"3e-fSGP6HsD4fqVRLlKUy6XO897i24"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 07:12:00 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                message: 존재하지 않는 계정입니다.
+  /recruiting-auth/change/password:
+    post:
+      tags:
+        - default
+      summary: 비밀번호 변경
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: limchangi@naver.com
+                season: 35
+                group: OB
+                password: '1234'
+                passwordCheck: '1234'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '100'
+            etag:
+              schema:
+                type: string
+                example: W/"64-u3s+yoqwSyXklp7imkD8TDxkyGk"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 07:32:57 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                email: limchangi@naver.com
+                message: 비밀번호 변경에 성공하였습니다
+        '403':
+          description: Forbidden
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '74'
+            etag:
+              schema:
+                type: string
+                example: W/"4a-2Zbb/qhjPO84EHOVVAiYznUXXQQ"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 07:27:24 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                message: 비밀번호 확인이 일치하지 않습니다.
+  /recruiting-auth/login:
+    post:
+      tags:
+        - default
+      summary: 로그인
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: limchangi@naver.com
+                season: 6
+                group: OB
+                password: '1234'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '244'
+            etag:
+              schema:
+                type: string
+                example: W/"f4-HAXOkpBDA51LQDqj+1W87xCzIgQ"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 07:43:22 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                token: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsaW1jaGFuZ2lAbmF2ZXIuY29tIiwibmFtZSI6Iu2Zjeq4uOuPmSIsImlhdCI6MTcxOTkwNjIwMiwiZXhwIjoxNzE5OTkyNjAyLCJpc3MiOiJzb3B0In0._jBgV61sjPfCMsjt2X78CuWHzTx2BBjD85pbxhKivvQ
+        '403':
+          description: Forbidden
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '76'
+            etag:
+              schema:
+                type: string
+                example: W/"4c-6x9C3SYn3bWd8SzDyyLnbbs/s8U"
+            date:
+              schema:
+                type: string
+                example: Tue, 02 Jul 2024 07:46:09 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                message: 잘못된 이메일 혹은 비밀번호 입니다.
+  /recruiting-question/list:
+    get:
+      tags:
+        - default
+      summary: 질문 리스트 조회 (From Admin)
+      parameters:
+        - name: season
+          in: query
+          schema:
+            type: integer
+          example: '52'
+        - name: group
+          in: query
+          schema:
+            type: string
+          example: OB
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '26811'
+            etag:
+              schema:
+                type: string
+                example: W/"68bb-LjDDib1yWRoehxzbYpKkaYShgEE"
+            date:
+              schema:
+                type: string
+                example: Wed, 25 Sep 2024 15:51:24 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                commonQuestions:
+                  part: 공통
+                  recruitingQuestionTypeId: 1
+                  questions:
+                    - id: 310
+                      question: |-
+                        1. SOPT에서 어떤 활동을 하셨는지 작성해주세요.
+                        <플레이스홀더>여러 활동을 하신 경우 다 적어주시면 좋아요 :)
+                        - 33기 : 기획파트, 앱잼 OOO Team Leader
+                        - 32기 : iOS파트, 운영팀
+                      value: 1. SOPT에서 어떤 활동을 하셨는지 작성해주세요.
+                      order: 1
+                      urls: null
+                      isFile: null
+                      optional: false
+                      placeholder: |-
+                        여러 활동을 하신 경우 다 적어주시면 좋아요 :)
+                        - 33기 : 기획파트, 앱잼 OOO Team Leader
+                        - 32기 : iOS파트, 운영팀
+                      charLimit: 100
+                    - id: 311
+                      question: 2. makers에 지원하신 동기는 무엇인가요?
+                      value: 2. makers에 지원하신 동기는 무엇인가요?
+                      order: 2
+                      urls: null
+                      isFile: null
+                      optional: false
+                      placeholder: null
+                      charLimit: 500
+                    - id: 312
+                      question: 3. makers에서 본인의 역량을 어떻게 활용해서 기여하고 싶은지 간단하게 서술해주세요.
+                      value: 3. makers에서 본인의 역량을 어떻게 활용해서 기여하고 싶은지 간단하게 서술해주세요.
+                      order: 3
+                      urls: null
+                      isFile: null
+                      optional: false
+                      placeholder: null
+                      charLimit: 300
+                partQuestions:
+                  - part: PM
+                    recruitingQuestionTypeId: 2
+                    questions:
+                      - id: 313
+                        question: >-
+                          PM 포지션에 지원해 주셔서 감사해요🙂
+
+                          PM 포지션은 해당 본문에 적힌 한 가지의 과제성 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                          해당 질문에 대한 답변을 템플릿 양식에 의거하여 첨부해 주세요.
+
+
+                          SOPT Playground, SOPT 모임 서비스, 공식 홈페이지, SOPT App,
+                          makers Platform 팀의 PM으로 함께하게 되면, 현재 제품에서 개선을 진행하거나 신규
+                          기능을 제안하여 제품을 성장시키게 되실 거예요.
+
+
+                          각 팀의 PM으로 제품을 성장시킨다고 생각하며, 한 가지 프로덕트를 선택하여 아래 양식에 맞춰서
+                          작성해 주세요.
+                        value: >-
+                          PM 포지션에 지원해 주셔서 감사해요🙂
+
+                          PM 포지션은 해당 본문에 적힌 한 가지의 과제성 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                          해당 질문에 대한 답변을 템플릿 양식에 의거하여 첨부해 주세요.
+
+
+                          SOPT Playground, SOPT 모임 서비스, 공식 홈페이지, SOPT App,
+                          makers Platform 팀의 PM으로 함께하게 되면, 현재 제품에서 개선을 진행하거나 신규
+                          기능을 제안하여 제품을 성장시키게 되실 거예요.
+
+
+                          각 팀의 PM으로 제품을 성장시킨다고 생각하며, 한 가지 프로덕트를 선택하여 아래 양식에 맞춰서
+                          작성해 주세요.
+                        order: 1
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: null
+                      - id: 314
+                        question: "1. 프로덕트에 대한 고민이 담긴 각 팀의 과제 3개와 자유 주제 과제 1개를 준비했어요. 4가지 과제 중 1가지를 선택하여 One Pager를 작성해 주세요. 본인이 작성한 과제를 ‘왜’ 해야 하는지가 설득되어야 해요.\n\n[SOPT Playground]\n4기 Playground는 커뮤니티 활성화를 목표로 설정하여 ‘랜덤 프로필, 인기 게시물 알림’ 등 다양한 기능들을 시도했어요. 커뮤니티를 활성화하기 위한 방법에 대해 자유롭게 제안해 주세요. \n\n[SOPT App]\nSOPT App 홈 화면은 많은 시도를 해볼 수 있는 곳으로, 4기에는 ‘HOT 게시글’을 확인할 수 있는 기능을 시도했어요. SOPT의 특수성을 고려하면서, 유저 리텐션을 높이기 위해 어떤 식으로 홈 화면을 개편하면 좋을지 자유롭게 제안해 주세요.\n\n[makers Platform]\n4기 Platform 팀은 makers 제품들의 인증 체계에 대한 부채 해결, 알림 기능의 개선, 디자인 시스템 구축 등 다양한 영역에서의 제품 팀을 위한 프로젝트들을 진행하거나 출석 및 알림 어드민 제품을 개선했어요. 이런 맥락 속 5기 makers 팀이 제품을 보다 빠르게 만들기 위해 Platform 팀에서 진행해 볼 수 있는 프로젝트를 제안해 주세요.\n\n[자유 주제]\nSOPT 활동을 하며 느꼈던 제품의 개선 사항에 대해 자유롭게 제안해 주세요.\n\n[One Pager Template]\n1) 프로젝트의 목표(Objective)\n2) 제안 배경(무엇이 문제이며, 해결책은 무엇이고, 왜 우리가 리소스를 투입하여 이것을 해야하는지)\n3) 가설과 검증 전략(어떤 타겟 유저에게, 어떤 해결책을 제안할 것인지)\n4) 문제를 해결하기 위한 주요 기능 및 액션(해결책을 어떤 기능으로 풀어내고, 각 기능을 어떻게 단계적으로 구현할 것인지에 대한 플랜)\n5) 성공 지표(성공을 측정할 수 있는 지표는 무엇으로 가져갈 것인지, 어떻게 측정할 것인지)\n6) 배포 후 운영 계획(의도한 대로 문제가 잘 해결될 수 있도록 어떻게 운영해볼 것인지)\n\n[템플릿 양식 및 제출 방식]\n- One Pager 내 사진 및 이미지 첨부\_절대 불가\n- WORD 혹은 HWP에 텍스트로 작성 후, PDF로 변환하여 제출\n- 분량 제한 없음<파일>\n<플레이스홀더>파일을 첨부하셨다면, '파일 제출'이라고 기재 후 제출해주세요"
+                        value: "1. 프로덕트에 대한 고민이 담긴 각 팀의 과제 3개와 자유 주제 과제 1개를 준비했어요. 4가지 과제 중 1가지를 선택하여 One Pager를 작성해 주세요. 본인이 작성한 과제를 ‘왜’ 해야 하는지가 설득되어야 해요.\n\n[SOPT Playground]\n4기 Playground는 커뮤니티 활성화를 목표로 설정하여 ‘랜덤 프로필, 인기 게시물 알림’ 등 다양한 기능들을 시도했어요. 커뮤니티를 활성화하기 위한 방법에 대해 자유롭게 제안해 주세요. \n\n[SOPT App]\nSOPT App 홈 화면은 많은 시도를 해볼 수 있는 곳으로, 4기에는 ‘HOT 게시글’을 확인할 수 있는 기능을 시도했어요. SOPT의 특수성을 고려하면서, 유저 리텐션을 높이기 위해 어떤 식으로 홈 화면을 개편하면 좋을지 자유롭게 제안해 주세요.\n\n[makers Platform]\n4기 Platform 팀은 makers 제품들의 인증 체계에 대한 부채 해결, 알림 기능의 개선, 디자인 시스템 구축 등 다양한 영역에서의 제품 팀을 위한 프로젝트들을 진행하거나 출석 및 알림 어드민 제품을 개선했어요. 이런 맥락 속 5기 makers 팀이 제품을 보다 빠르게 만들기 위해 Platform 팀에서 진행해 볼 수 있는 프로젝트를 제안해 주세요.\n\n[자유 주제]\nSOPT 활동을 하며 느꼈던 제품의 개선 사항에 대해 자유롭게 제안해 주세요.\n\n[One Pager Template]\n1) 프로젝트의 목표(Objective)\n2) 제안 배경(무엇이 문제이며, 해결책은 무엇이고, 왜 우리가 리소스를 투입하여 이것을 해야하는지)\n3) 가설과 검증 전략(어떤 타겟 유저에게, 어떤 해결책을 제안할 것인지)\n4) 문제를 해결하기 위한 주요 기능 및 액션(해결책을 어떤 기능으로 풀어내고, 각 기능을 어떻게 단계적으로 구현할 것인지에 대한 플랜)\n5) 성공 지표(성공을 측정할 수 있는 지표는 무엇으로 가져갈 것인지, 어떻게 측정할 것인지)\n6) 배포 후 운영 계획(의도한 대로 문제가 잘 해결될 수 있도록 어떻게 운영해볼 것인지)\n\n[템플릿 양식 및 제출 방식]\n- One Pager 내 사진 및 이미지 첨부\_절대 불가\n- WORD 혹은 HWP에 텍스트로 작성 후, PDF로 변환하여 제출\n- 분량 제한 없음"
+                        order: 2
+                        urls: null
+                        isFile: true
+                        optional: false
+                        placeholder: 파일을 첨부하셨다면, '파일 제출'이라고 기재 후 제출해주세요
+                        charLimit: 5
+                      - id: 315
+                        question: >-
+                          2. 자신을 드러낼 수 있는 개인 블로그나 노션 링크, 포트폴리오 등을 자유롭게
+                          입력해주세요.<파일>
+                        value: 2. 자신을 드러낼 수 있는 개인 블로그나 노션 링크, 포트폴리오 등을 자유롭게 입력해주세요.
+                        order: 3
+                        urls: null
+                        isFile: true
+                        optional: false
+                        placeholder: null
+                        charLimit: 500
+                      - id: 316
+                        question: >-
+                          3. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -APP팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+
+                          <플레이스홀더>ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀,
+                          5순위 000팀
+                        value: >-
+                          3. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -APP팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+                        order: 4
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀, 5순위 000팀
+                        charLimit: 100
+                  - part: 디자인
+                    recruitingQuestionTypeId: 3
+                    questions:
+                      - id: 317
+                        question: >-
+                          Product & Platform Designer 포지션에 지원해주셔서 감사해요 😊
+
+                          Product & Platform Designer 포지션은 해당 본문에 적힌 세 가지의 질문과
+                          자유 형식의 포트폴리오를 받고 있어요.
+                        value: >-
+                          Product & Platform Designer 포지션에 지원해주셔서 감사해요 😊
+
+                          Product & Platform Designer 포지션은 해당 본문에 적힌 세 가지의 질문과
+                          자유 형식의 포트폴리오를 받고 있어요.
+                        order: 1
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: null
+                      - id: 318
+                        question: >-
+                          1. 프로덕트 디자인으로 문제를 해결한 사례 1가지를 선택하고, 어떤 고민을 했는지 알려주세요.
+
+                          <플레이스홀더>프로덕트에 대한 설명, 프로덕트의 사용자, 문제라고 생각한 이유, 해결책 등을
+                          포함해서 서술해 주세요.
+                        value: 1. 프로덕트 디자인으로 문제를 해결한 사례 1가지를 선택하고, 어떤 고민을 했는지 알려주세요.
+                        order: 2
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: >-
+                          프로덕트에 대한 설명, 프로덕트의 사용자, 문제라고 생각한 이유, 해결책 등을 포함해서 서술해
+                          주세요.
+                        charLimit: 700
+                      - id: 319
+                        question: 2. 프로덕트 또는 플랫폼 디자이너로서 본인의 어떤 점이 가장 강점이라고 생각하시나요?
+                        value: 2. 프로덕트 또는 플랫폼 디자이너로서 본인의 어떤 점이 가장 강점이라고 생각하시나요?
+                        order: 3
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 500
+                      - id: 320
+                        question: |-
+                          3. 자신을 드러낼 수 있는 노션, 포트폴리오 파일 또는 링크를 제출해주세요.<파일>
+                          <플레이스홀더>포트폴리오 구성 TIP
+                          - 사용자 관점에서 문제를 해결한 과정을 담아주세요.
+                          - 문제 해결 과정에 집중해서 포트폴리오를 구성해주세요.
+                        value: 3. 자신을 드러낼 수 있는 노션, 포트폴리오 파일 또는 링크를 제출해주세요.
+                        order: 4
+                        urls: null
+                        isFile: true
+                        optional: false
+                        placeholder: |-
+                          포트폴리오 구성 TIP
+                          - 사용자 관점에서 문제를 해결한 과정을 담아주세요.
+                          - 문제 해결 과정에 집중해서 포트폴리오를 구성해주세요.
+                        charLimit: 500
+                      - id: 321
+                        question: >-
+                          4. 포트폴리오를 제출했다면, 프로젝트 순서대로 본인이 했던 역할과 함께 기여 정도를
+                          작성해주세요. (포트폴리오 내부에도 함께 작성해주시면 더 좋아요)<선택>
+
+                          <플레이스홀더>ex)
+
+                          1번 프로젝트 : 유저 리서치 진행, 30%
+
+                          2번 프로젝트 : UX 개선, 100%
+                        value: >-
+                          4. 포트폴리오를 제출했다면, 프로젝트 순서대로 본인이 했던 역할과 함께 기여 정도를
+                          작성해주세요. (포트폴리오 내부에도 함께 작성해주시면 더 좋아요)
+                        order: 5
+                        urls: null
+                        isFile: null
+                        optional: true
+                        placeholder: |-
+                          ex)
+                          1번 프로젝트 : 유저 리서치 진행, 30%
+                          2번 프로젝트 : UX 개선, 100%
+                        charLimit: 100
+                      - id: 322
+                        question: >-
+                          5. makers 5기 디자인 챕터에 속하게 된다면 어떤 챕터원이 되고싶은지 간단히 작성해
+                          주세요.
+                        value: >-
+                          5. makers 5기 디자인 챕터에 속하게 된다면 어떤 챕터원이 되고싶은지 간단히 작성해
+                          주세요.
+                        order: 6
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 300
+                      - id: 323
+                        question: >-
+                          6. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -APP팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+
+                          <플레이스홀더>ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀,
+                          5순위 000팀
+                        value: >-
+                          6. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -APP팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+                        order: 7
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀, 5순위 000팀
+                        charLimit: 100
+                  - part: 서버
+                    recruitingQuestionTypeId: 7
+                    questions:
+                      - id: 324
+                        question: |-
+                          백엔드 개발자 포지션에 지원해주셔서 감사해요 😄
+                          백엔드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                        value: |-
+                          백엔드 개발자 포지션에 지원해주셔서 감사해요 😄
+                          백엔드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                        order: 1
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: null
+                      - id: 325
+                        question: >-
+                          1. 기술적 도전 과제가 있었던 프로젝트를 예로 들어 설명해주세요. 해당 도전 과제를 어떻게
+                          해결했는지, 또는 해결하지 못했는지와 그 이유를 포함하여, 그 과정에서 얻은 교훈이 무엇인지
+                          작성해주세요.
+                        value: >-
+                          1. 기술적 도전 과제가 있었던 프로젝트를 예로 들어 설명해주세요. 해당 도전 과제를 어떻게
+                          해결했는지, 또는 해결하지 못했는지와 그 이유를 포함하여, 그 과정에서 얻은 교훈이 무엇인지
+                          작성해주세요.
+                        order: 2
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 1000
+                      - id: 326
+                        question: >-
+                          2. 개발 과정에서의 문제 해결을 위해 다른 파트 혹은 챕터의 팀원와 협력한 경험이 있다면
+                          설명해주세요. 협력의 과정과 그 결과, 그리고 협력에서 얻은 교훈을 중심으로 작성해주세요.
+                        value: >-
+                          2. 개발 과정에서의 문제 해결을 위해 다른 파트 혹은 챕터의 팀원와 협력한 경험이 있다면
+                          설명해주세요. 협력의 과정과 그 결과, 그리고 협력에서 얻은 교훈을 중심으로 작성해주세요.
+                        order: 3
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 700
+                      - id: 327
+                        question: 3. 자신을 드러낼 수 있는 개인 블로그나 노션, Github 링크 등을 자유롭게 입력해주세요.
+                        value: 3. 자신을 드러낼 수 있는 개인 블로그나 노션, Github 링크 등을 자유롭게 입력해주세요.
+                        order: 4
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 500
+                      - id: 328
+                        question: >-
+                          4. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -APP팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+
+                          <플레이스홀더>ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀,
+                          5순위 000팀
+                        value: >-
+                          4. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -APP팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+                        order: 5
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀, 5순위 000팀
+                        charLimit: 100
+                  - part: 안드로이드
+                    recruitingQuestionTypeId: 4
+                    questions:
+                      - id: 329
+                        question: |-
+                          안드로이드 개발자 포지션에 지원해주셔서 감사해요 😄
+                          안드로이드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                        value: |-
+                          안드로이드 개발자 포지션에 지원해주셔서 감사해요 😄
+                          안드로이드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                        order: 1
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: null
+                      - id: 330
+                        question: >-
+                          1. 문제를 해결하실 때 스스로 문제를 해결하시나요, 다른 사람들과 같이 문제를 해결하시나요?
+                          지원자님이 겪은 문제해결과정을 위의 질문에 기반하여 답해주세요.
+                        value: >-
+                          1. 문제를 해결하실 때 스스로 문제를 해결하시나요, 다른 사람들과 같이 문제를 해결하시나요?
+                          지원자님이 겪은 문제해결과정을 위의 질문에 기반하여 답해주세요.
+                        order: 2
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 600
+                      - id: 331
+                        question: >-
+                          2. 희망하는 팀에 따라, 다음 두 가지 (2-1, 2-2) 질문 중 하나를 선택해서
+                          답변해주세요.
+
+
+                          2-1. [프로덕트 팀 지원자 전용] 개발에서 품질과 속도는 상충관계에 있습니다. 지원자님은 어느
+                          부분에 더 가치를 두시고 계신가요? 경험에 기반하여 서술해주세요.
+
+                          2-2. [플랫폼 팀 지원자 전용] 본인이 개발한 서비스의 기술적인 문제를 정의하고 이를 해결한
+                          전 과정과 이를 통해 본인이 생각하는 팀에 기여한 성과에 대해 서술해주세요.
+                        value: >-
+                          2. 희망하는 팀에 따라, 다음 두 가지 (2-1, 2-2) 질문 중 하나를 선택해서
+                          답변해주세요.
+
+
+                          2-1. [프로덕트 팀 지원자 전용] 개발에서 품질과 속도는 상충관계에 있습니다. 지원자님은 어느
+                          부분에 더 가치를 두시고 계신가요? 경험에 기반하여 서술해주세요.
+
+                          2-2. [플랫폼 팀 지원자 전용] 본인이 개발한 서비스의 기술적인 문제를 정의하고 이를 해결한
+                          전 과정과 이를 통해 본인이 생각하는 팀에 기여한 성과에 대해 서술해주세요.
+                        order: 3
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 700
+                      - id: 332
+                        question: >-
+                          4. 깃허브 프로필 링크를 필수적으로 첨부해주시고 본인을 잘 소개할 수 있는 자료의 링크가 있다면
+                          같이 첨부해주세요.
+                        value: >-
+                          4. 깃허브 프로필 링크를 필수적으로 첨부해주시고 본인을 잘 소개할 수 있는 자료의 링크가 있다면
+                          같이 첨부해주세요.
+                        order: 4
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 500
+                      - id: 337
+                        question: >-
+                          5. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -APP팀
+                              -플랫폼팀
+
+                          <플레이스홀더>ex. 1순위 000팀, 2순위 000팀
+                        value: >-
+                          5. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -APP팀
+                              -플랫폼팀
+                        order: 5
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: ex. 1순위 000팀, 2순위 000팀
+                        charLimit: 100
+                  - part: iOS
+                    recruitingQuestionTypeId: 5
+                    questions:
+                      - id: 333
+                        question: |-
+                          iOS 개발자 포지션에 지원해주셔서 감사해요 😄
+                          iOS 개발자 포지션은 자유 양식의 자기소개서를 받고 있어요.
+                        value: |-
+                          iOS 개발자 포지션에 지원해주셔서 감사해요 😄
+                          iOS 개발자 포지션은 자유 양식의 자기소개서를 받고 있어요.
+                        order: 1
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: null
+                      - id: 334
+                        question: >-
+                          1. 본인을 소개할 수 있는 이력서 또는 포트폴리오를 자유로운 양식으로 제출해 주세요.
+
+                          (PDF 형식을 권장 드려요)<파일>
+
+
+                          준비된 서류가 없다면 SOPT에서 iOS 개발자로 참여한 프로젝트에 대한 간단한 설명, 본인의
+                          역할, 기술적 도전 및 고민에 대해 적어서 제출해도 좋아요!
+                        value: >-
+                          1. 본인을 소개할 수 있는 이력서 또는 포트폴리오를 자유로운 양식으로 제출해 주세요.
+
+                          (PDF 형식을 권장 드려요)
+
+
+                          준비된 서류가 없다면 SOPT에서 iOS 개발자로 참여한 프로젝트에 대한 간단한 설명, 본인의
+                          역할, 기술적 도전 및 고민에 대해 적어서 제출해도 좋아요!
+                        order: 2
+                        urls: null
+                        isFile: true
+                        optional: false
+                        placeholder: null
+                        charLimit: 1000
+                      - id: 335
+                        question: 2. Github 링크를 입력해 주세요.
+                        value: 2. Github 링크를 입력해 주세요.
+                        order: 3
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 100
+                      - id: 336
+                        question: >-
+                          3. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -APP팀
+                              -플랫폼팀
+
+                          <플레이스홀더>ex. 1순위 000팀, 2순위 000팀
+                        value: >-
+                          3. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -APP팀
+                              -플랫폼팀
+                        order: 4
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: ex. 1순위 000팀, 2순위 000팀
+                        charLimit: 100
+                  - part: 웹
+                    recruitingQuestionTypeId: 6
+                    questions:
+                      - id: 338
+                        question: |-
+                          웹 프론트엔드 개발자 포지션에 지원해주셔서 감사해요 😁
+                          웹 프론트엔드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                        value: |-
+                          웹 프론트엔드 개발자 포지션에 지원해주셔서 감사해요 😁
+                          웹 프론트엔드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                        order: 1
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: null
+                      - id: 339
+                        question: >-
+                          1. 지금까지 개발을 해오면서 만난 문제 중, 해결하기 가장 어려웠던 기술적인 문제는
+                          무엇이었나요? 그때의 문제 상황을 설명해 주시고, 만약 해결했다면 어떻게 해결했는지 이야기해
+                          주세요. 해결하지 못했더라도, 어떻게 해결하면 좋을 것 같은지에 대해 이야기해 주세요.
+                        value: >-
+                          1. 지금까지 개발을 해오면서 만난 문제 중, 해결하기 가장 어려웠던 기술적인 문제는
+                          무엇이었나요? 그때의 문제 상황을 설명해 주시고, 만약 해결했다면 어떻게 해결했는지 이야기해
+                          주세요. 해결하지 못했더라도, 어떻게 해결하면 좋을 것 같은지에 대해 이야기해 주세요.
+                        order: 2
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 700
+                      - id: 340
+                        question: 2. 코드 리뷰 등 타인이 작성한 코드를 파악하고 개선해 본 경험에 대해 이야기해 주세요.
+                        value: 2. 코드 리뷰 등 타인이 작성한 코드를 파악하고 개선해 본 경험에 대해 이야기해 주세요.
+                        order: 3
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 500
+                      - id: 341
+                        question: |-
+                          3. 자유롭게 깃허브(*필수), 블로그 등의 링크를 첨부해 주세요. 
+                          (1, 2번 문항과 관련된 링크를 첨부해주셔도 좋아요.)
+                        value: |-
+                          3. 자유롭게 깃허브(*필수), 블로그 등의 링크를 첨부해 주세요. 
+                          (1, 2번 문항과 관련된 링크를 첨부해주셔도 좋아요.)
+                        order: 4
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: null
+                        charLimit: 500
+                      - id: 351
+                        question: >-
+                          4. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+
+                          <플레이스홀더>ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀
+                        value: >-
+                          4. 희망하는 팀을 순서대로 적어주세요.
+
+
+                          makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고
+                          있어요. 각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                              
+                              -Playground팀
+                              -공식홈페이지팀
+                              -Crew팀
+                              -플랫폼팀
+                        order: 5
+                        urls: null
+                        isFile: null
+                        optional: false
+                        placeholder: ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀
+                        charLimit: 100
+                questionTypes:
+                  - id: 3
+                    type: design
+                    typeKr: 디자인
+                    typeLegacy: null
+                  - id: 4
+                    type: android
+                    typeKr: 안드로이드
+                    typeLegacy: null
+                  - id: 5
+                    type: ios
+                    typeKr: iOS
+                    typeLegacy: null
+                  - id: 6
+                    type: web
+                    typeKr: 웹
+                    typeLegacy: null
+                  - id: 7
+                    type: server
+                    typeKr: 서버
+                    typeLegacy: null
+                  - id: 2
+                    type: plan
+                    typeKr: PM
+                    typeLegacy: null
+                  - id: 8
+                    type: research
+                    typeKr: 리서치
+                    typeLegacy: null
+  /recruiting-answer/store:
+    get:
+      tags:
+        - default
+      summary: 임시저장 지원서 조회
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '12919'
+            etag:
+              schema:
+                type: string
+                example: W/"3277-l3WSfGRS8UqMSo1U5HbKpui73zo"
+            date:
+              schema:
+                type: string
+                example: Wed, 25 Sep 2024 16:05:33 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                isSubmit: true
+                applicant:
+                  id: 151
+                  group: OB
+                  season: 35
+                  mostRecentSeason: 34
+                  part: 서버
+                  phone: 010-9977-9012
+                  email: limchangi@naver.com
+                  name: 최영철
+                  address: 서울 노원구 석계로13길 11-9
+                  gender: 남자
+                  birthday: 1999/10/15
+                  college: 광운대학교
+                  major: 전자통신공학과
+                  univYear: 4
+                  leaveAbsence: false
+                  willAppjam: false
+                  knownPath: null
+                  pic: >-
+                    https://firebasestorage.googleapis.com/v0/b/sopt-recruiting-dev.appspot.com/o/recruiting%2Fapplicants%2F%C3%A1%C2%84%C2%8B%C3%A1%C2%85%C2%A7%C3%A1%C2%84%C2%80%C3%A1%C2%85%C2%AF%C3%A1%C2%86%C2%AB%C3%A1%C2%84%C2%89%C3%A1%C2%85%C2%A1%C3%A1%C2%84%C2%8C%C3%A1%C2%85%C2%B5%C3%A1%C2%86%C2%AB.jpegqNzzmlm?alt=media
+                  nearestStation: 광운대역, 석계역
+                  applicationPass: true
+                  finalPass: true
+                  isDeleted: false
+                  isForTest: false
+                  createdAt: '2024-07-31T02:15:15.652Z'
+                  updatedAt: '2024-08-20T10:38:49.377Z'
+                  submit: true
+                commonQuestions:
+                  - id: 310
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 1
+                    order: 1
+                    question: |-
+                      1. SOPT에서 어떤 활동을 하셨는지 작성해주세요.
+                      <플레이스홀더>여러 활동을 하신 경우 다 적어주시면 좋아요 :)
+                      - 33기 : 기획파트, 앱잼 OOO Team Leader
+                      - 32기 : iOS파트, 운영팀
+                    charLimit: 100
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T00:55:02.961Z'
+                    updatedAt: '2024-07-31T00:56:41.720Z'
+                    answer:
+                      id: 2485
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 310
+                      answer: >-
+                        34기 : Server 파트, 도커 스터디, 디자인패턴 스터디, 앱잼 유니보이스 서버 파트
+                        (Lead)
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.132Z'
+                      updatedAt: '2024-08-07T13:36:52.301Z'
+                      file: null
+                      fileName: null
+                  - id: 311
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 1
+                    order: 2
+                    question: 2. makers에 지원하신 동기는 무엇인가요?
+                    charLimit: 500
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T00:55:52.805Z'
+                    updatedAt: '2024-07-31T00:56:39.550Z'
+                    answer:
+                      id: 2486
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 311
+                      answer: >-
+                        저는 극 E와 N 성향을 가지고 있어 도와줄 수 있는 일 혹은 알고 있는 정보와 지식을 다른
+                        사람들에게 공유할 때 행복을 느끼며 더욱 무언가를 배우고 싶다는 열정에 대한 동기를 얻습니다.
+
+                        IT 서비스 개발을 하며 손쉽게 접할 수 있는 하나의 서비스를 통해 많은 사람들에게 긍정적인 영향을
+                        줄 수 있다는 점이 너무 매력적이었고 꼭 실사용자를 가진 서비스를 운영해 보고 싶다는 꿈을
+                        꾸었습니다. 
+
+
+                        그런 와중 서버 파트 1차 세미나 시간에 Makers 팀장님께서 실시간으로 발생한 버그를 수정하고
+                        해결하는 모습을 보았습니다. 저의 꿈을 직접 눈으로 보니 가슴이 쿵쿵 뛰었고 이후로 Makers에
+                        대해 더욱 관심을 가지게 되었고  같은 목표를 향해 같이 고민하며 열정적으로 다 같이 달려가며
+                        성장하는 모습들이 너무 부러웠습니다. 
+
+                        그래서 저 또한 뜨거운 열정과 책임감을 가진 Makers분들과 함께 지식을 공유하며 성장하고 싶어
+                        지원을 하게 되었습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.136Z'
+                      updatedAt: '2024-08-07T13:36:52.306Z'
+                      file: null
+                      fileName: null
+                  - id: 312
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 1
+                    order: 3
+                    question: 3. makers에서 본인의 역량을 어떻게 활용해서 기여하고 싶은지 간단하게 서술해주세요.
+                    charLimit: 300
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T00:56:23.258Z'
+                    updatedAt: '2024-07-31T00:56:40.202Z'
+                    answer:
+                      id: 2487
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 312
+                      answer: >-
+                        저는 2년간 여러 창업 동아리에서 Node 계열 프레임워크를 사용하여 풀스택 개발을 한 경험이
+                        있습니다. 
+
+                        주로 NestJS를 사용하여 백엔드 개발을 하였고 짧은 시간이지만 3개의 실사용자를 가진 서비스를
+                        운영해 보았습니다. 또한 선착순 이벤트를 진행하는 과정에서 발생한 동시성 이슈를 깊이 고민하고 해결한
+                        경험이 있습니다.
+
+                        위와 같은 저의 NestJS 개발 역량을 활용하여, 현재 유일하게 NestJS로 개발되어 운영 중인
+                        ‘공식 홈페이지 팀’을 Spring으로 마이그레이션 하는데 기여하고 싶습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.141Z'
+                      updatedAt: '2024-08-07T13:36:52.310Z'
+                      file: null
+                      fileName: null
+                partQuestions:
+                  - id: 324
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 1
+                    question: |-
+                      백엔드 개발자 포지션에 지원해주셔서 감사해요 😄
+                      백엔드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                    charLimit: null
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:13:20.923Z'
+                    updatedAt: '2024-07-31T01:34:03.592Z'
+                    answer:
+                      id: 6853
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 324
+                      answer: null
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-08-07T13:36:52.314Z'
+                      updatedAt: '2024-08-07T13:36:52.314Z'
+                      file: null
+                      fileName: null
+                  - id: 325
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 2
+                    question: >-
+                      1. 기술적 도전 과제가 있었던 프로젝트를 예로 들어 설명해주세요. 해당 도전 과제를 어떻게 해결했는지,
+                      또는 해결하지 못했는지와 그 이유를 포함하여, 그 과정에서 얻은 교훈이 무엇인지 작성해주세요.
+                    charLimit: 1000
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:13:53.441Z'
+                    updatedAt: '2024-07-31T01:15:33.475Z'
+                    answer:
+                      id: 2488
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 325
+                      answer: >-
+                        저는 마감 시간대에 떨이 상품을 판매하는 점주들과 마감 할인 상품 정보를 필요로 하는 고객들을 위한
+                        유통 서비스 플랫폼을 개발하며 기술적 도전을 경험했습니다.
+
+
+                        당시 인천대학교와 협약을 맺어 해당 플랫폼을  운영하기 위해 저는 1000명 이상의 동시 사용자들의
+                        주문 요청에 대한 동시성을 제어하는 역할을 맡았습니다. 푸시 알림을 통해 고객들에게 마감 할인 상품에
+                        대한 정보가 주어지면 특정 시간대, 특정 메뉴에 많은 사용자의 트래픽이 몰려 DB의 count 값에
+                        자주 접근하며 조회/수정이 되는 상황이었습니다. 동시성 제어를 하지 않고 일반적인 비즈니스 로직을
+                        수행하게 되면 데이터 무결성이 보장되지 않아 사용자들이 유효하지 않은 재고를 기반으로 서비스를
+                        이용하게 되는 문제가 발생할 수 있었습니다.
+
+
+                        우선 여러 명의 요청을 동시에 받는 상황을 시뮬레이션 하기 위해 Jemter라는 부하 테스트 툴을
+                        사용했으며 처음에는 재고가 부족한 상황에 요청이 들어올 경우 단순히 트랜잭션의 Rollback을 통해
+                        무결성이 지켜질 것이라고 생각했지만 10명의 동시 요청조차 제어가 되지 않았습니다. 
+
+                        또한 DB 접근 시 다양한 Lock과 격리 수준을 적용하여 테스트해 보았지만 각각의 장단점이 명확해서
+                        서버의 안전성, 데이터 무결성 보장, 준수한 응답속도, 선착순 요청 순서 보장을 모두 만족하지
+                        못했습니다.
+
+
+                        그로 인해 Redis, RabbitMQ, Kafka와 같은 외부 인프라를 활용하여 문제를 해결하고자
+                        했습니다.
+
+                        하지만 최고의 효율을 가지더라도 과도한 서버 비용 및 정해진 개발 기간과 러닝 커브를 고려하여
+                        Serverless Redis를 사용해서 분산락을 구현하여 동시성을 제어하였습니다.
+
+
+                        특정한 요청에 단순한 응답 값 만을 약속하는 API가 아닌 실사용자들 및 기획 등 다양한 비즈니스적
+                        요소를 고려하며 개발하는 과정을 통해 기술 스택 및 이슈 해결에 정해진 최고의 정답이 있는 것이 아닌
+                        각 프로젝트의 상황에 맞게 유동적이며 효율적으로 사용해야 함을 배울 수 있었습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.145Z'
+                      updatedAt: '2024-08-07T13:36:52.320Z'
+                      file: null
+                      fileName: null
+                  - id: 326
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 3
+                    question: >-
+                      2. 개발 과정에서의 문제 해결을 위해 다른 파트 혹은 챕터의 팀원와 협력한 경험이 있다면 설명해주세요.
+                      협력의 과정과 그 결과, 그리고 협력에서 얻은 교훈을 중심으로 작성해주세요.
+                    charLimit: 700
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:15:33.928Z'
+                    updatedAt: '2024-07-31T01:55:26.866Z'
+                    answer:
+                      id: 2489
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 326
+                      answer: >-
+                        저는 실사용자를 가진 서비스를 운영해 보기 위해 주로 플랫폼 서비스의 백엔드 개발을 담당했습니다. 
+                        그런 과정 중, 일주일간 60만 원이라는 예상치 못한 과금 문제로 팀 전체가 긴급 상황에
+                        직면했습니다. 
+
+
+                        이후 회의에서 프론트엔드 파트와 협력하여 문제의 원인을 찾기 위해 노력하였고 근거 있는 원인은 찾지
+                        못했지만 개선 사항을 토대로 추측해 본 결과 프론트엔드 파트에서 재귀적인 API 호출로 인해 과도한
+                        트래픽이 발생할 수 있다는 사실을 발견했습니다. 또한 백엔드에서는 API 요청을 제한 없이 처리하고
+                        있었고, 이는 인프라에 과부하를 초래하고 있었습니다.
+
+
+                        이 문제를 해결하기 위해 API 호출 로직을 수정하고, 호출 제한을 설정하여 무분별한 요청을
+                        차단했습니다. 또한 확실한 근거 없이 이슈를 해결하며 서비스를 운영한다는 것은 불안하다고 판단하여
+                        Google analytics 및 Aws와 Slack을 활용해 로그 알람 시스템을 구축했습니다. 
+
+
+                        이러한 협력 과정에서 팀원들과의 꼼꼼한 코드 리뷰, 커뮤니케이션을 통한 전체 시스템 파악, 로그의
+                        중요성을 배웠습니다. 또한 팀워크를 통해 문제를 해결하며 개인의 성장뿐만 아니라 팀 전체의 역량이
+                        함께 향상됨을 경험했습니다. 비록 서비스는 결국 중단되었지만, 협력을 통해 얻은 값진 경험은 앞으로
+                        어떤 도전과 문제에 직면하더라도 팀과 함께라면 해결할 수 있다는 자신감을 심어주었습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.150Z'
+                      updatedAt: '2024-08-07T13:36:52.324Z'
+                      file: null
+                      fileName: null
+                  - id: 327
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 4
+                    question: 3. 자신을 드러낼 수 있는 개인 블로그나 노션, Github 링크 등을 자유롭게 입력해주세요.
+                    charLimit: 500
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:15:55.217Z'
+                    updatedAt: '2024-07-31T01:27:52.415Z'
+                    answer:
+                      id: 2490
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 327
+                      answer: >-
+                        https://github.com/softmoca
+
+                        → 깃허브 링크입니다.(softmoca)
+
+
+                        https://moca9012.tistory.com/
+
+                        → 개발 첫 시작 부터 작성을 했던 습작인 개발 블로그입니다.
+
+
+                        https://softmoca.tistory.com/
+
+                        → 2024년 부터 새롭게 정리하고 현재 운영중인 개발 블로그입니다.
+
+
+                        https://breezy-way-675.notion.site/Makers-Profolio-511930754cf34e28add40054190f5e35
+
+                        → 메이커스 지원 포토폴리오 노션 링크입니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.156Z'
+                      updatedAt: '2024-08-07T13:36:52.328Z'
+                      file: null
+                      fileName: null
+                  - id: 328
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 5
+                    question: >-
+                      4. 희망하는 팀을 순서대로 적어주세요.
+
+
+                      makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고 있어요.
+                      각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                          
+                          -Playground팀
+                          -APP팀
+                          -공식홈페이지팀
+                          -Crew팀
+                          -플랫폼팀
+
+                      <플레이스홀더>ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀, 5순위
+                      000팀
+                    charLimit: 100
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:16:49.884Z'
+                    updatedAt: '2024-08-06T17:46:20.524Z'
+                    answer:
+                      id: 2491
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 328
+                      answer: |-
+                        1순위 - 공식 홈페이지 팀
+                        2순위 - Crew팀 
+                        3순위 - 플랫폼팀
+                        4순위 - Playground팀
+                        5순위 -APP팀
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.162Z'
+                      updatedAt: '2024-08-07T13:36:52.332Z'
+                      file: null
+                      fileName: null
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Etag:
+              schema:
+                type: string
+                example: W/"2a-KF3ANmWs7Wh/KFJBeKwSTgv9/EU"
+            Function-Execution-Id:
+              schema:
+                type: string
+                example: 8pwald4agjzw
+            X-Cloud-Trace-Context:
+              schema:
+                type: string
+                example: 67efe3e1801549f3b38d9551a2fefc35
+            Date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 08:12:27 GMT
+            Server:
+              schema:
+                type: string
+                example: Google Frontend
+            Content-Length:
+              schema:
+                type: integer
+                example: '42'
+            Alt-Svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                userMessage: Invalid token
+    post:
+      tags:
+        - default
+      summary: 지원서 임시저장
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                picture:
+                  type: string
+                  format: binary
+                part:
+                  type: string
+                  description: string
+                  example: 서버
+                address:
+                  type: string
+                  description: string
+                  example: home1
+                birthday:
+                  type: number
+                  description: string
+                  example: 2001.01.23
+                college:
+                  type: string
+                  description: string
+                  example: 대학
+                gender:
+                  type: string
+                  description: string
+                  example: male
+                knownPath:
+                  type: string
+                  description: string
+                  example: 지인 추천
+                leaveAbsence:
+                  type: boolean
+                  description: bool
+                  example: 'false'
+                major:
+                  type: string
+                  description: string
+                  example: 통계
+                mostRecentSeason:
+                  type: integer
+                  description: int
+                  example: '0'
+                univYear:
+                  type: integer
+                  description: int
+                  example: '4'
+                nearestStation:
+                  type: string
+                  description: string
+                  example: 사당역
+                answers:
+                  type: string
+                  description: json
+                  example: |-
+                    [
+                      {
+                        "recruitingQuestionId": 1,
+                        "answer": "5그릇"
+                      },
+                      {
+                        "recruitingQuestionId": 2,
+                        "answer": "4그릇"
+                      }
+                    ]
+                willAppjam:
+                  type: boolean
+                  description: bool
+                  example: 'false'
+                file_28:
+                  type: string
+                  format: binary
+                file_29:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '1695'
+            etag:
+              schema:
+                type: string
+                example: W/"69f-97WE+qxoha5hC9Fql8QkB271zZ0"
+            date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 09:04:57 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                applicant:
+                  id: 151
+                  group: OB
+                  season: 35
+                  mostRecentSeason: 34
+                  part: 서버
+                  phone: 010-9977-9012
+                  email: limchangi@naver.com
+                  name: 최영철
+                  address: 서울 노원구 석계로13길 11-9
+                  gender: 남자
+                  birthday: 1999/10/15
+                  college: 광운대학교
+                  major: 전자통신공학과
+                  univYear: 4
+                  leaveAbsence: false
+                  willAppjam: false
+                  knownPath: null
+                  pic: >-
+                    https://firebasestorage.googleapis.com/v0/b/sopt-recruiting-dev.appspot.com/o/recruiting%2Fapplicants%2F%C3%A1%C2%84%C2%8B%C3%A1%C2%85%C2%A7%C3%A1%C2%84%C2%80%C3%A1%C2%85%C2%AF%C3%A1%C2%86%C2%AB%C3%A1%C2%84%C2%89%C3%A1%C2%85%C2%A1%C3%A1%C2%84%C2%8C%C3%A1%C2%85%C2%B5%C3%A1%C2%86%C2%AB.jpegqNzzmlm?alt=media
+                  nearestStation: 광운대역, 석계역
+                  applicationPass: true
+                  finalPass: true
+                  isDeleted: false
+                  isForTest: false
+                  createdAt: '2024-07-31T02:15:15.652Z'
+                  updatedAt: '2024-08-20T10:38:49.377Z'
+                  submit: true
+                commonQuestions:
+                  - id: 310
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 1
+                    order: 1
+                    question: |-
+                      1. SOPT에서 어떤 활동을 하셨는지 작성해주세요.
+                      <플레이스홀더>여러 활동을 하신 경우 다 적어주시면 좋아요 :)
+                      - 33기 : 기획파트, 앱잼 OOO Team Leader
+                      - 32기 : iOS파트, 운영팀
+                    charLimit: 100
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T00:55:02.961Z'
+                    updatedAt: '2024-07-31T00:56:41.720Z'
+                    answer:
+                      id: 2485
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 310
+                      answer: >-
+                        34기 : Server 파트, 도커 스터디, 디자인패턴 스터디, 앱잼 유니보이스 서버 파트
+                        (Lead)
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.132Z'
+                      updatedAt: '2024-08-07T13:36:52.301Z'
+                      file: null
+                      fileName: null
+                  - id: 311
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 1
+                    order: 2
+                    question: 2. makers에 지원하신 동기는 무엇인가요?
+                    charLimit: 500
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T00:55:52.805Z'
+                    updatedAt: '2024-07-31T00:56:39.550Z'
+                    answer:
+                      id: 2486
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 311
+                      answer: >-
+                        저는 극 E와 N 성향을 가지고 있어 도와줄 수 있는 일 혹은 알고 있는 정보와 지식을 다른
+                        사람들에게 공유할 때 행복을 느끼며 더욱 무언가를 배우고 싶다는 열정에 대한 동기를 얻습니다.
+
+                        IT 서비스 개발을 하며 손쉽게 접할 수 있는 하나의 서비스를 통해 많은 사람들에게 긍정적인 영향을
+                        줄 수 있다는 점이 너무 매력적이었고 꼭 실사용자를 가진 서비스를 운영해 보고 싶다는 꿈을
+                        꾸었습니다. 
+
+
+                        그런 와중 서버 파트 1차 세미나 시간에 Makers 팀장님께서 실시간으로 발생한 버그를 수정하고
+                        해결하는 모습을 보았습니다. 저의 꿈을 직접 눈으로 보니 가슴이 쿵쿵 뛰었고 이후로 Makers에
+                        대해 더욱 관심을 가지게 되었고  같은 목표를 향해 같이 고민하며 열정적으로 다 같이 달려가며
+                        성장하는 모습들이 너무 부러웠습니다. 
+
+                        그래서 저 또한 뜨거운 열정과 책임감을 가진 Makers분들과 함께 지식을 공유하며 성장하고 싶어
+                        지원을 하게 되었습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.136Z'
+                      updatedAt: '2024-08-07T13:36:52.306Z'
+                      file: null
+                      fileName: null
+                  - id: 312
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 1
+                    order: 3
+                    question: 3. makers에서 본인의 역량을 어떻게 활용해서 기여하고 싶은지 간단하게 서술해주세요.
+                    charLimit: 300
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T00:56:23.258Z'
+                    updatedAt: '2024-07-31T00:56:40.202Z'
+                    answer:
+                      id: 2487
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 312
+                      answer: >-
+                        저는 2년간 여러 창업 동아리에서 Node 계열 프레임워크를 사용하여 풀스택 개발을 한 경험이
+                        있습니다. 
+
+                        주로 NestJS를 사용하여 백엔드 개발을 하였고 짧은 시간이지만 3개의 실사용자를 가진 서비스를
+                        운영해 보았습니다. 또한 선착순 이벤트를 진행하는 과정에서 발생한 동시성 이슈를 깊이 고민하고 해결한
+                        경험이 있습니다.
+
+                        위와 같은 저의 NestJS 개발 역량을 활용하여, 현재 유일하게 NestJS로 개발되어 운영 중인
+                        ‘공식 홈페이지 팀’을 Spring으로 마이그레이션 하는데 기여하고 싶습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.141Z'
+                      updatedAt: '2024-08-07T13:36:52.310Z'
+                      file: null
+                      fileName: null
+                partQuestions:
+                  - id: 324
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 1
+                    question: |-
+                      백엔드 개발자 포지션에 지원해주셔서 감사해요 😄
+                      백엔드 개발자 포지션은 두 가지의 질문과 자유 형식의 포트폴리오를 받고 있어요.
+                    charLimit: null
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:13:20.923Z'
+                    updatedAt: '2024-07-31T01:34:03.592Z'
+                    answer:
+                      id: 6853
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 324
+                      answer: null
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-08-07T13:36:52.314Z'
+                      updatedAt: '2024-08-07T13:36:52.314Z'
+                      file: null
+                      fileName: null
+                  - id: 325
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 2
+                    question: >-
+                      1. 기술적 도전 과제가 있었던 프로젝트를 예로 들어 설명해주세요. 해당 도전 과제를 어떻게 해결했는지,
+                      또는 해결하지 못했는지와 그 이유를 포함하여, 그 과정에서 얻은 교훈이 무엇인지 작성해주세요.
+                    charLimit: 1000
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:13:53.441Z'
+                    updatedAt: '2024-07-31T01:15:33.475Z'
+                    answer:
+                      id: 2488
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 325
+                      answer: >-
+                        저는 마감 시간대에 떨이 상품을 판매하는 점주들과 마감 할인 상품 정보를 필요로 하는 고객들을 위한
+                        유통 서비스 플랫폼을 개발하며 기술적 도전을 경험했습니다.
+
+
+                        당시 인천대학교와 협약을 맺어 해당 플랫폼을  운영하기 위해 저는 1000명 이상의 동시 사용자들의
+                        주문 요청에 대한 동시성을 제어하는 역할을 맡았습니다. 푸시 알림을 통해 고객들에게 마감 할인 상품에
+                        대한 정보가 주어지면 특정 시간대, 특정 메뉴에 많은 사용자의 트래픽이 몰려 DB의 count 값에
+                        자주 접근하며 조회/수정이 되는 상황이었습니다. 동시성 제어를 하지 않고 일반적인 비즈니스 로직을
+                        수행하게 되면 데이터 무결성이 보장되지 않아 사용자들이 유효하지 않은 재고를 기반으로 서비스를
+                        이용하게 되는 문제가 발생할 수 있었습니다.
+
+
+                        우선 여러 명의 요청을 동시에 받는 상황을 시뮬레이션 하기 위해 Jemter라는 부하 테스트 툴을
+                        사용했으며 처음에는 재고가 부족한 상황에 요청이 들어올 경우 단순히 트랜잭션의 Rollback을 통해
+                        무결성이 지켜질 것이라고 생각했지만 10명의 동시 요청조차 제어가 되지 않았습니다. 
+
+                        또한 DB 접근 시 다양한 Lock과 격리 수준을 적용하여 테스트해 보았지만 각각의 장단점이 명확해서
+                        서버의 안전성, 데이터 무결성 보장, 준수한 응답속도, 선착순 요청 순서 보장을 모두 만족하지
+                        못했습니다.
+
+
+                        그로 인해 Redis, RabbitMQ, Kafka와 같은 외부 인프라를 활용하여 문제를 해결하고자
+                        했습니다.
+
+                        하지만 최고의 효율을 가지더라도 과도한 서버 비용 및 정해진 개발 기간과 러닝 커브를 고려하여
+                        Serverless Redis를 사용해서 분산락을 구현하여 동시성을 제어하였습니다.
+
+
+                        특정한 요청에 단순한 응답 값 만을 약속하는 API가 아닌 실사용자들 및 기획 등 다양한 비즈니스적
+                        요소를 고려하며 개발하는 과정을 통해 기술 스택 및 이슈 해결에 정해진 최고의 정답이 있는 것이 아닌
+                        각 프로젝트의 상황에 맞게 유동적이며 효율적으로 사용해야 함을 배울 수 있었습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.145Z'
+                      updatedAt: '2024-08-07T13:36:52.320Z'
+                      file: null
+                      fileName: null
+                  - id: 326
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 3
+                    question: >-
+                      2. 개발 과정에서의 문제 해결을 위해 다른 파트 혹은 챕터의 팀원와 협력한 경험이 있다면 설명해주세요.
+                      협력의 과정과 그 결과, 그리고 협력에서 얻은 교훈을 중심으로 작성해주세요.
+                    charLimit: 700
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:15:33.928Z'
+                    updatedAt: '2024-07-31T01:55:26.866Z'
+                    answer:
+                      id: 2489
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 326
+                      answer: >-
+                        저는 실사용자를 가진 서비스를 운영해 보기 위해 주로 플랫폼 서비스의 백엔드 개발을 담당했습니다. 
+                        그런 과정 중, 일주일간 60만 원이라는 예상치 못한 과금 문제로 팀 전체가 긴급 상황에
+                        직면했습니다. 
+
+
+                        이후 회의에서 프론트엔드 파트와 협력하여 문제의 원인을 찾기 위해 노력하였고 근거 있는 원인은 찾지
+                        못했지만 개선 사항을 토대로 추측해 본 결과 프론트엔드 파트에서 재귀적인 API 호출로 인해 과도한
+                        트래픽이 발생할 수 있다는 사실을 발견했습니다. 또한 백엔드에서는 API 요청을 제한 없이 처리하고
+                        있었고, 이는 인프라에 과부하를 초래하고 있었습니다.
+
+
+                        이 문제를 해결하기 위해 API 호출 로직을 수정하고, 호출 제한을 설정하여 무분별한 요청을
+                        차단했습니다. 또한 확실한 근거 없이 이슈를 해결하며 서비스를 운영한다는 것은 불안하다고 판단하여
+                        Google analytics 및 Aws와 Slack을 활용해 로그 알람 시스템을 구축했습니다. 
+
+
+                        이러한 협력 과정에서 팀원들과의 꼼꼼한 코드 리뷰, 커뮤니케이션을 통한 전체 시스템 파악, 로그의
+                        중요성을 배웠습니다. 또한 팀워크를 통해 문제를 해결하며 개인의 성장뿐만 아니라 팀 전체의 역량이
+                        함께 향상됨을 경험했습니다. 비록 서비스는 결국 중단되었지만, 협력을 통해 얻은 값진 경험은 앞으로
+                        어떤 도전과 문제에 직면하더라도 팀과 함께라면 해결할 수 있다는 자신감을 심어주었습니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.150Z'
+                      updatedAt: '2024-08-07T13:36:52.324Z'
+                      file: null
+                      fileName: null
+                  - id: 327
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 4
+                    question: 3. 자신을 드러낼 수 있는 개인 블로그나 노션, Github 링크 등을 자유롭게 입력해주세요.
+                    charLimit: 500
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:15:55.217Z'
+                    updatedAt: '2024-07-31T01:27:52.415Z'
+                    answer:
+                      id: 2490
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 327
+                      answer: >-
+                        https://github.com/softmoca
+
+                        → 깃허브 링크입니다.(softmoca)
+
+
+                        https://moca9012.tistory.com/
+
+                        → 개발 첫 시작 부터 작성을 했던 습작인 개발 블로그입니다.
+
+
+                        https://softmoca.tistory.com/
+
+                        → 2024년 부터 새롭게 정리하고 현재 운영중인 개발 블로그입니다.
+
+
+                        https://breezy-way-675.notion.site/Makers-Profolio-511930754cf34e28add40054190f5e35
+
+                        → 메이커스 지원 포토폴리오 노션 링크입니다.
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.156Z'
+                      updatedAt: '2024-08-07T13:36:52.328Z'
+                      file: null
+                      fileName: null
+                  - id: 328
+                    group: OB
+                    season: 35
+                    recruitingQuestionTypeId: 7
+                    order: 5
+                    question: >-
+                      4. 희망하는 팀을 순서대로 적어주세요.
+
+
+                      makers에서는 예비 maker께서 원하는 가치를 실현하는 걸 돕고자 희망하는 팀을 지원받고 있어요.
+                      각 팀이 만들어가는 가치를 다시 한번 확인해주시고 팀을 지원해주세요.
+                          
+                          -Playground팀
+                          -APP팀
+                          -공식홈페이지팀
+                          -Crew팀
+                          -플랫폼팀
+
+                      <플레이스홀더>ex. 1순위 000팀, 2순위 000팀, 3순위 000팀, 4순위 000팀, 5순위
+                      000팀
+                    charLimit: 100
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-31T01:16:49.884Z'
+                    updatedAt: '2024-08-06T17:46:20.524Z'
+                    answer:
+                      id: 2491
+                      recruitingApplicantId: 151
+                      recruitingQuestionId: 328
+                      answer: |-
+                        1순위 - 공식 홈페이지 팀
+                        2순위 - Crew팀 
+                        3순위 - 플랫폼팀
+                        4순위 - Playground팀
+                        5순위 -APP팀
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-31T02:31:43.162Z'
+                      updatedAt: '2024-08-07T13:36:52.332Z'
+                      file: null
+                      fileName: null
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Etag:
+              schema:
+                type: string
+                example: W/"2a-KF3ANmWs7Wh/KFJBeKwSTgv9/EU"
+            Function-Execution-Id:
+              schema:
+                type: string
+                example: qsvqlkwf15ee
+            X-Cloud-Trace-Context:
+              schema:
+                type: string
+                example: be3db374f515cfabacd9a8bbd7d14201;o=1
+            Date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 09:21:44 GMT
+            Server:
+              schema:
+                type: string
+                example: Google Frontend
+            Content-Length:
+              schema:
+                type: integer
+                example: '42'
+            Alt-Svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                userMessage: Invalid token
+  /recruiting-answer:
+    post:
+      tags:
+        - default
+      summary: 지원서 제출
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                picture:
+                  type: string
+                  format: binary
+                part:
+                  type: string
+                  description: string
+                  example: 서버
+                address:
+                  type: string
+                  description: string
+                  example: home1
+                birthday:
+                  type: number
+                  description: string
+                  example: 2001.01.23
+                college:
+                  type: string
+                  description: string
+                  example: 대학
+                gender:
+                  type: string
+                  description: string
+                  example: male
+                knownPath:
+                  type: string
+                  description: string
+                  example: 지인 추천
+                leaveAbsence:
+                  type: boolean
+                  description: bool
+                  example: 'false'
+                major:
+                  type: string
+                  description: string
+                  example: 통계
+                mostRecentSeason:
+                  type: integer
+                  description: string
+                  example: '0'
+                univYear:
+                  type: integer
+                  description: int
+                  example: '4'
+                nearestStation:
+                  type: string
+                  description: string
+                  example: 사당역
+                answers:
+                  type: string
+                  description: json
+                  example: |-
+                    [
+                      {
+                        "recruitingQuestionId": 1,
+                        "answer": "5그릇"
+                      },
+                      {
+                        "recruitingQuestionId": 2,
+                        "answer": "4그릇"
+                      }
+                    ]
+                willAppjam:
+                  type: boolean
+                  description: bool
+                  example: 'false'
+                season:
+                  type: integer
+                  example: '1'
+                group:
+                  type: string
+                  example: OB
+                pictureUrl:
+                  type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '1636'
+            etag:
+              schema:
+                type: string
+                example: W/"664-ymhk8jG6799tlJrlu1IhvpxHNns"
+            date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 09:18:54 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                applicant:
+                  id: 1
+                  group: OB
+                  season: 1
+                  mostRecentSeason: null
+                  part: 서버
+                  phone: 010-1234-1234
+                  email: limchangi@naver.com
+                  name: 홍길동
+                  address: home1
+                  gender: male
+                  birthday: 2001.01.23
+                  college: 대학
+                  major: 통계
+                  univYear: 4
+                  leaveAbsence: false
+                  willAppjam: false
+                  knownPath: 지인 추천
+                  pic: >-
+                    https://firebasestorage.googleapis.com/v0/b/sopt-recruiting-dev.appspot.com/o/recruiting%2Fapplicants%2Fsample_license.pngMDQ88mk?alt=media
+                  nearestStation: 사당역
+                  applicationPass: false
+                  finalPass: false
+                  isDeleted: false
+                  isForTest: false
+                  createdAt: '2024-07-04T08:10:58.204Z'
+                  updatedAt: '2024-07-04T08:10:58.204Z'
+                  submit: true
+                commonQuestions:
+                  - id: 1
+                    group: OB
+                    season: 1
+                    recruitingQuestionTypeId: 1
+                    order: 1
+                    question: 테스트~
+                    charLimit: 100
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-04T08:45:45.304Z'
+                    updatedAt: '2024-07-04T08:45:53.528Z'
+                    answer:
+                      id: 1
+                      recruitingApplicantId: 1
+                      recruitingQuestionId: 1
+                      answer: 5그릇
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-04T09:04:57.197Z'
+                      updatedAt: '2024-07-04T09:18:54.794Z'
+                partQuestions:
+                  - id: 2
+                    group: OB
+                    season: 1
+                    recruitingQuestionTypeId: 7
+                    order: 1
+                    question: 테스트~
+                    charLimit: null
+                    ignoreCharLimit: false
+                    isDeleted: false
+                    isForTest: false
+                    createdAt: '2024-07-04T08:45:55.102Z'
+                    updatedAt: '2024-07-04T08:46:04.972Z'
+                    answer:
+                      id: 2
+                      recruitingApplicantId: 1
+                      recruitingQuestionId: 2
+                      answer: 4그릇
+                      isDeleted: false
+                      isForTest: false
+                      createdAt: '2024-07-04T09:04:57.208Z'
+                      updatedAt: '2024-07-04T09:18:54.807Z'
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Etag:
+              schema:
+                type: string
+                example: W/"3d-QHnbS9suUIy0DJ9neVgqT8yzARc"
+            Function-Execution-Id:
+              schema:
+                type: string
+                example: qsvqn6casp63
+            X-Cloud-Trace-Context:
+              schema:
+                type: string
+                example: 3beed715ac5e0926dff4876669cb9f98;o=1
+            Date:
+              schema:
+                type: string
+                example: Thu, 04 Jul 2024 09:06:35 GMT
+            Server:
+              schema:
+                type: string
+                example: Google Frontend
+            Content-Length:
+              schema:
+                type: integer
+                example: '61'
+            Alt-Svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 지원서 제출 400 누락된 필수정보
+                  value:
+                    err: true
+                    message: 누락된 정보가 존재합니다.
+                example-1:
+                  summary: 지원서 제출 401 토큰에러
+                  value:
+                    err: true
+                    message: 누락된 정보가 존재합니다.
+  /recruiting-applicant/satisfaction:
+    post:
+      tags:
+        - default
+      summary: 만족도 점수
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                satisfaction: 5
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '13'
+            etag:
+              schema:
+                type: string
+                example: W/"d-jjcNx+nWrD8NVIcgaqLDc/Wqpbg"
+            date:
+              schema:
+                type: string
+                example: Sat, 03 Aug 2024 07:51:26 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+        '401':
+          description: Unauthorized
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '42'
+            etag:
+              schema:
+                type: string
+                example: W/"2a-KF3ANmWs7Wh/KFJBeKwSTgv9/EU"
+            date:
+              schema:
+                type: string
+                example: Sat, 03 Aug 2024 07:53:49 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                userMessage: Invalid token
+  /recruiting-auth/my:
+    get:
+      tags:
+        - default
+      summary: 마이페이지
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '113'
+            etag:
+              schema:
+                type: string
+                example: W/"71-klnoPX+Bdyzf5c49SIKUypzVygY"
+            date:
+              schema:
+                type: string
+                example: Wed, 25 Sep 2024 15:50:03 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                season: 35
+                name: 임찬기
+                part: iOS
+                submit: true
+                applicationPass: false
+                finalPass: false
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Etag:
+              schema:
+                type: string
+                example: W/"2a-aDef0NyRbIen6G/sQC4A2NmpYyc"
+            Function-Execution-Id:
+              schema:
+                type: string
+                example: 7ajybwb42nat
+            X-Cloud-Trace-Context:
+              schema:
+                type: string
+                example: c0b4565e432b7158b318bfba005015ff;o=1
+            Date:
+              schema:
+                type: string
+                example: Thu, 11 Jul 2024 13:40:37 GMT
+            Server:
+              schema:
+                type: string
+                example: Google Frontend
+            Content-Length:
+              schema:
+                type: integer
+                example: '42'
+            Alt-Svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                userMessage: Expired token
+  /recruiting-applicant/result/application:
+    get:
+      tags:
+        - default
+      summary: 마이페이지 서류 합격 확인
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '172'
+            etag:
+              schema:
+                type: string
+                example: W/"ac-mne/ZKBF3y56K8b6ehnE0p39uBA"
+            date:
+              schema:
+                type: string
+                example: Thu, 11 Jul 2024 13:39:35 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                season: 1
+                seasonName: MAKERS Test
+                group: OB
+                name: 홍길동
+                pass: false
+                interviewStart: '2024-06-20 15:27:45'
+                interviewEnd: '2024-06-20 15:27:45'
+        '401':
+          description: Unauthorized
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '42'
+            etag:
+              schema:
+                type: string
+                example: W/"2a-KF3ANmWs7Wh/KFJBeKwSTgv9/EU"
+            date:
+              schema:
+                type: string
+                example: Thu, 11 Jul 2024 13:41:13 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                userMessage: Invalid token
+  /recruiting-applicant/result/final:
+    get:
+      tags:
+        - default
+      summary: 마이페이지 최종 합격 확인
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '96'
+            etag:
+              schema:
+                type: string
+                example: W/"60-vv0nSwQjCBywg+Uqd9Xx7pZs73k"
+            date:
+              schema:
+                type: string
+                example: Thu, 11 Jul 2024 13:42:17 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: false
+                season: 1
+                seasonName: MAKERS Test
+                group: OB
+                name: 홍길동
+                pass: false
+        '401':
+          description: Unauthorized
+          headers:
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            access-control-allow-origin:
+              schema:
+                type: string
+                example: '*'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '42'
+            etag:
+              schema:
+                type: string
+                example: W/"2a-KF3ANmWs7Wh/KFJBeKwSTgv9/EU"
+            date:
+              schema:
+                type: string
+                example: Thu, 11 Jul 2024 13:41:13 GMT
+            connection:
+              schema:
+                type: string
+                example: keep-alive
+            keep-alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                err: true
+                userMessage: Invalid token

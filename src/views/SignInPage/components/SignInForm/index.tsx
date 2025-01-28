@@ -1,20 +1,19 @@
-import { track } from '@amplitude/analytics-browser';
-import { useContext } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import Button from '@components/Button';
 import { Description, InputLine, TextBox } from '@components/Input';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
 import { inputWrapper, newPasswordButton } from './style.css';
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 const SignInForm = () => {
   const {
     recruitingInfo: { season, group, finalPassConfirmEnd },
-  } = useContext(RecruitingInfoContext);
+  } = useRecruitingInfo();
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
   const { signInMutate, signInIsPending } = useMutateSignIn({
@@ -62,12 +61,14 @@ const SignInForm = () => {
           />
           <Description>
             <p>비밀번호를 잃어버리셨나요?</p>
-            <Link className={newPasswordButton} to="/password" onClick={() => track('click-signin-password')}>
-              비밀번호 재설정하기
-            </Link>
+            <AmplitudeEventTrack eventName="click-signin-password">
+              <Link className={newPasswordButton} to="/password">
+                비밀번호 재설정하기
+              </Link>
+            </AmplitudeEventTrack>
           </Description>
         </TextBox>
-        <Button isLoading={signInIsPending} type="submit" onClick={() => track('click-signin-signin')}>
+        <Button isLoading={signInIsPending} type="submit" eventName="click-signin-signin">
           로그인
         </Button>
       </form>

@@ -1,10 +1,10 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { DeviceTypeContext } from '@store/deviceTypeContext';
-import { RecruitingInfoContext } from '@store/recruitingInfoContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
 import ApplyHeader from 'views/ApplyPage/components/ApplyHeader';
 import ApplyInfo from 'views/ApplyPage/components/ApplyInfo';
@@ -15,16 +15,20 @@ import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainerVar } from 'views/ApplyPage/style.css';
-import { PreventReviewDialog } from 'views/dialogs';
-import NoMore from 'views/ErrorPage/components/NoMore';
 import BigLoading from 'views/loadings/BigLoding';
+import useDialog from '@hooks/useDialog';
+
+const PreventReviewDialog = lazy(() =>
+  import('views/dialogs').then(({ PreventReviewDialog }) => ({ default: PreventReviewDialog })),
+);
+const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const ReviewPage = () => {
-  const { deviceType } = useContext(DeviceTypeContext);
-  const preventReviewDialog = useRef<HTMLDialogElement>(null);
+  const { deviceType } = useDeviceType();
+  const { ref: preventReviewDialogRef, handleShowDialog: handleShowPreventReviewDialog } = useDialog();
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
-  const { handleSaveRecruitingInfo } = useContext(RecruitingInfoContext);
+  const { handleSaveRecruitingInfo } = useRecruitingInfo();
   const { draftData, draftIsLoading } = useGetDraft();
 
   const [isInView, setIsInView] = useState([true, false, false]);
@@ -49,8 +53,8 @@ const ReviewPage = () => {
   const { setValue } = methods;
 
   useEffect(() => {
-    if (preventReviewDialog.current && !applicantDraft?.submit) {
-      preventReviewDialog.current.showModal();
+    if (preventReviewDialogRef.current && !applicantDraft?.submit) {
+      handleShowPreventReviewDialog();
     }
 
     if (applicantDraft?.part) {
@@ -61,7 +65,7 @@ const ReviewPage = () => {
       name: applicantDraft?.name,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft, preventReviewDialog.current]);
+  }, [applicantDraft, preventReviewDialogRef.current]);
 
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
@@ -106,7 +110,7 @@ const ReviewPage = () => {
 
   return (
     <>
-      <PreventReviewDialog ref={preventReviewDialog} />
+      <PreventReviewDialog ref={preventReviewDialogRef} />
       <FormProvider {...methods}>
         <div className={container}>
           <ApplyHeader isReview={isReview} />

@@ -1,11 +1,9 @@
-import { useContext } from 'react';
-
-import { DeviceTypeContext } from '@store/deviceTypeContext';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { containerVar, label, linkVar } from './style.css';
 
 const LinkInput = ({ urls }: { urls: string[] }) => {
-  const { deviceType } = useContext(DeviceTypeContext);
+  const { deviceType } = useDeviceType();
   return (
     <>
       {urls.length === 1 && (
