@@ -39,15 +39,10 @@ const ReviewPage = () => {
 
   useScrollToHash(); // scrollTo 카테고리
 
-  const {
-    applicant: applicantDraft,
-    commonQuestions: commonQuestionsDraft,
-    partQuestions: partQuestionsDraft,
-  } = draftData?.data || {};
+  const { applicant: applicantDraft } = draftData?.data || {};
 
   const { NoMoreReview, isLoading, isMakers } = useDate();
-  const { questionsData, questionsIsLoading } = useGetQuestions(applicantDraft);
-  const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
+  const { questionsIsLoading } = useGetQuestions(applicantDraft);
 
   const methods = useForm({ mode: 'onBlur' });
   const { setValue } = methods;
@@ -117,26 +112,9 @@ const ReviewPage = () => {
           <ApplyInfo isReview={isReview} />
           <ApplyCategory isReview={isReview} minIndex={minIndex} />
           <form id="apply-form" name="apply-form" className={formContainerVar[deviceType]}>
-            <DefaultSection
-              isMakers={isMakers}
-              isReview={isReview}
-              refCallback={refCallback}
-              applicantDraft={applicantDraft}
-            />
-            <CommonSection
-              isReview={isReview}
-              refCallback={refCallback}
-              questions={commonQuestions?.questions}
-              commonQuestionsDraft={commonQuestionsDraft}
-            />
-            <PartSection
-              isReview={isReview}
-              refCallback={refCallback}
-              part={applicantDraft?.part}
-              questions={partQuestions}
-              partQuestionsDraft={partQuestionsDraft}
-              questionTypes={questionTypes}
-            />
+            <DefaultSection isReview={isReview} refCallback={refCallback} />
+            <CommonSection isReview={isReview} refCallback={refCallback} />
+            <PartSection isReview={isReview} refCallback={refCallback} />
             <BottomSection isReview={isReview} knownPath={applicantDraft?.knownPath} />
           </form>
         </div>
