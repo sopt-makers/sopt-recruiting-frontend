@@ -8,7 +8,6 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { sectionTitleVar } from 'views/ApplyPage/style.css';
-import { Applicant } from 'views/ApplyPage/types';
 
 import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
@@ -25,6 +24,8 @@ import {
   sectionContainerVar,
 } from './style.css';
 import { getMostRecentSeasonArray } from './utils';
+import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
+import useDate from '@hooks/useDate';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -107,14 +108,16 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
 };
 
 interface DefaultSectionProps {
-  isMakers?: boolean;
   isReview?: boolean;
   refCallback?: (elem: HTMLSelectElement) => void;
-  applicantDraft?: Applicant;
 }
 
-const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = false }: DefaultSectionProps) => {
+const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) => {
   const { deviceType } = useDeviceType();
+  const { isMakers } = useDate();
+  const { draftData } = useGetDraft();
+
+  const { applicant } = draftData?.data || {};
   const {
     season,
     address,
@@ -130,7 +133,7 @@ const DefaultSection = ({ isMakers, refCallback, applicantDraft, isReview = fals
     pic,
     univYear,
     leaveAbsence,
-  } = applicantDraft || {};
+  } = applicant || {};
 
   return (
     <section ref={refCallback} id="default" className={sectionContainerVar[deviceType]}>

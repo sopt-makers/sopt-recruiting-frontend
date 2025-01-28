@@ -313,7 +313,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
             name="apply-form"
             onSubmit={handleSubmit(handleApplySubmit)}
             className={formContainerVar[deviceType]}>
-            <DefaultSection isMakers={isMakers} refCallback={refCallback} applicantDraft={applicantDraft} />
+            <DefaultSection refCallback={refCallback} />
             <CommonSection
               refCallback={refCallback}
               questions={commonQuestions?.questions}
