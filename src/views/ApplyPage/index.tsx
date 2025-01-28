@@ -260,7 +260,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       birthday,
       college,
       gender,
-      knownPath,
+      knownPath: knownPath ? knownPath : '',
       leaveAbsence,
       major,
       mostRecentSeason,
