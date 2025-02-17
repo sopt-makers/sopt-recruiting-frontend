@@ -20,7 +20,6 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import imgSoptLogo from '../assets/imgSoptLogo.png';
 import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetFinalResult from '../hooks/useGetFinalResult';
-import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 import { format } from '@utils/dateFormatter';
 import { track } from '@amplitude/analytics-browser';
 
@@ -30,7 +29,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
     recruitingInfo: { name, soptName, season, group, isMakers, finalPassConfirmStart },
   } = useRecruitingInfo();
 
-  // if (!name) return;
+  if (!name) return;
 
   const finalDate = new Date(finalPassConfirmStart || '');
   const formattedFinalPassConfirmStart = format(finalDate, 'dd일');
@@ -38,7 +37,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
   return (
     <>
-      {false ? (
+      {pass ? (
         <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${season}기 ${SOPT_NAME}입니다.\n\n`}</span>
           <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
@@ -81,8 +80,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           지원자님의 뛰어난 역량과 잠재력에도 불구하고 안타깝게도 귀하의 최종 합격 소식을 전해드리지 못하게 되었습니다.
           한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나 저희 ${SOPT_NAME}에 지원하셨던 경험이 IT 창업인으로서 멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다.
 
-          ${SOPT_NAME} 드림
-          `}
+          ${SOPT_NAME} 드림`}
         </p>
       )}
     </>
