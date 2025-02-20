@@ -14,7 +14,7 @@ export const MENU_ITEMS: menuItemsTypes[] = [
   },
   {
     text: '문의하기',
-    path: 'https://pf.kakao.com/_JdTKd',
+    path: 'mailto:manager@sopt.org ',
     amplitudeId: 'click-gnb-ask',
     target: '_blank',
   },
