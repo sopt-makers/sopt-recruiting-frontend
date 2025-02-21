@@ -7,7 +7,7 @@ const color = createThemeContract({
   primaryLight: null, // 기수 컬러 밝게
   primaryDark: null, // 기수 컬러 어둡게
   // 기수 컬러 linear
-  primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
+  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
   error: null, // error
 
   background: null, // background
@@ -37,14 +37,14 @@ const color = createThemeContract({
 });
 
 export const light = createTheme(color, {
-  // primary: '#BDEC00',
-  // primaryLight: 'rgba(189, 236, 0, 0.08)',
-  // primaryDark: '#99BF00',
-  // primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
-  primary: colors.gray600,
-  primaryLight: colors.gray30,
-  primaryDark: colors.gray950,
-  primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
+  primary: '#495870',
+  primaryLight: 'rgba(73, 88, 112, 0.08)',
+  primaryDark: '#1e293b',
+  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  // primary: colors.gray600,
+  // primaryLight: colors.gray30,
+  // primaryDark: colors.gray950,
+  // primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
   error: colors.error,
 
   background: colors.white,
@@ -74,14 +74,14 @@ export const light = createTheme(color, {
 });
 
 export const dark = createTheme(color, {
-  // primary: '#BDEC00',
-  // primaryLight: 'rgba(189, 236, 0, 0.08)',
-  // primaryDark: '#99BF00',
-  // primaryLinear: 'linear-gradient(rgba(189, 236, 0, 0.3) 0%, rgba(189, 236, 0, 1) 45%, rgba(189, 236, 0, 0.3) 100%)',
-  primary: colors.gray600,
-  primaryLight: colors.gray30,
-  primaryDark: colors.gray950,
-  primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
+  primary: '#495870',
+  primaryLight: 'rgba(73, 88, 112, 0.08)',
+  primaryDark: '#1e293b',
+  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  // primary: colors.gray600,
+  // primaryLight: colors.gray30,
+  // primaryDark: colors.gray950,
+  // primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
   error: colors.error,
 
   background: colors.gray950,
