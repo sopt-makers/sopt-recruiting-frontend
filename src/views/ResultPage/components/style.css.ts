@@ -73,7 +73,7 @@ export const contentVar = styleVariants({
 
 export const strongText = styleVariants({
   sopt: {
-    color: theme.color.primary,
+    color: '#67758B',
   },
   makers: {
     color: colors.secondary,
