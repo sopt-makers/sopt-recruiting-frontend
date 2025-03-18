@@ -15,7 +15,6 @@ const contentWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   color: theme.color.baseText,
-  ...theme.font.BODY_1_18_M,
 });
 
 export const contentWrapperVar = styleVariants({
@@ -25,6 +24,7 @@ export const contentWrapperVar = styleVariants({
       margin: '90px auto 0',
       width: 720,
       gap: 50,
+      ...theme.font.BODY_1_18_M,
     },
   ],
   TAB: [
@@ -33,6 +33,7 @@ export const contentWrapperVar = styleVariants({
       margin: '90px auto 0',
       width: 367,
       gap: 50,
+      ...theme.font.BODY_1_18_M,
     },
   ],
   MOB: [
@@ -41,6 +42,7 @@ export const contentWrapperVar = styleVariants({
       margin: '43px auto 0',
       width: 312,
       gap: 30,
+      ...theme.font.BODY_3_14_M,
     },
   ],
 });
