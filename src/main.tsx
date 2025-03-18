@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App.tsx';
 import '@constants/firebase';
+import ThemeProvider from 'contexts/ThemeProvider.tsx';
 
 async function enableMocking() {
   if (!import.meta.env.DEV) {
@@ -18,7 +19,9 @@ async function enableMocking() {
 enableMocking().then(() =>
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </React.StrictMode>,
   ),
 );
