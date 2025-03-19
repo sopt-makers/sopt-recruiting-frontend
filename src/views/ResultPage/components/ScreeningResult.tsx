@@ -7,7 +7,6 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import {
   bottomAnimation,
-  bottomImg,
   bottomSvg,
   container,
   contentVar,
@@ -17,8 +16,6 @@ import {
   strongText,
 } from './style.css';
 import IconMakersLogo from '../assets/IconMakersLogo';
-import imgSoptLogo from '../assets/imgSoptLogo.png';
-import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 // import { format } from '@utils/dateFormatter';
 import { track } from '@amplitude/analytics-browser';
@@ -50,6 +47,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
   // const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
+
   return (
     <>
       {pass ? (
@@ -60,7 +58,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             {`
               서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
 
-              ${season}기 ${group} 면접은 3/22 (토) ~ 3/23 (일) 양일 간 오프라인으로 진행될 예정입니다.
+              ${season}기 ${group} 면접은 3/22(토) ~ 3/23(일) 양일 간 \n 오프라인으로 진행될 예정입니다.\n
               모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다. 아래 구글폼을 금일 20시 (3월 20일 목요일 오후 8시)까지 제출해주세요.
             `}
           </span>
@@ -77,7 +75,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             {`
             면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를 내일 (21일 금요일) 오후 12시 전으로 이메일을 통해 전해드리겠습니다.
 
-            다시 한 번 진심으로 축하드리며, 면접에서 뵙도록 하겠습니다 :)
+            다시 한 번 진심으로 축하드리며,\n 면접에서 뵙도록 하겠습니다 :)
             `}
           </span>
         </p>
@@ -93,8 +91,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           지원자님의 뛰어난 역량과 잠재력에도 불구하고
           안타깝게도 귀하의 서류 합격 소식을 전해드리지 못하게 되었습니다.
 
-          한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나
-          저희 SOPT에 지원하셨던 경험이 IT 창업인으로서 멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다. 
+          한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나 저희 SOPT에 지원하셨던 경험이 IT 창업인으로서 멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다. 
 
           감사합니다.
           `}
@@ -133,15 +130,10 @@ const ScreeningResult = () => {
       {deviceType !== 'MOB' && pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
-          {isMakers ? (
+          {isMakers && (
             <i className={bottomSvg}>
               <IconMakersLogo />
             </i>
-          ) : (
-            <picture className={bottomImg}>
-              <source srcSet={imgSoptLogoWebp} type="image/webp" />
-              <img src={imgSoptLogo} alt="sopt-logo" />
-            </picture>
           )}
         </>
       )}
