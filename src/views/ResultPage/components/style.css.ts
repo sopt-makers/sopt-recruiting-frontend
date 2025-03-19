@@ -120,10 +120,13 @@ export const bottomAnimation = styleVariants(
 
 export const bottomImg = style({
   position: 'absolute',
-  bottom: 0,
-  right: 0,
-  width: 556,
-  // height: 556,
+  right: 'calc(24px + (166 * ((100vw - 375px) / 1065)))',
+});
+
+export const bottomImgVar = styleVariants({
+  DESK: [bottomImg, { bottom: -30 }],
+  TAB: [bottomImg, { bottom: -20 }],
+  MOB: [bottomImg, { bottom: 100 }],
 });
 
 export const bottomSvg = style({
