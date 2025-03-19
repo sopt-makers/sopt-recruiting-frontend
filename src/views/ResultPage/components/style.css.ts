@@ -15,7 +15,6 @@ const contentWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   color: theme.color.baseText,
-  ...theme.font.BODY_1_18_M,
 });
 
 export const contentWrapperVar = styleVariants({
@@ -25,6 +24,7 @@ export const contentWrapperVar = styleVariants({
       margin: '90px auto 0',
       width: 720,
       gap: 50,
+      ...theme.font.BODY_1_18_M,
     },
   ],
   TAB: [
@@ -33,6 +33,7 @@ export const contentWrapperVar = styleVariants({
       margin: '90px auto 0',
       width: 367,
       gap: 50,
+      ...theme.font.BODY_1_18_M,
     },
   ],
   MOB: [
@@ -41,6 +42,7 @@ export const contentWrapperVar = styleVariants({
       margin: '43px auto 0',
       width: 312,
       gap: 30,
+      ...theme.font.BODY_3_14_M,
     },
   ],
 });
@@ -73,7 +75,7 @@ export const contentVar = styleVariants({
 
 export const strongText = styleVariants({
   sopt: {
-    color: theme.color.primary,
+    color: '#67758B',
   },
   makers: {
     color: colors.secondary,
@@ -118,10 +120,13 @@ export const bottomAnimation = styleVariants(
 
 export const bottomImg = style({
   position: 'absolute',
-  bottom: 0,
-  right: 0,
-  width: 556,
-  // height: 556,
+  right: 'calc(24px + (166 * ((100vw - 375px) / 1065)))',
+});
+
+export const bottomImgVar = styleVariants({
+  DESK: [bottomImg, { bottom: -30 }],
+  TAB: [bottomImg, { bottom: -20 }],
+  MOB: [bottomImg, { bottom: 100 }],
 });
 
 export const bottomSvg = style({
