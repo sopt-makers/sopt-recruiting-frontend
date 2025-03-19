@@ -106,9 +106,9 @@ const FinalResult = () => {
               </i>
             )
           ) : (
-            <picture className={bottomImgVar[deviceType]}>
+            <div className={bottomImgVar[deviceType]}>
               <IconSoptRecrutingLogo deviceType={deviceType} />
-            </picture>
+            </div>
           )}
         </>
       )}
