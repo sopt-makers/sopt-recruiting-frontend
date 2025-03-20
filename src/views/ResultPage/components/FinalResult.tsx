@@ -4,14 +4,12 @@ import Title from '@components/Title';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
-
 import IconMakersLogo from '../assets/IconMakersLogo';
-import imgSoptLogo from '../assets/imgSoptLogo.png';
-import imgSoptLogoWebp from '../assets/imgSoptLogo.webp';
+
 import useGetFinalResult from '../hooks/useGetFinalResult';
 import {
   bottomAnimation,
-  bottomImg,
+  bottomImgVar,
   bottomSvg,
   container,
   contentVar,
@@ -19,6 +17,8 @@ import {
   scrollBottomGradVar,
   strongText,
 } from './style.css';
+
+import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -46,7 +46,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
               향후 활동은 ${SOPT_NAME} 공식 노션과 카카오톡 단체 대화방, 디스코드를 통해 운영 및 진행됩니다. 오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정입니다.
 
-              SOPT의 36번째 열정이 되신 것을 축하드립니다!
+              SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!
             `}
           </span>
         </p>
@@ -96,18 +96,19 @@ const FinalResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {deviceType !== 'MOB' && pass && (
+      {pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (
-            <i className={bottomSvg}>
-              <IconMakersLogo />
-            </i>
+            deviceType !== 'MOB' && (
+              <i className={bottomSvg}>
+                <IconMakersLogo />
+              </i>
+            )
           ) : (
-            <picture className={bottomImg}>
-              <source srcSet={imgSoptLogoWebp} type="image/webp" />
-              <img src={imgSoptLogo} alt="sopt-logo" />
-            </picture>
+            <div className={bottomImgVar[deviceType]}>
+              <IconSoptRecrutingLogo deviceType={deviceType} />
+            </div>
           )}
         </>
       )}
