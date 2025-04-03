@@ -6,9 +6,8 @@ addAssignees: author
 
 # A list of reviewers to be added to pull requests (GitHub user name)
 reviewers:
-  - eonseok-jeon
-  - lydiacho
-  - wuzoo
+  - rtttr1
+  - namdaeun
 
 # A number of reviewers added to the pull request
 # Set 0 to add all the reviewers (default: 0)
