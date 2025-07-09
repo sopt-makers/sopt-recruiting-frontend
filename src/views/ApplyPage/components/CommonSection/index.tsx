@@ -33,15 +33,15 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
   return (
     <section ref={refCallback} id="common" className={sectionContainerVar[deviceType]}>
       <h2 className={sectionTitleVar[deviceType]}>공통 질문</h2>
-      {questions?.questions.map(({ urls, value, id, charLimit, isFile, placeholder, optional }) => {
+      {questions?.questions.map(({ urls, question, id, charLimit, isFile, placeholder, optional, isDescription }) => {
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
 
         return (
-          <div key={value}>
-            {!charLimit && <Info value={value} />}
-            {!!charLimit && (
+          <div key={question}>
+            {isDescription && <Info value={question} />}
+            {!isDescription && !!charLimit && (
               <Textarea
                 name={`common${id}`}
                 defaultValue={defaultValue}
@@ -61,7 +61,7 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
                 }
                 required={!optional}
                 disabled={isReview}>
-                {value}
+                {question}
               </Textarea>
             )}
           </div>

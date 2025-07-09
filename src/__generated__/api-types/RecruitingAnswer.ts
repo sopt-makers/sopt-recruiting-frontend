@@ -58,7 +58,7 @@ export class RecruitingAnswer<SecurityDataType = unknown> extends HttpClient<Sec
       method: 'POST',
       body: data,
       secure: true,
-      type: ContentType.FormData,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });
@@ -79,7 +79,7 @@ export class RecruitingAnswer<SecurityDataType = unknown> extends HttpClient<Sec
       method: 'POST',
       body: data,
       secure: true,
-      type: ContentType.FormData,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });

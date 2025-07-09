@@ -30,14 +30,14 @@ const Content = ({ pass }: { pass?: boolean }) => {
       season,
       // interviewStart,
       // interviewEnd,
-      applicationPassConfirmStart,
+      applicationResultStart,
       isMakers,
     },
   } = useRecruitingInfo();
 
   if (!name) return;
 
-  const applicationDate = new Date(applicationPassConfirmStart || '');
+  const applicationDate = new Date(applicationResultStart || '');
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 

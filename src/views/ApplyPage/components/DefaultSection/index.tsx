@@ -26,6 +26,7 @@ import {
 import { getMostRecentSeasonArray } from './utils';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useDate from '@hooks/useDate';
+import { getPresignedUrl, verifyFileUpload, uploadToS3 } from '@apis/fileUpload';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -42,31 +43,46 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
     formState: { errors },
   } = useFormContext();
   const [image, setImage] = useState<string | null>('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const hasImage = image !== 'max-size' && (pic || image);
 
-  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
-
     if (!imageFile) return;
-
     const LIMIT_SIZE = 1024 ** 2 * 10; // 10MB
     if (LIMIT_SIZE < imageFile.size) {
-      setValue('picture', null);
       setError('picture', { type: 'max-size', message: VALIDATION_CHECK.IDPhoto.errorText });
       setImage('max-size');
-
       return;
     }
-
     clearErrors && clearErrors('picture');
-    const reader = new FileReader();
-    reader.readAsDataURL(imageFile);
-    reader.onloadend = () => {
-      clearErrors('picture');
-      setImage(reader.result as string);
-      setValue('picture', imageFile);
-    };
+    setIsUploading(true);
+    setUploadError(null);
+    try {
+      // 1. PresignedUrl 발급
+      const presignedUrl = await getPresignedUrl(imageFile.name);
+      // 2. S3 업로드
+      await uploadToS3(presignedUrl, imageFile);
+      // 3. PresignedUrl 업로드 검증 → s3Key 획득
+      const s3Key = await verifyFileUpload();
+      // 4. RHF에 값 저장
+      setValue('pictureKey', s3Key);
+      // 미리보기
+      const reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+    } catch (e: any) {
+      setUploadError(e.message || '알 수 없는 오류');
+      setValue('pictureKey', undefined);
+      setImage('');
+      setError('picture', { type: 'unknownError', message: VALIDATION_CHECK.fileInput.errorTextUnknownError });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -103,6 +119,8 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
           ))}
         </ul>
       </div>
+      {isUploading && <p style={{ color: '#888', fontSize: 12 }}>업로드 중...</p>}
+      {uploadError && <p className={errorTextVar[deviceType]}>{uploadError}</p>}
     </TextBox>
   );
 };
@@ -130,7 +148,8 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
     name,
     nearestStation,
     phone,
-    pic,
+    pictureUrl,
+    pictureKey,
     univYear,
     leaveAbsence,
   } = applicant || {};
@@ -138,7 +157,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
   return (
     <section ref={refCallback} id="default" className={sectionContainerVar[deviceType]}>
       <h2 className={sectionTitleVar[deviceType]}>기본 인적사항</h2>
-      <ProfileImage pic={pic} disabled={isReview} deviceType={deviceType} />
+      <ProfileImage pic={pictureUrl} disabled={isReview} deviceType={deviceType} />
       <div className={doubleWrapperVar[deviceType]}>
         <TextBox label="이름" name="name" required size="sm">
           <InputLine value={name} name="name" readOnly disabled={isReview} />

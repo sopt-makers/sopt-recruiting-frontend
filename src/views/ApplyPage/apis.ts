@@ -1,24 +1,26 @@
 import tokenInstance from '@apis/tokenInstance';
 
-import { ApplyRequest } from './types';
+import { ApplyRequest, QuestionsResponse } from './types';
+import { AxiosResponse } from 'axios';
 
-export const getQuestions = async ({ season, group }: { season?: number; group?: string }) => {
-  const res = await tokenInstance.get('/recruiting-question/list', {
+export const getQuestions = async ({
+  season,
+  group,
+}: {
+  season?: number;
+  group?: string;
+}): Promise<AxiosResponse<QuestionsResponse>> => {
+  const res = await tokenInstance.get<QuestionsResponse>('/recruiting-question/list', {
     params: {
       season,
       group,
     },
   });
-
   return res;
 };
 
 export const sendData = async (api: string, formValues: ApplyRequest) => {
-  const res = await tokenInstance.post(api, formValues, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const res = await tokenInstance.post(api, formValues);
 
   return res;
 };

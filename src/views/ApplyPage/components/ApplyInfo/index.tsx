@@ -23,11 +23,11 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
     recruitingInfo: {
       applicationStart,
       applicationEnd,
-      applicationPassConfirmStart,
+      applicationResultStart,
       interviewStart,
       interviewEnd,
-      finalPassConfirmStart,
-    },
+      finalResultStart,
+    },  
   } = useRecruitingInfo();
 
   if (!applicationStart) return;
@@ -35,12 +35,12 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationConfirmStart = format(
-    new Date(applicationPassConfirmStart || ''),
+    new Date(applicationResultStart || ''),
     'M월 dd일 (E) aaa HH시 mm분',
   );
   const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)');
   const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)');
-  const formattedFinalPassConfirmStart = format(new Date(finalPassConfirmStart || ''), 'M월 dd일 (E)');
+  const formattedResultStart = format(new Date(finalResultStart || ''), 'M월 dd일 (E)');
 
   return (
     <section className={infoContainerVar[deviceType]}>
@@ -92,7 +92,7 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
           </li>
           <li className={dateItems}>
             <span className={dateLabelVar[deviceType]}>최종 발표</span>
-            <span className={dateTextVar[deviceType]}>{formattedFinalPassConfirmStart}</span>
+            <span className={dateTextVar[deviceType]}>{formattedResultStart}</span>
           </li>
         </ol>
       )}

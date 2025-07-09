@@ -7,12 +7,10 @@ type RecruitingInfoType = {
   group?: string;
   applicationStart?: string;
   applicationEnd?: string;
-  applicationConfirmStart?: string;
-  applicationConfirmEnd?: string;
-  applicationPassConfirmStart?: string;
-  applicationPassConfirmEnd?: string;
-  finalPassConfirmStart?: string;
-  finalPassConfirmEnd?: string;
+  applicationResultStart?: string;
+  applicationResultEnd?: string;
+  finalResultStart?: string;
+  finalResultEnd?: string;
   interviewStart?: string;
   interviewEnd?: string;
   isMakers?: boolean;

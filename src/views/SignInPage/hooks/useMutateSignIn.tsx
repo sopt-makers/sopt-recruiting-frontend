@@ -9,17 +9,17 @@ import type { SignInRequest, SignInResponse } from '../types';
 import type { CustomError } from '@apis/fetcher';
 
 interface MutateSignInProps {
-  finalPassConfirmEnd?: string;
+  finalResultEnd?: string;
   onSetError: (name: string, type: string, message: string) => void;
 }
 
-const useMutateSignIn = ({ finalPassConfirmEnd, onSetError }: MutateSignInProps) => {
+const useMutateSignIn = ({ finalResultEnd, onSetError }: MutateSignInProps) => {
   const { mutate: signInMutate, isPending: signInIsPending } = useMutation<SignInResponse, CustomError, SignInRequest>({
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
     onSuccess: ({ email, token }) => {
       setUserId(email);
       localStorage.setItem('soptApplyAccessToken', token);
-      localStorage.setItem('soptApplyAccessTokenExpiredTime', finalPassConfirmEnd || '');
+      localStorage.setItem('soptApplyAccessTokenExpiredTime', finalResultEnd || '');
       window.location.reload();
     },
     onError(error) {
