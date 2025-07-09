@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:sopt": "NODE_ENV=production vite --mode sopt",
-    "dev:makers": "NODE_ENV=production vite --mode maker",
+    "dev:makers": "NODE_ENV=production vite --mode makers",
     "dev": "yarn dev:makers",
     "unsupported:makers": "tsc && vite build --mode makers --ssr src/views/UnsupportedPage/pre-render.tsx && node dist/pre-render.js",
     "unsupported:sopt": "tsc && vite build --mode sopt --ssr src/views/UnsupportedPage/pre-render.tsx && node dist/pre-render.js",
