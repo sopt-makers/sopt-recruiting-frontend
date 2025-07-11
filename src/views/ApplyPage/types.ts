@@ -31,7 +31,6 @@ export interface QuestionResponse {
   id: number;
   order: number;
   question: string;
-  answer?: string;
   urls: string[];
   charLimit?: number;
   isFile?: boolean;
