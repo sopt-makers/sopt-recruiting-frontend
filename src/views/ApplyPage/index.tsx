@@ -25,9 +25,9 @@ import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import { buttonWrapper, container, formContainerVar } from './style.css';
 
-import type { ApplyRequest, AnswerRequest } from './types';
 import useDialog from '@hooks/useDialog';
 import BigLoading from 'views/loadings/BigLoding';
+import type { ApplyRequest } from './types';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
 const PreventApplyDialog = lazy(() =>
@@ -101,12 +101,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     nearestStation,
     part,
     univYear: univYearValue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    attendance,
     email,
     name,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    personalInformation,
     phone,
   } = getValues();
 
@@ -231,8 +227,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
             };
           })
         : [];
-
-    console.log(partAnswers);
 
     const answersValue = [...commonAnswers, ...partAnswers];
 

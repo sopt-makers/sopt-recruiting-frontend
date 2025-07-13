@@ -9,6 +9,9 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { sectionTitleVar } from 'views/ApplyPage/style.css';
 
+import { getPresignedUrl, uploadToS3, verifyFileUpload } from '@apis/fileUpload';
+import useDate from '@hooks/useDate';
+import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
 import IconUser from './icons/IconUser';
@@ -24,9 +27,6 @@ import {
   sectionContainerVar,
 } from './style.css';
 import { getMostRecentSeasonArray } from './utils';
-import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
-import useDate from '@hooks/useDate';
-import { getPresignedUrl, verifyFileUpload, uploadToS3 } from '@apis/fileUpload';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -149,7 +149,6 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
     nearestStation,
     phone,
     pictureUrl,
-    pictureKey,
     univYear,
     leaveAbsence,
   } = applicant || {};

@@ -5,7 +5,6 @@ export const getPresignedUrl = async (fileName: string): Promise<string> => {
   const res = await tokenInstance.post<{ presignedUrl: string }>(
     `/recruiting-answer/presigned-url`,
     {
-      method: 'POST',
       credentials: 'include',
     },
     {
@@ -20,9 +19,7 @@ export const getPresignedUrl = async (fileName: string): Promise<string> => {
 
 // PresignedUrl 업로드 검증
 export const verifyFileUpload = async (): Promise<string> => {
-  const res = await tokenInstance.get<{ s3Key: string }>(`/recruiting-answer/presigned-url/verify`, {
-    method: 'GET',
-  });
+  const res = await tokenInstance.get<{ s3Key: string }>(`/recruiting-answer/presigned-url/verify`);
 
   return res.data.s3Key;
 };
