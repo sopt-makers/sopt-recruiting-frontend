@@ -12,7 +12,7 @@ const useMutateDraft = ({ onSuccess }: { onSuccess: () => void }) => {
     AxiosError<ErrorResponse, ApplyRequest>,
     ApplyRequest
   >({
-    mutationFn: (formData) => sendData('/recruiting-answer/store', formData),
+    mutationFn: (jsonData) => sendData('/recruiting-answer/store', jsonData),
     onSuccess,
   });
 

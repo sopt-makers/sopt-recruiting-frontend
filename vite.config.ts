@@ -32,7 +32,6 @@ export default defineConfig({
           // ) {
           //   return 'unsupported';
           // }
-          if (id.includes('firebase')) return 'firebase';
         },
       },
     },

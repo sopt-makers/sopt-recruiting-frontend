@@ -12,12 +12,12 @@ import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 const SignInForm = () => {
   const {
-    recruitingInfo: { season, group, finalPassConfirmEnd },
+    recruitingInfo: { season, group, finalResultEnd },
   } = useRecruitingInfo();
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
   const { signInMutate, signInIsPending } = useMutateSignIn({
-    finalPassConfirmEnd,
+    finalResultEnd,
     onSetError: (name, type, message) => setError(name, { type, message }),
   });
 

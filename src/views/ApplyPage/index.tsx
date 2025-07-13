@@ -25,9 +25,9 @@ import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
 import { buttonWrapper, container, formContainerVar } from './style.css';
 
-import type { ApplyRequest } from './types';
 import useDialog from '@hooks/useDialog';
 import BigLoading from 'views/loadings/BigLoding';
+import type { ApplyRequest } from './types';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
 const PreventApplyDialog = lazy(() =>
@@ -63,12 +63,15 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   const { draftData, draftIsLoading } = useGetDraft();
   const { applicant: applicantDraft } = draftData?.data || {};
   const { questionsData } = useGetQuestions(applicantDraft);
-  const { commonQuestions, partQuestions, questionTypes } = questionsData?.data || {};
+  const { commonQuestions, partQuestions } = questionsData?.data || {};
 
-  // 5. 임시저장된 part data 붙이기
+  // 5. 임시저장된 data 붙이기
   useEffect(() => {
     if (applicantDraft?.part) {
       setValue('part', applicantDraft?.part);
+    }
+    if (applicantDraft?.pictureKey) {
+      setValue('pictureKey', applicantDraft?.pictureKey);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicantDraft]);
@@ -97,16 +100,10 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     mostRecentSeason: mostRecentSeasonValue,
     nearestStation,
     part,
-    picture,
     univYear: univYearValue,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    attendance,
     email,
     name,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    personalInformation,
     phone,
-    ...rest
   } = getValues();
 
   // 8. intersection observer 연결
@@ -188,8 +185,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
 
   // 13. data 전송 로직
-  const selectedPartId = questionTypes?.find((type) => type.typeKr === getValues('part'))?.id;
-  const partQuestionsData = partQuestions?.find((part) => part.recruitingQuestionTypeId === selectedPartId);
+  const partQuestionsData = partQuestions?.find((q) => q.part === getValues('part'));
   const partQuestionIds = partQuestionsData?.questions.map((question) => question.id);
   const commonQuestionIds = commonQuestions?.questions.map((question) => question.id);
 
@@ -206,55 +202,36 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     const univYear =
       (isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
 
-    const fileValues: { file: string; fileName: string; recruitingQuestionId: number }[] = Object.values(
-      getValues(),
-    ).filter((value) => typeof value === 'object' && value !== null);
+    const commonAnswers =
+      Array.isArray(commonQuestionIds) && commonQuestionIds.length > 0
+        ? commonQuestionIds.map((id) => {
+            const fileDeleted = getValues(`file${id}Deleted`);
+            return {
+              recruitingQuestionId: id,
+              answer: getValues()[`common${id}`],
+              fileKey: fileDeleted ? null : getValues(`file${id}`)?.fileKey,
+              fileName: fileDeleted ? null : getValues(`file${id}`)?.fileName,
+            };
+          })
+        : [];
 
-    let answersValue: { recruitingQuestionId: number; answer: string; file?: string; fileName?: string }[] = [];
+    const partAnswers =
+      Array.isArray(partQuestionIds) && partQuestionIds.length > 0
+        ? partQuestionIds.map((id) => {
+            const fileDeleted = getValues(`file${id}Deleted`);
+            return {
+              recruitingQuestionId: id,
+              answer: getValues()[`part${id}`],
+              fileKey: fileDeleted ? null : getValues(`file${id}`)?.fileKey,
+              fileName: fileDeleted ? null : getValues(`file${id}`)?.fileName,
+            };
+          })
+        : [];
 
-    if (type === 'submit') {
-      const commonAnswers =
-        commonQuestionIds?.map((id) => {
-          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
-          return {
-            recruitingQuestionId: id,
-            answer: getValues()[`common${id}`],
-            file: fileObject ? fileObject.file : undefined,
-            fileName: fileObject ? fileObject.fileName : undefined,
-          };
-        }) ?? [];
+    const answersValue = [...commonAnswers, ...partAnswers];
 
-      const partAnswers =
-        partQuestionIds?.map((id) => {
-          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === id);
-          return {
-            recruitingQuestionId: id,
-            answer: getValues()[`part${id}`],
-            file: fileObject ? fileObject.file : undefined,
-            fileName: fileObject ? fileObject.fileName : undefined,
-          };
-        }) ?? [];
-
-      answersValue = [...commonAnswers, ...partAnswers];
-    } else {
-      answersValue = [...Object.entries(rest)]
-        .filter(([question]) => !question.startsWith('file'))
-        .map(([question, answer]: [question: string, answer: string]) => {
-          const recruitingQuestionId = Number(question.replace(/[^0-9]/g, ''));
-          const fileObject = fileValues?.find((obj) => obj.recruitingQuestionId === recruitingQuestionId);
-          return {
-            recruitingQuestionId,
-            answer,
-            file: fileObject ? fileObject.file : undefined,
-            fileName: fileObject ? fileObject.fileName : undefined,
-          };
-        });
-    }
-
-    const answers = JSON.stringify(answersValue);
-    const formValues: ApplyRequest = {
-      picture,
-      pictureUrl: errors.picture ? undefined : applicantDraft?.pic,
+    const jsonValues: ApplyRequest = {
+      pictureKey: getValues('pictureKey'),
       part,
       address,
       birthday,
@@ -266,11 +243,17 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
       mostRecentSeason,
       univYear,
       nearestStation,
-      answers,
+      answers: answersValue,
       willAppjam: false,
+      // 최종 제출 시 필요한 필드들
+      name: getValues('name'),
+      email: getValues('email'),
+      phone: getValues('phone'),
+      group: getValues('group'),
+      season: getValues('season'),
     };
 
-    type === 'draft' ? draftMutate(formValues) : submitMutate(formValues);
+    type === 'draft' ? draftMutate(jsonValues) : submitMutate(jsonValues);
   };
 
   const handleApplySubmit = () => {
