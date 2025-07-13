@@ -26,9 +26,9 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
   const { part } = applicant || {};
 
   const { questionsData } = useGetQuestions(applicant);
-  const { partQuestions: questions, questionTypes } = questionsData?.data || {};
+  const { partQuestions: questions } = questionsData?.data || {};
 
-  const partOptions = questionTypes?.sort((a, b) => a.id - b.id).map(({ typeKr }) => typeKr);
+  const partOptions = questions ? questions.map((q) => q.part) : [];
   const selectedPart: string = getValues('part');
   const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
   const partQuestionsById = partQuestions?.reduce(
@@ -52,15 +52,15 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
         required
         disabled={isReview}
       />
-      {filteredQuestions?.map(({ value, charLimit, id, urls, isFile, placeholder, optional }) => {
+      {filteredQuestions?.map(({ question, charLimit, id, urls, isFile, placeholder, optional, isDescription }) => {
         const draftItem = partQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
 
         return (
-          <div key={value}>
-            {!charLimit && <Info value={value} />}
-            {!!charLimit && (
+          <div key={question}>
+            {isDescription && <Info value={question} />}
+            {!isDescription && !!charLimit && (
               <Textarea
                 name={`part${id}`}
                 defaultValue={defaultValue}
@@ -80,7 +80,7 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
                 }
                 required={!optional}
                 disabled={isReview}>
-                {value}
+                {question}
               </Textarea>
             )}
           </div>

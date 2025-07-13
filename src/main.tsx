@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App.tsx';
-import '@constants/firebase';
 import ThemeProvider from 'contexts/ThemeProvider.tsx';
 
 async function enableMocking() {
