@@ -19,6 +19,7 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import useGetScreeningResult from '../hooks/useGetScreeningResult';
 // import { format } from '@utils/dateFormatter';
 import { track } from '@amplitude/analytics-browser';
+import { format } from '@utils/dateFormatter';
 
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -28,8 +29,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
       group,
       soptName,
       season,
-      // interviewStart,
-      // interviewEnd,
+      interviewStart,
+      interviewEnd,
       applicationResultStart,
       isMakers,
     },
@@ -41,12 +42,13 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  // const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
-  // const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 E');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 E');
   // const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 E');
   // const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
   const SOPT_NAME = isMakers ? `SOPT ${soptName}` : soptName;
+  const GROUP_NAME = isMakers ? 'Makers' : group;
 
   return (
     <>
@@ -58,7 +60,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             {`
               서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.
 
-              ${season}기 ${group} 면접은 3/22(토) ~ 3/23(일) 양일 간 \n 오프라인으로 진행될 예정입니다.\n
+              ${season}기 ${GROUP_NAME} 면접은 ${formattedInterviewStart} ~ ${formattedInterviewEnd} 양일 간 \n 오프라인으로 진행될 예정입니다.\n
               모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다. 아래 구글폼을 금일 22시 (3월 20일 목요일 오후 10시)까지 제출해주세요.
             `}
           </span>
