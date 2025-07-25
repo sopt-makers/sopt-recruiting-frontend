@@ -73,8 +73,33 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     if (applicantDraft?.pictureKey) {
       setValue('pictureKey', applicantDraft?.pictureKey);
     }
+
+    // 공통질문 파일 세팅
+    if (draftData?.data?.commonQuestions) {
+      draftData.data.commonQuestions.forEach((q) => {
+        if (q.answer.file || q.answer.fileName) {
+          setValue(`file${q.id}`, {
+            recruitingQuestionId: q.id,
+            fileKey: q.answer.file, // fileKey로 사용
+            fileName: q.answer.fileName,
+          });
+        }
+      });
+    }
+    // 파트질문 파일 세팅
+    if (draftData?.data?.partQuestions) {
+      draftData.data.partQuestions.forEach((q) => {
+        if (q.answer.file || q.answer.fileName) {
+          setValue(`file${q.id}`, {
+            recruitingQuestionId: q.id,
+            fileKey: q.answer.file, // fileKey로 사용
+            fileName: q.answer.fileName,
+          });
+        }
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft]);
+  }, [applicantDraft, draftData]);
 
   // 6. 데이터 보내기
   const { draftMutate, draftIsPending } = useMutateDraft({ onSuccess: handleShowDraftDialog });
