@@ -159,7 +159,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
     if (defaultFileId && defaultFileUrl && defaultFileName) {
       setValue(`file${defaultFileId}`, {
-        file: defaultFileUrl,
+        fileKey: defaultFileUrl,
         fileName: defaultFileName,
         recruitingQuestionId: defaultFileId,
       });
