@@ -12,7 +12,7 @@ const useMutateSubmit = ({ onSuccess }: { onSuccess?: () => void }) => {
     AxiosError<ErrorResponse, ApplyRequest>,
     ApplyRequest
   >({
-    mutationFn: (formData) => sendData('/recruiting-answer', formData),
+    mutationFn: (jsonData) => sendData('/recruiting-answer', jsonData),
     onSuccess,
   });
 

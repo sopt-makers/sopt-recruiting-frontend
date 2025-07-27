@@ -1,13 +1,12 @@
 import { track } from '@amplitude/analytics-browser';
-import { nanoid } from 'nanoid';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import 'firebase/compat/storage';
-import { STATE_CHANGED, storage } from '@constants/firebase.ts';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
+import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
+import { getPresignedUrl, uploadToS3, verifyFileUpload } from '@apis/fileUpload';
 import IconPlusButton from './icons/IconPlusButton';
 import {
   containerVar,
@@ -19,7 +18,6 @@ import {
   fileNameVar,
   textWrapperVar,
 } from './style.css';
-import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 interface FileInputProps {
   section: string;
@@ -35,11 +33,12 @@ const ACCEPTED_FORMATS = '.pdf';
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
   const { deviceType } = useDeviceType();
   const inputRef = useRef<HTMLInputElement>(null);
-
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [fileName, setFileName] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const isFileUploading = uploadPercent < 100 && uploadPercent >= 0;
+  const isFileUploading = isUploading;
   const isFileSending = uploadPercent === 100;
   const disabledStatus = disabled || isReview || isFileUploading || isFileSending;
 
@@ -55,44 +54,41 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   const fileAnswer = getValues(`${section}${id}`);
   const isFileDeleted = getValues(`file${id}Deleted`);
   const fileValue = getValues(`file${id}`);
-
   const { id: defaultFileId, file: defaultFileUrl, fileName: defaultFileName } = defaultFile || {};
 
-  const handleFileUpload = (file: File, id: number) => {
-    const storageRef = storage.ref();
-    const uploadTask = storageRef.child(`recruiting/applicants/question/${file.name}${nanoid(7)}`).put(file);
-
-    uploadTask.on(
-      STATE_CHANGED,
-      (snapshot) => {
-        const progress = Math.trunc((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        setUploadPercent(progress);
-      },
-      (error) => {
-        console.error(error);
-        uploadTask.cancel(); // 업로드 취소
-        setUploadPercent(-1); // 진행 상태 초기화
-        setFileName(''); // 파일 이름 초기화
-        handleDeleteFileValue(); // 파일 값 제거
-        setError(`file${id}`, { type: 'unknownError', message: VALIDATION_CHECK.fileInput.errorTextUnknownError });
-      },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-          const urlWithoutToken = url.split('&token=')[0];
-
-          setFileName(file.name);
-          setValue(`file${id}`, {
-            recruitingQuestionId: id,
-            file: urlWithoutToken,
-            fileName: file.name,
-          });
-          fileAnswer === '' && setValue(`${section}${id}`, '파일 제출');
-          setValue(`file${id}Deleted`, false);
-          setUploadPercent(-1);
-          track(`done-apply-add_file${id}`);
-        });
-      },
-    );
+  const handleFileUpload = async (file: File, id: number) => {
+    setIsUploading(true);
+    setUploadPercent(0);
+    setUploadError(null);
+    try {
+      // 1. PresignedUrl 발급
+      const presignedUrl = await getPresignedUrl(file.name);
+      setUploadPercent(10);
+      // 2. S3 업로드
+      await uploadToS3(presignedUrl, file);
+      setUploadPercent(80);
+      // 3. PresignedUrl 업로드 검증 → s3Key 획득
+      const s3Key = await verifyFileUpload();
+      setUploadPercent(100);
+      // 4. RHF에 값 저장
+      setFileName(file.name);
+      setValue(`file${id}`, {
+        recruitingQuestionId: id,
+        fileKey: s3Key,
+        fileName: file.name,
+      });
+      if (fileAnswer === '') setValue(`${section}${id}`, '파일 제출');
+      setValue(`file${id}Deleted`, false);
+      setTimeout(() => setUploadPercent(-1), 500); // UX: 잠깐 100% 표시 후 초기화
+    } catch (e: any) {
+      setUploadError(e.message || '알 수 없는 오류');
+      setUploadPercent(-1);
+      setFileName('');
+      handleDeleteFileValue();
+      setError(`file${id}`, { type: 'unknownError', message: VALIDATION_CHECK.fileInput.errorTextUnknownError });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleDeleteFileValue = () => {
@@ -103,14 +99,12 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     const file = e.target.files?.[0];
-
     if (file) {
       if (LIMIT_SIZE < file.size) {
         setError(`file${id}`, { type: 'maxLength', message: VALIDATION_CHECK.fileInput.errorText });
         setUploadPercent(-1);
         setFileName('delete-file');
         handleDeleteFileValue();
-
         if (inputRef.current) {
           inputRef.current.value = '';
         }
@@ -184,7 +178,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       </AmplitudeEventTrack>
       <label
         htmlFor={`file-${id}`}
-        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar[deviceType]}`}>
+        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar[deviceType]}`}
+      >
         <div className={textWrapperVar[deviceType]}>
           <span>참고 자료</span>
           <span className={`${fileNameVar[getFileNameClass()]} ${fileNameSizeVar[deviceType]}`}>
@@ -197,6 +192,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           disabled={disabledStatus}
         />
       </label>
+      {isUploading && <p style={{ color: '#888', fontSize: 12 }}>업로드 중...</p>}
+      {uploadError && <p className={errorTextVar[deviceType]}>{uploadError}</p>}
       {errors[`file${id}`] && <p className={errorTextVar[deviceType]}>{errors[`file${id}`]?.message as string}</p>}
     </div>
   );
