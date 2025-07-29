@@ -23,7 +23,7 @@ export const MENU_ITEMS: menuItemsTypes[] = [
 export const MENU_ITEMS_MAKERS: menuItemsTypes[] = [
   {
     text: '모집공고',
-    path: 'https://makers.sopt.org/recruit',
+    path: 'https://sopt-makers.notion.site/37-22976042aac28009811df7026480fa54',
     amplitudeId: 'click-gnb-recruitment_notice_makers',
     target: '_blank',
   },
