@@ -257,7 +257,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
     const jsonValues: ApplyRequest = {
       pictureKey: getValues('pictureKey'),
-      part,
+      part: part === 'IOS' ? 'iOS' : part,
       address,
       birthday,
       college,
