@@ -15,7 +15,7 @@ import {
   infoWrapperVar,
 } from './style.css';
 import { APPLY_INFO } from '../../constant';
-import { format, subMinutes } from '@utils/dateFormatter';
+import { format } from '@utils/dateFormatter';
 
 const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   const { deviceType } = useDeviceType();
@@ -27,17 +27,14 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
       interviewStart,
       interviewEnd,
       finalResultStart,
-    },  
+    },
   } = useRecruitingInfo();
 
   if (!applicationStart) return;
 
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
-  const formattedApplicationEnd = format(subMinutes(new Date(applicationEnd || ''), 1), 'M월 dd일 (E) aaa HH시 mm분');
-  const formattedApplicationConfirmStart = format(
-    new Date(applicationResultStart || ''),
-    'M월 dd일 (E) aaa HH시 mm분',
-  );
+  const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시 mm분');
+  const formattedApplicationConfirmStart = format(new Date(applicationResultStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)');
   const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)');
   const formattedResultStart = format(new Date(finalResultStart || ''), 'M월 dd일 (E)');
