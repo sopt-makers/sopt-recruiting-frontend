@@ -31,13 +31,13 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   } = useRecruitingInfo();
 
   if (!applicationStart) return;
-
+  console.log(applicationResultStart);
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationConfirmStart = format(new Date(applicationResultStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)');
   const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)');
-  const formattedResultStart = format(new Date(finalResultStart || ''), 'M월 dd일 (E)');
+  const formattedResultStart = format(new Date(finalResultStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
 
   return (
     <section className={infoContainerVar[deviceType]}>
