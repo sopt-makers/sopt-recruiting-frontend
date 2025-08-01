@@ -68,7 +68,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   // 5. 임시저장된 data 붙이기
   useEffect(() => {
     if (applicantDraft?.part) {
-      setValue('part', applicantDraft?.part === 'IOS' ? 'iOS' : applicantDraft?.part);
+      setValue('part', applicantDraft?.part);
     }
     if (applicantDraft?.pictureKey) {
       setValue('pictureKey', applicantDraft?.pictureKey);
@@ -257,7 +257,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
     const jsonValues: ApplyRequest = {
       pictureKey: getValues('pictureKey'),
-      part: part === 'IOS' ? 'iOS' : part,
+      part,
       address,
       birthday,
       college,
