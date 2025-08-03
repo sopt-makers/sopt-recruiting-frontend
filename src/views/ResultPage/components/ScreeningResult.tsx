@@ -31,9 +31,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
       interviewStart,
       interviewEnd,
       applicationResultStart,
-      isMakers,
     },
   } = useRecruitingInfo();
+
+  const isMakers = import.meta.env.MODE === 'makers';
 
   if (!name) return;
 
@@ -41,8 +42,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 E');
-  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 E');
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
   // const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 E');
   // const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
@@ -129,7 +130,7 @@ const ScreeningResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {deviceType !== 'MOB' && pass && (
+      {deviceType !== 'MOB' && isMakers && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers && (

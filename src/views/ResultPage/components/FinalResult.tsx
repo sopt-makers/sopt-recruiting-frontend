@@ -26,9 +26,10 @@ const DESKTOP_HEADER_HEIGHT = 79;
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
   const {
-    recruitingInfo: { name, soptName, season, group, isMakers },
+    recruitingInfo: { name, soptName, season, group },
   } = useRecruitingInfo();
 
+  const isMakers = import.meta.env.MODE === 'makers';
   if (!name) return;
 
   // const finalDate = new Date(finalPassConfirmStart || '');
@@ -88,10 +89,10 @@ const FinalResult = () => {
   const { deviceType } = useDeviceType();
   const { finalResult, finalResultIsLoading } = useGetFinalResult();
   const {
-    recruitingInfo: { isMakers },
     handleSaveRecruitingInfo,
   } = useRecruitingInfo();
 
+  const isMakers = import.meta.env.MODE === 'makers';
   const { name, pass } = finalResult?.data || {}; 
 
   useEffect(() => {
@@ -110,7 +111,6 @@ const FinalResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {pass && (
         <>
           <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
           {isMakers ? (
@@ -125,7 +125,6 @@ const FinalResult = () => {
             </div>
           )}
         </>
-      )}
       <div className={scrollBottomGradVar[deviceType]} />
     </section>
   );
