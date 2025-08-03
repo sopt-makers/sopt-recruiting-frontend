@@ -47,7 +47,14 @@ const SignupForm = () => {
       return;
     }
 
-    if (!season || !group) return;
+    const isMakers = import.meta.env.MODE === 'makers';
+
+    let updatedGroup = group;
+    if (isMakers) {
+      updatedGroup = 'OB';
+    }
+
+    if (!season || !updatedGroup) return;
 
     signUpMutate({
       email,
@@ -56,7 +63,7 @@ const SignupForm = () => {
       name,
       phone,
       season,
-      group,
+      group: updatedGroup,
     });
   };
 

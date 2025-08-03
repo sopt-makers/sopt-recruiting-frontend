@@ -117,11 +117,18 @@ export const TextBox이메일 = ({
     }
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
-      if (!season || !group) return;
+      const isMakers = import.meta.env.MODE === 'makers';
+
+      let updatedGroup = group;
+      if (isMakers) {
+        updatedGroup = 'OB';
+      }
+
+      if (!season || !updatedGroup) return;
       track('click-signup-email');
       setValue('code', '');
       clearErrors('email');
-      sendVerificationCodeMutate({ email, season, group, isSignup: true });
+      sendVerificationCodeMutate({ email, season, group: updatedGroup, isSignup: true });
     }
   };
 

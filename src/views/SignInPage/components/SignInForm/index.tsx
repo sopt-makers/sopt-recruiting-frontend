@@ -22,13 +22,20 @@ const SignInForm = () => {
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
-    if (!season || !group) return;
+    const isMakers = import.meta.env.MODE === 'makers';
+
+    let updatedGroup = group;
+    if (isMakers) {
+      updatedGroup = 'OB';
+    }
+
+    if (!season || !updatedGroup) return;
 
     signInMutate({
       email,
       password,
       season,
-      group,
+      group: updatedGroup,
     });
   };
 
