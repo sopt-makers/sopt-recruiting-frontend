@@ -93,13 +93,14 @@ const FinalResult = () => {
   } = useRecruitingInfo();
 
   const isMakers = import.meta.env.MODE === 'makers';
-  const { name, pass } = finalResult?.data || {}; 
+  const { name, pass, season } = finalResult?.data || {}; 
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
+      season,
     });
-  }, [name, handleSaveRecruitingInfo]);
+  }, [name, season, handleSaveRecruitingInfo]);
 
   if (finalResultIsLoading) return <BigLoading />;
 

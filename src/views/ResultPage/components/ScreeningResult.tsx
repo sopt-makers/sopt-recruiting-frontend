@@ -110,15 +110,16 @@ const ScreeningResult = () => {
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
   const isMakers = import.meta.env.MODE === 'makers';
 
-  const { name, interviewStart, interviewEnd, pass } = screeningResult?.data || {};
+  const { name, interviewStart, interviewEnd, pass, season } = screeningResult?.data || {};
 
   useEffect(() => {
     handleSaveRecruitingInfo({
       name,
       interviewStart,
       interviewEnd,
+      season,
     });
-  }, [name, interviewStart, interviewEnd, handleSaveRecruitingInfo]);
+  }, [name, interviewStart, interviewEnd, season, handleSaveRecruitingInfo]);
 
   if (screeningResultIsLoading) return <BigLoading />;
 
