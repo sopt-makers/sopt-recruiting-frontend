@@ -50,7 +50,10 @@ const SignupForm = () => {
 
     const updatedGroup = IS_MAKERS ? 'OB' : group;
 
-    if (!season || !updatedGroup) return;
+    if (!season || !updatedGroup) {
+      console.warn('로그인 실패: 필수값 누락', { season, updatedGroup, group });
+      return;
+    };
 
     signUpMutate({
       email,
