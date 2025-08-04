@@ -13,7 +13,6 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { successVar } from './style.css';
 import InputLine from '../InputLine';
-import { IS_MAKERS } from '@constants/mode';
 
 export const TextBox이름 = () => {
   return (
@@ -118,13 +117,12 @@ export const TextBox이메일 = ({
     }
 
     if (location.pathname === '/sign-up' && !errors.email && isDone) {
-      const updatedGroup = IS_MAKERS ? 'OB' : group;
 
-      if (!season || !updatedGroup) return;
+      if (!season || !group) return;
       track('click-signup-email');
       setValue('code', '');
       clearErrors('email');
-      sendVerificationCodeMutate({ email, season, group: updatedGroup, isSignup: true });
+      sendVerificationCodeMutate({ email, season, group, isSignup: true });
     }
   };
 
