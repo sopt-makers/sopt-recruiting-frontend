@@ -7,15 +7,16 @@ import BigLoading from 'views/loadings/BigLoding';
 
 import SignupForm from './components/SignupForm';
 import { containerVar } from './style.css';
+import { IS_MAKERS } from '@constants/mode';
 
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const SignupPage = () => {
   const { deviceType } = useDeviceType();
-  const { NoMoreRecruit, NoMoreApply, isLoading, isMakers } = useDate();
+  const { NoMoreRecruit, NoMoreApply, isLoading } = useDate();
 
   if (isLoading) return <BigLoading />;
-  if (NoMoreRecruit || NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
+  if (NoMoreRecruit || NoMoreApply) return <NoMore isMakers={IS_MAKERS} content="모집 기간이 아니에요" />;
 
   return (
     <div className={containerVar[deviceType]}>

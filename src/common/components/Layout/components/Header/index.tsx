@@ -10,6 +10,7 @@ import Nav from './Nav';
 import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 import SoptLogo from '@assets/SoptLogo';
+import { IS_MAKERS } from '@constants/mode';
 
 const Header = () => {
   const { deviceType } = useDeviceType();
@@ -21,7 +22,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isLight } = useTheme();
-  const isMakers = import.meta.env.MODE === 'makers';
 
   const handleClickLogo = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
@@ -36,11 +36,11 @@ const Header = () => {
   const logoVariant = logoVar[deviceType];
   return (
     <>
-      {isMakers != undefined && (
+      {IS_MAKERS != undefined && (
         <>
           <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[deviceType]}`}>
             <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
-              {isMakers ? (
+              {IS_MAKERS ? (
                 !isMenuOpen && isLight ? (
                   <MakersLogo className={logoVariant} />
                 ) : (
