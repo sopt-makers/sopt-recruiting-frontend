@@ -14,6 +14,7 @@ import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
 import useDialog from '@hooks/useDialog';
+import { IS_MAKERS } from '@constants/mode';
 
 const ExistingApplicantDialog = lazy(() =>
   import('views/dialogs').then(({ ExistingApplicantDialog }) => ({ default: ExistingApplicantDialog })),
@@ -47,7 +48,12 @@ const SignupForm = () => {
       return;
     }
 
-    if (!season || !group) return;
+    const updatedGroup = IS_MAKERS ? 'OB' : group;
+
+    if (!season || !updatedGroup) {
+      console.warn('로그인 실패: 필수값 누락', { season, updatedGroup, group });
+      return;
+    };
 
     signUpMutate({
       email,
@@ -56,7 +62,7 @@ const SignupForm = () => {
       name,
       phone,
       season,
-      group,
+      group: updatedGroup,
     });
   };
 

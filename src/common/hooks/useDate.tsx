@@ -38,8 +38,6 @@ const useDate = () => {
   const NoMoreReview = afterInterview; // 면접 마감 -> 지원서 확인 불가
   const NoMoreFinalResult = beforeFinalResult || afterRecruiting; // 최종 합불 확인 기간 아님
 
-  const isMakers = import.meta.env.MODE.includes('makers');
-
   useEffect(() => {
     handleSaveRecruitingInfo({
       soptName: name,
@@ -53,7 +51,6 @@ const useDate = () => {
       finalResultEnd, // 최종 합격 확인 종료
       interviewStart, // 면접 시작
       interviewEnd, // 면접 끝
-      isMakers,
     });
   }, [
     name,
@@ -67,7 +64,6 @@ const useDate = () => {
     finalResultEnd,
     interviewStart,
     interviewEnd,
-    isMakers,
     handleSaveRecruitingInfo,
   ]);
 
@@ -79,7 +75,6 @@ const useDate = () => {
     NoMoreReview,
     NoMoreFinalResult,
     isLoading,
-    isMakers,
   };
 };
 

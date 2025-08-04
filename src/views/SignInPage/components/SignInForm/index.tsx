@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '@components/Button';
 import { Description, InputLine, TextBox } from '@components/Input';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import { IS_MAKERS } from '@constants/mode';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
@@ -22,13 +23,15 @@ const SignInForm = () => {
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
-    if (!season || !group) return;
+    const updatedGroup = IS_MAKERS ? 'OB' : group;
+
+    if (!season || !updatedGroup) return;
 
     signInMutate({
       email,
       password,
       season,
-      group,
+      group: updatedGroup,
     });
   };
 

@@ -13,7 +13,6 @@ type RecruitingInfoType = {
   finalResultEnd?: string;
   interviewStart?: string;
   interviewEnd?: string;
-  isMakers?: boolean;
 };
 
 interface RecruitingInfoContextType {

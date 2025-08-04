@@ -6,11 +6,12 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import Survey from './components/Survey';
 import IconCheckmark from './icons/IconCheckmark';
 import { container, iconVar, mainTextVar, subTextVar } from './style.css';
+import { IS_MAKERS } from '@constants/mode';
 
 const CompletePage = () => {
   const { deviceType } = useDeviceType();
   const {
-    recruitingInfo: { name, season, group, soptName, isMakers },
+    recruitingInfo: { name, season, group, soptName },
   } = useRecruitingInfo();
 
   const handleClickMyPage = () => {
@@ -25,7 +26,7 @@ const CompletePage = () => {
       <p
         className={
           mainTextVar[deviceType]
-        }>{`${name}님의\n${season}기 ${isMakers ? soptName : group} 지원서가 접수되었습니다.`}</p>
+        }>{`${name}님의\n${season}기 ${IS_MAKERS ? soptName : group} 지원서가 접수되었습니다.`}</p>
       <p className={subTextVar[deviceType]}>이메일로 지원 접수 완료 알림이 발송되었습니다.</p>
       <Callout
         style={{

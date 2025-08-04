@@ -7,6 +7,7 @@ import useGetMyInfo from 'views/SignedInPage/hooks/useGetMyInfo';
 
 import FinalResult from './components/FinalResult';
 import ScreeningResult from './components/ScreeningResult';
+import { IS_MAKERS } from '@constants/mode';
 
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
@@ -15,7 +16,7 @@ const ResultPage = () => {
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
   const { submit, applicationPass } = myInfoData?.data || {};
 
-  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading, isMakers } = useDate();
+  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
 
   useEffect(() => {
     handleChangeMode('dark');
@@ -27,13 +28,13 @@ const ResultPage = () => {
 
   if (isLoading || myInfoIsLoading) return <BigLoading />;
   if (!submit || NoMoreRecruit || (NoMoreScreeningResult && NoMoreFinalResult))
-    return <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />;
+    return <NoMore isMakers={IS_MAKERS} content="합불 확인 기간이 아니에요" />;
 
   return (
     <>
       {!NoMoreScreeningResult && <ScreeningResult />}
       {!NoMoreFinalResult &&
-        (applicationPass ? <FinalResult /> : <NoMore isMakers={isMakers} content="합불 확인 기간이 아니에요" />)}
+        (applicationPass ? <FinalResult /> : <NoMore isMakers={IS_MAKERS} content="합불 확인 기간이 아니에요" />)}
     </>
   );
 };
