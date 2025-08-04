@@ -19,6 +19,7 @@ import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo
 import { useEffect } from 'react';
 import useGetFinalResult from 'views/ResultPage/hooks/useGetFinalResult';
 import BigLoading from 'views/loadings/BigLoding';
+import { IS_MAKERS } from '@constants/mode';
 
 const MOBILE_HEADER_HEIGHT = 73;
 const DESKTOP_HEADER_HEIGHT = 79;
@@ -29,13 +30,12 @@ const Content = ({ pass }: { pass?: boolean }) => {
     recruitingInfo: { name, soptName, season, group },
   } = useRecruitingInfo();
 
-  const isMakers = import.meta.env.MODE === 'makers';
   if (!name) return;
 
   // const finalDate = new Date(finalPassConfirmStart || '');
   // const formattedFinalPassConfirmStart = format(finalDate, 'dd일');
 
-  const SOPT_NAME = isMakers ? `SOPT makers` : `${season}기 ${soptName}`;
+  const SOPT_NAME = IS_MAKERS ? `SOPT makers` : `${season}기 ${soptName}`;
   return (
     <>
       {pass ? (
@@ -48,8 +48,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
             </span>
           <span className="amp-mask">
-            {`${name}님은 ${season}기 ${SOPT_NAME} ${!isMakers ? group : ''}회원 모집에 `}</span>
-              <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`최종 합격`}</strong>
+            {`${name}님은 ${season}기 ${SOPT_NAME} ${!IS_MAKERS ? group : ''}회원 모집에 `}</span>
+              <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`최종 합격`}</strong>
             {`하셨습니다.\n\n`}
       
             <span className="amp-mask">
@@ -92,7 +92,6 @@ const FinalResult = () => {
     handleSaveRecruitingInfo,
   } = useRecruitingInfo();
 
-  const isMakers = import.meta.env.MODE === 'makers';
   const { name, pass, season } = finalResult?.data || {}; 
 
   useEffect(() => {
@@ -113,8 +112,8 @@ const FinalResult = () => {
         </div>
       </div>
         <>
-          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
-          {isMakers ? (
+          <div className={bottomAnimation[IS_MAKERS ? 'makers' : 'sopt']} />
+          {IS_MAKERS ? (
             deviceType !== 'MOB' && (
               <i className={bottomSvg}>
                 <IconMakersLogo />

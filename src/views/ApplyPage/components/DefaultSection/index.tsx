@@ -10,7 +10,6 @@ import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 import { sectionTitleVar } from 'views/ApplyPage/style.css';
 
 import { getPresignedUrl, uploadToS3, verifyFileUpload } from '@apis/fileUpload';
-import useDate from '@hooks/useDate';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
@@ -27,6 +26,7 @@ import {
   sectionContainerVar,
 } from './style.css';
 import { getMostRecentSeasonArray } from './utils';
+import { IS_MAKERS } from '@constants/mode';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -132,7 +132,6 @@ interface DefaultSectionProps {
 
 const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) => {
   const { deviceType } = useDeviceType();
-  const { isMakers } = useDate();
   const { draftData } = useGetDraft();
 
   const { applicant } = draftData?.data || {};
@@ -224,11 +223,11 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
                 ? undefined
                 : !leaveAbsence
                   ? SELECT_OPTIONS.leaveAbsence[0]
-                  : isMakers
+                  : IS_MAKERS
                     ? SELECT_OPTIONS.leaveAbsenceMakers[1]
                     : SELECT_OPTIONS.leaveAbsence[1]
             }
-            label={isMakers ? SELECT_OPTIONS.leaveAbsenceMakers : SELECT_OPTIONS.leaveAbsence}
+            label={IS_MAKERS ? SELECT_OPTIONS.leaveAbsenceMakers : SELECT_OPTIONS.leaveAbsence}
             name="leaveAbsence"
             required
             disabled={isReview}
@@ -253,14 +252,14 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
               ? undefined
               : univYear !== 5
                 ? `${univYear}학년`
-                : isMakers
+                : IS_MAKERS
                   ? SELECT_OPTIONS.univYearMakers.slice(-1)[0]
                   : SELECT_OPTIONS.univYear.slice(-1)[0]
           }
           label="학년"
           name="univYear"
           placeholder="학년을 선택해주세요."
-          options={isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear}
+          options={IS_MAKERS ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear}
           required
           disabled={isReview}
         />
@@ -270,7 +269,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={getMostRecentSeasonArray(season || 0, isMakers || false)}
+        options={getMostRecentSeasonArray(season || 0, IS_MAKERS || false)}
         required
         size="lg"
         disabled={isReview}

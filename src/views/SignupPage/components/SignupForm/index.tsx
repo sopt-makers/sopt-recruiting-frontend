@@ -14,6 +14,7 @@ import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
 import { formWrapper } from './style.css';
 import useDialog from '@hooks/useDialog';
+import { IS_MAKERS } from '@constants/mode';
 
 const ExistingApplicantDialog = lazy(() =>
   import('views/dialogs').then(({ ExistingApplicantDialog }) => ({ default: ExistingApplicantDialog })),
@@ -47,12 +48,7 @@ const SignupForm = () => {
       return;
     }
 
-    const isMakers = import.meta.env.MODE === 'makers';
-
-    let updatedGroup = group;
-    if (isMakers) {
-      updatedGroup = 'OB';
-    }
+    const updatedGroup = IS_MAKERS ? 'OB' : group;
 
     if (!season || !updatedGroup) return;
 

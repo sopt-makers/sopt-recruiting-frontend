@@ -21,16 +21,16 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { containerSizeVer, containerVar, logoVar } from '@components/Layout/components/Header/style.css';
 import { container, mainWrapper } from '@components/Layout/style.css';
 import SoptLogo from '@assets/SoptLogo';
+import { IS_MAKERS } from '@constants/mode';
 
 const UnsupportedPage = () => {
   const { deviceType } = useDeviceType();
-  const isMakers = import.meta.env.MODE === 'makers';
   const logoVariant = logoVar[deviceType];
 
   return (
     <div className={container}>
       <header className={`${containerVar['default']} ${containerSizeVer[deviceType]}`}>
-        {isMakers ? <MakersLogo className={logoVariant} /> : <SoptLogo className={logoVariant} />}
+        {IS_MAKERS ? <MakersLogo className={logoVariant} /> : <SoptLogo className={logoVariant} />}
       </header>
       <main className={mainWrapper}>
         <section className={wrapper}>
@@ -89,7 +89,7 @@ const UnsupportedPage = () => {
           </p>
           <a
             id="chat-channel-button"
-            href={isMakers ? 'https://pf.kakao.com/_sxaIWG' : 'https://pf.kakao.com/_JdTKd'}
+            href={IS_MAKERS ? 'https://pf.kakao.com/_sxaIWG' : 'https://pf.kakao.com/_JdTKd'}
             target="_blank"
             rel="noreferrer noopener"
             className={contactButtonVar[deviceType]}>

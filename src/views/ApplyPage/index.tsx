@@ -28,6 +28,7 @@ import { buttonWrapper, container, formContainerVar } from './style.css';
 import useDialog from '@hooks/useDialog';
 import BigLoading from 'views/loadings/BigLoding';
 import type { ApplyRequest } from './types';
+import { IS_MAKERS } from '@constants/mode';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
 const PreventApplyDialog = lazy(() =>
@@ -206,8 +207,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   useBeforeExitPageAlert();
 
   // 11. 지원 기간 아니면 에러 페이지 띄우기
-  const { NoMoreApply, isMakers } = useDate();
-  if (NoMoreApply) return <NoMore isMakers={isMakers} content="모집 기간이 아니에요" />;
+  const { NoMoreApply } = useDate();
+  if (NoMoreApply) return <NoMore isMakers={IS_MAKERS} content="모집 기간이 아니에요" />;
 
   // 13. data 전송 로직
   const partQuestionsData = partQuestions?.find((q) => q.part === getValues('part'));
@@ -225,7 +226,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     const leaveAbsence =
       getValues('leaveAbsence') == undefined ? undefined : getValues('leaveAbsence') === '재학' ? false : true;
     const univYear =
-      (isMakers ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
+      (IS_MAKERS ? SELECT_OPTIONS.univYearMakers : SELECT_OPTIONS.univYear).indexOf(univYearValue) + 1 || undefined;
 
     const commonAnswers =
       Array.isArray(commonQuestionIds) && commonQuestionIds.length > 0

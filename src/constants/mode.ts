@@ -1,0 +1,1 @@
+export const isMakers = import.meta.env.MODE === 'makers';

@@ -16,6 +16,7 @@ import { format } from '@utils/dateFormatter';
 import useGetScreeningResult from 'views/ResultPage/hooks/useGetScreeningResult';
 import { useEffect } from 'react';
 import BigLoading from 'views/loadings/BigLoding';
+import { IS_MAKERS } from '@constants/mode';
 
 const MOBILE_HEADER_HEIGHT = 73;
 const DESKTOP_HEADER_HEIGHT = 79;
@@ -34,8 +35,6 @@ const Content = ({ pass }: { pass?: boolean }) => {
     },
   } = useRecruitingInfo();
 
-  const isMakers = import.meta.env.MODE === 'makers';
-
   if (!name) return;
 
   const applicationDate = new Date(applicationResultStart || '');
@@ -47,26 +46,26 @@ const Content = ({ pass }: { pass?: boolean }) => {
   // const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 E');
   // const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
-  const SOPT_NAME = isMakers ? `SOPT makers` : `${season}기 ${soptName}`;
-  const GROUP_NAME = isMakers ? 'SOPT makers' : group;
+  const SOPT_NAME = IS_MAKERS ? `SOPT makers` : `${season}기 ${soptName}`;
+  const GROUP_NAME = IS_MAKERS ? 'SOPT makers' : group;
 
   return (
     <>
       {pass ? (
         <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
-          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
+          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">
             {`서류 검토 결과, ${name}님은 인터뷰 대상자로 선정되셨습니다.\n\n`}
           </span>
           <span className="amp-mask">{`${season}기 ${GROUP_NAME} 인터뷰는 `}</span>
-          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`${formattedInterviewStart} ~ ${formattedInterviewEnd}`}</strong>
+          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`${formattedInterviewStart} ~ ${formattedInterviewEnd}`}</strong>
           <span className="amp-mask">{` 기간 중 진행될 예정입니다.\n\n`}</span>
           <span className="amp-mask">{`원할한 면접 진행을 위해, 아래 구글 폼에 `}</span>
-          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`불가능한 시간대를 모두 선택`}</strong>
+          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`불가능한 시간대를 모두 선택`}</strong>
           <span className="amp-mask">{`해 제출 부탁드립니다.\n`}</span>
           <span className="amp-mask">{`(제출 마감 : `}</span>
-          <strong className={strongText[isMakers ? 'makers' : 'sopt']}>{`8월 20일 수요일 오후 8시`}</strong>
+          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`8월 20일 수요일 오후 8시`}</strong>
           <span> {`)\n`}</span>
           <span>{`(구글폼 : `}</span>
           <a style={{textDecoration: 'underline'}} href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`} target="_blank" rel="noreferrer noopener">{`https:/${import.meta.env.VITE_SCREENING_PASS_LINK})\n`}</a>
@@ -108,7 +107,6 @@ const ScreeningResult = () => {
   const { deviceType } = useDeviceType();
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
   const { screeningResult, screeningResultIsLoading } = useGetScreeningResult();
-  const isMakers = import.meta.env.MODE === 'makers';
 
   const { name, interviewStart, interviewEnd, pass, season } = screeningResult?.data || {};
 
@@ -131,10 +129,10 @@ const ScreeningResult = () => {
           <Content pass={pass} />
         </div>
       </div>
-      {deviceType !== 'MOB' && isMakers && (
+      {deviceType !== 'MOB' && IS_MAKERS && (
         <>
-          <div className={bottomAnimation[isMakers ? 'makers' : 'sopt']} />
-          {isMakers && (
+          <div className={bottomAnimation[IS_MAKERS ? 'makers' : 'sopt']} />
+          {IS_MAKERS && (
             <i className={bottomSvg}>
               <IconMakersLogo />
             </i>
