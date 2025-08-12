@@ -43,7 +43,7 @@
     "@vanilla-extract/css": "^1.15.1",
     "@vanilla-extract/css-utils": "^0.1.4",
     "axios": "^1.6.8",
-    "lottie-react": "^2.4.0",
+    "lottie-react": "2.4.0",
     "nanoid": "^5.0.7",
     "openapi-fetch": "^0.13.0",
     "patch-package": "^8.0.0",
