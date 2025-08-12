@@ -16,6 +16,7 @@ import useGetScreeningResult from 'views/ResultPage/hooks/useGetScreeningResult'
 import { useEffect } from 'react';
 import BigLoading from 'views/loadings/BigLoding';
 import { IS_MAKERS } from '@constants/mode';
+import { format } from '@utils/dateFormatter';
 
 const MOBILE_HEADER_HEIGHT = 73;
 const DESKTOP_HEADER_HEIGHT = 79;
@@ -28,8 +29,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
       group,
       soptName,
       season,
-      // interviewStart,
-      // interviewEnd,
+      interviewStart,
+      interviewEnd,
       applicationResultStart,
     },
   } = useRecruitingInfo();
@@ -40,8 +41,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  // const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
-  // const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
+  const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
+  const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
   // const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 E');
   // const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
@@ -58,7 +59,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             {`서류 검토 결과, ${name}님은 인터뷰 대상자로 선정되셨습니다.\n\n`}
           </span>
           <span className="amp-mask">{`${season}기 ${GROUP_NAME} 인터뷰는 `}</span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{'8월 23일 ~ 8월 24일'}</strong>
+          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{formattedInterviewStart + ' ~ ' + formattedInterviewEnd}</strong>
           <span className="amp-mask">{` 기간 중 진행될 예정입니다.\n\n`}</span>
           <span className="amp-mask">{`원할한 면접 진행을 위해, 아래 구글 폼에 `}</span>
           <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`불가능한 시간대를 모두 선택`}</strong>
