@@ -37,6 +37,7 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
         const draftItem = commonQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
+        const onlyFileUpload = isFile ? !charLimit && !placeholder : false
 
         return (
           <div key={question}>
@@ -60,7 +61,8 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
                   ) : undefined
                 }
                 required={!optional}
-                disabled={isReview}>
+                disabled={isReview}
+                onlyFileUpload={onlyFileUpload}>
                 {question}
               </Textarea>
             )}

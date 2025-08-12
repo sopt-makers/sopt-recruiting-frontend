@@ -11,6 +11,7 @@ interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HT
   maxCount: number;
   children: string;
   extraInput?: ReactElement;
+  onlyFileUpload: boolean
 }
 
 const Textarea = <T extends FieldValues>({
@@ -19,24 +20,26 @@ const Textarea = <T extends FieldValues>({
   children,
   required = false,
   extraInput,
+  onlyFileUpload = false,
   ...textareaElements
 }: TextareaProps<T>) => {
   const id = useId();
-
+  
   return (
     <div className={container}>
       <Label label={id} maxCount={maxCount} required={required}>
         {children}
       </Label>
       {extraInput}
-      <Input
+      {!onlyFileUpload && <Input
         id={id}
         name={name}
         required={required}
         maxCount={maxCount}
         isFileInput={extraInput?.props.defaultFile}
         {...textareaElements}
-      />
+      />}
+      
     </div>
   );
 };
