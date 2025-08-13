@@ -38,7 +38,7 @@ const Label = ({ children, maxCount, required, label, ...headerElementProps }: L
           {firstEmptyIndex === -1 ? children : renderQuestions(questionArray, firstEmptyIndex)}
           <span style={{ position: 'relative' }}>
             {' '}
-            ({maxCount}자)
+            {maxCount > 0 && `(${maxCount}자)`}
             {required && <i className={requireDot} />}
           </span>
         </span>

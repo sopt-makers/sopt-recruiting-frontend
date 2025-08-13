@@ -1,5 +1,4 @@
-import { IS_MAKERS } from "@constants/mode";
-
+import { IS_MAKERS } from '@constants/mode';
 
 export const APPLY_INFO = {
   sections: [
@@ -16,7 +15,7 @@ export const APPLY_INFO = {
       id: 1,
       content: [
         {
-          text: `${IS_MAKERS ? '8월 31일 일요일 ' : '3월 29일 토요일 '}OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
+          text: `${IS_MAKERS ? '8월 31일 일요일 ' : '9월 27일 토요일 '}OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
           weight: 'normal',
         },
       ],

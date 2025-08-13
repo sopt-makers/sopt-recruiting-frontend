@@ -56,15 +56,16 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
         const draftItem = partQuestionsById?.[id];
         const defaultValue = draftItem ? draftItem.answer.answer : '';
         const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
+        const onlyFileUpload = isFile ? !charLimit && !placeholder : false;
 
         return (
           <div key={question}>
             {isDescription && <Info value={question} />}
-            {!isDescription && !!charLimit && (
+            {!isDescription && (!!charLimit || onlyFileUpload) && (
               <Textarea
                 name={`part${id}`}
                 defaultValue={defaultValue}
-                maxCount={charLimit}
+                maxCount={charLimit || 0}
                 placeholder={
                   placeholder ||
                   (isFile
@@ -79,7 +80,9 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
                   ) : undefined
                 }
                 required={!optional}
-                disabled={isReview}>
+                disabled={isReview}
+                onlyFileUpload={onlyFileUpload}
+                >
                 {question}
               </Textarea>
             )}

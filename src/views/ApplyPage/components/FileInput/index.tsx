@@ -50,7 +50,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     getValues,
     formState: { errors },
   } = useFormContext();
-
+  
   const fileAnswer = getValues(`${section}${id}`);
   const isFileDeleted = getValues(`file${id}Deleted`);
   const fileValue = getValues(`file${id}`);
