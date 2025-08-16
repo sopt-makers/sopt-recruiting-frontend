@@ -96,7 +96,7 @@ export const buttonOutside = styleVariants({
     {
       color: colors.white,
       // backgroundColor: colors.gray600,
-      backgroundColor: theme.color.primary,
+      backgroundColor: '#FF5976',
     },
   ],
   line: [
@@ -104,8 +104,8 @@ export const buttonOutside = styleVariants({
     {
       // color: colors.gray600,
       // boxShadow: `0 0 0 1px ${colors.gray600}`,
-      color: theme.color.primary,
-      boxShadow: `0 0 0 1px ${theme.color.primary}`,
+      color: '#FF5976',
+      boxShadow: `0 0 0 1px #FF5976`,
     },
   ],
   disabled: [
@@ -154,11 +154,11 @@ export const buttonInside = styleVariants({
     {
       color: colors.white,
       // backgroundColor: colors.gray600,
-      backgroundColor: theme.color.primary,
+      backgroundColor: '#FF5976',
 
       ':hover': {
         // backgroundColor: colors.gray950,
-        backgroundColor: theme.color.primaryLight,
+        backgroundColor: '#66242F',
       },
 
       selectors: {
@@ -175,7 +175,7 @@ export const buttonInside = styleVariants({
     buttonInsideBase,
     {
       // color: colors.gray600,
-      color: theme.color.primary,
+      color: '#FF5976',
 
       // FIXME: gray20으로 수정해야 함.
       ':hover': {
