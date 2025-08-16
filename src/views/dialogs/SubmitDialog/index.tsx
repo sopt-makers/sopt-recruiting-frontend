@@ -83,7 +83,7 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
             className={`${dataIsPending ? buttonOutside.disabled : buttonOutside.line} ${buttonOutsideVar[deviceType]}`}
             onSubmit={() => setIsChecked(false)}>
             <AmplitudeEventTrack eventName="click-apply-cancel">
-              <button className={buttonInside.line} disabled={dataIsPending}>
+              <button className={buttonInside.line} style={{ color: '#FFFFFF' }} disabled={dataIsPending}>
                 {dataIsPending ? <ButtonLoading width={48} height={18} /> : '검토하기'}
               </button>
             </AmplitudeEventTrack>

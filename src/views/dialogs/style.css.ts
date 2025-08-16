@@ -130,6 +130,8 @@ const buttonInsideBase = style({
   padding: '13px 20px',
   borderRadius: 12,
   transition: 'background-color 0.3s ease-out',
+  color: colors.white,
+  backgroundColor: '#FF5976',
 
   ':active': {
     margin: '0 auto',
@@ -155,6 +157,7 @@ export const buttonInside = styleVariants({
       color: colors.white,
       // backgroundColor: colors.gray600,
       backgroundColor: '#FF5976',
+
 
       ':hover': {
         // backgroundColor: colors.gray950,
