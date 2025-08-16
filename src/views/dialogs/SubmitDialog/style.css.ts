@@ -213,7 +213,7 @@ export const checkmark = style({
     /* focus-visible 속성 */
     [`${checkboxWrapper} input:focus-visible ~ &`]: {
       // outline: `2px dotted ${colors.gray600}`,
-      outline: `2px dotted #FF5976`,
+      outline: `2px dotted ${theme.color.primary}`,
       outlineOffset: 2,
     },
   },
