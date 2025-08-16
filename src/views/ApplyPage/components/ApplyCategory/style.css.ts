@@ -63,7 +63,7 @@ const categoryLinkStyle = style({
   selectors: {
     '&:hover': {
       color: theme.color.primary,
-      backgroundColor: theme.color.primaryLight,
+      // backgroundColor: theme.color.primaryLight,
     },
   },
 });
