@@ -130,8 +130,6 @@ const buttonInsideBase = style({
   padding: '13px 20px',
   borderRadius: 12,
   transition: 'background-color 0.3s ease-out',
-  color: colors.white,
-  backgroundColor: '#FF5976',
 
   ':active': {
     margin: '0 auto',
