@@ -37,10 +37,10 @@ const color = createThemeContract({
 });
 
 export const light = createTheme(color, {
-  primary: '#495870',
-  primaryLight: 'rgba(73, 88, 112, 0.08)',
-  primaryDark: '#1e293b',
-  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  primary: '#FF5976',
+  primaryLight: '#66242F',
+  primaryDark: '#FF5976',
+  primaryLinear: '#613039',
   // primary: colors.gray600,
   // primaryLight: colors.gray30,
   // primaryDark: colors.gray950,
@@ -74,10 +74,10 @@ export const light = createTheme(color, {
 });
 
 export const dark = createTheme(color, {
-  primary: '#495870',
-  primaryLight: 'rgba(73, 88, 112, 0.08)',
-  primaryDark: '#1e293b',
-  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  primary: '#FF5976',
+  primaryLight: '#66242F',
+  primaryDark: '#FF5976',
+  primaryLinear: '#613039',
   // primary: colors.gray600,
   // primaryLight: colors.gray30,
   // primaryDark: colors.gray950,
