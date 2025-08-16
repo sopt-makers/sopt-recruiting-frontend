@@ -182,7 +182,8 @@ export const buttonInside = styleVariants({
 
       // FIXME: gray20으로 수정해야 함.
       ':hover': {
-        backgroundColor: colors.gray30,
+        // backgroundColor: colors.gray30,
+        backgroundColor: '#66242F',
       },
     },
   ],
