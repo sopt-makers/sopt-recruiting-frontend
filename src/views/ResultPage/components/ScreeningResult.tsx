@@ -69,9 +69,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
         <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. ${SOPT_NAME}입니다.
 
-          먼저 ${SOPT_NAME}에 ${GROUP_NAME}회원 모집에 관심을 가지고 합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.
+          먼저 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고 합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.
 
-          ${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.
+          ${name}님은 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.
 
           지원자님의 뛰어난 역량과 잠재력에도 불구하고
           안타깝게도 귀하의 서류 합격 소식을 전해드리지 못하게 되었습니다.
