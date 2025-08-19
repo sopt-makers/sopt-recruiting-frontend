@@ -4,6 +4,7 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
   bottomAnimation,
+  bottomImgVar,
   bottomSvg,
   container,
   contentVar,
@@ -17,6 +18,7 @@ import { useEffect } from 'react';
 import BigLoading from 'views/loadings/BigLoding';
 import { IS_MAKERS } from '@constants/mode';
 import { format } from '@utils/dateFormatter';
+import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
 
 const MOBILE_HEADER_HEIGHT = 73;
 const DESKTOP_HEADER_HEIGHT = 79;
@@ -35,8 +37,6 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
   const formattedInterviewStart = format(new Date(interviewStart || ''), 'M/dd (E)');
   const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M/dd (E)');
-  // const formattedApplicationPassConfirmStart = format(applicationDate, 'M월 dd일 E');
-  // const formattedApplicationPassConfirmNextDay = format(new Date(applicationPassConfirmNextDay || ''), 'M월 dd일');
 
   const SOPT_NAME = IS_MAKERS ? `SOPT makers` : `${season}기 ${soptName}`;
   const GROUP_NAME = IS_MAKERS ? 'SOPT makers' : group;
@@ -66,7 +66,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           </span>
         </p>
       ) : (
-        <p className={`amp-mask ${contentVar[deviceType]}`}>
+        <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. ${SOPT_NAME}입니다.
 
           먼저 ${SOPT_NAME}에 ${GROUP_NAME}회원 모집에 관심을 가지고 합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.
@@ -106,27 +106,29 @@ const ScreeningResult = () => {
   if (screeningResultIsLoading) return <BigLoading />;
 
   return (
-    <section className={container}>
-      <div
-        style={{
-          overflow: 'auto',
-          height: `calc(100dvh - ${deviceType === 'MOB' ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT}px)`,
-        }}>
+    <section
+      className={container}
+      style={{ height: `calc(100dvh - ${deviceType === 'MOB' ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT}px)` }}>
+      <div style={{ overflow: 'auto' }}>
         <div className={contentWrapperVar[deviceType]}>
           <Title>결과 확인</Title>
           <Content pass={pass} />
         </div>
       </div>
-      {deviceType !== 'MOB' && IS_MAKERS && (
-        <>
-          <div className={bottomAnimation[IS_MAKERS ? 'makers' : 'sopt']} />
-          {IS_MAKERS && (
-            <i className={bottomSvg}>
-              <IconMakersLogo />
-            </i>
-          )}
-        </>
-      )}
+      <>
+        <div className={bottomAnimation[IS_MAKERS ? 'makers' : 'sopt']} />
+        {IS_MAKERS
+          ? deviceType !== 'MOB' && (
+              <i className={bottomSvg}>
+                <IconMakersLogo />
+              </i>
+            )
+          : pass && (
+              <div className={bottomImgVar[deviceType]}>
+                <IconSoptRecrutingLogo deviceType={deviceType} />
+              </div>
+            )}
+      </>
       <div className={scrollBottomGradVar[deviceType]} />
     </section>
   );
