@@ -41,7 +41,7 @@
         </td>
     </tr>
     <tr align="center">
-     <td><sub>24.02 ~ 25.02</sup></td>
+     <td><sub>24.02 ~ 25.03</sup></td>
         <td>
             전언석 <br />
         </td>
