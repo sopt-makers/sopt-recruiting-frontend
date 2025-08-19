@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev:sopt": "NODE_ENV=production vite --mode sopt",
     "dev:makers": "NODE_ENV=production vite --mode makers",
