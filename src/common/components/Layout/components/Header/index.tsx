@@ -10,7 +10,6 @@ import Nav from './Nav';
 import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 import SoptLogo from '@assets/SoptLogo';
-import { IS_MAKERS } from '@constants/mode';
 
 const Header = () => {
   const { deviceType } = useDeviceType();
@@ -36,11 +35,11 @@ const Header = () => {
   const logoVariant = logoVar[deviceType];
   return (
     <>
-      {IS_MAKERS != undefined && (
+      {__IS_MAKERS__ != undefined && (
         <>
           <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[deviceType]}`}>
             <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
-              {IS_MAKERS ? (
+              {__IS_MAKERS__ ? (
                 !isMenuOpen && isLight ? (
                   <MakersLogo className={logoVariant} />
                 ) : (

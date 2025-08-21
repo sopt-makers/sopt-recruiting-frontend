@@ -17,7 +17,6 @@ import {
   infoValueVar,
   buttonWidthVar,
 } from './style.css';
-import { IS_MAKERS } from '@constants/mode';
 
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
@@ -59,7 +58,7 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
   const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useDate();
 
   if (isLoading) return <BigLoading />;
-  if (NoMoreRecruit) return <NoMore isMakers={IS_MAKERS} content="모집 기간이 아니에요" />;
+  if (NoMoreRecruit) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
   return (
     <section className={containerVar[deviceType]}>

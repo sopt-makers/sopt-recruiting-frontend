@@ -7,7 +7,6 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { calloutButtonVar } from './style.css';
 import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
-import { IS_MAKERS } from '@constants/mode';
 
 const SignInInfo = () => {
   const { deviceType } = useDeviceType();
@@ -18,7 +17,7 @@ const SignInInfo = () => {
   return (
     <>
       <Title>
-        {season}기 {soptName} {IS_MAKERS ? '' : group} 지원하기
+        {season}기 {soptName} {__IS_MAKERS__ ? '' : group} 지원하기
       </Title>
       <Callout
         Button={
@@ -29,7 +28,7 @@ const SignInInfo = () => {
           </AmplitudeEventTrack>
         }>
         <p>
-          {season}기 {IS_MAKERS ? '' : group} 지원서 작성이 처음이라면 ‘새 지원서 작성하기’를 진행해주세요. 이전에
+          {season}기 {__IS_MAKERS__ ? '' : group} 지원서 작성이 처음이라면 ‘새 지원서 작성하기’를 진행해주세요. 이전에
           지원서를 제출한 적이 있더라도 새 지원서를 작성해야 해요.
         </p>
       </Callout>

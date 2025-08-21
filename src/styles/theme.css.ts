@@ -2,6 +2,25 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
+const primaryColor = () => {
+  if (__IS_MAKERS__) {
+    return {
+      // makers 기본 컬러
+      primary: colors.gray600,
+      primaryLight: colors.gray30,
+      primaryDark: colors.gray950,
+      primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
+    };
+  }
+  return {
+    // 기수 컬러 (매 기수마다 변경 필요)
+    primary: '#FF5976',
+    primaryLight: '#66242F',
+    primaryDark: '#FF5976',
+    primaryLinear: '#613039',
+  };
+};
+
 const color = createThemeContract({
   primary: null, // 기수 컬러
   primaryLight: null, // 기수 컬러 밝게
@@ -37,14 +56,10 @@ const color = createThemeContract({
 });
 
 export const light = createTheme(color, {
-  primary: '#FF5976',
-  primaryLight: '#66242F',
-  primaryDark: '#FF5976',
-  primaryLinear: '#613039',
-  // primary: colors.gray600,
-  // primaryLight: colors.gray30,
-  // primaryDark: colors.gray950,
-  // primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
+  primary: primaryColor().primary,
+  primaryLight: primaryColor().primaryLight,
+  primaryDark: primaryColor().primaryDark,
+  primaryLinear: primaryColor().primaryLinear,
   error: colors.error,
 
   background: colors.white,
@@ -74,14 +89,10 @@ export const light = createTheme(color, {
 });
 
 export const dark = createTheme(color, {
-  primary: '#FF5976',
-  primaryLight: '#66242F',
-  primaryDark: '#FF5976',
-  primaryLinear: '#613039',
-  // primary: colors.gray600,
-  // primaryLight: colors.gray30,
-  // primaryDark: colors.gray950,
-  // primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
+  primary: primaryColor().primary,
+  primaryLight: primaryColor().primaryLight,
+  primaryDark: primaryColor().primaryDark,
+  primaryLinear: primaryColor().primaryLinear,
   error: colors.error,
 
   background: colors.gray950,
