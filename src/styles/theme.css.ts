@@ -1,10 +1,9 @@
-import { IS_MAKERS } from '@constants/mode';
 import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
 const primaryColor = () => {
-  if (IS_MAKERS) {
+  if (__IS_MAKERS__) {
     return {
       // makers 기본 컬러
       primary: colors.gray600,

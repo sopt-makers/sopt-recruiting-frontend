@@ -16,7 +16,6 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import useGetScreeningResult from 'views/ResultPage/hooks/useGetScreeningResult';
 import { useEffect } from 'react';
 import BigLoading from 'views/loadings/BigLoding';
-import { IS_MAKERS } from '@constants/mode';
 import { format } from '@utils/dateFormatter';
 import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
 
@@ -40,15 +39,15 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일');
   const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일');
 
-  const SOPT_NAME = IS_MAKERS ? `SOPT makers` : `${season}기 ${soptName}`;
-  const GROUP_NAME = IS_MAKERS ? 'SOPT makers' : group;
+  const SOPT_NAME = __IS_MAKERS__ ? `SOPT makers` : `${season}기 ${soptName}`;
+  const GROUP_NAME = __IS_MAKERS__ ? 'SOPT makers' : group;
 
   return (
     <>
-      {pass && !IS_MAKERS ? (
+      {pass && !__IS_MAKERS__ ? (
         <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">{`서류 검토 결과,\n${name}님은 면접 대상자로 선정되셨습니다.\n\n`}</span>
           <span className="amp-mask">{`${season}기 ${GROUP_NAME} 면접은 `}</span>
           <span>{formattedInterviewStartWithDay + ' ~ ' + formattedInterviewEndWithDay}</span>
@@ -67,7 +66,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
         </p>
-      ) : !pass && !IS_MAKERS ? (
+      ) : !pass && !__IS_MAKERS__ ? (
         <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. ${SOPT_NAME}입니다.
 
@@ -84,22 +83,22 @@ const Content = ({ pass }: { pass?: boolean }) => {
           감사합니다.
           `}
         </p>
-      ) : pass && IS_MAKERS ? (
+      ) : pass && __IS_MAKERS__ ? (
         <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">{`서류 검토 결과, ${name}님은 면접 대상자로 선정되셨습니다.\n\n`}</span>
           <span className="amp-mask">{`${season}기 ${GROUP_NAME} 인터뷰는 `}</span>
           <strong
             className={
-              strongText[IS_MAKERS ? 'makers' : 'sopt']
+              strongText[__IS_MAKERS__ ? 'makers' : 'sopt']
             }>{`${formattedInterviewStart} ~ ${formattedInterviewEnd}`}</strong>
           <span className="amp-mask">{` 기간 중 진행될 예정입니다.\n\n`}</span>
           <span className="amp-mask">{`원할한 면접 진행을 위해, 아래 구글 폼에 `}</span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`불가능한 시간대를 모두 선택`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`불가능한 시간대를 모두 선택`}</strong>
           <span className="amp-mask">{`해 제출 부탁드립니다.\n`}</span>
           <span className="amp-mask">{`(제출 마감 : `}</span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`8월 20일 수요일 오후 8시`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`8월 20일 수요일 오후 8시`}</strong>
           <span> {`)\n`}</span>
           <span>{`(구글폼 : `}</span>
           <a
@@ -122,7 +121,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
         </p>
       ) : (
         !pass &&
-        IS_MAKERS && (
+        __IS_MAKERS__ && (
           <p className={`amp-mask ${contentVar[deviceType]}`}>
             {`안녕하세요. ${SOPT_NAME}입니다.
 
@@ -175,8 +174,8 @@ const ScreeningResult = () => {
         </div>
       </div>
       <>
-        <div className={bottomAnimation[IS_MAKERS ? 'makers' : 'sopt']} />
-        {IS_MAKERS
+        <div className={bottomAnimation[__IS_MAKERS__ ? 'makers' : 'sopt']} />
+        {__IS_MAKERS__
           ? deviceType !== 'MOB' && (
               <i className={bottomSvg}>
                 <IconMakersLogo />

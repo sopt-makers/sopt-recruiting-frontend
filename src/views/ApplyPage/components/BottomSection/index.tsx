@@ -6,7 +6,6 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { doubleLineCheck, labelVar, line, sectionContainer } from './style.css';
-import { IS_MAKERS } from '@constants/mode';
 
 interface BottomSectionProps {
   isReview?: boolean;
@@ -19,7 +18,7 @@ const BottomSection = ({ knownPath, isReview = false }: BottomSectionProps) => {
   return (
     <section className={sectionContainer}>
       <hr className={line} />
-      {!IS_MAKERS && (
+      {!__IS_MAKERS__ && (
         <SelectBox
           label="동아리를 알게 된 경로"
           name="knownPath"
@@ -32,7 +31,7 @@ const BottomSection = ({ knownPath, isReview = false }: BottomSectionProps) => {
       )}
       <div id="check-necessary" className={doubleLineCheck}>
         <p className={labelVar[deviceType]}>
-          {IS_MAKERS
+          {__IS_MAKERS__
             ? 'SOPT makers의 행사 및 정기 모임은 일요일에 진행됩니다.'
             : 'SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.'}
         </p>

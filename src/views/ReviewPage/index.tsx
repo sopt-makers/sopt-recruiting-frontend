@@ -17,7 +17,6 @@ import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
 import { container, formContainerVar } from 'views/ApplyPage/style.css';
 import BigLoading from 'views/loadings/BigLoding';
 import useDialog from '@hooks/useDialog';
-import { IS_MAKERS } from '@constants/mode';
 
 const PreventReviewDialog = lazy(() =>
   import('views/dialogs').then(({ PreventReviewDialog }) => ({ default: PreventReviewDialog })),
@@ -102,7 +101,7 @@ const ReviewPage = () => {
   }, [sectionsUpdated]);
 
   if (questionsIsLoading || isLoading || draftIsLoading) return <BigLoading />;
-  if (NoMoreReview) return <NoMore isMakers={IS_MAKERS} content="모집 기간이 아니에요" />;
+  if (NoMoreReview) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
   return (
     <>

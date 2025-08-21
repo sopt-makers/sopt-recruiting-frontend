@@ -18,7 +18,6 @@ import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo
 import { useEffect } from 'react';
 import useGetFinalResult from 'views/ResultPage/hooks/useGetFinalResult';
 import BigLoading from 'views/loadings/BigLoding';
-import { IS_MAKERS } from '@constants/mode';
 
 const MOBILE_HEADER_HEIGHT = 73;
 const DESKTOP_HEADER_HEIGHT = 79;
@@ -34,10 +33,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
   // const finalDate = new Date(finalPassConfirmStart || '');
   // const formattedFinalPassConfirmStart = format(finalDate, 'dd일');
 
-  const SOPT_NAME = IS_MAKERS ? `SOPT makers` : `${soptName}`;
+  const SOPT_NAME = __IS_MAKERS__ ? `SOPT makers` : `${soptName}`;
   return (
     <>
-      {!IS_MAKERS && pass ? (
+      {!__IS_MAKERS__ && pass ? (
         <p className={contentVar[deviceType]}>
           <span>
             {`
@@ -45,11 +44,11 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
             `}
           </span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">
-            {`${name}님은 ${season}기 ${SOPT_NAME} ${!IS_MAKERS ? group : ''}회원 모집에 `}
+            {`${name}님은 ${season}기 ${SOPT_NAME} ${!__IS_MAKERS__ ? group : ''}회원 모집에 `}
           </span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`최종 합격`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`최종 합격`}</strong>
           {`하셨습니다.\n\n`}
 
           <span className="amp-mask">{`${name}님과 ${season}기 ${SOPT_NAME}를 함께하게 되어 진심으로 기쁩니다.\n\n`}</span>
@@ -58,7 +57,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           </span>
           <span className="amp-mask">{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</span>
         </p>
-      ) : !IS_MAKERS && !pass ? (
+      ) : !__IS_MAKERS__ && !pass ? (
         <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. ${season}기 ${SOPT_NAME}입니다.
 
@@ -74,7 +73,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           감사합니다.
           `}
         </p>
-      ) : IS_MAKERS && pass ? (
+      ) : __IS_MAKERS__ && pass ? (
         <p className={contentVar[deviceType]}>
           <span>
             {`
@@ -84,9 +83,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
           </span>
           <span className="amp-mask">
-            {`${name}님은 ${season}기 ${SOPT_NAME} ${!IS_MAKERS ? group : ''}회원 모집에 `}
+            {`${name}님은 ${season}기 ${SOPT_NAME} ${!__IS_MAKERS__ ? group : ''}회원 모집에 `}
           </span>
-          <strong className={strongText[IS_MAKERS ? 'makers' : 'sopt']}>{`최종 합격`}</strong>
+          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`최종 합격`}</strong>
           {`하셨습니다.\n\n`}
           <span className="amp-mask">{`${name}님과 함께하게 되어 진심으로 기쁩니다.\n`}</span>
           <span className="amp-mask">
@@ -97,7 +96,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <span className="amp-mask">{`다시 한 번 ${SOPT_NAME} ${season}기 합류를 진심으로 축하드립니다!`}</span>
         </p>
       ) : (
-        IS_MAKERS &&
+        __IS_MAKERS__ &&
         !pass && (
           <p className={`amp-mask ${contentVar[deviceType]}`}>
             {`안녕하세요. ${SOPT_NAME}입니다.
@@ -147,8 +146,8 @@ const FinalResult = () => {
         </div>
       </div>
       <>
-        <div className={bottomAnimation[IS_MAKERS ? 'makers' : 'sopt']} />
-        {IS_MAKERS
+        <div className={bottomAnimation[__IS_MAKERS__ ? 'makers' : 'sopt']} />
+        {__IS_MAKERS__
           ? deviceType !== 'MOB' && (
               <i className={bottomSvg}>
                 <IconMakersLogo />

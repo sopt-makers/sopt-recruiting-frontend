@@ -9,7 +9,6 @@ import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style
 import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../../contants';
 import MenuItem from '../MenuItem';
 import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
-import { IS_MAKERS } from '@constants/mode';
 
 const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
   const { deviceType } = useDeviceType();
@@ -34,7 +33,7 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
   const {
     recruitingInfo: { name },
   } = useRecruitingInfo();
-  const menuItems = IS_MAKERS ? MENU_ITEMS_MAKERS : MENU_ITEMS;
+  const menuItems = __IS_MAKERS__ ? MENU_ITEMS_MAKERS : MENU_ITEMS;
   const handleLogout = () => {
     reset();
     localStorage.removeItem('soptApplyAccessToken');

@@ -4,7 +4,6 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { buttonWrapper, headerContainerVar } from './style.css';
-import { IS_MAKERS } from '@constants/mode';
 
 interface ApplyHeaderProps {
   isReview?: boolean;
@@ -22,7 +21,7 @@ const ApplyHeader = ({ isLoading, onSaveDraft, onSubmitData, isReview = false }:
   return (
     <header className={headerContainerVar[deviceType]}>
       <Title>
-        {season}기 {IS_MAKERS ? soptName : group} 지원서
+        {season}기 {__IS_MAKERS__ ? soptName : group} 지원서
       </Title>
       {!isReview && deviceType !== 'MOB' && (
         <div className={buttonWrapper}>

@@ -1,15 +1,14 @@
-import { IS_MAKERS } from '@constants/mode';
 import { Helmet } from 'react-helmet-async';
 
 const Head = () => {
-  const TOUCH_ICON = IS_MAKERS ? '/makers-touch-icon.png' : '/apple-touch-icon.png';
-  const ICON = IS_MAKERS ? '/makersIcon.svg' : '/icon.svg';
-  const FAVICON = IS_MAKERS ? '/makersFavicon.ico' : '/favicon.ico';
-  const SITE_NAME = `SOPT ${IS_MAKERS ? 'makers ' : ''}리크루팅`;
-  const TITLE = `SOPT ${IS_MAKERS ? 'makers ' : ''}모집 지원하기`;
-  const IMAGE = IS_MAKERS ? '/makersOg.png' : '/imgOg.png';
-  const DESCRIPTION = `SOPT${IS_MAKERS ? ' makers' : ''}의 신입 기수 모집페이지입니다.`;
-  const URL = IS_MAKERS ? 'https://recruiting.sopt.org' : 'https://recruit.sopt.org';
+  const TOUCH_ICON = __IS_MAKERS__ ? '/makers-touch-icon.png' : '/apple-touch-icon.png';
+  const ICON = __IS_MAKERS__ ? '/makersIcon.svg' : '/icon.svg';
+  const FAVICON = __IS_MAKERS__ ? '/makersFavicon.ico' : '/favicon.ico';
+  const SITE_NAME = `SOPT ${__IS_MAKERS__ ? 'makers ' : ''}리크루팅`;
+  const TITLE = `SOPT ${__IS_MAKERS__ ? 'makers ' : ''}모집 지원하기`;
+  const IMAGE = __IS_MAKERS__ ? '/makersOg.png' : '/imgOg.png';
+  const DESCRIPTION = `SOPT${__IS_MAKERS__ ? ' makers' : ''}의 신입 기수 모집페이지입니다.`;
+  const URL = __IS_MAKERS__ ? 'https://recruiting.sopt.org' : 'https://recruit.sopt.org';
 
   return (
     <Helmet>
