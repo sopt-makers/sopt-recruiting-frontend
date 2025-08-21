@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, type PluginOption } from 'vite';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     vanillaExtractPlugin(),
@@ -17,6 +17,9 @@ export default defineConfig({
       brotliSize: true,
     }) as PluginOption,
   ],
+  define: {
+    __IS_MAKERS__: JSON.stringify(mode === 'makers'),
+  },
   build: {
     rollupOptions: {
       output: {
@@ -75,4 +78,4 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/tests/setupTests.ts',
   },
-});
+}));
