@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => ({
     }) as PluginOption,
   ],
   define: {
-    'import.meta.env.MODE': JSON.stringify(mode),
+    __IS_MAKERS__: JSON.stringify(mode === 'makers'),
   },
   build: {
     rollupOptions: {
