@@ -44,7 +44,7 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
           return (
             <div key={question}>
               {isDescription && <Info value={question} />}
-              {!isDescription && (!!charLimit || onlyFileUpload) && (
+              {!isDescription && (
                 <Textarea
                   name={`common${id}`}
                   defaultValue={defaultValue}

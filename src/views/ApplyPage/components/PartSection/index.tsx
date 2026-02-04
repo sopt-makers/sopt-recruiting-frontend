@@ -63,7 +63,7 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
           return (
             <div key={question}>
               {isDescription && <Info value={question} />}
-              {!isDescription && (!!charLimit || onlyFileUpload) && (
+              {!isDescription && (
                 <Textarea
                   name={`part${id}`}
                   defaultValue={defaultValue}
