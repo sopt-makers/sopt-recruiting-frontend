@@ -192,7 +192,6 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           disabled={disabledStatus}
         />
       </label>
-      {isUploading && <p style={{ color: '#888', fontSize: 12 }}>업로드 중...</p>}
       {uploadError && <p className={errorTextVar[deviceType]}>{uploadError}</p>}
       {errors[`file${id}`] && <p className={errorTextVar[deviceType]}>{errors[`file${id}`]?.message as string}</p>}
     </div>
