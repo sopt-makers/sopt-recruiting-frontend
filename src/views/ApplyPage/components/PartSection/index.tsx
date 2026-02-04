@@ -67,7 +67,7 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
                 <Textarea
                   name={`part${id}`}
                   defaultValue={defaultValue}
-                  maxCount={charLimit || 0}
+                  maxCount={charLimit ?? null}
                   placeholder={
                     placeholder ||
                     (isFile

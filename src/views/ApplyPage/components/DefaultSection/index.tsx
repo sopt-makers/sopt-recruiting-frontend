@@ -42,7 +42,7 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
     formState: { errors },
   } = useFormContext();
   const [image, setImage] = useState<string | null>('');
-  const [isUploading, setIsUploading] = useState(false);
+  const [, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   const hasImage = image !== 'max-size' && (pic || image);
@@ -118,7 +118,6 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
           ))}
         </ul>
       </div>
-      {isUploading && <p style={{ color: '#888', fontSize: 12 }}>업로드 중...</p>}
       {uploadError && <p className={errorTextVar[deviceType]}>{uploadError}</p>}
     </TextBox>
   );

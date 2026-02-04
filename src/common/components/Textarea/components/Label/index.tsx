@@ -6,7 +6,7 @@ import { requireDot, labelStyleVar } from './style.css';
 
 interface LabelProps extends HTMLAttributes<HTMLHeadingElement> {
   children: string;
-  maxCount: number;
+  maxCount: number | null;
   required: boolean;
   label: string;
   questionOrder?: number;
@@ -40,7 +40,7 @@ const Label = ({ children, maxCount, required, label, questionOrder, ...headerEl
           {firstEmptyIndex === -1 ? children : renderQuestions(questionArray, firstEmptyIndex)}
           <span style={{ position: 'relative' }}>
             {' '}
-            {maxCount > 0 && `(${maxCount}자)`}
+            {!!maxCount && `(${maxCount}자)`}
             {required && <i className={requireDot} />}
           </span>
         </span>

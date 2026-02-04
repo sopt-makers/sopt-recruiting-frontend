@@ -8,7 +8,7 @@ import type { FieldValues, Path } from 'react-hook-form';
 
 interface TextareaProps<T extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: Path<T>;
-  maxCount: number;
+  maxCount: number | null;
   children: string;
   extraInput?: ReactElement;
   onlyFileUpload: boolean;
@@ -33,7 +33,7 @@ const Textarea = <T extends FieldValues>({
         {children}
       </Label>
       {extraInput}
-      {!onlyFileUpload && (
+      {!onlyFileUpload && !!maxCount && (
         <Input
           id={id}
           name={name}
