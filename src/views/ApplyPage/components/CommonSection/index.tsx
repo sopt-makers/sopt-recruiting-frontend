@@ -29,46 +29,50 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
     },
     {} as { [key: number]: Answers } | undefined,
   );
+  const hasDescription = questions?.questions.some(({ isDescription }) => isDescription);
 
   return (
     <section ref={refCallback} id="common" className={sectionContainerVar[deviceType]}>
       <h2 className={sectionTitleVar[deviceType]}>공통 질문</h2>
-      {questions?.questions.map(({ urls, question, id, charLimit, isFile, placeholder, optional, isDescription }) => {
-        const draftItem = commonQuestionsById?.[id];
-        const defaultValue = draftItem ? draftItem.answer.answer : '';
-        const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
-        const onlyFileUpload = isFile ? !charLimit && !placeholder : false;
+      {questions?.questions.map(
+        ({ urls, question, id, charLimit, isFile, placeholder, optional, isDescription }, index) => {
+          const draftItem = commonQuestionsById?.[id];
+          const defaultValue = draftItem ? draftItem.answer.answer : '';
+          const defaultFile = { id, file: draftItem?.answer.file, fileName: draftItem?.answer.fileName };
+          const onlyFileUpload = isFile ? !charLimit && !placeholder : false;
 
-        return (
-          <div key={question}>
-            {isDescription && <Info value={question} />}
-            {!isDescription && (!!charLimit || onlyFileUpload) && (
-              <Textarea
-                name={`common${id}`}
-                defaultValue={defaultValue}
-                maxCount={charLimit || 0}
-                placeholder={
-                  placeholder ||
-                  (isFile
-                    ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
-                    : '')
-                }
-                extraInput={
-                  isFile ? (
-                    <FileInput section="common" id={id} isReview={isReview} defaultFile={defaultFile} />
-                  ) : urls ? (
-                    <LinkInput urls={urls} />
-                  ) : undefined
-                }
-                required={!optional}
-                disabled={isReview}
-                onlyFileUpload={onlyFileUpload}>
-                {question}
-              </Textarea>
-            )}
-          </div>
-        );
-      })}
+          return (
+            <div key={question}>
+              {isDescription && <Info value={question} />}
+              {!isDescription && (!!charLimit || onlyFileUpload) && (
+                <Textarea
+                  name={`common${id}`}
+                  defaultValue={defaultValue}
+                  maxCount={charLimit || 0}
+                  placeholder={
+                    placeholder ||
+                    (isFile
+                      ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
+                      : '')
+                  }
+                  extraInput={
+                    isFile ? (
+                      <FileInput section="common" id={id} isReview={isReview} defaultFile={defaultFile} />
+                    ) : urls ? (
+                      <LinkInput urls={urls} />
+                    ) : undefined
+                  }
+                  required={!optional}
+                  disabled={isReview}
+                  onlyFileUpload={onlyFileUpload}
+                  questionOrder={isDescription ? undefined : hasDescription ? index : index + 1}>
+                  {question}
+                </Textarea>
+              )}
+            </div>
+          );
+        },
+      )}
     </section>
   );
 };
