@@ -32,7 +32,7 @@ const BottomSection = ({ knownPath, isReview = false }: BottomSectionProps) => {
       <div id="check-necessary" className={doubleLineCheck}>
         <p className={labelVar[deviceType]}>
           {__IS_MAKERS__
-            ? 'SOPT makers의 행사 및 정기 모임은 일요일에 진행됩니다.'
+            ? 'SOPT makers의 행사 및 정기 모임은 토요일에 진행됩니다.'
             : 'SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.'}
         </p>
         <Checkbox
