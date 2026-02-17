@@ -15,7 +15,6 @@ import {
 import IconMakersLogo from '../assets/IconMakersLogo';
 import useGetScreeningResult from 'views/ResultPage/hooks/useGetScreeningResult';
 import { useEffect } from 'react';
-import { format } from '@utils/dateFormatter';
 import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -25,7 +24,7 @@ const DESKTOP_HEADER_HEIGHT = 79;
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
   const {
-    recruitingInfo: { name, group, soptName, season, interviewStart, interviewEnd, applicationResultStart },
+    recruitingInfo: { name, group, soptName, season, applicationResultStart },
   } = useRecruitingInfo();
 
   if (!name) return;
@@ -34,8 +33,8 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStartWithDay = format(new Date(interviewStart || ''), 'M/dd (E)');
-  const formattedInterviewEndWithDay = format(new Date(interviewEnd || ''), 'M/dd (E)');
+  // const formattedInterviewStartWithDay = format(new Date(interviewStart || ''), 'M/dd (E)');
+  // const formattedInterviewEndWithDay = format(new Date(interviewEnd || ''), 'M/dd (E)');
 
   const SOPT_NAME = __IS_MAKERS__ ? `SOPT makers` : `${season}기 ${soptName}`;
   const GROUP_NAME = __IS_MAKERS__ ? 'SOPT makers' : group;
