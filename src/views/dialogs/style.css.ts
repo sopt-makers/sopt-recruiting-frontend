@@ -57,7 +57,6 @@ export const subTextVar = styleVariants({
 
 const buttonWrapper = style({
   display: 'flex',
-
   alignItems: 'center',
   justifyContent: 'flex-end',
   marginLeft: 'auto',
@@ -95,17 +94,17 @@ export const buttonOutside = styleVariants({
     buttonOutsideBase,
     {
       color: colors.white,
-      backgroundColor: colors.gray600,
-      // backgroundColor: '#FF5976',
+      // backgroundColor: colors.gray600,
+      backgroundColor: '#84E1FA',
     },
   ],
   line: [
     buttonOutsideBase,
     {
-      color: colors.gray600,
-      boxShadow: `0 0 0 1px ${colors.gray600}`,
-      // color: '#FF5976',
-      // boxShadow: `0 0 0 1px #FF5976`,
+      // color: colors.gray600,
+      // boxShadow: `0 0 0 1px ${colors.gray600}`,
+      color: '#84E1FA',
+      boxShadow: `0 0 0 1px #84E1FA`,
     },
   ],
   disabled: [
@@ -131,8 +130,8 @@ const buttonInsideBase = style({
   borderRadius: 12,
   transition: 'background-color 0.3s ease-out',
   color: colors.white,
-  backgroundColor: colors.gray600,
-  // backgroundColor: '#FF5976',
+  // backgroundColor: colors.gray600,
+  backgroundColor: '#84E1FA',
 
   ':active': {
     margin: '0 auto',
@@ -156,13 +155,13 @@ export const buttonInside = styleVariants({
     buttonInsideBase,
     {
       color: colors.white,
-      backgroundColor: colors.gray600,
-      // backgroundColor: '#FF5976',
+      // backgroundColor: colors.gray600,
+      backgroundColor: '#84E1FA',
 
 
       ':hover': {
-        backgroundColor: colors.gray950,
-        // backgroundColor: '#66242F',
+        // backgroundColor: colors.gray950,
+        backgroundColor: '#153858',
       },
 
       selectors: {
@@ -178,14 +177,14 @@ export const buttonInside = styleVariants({
   line: [
     buttonInsideBase,
     {
-      color: colors.gray600,
-      // color: '#FF5976',
+      // color: colors.gray600,
+      color: '#84E1FA',
 
       // FIXME: gray20으로 수정해야 함.
       ':hover': {
         color: colors.gray600,
-        backgroundColor: colors.gray30,
-        // backgroundColor: '#66242F',
+        // backgroundColor: colors.gray30,
+        backgroundColor: '#153858',
       },
     },
   ],
