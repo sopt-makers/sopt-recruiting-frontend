@@ -14,9 +14,9 @@ const primaryColor = () => {
   }
   return {
     // 기수 컬러 (매 기수마다 변경 필요)
-    primary: '#84E1FA',
+    primary: '#00BDFF',
     primaryLight: '#153858',
-    primaryDark: '#00BDFF',
+    primaryDark: '#84E1FA',
     primaryLinear: '#273244',
   };
 };
