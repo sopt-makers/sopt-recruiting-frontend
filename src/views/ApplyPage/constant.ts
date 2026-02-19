@@ -14,7 +14,7 @@ export const APPLY_INFO = {
       content: [
         {
           text: `${
-            __IS_MAKERS__ ? '2월 28일 토요일 ' : '9월 27일 토요일 '
+            __IS_MAKERS__ ? '2월 28일 토요일 ' : '3월 28일 토요일 '
           }OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
           weight: 'normal',
         },
