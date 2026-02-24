@@ -10,6 +10,7 @@ import Nav from './Nav';
 import MenuList from './Nav/MenuList';
 import { containerSizeVer, containerVar, logoVar } from './style.css';
 import SoptLogo from '@assets/SoptLogo';
+import SoptLightLogo from '@assets/SoptLightLogo';
 
 const Header = () => {
   const { deviceType } = useDeviceType();
@@ -25,6 +26,8 @@ const Header = () => {
   const handleClickLogo = () => {
     pathname === '/' ? window.location.reload() : navigate('/');
   };
+
+  const isResultPage = pathname.includes('/result');
 
   useEffect(() => {
     if (deviceType === 'DESK') {
@@ -45,8 +48,10 @@ const Header = () => {
                 ) : (
                   <MakersDarkLogo className={logoVariant} />
                 )
-              ) : (
+              ) : !isResultPage ? (
                 <SoptLogo className={logoVariant} />
+              ) : (
+                <SoptLightLogo className={logoVariant} />
               )}
             </button>
             <Nav isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
