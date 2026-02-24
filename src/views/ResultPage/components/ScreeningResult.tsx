@@ -4,7 +4,6 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
   bottomAnimation,
-  bottomImgVar,
   bottomSvg,
   container,
   contentVar,
@@ -15,7 +14,6 @@ import {
 import IconMakersLogo from '../assets/IconMakersLogo';
 import useGetScreeningResult from 'views/ResultPage/hooks/useGetScreeningResult';
 import { useEffect } from 'react';
-import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
 import BigLoading from 'views/loadings/BigLoding';
 import { format } from '@utils/dateFormatter';
 
@@ -189,17 +187,11 @@ const ScreeningResult = () => {
       </div>
       <>
         {pass && <div className={bottomAnimation[__IS_MAKERS__ ? 'makers' : 'sopt']} />}
-        {__IS_MAKERS__
-          ? deviceType !== 'MOB' && (
-              <i className={bottomSvg}>
-                <IconMakersLogo />
-              </i>
-            )
-          : pass && (
-              <div className={bottomImgVar[deviceType]}>
-                <IconSoptRecrutingLogo deviceType={deviceType} />
-              </div>
-            )}
+        {__IS_MAKERS__ && deviceType !== 'MOB' && (
+          <i className={bottomSvg}>
+            <IconMakersLogo />
+          </i>
+        )}
       </>
       <div className={scrollBottomGradVar[deviceType]} />
     </section>
