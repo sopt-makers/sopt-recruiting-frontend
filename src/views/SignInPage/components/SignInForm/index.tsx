@@ -1,14 +1,12 @@
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
 import Button from '@components/Button';
-import { Description, InputLine, TextBox } from '@components/Input';
+import { InputLine, TextBox } from '@components/Input';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
-import { inputWrapper, newPasswordButton } from './style.css';
-import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
+import { inputWrapper } from './style.css';
 
 const SignInForm = () => {
   const {
@@ -22,7 +20,6 @@ const SignInForm = () => {
   });
 
   const handleSignIn = ({ email, password }: FieldValues) => {
-
     if (!season || !group) return;
 
     signInMutate({
@@ -60,14 +57,14 @@ const SignInForm = () => {
             maxLength={VALIDATION_CHECK.password.maxLength}
             errorText={VALIDATION_CHECK.password.errorText}
           />
-          <Description>
+          {/* <Description>
             <p>비밀번호를 잃어버리셨나요?</p>
             <AmplitudeEventTrack eventName="click-signin-password">
               <Link className={newPasswordButton} to="/password">
                 비밀번호 재설정하기
               </Link>
             </AmplitudeEventTrack>
-          </Description>
+          </Description> */}
         </TextBox>
         <Button isLoading={signInIsPending} type="submit" eventName="click-signin-signin">
           로그인
