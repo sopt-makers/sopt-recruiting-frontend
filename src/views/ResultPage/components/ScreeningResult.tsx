@@ -56,7 +56,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             <span className="amp-mask">{` 양일 간 \n오프라인으로 진행될 예정입니다.\n\n`}</span>
 
             <span className="amp-mask">{`모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다. 
-              아래 구글폼을 금일 20시 (3월 18일 수요일 오후 8시) 까지 제출해주세요. \n\n`}</span>
+              아래 구글폼을 금일 22시 (3월 18일 수요일 오후 10시) 까지 제출해주세요. \n\n`}</span>
 
             <span className="amp-mask">{`( 구글폼 : `}</span>
             <a
