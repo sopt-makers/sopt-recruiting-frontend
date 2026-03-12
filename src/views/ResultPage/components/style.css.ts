@@ -121,6 +121,7 @@ export const bottomAnimation = styleVariants(
 export const bottomImg = style({
   position: 'absolute',
   right: 'calc(24px + (166 * ((100vw - 375px) / 1065)))',
+  zIndex: Z_INDEX.resultAnim,
 });
 
 export const bottomImgVar = styleVariants({
@@ -147,7 +148,7 @@ const scrollBottomGrad = style({
   bottom: 0,
   left: 0,
   right: 0,
-  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);',
+  backgroundColor: 'transparent',
   zIndex: Z_INDEX.resultGrad,
 });
 
