@@ -1,5 +1,5 @@
 import SectionTitle from '@components/SectionTitle';
-import { RECRUITMENT_TARGET, TITLE } from 'views/IntroducePage/components/RecruitmentTarget/constants/constant';
+import { RECRUITMENT_TARGET, TITLE } from 'views/IntroducePage/constants/constant';
 import { wrapperVar, container, containerWrapperVar, descriptionVar, icon } from './style.css';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
@@ -8,7 +8,7 @@ const RecruitmentTarget = () => {
 
   return (
     <section className={wrapperVar[deviceType]}>
-      <SectionTitle label={TITLE.label} title={TITLE.title} />
+      <SectionTitle label={TITLE.RECRUITMENT_TARGET.label} title={TITLE.RECRUITMENT_TARGET.title} />
 
       <div className={containerWrapperVar[deviceType]}>
         {RECRUITMENT_TARGET.map((target) => (
