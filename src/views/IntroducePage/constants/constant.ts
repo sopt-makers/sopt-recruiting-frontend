@@ -7,9 +7,10 @@ export const TITLE = {
     label: 'Position',
     title: '총 6개의 파트를 모집해요',
   },
-  PART: {
+  CORE_VALUE: {
     label: 'Core Value',
-    title: ` SOPT가 함께 나아가고 싶은 사람이에요`,
+    // TODO: 기수, SOPT 이름 불러오기
+    title: `season기 SOPT가 함께 나아가고 싶은 사람이에요`,
   },
 };
 
@@ -67,5 +68,26 @@ export const POSITION = [
     name: '서버 파트',
     description:
       'Java와 Spring을 기반으로 서버 개발의 기초부터 배포, 보안, 테스트 코드, 모니터링 등 실제 서비스 운영 전반을 학습합니다. 이를 통해 타 파트와의 원활한 협업이 가능한 서버 개발자로 성장하는 것을 목표로 합니다.',
+  },
+];
+
+export const CORE_VALUE = [
+  {
+    id: 1,
+    value: '의지',
+    image: '/core1.png',
+    description: '포기하지 않고 끝까지 나아가는 사람',
+  },
+  {
+    id: 2,
+    value: '실행',
+    image: '/core2.png',
+    description: '의지를 생각에서 멈추지 않고 행동으로 옮기는 사람',
+  },
+  {
+    id: 3,
+    value: '조화',
+    image: '/core3.png',
+    description: '함께일 때 더 성장할 수 있는 사람',
   },
 ];
