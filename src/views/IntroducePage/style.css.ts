@@ -2,8 +2,10 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 const wrapperBase = style({
   display: 'flex',
+  width: '100%',
   flexDirection: 'column',
   padding: '0 40px',
+  scrollBehavior: 'smooth',
 });
 
 export const wrapper = styleVariants({

@@ -71,7 +71,6 @@ const card = style({
   display: 'flex',
   maxWidth: '380px',
   flexDirection: 'column',
-  justifyContent: 'center',
   backgroundColor: '#f6f6f6',
   borderRadius: '24px',
 });
@@ -80,7 +79,6 @@ export const cardVar = styleVariants({
   DESK: [
     card,
     {
-      height: '284px',
       padding: '38px 40px',
     },
   ],
