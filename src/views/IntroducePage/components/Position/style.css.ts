@@ -24,8 +24,9 @@ export const wrapperVar = styleVariants({
   MOB: [
     wrapper,
     {
-      width: '100%',
       gap: '24px',
+      width: '100%',
+      maxWidth: '100vw',
       overflowX: 'hidden',
     },
   ],
@@ -56,13 +57,12 @@ export const containerVar = styleVariants({
       display: 'flex',
       width: '100%',
       padding: '0 20px',
-      gap: '8px',
       overflowX: 'scroll',
       scrollSnapType: 'x mandatory',
       scrollPaddingLeft: '20px',
-      '::-webkit-scrollbar': {
-        display: 'none',
-      },
+      gap: '12px',
+      scrollbarWidth: 'none',
+      scrollBehavior: 'smooth',
     },
   ],
 });
@@ -71,6 +71,7 @@ const card = style({
   display: 'flex',
   maxWidth: '380px',
   flexDirection: 'column',
+  justifyContent: 'center',
   backgroundColor: '#f6f6f6',
   borderRadius: '24px',
 });
