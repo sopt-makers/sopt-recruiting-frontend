@@ -23,24 +23,38 @@ const CoreValue = () => {
   return (
     <section className={wrapperVar[deviceType]}>
       <SectionTitle label={TITLE.CORE_VALUE.label} title={TITLE.CORE_VALUE.title} />
-      <ul className={listWrapperVar[deviceType]}>
-        {CORE_VALUE.map((value) => (
-          <CoreValueItem key={value.id} value={value} deviceType={deviceType} />
-        ))}
-      </ul>
+      <CoreValueList values={CORE_VALUE} />
     </section>
   );
 };
 
 export default CoreValue;
 
-interface ItemProps {
-  value: (typeof CORE_VALUE)[number];
-  deviceType: 'DESK' | 'TAB' | 'MOB';
+type Value = (typeof CORE_VALUE)[number];
+interface ListProps {
+  values: Value[];
 }
 
-const CoreValueItem = ({ value, deviceType }: ItemProps) => {
+const CoreValueList = ({ values }: ListProps) => {
+  const { deviceType } = useDeviceType();
+
+  return (
+    <ul className={listWrapperVar[deviceType]}>
+      {values.map((value) => (
+        <CoreValueItem key={value.id} value={value} />
+      ))}
+    </ul>
+  );
+};
+
+interface ItemProps {
+  value: Value;
+}
+
+const CoreValueItem = ({ value }: ItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const { deviceType } = useDeviceType();
 
   return (
     <li

@@ -10,18 +10,42 @@ const Position = () => {
   return (
     <section className={wrapperVar[deviceType]}>
       <SectionTitle label={TITLE.POSITION.label} title={TITLE.POSITION.title} />
-
-      <div className={containerVar[deviceType]}>
-        {POSITION.map((position) => (
-          <div key={position.id} className={cardVar[deviceType]}>
-            <Tag variant="secondary">{position.id}</Tag>
-            <p className={nameVar[deviceType]}>{position.name}</p>
-            <p className={descriptionVar[deviceType]}>{position.description}</p>
-          </div>
-        ))}
-      </div>
+      <PositionList positions={POSITION} />
     </section>
   );
 };
 
 export default Position;
+
+type Position = (typeof POSITION)[number];
+interface ListProps {
+  positions: Position[];
+}
+
+const PositionList = ({ positions }: ListProps) => {
+  const { deviceType } = useDeviceType();
+
+  return (
+    <ul className={containerVar[deviceType]}>
+      {positions.map((position) => (
+        <PositionItem key={position.id} position={position} />
+      ))}
+    </ul>
+  );
+};
+
+interface ItemProps {
+  position: Position;
+}
+
+const PositionItem = ({ position }: ItemProps) => {
+  const { deviceType } = useDeviceType();
+
+  return (
+    <li className={cardVar[deviceType]}>
+      <Tag variant="secondary">{position.id}</Tag>
+      <p className={nameVar[deviceType]}>{position.name}</p>
+      <p className={descriptionVar[deviceType]}>{position.description}</p>
+    </li>
+  );
+};
