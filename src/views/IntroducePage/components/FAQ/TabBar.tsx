@@ -10,20 +10,17 @@ interface Props {
 const TabBar = ({ selectedTab, setSelectedTab }: Props) => {
   const { deviceType } = useDeviceType();
 
-  const handleTabClick = (tab: ExtraPartType) => {
-    setSelectedTab(tab);
-  };
-
   return (
     <nav className={tabBar[deviceType]}>
       {FAQ_TABS.map((tab) => (
         <button
           key={tab.value}
+          type="button"
           className={tabRecipe({
             state: selectedTab === tab.value ? 'selected' : 'default',
             viewport: deviceType,
           })}
-          onClick={() => handleTabClick(tab.value)}>
+          onClick={() => setSelectedTab(tab.value)}>
           {tab.label}
         </button>
       ))}
