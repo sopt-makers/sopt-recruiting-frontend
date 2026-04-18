@@ -1,3 +1,4 @@
+
 export const TITLE = {
   RECRUITMENT_TARGET: {
     label: 'Recruitment Target',
@@ -15,6 +16,10 @@ export const TITLE = {
   SCHEDULE: {
     label: 'Schedule',
     title: '전체 지원 일정을 확인하세요',
+  },
+  INQUIRY: {
+    label: 'Inquiry',
+    title: '문의하기',
   },
 };
 
@@ -95,6 +100,54 @@ export const CORE_VALUE = [
     description: '함께일 때 더 성장할 수 있는 사람',
   },
 ];
+
+export enum ContactType {
+  EMAIL = 'email',
+  KAKAO = 'kakao',
+  INSTAGRAM = 'instagram',
+  FACEBOOK = 'facebook',
+}
+
+export const contactInDisplayOrder: ContactType[] = [
+  ContactType.EMAIL,
+  ContactType.KAKAO,
+  ContactType.INSTAGRAM,
+  ContactType.FACEBOOK,
+];
+
+type ContactItem = {
+  label: string;
+  desc: string;
+  thumbnail: { src: string };
+  link: { type: 'open' | 'change-window'; href: string };
+};
+
+export const contactMap: Record<ContactType, ContactItem> = {
+  [ContactType.EMAIL]: {
+    label: '이메일',
+    desc: 'president@sopt.org',
+    thumbnail: { src: '/email.png' },
+    link: { type: 'change-window', href: 'mailto:president@sopt.org' },
+  },
+  [ContactType.KAKAO]: {
+    label: '카카오톡 플러스 친구',
+    desc: 'SOPT',
+    thumbnail: { src: '/kakao.png' },
+    link: { type: 'open', href: 'http://pf.kakao.com/_JdTKd' },
+  },
+  [ContactType.INSTAGRAM]: {
+    label: '인스타그램',
+    desc: '@sopt_official',
+    thumbnail: { src: '/instagram.png' },
+    link: { type: 'open', href: 'https://www.instagram.com/sopt_official/' },
+  },
+  [ContactType.FACEBOOK]: {
+    label: '페이스북',
+    desc: 'clubsopt',
+    thumbnail: { src: '/facebook.png' },
+    link: { type: 'open', href: 'https://www.facebook.com/clubsopt/' },
+  },
+};
 
 export const DUMMY_SCHEDULE = {
   group: 'YB',

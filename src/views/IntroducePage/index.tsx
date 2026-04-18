@@ -4,6 +4,7 @@ import RecruitmentTarget from 'views/IntroducePage/components/RecruitmentTarget'
 import { wrapper } from './style.css';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import Schedule from 'views/IntroducePage/components/Schedule';
+import Inquiry from 'views/IntroducePage/components/Inquiry';
 
 const IntroducePage = () => {
   const { deviceType } = useDeviceType();
@@ -14,6 +15,7 @@ const IntroducePage = () => {
       <Position />
       <CoreValue />
       <Schedule />
+      <Inquiry />
     </div>
   );
 };
