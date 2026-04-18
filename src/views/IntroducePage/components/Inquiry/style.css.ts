@@ -96,16 +96,12 @@ const contactSub = style({
   color: colors.gray950,
   fontWeight: '700',
   textDecorationLine: 'underline',
-  textDecorationStyle: 'solid',
   textDecorationSkipInk: 'none',
-  textDecorationThickness: 'auto',
-  textUnderlineOffset: 'auto',
   textUnderlinePosition: 'from-font',
-  cursor: 'pointer',
 });
 
 export const contactSubVar = styleVariants({
   DESK: [contactSub, { fontSize: '32px', lineHeight: '40px', letterSpacing: '-0.32px' }],
-  TAB: [contactSub, { fontSize: '18px', lineHeight: '3028pxpx', letterSpacing: '-0.36px' }],
+  TAB: [contactSub, { fontSize: '18px', lineHeight: '28px', letterSpacing: '-0.36px' }],
   MOB: [contactSub, { fontSize: '18px', lineHeight: '28px', letterSpacing: '-0.36px' }],
 });

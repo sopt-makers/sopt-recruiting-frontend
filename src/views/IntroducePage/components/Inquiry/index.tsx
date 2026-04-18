@@ -35,25 +35,24 @@ const InquiryBox = () => {
   return (
     <div className={gridWrapperVar[deviceType]}>
       {contactInDisplayOrder.map((contact) => {
-        const contactItem = contactMap[contact];
-        const { thumbnail, label } = contactItem;
+        const { thumbnail, label, desc, link } = contactMap[contact];
 
         return (
           <div key={contact} className={itemWrapperVar[deviceType]}>
             <img src={thumbnail.src} alt={label} className={imageVar[deviceType]} />
             <div className={contactContentVar[deviceType]}>
-              <p className={contactTitleVar[deviceType]}>{contactItem.label}</p>
-              <p
+              <p className={contactTitleVar[deviceType]}>{label}</p>
+              <a
                 className={contactSubVar[deviceType]}
                 onClick={() => {
-                  if (contactItem.link.type === 'open') {
-                    window.open(contactItem.link.href);
+                  if (link.type === 'open') {
+                    window.open(link.href);
                   } else {
-                    window.location.href = contactItem.link.href;
+                    window.location.href = link.href;
                   }
                 }}>
-                {contactItem.desc}
-              </p>
+                {desc}
+              </a>
             </div>
           </div>
         );
