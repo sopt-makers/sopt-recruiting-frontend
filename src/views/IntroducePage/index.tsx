@@ -1,4 +1,5 @@
 import CoreValue from 'views/IntroducePage/components/CoreValue';
+import FAQ from 'views/IntroducePage/components/FAQ';
 import Position from 'views/IntroducePage/components/Position';
 import RecruitmentTarget from 'views/IntroducePage/components/RecruitmentTarget';
 import { wrapper } from './style.css';
@@ -12,6 +13,7 @@ const IntroducePage = () => {
       <RecruitmentTarget />
       <Position />
       <CoreValue />
+      <FAQ />
     </div>
   );
 };
