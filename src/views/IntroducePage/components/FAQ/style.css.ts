@@ -58,14 +58,10 @@ export const itemVar = recipe({
   },
 });
 
-const questionWrapperBase = style({
+export const questionWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',
-});
-
-export const questionWrapperVar = styleVariants({
-  opened: [questionWrapperBase, { gap: '14px' }],
-  closed: [questionWrapperBase, { gap: '14px' }],
+  gap: '14px',
 });
 
 const questionTextBase = style({
