@@ -1,3 +1,4 @@
+import { ContactItem, ContactType } from 'views/IntroducePage/types';
 
 export const TITLE = {
   RECRUITMENT_TARGET: {
@@ -100,27 +101,6 @@ export const CORE_VALUE = [
     description: '함께일 때 더 성장할 수 있는 사람',
   },
 ];
-
-export enum ContactType {
-  EMAIL = 'email',
-  KAKAO = 'kakao',
-  INSTAGRAM = 'instagram',
-  FACEBOOK = 'facebook',
-}
-
-export const contactInDisplayOrder: ContactType[] = [
-  ContactType.EMAIL,
-  ContactType.KAKAO,
-  ContactType.INSTAGRAM,
-  ContactType.FACEBOOK,
-];
-
-type ContactItem = {
-  label: string;
-  desc: string;
-  thumbnail: { src: string };
-  link: { type: 'open' | 'change-window'; href: string };
-};
 
 export const contactMap: Record<ContactType, ContactItem> = {
   [ContactType.EMAIL]: {

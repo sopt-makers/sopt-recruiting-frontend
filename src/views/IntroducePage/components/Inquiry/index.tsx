@@ -1,6 +1,6 @@
 import SectionTitle from '@components/SectionTitle';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { contactInDisplayOrder, contactMap, TITLE } from 'views/IntroducePage/constants/constant';
+import { contactMap, TITLE } from 'views/IntroducePage/constants/constant';
 import {
   contactContentVar,
   contactSubVar,
@@ -12,6 +12,7 @@ import {
   titleSectionVar,
   wrapperVar,
 } from './style.css';
+import { contactInDisplayOrder } from 'views/IntroducePage/types';
 
 const Inquiry = () => {
   const { deviceType } = useDeviceType();
