@@ -12,6 +12,10 @@ export const TITLE = {
     // TODO: 기수, SOPT 이름 불러오기
     title: `season기 SOPT가 함께 나아가고 싶은 사람이에요`,
   },
+  SCHEDULE: {
+    label: 'Schedule',
+    title: '전체 지원 일정을 확인하세요',
+  },
 };
 
 export const RECRUITMENT_TARGET = [
@@ -91,3 +95,14 @@ export const CORE_VALUE = [
     description: '함께일 때 더 성장할 수 있는 사람',
   },
 ];
+
+export const DUMMY_SCHEDULE = {
+  group: 'YB',
+  applicationStartTime: { date: '3월 3일', hour: '8시' },
+  applicationEndTime: { date: '3월 16일', hour: '오후 11시 59분' },
+  applicationResultTime: { date: '3월 20일', hour: '오전 6시' },
+  interviewStartTime: { date: '3월 16일' },
+  interviewEndTime: { date: '3월 17일' },
+  finalResultTime: { date: '3월 20일' },
+  orientationTime: { date: '3월 23일' },
+};
