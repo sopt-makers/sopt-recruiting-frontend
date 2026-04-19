@@ -32,7 +32,7 @@ const useDate = () => {
   const afterInterview = isBefore(new Date(interviewEnd || ''), new Date());
   const beforeFinalResult = isAfter(new Date(finalResultStart || ''), new Date());
 
-  const NoMoreRecruit = beforeRecruiting || afterRecruiting; // 지원 전
+  const NoMoreRecruit = !data?.season || beforeRecruiting || afterRecruiting; // 기수 정보 없음 또는 지원 전/후
   const NoMoreApply = beforeRecruiting || afterApply; // 서류 지원 마감
   const NoMoreScreeningResult = beforeScreeningResult || afterScreeningResult; // 서류 합불 확인 기간 아님
   const NoMoreReview = afterInterview; // 면접 마감 -> 지원서 확인 불가
