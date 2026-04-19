@@ -45,13 +45,9 @@ const InquiryBox = () => {
               <p className={contactTitleVar[deviceType]}>{label}</p>
               <a
                 className={contactSubVar[deviceType]}
-                onClick={() => {
-                  if (link.type === 'open') {
-                    window.open(link.href);
-                  } else {
-                    window.location.href = link.href;
-                  }
-                }}>
+                href={link.href}
+                target={link.target}
+                rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}>
                 {desc}
               </a>
             </div>

@@ -16,5 +16,5 @@ export type ContactItem = {
   label: string;
   desc: string;
   thumbnail: { src: string };
-  link: { type: 'open' | 'change-window'; href: string };
+  link: { target: '_blank' | '_self'; href: string };
 };
