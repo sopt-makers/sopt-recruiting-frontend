@@ -27,3 +27,6 @@ public/unsupported.html
 .env
 .env.makers
 .env.sopt
+
+# OMC
+.omc
