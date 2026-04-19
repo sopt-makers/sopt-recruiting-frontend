@@ -1,107 +1,124 @@
 import { colors } from '@sopt-makers/colors';
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
-const wrapper = style({
+export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '48px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      gap: '24px',
+    },
+  },
 });
 
-export const wrapperVar = styleVariants({
-  DESK: [wrapper, { gap: '48px' }],
-  TAB: [wrapper, { gap: '24px' }],
-  MOB: [wrapper, { gap: '24px' }],
-});
-
-const titleSection = style({
+export const titleSection = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  gap: '8px',
+  '@media': {
+    [breakpoints.mobile]: {
+      gap: '2px',
+    },
+  },
 });
 
-export const titleSectionVar = styleVariants({
-  DESK: [titleSection, { gap: '8px' }],
-  TAB: [titleSection, { gap: '8px' }],
-  MOB: [titleSection, { gap: '2px' }],
-});
-
-const description = style({
+export const description = style({
   color: colors.gray600,
-});
-export const descriptionVar = styleVariants({
-  DESK: [description, { ...theme.font.TITLE_5_18_SB }],
-  TAB: [description, { ...theme.font.BODY_3_14_M }],
-  MOB: [description, { ...theme.font.BODY_3_14_M }],
+  ...theme.font.TITLE_5_18_SB,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      ...theme.font.BODY_3_14_M,
+    },
+  },
 });
 
-const gridWrapper = style({
+export const gridWrapper = style({
   display: 'grid',
   maxWidth: '1200px',
   justifyContent: 'space-between',
+  gridTemplateColumns: 'auto auto',
+  rowGap: '65px',
+  width: '100%',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      width: 'auto',
+      gridTemplateColumns: '1fr',
+      rowGap: '24px',
+    },
+  },
 });
 
-export const gridWrapperVar = styleVariants({
-  DESK: [gridWrapper, { gridTemplateColumns: 'auto auto', rowGap: '65px', width: '100%' }],
-  TAB: [gridWrapper, { gridTemplateColumns: '1fr', rowGap: '24px' }],
-  MOB: [gridWrapper, { gridTemplateColumns: '1fr', rowGap: '24px' }],
-});
-
-const itemWrapper = style({
+export const itemWrapper = style({
   display: 'flex',
   alignItems: 'center',
   maxWidth: '398px',
+  gap: '40px',
+  '@media': {
+    [breakpoints.tablet]: {
+      gap: '24px',
+    },
+    [breakpoints.mobile]: {
+      gap: '16px',
+    },
+  },
 });
 
-export const itemWrapperVar = styleVariants({
-  DESK: [itemWrapper, { gap: '40px' }],
-  TAB: [itemWrapper, { gap: '24px' }],
-  MOB: [itemWrapper, { gap: '16px' }],
-});
-
-const image = style({
+export const image = style({
   objectFit: 'cover',
+  width: '78px',
+  height: '78px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      width: '32px',
+      height: '32px',
+    },
+  },
 });
 
-export const imageVar = styleVariants({
-  DESK: [image, { width: '78px', height: '78px' }],
-  TAB: [image, { width: '32px', height: '32px' }],
-  MOB: [image, { width: '32px', height: '32px' }],
-});
-
-const contactContent = style({
+export const contactContent = style({
   display: 'flex',
   flexDirection: 'column',
+  gap: '10px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      gap: '0px',
+    },
+  },
 });
 
-export const contactContentVar = styleVariants({
-  DESK: [contactContent, { gap: '10px' }],
-  TAB: [contactContent, { gap: '0px' }],
-  MOB: [contactContent, { gap: '0px' }],
-});
-
-const contactTitle = style({
+export const contactTitle = style({
   color: colors.gray600,
   fontWeight: '400',
+  fontSize: '24px',
+  lineHeight: '24px',
+  letterSpacing: '-0.48px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      ...theme.font.LABEL_4_12_SB,
+    },
+  },
 });
 
-export const contactTitleVar = styleVariants({
-  DESK: [contactTitle, { fontSize: '24px', lineHeight: '24px', letterSpacing: '-0.48px' }],
-  TAB: [contactTitle, { ...theme.font.LABEL_4_12_SB }],
-  MOB: [contactTitle, { ...theme.font.LABEL_4_12_SB }],
-});
-
-const contactSub = style({
+export const contactSub = style({
   color: colors.gray950,
   fontWeight: '700',
   textDecorationLine: 'underline',
   textDecorationSkipInk: 'none',
   textUnderlinePosition: 'from-font',
-});
-
-export const contactSubVar = styleVariants({
-  DESK: [contactSub, { fontSize: '32px', lineHeight: '40px', letterSpacing: '-0.32px' }],
-  TAB: [contactSub, { fontSize: '18px', lineHeight: '28px', letterSpacing: '-0.36px' }],
-  MOB: [contactSub, { fontSize: '18px', lineHeight: '28px', letterSpacing: '-0.36px' }],
+  fontSize: '32px',
+  lineHeight: '40px',
+  letterSpacing: '-0.32px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      fontSize: '18px',
+      lineHeight: '28px',
+      letterSpacing: '-0.36px',
+    },
+  },
 });

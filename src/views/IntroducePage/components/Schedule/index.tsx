@@ -1,21 +1,18 @@
 import SectionTitle from '@components/SectionTitle';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { DUMMY_SCHEDULE, TITLE } from 'views/IntroducePage/constants/constant';
 import {
-  gridWrapperVar,
-  oddTextVar,
-  evenTextVar,
-  highlightVar,
-  containerVar,
-  scheduleGroupVar,
-  wrapperVar,
+  gridWrapper,
+  oddText,
+  evenText,
+  highlight,
+  container,
+  scheduleGroup,
+  wrapper,
 } from './style.css';
 
 const Schedule = () => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <section className={wrapperVar[deviceType]}>
+    <section className={wrapper}>
       <SectionTitle label={TITLE.SCHEDULE.label} title={TITLE.SCHEDULE.title} />
       <ScheduleBox />
     </section>
@@ -25,7 +22,6 @@ const Schedule = () => {
 export default Schedule;
 
 const ScheduleBox = () => {
-  const { deviceType } = useDeviceType();
   const {
     group,
     applicationStartTime,
@@ -37,31 +33,31 @@ const ScheduleBox = () => {
   } = DUMMY_SCHEDULE;
 
   return (
-    <div className={containerVar[deviceType]}>
-      <div className={gridWrapperVar[deviceType]}>
-        <div className={scheduleGroupVar[deviceType]}>
-          <p className={oddTextVar[deviceType]}>{group} 서류 접수</p>
-          <div className={evenTextVar[deviceType]}>
+    <div className={container}>
+      <div className={gridWrapper}>
+        <div className={scheduleGroup}>
+          <p className={oddText}>{group} 서류 접수</p>
+          <div className={evenText}>
             {`${applicationStartTime.date} `}
-            <span className={highlightVar[deviceType]}>{applicationStartTime.hour}</span>
+            <span className={highlight}>{applicationStartTime.hour}</span>
             {` ~ ${applicationEndTime.date} `}
-            <span className={highlightVar[deviceType]}>{applicationEndTime.hour}</span>
+            <span className={highlight}>{applicationEndTime.hour}</span>
           </div>
         </div>
 
-        <div className={scheduleGroupVar[deviceType]}>
-          <p className={oddTextVar[deviceType]}>{group} 면접</p>
-          <div className={evenTextVar[deviceType]}>{`${interviewStartTime.date} ~ ${interviewEndTime.date}`}</div>
+        <div className={scheduleGroup}>
+          <p className={oddText}>{group} 면접</p>
+          <div className={evenText}>{`${interviewStartTime.date} ~ ${interviewEndTime.date}`}</div>
         </div>
 
-        <div className={scheduleGroupVar[deviceType]}>
-          <p className={oddTextVar[deviceType]}>{group} 최종 결과 발표</p>
-          <div className={evenTextVar[deviceType]}>{`${finalResultTime.date} `}</div>
+        <div className={scheduleGroup}>
+          <p className={oddText}>{group} 최종 결과 발표</p>
+          <div className={evenText}>{`${finalResultTime.date} `}</div>
         </div>
 
-        <div className={scheduleGroupVar[deviceType]}>
-          <p className={oddTextVar[deviceType]}>오리엔테이션</p>
-          <div className={evenTextVar[deviceType]}>{`${orientationTime.date} `}</div>
+        <div className={scheduleGroup}>
+          <p className={oddText}>오리엔테이션</p>
+          <div className={evenText}>{`${orientationTime.date} `}</div>
         </div>
       </div>
     </div>
