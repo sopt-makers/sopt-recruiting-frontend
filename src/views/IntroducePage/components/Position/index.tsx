@@ -1,14 +1,11 @@
 import SectionTitle from '@components/SectionTitle';
 import { POSITION, TITLE } from 'views/IntroducePage/constants/constant';
-import { wrapperVar, containerVar, nameVar, descriptionVar, cardVar } from './style.css';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { wrapper, container, name, description, card } from './style.css';
 import { Tag } from '@sopt-makers/ui';
 
 const Position = () => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <section className={wrapperVar[deviceType]}>
+    <section className={wrapper}>
       <SectionTitle label={TITLE.POSITION.label} title={TITLE.POSITION.title} />
       <PositionList positions={POSITION} />
     </section>
@@ -23,10 +20,8 @@ interface ListProps {
 }
 
 const PositionList = ({ positions }: ListProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <ul className={containerVar[deviceType]}>
+    <ul className={container}>
       {positions.map((position) => (
         <PositionItem key={position.id} position={position} />
       ))}
@@ -39,13 +34,11 @@ interface ItemProps {
 }
 
 const PositionItem = ({ position }: ItemProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <li className={cardVar[deviceType]}>
+    <li className={card}>
       <Tag variant="secondary">{position.id}</Tag>
-      <p className={nameVar[deviceType]}>{position.name}</p>
-      <p className={descriptionVar[deviceType]}>{position.description}</p>
+      <p className={name}>{position.name}</p>
+      <p className={description}>{position.description}</p>
     </li>
   );
 };

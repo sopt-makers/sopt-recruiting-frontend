@@ -1,27 +1,24 @@
 import { useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { CORE_VALUE, TITLE } from 'views/IntroducePage/constants/constant';
 import {
-  wrapperVar,
-  listWrapperVar,
-  cardVar,
+  wrapper,
+  listWrapper,
+  card,
   backgroundBlur,
   backgroundBlurVisible,
   content,
   front,
   iconWrapper,
   descriptionVisible,
-  descriptionVar,
+  description,
   valueText,
   image,
 } from './style.css';
 
 const CoreValue = () => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <section className={wrapperVar[deviceType]}>
+    <section className={wrapper}>
       <SectionTitle label={TITLE.CORE_VALUE.label} title={TITLE.CORE_VALUE.title} />
       <CoreValueList values={CORE_VALUE} />
     </section>
@@ -36,10 +33,8 @@ interface ListProps {
 }
 
 const CoreValueList = ({ values }: ListProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <ul className={listWrapperVar[deviceType]}>
+    <ul className={listWrapper}>
       {values.map((value) => (
         <CoreValueItem key={value.id} value={value} />
       ))}
@@ -54,20 +49,18 @@ interface ItemProps {
 const CoreValueItem = ({ value }: ItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const { deviceType } = useDeviceType();
-
   return (
     <li
-      className={cardVar[deviceType]}
+      className={card}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <div className={content}>
         <div className={front}>
-          <p className={valueText[deviceType]}>{value.value}</p>
+          <p className={valueText}>{value.value}</p>
           <div className={iconWrapper}>
-            <img src={value.image} alt={value.value} className={`${image[deviceType]}`} />
+            <img src={value.image} alt={value.value} className={image} />
             <div className={`${backgroundBlur} ${isHovered ? backgroundBlurVisible : ''}`} />
-            <p className={`${descriptionVar[deviceType]} ${isHovered ? descriptionVisible : ''}`}>
+            <p className={`${description} ${isHovered ? descriptionVisible : ''}`}>
               {value.description}
             </p>
           </div>
