@@ -51,7 +51,7 @@ const FAQList = ({ selectedTab, openedItems, toggle }: FAQListProps) => {
 
   return (
     <ul className={listWrapperVar[deviceType]}>
-      {FAQ_DATA[selectedTab].map((faq, index) => {
+      {FAQ_DATA[selectedTab]?.map((faq, index) => {
         const isOpened = openedItems.has(index);
         return <FAQItem key={`${selectedTab}-${index}`} faq={faq} isOpened={isOpened} onClick={() => toggle(index)} />;
       })}

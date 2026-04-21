@@ -1,3 +1,5 @@
+import { PartDataType, FAQItemType, FAQTabType } from 'views/IntroducePage/types';
+
 export const TITLE = {
   RECRUITMENT_TARGET: {
     label: 'Recruitment Target',
@@ -75,19 +77,6 @@ export const SOPT_PART = [
   },
 ];
 
-export type FAQItemType = {
-  question: string;
-  answer: string;
-};
-
-export type PartType = 'Plan' | 'Design' | 'Android' | 'iOS' | 'Web' | 'Server';
-export type ExtraPartType = PartType | 'ALL';
-
-export type FAQTabType = {
-  value: ExtraPartType;
-  label: string;
-};
-
 export const FAQ_TABS: FAQTabType[] = [
   { value: 'ALL', label: '전체' },
   { value: 'Plan', label: '기획' },
@@ -98,7 +87,7 @@ export const FAQ_TABS: FAQTabType[] = [
   { value: 'Server', label: '서버' },
 ];
 
-export const FAQ_DATA: Record<ExtraPartType, FAQItemType[]> = {
+export const FAQ_DATA: Record<PartDataType, FAQItemType[]> = {
   ALL: [
     {
       question: '직장인/휴학생/졸업유예생도 활동할 수 있나요?',
