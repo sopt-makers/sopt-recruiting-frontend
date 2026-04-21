@@ -66,7 +66,6 @@ export const dimLayer = style({
 });
 
 export const dimLayerActive = style({
-  background: 'rgba(1, 1, 1, 0.6)',
   backdropFilter: 'blur(10px)',
 });
 
