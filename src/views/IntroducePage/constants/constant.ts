@@ -32,7 +32,7 @@ export const RECRUITMENT_TARGET = [
   },
 ];
 
-export const POSITION = [
+export const SOPT_PART = [
   {
     id: 'Plan',
     name: '기획 파트',
