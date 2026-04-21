@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
-import { ExtraPartType, FAQ_DATA, FAQItemType, TITLE } from 'views/IntroducePage/constants/constant';
+import { FAQ_DATA, TITLE } from 'views/IntroducePage/constants/constant';
+import { FAQItemType, PartDataType } from 'views/IntroducePage/types';
 import {
   wrapper,
   itemVar,
@@ -18,12 +19,12 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import useToggleSet from 'views/IntroducePage/components/FAQ/hooks/useToggleSet';
 
 const FAQ = () => {
-  const [selectedTab, setSelectedTab] = useState<ExtraPartType>('ALL');
+  const [selectedTab, setSelectedTab] = useState<PartDataType>('ALL');
   const { items, toggle, reset } = useToggleSet();
 
   const { deviceType } = useDeviceType();
 
-  const handleTabChange = (tab: ExtraPartType) => {
+  const handleTabChange = (tab: PartDataType) => {
     setSelectedTab(tab);
     reset();
   };
@@ -31,7 +32,7 @@ const FAQ = () => {
   return (
     <section className={wrapper[deviceType]}>
       <SectionTitle label={TITLE.FAQ.label} title={TITLE.FAQ.title} />
-      <TabBar selectedTab={selectedTab} setSelectedTab={handleTabChange} />
+      <TabBar selectedTab={selectedTab} onChange={handleTabChange} />
       <FAQList selectedTab={selectedTab} openedItems={items} toggle={toggle} />
     </section>
   );
@@ -40,7 +41,7 @@ const FAQ = () => {
 export default FAQ;
 
 interface FAQListProps {
-  selectedTab: ExtraPartType;
+  selectedTab: PartDataType;
   openedItems: Set<number>;
   toggle: (index: number) => void;
 }

@@ -1,13 +1,14 @@
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { ExtraPartType, FAQ_TABS } from 'views/IntroducePage/constants/constant';
+import { FAQ_TABS } from 'views/IntroducePage/constants/constant';
+import { PartDataType } from 'views/IntroducePage/types';
 import { tabBar, tabRecipe } from './style.css';
 
 interface Props {
-  selectedTab: ExtraPartType;
-  setSelectedTab: (tab: ExtraPartType) => void;
+  selectedTab: PartDataType;
+  onChange: (tab: PartDataType) => void;
 }
 
-const TabBar = ({ selectedTab, setSelectedTab }: Props) => {
+const TabBar = ({ selectedTab, onChange }: Props) => {
   const { deviceType } = useDeviceType();
 
   return (
@@ -20,7 +21,7 @@ const TabBar = ({ selectedTab, setSelectedTab }: Props) => {
             state: selectedTab === tab.value ? 'selected' : 'default',
             viewport: deviceType,
           })}
-          onClick={() => setSelectedTab(tab.value)}>
+          onClick={() => onChange(tab.value)}>
           {tab.label}
         </button>
       ))}
