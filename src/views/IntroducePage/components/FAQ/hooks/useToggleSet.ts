@@ -4,10 +4,12 @@ const useToggleSet = () => {
   const [items, setItems] = useState(new Set<number>());
 
   const toggle = (index: number) => {
-    const next = new Set(items);
-    next.has(index) ? next.delete(index) : next.add(index);
+    setItems((prev) => {
+      const next = new Set(prev);
+      next.has(index) ? next.delete(index) : next.add(index);
 
-    setItems(next);
+      return next;
+    });
   };
 
   const reset = () => setItems(new Set());
