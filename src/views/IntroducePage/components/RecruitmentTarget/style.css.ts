@@ -1,60 +1,34 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
+import { breakpoints } from 'styles/breakpoints';
 
-const wrapper = style({
+export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-});
-
-export const wrapperVar = styleVariants({
-  DESK: [
-    wrapper,
-    {
-      gap: '48px',
-    },
-  ],
-  TAB: [
-    wrapper,
-    {
+  gap: '48px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
       gap: '24px',
     },
-  ],
-  MOB: [
-    wrapper,
-    {
-      gap: '24px',
-    },
-  ],
+  },
 });
 
-const containerWrapper = style({
+export const containerWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-});
-
-export const containerWrapperVar = styleVariants({
-  DESK: [
-    containerWrapper,
-    {
-      gap: '16px',
-    },
-  ],
-  TAB: [
-    containerWrapper,
-    {
+  gap: '16px',
+  '@media': {
+    [breakpoints.tablet]: {
       gap: '10px',
     },
-  ],
-  MOB: [
-    containerWrapper,
-    {
+    [breakpoints.mobile]: {
       flexDirection: 'column',
       gap: '10px',
     },
-  ],
+  },
 });
 
 export const container = style({
@@ -81,28 +55,13 @@ export const icon = style({
   fontSize: '58px',
 });
 
-const description = style({
+export const description = style({
   textAlign: 'center',
   whiteSpace: 'pre-line',
-});
-
-export const descriptionVar = styleVariants({
-  DESK: [
-    description,
-    {
-      ...theme.font.TITLE_3_24_SB,
-    },
-  ],
-  TAB: [
-    description,
-    {
+  ...theme.font.TITLE_3_24_SB,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
       ...theme.font.TITLE_6_16_SB,
     },
-  ],
-  MOB: [
-    description,
-    {
-      ...theme.font.TITLE_6_16_SB,
-    },
-  ],
+  },
 });

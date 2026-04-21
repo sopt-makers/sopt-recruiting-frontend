@@ -1,13 +1,10 @@
 import SectionTitle from '@components/SectionTitle';
 import { RECRUITMENT_TARGET, TITLE } from 'views/IntroducePage/constants/constant';
-import { wrapperVar, container, containerWrapperVar, descriptionVar, icon } from './style.css';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { wrapper, container, containerWrapper, description, icon } from './style.css';
 
 const RecruitmentTarget = () => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <section className={wrapperVar[deviceType]}>
+    <section className={wrapper}>
       <SectionTitle label={TITLE.RECRUITMENT_TARGET.label} title={TITLE.RECRUITMENT_TARGET.title} />
       <RecruitmentTargetList targets={RECRUITMENT_TARGET} />
     </section>
@@ -22,10 +19,8 @@ interface ListProps {
 }
 
 const RecruitmentTargetList = ({ targets }: ListProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <ul className={containerWrapperVar[deviceType]}>
+    <ul className={containerWrapper}>
       {targets.map((target) => (
         <RecruitmentTargetItem key={target.id} target={target} />
       ))}
@@ -38,12 +33,10 @@ interface ItemProps {
 }
 
 const RecruitmentTargetItem = ({ target }: ItemProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
     <li className={container}>
       <p className={icon}>{target.icon}</p>
-      <p className={descriptionVar[deviceType]}>{target.description}</p>
+      <p className={description}>{target.description}</p>
     </li>
   );
 };
