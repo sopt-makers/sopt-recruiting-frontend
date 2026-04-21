@@ -31,7 +31,7 @@ export const listWrapper = style({
   },
 });
 
-export const card = style({
+export const cardWrapper = style({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -55,7 +55,7 @@ export const card = style({
   },
 });
 
-export const backgroundBlur = style({
+export const dimLayer = style({
   position: 'absolute',
   top: 0,
   left: 0,
@@ -65,12 +65,12 @@ export const backgroundBlur = style({
   transition: '0.3s',
 });
 
-export const backgroundBlurVisible = style({
-  background: 'rgba(246, 246, 246, 0.60)',
+export const dimLayerActive = style({
+  background: 'rgba(1, 1, 1, 0.6)',
   backdropFilter: 'blur(10px)',
 });
 
-export const content = style({
+export const cardContainer = style({
   position: 'relative',
   width: '100%',
   height: '100%',
@@ -81,7 +81,7 @@ export const content = style({
   zIndex: 1,
 });
 
-export const front = style({
+export const contentLayout = style({
   display: 'flex',
   width: '100%',
   flexDirection: 'column',
@@ -99,7 +99,7 @@ export const valueText = style({
   },
 });
 
-export const iconWrapper = style({
+export const imageWrapper = style({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
@@ -121,7 +121,7 @@ export const image = style({
   },
 });
 
-export const description = style({
+export const descriptionBase = style({
   position: 'absolute',
   display: 'flex',
   alignItems: 'center',

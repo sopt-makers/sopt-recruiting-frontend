@@ -4,16 +4,16 @@ import { CORE_VALUE, TITLE } from 'views/IntroducePage/constants/constant';
 import {
   wrapper,
   listWrapper,
-  card,
-  backgroundBlur,
-  backgroundBlurVisible,
-  content,
-  front,
-  iconWrapper,
+  dimLayer,
   descriptionVisible,
-  description,
   valueText,
   image,
+  dimLayerActive,
+  descriptionBase,
+  cardContainer,
+  cardWrapper,
+  contentLayout,
+  imageWrapper,
 } from './style.css';
 
 const CoreValue = () => {
@@ -27,9 +27,9 @@ const CoreValue = () => {
 
 export default CoreValue;
 
-type Value = (typeof CORE_VALUE)[number];
+type CoreValueData = (typeof CORE_VALUE)[number];
 interface ListProps {
-  values: Value[];
+  values: CoreValueData[];
 }
 
 const CoreValueList = ({ values }: ListProps) => {
@@ -43,26 +43,21 @@ const CoreValueList = ({ values }: ListProps) => {
 };
 
 interface ItemProps {
-  value: Value;
+  value: CoreValueData;
 }
 
 const CoreValueItem = ({ value }: ItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <li
-      className={card}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
-      <div className={content}>
-        <div className={front}>
+    <li className={cardWrapper} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <div className={cardContainer}>
+        <div className={contentLayout}>
           <p className={valueText}>{value.value}</p>
-          <div className={iconWrapper}>
+          <div className={imageWrapper}>
             <img src={value.image} alt={value.value} className={image} />
-            <div className={`${backgroundBlur} ${isHovered ? backgroundBlurVisible : ''}`} />
-            <p className={`${description} ${isHovered ? descriptionVisible : ''}`}>
-              {value.description}
-            </p>
+            <div className={`${dimLayer} ${isHovered ? dimLayerActive : ''}`} />
+            <p className={`${descriptionBase} ${isHovered ? descriptionVisible : ''}`}>{value.description}</p>
           </div>
         </div>
       </div>
