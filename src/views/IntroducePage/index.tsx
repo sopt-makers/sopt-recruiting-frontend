@@ -1,4 +1,5 @@
 import CoreValue from 'views/IntroducePage/components/CoreValue';
+import FAQ from 'views/IntroducePage/components/FAQ';
 import RecruitmentTarget from 'views/IntroducePage/components/RecruitmentTarget';
 import { wrapper } from './style.css';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
@@ -15,6 +16,7 @@ const IntroducePage = () => {
       <SoptPart />
       <CoreValue />
       <Schedule />
+      <FAQ />
       <Inquiry />
     </div>
   );

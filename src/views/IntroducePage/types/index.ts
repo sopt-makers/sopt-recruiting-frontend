@@ -1,3 +1,5 @@
+import { SOPT_PART } from 'views/IntroducePage/constants/constant';
+
 export enum ContactType {
   EMAIL = 'email',
   KAKAO = 'kakao',
@@ -17,4 +19,17 @@ export type ContactItem = {
   desc: string;
   thumbnail: { src: string };
   link: { target: '_blank' | '_self'; href: string };
+}
+
+export type FAQItemType = {
+  question: string;
+  answer: string;
+};
+
+export type SoptPart = (typeof SOPT_PART)[number]['id'];
+export type PartDataType = SoptPart | 'ALL';
+
+export type FAQTabType = {
+  value: PartDataType;
+  label: string;
 };
