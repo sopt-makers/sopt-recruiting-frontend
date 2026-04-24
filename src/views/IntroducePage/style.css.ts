@@ -1,3 +1,4 @@
+import { colors } from '@sopt-makers/colors';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 const wrapperBase = style({
@@ -5,6 +6,7 @@ const wrapperBase = style({
   width: '100%',
   flexDirection: 'column',
   padding: '0 40px',
+  backgroundColor: colors.gray10,
   scrollBehavior: 'smooth',
 });
 

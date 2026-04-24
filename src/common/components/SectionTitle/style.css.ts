@@ -22,7 +22,7 @@ export const labelVar = styleVariants({
   TAB: [
     label,
     {
-      ...theme.font.BODY_2_16_M,
+      ...theme.font.LABEL_4_12_SB,
     },
   ],
   MOB: [
@@ -38,7 +38,7 @@ export const titleVar = styleVariants({
     ...theme.font.HEADING_2_32_B,
   },
   TAB: {
-    ...theme.font.HEADING_2_32_B,
+    ...theme.font.HEADING_6_18_B,
   },
   MOB: {
     ...theme.font.HEADING_6_18_B,
