@@ -62,7 +62,7 @@ export const image = style({
   },
 });
 
-export const content = style({
+export const contentLayout = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -74,7 +74,7 @@ export const content = style({
   },
 });
 
-export const contentInner = style({
+export const textContentLayout = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

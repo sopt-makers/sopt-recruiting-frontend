@@ -8,8 +8,8 @@ import {
   container,
   imageWrapper,
   image,
-  content,
-  contentInner,
+  contentLayout,
+  textContentLayout,
   title,
   recruitmentInfo,
   date,
@@ -36,8 +36,8 @@ const RecruitingHeader = () => {
       <div className={imageWrapper}>
         <img src={'/top_banner.png'} alt="recruiting header" className={image} />
       </div>
-      <div className={content}>
-        <div className={contentInner}>
+      <div className={contentLayout}>
+        <div className={textContentLayout}>
           <h1 className={title}>{`SOPT의 ${season}번째 열정을 기다리고 있어요!`}</h1>
           <div className={recruitmentInfo}>
             <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>{`${group} 모집`}</Tag>
