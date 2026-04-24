@@ -1,4 +1,4 @@
-import NotificationInput from 'views/IntroducePage/components/ApplyHeader/components/NotificationInput';
+import NotificationInput from 'views/IntroducePage/components/ApplySection/components/NotificationInput';
 import { container, title } from './style.css';
 
 const NotificationHeader = () => {
