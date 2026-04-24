@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { CORE_VALUE, TITLE } from 'views/IntroducePage/constants/constant';
 import {
   wrapper,
@@ -17,9 +18,16 @@ import {
 } from './style.css';
 
 const CoreValue = () => {
+  const {
+    recruitingInfo: { season, soptName },
+  } = useRecruitingInfo();
+
   return (
     <section className={wrapper}>
-      <SectionTitle label={TITLE.CORE_VALUE.label} title={TITLE.CORE_VALUE.title} />
+      <SectionTitle
+        label={TITLE.CORE_VALUE.label}
+        title={`${season}기 ${soptName} SOPT가 함께 나아가고 싶은 사람이에요`}
+      />
       <CoreValueList values={CORE_VALUE} />
     </section>
   );
