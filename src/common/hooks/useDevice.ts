@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 
 export type DeviceType = 'TAB' | 'MOB' | 'DESK';
 
-export function useIsTablet(minWidth = '431px', maxWidth = '768px') {
+export function useIsTablet(minWidth = '768px', maxWidth = '1023px') {
   const [isTablet, setIsTablet] = useState(false);
   const tablet = useMediaQuery({
     query: `(min-width: ${minWidth}) and (max-width: ${maxWidth})`,
@@ -14,7 +14,7 @@ export function useIsTablet(minWidth = '431px', maxWidth = '768px') {
   return isTablet;
 }
 
-export function useIsMobile(maxWidth = '431px') {
+export function useIsMobile(maxWidth = '767px') {
   const [isMobile, setIsMobile] = useState(false);
   const mobile = useMediaQuery({
     query: `(max-width:${maxWidth})`,
