@@ -23,7 +23,11 @@ export const wrapper = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  gap: '48px',
+  gap: '40px',
+
+  '@media': {
+    [breakpoints.tabletAndMobile]: { gap: '24px' },
+  },
 });
 
 export const recruitingHeaderContainerVar = style({
