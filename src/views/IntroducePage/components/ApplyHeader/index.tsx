@@ -22,6 +22,7 @@ import {
 import { useDevice } from '@hooks/useDevice';
 import IconArrowsS from 'views/IntroducePage/assets/IconArrowsS';
 import IconArrowsL from 'views/IntroducePage/assets/IconArrowsL';
+import { useNavigate } from 'react-router-dom';
 
 const ApplyHeader = () => {
   const { NoMoreRecruit, NoMoreApply } = useDate();
@@ -39,6 +40,8 @@ const ApplyHeader = () => {
 export default ApplyHeader;
 
 const RecruitingHeader = () => {
+  const navigate = useNavigate();
+
   const {
     recruitingInfo: { season, group },
   } = useRecruitingInfo();
@@ -62,7 +65,7 @@ const RecruitingHeader = () => {
         </div>
         <div className={buttonWrapper}>
           <div className={buttonWrapperInner}>
-            <Button theme="blue" rounded="lg" onClick={() => {}} className={buttonVar}>
+            <Button theme="blue" rounded="lg" onClick={() => navigate('/sign-up')} className={buttonVar}>
               지원하기
             </Button>
           </div>
