@@ -53,7 +53,10 @@ export const notificationContainerVar = style({
   },
 
   '@media': {
-    [breakpoints.tabletAndMobile]: { gap: '40px' },
+    [breakpoints.tabletAndMobile]: {
+      paddingTop: '40px',
+      gap: '40px',
+    },
   },
 });
 
