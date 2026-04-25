@@ -155,3 +155,36 @@ export const buttonWidthVar = styleVariants({
     },
   ],
 });
+
+const emptyContainerBase = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  paddingTop: 77,
+  gap: 24,
+  minHeight: 400,
+  borderRadius: 18,
+  backgroundColor: theme.color.subBackground,
+});
+
+export const emptyContainerVar = styleVariants({
+  DESK: [emptyContainerBase, { width: 467, height: 466 }],
+  TAB: [emptyContainerBase, { width: 367, height: 466 }],
+  MOB: [emptyContainerBase, { width: 312, height: 452 }],
+});
+
+export const emptyText = style({
+  color: theme.color.baseText,
+  ...theme.font.TITLE_5_18_SB,
+});
+
+export const logoutButton = style({
+  alignSelf: 'center',
+  color: theme.color.buttonText,
+});
+
+export const logoutButtonVar = styleVariants({
+  DESK: [logoutButton, { ...theme.font.TITLE_5_18_SB }],
+  TAB: [logoutButton, { ...theme.font.TITLE_5_18_SB }],
+  MOB: [logoutButton, { ...theme.font.LABEL_3_14_SB }],
+});

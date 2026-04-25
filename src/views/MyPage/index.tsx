@@ -7,6 +7,7 @@ import useDate from '@hooks/useDate';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
+import IconGhost from 'views/ErrorPage/icons/IconGhost';
 
 import {
   itemWrapper,
@@ -16,6 +17,9 @@ import {
   infoLabelVar,
   infoValueVar,
   buttonWidthVar,
+  emptyContainerVar,
+  emptyText,
+  logoutButtonVar,
 } from './style.css';
 
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
@@ -48,9 +52,10 @@ const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string;
 interface MyPageProps {
   part?: string;
   applicationPass?: boolean;
+  isEmpty?: boolean;
 }
 
-const MyPage = ({ part, applicationPass }: MyPageProps) => {
+const MyPage = ({ part, applicationPass, isEmpty }: MyPageProps) => {
   const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, season },
@@ -60,10 +65,32 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
+  if (isEmpty) {
+    return (
+      <section className={containerVar[deviceType]}>
+        <Title>지원 현황</Title>
+        <div className={emptyContainerVar[deviceType]}>
+          <IconGhost size={140} color="#C3C3C6" />
+          <span className={emptyText}>지원한 내역이 없어요</span>
+          <Button isLink to="/" padding="15x25">
+            메인화면으로 이동
+          </Button>
+        </div>
+        <button
+          className={logoutButtonVar[deviceType]}
+          onClick={() => {
+            console.log('로그아웃');
+          }}>
+          로그아웃
+        </button>
+      </section>
+    );
+  }
+
   return (
     <section className={containerVar[deviceType]}>
       <Title>지원 현황</Title>
-      <Callout>{`지원서는 면접 이후부터 열람이 불가하오니\n백업해두시길 바랍니다.`}</Callout>
+      <Callout>{`면접 종료 후에는 지원서를 열람할 수 없으니, 사본을 보관해 주시기 바랍니다.`}</Callout>
       <ol className={infoContainerVar[deviceType]}>
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
@@ -87,6 +114,13 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
           <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />
         )}
       </ol>
+      <button
+        className={logoutButtonVar[deviceType]}
+        onClick={() => {
+          console.log('로그아웃');
+        }}>
+        로그아웃
+      </button>
     </section>
   );
 };
