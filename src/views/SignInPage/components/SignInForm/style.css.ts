@@ -9,3 +9,9 @@ export const inputWrapper = style({
 export const newPasswordButton = style({
   borderBottom: '1px solid currentColor',
 });
+
+export const buttonWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+});

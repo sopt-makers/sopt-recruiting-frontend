@@ -6,7 +6,7 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 
-import { inputWrapper } from './style.css';
+import { buttonWrapper, inputWrapper } from './style.css';
 
 const SignInForm = () => {
   const {
@@ -66,9 +66,11 @@ const SignInForm = () => {
             </AmplitudeEventTrack>
           </Description> */}
         </TextBox>
-        <Button isLoading={signInIsPending} type="submit" eventName="click-signin-signin">
-          로그인
-        </Button>
+        <div className={buttonWrapper}>
+          <Button isLoading={signInIsPending} type="submit" eventName="click-signin-signin">
+            로그인
+          </Button>
+        </div>
       </form>
     </FormProvider>
   );

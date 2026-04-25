@@ -3,8 +3,8 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
 
 const calloutButton = style({
-  marginRight: 18,
-  borderBottom: '1px solid currentColor',
+  display: 'flex',
+  alignItems: 'center',
   color: theme.color.lighterText,
 });
 
