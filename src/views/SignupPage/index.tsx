@@ -1,12 +1,10 @@
 import { lazy } from 'react';
-
 import Title from '@components/Title';
-import useDate from '@hooks/useDate';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import BigLoading from 'views/loadings/BigLoding';
-
 import SignupForm from './components/SignupForm';
 import { containerVar } from './style.css';
+import BigLoading from 'views/loadings/BigLoding';
+import useDate from '@hooks/useDate';
 
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
@@ -19,7 +17,7 @@ const SignupPage = () => {
 
   return (
     <div className={containerVar[deviceType]}>
-      <Title>새 지원서 작성하기</Title>
+      <Title>회원가입</Title>
       <SignupForm />
     </div>
   );
