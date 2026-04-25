@@ -1,5 +1,8 @@
 import { validateBirthdate } from '@components/Input/components/InputLine/utils/validateBirthdate';
-import { validatePasswordConfirmation } from '@components/Input/components/InputLine/utils/validatePasswordConfirm';
+import {
+  validateEmailConfirmation,
+  validatePasswordConfirmation,
+} from '@components/Input/components/InputLine/utils/validatePasswordConfirm';
 
 export const VALIDATION_CHECK = {
   name: {
@@ -16,6 +19,10 @@ export const VALIDATION_CHECK = {
     errorTextExistence: '이미 존재하는 계정이에요.',
     errorTextNonexistence: '존재하지 않은 계정이에요.',
     notMatchErrorText: '잘못된 이메일 혹은 비밀번호예요.',
+  },
+  emailConfirm: {
+    errorText: '이메일이 일치하지 않아요.',
+    validate: validateEmailConfirmation,
   },
   verificationCode: {
     maxLength: 6,
