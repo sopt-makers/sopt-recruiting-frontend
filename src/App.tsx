@@ -53,14 +53,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  // useEffect(() => {
-  //   const isMobile = /Mobi/i.test(window.navigator.userAgent);
-  //   if (isMobile) {
-  //     alert('PC로 지원해주세요.');
-  //     window.location.href = 'https://makers.sopt.org/recruit';
-  //   }
-  // }, []);
-
   const { ref: sessionExpiredDialogRef, handleShowDialog: handleShowSessionExpiredDialog } = useDialog();
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
   const { isLight } = useTheme();
