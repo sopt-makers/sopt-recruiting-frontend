@@ -31,7 +31,7 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   } = useRecruitingInfo();
 
   if (!applicationStart) return;
-  
+
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'M월 dd일 (E) aaa HH시 mm분');
   const formattedApplicationConfirmStart = format(new Date(applicationResultStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
@@ -67,7 +67,7 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
       )}
       <Callout size="lg">
         {!isReview
-          ? `마감 시간 이후에는 지원 제출을 받지 않습니다.\n제출하신 서류와 포트폴리오는 반환하지 않습니다.\n서버 오류를 대비해 지원서를 백업해 두시길 바랍니다.`
+          ? `마감 시간 이후에는 지원서를 제출할 수 없습니다. 제출된 서류는 반환되지 않으니, 서버 오류를 대비해 지원서 사본을 보관해 두시길 바랍니다.`
           : '지원서 제출 이후 어떠한 경우에도 수정은 불가합니다.'}
       </Callout>
       {!isReview && (
