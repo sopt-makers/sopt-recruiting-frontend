@@ -1,20 +1,24 @@
 import { setUserId } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 
-import { VALIDATION_CHECK } from '@constants/validationCheck';
-
 import { sendSignIn } from '../apis';
+import { LOGIN_FAIL_WARNING_THRESHOLD } from '../constants';
 
-import type { SignInRequest, SignInResponse } from '../types';
+import type { SignInErrorData, SignInRequest, SignInResponse } from '../types';
 import type { CustomError } from '@apis/fetcher';
 
 interface MutateSignInProps {
   finalResultEnd?: string;
   onSetError: (name: string, type: string, message: string) => void;
+  onLoginBlocked: () => void;
 }
 
-const useMutateSignIn = ({ finalResultEnd, onSetError }: MutateSignInProps) => {
-  const { mutate: signInMutate, isPending: signInIsPending } = useMutation<SignInResponse, CustomError, SignInRequest>({
+const useMutateSignIn = ({ finalResultEnd, onSetError, onLoginBlocked }: MutateSignInProps) => {
+  const {
+    mutate: signInMutate,
+    isPending: signInIsPending,
+    error: signInError,
+  } = useMutation<SignInResponse, CustomError<SignInErrorData>, SignInRequest>({
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
     onSuccess: ({ email, token }) => {
       setUserId(email);
@@ -24,13 +28,28 @@ const useMutateSignIn = ({ finalResultEnd, onSetError }: MutateSignInProps) => {
     },
     onError(error) {
       if (error.status === 403) {
-        onSetError('email', 'not-match', VALIDATION_CHECK.email.notMatchErrorText);
-        onSetError('password', 'not-match', VALIDATION_CHECK.password.notMatchErrorText);
+        // 메시지는 SignInForm 위 LoginNotMatchSection에서 노출하고, 여기서는 입력 필드의 빨간 테두리만 유지한다.
+        onSetError('email', 'not-match', '');
+        onSetError('password', 'not-match', '');
+        return;
+      }
+
+      if (error.status === 401) {
+        if (error.data?.locked) {
+          onLoginBlocked();
+          return;
+        }
+
+        // 5회 이상 실패는 form input error 대신 SignInForm에서 별도 경고 영역을 렌더한다.
+        if ((error.data?.loginFailCount ?? 0) >= LOGIN_FAIL_WARNING_THRESHOLD) return;
+
+        onSetError('email', 'not-match', '');
+        onSetError('password', 'not-match', '');
       }
     },
   });
 
-  return { signInMutate, signInIsPending };
+  return { signInMutate, signInIsPending, signInError };
 };
 
 export default useMutateSignIn;

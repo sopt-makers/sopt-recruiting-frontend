@@ -3,12 +3,14 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 type StandardHeaders = 'Content-Type' | 'Authorization' | 'Accept' | 'Cache-Control' | 'User-Agent';
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-export class CustomError extends Error {
+export class CustomError<TData = unknown> extends Error {
   status: number;
+  data?: TData;
 
-  constructor(message: string, status: number) {
+  constructor(message: string, status: number, data?: TData) {
     super(message);
     this.status = status;
+    this.data = data;
   }
 }
 
@@ -36,7 +38,7 @@ const fetcher = async (url: string, options: FetchOptions = {}) => {
 
   if (!response.ok) {
     const errMsg = await response.json();
-    throw new CustomError(errMsg.userMessage, response.status);
+    throw new CustomError(errMsg.userMessage, response.status, errMsg.data);
   }
 
   return response.json();

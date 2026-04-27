@@ -10,8 +10,15 @@ export interface SignInError {
   message: string;
 }
 
+export interface SignInErrorData {
+  loginFailCount: number;
+  locked: boolean;
+}
+
 export interface SignInResponse {
   err: boolean;
   token: string;
   email: string;
 }
+
+export type LoginErrorVariant = 'not-match' | 'login-block-warning';
