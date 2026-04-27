@@ -4,13 +4,10 @@ import { forwardRef } from 'react';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { buttonInside, buttonOutside, buttonOutsideVar, buttonWrapperVar, mainTextVar, subTextVar } from '../style.css';
+import { 문의메일열기 } from '@utils/support';
 
-const LoginBlockedDialog = forwardRef<HTMLDialogElement>((_, ref) => {
+const SignInBlockedDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   const { deviceType } = useDeviceType();
-
-  const handleContactSupport = () => {
-    window.open('mailto:manager@sopt.org', '_blank');
-  };
 
   return (
     <Dialog ref={ref}>
@@ -23,7 +20,7 @@ const LoginBlockedDialog = forwardRef<HTMLDialogElement>((_, ref) => {
           <button className={buttonInside.line}>닫기</button>
         </form>
         <div className={`${buttonOutside.solid} ${buttonOutsideVar[deviceType]}`}>
-          <button className={buttonInside.solid} onClick={handleContactSupport}>
+          <button className={buttonInside.solid} onClick={문의메일열기}>
             문의하기
           </button>
         </div>
@@ -32,6 +29,6 @@ const LoginBlockedDialog = forwardRef<HTMLDialogElement>((_, ref) => {
   );
 });
 
-LoginBlockedDialog.displayName = 'LoginBlockedDialog';
+SignInBlockedDialog.displayName = 'SignInBlockedDialog';
 
-export default LoginBlockedDialog;
+export default SignInBlockedDialog;

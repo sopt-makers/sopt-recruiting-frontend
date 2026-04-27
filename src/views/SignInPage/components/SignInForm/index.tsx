@@ -5,29 +5,33 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { LOGIN_FAIL_WARNING_THRESHOLD } from 'views/SignInPage/constants';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
-import LoginErrorSection from '../LoginErrorSection';
 import { buttonWrapper, formContainer, inputWrapperVar } from './style.css';
-import { LoginErrorVariant } from 'views/SignInPage/types';
+import { SignInErrorVariant } from 'views/SignInPage/types';
+import SignInError from '../SignInError';
 
-const SignInForm = ({ onShowLoginBlockedDialog }: { onShowLoginBlockedDialog: () => void }) => {
+interface Props {
+  onLoginBlocked: () => void;
+}
+
+const SignInForm = ({ onLoginBlocked }: Props) => {
   const {
     recruitingInfo: { season, group, finalResultEnd },
   } = useRecruitingInfo();
+
   const methods = useForm({ mode: 'onBlur' });
   const { handleSubmit, setError } = methods;
+
   const { signInMutate, signInIsPending, signInError } = useMutateSignIn({
     finalResultEnd,
     onSetError: (name, type, message) => setError(name, { type, message }),
-    onLoginBlocked: onShowLoginBlockedDialog,
+    onLoginBlocked,
   });
 
-  const loginErrorVariant: LoginErrorVariant | null = (() => {
+  const signInErrorVariant: SignInErrorVariant = (() => {
     if (!signInError) return null;
-    if (signInError.status === 403) return 'not-match';
+    if (signInError.status === 403) return 'mismatch';
     if (signInError.status === 401 && !signInError.data?.locked) {
-      return (signInError.data?.loginFailCount ?? 0) >= LOGIN_FAIL_WARNING_THRESHOLD
-        ? 'login-block-warning'
-        : 'not-match';
+      return (signInError.data?.loginFailCount ?? 0) >= LOGIN_FAIL_WARNING_THRESHOLD ? 'block-warning' : 'mismatch';
     }
     return null;
   })();
@@ -51,8 +55,8 @@ const SignInForm = ({ onShowLoginBlockedDialog }: { onShowLoginBlockedDialog: ()
         noValidate
         onSubmit={handleSubmit(handleSignIn)}
         className={formContainer}>
-        {loginErrorVariant && <LoginErrorSection variant={loginErrorVariant} />}
-        <div className={loginErrorVariant ? inputWrapperVar.withError : inputWrapperVar.withoutError}>
+        {signInErrorVariant && <SignInError variant={signInErrorVariant} />}
+        <div className={signInErrorVariant ? inputWrapperVar.withError : inputWrapperVar.withoutError}>
           <TextBox label="이메일" name="email" required>
             <InputLine
               name="email"

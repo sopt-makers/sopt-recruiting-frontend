@@ -21,4 +21,4 @@ export interface SignInResponse {
   email: string;
 }
 
-export type LoginErrorVariant = 'not-match' | 'login-block-warning';
+export type SignInErrorVariant = 'mismatch' | 'block-warning' | null;
