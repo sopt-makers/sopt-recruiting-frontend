@@ -18,7 +18,7 @@ export const wrapper = style({
   padding: '16px 40px',
   backgroundColor: colors.gray50,
   justifyContent: 'space-between',
-  borderRadius: 999,
+  borderRadius: '999px',
 
   '@media': {
     [breakpoints.tabletAndMobile]: {
@@ -30,7 +30,7 @@ export const wrapper = style({
 export const inputVar = style({
   width: '100%',
   padding: '12px 20px',
-  borderRadius: 12,
+  borderRadius: '12px',
   ...theme.font.HEADING_5_20_B,
 
   '::placeholder': {
