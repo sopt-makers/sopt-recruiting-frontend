@@ -9,10 +9,10 @@ import { getSignInErrorVariant } from 'views/SignInPage/utils/getSignInErrorVari
 import SignInError from '../SignInError';
 
 interface Props {
-  onLoginBlocked: () => void;
+  onSignInBlocked: () => void;
 }
 
-const SignInForm = ({ onLoginBlocked }: Props) => {
+const SignInForm = ({ onSignInBlocked }: Props) => {
   const {
     recruitingInfo: { season, group, finalResultEnd },
   } = useRecruitingInfo();
@@ -23,7 +23,7 @@ const SignInForm = ({ onLoginBlocked }: Props) => {
   const { signInMutate, signInIsPending, signInError } = useMutateSignIn({
     finalResultEnd,
     onSetError: (name, type, message) => setError(name, { type, message }),
-    onLoginBlocked,
+    onSignInBlocked,
   });
 
   const signInErrorVariant = getSignInErrorVariant(signInError);

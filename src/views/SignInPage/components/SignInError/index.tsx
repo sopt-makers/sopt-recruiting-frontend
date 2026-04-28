@@ -1,6 +1,7 @@
 import { VALIDATION_CHECK } from '@constants/validationCheck';
 
 import { container, contactButton, messageVar } from './style.css';
+import { SIGN_IN_ERROR_TYPE } from 'views/SignInPage/constants/signInError';
 import { SignInErrorVariant } from 'views/SignInPage/types';
 import { 문의메일열기 } from '@utils/support';
 
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const SignInError = ({ variant }: Props) => {
-  if (variant === 'LOCK_WARNING') {
+  if (variant === SIGN_IN_ERROR_TYPE.LOCK_WARNING) {
     return (
       <div className={container}>
         <p className={messageVar}>
@@ -22,7 +23,7 @@ const SignInError = ({ variant }: Props) => {
     );
   }
 
-  if (variant === 'ACCOUNT_NOT_FOUND') {
+  if (variant === SIGN_IN_ERROR_TYPE.ACCOUNT_NOT_FOUND) {
     return (
       <div className={container}>
         <p className={messageVar}>{VALIDATION_CHECK.email.errorTextNonexistence}</p>

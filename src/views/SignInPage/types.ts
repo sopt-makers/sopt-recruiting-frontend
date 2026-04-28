@@ -1,3 +1,5 @@
+import { SIGN_IN_ERROR_TYPE } from './constants/signInError';
+
 export interface SignInRequest {
   email: string;
   season: number;
@@ -12,7 +14,7 @@ export interface SignInError {
 
 export interface SignInErrorData {
   loginFailCount: number;
-  errorType: 'WRONG_PASSWORD' | 'ACCOUNT_NOT_FOUND' | 'ACCOUNT_LOCKED';
+  errorType: (typeof SIGN_IN_ERROR_TYPE)[keyof typeof SIGN_IN_ERROR_TYPE];
 }
 
 export interface SignInResponse {
@@ -21,4 +23,4 @@ export interface SignInResponse {
   email: string;
 }
 
-export type SignInErrorVariant = 'WRONG_PASSWORD' | 'ACCOUNT_NOT_FOUND' | 'LOCK_WARNING' | null;
+export type SignInErrorVariant = (typeof SIGN_IN_ERROR_TYPE)[keyof typeof SIGN_IN_ERROR_TYPE] | null;

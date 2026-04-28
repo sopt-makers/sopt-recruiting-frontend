@@ -2,6 +2,7 @@ import { setUserId } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 
 import { sendSignIn } from '../apis';
+import { SIGN_IN_ERROR_TYPE } from '../constants/signInError';
 
 import type { SignInErrorData, SignInRequest, SignInResponse } from '../types';
 import type { CustomError } from '@apis/fetcher';
@@ -9,10 +10,10 @@ import type { CustomError } from '@apis/fetcher';
 interface MutateSignInProps {
   finalResultEnd?: string;
   onSetError: (name: string, type: string, message: string) => void;
-  onLoginBlocked: () => void;
+  onSignInBlocked: () => void;
 }
 
-const useMutateSignIn = ({ finalResultEnd, onSetError, onLoginBlocked }: MutateSignInProps) => {
+const useMutateSignIn = ({ finalResultEnd, onSetError, onSignInBlocked }: MutateSignInProps) => {
   const {
     mutate: signInMutate,
     isPending: signInIsPending,
@@ -33,12 +34,15 @@ const useMutateSignIn = ({ finalResultEnd, onSetError, onLoginBlocked }: MutateS
       }
 
       if (error.status === 401) {
-        if (error.data?.errorType === 'ACCOUNT_LOCKED') {
-          onLoginBlocked();
+        if (error.data?.errorType === SIGN_IN_ERROR_TYPE.ACCOUNT_LOCKED) {
+          onSignInBlocked();
           return;
         }
 
-        if (error.data?.errorType === 'WRONG_PASSWORD' || error.data?.errorType === 'ACCOUNT_NOT_FOUND') {
+        if (
+          error.data?.errorType === SIGN_IN_ERROR_TYPE.WRONG_PASSWORD ||
+          error.data?.errorType === SIGN_IN_ERROR_TYPE.ACCOUNT_NOT_FOUND
+        ) {
           onSetError('email', 'not-match', '');
           onSetError('password', 'not-match', '');
         }

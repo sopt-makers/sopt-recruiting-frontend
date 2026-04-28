@@ -15,7 +15,7 @@ const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 const SignInPage = () => {
   const { deviceType } = useDeviceType();
   const { isLoading, NoMoreRecruit } = useDate();
-  const { ref: loginBlockedDialogRef, handleShowDialog: handleShowLoginBlockedDialog } = useDialog();
+  const { ref: signInBlockedDialogRef, handleShowDialog: handleShowSignInBlockedDialog } = useDialog();
 
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
@@ -23,8 +23,8 @@ const SignInPage = () => {
   return (
     <div className={containerVar[deviceType]}>
       <SignInInfo />
-      <SignInForm onLoginBlocked={handleShowLoginBlockedDialog} />
-      <SignInBlockedDialog ref={loginBlockedDialogRef} />
+      <SignInForm onSignInBlocked={handleShowSignInBlockedDialog} />
+      <SignInBlockedDialog ref={signInBlockedDialogRef} />
     </div>
   );
 };
