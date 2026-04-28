@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
@@ -9,20 +10,17 @@ const container = style({
   justifyContent: 'center',
 });
 
-export const containerVar = styleVariants({
-  DESK: [
-    container,
-    {
-      width: 720,
+export const containerVar = style([
+  container,
+  {
+    width: '720px',
+    '@media': {
+      [breakpoints.mobile]: {
+        width: '100%',
+      },
     },
-  ],
-  MOB: [
-    container,
-    {
-      width: '100%',
-    },
-  ],
-});
+  },
+]);
 
 const textareaBase = style({
   width: '100%',
