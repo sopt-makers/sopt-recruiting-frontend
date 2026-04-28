@@ -15,6 +15,7 @@ import { dark, light } from 'styles/theme.css';
 import BigLoading from 'views/loadings/BigLoding';
 
 import 'styles/reset.css';
+import '@sopt-makers/ui/dist/index.css';
 import useDialog from '@hooks/useDialog';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -22,6 +23,7 @@ const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
 );
 const MainPage = lazy(() => import('views/MainPage'));
+const IntroducePage = lazy(() => import('views/IntroducePage'));
 const PasswordPage = lazy(() => import('views/PasswordPage'));
 const ResultPage = lazy(() => import('views/ResultPage'));
 const ReviewPage = lazy(() => import('views/ReviewPage'));
@@ -39,6 +41,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <MainPage /> },
+      { path: '/introduce', element: <IntroducePage /> },
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
       { path: '/result', element: <ResultPage /> },

@@ -29,7 +29,7 @@ const CompletePage = () => {
         }>{`${name}님의\n${season}기 ${__IS_MAKERS__ ? soptName : group} 지원서가 접수되었습니다.`}</p>
       <p className={subTextVar[deviceType]}>
         {`이메일로 지원 접수 완료 알림이 발송되었습니다.\n
-        서류 결과는 ${applicationResultStart ? format(applicationResultStart, 'yyyy/MM/dd') : ''}에 발표됩니다.`}
+        서류 결과는 ${applicationResultStart ? format(applicationResultStart, 'YYYY/MM/dd') : ''}에 발표됩니다.`}
       </p>
 
       <Callout>
