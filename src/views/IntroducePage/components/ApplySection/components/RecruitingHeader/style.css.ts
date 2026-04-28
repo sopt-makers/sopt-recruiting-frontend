@@ -32,7 +32,11 @@ export const container = style({
 
 export const imageWrapper = style({
   position: 'relative',
-  width: '100%',
+  left: '50%',
+  width: '100vw',
+  height: '400px',
+  transform: 'translateX(-50%)',
+  overflow: 'hidden',
 
   selectors: {
     '&::after': {
@@ -50,15 +54,22 @@ export const imageWrapper = style({
       },
     },
   },
+
+  '@media': {
+    [breakpoints.tablet]: { height: '100px' },
+    [breakpoints.mobile]: { height: '75px' },
+  },
 });
 
 export const image = style({
+  position: 'absolute',
+  inset: 0,
   width: '100%',
-  height: '400px',
+  height: '100%',
   objectFit: 'cover',
   '@media': {
-    [breakpoints.tablet]: { height: '100px', objectFit: 'contain' },
-    [breakpoints.mobile]: { height: '75px', objectFit: 'contain' },
+    [breakpoints.tablet]: { objectFit: 'contain' },
+    [breakpoints.mobile]: { objectFit: 'contain' },
   },
 });
 

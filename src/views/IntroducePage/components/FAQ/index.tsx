@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
-import { FAQ_DATA, TITLE } from 'views/IntroducePage/constants/constant';
-import { FAQItemType, PartDataType } from 'views/IntroducePage/types';
+import { TITLE } from 'views/IntroducePage/constants/constant';
+import { PartDataType, RecruitQuestion, RecruitQuestionItem } from 'views/IntroducePage/types';
 import {
   wrapper,
   itemVar,
@@ -18,10 +18,14 @@ import { IconChevronDown } from '@sopt-makers/icons';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import useToggleSet from 'views/IntroducePage/components/FAQ/hooks/useToggleSet';
 
-const FAQ = () => {
-  const [selectedTab, setSelectedTab] = useState<PartDataType>('ALL');
-  const { items, toggle, reset } = useToggleSet();
+interface FAQProps {
+  faqData?: RecruitQuestion[];
+}
 
+const FAQ = ({ faqData }: FAQProps) => {
+  const [selectedTab, setSelectedTab] = useState<PartDataType>('전체');
+
+  const { items, toggle, reset } = useToggleSet();
   const { deviceType } = useDeviceType();
 
   const handleTabChange = (tab: PartDataType) => {
@@ -29,11 +33,19 @@ const FAQ = () => {
     reset();
   };
 
+  const faqByPart = useMemo(() => {
+    if (!faqData) return {};
+
+    return Object.fromEntries(faqData.map((p) => [p.part, p.questions]));
+  }, [faqData]);
+
+  if (!faqData || faqData.length === 0) return null;
+
   return (
     <section className={wrapper[deviceType]}>
       <SectionTitle label={TITLE.FAQ.label} title={TITLE.FAQ.title} />
       <TabBar selectedTab={selectedTab} onChange={handleTabChange} />
-      <FAQList selectedTab={selectedTab} openedItems={items} toggle={toggle} />
+      <FAQList faqItems={faqByPart[selectedTab] || []} selectedTab={selectedTab} openedItems={items} toggle={toggle} />
     </section>
   );
 };
@@ -41,17 +53,18 @@ const FAQ = () => {
 export default FAQ;
 
 interface FAQListProps {
+  faqItems: RecruitQuestionItem[];
   selectedTab: PartDataType;
   openedItems: Set<number>;
   toggle: (index: number) => void;
 }
 
-const FAQList = ({ selectedTab, openedItems, toggle }: FAQListProps) => {
+const FAQList = ({ faqItems, selectedTab, openedItems, toggle }: FAQListProps) => {
   const { deviceType } = useDeviceType();
 
   return (
     <ul className={listWrapperVar[deviceType]}>
-      {FAQ_DATA[selectedTab]?.map((faq, index) => {
+      {faqItems.map((faq, index) => {
         const isOpened = openedItems.has(index);
         return <FAQItem key={`${selectedTab}-${index}`} faq={faq} isOpened={isOpened} onClick={() => toggle(index)} />;
       })}
@@ -60,7 +73,7 @@ const FAQList = ({ selectedTab, openedItems, toggle }: FAQListProps) => {
 };
 
 interface FAQItemProps {
-  faq: FAQItemType;
+  faq: RecruitQuestionItem;
   isOpened: boolean;
   onClick: () => void;
 }
