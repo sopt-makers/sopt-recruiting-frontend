@@ -50,3 +50,13 @@ export interface RecruitInfoResponse {
   coreValue: CoreValue[];
   recruitQuestion: RecruitQuestion[];
 }
+
+export interface PostNotificationEmailRequest {
+  email: string;
+  generation: number;
+}
+
+export interface PostNotificationEmailResponse {
+  err: boolean;
+  userMessage: string;
+}

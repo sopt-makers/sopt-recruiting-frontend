@@ -1,19 +1,45 @@
 import { wrapper, inputVar, buttonVar, gradientWrapper } from './style.css';
-import { Button } from '@sopt-makers/ui';
+import { Button, useToast } from '@sopt-makers/ui';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import { ChangeEvent, useCallback, useState } from 'react';
+import useMutateNotificationEmail from 'views/IntroducePage/hooks/useMutateNotificationEmail';
 
 const NotificationInput = () => {
   const [email, setEmail] = useState('');
+
+  const {
+    recruitingInfo: { season },
+  } = useRecruitingInfo();
+  const { mutate } = useMutateNotificationEmail();
+
+  const { open: showToast } = useToast();
 
   const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }, []);
 
   const handleSubmit = useCallback(() => {
-    if (!email) {
+    if (!email || !season) {
       return;
     }
-    // TODO: 알림 신청 API 호출
+
+    mutate(
+      { email, generation: season },
+      {
+        onSuccess: () => {
+          showToast({
+            content: '알림 신청이 완료되었습니다.',
+            icon: 'success',
+          });
+        },
+        onError: (error) => {
+          showToast({
+            content: error.message,
+            icon: 'error',
+          });
+        },
+      },
+    );
   }, [email]);
 
   return (
