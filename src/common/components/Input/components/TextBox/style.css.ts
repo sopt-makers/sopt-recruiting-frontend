@@ -1,17 +1,16 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
-import { containerSize } from '@components/Input/constants';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
+  width: '100%',
 
   ...theme.font.BODY_1_18_M,
 });
-
-export const containerVar = styleVariants(containerSize, (size) => [container, { width: size }]);
 
 const title = style({
   display: 'flex',
@@ -25,11 +24,17 @@ const title = style({
   cursor: 'pointer',
 });
 
-export const titleVar = styleVariants({
-  DESK: [title, { ...theme.font.TITLE_5_18_SB }],
-  TAB: [title, { ...theme.font.TITLE_5_18_SB }],
-  MOB: [title, { ...theme.font.TITLE_6_16_SB }],
-});
+export const titleVar = style([
+  title,
+  {
+    ...theme.font.TITLE_5_18_SB,
+    '@media': {
+      [breakpoints.mobile]: {
+        ...theme.font.TITLE_6_16_SB,
+      },
+    },
+  },
+]);
 
 export const circle = style({
   width: 8,

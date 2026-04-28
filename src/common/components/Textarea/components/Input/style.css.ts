@@ -16,16 +16,10 @@ export const containerVar = styleVariants({
       width: 720,
     },
   ],
-  TAB: [
-    container,
-    {
-      width: 367,
-    },
-  ],
   MOB: [
     container,
     {
-      width: 312,
+      width: '100%',
     },
   ],
 });
