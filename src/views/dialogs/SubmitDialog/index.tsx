@@ -57,8 +57,8 @@ const SubmitDialog = forwardRef<HTMLDialogElement, SubmitDialogProps>(
 
     return (
       <Dialog ref={ref}>
-        <p className={mainTextVar[deviceType]}>이대로 제출하시겠어요?</p>
-        <p className={subTextVar[deviceType]}>제출 완료하신 지원서는 수정하실 수 없어요.</p>
+        <p className={mainTextVar[deviceType]}>지원서를 제출하시겠어요?</p>
+        <p className={subTextVar[deviceType]}>제출 완료한 지원서는 수정할 수 없어요.</p>
         <ol className={infoContainerVar[deviceType]}>
           <MyInfoItem deviceType={deviceType} label="이름" value={name} />
           <MyInfoItem deviceType={deviceType} label="이메일" value={email} />
