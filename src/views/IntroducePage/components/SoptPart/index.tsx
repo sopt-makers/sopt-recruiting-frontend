@@ -2,7 +2,8 @@ import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
 import { wrapper, container, name, description, card } from './style.css';
 import { Tag } from '@sopt-makers/ui';
-import type { SoptPartIntroduction } from 'views/IntroducePage/types';
+import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 interface SoptPartProps {
   parts?: SoptPartIntroduction[];
@@ -28,9 +29,10 @@ interface ListProps {
 const PartList = ({ parts }: ListProps) => {
   return (
     <ul className={container}>
-      {parts.map((part) => (
-        <PartItem key={part.part} part={part} />
-      ))}
+      {PART_ORDER.map((partName) => {
+        const part = parts.find((p) => p.part === partName);
+        return part && <PartItem key={part.part} part={part} />;
+      })}
     </ul>
   );
 };
@@ -40,9 +42,13 @@ interface ItemProps {
 }
 
 const PartItem = ({ part }: ItemProps) => {
+  const { deviceType } = useDeviceType();
+
   return (
     <li className={card}>
-      <Tag variant="secondary">{part.part}</Tag>
+      <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
+        {part.part}
+      </Tag>
       <p className={name}>{part.part} 파트</p>
       <p className={description}>{part.description}</p>
     </li>

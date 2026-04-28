@@ -21,6 +21,8 @@ export type ContactItem = {
 
 export type PartDataType = '전체' | '기획' | '디자인' | '안드로이드' | 'iOS' | '웹' | '서버';
 
+export const PART_ORDER = ['기획', '디자인', '안드로이드', 'iOS', '웹', '서버'] as const;
+
 export interface SoptPartIntroduction {
   part: string;
   description: string;
