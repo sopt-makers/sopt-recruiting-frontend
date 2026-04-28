@@ -11,8 +11,6 @@ export const TITLE = {
   },
   CORE_VALUE: {
     label: 'Core Value',
-    // TODO: 기수, SOPT 이름 불러오기
-    title: `season기 SOPT가 함께 나아가고 싶은 사람이에요`,
   },
   SCHEDULE: {
     label: 'Schedule',
