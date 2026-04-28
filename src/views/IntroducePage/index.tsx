@@ -18,7 +18,7 @@ const IntroducePage = () => {
 
   return (
     <div className={wrapper}>
-      <ApplySection />
+      <ApplySection headerImage={recruitData.recruitHeaderImage} />
       <RecruitmentTarget />
       <SoptPart parts={recruitData.partIntroduction} />
       <CoreValue values={recruitData.coreValue} />
