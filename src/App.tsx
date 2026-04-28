@@ -22,7 +22,7 @@ import { HelmetProvider } from 'react-helmet-async';
 const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
 );
-const MainPage = lazy(() => import('views/MainPage'));
+const AuthPage = lazy(() => import('views/AuthPage'));
 const IntroducePage = lazy(() => import('views/IntroducePage'));
 const PasswordPage = lazy(() => import('views/PasswordPage'));
 const ResultPage = lazy(() => import('views/ResultPage'));
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     children: [
-      { index: true, element: __IS_MAKERS__ ? <MainPage /> : <IntroducePage /> },
+      { index: true, element: __IS_MAKERS__ ? <AuthPage /> : <IntroducePage /> },
       ...(!__IS_MAKERS__ ? [{ path: '/introduce', element: <IntroducePage /> }] : []),
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
