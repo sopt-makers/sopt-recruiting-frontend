@@ -18,6 +18,7 @@ import 'styles/reset.css';
 import '@sopt-makers/ui/dist/index.css';
 import useDialog from '@hooks/useDialog';
 import { HelmetProvider } from 'react-helmet-async';
+import { ToastProvider } from '@sopt-makers/ui';
 
 const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
@@ -119,16 +120,18 @@ const App = () => {
       <SessionExpiredDialog ref={sessionExpiredDialogRef} />
       <HelmetProvider>
         <DeviceTypeProvider>
-          <RecruitingInfoProvider>
-            <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools />
-              <div className={isLight ? light : dark}>
-                <Suspense fallback={<BigLoading />}>
-                  <RouterProvider router={router} />
-                </Suspense>
-              </div>
-            </QueryClientProvider>
-          </RecruitingInfoProvider>
+          <ToastProvider>
+            <RecruitingInfoProvider>
+              <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <div className={isLight ? light : dark}>
+                  <Suspense fallback={<BigLoading />}>
+                    <RouterProvider router={router} />
+                  </Suspense>
+                </div>
+              </QueryClientProvider>
+            </RecruitingInfoProvider>
+          </ToastProvider>
         </DeviceTypeProvider>
       </HelmetProvider>
     </>

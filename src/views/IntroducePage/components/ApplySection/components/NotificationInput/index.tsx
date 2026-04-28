@@ -1,7 +1,7 @@
 import { wrapper, inputVar, buttonVar, gradientWrapper } from './style.css';
 import { Button, useToast } from '@sopt-makers/ui';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import useMutateNotificationEmail from 'views/IntroducePage/hooks/useMutateNotificationEmail';
 
 const NotificationInput = () => {
@@ -10,15 +10,14 @@ const NotificationInput = () => {
   const {
     recruitingInfo: { season },
   } = useRecruitingInfo();
+
   const { mutate } = useMutateNotificationEmail();
 
   const { open: showToast } = useToast();
 
-  const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  }, []);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSubmit = useCallback(() => {
     if (!email || !season) {
       return;
     }
@@ -33,14 +32,23 @@ const NotificationInput = () => {
           });
         },
         onError: (error) => {
-          showToast({
-            content: error.message,
-            icon: 'error',
-          });
+          const status = error.response?.status;
+
+          if (status === 409) {
+            showToast({
+              content: '이미 등록된 알림입니다.',
+              icon: 'error',
+            });
+          } else {
+            showToast({
+              content: error.message,
+              icon: 'error',
+            });
+          }
         },
       },
     );
-  }, [email]);
+  };
 
   return (
     <div className={gradientWrapper}>
@@ -50,7 +58,7 @@ const NotificationInput = () => {
           placeholder="메일을 입력해주세요."
           className={inputVar}
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Button theme="blue" rounded="lg" className={buttonVar} type="submit">
           알림 신청하기
