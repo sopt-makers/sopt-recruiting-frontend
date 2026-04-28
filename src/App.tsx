@@ -41,6 +41,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: __IS_MAKERS__ ? <AuthPage /> : <IntroducePage /> },
+      { path: '/auth', element: <AuthPage /> },
       ...(!__IS_MAKERS__ ? [{ path: '/introduce', element: <IntroducePage /> }] : []),
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
