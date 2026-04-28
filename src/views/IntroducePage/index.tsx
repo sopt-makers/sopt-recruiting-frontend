@@ -8,18 +8,22 @@ import SoptPart from 'views/IntroducePage/components/SoptPart';
 import useDate from '@hooks/useDate';
 import BottomApplyCTA from 'views/IntroducePage/components/BottomApplyCTA';
 import ApplySection from 'views/IntroducePage/components/ApplySection';
+import useGetRecruitInfo from 'views/IntroducePage/hooks/useGetRecruitInfo';
 
 const IntroducePage = () => {
   const { NoMoreRecruit, NoMoreApply } = useDate();
+  const { recruitData } = useGetRecruitInfo();
+
+  if (!recruitData) return null;
 
   return (
     <div className={wrapper}>
       <ApplySection />
       <RecruitmentTarget />
-      <SoptPart />
-      <CoreValue />
+      <SoptPart parts={recruitData.partIntroduction} />
+      <CoreValue values={recruitData.coreValue} />
       <Schedule />
-      <FAQ />
+      <FAQ faqData={recruitData.recruitQuestion} />
       {!NoMoreRecruit && !NoMoreApply && <BottomApplyCTA />}
       <Inquiry />
     </div>
