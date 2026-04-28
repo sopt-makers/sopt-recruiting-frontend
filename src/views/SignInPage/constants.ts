@@ -1,1 +1,0 @@
-export const LOGIN_FAIL_WARNING_THRESHOLD = 5;

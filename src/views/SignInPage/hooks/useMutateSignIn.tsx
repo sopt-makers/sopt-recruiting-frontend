@@ -2,7 +2,6 @@ import { setUserId } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 
 import { sendSignIn } from '../apis';
-import { LOGIN_FAIL_WARNING_THRESHOLD } from '../constants';
 
 import type { SignInErrorData, SignInRequest, SignInResponse } from '../types';
 import type { CustomError } from '@apis/fetcher';
@@ -39,9 +38,6 @@ const useMutateSignIn = ({ finalResultEnd, onSetError, onLoginBlocked }: MutateS
           onLoginBlocked();
           return;
         }
-
-        // 5회 이상 실패는 form input error 대신 SignInForm에서 별도 경고 영역을 렌더한다.
-        if ((error.data?.loginFailCount ?? 0) >= LOGIN_FAIL_WARNING_THRESHOLD) return;
 
         onSetError('email', 'not-match', '');
         onSetError('password', 'not-match', '');
