@@ -9,7 +9,7 @@ interface Props {
 }
 
 const SignInError = ({ variant }: Props) => {
-  if (variant === 'block-warning') {
+  if (variant === 'LOCK_WARNING') {
     return (
       <div className={container}>
         <p className={messageVar}>
@@ -18,6 +18,14 @@ const SignInError = ({ variant }: Props) => {
         <button type="button" className={contactButton} onClick={문의메일열기}>
           문의하기
         </button>
+      </div>
+    );
+  }
+
+  if (variant === 'ACCOUNT_NOT_FOUND') {
+    return (
+      <div className={container}>
+        <p className={messageVar}>{VALIDATION_CHECK.email.errorTextNonexistence}</p>
       </div>
     );
   }

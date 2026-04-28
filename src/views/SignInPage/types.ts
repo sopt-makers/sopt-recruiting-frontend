@@ -12,7 +12,7 @@ export interface SignInError {
 
 export interface SignInErrorData {
   loginFailCount: number;
-  locked: boolean;
+  errorType: 'WRONG_PASSWORD' | 'ACCOUNT_NOT_FOUND' | 'ACCOUNT_LOCKED';
 }
 
 export interface SignInResponse {
@@ -21,4 +21,4 @@ export interface SignInResponse {
   email: string;
 }
 
-export type SignInErrorVariant = 'mismatch' | 'block-warning' | null;
+export type SignInErrorVariant = 'WRONG_PASSWORD' | 'ACCOUNT_NOT_FOUND' | 'LOCK_WARNING' | null;

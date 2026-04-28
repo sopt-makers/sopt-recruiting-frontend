@@ -5,14 +5,12 @@ import { VALIDATION_CHECK } from '@constants/validationCheck';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignIn from 'views/SignInPage/hooks/useMutateSignIn';
 import { buttonWrapper, formContainer, inputWrapperVar } from './style.css';
-import { SignInErrorVariant } from 'views/SignInPage/types';
+import { getSignInErrorVariant } from 'views/SignInPage/utils/getSignInErrorVariant';
 import SignInError from '../SignInError';
 
 interface Props {
   onLoginBlocked: () => void;
 }
-
-const SIGN_IN_FAIL_WARNING_THRESHOLD = 5;
 
 const SignInForm = ({ onLoginBlocked }: Props) => {
   const {
@@ -28,14 +26,7 @@ const SignInForm = ({ onLoginBlocked }: Props) => {
     onLoginBlocked,
   });
 
-  const signInErrorVariant: SignInErrorVariant = (() => {
-    if (!signInError) return null;
-    if (signInError.status === 403) return 'mismatch';
-    if (signInError.status === 401 && !signInError.data?.locked) {
-      return (signInError.data?.loginFailCount ?? 0) >= SIGN_IN_FAIL_WARNING_THRESHOLD ? 'block-warning' : 'mismatch';
-    }
-    return null;
-  })();
+  const signInErrorVariant = getSignInErrorVariant(signInError);
 
   const handleSignIn = ({ email, password }: FieldValues) => {
     if (!season || !group) return;

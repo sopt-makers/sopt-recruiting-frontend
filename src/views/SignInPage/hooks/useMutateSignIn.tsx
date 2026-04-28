@@ -27,20 +27,21 @@ const useMutateSignIn = ({ finalResultEnd, onSetError, onLoginBlocked }: MutateS
     },
     onError(error) {
       if (error.status === 403) {
-        // 메시지는 SignInForm 위 LoginNotMatchSection에서 노출하고, 여기서는 입력 필드의 빨간 테두리만 유지한다.
         onSetError('email', 'not-match', '');
         onSetError('password', 'not-match', '');
         return;
       }
 
       if (error.status === 401) {
-        if (error.data?.locked) {
+        if (error.data?.errorType === 'ACCOUNT_LOCKED') {
           onLoginBlocked();
           return;
         }
 
-        onSetError('email', 'not-match', '');
-        onSetError('password', 'not-match', '');
+        if (error.data?.errorType === 'WRONG_PASSWORD' || error.data?.errorType === 'ACCOUNT_NOT_FOUND') {
+          onSetError('email', 'not-match', '');
+          onSetError('password', 'not-match', '');
+        }
       }
     },
   });
