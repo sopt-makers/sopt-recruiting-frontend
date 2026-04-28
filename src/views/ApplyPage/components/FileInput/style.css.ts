@@ -1,30 +1,22 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
 const container = style({
   position: 'relative',
 });
-export const containerVar = styleVariants({
-  DESK: [
-    container,
-    {
-      width: 720,
+export const containerVar = style([
+  container,
+  {
+    width: '720px',
+    '@media': {
+      [breakpoints.mobile]: {
+        width: '100%',
+      },
     },
-  ],
-  TAB: [
-    container,
-    {
-      width: 367,
-    },
-  ],
-  MOB: [
-    container,
-    {
-      width: 312,
-    },
-  ],
-});
+  },
+]);
 
 export const fileInput = style({
   display: 'none',
@@ -36,7 +28,7 @@ export const fileLabel = style({
   alignItems: 'center',
   width: '100%',
   border: `1px solid ${theme.color.border}`,
-  borderRadius: 12,
+  borderRadius: '12px',
   backgroundColor: theme.color.subBackground,
   stroke: theme.color.subBackground,
   transition: 'all 0.2s ease',
@@ -55,26 +47,17 @@ export const fileLabel = style({
   },
 });
 
-export const fileLabelSizeVar = styleVariants({
-  DESK: [
-    fileLabel,
-    {
-      padding: '12px 22px',
+export const fileLabelSizeVar = style([
+  fileLabel,
+  {
+    padding: '12px 22px',
+    '@media': {
+      [breakpoints.mobile]: {
+        padding: '13px 16px',
+      },
     },
-  ],
-  TAB: [
-    fileLabel,
-    {
-      padding: '12px 14px 11px 22px',
-    },
-  ],
-  MOB: [
-    fileLabel,
-    {
-      padding: '13px 16px',
-    },
-  ],
-});
+  },
+]);
 
 export const fileLabelVar = styleVariants({
   default: [fileLabel, {}],
@@ -101,31 +84,22 @@ const textWrapper = style({
   color: theme.color.lighterText,
 });
 
-export const textWrapperVar = styleVariants({
-  DESK: [
-    textWrapper,
-    {
-      ...theme.font.BODY_1_18_M,
-      gap: 24,
+export const textWrapperVar = style([
+  textWrapper,
+  {
+    ...theme.font.BODY_1_18_M,
+    gap: '24px',
+    '@media': {
+      [breakpoints.mobile]: {
+        ...theme.font.BODY_3_14_M,
+        gap: '12px',
+      },
     },
-  ],
-  TAB: [
-    textWrapper,
-    {
-      ...theme.font.BODY_1_18_M,
-      gap: 24,
-    },
-  ],
-  MOB: [
-    textWrapper,
-    {
-      ...theme.font.BODY_3_14_M,
-      gap: 12,
-    },
-  ],
-});
+  },
+]);
 
 const fileName = style({
+  minWidth: '0px',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
@@ -138,15 +112,12 @@ const fileName = style({
   },
 });
 
-export const fileNameSizeVar = styleVariants({
-  DESK: {
-    width: 555,
-  },
-  TAB: {
-    width: 210,
-  },
-  MOB: {
-    width: 185,
+export const fileNameSizeVar = style({
+  width: '555px',
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '100%',
+    },
   },
 });
 export const fileNameVar = styleVariants({
@@ -165,30 +136,21 @@ export const fileNameVar = styleVariants({
 });
 
 const errorText = style({
-  marginTop: 8,
+  marginTop: '8px',
   color: theme.color.error,
 });
 
-export const errorTextVar = styleVariants({
-  DESK: [
-    errorText,
-    {
-      ...theme.font.LABEL_2_16_SB,
+export const errorTextVar = style([
+  errorText,
+  {
+    ...theme.font.LABEL_2_16_SB,
+    '@media': {
+      [breakpoints.mobile]: {
+        ...theme.font.LABEL_3_14_SB,
+      },
     },
-  ],
-  TAB: [
-    errorText,
-    {
-      ...theme.font.LABEL_2_16_SB,
-    },
-  ],
-  MOB: [
-    errorText,
-    {
-      ...theme.font.LABEL_3_14_SB,
-    },
-  ],
-});
+  },
+]);
 
 // IconPlusButton style
 
@@ -196,10 +158,10 @@ export const fileIcon = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: 27,
-  height: 27,
+  width: '27px',
+  height: '27px',
   backgroundColor: theme.color.fileUploadButton,
-  borderRadius: 6,
+  borderRadius: '6px',
   transition: 'all 0.2s ease',
 
   ':disabled': {
@@ -215,8 +177,8 @@ export const fileIcon = style({
 });
 
 const fileIconSvg = style({
-  width: 15,
-  height: 15,
+  width: '15px',
+  height: '15px',
   transition: 'all 0.2s ease',
 
   selectors: {

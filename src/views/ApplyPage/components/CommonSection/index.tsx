@@ -1,6 +1,5 @@
 import Textarea from '@components/Textarea';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
+import { sectionContainerVar, sectionTitle } from 'views/ApplyPage/style.css';
 import { Answers } from 'views/ApplyPage/types';
 
 import FileInput from '../FileInput';
@@ -15,7 +14,6 @@ interface CommonSectionProps {
 }
 
 const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) => {
-  const { deviceType } = useDeviceType();
   const { draftData } = useGetDraft();
   const { applicant, commonQuestions } = draftData?.data || {};
 
@@ -32,8 +30,8 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
   const hasDescription = questions?.questions.some(({ isDescription }) => isDescription);
 
   return (
-    <section ref={refCallback} id="common" className={sectionContainerVar[deviceType]}>
-      <h2 className={sectionTitleVar[deviceType]}>공통 질문</h2>
+    <section ref={refCallback} id="common" className={sectionContainerVar}>
+      <h2 className={sectionTitle}>공통 질문</h2>
       {questions?.questions.map(
         ({ urls, question, id, charLimit, isFile, placeholder, optional, isDescription }, index) => {
           const draftItem = commonQuestionsById?.[id];

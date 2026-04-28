@@ -8,7 +8,6 @@ import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -23,7 +22,7 @@ import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
-import { buttonWrapper, container, formContainerVar } from './style.css';
+import { buttonWrapper, container, formContainer } from './style.css';
 
 import useDialog from '@hooks/useDialog';
 import BigLoading from 'views/loadings/BigLoding';
@@ -41,8 +40,6 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
-  // 반응형 페이지
-  const { deviceType } = useDeviceType();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   // 2. 모달 관련 ref
@@ -319,7 +316,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
             id="apply-form"
             name="apply-form"
             onSubmit={handleSubmit(handleApplySubmit)}
-            className={formContainerVar[deviceType]}>
+            className={formContainer}>
             <DefaultSection refCallback={refCallback} />
             <CommonSection refCallback={refCallback} />
             <PartSection refCallback={refCallback} />

@@ -1,6 +1,7 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import { Z_INDEX } from '@constants/zIndex';
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
 const headerContainer = style({
@@ -13,42 +14,37 @@ const headerContainer = style({
   zIndex: Z_INDEX.applyHeader,
 });
 
-export const headerContainerVar = styleVariants({
-  DESK: [
-    headerContainer,
-    {
-      padding: '24px 0 20px 6px',
-      margin: '60px auto 0px',
+export const headerContainerVar = style([
+  headerContainer,
+  {
+    padding: '24px 0 20px 6px',
+    margin: '60px auto 0px',
+    top: '79px',
+    width: '732px',
 
-      top: 79,
-      width: 732,
+    '@media': {
+      [breakpoints.mobile]: {
+        padding: '23px 0 20px',
+        top: '73px',
+        width: '100%',
+      },
     },
-  ],
-  TAB: [
-    headerContainer,
-    {
-      flexDirection: 'column',
-      alignItems: 'baseline',
-      gap: 13,
-      top: 73,
-      width: 431,
-      padding: '24px 32px 20px',
-      margin: '60px auto 0px',
+  },
+]);
+
+export const desktopButtons = style({
+  display: 'flex',
+
+  '@media': {
+    [breakpoints.mobile]: {
+      display: 'none',
     },
-  ],
-  MOB: [
-    headerContainer,
-    {
-      padding: '23px 31.5px 20px',
-      top: 73,
-      width: 375,
-    },
-  ],
+  },
 });
 
 export const buttonWrapper = style({
   display: 'flex',
-  gap: 8,
+  gap: '8px',
   alignItems: 'center',
   height: 'fit-content',
 });

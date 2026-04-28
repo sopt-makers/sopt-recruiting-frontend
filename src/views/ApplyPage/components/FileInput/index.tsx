@@ -3,7 +3,6 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 import { getPresignedUrl, uploadToS3, verifyFileUpload } from '@apis/fileUpload';
@@ -31,7 +30,6 @@ const LIMIT_SIZE = 1024 ** 2 * 50; // 50MB
 const ACCEPTED_FORMATS = '.pdf';
 
 const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputProps) => {
-  const { deviceType } = useDeviceType();
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploadPercent, setUploadPercent] = useState(-1);
   const [fileName, setFileName] = useState('');
@@ -163,7 +161,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
   }, [section, id, defaultFileId, defaultFileUrl, defaultFileName, fileValue, fileAnswer, isFileDeleted, setValue]);
 
   return (
-    <div className={containerVar[deviceType]}>
+    <div className={containerVar}>
       <AmplitudeEventTrack eventName={`click-apply-add_file${id}`}>
         <input
           id={`file-${id}`}
@@ -178,11 +176,11 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       </AmplitudeEventTrack>
       <label
         htmlFor={`file-${id}`}
-        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar[deviceType]}`}
+        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar}`}
       >
-        <div className={textWrapperVar[deviceType]}>
+        <div className={textWrapperVar}>
           <span>참고 자료</span>
-          <span className={`${fileNameVar[getFileNameClass()]} ${fileNameSizeVar[deviceType]}`}>
+          <span className={`${fileNameVar[getFileNameClass()]} ${fileNameSizeVar}`}>
             {getDisplayText()}
           </span>
         </div>
@@ -192,8 +190,8 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
           disabled={disabledStatus}
         />
       </label>
-      {uploadError && <p className={errorTextVar[deviceType]}>{uploadError}</p>}
-      {errors[`file${id}`] && <p className={errorTextVar[deviceType]}>{errors[`file${id}`]?.message as string}</p>}
+      {uploadError && <p className={errorTextVar}>{uploadError}</p>}
+      {errors[`file${id}`] && <p className={errorTextVar}>{errors[`file${id}`]?.message as string}</p>}
     </div>
   );
 };
