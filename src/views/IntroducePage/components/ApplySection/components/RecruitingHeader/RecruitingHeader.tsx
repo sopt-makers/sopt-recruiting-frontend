@@ -46,7 +46,7 @@ const RecruitingHeader = () => {
         </div>
         <div className={buttonWrapper}>
           <div className={buttonWrapperInner}>
-            <Button theme="blue" rounded="lg" onClick={() => navigate('/sign-up')} className={button}>
+            <Button theme="blue" rounded="lg" onClick={() => navigate('/auth')} className={button}>
               지원하기
             </Button>
           </div>

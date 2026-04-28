@@ -15,7 +15,7 @@ const BottomApplyCTA = () => {
       {deviceType === 'DESK' ? <IconArrowsL /> : <IconArrowsS />}
       <div className={container}>
         <span className={textVar}>지금 SOPT에 지원해 보세요!</span>
-        <Button theme="blue" className={buttonVar} onClick={() => navigate('/sign-up')}>
+        <Button theme="blue" className={buttonVar} onClick={() => navigate('/auth')}>
           지원하기
         </Button>
       </div>
