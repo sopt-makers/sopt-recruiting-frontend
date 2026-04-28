@@ -124,7 +124,6 @@ const surveyBox = style({
   alignItems: 'center',
   marginTop: 50,
   color: theme.color.lightestText,
-  border: `1px solid ${theme.color.border}`,
   borderRadius: 15,
 });
 
