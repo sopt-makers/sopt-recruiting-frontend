@@ -1,5 +1,5 @@
 import { useParams, Navigate } from 'react-router-dom';
-import { PART_DETAIL } from 'views/PartDetailPage/constants/constant';
+import { PART_NAME_MAP } from 'views/PartDetailPage/constants/constant';
 import { PartId } from 'views/PartDetailPage/types';
 import PartHeader from 'views/PartDetailPage/components/PartHeader';
 import PartIntroduction from 'views/PartDetailPage/components/PartIntroduction';
@@ -23,7 +23,7 @@ const PartDetailPage = () => {
     return <Navigate to="/introduce" replace />;
   }
 
-  const { partName } = PART_DETAIL[partId as PartId];
+  const partName = PART_NAME_MAP[partId as PartId];
 
   return (
     <div className={wrapper}>
