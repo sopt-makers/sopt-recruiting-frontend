@@ -8,7 +8,7 @@ import LearningList from 'views/PartDetailPage/components/LearningList';
 import Schedule from 'views/PartDetailPage/components/Schedule';
 import Review from 'views/PartDetailPage/components/Review';
 import useGetPartDetail from './hooks/useGetPartDetail';
-import { wrapper } from './style.css';
+import { wrapper, divider } from './style.css';
 import BigLoading from 'views/loadings/BigLoding';
 
 const VALID_PART_IDS: PartId[] = ['Plan', 'Design', 'Android', 'iOS', 'Web', 'Server'];
@@ -28,6 +28,7 @@ const PartDetailPage = () => {
   return (
     <div className={wrapper}>
       <PartHeader partName={partName} />
+      <div className={divider} />
       <PartIntroduction partName={partName} introduction={partContent?.introduction ?? ''} />
       <GoodForYou preferences={partContent?.preferences ?? []} />
       <LearningList partName={partName} partCurriculum={partContent?.partCurriculum ?? []} />
