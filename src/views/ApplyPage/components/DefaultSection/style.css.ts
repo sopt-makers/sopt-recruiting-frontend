@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
 const sectionContainer = style({
@@ -7,64 +7,41 @@ const sectionContainer = style({
   flexDirection: 'column',
 });
 
-export const sectionContainerVar = styleVariants({
-  DESK: [
-    sectionContainer,
-    {
-      gap: 50,
-      paddingTop: 100,
+export const sectionContainerVar = style([
+  sectionContainer,
+  {
+    gap: '50px',
+    paddingTop: '100px',
+    '@media': {
+      [breakpoints.mobile]: {
+        gap: '30px',
+        paddingTop: '70px',
+      },
     },
-  ],
-  TAB: [
-    sectionContainer,
-    {
-      gap: 50,
-      paddingTop: 100,
-    },
-  ],
-  MOB: [
-    sectionContainer,
-    {
-      gap: 30,
-      paddingTop: 70,
-    },
-  ],
-});
+  },
+]);
 
-export const doubleWrapperVar = styleVariants({
-  DESK: {
-    display: 'flex',
-    gap: 8,
-  },
-  TAB: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 50,
-  },
-  MOB: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 30,
+export const doubleWrapperVar = style({
+  display: 'flex',
+  gap: '8px',
+  '@media': {
+    [breakpoints.mobile]: {
+      flexDirection: 'column',
+      gap: '30px',
+    },
   },
 });
 
 // ProfileImage styles
 
-export const profileWrapperVar = styleVariants({
-  DESK: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 28,
-  },
-  TAB: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 17,
-  },
-  MOB: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 16,
+export const profileWrapperVar = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '28px',
+  '@media': {
+    [breakpoints.mobile]: {
+      gap: '16px',
+    },
   },
 });
 
@@ -73,9 +50,9 @@ const profileLabel = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: 6,
+  padding: '6px',
   border: `1px solid ${theme.color.border}`,
-  borderRadius: 10,
+  borderRadius: '10px',
   cursor: 'pointer',
 });
 
@@ -89,7 +66,7 @@ export const profileLabelVar = styleVariants({
   error: [
     profileLabel,
     {
-      marginBottom: 22,
+      marginBottom: '22px',
       borderColor: theme.color.error,
     },
   ],
@@ -101,51 +78,37 @@ export const profileLabelVar = styleVariants({
   ],
 });
 
-export const profileLabelSizeVar = styleVariants({
-  DESK: {
-    width: 134,
-    height: 176,
-  },
-  TAB: {
-    width: 134,
-    height: 176,
-  },
-  MOB: {
-    width: 106,
-    height: 140,
+export const profileLabelSizeVar = style({
+  width: '134px',
+  height: '176px',
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '106px',
+      height: '140px',
+    },
   },
 });
 
 const errorText = style({
   position: 'absolute',
-  left: 0,
+  left: '0px',
   width: 'max-content',
   color: theme.color.error,
 });
 
-export const errorTextVar = styleVariants({
-  DESK: [
-    errorText,
-    {
-      bottom: -30,
-      ...theme.font.LABEL_2_16_SB,
+export const errorTextVar = style([
+  errorText,
+  {
+    bottom: -30,
+    ...theme.font.LABEL_2_16_SB,
+    '@media': {
+      [breakpoints.mobile]: {
+        bottom: -26,
+        ...theme.font.LABEL_3_14_SB,
+      },
     },
-  ],
-  TAB: [
-    errorText,
-    {
-      bottom: -30,
-      ...theme.font.LABEL_2_16_SB,
-    },
-  ],
-  MOB: [
-    errorText,
-    {
-      bottom: -26,
-      ...theme.font.LABEL_3_14_SB,
-    },
-  ],
-});
+  },
+]);
 
 export const profileImage = style({
   objectFit: 'cover',
@@ -156,32 +119,23 @@ export const profileImage = style({
 export const profileTextWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
-  paddingBottom: 28,
+  gap: '8px',
+  paddingBottom: '28px',
 });
 
 const profileText = style({
   color: theme.color.lighterText,
 });
 
-export const profileTextVar = styleVariants({
-  DESK: [
-    profileText,
-    {
-      whiteSpace: 'pre-wrap',
-      ...theme.font.BODY_2_16_R,
+export const profileTextVar = style([
+  profileText,
+  {
+    whiteSpace: 'pre-wrap',
+    ...theme.font.BODY_2_16_R,
+    '@media': {
+      [breakpoints.mobile]: {
+        ...theme.font.BODY_4_13_R,
+      },
     },
-  ],
-  TAB: [
-    profileText,
-    {
-      ...theme.font.BODY_3_14_R,
-    },
-  ],
-  MOB: [
-    profileText,
-    {
-      ...theme.font.BODY_4_13_R,
-    },
-  ],
-});
+  },
+]);

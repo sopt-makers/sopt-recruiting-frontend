@@ -36,6 +36,7 @@ const makersRoutes = [{ index: true, element: <AuthPage /> }];
 const soptRoutes = [
   { index: true, element: <IntroducePage /> },
   { path: '/introduce', element: <IntroducePage /> },
+  { path: '/auth', element: <AuthPage /> },
 ];
 
 const router = createBrowserRouter([

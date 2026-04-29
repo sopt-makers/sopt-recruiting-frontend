@@ -3,7 +3,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import useDate from '@hooks/useDate';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
 import ApplyHeader from 'views/ApplyPage/components/ApplyHeader';
@@ -14,7 +13,7 @@ import DefaultSection from 'views/ApplyPage/components/DefaultSection';
 import PartSection from 'views/ApplyPage/components/PartSection';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
 import useGetQuestions from 'views/ApplyPage/hooks/useGetQuestions';
-import { container, formContainerVar } from 'views/ApplyPage/style.css';
+import { container, formContainer } from 'views/ApplyPage/style.css';
 import BigLoading from 'views/loadings/BigLoding';
 import useDialog from '@hooks/useDialog';
 
@@ -24,7 +23,6 @@ const PreventReviewDialog = lazy(() =>
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const ReviewPage = () => {
-  const { deviceType } = useDeviceType();
   const { ref: preventReviewDialogRef, handleShowDialog: handleShowPreventReviewDialog } = useDialog();
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
@@ -111,7 +109,7 @@ const ReviewPage = () => {
           <ApplyHeader isReview={isReview} />
           <ApplyInfo isReview={isReview} />
           <ApplyCategory isReview={isReview} minIndex={minIndex} />
-          <form id="apply-form" name="apply-form" className={formContainerVar[deviceType]}>
+          <form id="apply-form" name="apply-form" className={formContainer}>
             <DefaultSection isReview={isReview} refCallback={refCallback} />
             <CommonSection isReview={isReview} refCallback={refCallback} />
             <PartSection isReview={isReview} refCallback={refCallback} />

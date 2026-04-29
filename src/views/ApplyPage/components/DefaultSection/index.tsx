@@ -5,9 +5,8 @@ import { InputLine, TextBox } from '@components/Input';
 import Radio from '@components/Radio';
 import SelectBox from '@components/Select';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
-import { sectionTitleVar } from 'views/ApplyPage/style.css';
+import { sectionTitle } from 'views/ApplyPage/style.css';
 
 import { getPresignedUrl, uploadToS3, verifyFileUpload } from '@apis/fileUpload';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
@@ -30,10 +29,9 @@ import { getMostRecentSeasonArray } from './utils';
 interface ProfileImageProps {
   disabled: boolean;
   pic?: string;
-  deviceType: 'DESK' | 'TAB' | 'MOB';
 }
 
-const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
+const ProfileImage = ({ disabled, pic }: ProfileImageProps) => {
   const {
     register,
     clearErrors,
@@ -86,7 +84,7 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
 
   return (
     <TextBox label="사진" name="picture" size="lg" required>
-      <div className={profileWrapperVar[deviceType]}>
+      <div className={profileWrapperVar}>
         <input
           id="picture"
           type="file"
@@ -101,24 +99,24 @@ const ProfileImage = ({ disabled, pic, deviceType }: ProfileImageProps) => {
         <div>
           <label
             htmlFor="picture"
-            className={`${profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']} ${profileLabelSizeVar[deviceType]}`}>
+            className={`${profileLabelVar[disabled ? 'disabled' : errors.picture ? 'error' : 'default']} ${profileLabelSizeVar}`}>
             {hasImage ? (
               <img src={image || pic} alt="지원서 프로필 사진" className={`amp-block ${profileImage}`} />
             ) : (
               <IconUser />
             )}
-            {errors.picture && <p className={errorTextVar[deviceType]}>{errors.picture?.message as string}</p>}
+            {errors.picture && <p className={errorTextVar}>{errors.picture?.message as string}</p>}
           </label>
         </div>
         <ul className={profileTextWrapper}>
           {DEFAULT_PROFILE.map((el) => (
-            <li key={el} className={profileTextVar[deviceType]}>
+            <li key={el} className={profileTextVar}>
               &#183; {el}
             </li>
           ))}
         </ul>
       </div>
-      {uploadError && <p className={errorTextVar[deviceType]}>{uploadError}</p>}
+      {uploadError && <p className={errorTextVar}>{uploadError}</p>}
     </TextBox>
   );
 };
@@ -129,7 +127,6 @@ interface DefaultSectionProps {
 }
 
 const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) => {
-  const { deviceType } = useDeviceType();
   const { draftData } = useGetDraft();
 
   const { applicant } = draftData?.data || {};
@@ -151,10 +148,10 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
   } = applicant || {};
 
   return (
-    <section ref={refCallback} id="default" className={sectionContainerVar[deviceType]}>
-      <h2 className={sectionTitleVar[deviceType]}>기본 인적사항</h2>
-      <ProfileImage pic={pictureUrl} disabled={isReview} deviceType={deviceType} />
-      <div className={doubleWrapperVar[deviceType]}>
+    <section ref={refCallback} id="default" className={sectionContainerVar}>
+      <h2 className={sectionTitle}>기본 인적사항</h2>
+      <ProfileImage pic={pictureUrl} disabled={isReview} />
+      <div className={doubleWrapperVar}>
         <TextBox label="이름" name="name" required size="sm">
           <InputLine value={name} name="name" readOnly disabled={isReview} />
         </TextBox>
@@ -168,7 +165,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
           disabled={isReview}
         />
       </div>
-      <div className={doubleWrapperVar[deviceType]}>
+      <div className={doubleWrapperVar}>
         <TextBox label="생년월일" name="birthday" required size="sm">
           <InputLine
             name="birthday"
@@ -202,7 +199,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
           disabled={isReview}
         />
       </TextBox>
-      <div className={doubleWrapperVar[deviceType]}>
+      <div className={doubleWrapperVar}>
         <TextBox label="학교" name="college" required size="sm">
           <InputLine
             defaultValue={college}
@@ -232,7 +229,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
           />
         </div>
       </div>
-      <div className={doubleWrapperVar[deviceType]}>
+      <div className={doubleWrapperVar}>
         <TextBox label="학과" name="major" required size="sm">
           <InputLine
             defaultValue={major}
