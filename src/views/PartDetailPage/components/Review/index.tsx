@@ -39,7 +39,11 @@ const Review = ({ partId }: Props) => {
         ))}
       </div>
 
-      <button className={moreButton}>
+      <button
+        className={moreButton}
+        onClick={() => {
+          window.open('https://www.sopt.org/blog', '_blank');
+        }}>
         <p>전체 후기 보기</p>
         <IconChevronRight className={chevronIcon} />
       </button>
