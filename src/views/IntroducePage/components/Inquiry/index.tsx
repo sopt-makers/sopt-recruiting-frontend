@@ -12,10 +12,15 @@ import {
   wrapper,
 } from './style.css';
 import { contactInDisplayOrder } from 'views/IntroducePage/types';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { divider } from 'views/IntroducePage/style.css';
 
 const Inquiry = () => {
+  const { deviceType } = useDeviceType();
+
   return (
     <section className={wrapper}>
+      {deviceType === 'DESK' && <hr className={divider} />}
       <div className={titleSection}>
         <SectionTitle label={TITLE.INQUIRY.label} title={TITLE.INQUIRY.title} />
         <p className={description}>SOPT 지원에 대해 궁금한 것이 더 있나요?</p>
