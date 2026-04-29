@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PartHeader = ({ partName }: Props) => {
-  const { applicationStart, applicationEnd } = useDate();
+  const { applicationStart, applicationEnd, NoMoreApply } = useDate();
 
   const {
     recruitingInfo: { season, group },
@@ -29,7 +29,7 @@ const PartHeader = ({ partName }: Props) => {
         </p>
       </div>
 
-      <Button className={button}>지원하기</Button>
+      <Button className={button} disabled={NoMoreApply}>{NoMoreApply ? '모집 마감' : '지원하기'}</Button>
     </div>
   );
 };
