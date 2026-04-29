@@ -15,14 +15,14 @@ const TabBar = ({ selectedTab, onChange }: Props) => {
     <nav className={tabBar[deviceType]}>
       {FAQ_TABS.map((tab) => (
         <button
-          key={tab.value}
+          key={tab}
           type="button"
           className={tabRecipe({
-            state: selectedTab === tab.value ? 'selected' : 'default',
+            state: selectedTab === tab ? 'selected' : 'default',
             viewport: deviceType,
           })}
-          onClick={() => onChange(tab.value)}>
-          {tab.label}
+          onClick={() => onChange(tab)}>
+          {tab}
         </button>
       ))}
     </nav>

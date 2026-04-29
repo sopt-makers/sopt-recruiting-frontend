@@ -1,3 +1,4 @@
+import { colors } from '@sopt-makers/colors';
 import { style, styleVariants } from '@vanilla-extract/css';
 import { breakpoints } from 'styles/breakpoints';
 
@@ -58,6 +59,23 @@ export const warningWrapper = style([
     },
   },
 ]);
+
+export const iconVar = style({
+  width: '32px',
+  height: '32px',
+  borderRadius: '50%',
+  color: colors.yellow700,
+  fill: colors.yellow200,
+  flexShrink: 0,
+
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '20px',
+      height: '20px',
+      alignSelf: 'flex-start',
+    },
+  },
+});
 
 export const button = style({
   marginTop: '8px',

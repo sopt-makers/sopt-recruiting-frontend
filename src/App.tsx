@@ -18,17 +18,25 @@ import 'styles/reset.css';
 import '@sopt-makers/ui/dist/index.css';
 import useDialog from '@hooks/useDialog';
 import { HelmetProvider } from 'react-helmet-async';
+import { ToastProvider } from '@sopt-makers/ui';
 
 const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
 );
-const MainPage = lazy(() => import('views/MainPage'));
+const AuthPage = lazy(() => import('views/AuthPage'));
 const IntroducePage = lazy(() => import('views/IntroducePage'));
 const PasswordPage = lazy(() => import('views/PasswordPage'));
 const ResultPage = lazy(() => import('views/ResultPage'));
 const ReviewPage = lazy(() => import('views/ReviewPage'));
 const SignupPage = lazy(() => import('views/SignupPage'));
 const ErrorPage = lazy(() => import('views/ErrorPage'));
+
+const makersRoutes = [{ index: true, element: <AuthPage /> }];
+
+const soptRoutes = [
+  { index: true, element: <IntroducePage /> },
+  { path: '/introduce', element: <IntroducePage /> },
+];
 
 const router = createBrowserRouter([
   {
@@ -40,8 +48,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     children: [
-      { index: true, element: <MainPage /> },
-      { path: '/introduce', element: <IntroducePage /> },
+      ...(__IS_MAKERS__ ? makersRoutes : soptRoutes),
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
       { path: '/result', element: <ResultPage /> },
@@ -53,14 +60,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  // useEffect(() => {
-  //   const isMobile = /Mobi/i.test(window.navigator.userAgent);
-  //   if (isMobile) {
-  //     alert('PC로 지원해주세요.');
-  //     window.location.href = 'https://makers.sopt.org/recruit';
-  //   }
-  // }, []);
-
   const { ref: sessionExpiredDialogRef, handleShowDialog: handleShowSessionExpiredDialog } = useDialog();
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
   const { isLight } = useTheme();
@@ -119,16 +118,18 @@ const App = () => {
       <SessionExpiredDialog ref={sessionExpiredDialogRef} />
       <HelmetProvider>
         <DeviceTypeProvider>
-          <RecruitingInfoProvider>
-            <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools />
-              <div className={isLight ? light : dark}>
-                <Suspense fallback={<BigLoading />}>
-                  <RouterProvider router={router} />
-                </Suspense>
-              </div>
-            </QueryClientProvider>
-          </RecruitingInfoProvider>
+          <ToastProvider>
+            <RecruitingInfoProvider>
+              <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <div className={isLight ? light : dark}>
+                  <Suspense fallback={<BigLoading />}>
+                    <RouterProvider router={router} />
+                  </Suspense>
+                </div>
+              </QueryClientProvider>
+            </RecruitingInfoProvider>
+          </ToastProvider>
         </DeviceTypeProvider>
       </HelmetProvider>
     </>

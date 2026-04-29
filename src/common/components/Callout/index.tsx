@@ -1,5 +1,4 @@
 import { type HTMLAttributes, type ReactNode } from 'react';
-
 import { buttonVar, container, iconAlertVar, warningWrapper } from './style.css';
 import IconAlert from '@components/Callout/icons/IconAlert';
 

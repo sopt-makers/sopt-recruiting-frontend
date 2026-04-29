@@ -1,25 +1,21 @@
-import { useDevice } from '@hooks/useDevice';
-
 import { CHANNELS } from './constants';
 import IconArrowRight from './icons/IconArrowRight';
 import {
   channelWrapper,
   containerVar,
   copyRightText,
-  leftWrapperVar,
+  leftWrapper,
   rightWrapper,
   ruleButton,
-  ruleText,
   titleText,
 } from './style.css';
 
 const Footer = () => {
-  const deviceType = useDevice({ mobMax: '580px' });
   return (
-    <footer className={containerVar[deviceType]}>
-      <div className={leftWrapperVar[deviceType]}>
+    <footer className={containerVar}>
+      <div className={leftWrapper}>
         <a className={ruleButton} href="https://www.sopt.org/rules" target="_blank" rel="noreferrer noopener">
-          <span className={ruleText}>SOPT 회칙</span>
+          <span>SOPT 회칙</span>
           <IconArrowRight />
         </a>
         <p className={copyRightText}>

@@ -25,6 +25,16 @@ export const TextBox이름 = () => {
 };
 
 export const TextBox이메일 = () => {
+  const { watch, trigger } = useFormContext();
+  const { deviceType } = useDeviceType();
+
+  const email = watch('email');
+  const emailConfirm = watch('emailCheck');
+
+  useEffect(() => {
+    if (emailConfirm != undefined && emailConfirm !== '') trigger('emailCheck');
+  }, [email, emailConfirm, trigger]);
+
   return (
     <TextBox label="이메일" name="email" required>
       <InputLine
@@ -35,6 +45,16 @@ export const TextBox이메일 = () => {
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.email.errorText}
       />
+      <InputLine
+        name="emailCheck"
+        placeholder="이메일을 다시 입력해주세요."
+        type="email"
+        pattern={VALIDATION_CHECK.email.pattern}
+        maxLength={VALIDATION_CHECK.email.maxLength}
+        errorText={VALIDATION_CHECK.emailConfirm.errorText}
+        validate={VALIDATION_CHECK.emailConfirm.validate(watch, 'emailCheck')}
+      />
+      {emailConfirm && email === emailConfirm && <p className={successVar[deviceType]}>이메일이 일치해요.</p>}
     </TextBox>
   );
 };
