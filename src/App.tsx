@@ -29,6 +29,7 @@ const ResultPage = lazy(() => import('views/ResultPage'));
 const ReviewPage = lazy(() => import('views/ReviewPage'));
 const SignupPage = lazy(() => import('views/SignupPage'));
 const ErrorPage = lazy(() => import('views/ErrorPage'));
+const PartDetailPage = lazy(() => import('views/PartDetailPage'));
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <MainPage /> },
       { path: '/introduce', element: <IntroducePage /> },
+      { path: '/part/:partId', element: <PartDetailPage /> },
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
       { path: '/result', element: <ResultPage /> },
