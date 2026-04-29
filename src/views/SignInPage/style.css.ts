@@ -15,6 +15,7 @@ export const containerVar = style([
     '@media': {
       [breakpoints.mobile]: {
         gap: '30px',
+        padding: '0 24px',
         margin: '43px 0 115px 0',
         width: '100%',
       },

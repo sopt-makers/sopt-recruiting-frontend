@@ -19,7 +19,7 @@ export const headerContainerVar = style([
   {
     padding: '24px 0 20px 6px',
     margin: '60px auto 0px',
-    top: '79px',
+    top: '74px',
     width: '732px',
 
     '@media': {
