@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import useDialog from '@hooks/useDialog';
 import BigLoading from 'views/loadings/BigLoding';
 import SignInForm from './components/SignInForm';
@@ -10,7 +10,7 @@ import SignInBlockedDialog from 'views/dialogs/SignInBlockedDialog';
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const SignInPage = () => {
-  const { isLoading, NoMoreRecruit } = useDate();
+  const { isLoading, NoMoreRecruit } = useRecruitingSchedule();
   const { ref: signInBlockedDialogRef, handleShowDialog: handleShowSignInBlockedDialog } = useDialog();
 
   if (isLoading) return <BigLoading />;

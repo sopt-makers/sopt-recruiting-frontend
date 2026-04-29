@@ -1,7 +1,7 @@
 import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
 import { gridWrapper, oddText, evenText, highlight, container, scheduleGroup, wrapper } from './style.css';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { format } from '@utils/dateFormatter';
 
 const Schedule = () => {
@@ -16,7 +16,7 @@ const Schedule = () => {
 export default Schedule;
 
 const ScheduleBox = () => {
-  const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart } = useDate();
+  const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart } = useRecruitingSchedule();
 
   const formattedApplicationStart = applicationStart ? format(applicationStart, 'M월 dd일 aaa hh시') : '';
   const formattedApplicationStartHour = applicationStart ? format(applicationStart, 'aaa hh시') : '';

@@ -1,4 +1,4 @@
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { wrapper } from './style.css';
 import { useDevice } from '@hooks/useDevice';
 import IconArrowsS from 'views/IntroducePage/assets/IconArrowsS';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ApplySection = ({ headerImage }: Props) => {
-  const { NoMoreRecruit, NoMoreApply } = useDate();
+  const { NoMoreRecruit, NoMoreApply } = useRecruitingSchedule();
 
   const deviceType = useDevice();
 

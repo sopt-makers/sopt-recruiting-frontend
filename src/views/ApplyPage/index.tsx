@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@components/Button';
 import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import useScrollToHash from '@hooks/useScrollToHash';
 
 import ApplyCategory from './components/ApplyCategory';
@@ -203,7 +203,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   useBeforeExitPageAlert();
 
   // 11. 지원 기간 아니면 에러 페이지 띄우기
-  const { NoMoreApply } = useDate();
+  const { NoMoreApply } = useRecruitingSchedule();
   if (NoMoreApply) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
   // 13. data 전송 로직

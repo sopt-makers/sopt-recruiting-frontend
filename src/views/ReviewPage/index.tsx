@@ -1,7 +1,7 @@
 import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import useScrollToHash from '@hooks/useScrollToHash';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
@@ -39,7 +39,7 @@ const ReviewPage = () => {
 
   const { applicant: applicantDraft } = draftData?.data || {};
 
-  const { NoMoreReview, isLoading } = useDate();
+  const { NoMoreReview, isLoading } = useRecruitingSchedule();
   const { questionsIsLoading } = useGetQuestions(applicantDraft);
 
   const methods = useForm({ mode: 'onBlur' });

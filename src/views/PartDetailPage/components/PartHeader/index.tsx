@@ -1,5 +1,5 @@
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { format } from '@utils/dateFormatter';
 import { wrapper, button, dateText, partText } from './style.css';
 import { Button } from '@sopt-makers/ui';
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PartHeader = ({ partName }: Props) => {
-  const { applicationStart, applicationEnd, NoMoreApply } = useDate();
+  const { applicationStart, applicationEnd, NoMoreApply } = useRecruitingSchedule();
 
   const {
     recruitingInfo: { season, group },

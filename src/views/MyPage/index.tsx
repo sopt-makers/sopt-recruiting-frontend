@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
@@ -55,7 +55,7 @@ const MyPage = ({ part, applicationPass }: MyPageProps) => {
   const {
     recruitingInfo: { name, season },
   } = useRecruitingInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useDate();
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useRecruitingSchedule();
 
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
