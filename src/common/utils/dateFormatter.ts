@@ -35,15 +35,17 @@ export const format = (date: Date | string, formatStr: string): string => {
   date = toDate(date);
   const days = ['일', '월', '화', '수', '목', '금', '토'];
   const formatter: { [key: string]: string } = {
+    YYYY: date.getFullYear().toString(),
+    MM: (date.getMonth() + 1).toString().padStart(2, '0'),
     M: (date.getMonth() + 1).toString(),
     dd: date.getDate().toString().padStart(2, '0'),
-    E: days[date.getDay()] || '',
     EEEE: days[date.getDay()] + '요일',
+    E: days[date.getDay()] || '',
     aaa: date.getHours() < 12 ? '오전' : '오후',
     HH: date.getHours().toString().padStart(2, '0'),
     hh: (date.getHours() % 12 || 12).toString().padStart(2, '0'),
     mm: date.getMinutes().toString().padStart(2, '0'),
   };
 
-  return formatStr.replace(/M|dd|E|EEE|aaa|HH|hh|mm/g, (substr) => formatter[substr] || '');
+  return formatStr.replace(/YYYY|MM|M|dd|EEEE|E|aaa|HH|hh|mm/g, (substr) => formatter[substr] || '');
 };

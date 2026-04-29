@@ -1,33 +1,24 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
 });
 
-export const containerVar = styleVariants({
-  DESK: [
-    container,
-    {
-      gap: 50,
-      margin: '90px 0 168px 0',
-      width: 466,
+export const containerVar = style([
+  container,
+  {
+    gap: '50px',
+    margin: '90px 0 168px 0',
+    width: '466px',
+    '@media': {
+      [breakpoints.mobile]: {
+        gap: '30px',
+        padding: '0 24px',
+        margin: '43px 0 115px 0',
+        width: '100%',
+      },
     },
-  ],
-  TAB: [
-    container,
-    {
-      gap: 50,
-      margin: '90px 0 172px 0',
-      width: 367,
-    },
-  ],
-  MOB: [
-    container,
-    {
-      gap: 30,
-      margin: '43px 0 115px 0',
-      width: 312,
-    },
-  ],
-});
+  },
+]);

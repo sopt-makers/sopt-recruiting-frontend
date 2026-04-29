@@ -1,4 +1,6 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { colors } from '@sopt-makers/colors';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
@@ -11,63 +13,37 @@ const container = style({
   backgroundColor: theme.color.subBackground,
 });
 
-export const containerVar = styleVariants({
-  DESK: [
-    container,
-    {
-      height: '162px',
-      paddingTop: 33,
-      paddingLeft: 'calc(50px + (150 * ((100vw - 768px) / 672)))',
-      paddingBottom: 38,
-      paddingRight: 'calc(50px + (126 * ((100vw - 768px) / 672)))',
+export const containerVar = style([
+  container,
+  {
+    height: '162px',
+    padding: '36px 0',
+    paddingLeft: 'calc(50px + (150 * ((100vw - 768px) / 672)))',
+    paddingRight: 'calc(50px + (126 * ((100vw - 768px) / 672)))',
+
+    '@media': {
+      [breakpoints.tablet]: {
+        padding: '36px 40px',
+      },
+      [breakpoints.mobile]: {
+        flexDirection: 'column',
+        justifyContent: 'left',
+        gap: '26px',
+        height: '227px',
+        padding: '24px 0px 24px 24px',
+      },
     },
-  ],
-  TAB: [
-    container,
-    {
-      height: '162px',
-      padding: '33px 50px',
-    },
-  ],
-  MOB: [
-    container,
-    {
-      flexDirection: 'column',
-      gap: 50,
-      height: '292px',
-      padding: '34px 22px',
-    },
-  ],
-});
+  },
+]);
 
 const text = style({
-  color: theme.color.lighterText,
+  color: colors.black,
 });
 
-const leftWrapper = style({
+export const leftWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-});
-
-export const leftWrapperVar = styleVariants({
-  DESK: [
-    leftWrapper,
-    {
-      gap: 27,
-    },
-  ],
-  TAB: [
-    leftWrapper,
-    {
-      gap: 23,
-    },
-  ],
-  MOB: [
-    leftWrapper,
-    {
-      gap: 23,
-    },
-  ],
+  gap: '16px',
 });
 
 export const titleText = style([
@@ -88,10 +64,6 @@ export const ruleButton = style([
   },
 ]);
 
-export const ruleText = style({
-  marginTop: 2,
-});
-
 export const copyRightText = style([
   text,
   {
@@ -102,11 +74,12 @@ export const copyRightText = style([
 export const rightWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 29,
+  justifyContent: 'center',
+  gap: '16px',
 });
 
 export const channelWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: 16,
+  gap: '16px',
 });

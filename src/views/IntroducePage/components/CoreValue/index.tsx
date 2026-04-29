@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
-import { CORE_VALUE, TITLE } from 'views/IntroducePage/constants/constant';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
+import { TITLE } from 'views/IntroducePage/constants/constant';
 import {
   wrapper,
   listWrapper,
@@ -15,19 +16,32 @@ import {
   contentLayout,
   imageWrapper,
 } from './style.css';
+import type { CoreValue as CoreValueData } from 'views/IntroducePage/types';
 
-const CoreValue = () => {
+interface CoreValueProps {
+  values?: CoreValueData[];
+}
+
+const CoreValue = ({ values }: CoreValueProps) => {
+  const {
+    recruitingInfo: { season, soptName },
+  } = useRecruitingInfo();
+
+  if (!values || values.length === 0) return null;
+
   return (
     <section className={wrapper}>
-      <SectionTitle label={TITLE.CORE_VALUE.label} title={TITLE.CORE_VALUE.title} />
-      <CoreValueList values={CORE_VALUE} />
+      <SectionTitle
+        label={TITLE.CORE_VALUE.label}
+        title={`${season}기 ${soptName} SOPT가 함께 나아가고 싶은 사람이에요`}
+      />
+      <CoreValueList values={values} />
     </section>
   );
 };
 
 export default CoreValue;
 
-type CoreValueData = (typeof CORE_VALUE)[number];
 interface ListProps {
   values: CoreValueData[];
 }
@@ -35,8 +49,8 @@ interface ListProps {
 const CoreValueList = ({ values }: ListProps) => {
   return (
     <ul className={listWrapper}>
-      {values.map((value) => (
-        <CoreValueItem key={value.id} value={value} />
+      {values.map((value, index) => (
+        <CoreValueItem key={index} value={value} />
       ))}
     </ul>
   );
