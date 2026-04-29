@@ -30,6 +30,13 @@ const ReviewPage = lazy(() => import('views/ReviewPage'));
 const SignupPage = lazy(() => import('views/SignupPage'));
 const ErrorPage = lazy(() => import('views/ErrorPage'));
 
+const makersRoutes = [{ index: true, element: <AuthPage /> }];
+
+const soptRoutes = [
+  { index: true, element: <IntroducePage /> },
+  { path: '/introduce', element: <IntroducePage /> },
+];
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -40,9 +47,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     children: [
-      { index: true, element: __IS_MAKERS__ ? <AuthPage /> : <IntroducePage /> },
-      { path: '/auth', element: <AuthPage /> },
-      ...(!__IS_MAKERS__ ? [{ path: '/introduce', element: <IntroducePage /> }] : []),
+      ...(__IS_MAKERS__ ? makersRoutes : soptRoutes),
       { path: '/sign-up', element: <SignupPage /> },
       { path: '/password', element: <PasswordPage /> },
       { path: '/result', element: <ResultPage /> },
