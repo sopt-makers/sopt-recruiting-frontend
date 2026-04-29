@@ -2,6 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
 
 import { theme } from 'styles/theme.css';
+import { breakpoints } from 'styles/breakpoints';
 
 export const container = style({
   display: 'flex',
@@ -19,7 +20,7 @@ export const container = style({
   },
 });
 
-const icon = style({
+export const icon = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -27,97 +28,53 @@ const icon = style({
   borderRadius: '50%',
   background: theme.color.primary,
   flexShrink: 0,
-});
-
-export const iconVar = styleVariants({
-  DESK: [
-    icon,
-    {
-      width: 66,
-      height: 66,
-    },
-  ],
-  TAB: [
-    icon,
-    {
-      width: 66,
-      height: 66,
-    },
-  ],
-  MOB: [
-    icon,
-    {
+  width: 66,
+  height: 66,
+  '@media': {
+    [breakpoints.mobile]: {
       width: 46,
       height: 46,
     },
-  ],
+  },
 });
 
-const mainText = style({
+export const mainText = style({
   color: theme.color.baseText,
   textAlign: 'center',
   whiteSpace: 'pre-line',
   marginBottom: 24,
-});
-
-export const mainTextVar = styleVariants({
-  DESK: [
-    mainText,
-    {
-      ...theme.font.HEADING_2_32_B,
-    },
-  ],
-  TAB: [
-    mainText,
-    {
-      ...theme.font.HEADING_2_32_B,
-    },
-  ],
-  MOB: [
-    mainText,
-    {
+  ...theme.font.HEADING_2_32_B,
+  '@media': {
+    [breakpoints.mobile]: {
       marginBottom: 14,
       ...theme.font.HEADING_5_20_B,
     },
-  ],
+  },
 });
 
-export const buttonWrapperVar = styleVariants({
-  DESK: { marginTop: 50 },
-  TAB: { marginTop: 50 },
-  MOB: { marginTop: 30 },
+export const buttonWrapper = style({
+  marginTop: 50,
+  '@media': {
+    [breakpoints.mobile]: {
+      marginTop: 30,
+    },
+  },
 });
 
-const subText = style({
+export const subText = style({
   color: theme.color.baseText,
   textAlign: 'center',
-});
-
-export const subTextVar = styleVariants({
-  DESK: [
-    subText,
-    {
-      marginBottom: 50,
-      ...theme.font.BODY_1_18_M,
-    },
-  ],
-  TAB: [
-    subText,
-    {
-      marginBottom: 50,
-      ...theme.font.BODY_1_18_M,
-    },
-  ],
-  MOB: [
-    subText,
-    {
+  marginBottom: 50,
+  ...theme.font.BODY_1_18_M,
+  '@media': {
+    [breakpoints.mobile]: {
       marginBottom: 30,
       ...theme.font.BODY_3_14_M,
     },
-  ],
+  },
 });
 
-const surveyBox = style({
+export const surveyBox = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -125,53 +82,36 @@ const surveyBox = style({
   marginTop: 50,
   color: theme.color.lightestText,
   borderRadius: 15,
-});
-
-export const surveyBoxVar = styleVariants({
-  DESK: [
-    surveyBox,
-    {
-      gap: 12,
-      width: 466,
-      padding: '22px 0px',
-      ...theme.font.BODY_2_16_M,
-    },
-  ],
-  TAB: [
-    surveyBox,
-    {
-      gap: 12,
+  gap: 12,
+  width: 466,
+  padding: '22px 0px',
+  ...theme.font.BODY_2_16_M,
+  '@media': {
+    [breakpoints.tablet]: {
       width: 387,
-      padding: '22px 0px',
       ...theme.font.BODY_3_14_M,
     },
-  ],
-  MOB: [
-    surveyBox,
-    {
+    [breakpoints.mobile]: {
       gap: 14,
       width: 312,
-      padding: '22px 0px',
       ...theme.font.BODY_4_13_M,
     },
-  ],
+  },
 });
 
-export const bottomContainer = styleVariants({
-  DESK: {
-    position: 'relative',
-    width: 348,
-    height: 36,
-  },
-  TAB: {
-    position: 'relative',
-    width: 326,
-    height: 34,
-  },
-  MOB: {
-    position: 'relative',
-    width: 180,
-    height: 78,
+export const bottomContainer = style({
+  position: 'relative',
+  width: 348,
+  height: 36,
+  '@media': {
+    [breakpoints.tablet]: {
+      width: 326,
+      height: 34,
+    },
+    [breakpoints.mobile]: {
+      width: 180,
+      height: 78,
+    },
   },
 });
 
@@ -189,18 +129,8 @@ export const pointContainer = style({
 });
 
 export const pointContainerVar = styleVariants({
-  in: [
-    pointContainer,
-    {
-      opacity: 1,
-    },
-  ],
-  out: [
-    pointContainer,
-    {
-      opacity: 0,
-    },
-  ],
+  in: [pointContainer, { opacity: 1 }],
+  out: [pointContainer, { opacity: 0 }],
 });
 
 const pointBox = style({
@@ -210,44 +140,20 @@ const pointBox = style({
   borderRadius: 6,
   transition: 'color 0.3s ease, background-color 0.3s ease',
   cursor: 'pointer',
-});
-
-export const pointBoxSizeVar = styleVariants({
-  DESK: {
-    width: 28,
-    height: 36,
-  },
-  TAB: {
-    width: 26,
-    height: 34,
-  },
-  MOB: {
-    width: 26,
-    height: 34,
+  width: 28,
+  height: 36,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      width: 26,
+      height: 34,
+    },
   },
 });
 
 export const pointBoxVar = styleVariants({
-  default: [
-    pointBox,
-    {
-      backgroundColor: theme.color.subBackground,
-      color: theme.color.baseText,
-    },
-  ],
-  selected: [
-    pointBox,
-    {
-      backgroundColor: theme.color.primary,
-      color: theme.color.white,
-    },
-  ],
-  changed: [
-    pointBox,
-    {
-      cursor: 'default',
-    },
-  ],
+  default: [pointBox, { backgroundColor: theme.color.subBackground, color: theme.color.baseText }],
+  selected: [pointBox, { backgroundColor: theme.color.primary, color: theme.color.white }],
+  changed: [pointBox, { cursor: 'default' }],
 });
 
 export const thanksText = style({
@@ -266,16 +172,6 @@ export const thanksText = style({
 });
 
 export const thanksTextVar = styleVariants({
-  in: [
-    thanksText,
-    {
-      opacity: 1,
-    },
-  ],
-  out: [
-    thanksText,
-    {
-      opacity: 0,
-    },
-  ],
+  in: [thanksText, { opacity: 1 }],
+  out: [thanksText, { opacity: 0 }],
 });
