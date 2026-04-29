@@ -1,6 +1,7 @@
 import SectionTitle from 'views/PartDetailPage/components/SectionTitle';
 import { PART_DETAIL_TITLE } from 'views/PartDetailPage/constants/constant';
-import { ReviewItem } from 'views/PartDetailPage/types';
+import { PartId, ReviewApiItem } from 'views/PartDetailPage/types';
+import useGetReviews from 'views/PartDetailPage/hooks/useGetReviews';
 import {
   wrapper,
   listContainer,
@@ -22,10 +23,13 @@ import {
 import { IconChevronRight } from '@sopt-makers/icons';
 
 interface Props {
-  reviews: ReviewItem[];
+  partId: PartId;
 }
 
-const Review = ({ reviews }: Props) => {
+const Review = ({ partId }: Props) => {
+  const { data } = useGetReviews(partId);
+  const reviews = data?.data ?? [];
+
   return (
     <section className={wrapper}>
       <SectionTitle label={PART_DETAIL_TITLE.REVIEW.label} title={PART_DETAIL_TITLE.REVIEW.title} />
@@ -46,19 +50,23 @@ const Review = ({ reviews }: Props) => {
 export default Review;
 
 interface ReviewCardProps {
-  review: ReviewItem;
+  review: ReviewApiItem;
 }
 
 const ReviewCard = ({ review }: ReviewCardProps) => {
   return (
-    <article className={card}>
+    <article className={card} onClick={() => window.open(review.url, '_blank')}>
       <div className={cardLeft}>
         <div>
           <div className={header}>
-            <div className={profileCircle} />
+            {review.authorProfileImageUrl ? (
+              <img className={profileCircle} src={review.authorProfileImageUrl} alt={review.author} />
+            ) : (
+              <div className={profileCircle} />
+            )}
             <span>{review.author}</span>
             <span className={divider}>∙</span>
-            <span>{review.date}</span>
+            <span>{review.generation}기</span>
           </div>
 
           <div className={body}>
@@ -74,7 +82,11 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
       </div>
 
       <div className={thumbnailWrapper}>
-        <div className={thumbnail} />
+        {review.thumbnailUrl ? (
+          <img className={thumbnail} src={review.thumbnailUrl} alt={review.title} />
+        ) : (
+          <div className={thumbnail} />
+        )}
       </div>
     </article>
   );

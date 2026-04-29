@@ -16,14 +16,14 @@ const VALID_PART_IDS: PartId[] = ['Plan', 'Design', 'Android', 'iOS', 'Web', 'Se
 const PartDetailPage = () => {
   const { partId } = useParams<{ partId: string }>();
   const isValidPartId = !!partId && VALID_PART_IDS.includes(partId as PartId);
-  const { data: partContent, isPending } = useGetPartDetail('기획');
+  const { data: partContent, isPending } = useGetPartDetail(partId as PartId);
 
   if (isPending) return <BigLoading />;
   if (!isValidPartId) {
     return <Navigate to="/introduce" replace />;
   }
 
-  const { partName, reviews } = PART_DETAIL[partId as PartId];
+  const { partName } = PART_DETAIL[partId as PartId];
 
   return (
     <div className={wrapper}>
@@ -33,7 +33,7 @@ const PartDetailPage = () => {
       <GoodForYou preferences={partContent?.preferences ?? []} />
       <LearningList partName={partName} partCurriculum={partContent?.partCurriculum ?? []} />
       <Schedule />
-      <Review reviews={reviews} />
+      <Review partId={partId as PartId} />
     </div>
   );
 };
