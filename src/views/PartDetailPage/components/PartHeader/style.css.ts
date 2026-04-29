@@ -53,8 +53,10 @@ export const button = style({
   color: colors.white,
   ...theme.font.HEADING_4_24_B,
 
-  ':hover': { backgroundColor: theme.color.primaryDark },
-  ':active': { backgroundColor: theme.color.primaryLight },
+  ':disabled': {
+    backgroundColor: colors.gray50,
+    color: colors.gray400,
+  },
 
   '@media': {
     [breakpoints.tablet]: {
@@ -65,7 +67,7 @@ export const button = style({
     [breakpoints.mobile]: {
       width: '100px',
       padding: '10px 0',
-      ...theme.font.LABEL_1_18_SB,
+      ...theme.font.LABEL_2_16_SB,
     },
   },
 });

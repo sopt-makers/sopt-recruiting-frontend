@@ -18,7 +18,7 @@ export const descriptionBox = style({
   width: '100%',
   maxWidth: '1200px',
   // TODO: colors에 gray20이 없는데,,
-  backgroundColor: colors.gray30,
+  backgroundColor: theme.color.subBackground,
   borderRadius: '24px',
   padding: '40px 80px',
   '@media': {
