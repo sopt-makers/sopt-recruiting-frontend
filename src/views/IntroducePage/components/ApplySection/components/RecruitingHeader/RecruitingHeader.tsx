@@ -18,7 +18,11 @@ import {
   button,
 } from './style.css';
 
-const RecruitingHeader = () => {
+interface Props {
+  headerImage: string;
+}
+
+const RecruitingHeader = ({ headerImage }: Props) => {
   const navigate = useNavigate();
   const deviceType = useDevice();
 
@@ -34,7 +38,7 @@ const RecruitingHeader = () => {
   return (
     <header className={container}>
       <div className={imageWrapper}>
-        <img src={'/top_banner.png'} alt="recruiting header" className={image} />
+        <img src={headerImage} alt="recruiting header" className={image} />
       </div>
       <div className={contentLayout}>
         <div className={textContentLayout}>
@@ -46,7 +50,7 @@ const RecruitingHeader = () => {
         </div>
         <div className={buttonWrapper}>
           <div className={buttonWrapperInner}>
-            <Button theme="blue" rounded="lg" onClick={() => navigate('/sign-up')} className={button}>
+            <Button theme="blue" rounded="lg" onClick={() => navigate('/auth')} className={button}>
               지원하기
             </Button>
           </div>

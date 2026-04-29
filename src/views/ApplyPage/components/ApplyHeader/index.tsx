@@ -1,9 +1,8 @@
 import Button from '@components/Button';
 import Title from '@components/Title';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
-import { buttonWrapper, headerContainerVar } from './style.css';
+import { buttonWrapper, desktopButtons, headerContainerVar } from './style.css';
 
 interface ApplyHeaderProps {
   isReview?: boolean;
@@ -13,18 +12,17 @@ interface ApplyHeaderProps {
 }
 
 const ApplyHeader = ({ isLoading, onSaveDraft, onSubmitData, isReview = false }: ApplyHeaderProps) => {
-  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { soptName, season, group },
   } = useRecruitingInfo();
 
   return (
-    <header className={headerContainerVar[deviceType]}>
+    <header className={headerContainerVar}>
       <Title>
         {season}기 {__IS_MAKERS__ ? soptName : group} 지원서
       </Title>
-      {!isReview && deviceType !== 'MOB' && (
-        <div className={buttonWrapper}>
+      {!isReview && (
+        <div className={`${buttonWrapper} ${desktopButtons}`}>
           <Button
             isLoading={isLoading}
             eventName="click-apply-draft"

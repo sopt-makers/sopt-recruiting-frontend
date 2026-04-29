@@ -10,7 +10,6 @@ const container = style({
 
   position: 'fixed',
   top: 0,
-  maxWidth: 1440,
   width: '100%',
   margin: '0 auto',
 

@@ -1,61 +1,34 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
-const infoContainer = style({
+export const infoContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 50,
-});
+  justifyContent: 'center',
+  gap: '50px',
+  width: '720px',
+  margin: '90px 0 82px 0',
 
-export const infoContainerVar = styleVariants({
-  DESK: [
-    infoContainer,
-    {
-      width: 720,
-      margin: '90px 0 82px 0',
-    },
-  ],
-  TAB: [
-    infoContainer,
-    {
-      width: 367,
-      margin: '42px 0 50px 0',
-    },
-  ],
-  MOB: [
-    infoContainer,
-    {
-      width: 312,
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '100%',
       margin: '20px 0 66px 0',
     },
-  ],
+  },
 });
 
-const infoWrapper = style({
+export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-});
+  gap: '16px',
 
-export const infoWrapperVar = styleVariants({
-  DESK: [
-    infoWrapper,
-    {
-      gap: 16,
+  '@media': {
+    [breakpoints.mobile]: {
+      gap: '14px',
     },
-  ],
-  TAB: [
-    infoWrapper,
-    {
-      gap: 16,
-    },
-  ],
-  MOB: [
-    infoWrapper,
-    {
-      gap: 14,
-    },
-  ],
+  },
 });
 
 const infoItems = style({
@@ -64,36 +37,26 @@ const infoItems = style({
   whiteSpace: 'pre-wrap',
 
   '::marker': {
-    fontSize: 10,
+    fontSize: '10px',
   },
 });
 
-export const infoItemsVar = styleVariants({
-  DESK: [
-    infoItems,
-    {
-      marginLeft: 20,
-      ...theme.font.BODY_1_18_M,
-      letterSpacing: '-0.27px',
+export const infoItemsVar = style([
+  infoItems,
+  {
+    marginLeft: '20px',
+    ...theme.font.BODY_1_18_M,
+    letterSpacing: '-0.27px',
+
+    '@media': {
+      [breakpoints.mobile]: {
+        marginLeft: '12px',
+        ...theme.font.BODY_3_14_M,
+        letterSpacing: '-0.21px',
+      },
     },
-  ],
-  TAB: [
-    infoItems,
-    {
-      marginLeft: 20,
-      ...theme.font.BODY_2_16_M,
-      letterSpacing: '-0.24px',
-    },
-  ],
-  MOB: [
-    infoItems,
-    {
-      marginLeft: 12,
-      ...theme.font.BODY_3_14_M,
-      letterSpacing: '-0.21px',
-    },
-  ],
-});
+  },
+]);
 
 export const infoItemsBold = style({
   fontWeight: 700,
@@ -102,62 +65,44 @@ export const infoItemsBold = style({
 export const dateWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
+  gap: '8px',
 });
 
 export const dateItems = style({
   display: 'flex',
-  gap: 12,
+  gap: '12px',
   alignItems: 'baseline',
 });
 
-const dateLabel = style({
+const dateLabelBase = style({
   padding: '6px 13px',
-  borderRadius: 8,
+  borderRadius: '8px',
   color: theme.color.lighterText,
   backgroundColor: theme.color.subBackground,
 });
 
-export const dateLabelVar = styleVariants({
-  DESK: [
-    dateLabel,
-    {
-      ...theme.font.TITLE_5_18_SB,
-      letterSpacing: '-0.27px',
-    },
-  ],
-  TAB: [
-    dateLabel,
-    {
-      ...theme.font.TITLE_6_16_SB,
-      letterSpacing: '-0.24px',
-    },
-  ],
-  MOB: [
-    dateLabel,
-    {
-      ...theme.font.TITLE_7_14_SB,
-      letterSpacing: '-0.21px',
-    },
-  ],
-});
+export const dateLabelVar = style([
+  dateLabelBase,
+  {
+    ...theme.font.TITLE_5_18_SB,
+    letterSpacing: '-0.27px',
 
-export const dateTextVar = styleVariants({
-  DESK: [
-    {
-      ...theme.font.BODY_1_18_M,
+    '@media': {
+      [breakpoints.mobile]: {
+        ...theme.font.TITLE_7_14_SB,
+        letterSpacing: '-0.21px',
+      },
     },
-  ],
-  TAB: [
-    {
-      whiteSpace: 'pre-line',
-      ...theme.font.BODY_2_16_M,
-    },
-  ],
-  MOB: [
-    {
+  },
+]);
+
+export const dateTextVar = style({
+  ...theme.font.BODY_1_18_M,
+
+  '@media': {
+    [breakpoints.mobile]: {
       whiteSpace: 'pre-line',
       ...theme.font.BODY_3_14_M,
     },
-  ],
+  },
 });

@@ -36,8 +36,8 @@ export const format = (date: Date | string, formatStr: string): string => {
   const days = ['일', '월', '화', '수', '목', '금', '토'];
   const formatter: { [key: string]: string } = {
     YYYY: date.getFullYear().toString(),
-    M: (date.getMonth() + 1).toString(),
     MM: (date.getMonth() + 1).toString().padStart(2, '0'),
+    M: (date.getMonth() + 1).toString(),
     dd: date.getDate().toString().padStart(2, '0'),
     E: days[date.getDay()] || '',
     EEEE: days[date.getDay()] + '요일',
@@ -47,5 +47,5 @@ export const format = (date: Date | string, formatStr: string): string => {
     mm: date.getMinutes().toString().padStart(2, '0'),
   };
 
-  return formatStr.replace(/YYYY|MM|M|dd|E|EEE|aaa|HH|hh|mm/g, (substr) => formatter[substr] || '');
+  return formatStr.replace(/YYYY|MM|M|dd|EEEE|E|aaa|HH|hh|mm/g, (substr) => formatter[substr] || '');
 };

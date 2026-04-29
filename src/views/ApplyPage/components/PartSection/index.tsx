@@ -2,8 +2,7 @@ import { useFormContext } from 'react-hook-form';
 
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
+import { sectionContainerVar, sectionTitle } from 'views/ApplyPage/style.css';
 import { Answers } from 'views/ApplyPage/types';
 
 import FileInput from '../FileInput';
@@ -18,7 +17,6 @@ interface PartSectionProps {
 }
 
 const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
-  const { deviceType } = useDeviceType();
   const { getValues } = useFormContext();
 
   const { draftData } = useGetDraft();
@@ -41,8 +39,8 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
   const hasDescription = filteredQuestions?.some(({ isDescription }) => isDescription);
 
   return (
-    <section ref={refCallback} id="partial" className={sectionContainerVar[deviceType]}>
-      <h2 className={sectionTitleVar[deviceType]}>파트별 질문</h2>
+    <section ref={refCallback} id="partial" className={sectionContainerVar}>
+      <h2 className={sectionTitle}>파트별 질문</h2>
       <SelectBox
         defaultValue={part}
         label="지원파트"
