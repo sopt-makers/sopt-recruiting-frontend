@@ -15,7 +15,7 @@ export const wrapper = style({
   display: 'flex',
   width: '100%',
   alignItems: 'center',
-  padding: '16px 40px',
+  padding: '16px',
   backgroundColor: colors.gray50,
   justifyContent: 'space-between',
   borderRadius: '999px',
