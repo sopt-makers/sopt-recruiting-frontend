@@ -6,14 +6,18 @@ import IconArrowsL from 'views/IntroducePage/assets/IconArrowsL';
 import RecruitingHeader from 'views/IntroducePage/components/ApplySection/components/RecruitingHeader/RecruitingHeader';
 import NotificationHeader from 'views/IntroducePage/components/ApplySection/components/NotificationHeader/NotificationHeader';
 
-const ApplySection = () => {
+interface Props {
+  headerImage: string;
+}
+
+const ApplySection = ({ headerImage }: Props) => {
   const { NoMoreRecruit, NoMoreApply } = useDate();
 
   const deviceType = useDevice();
 
   return (
     <section className={wrapper}>
-      {NoMoreRecruit || NoMoreApply ? <NotificationHeader /> : <RecruitingHeader />}
+      {NoMoreRecruit || NoMoreApply ? <NotificationHeader /> : <RecruitingHeader headerImage={headerImage} />}
       {deviceType === 'DESK' ? <IconArrowsL /> : <IconArrowsS />}
     </section>
   );

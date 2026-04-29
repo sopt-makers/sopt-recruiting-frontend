@@ -8,6 +8,7 @@ import SoptPart from 'views/IntroducePage/components/SoptPart';
 import useDate from '@hooks/useDate';
 import BottomApplyCTA from 'views/IntroducePage/components/BottomApplyCTA';
 import ApplySection from 'views/IntroducePage/components/ApplySection';
+import useGetRecruitInfo from 'views/IntroducePage/hooks/useGetRecruitInfo';
 import Footer from '@components/Layout/components/Footer';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
@@ -15,16 +16,19 @@ const IntroducePage = () => {
   const { deviceType } = useDeviceType();
 
   const { NoMoreRecruit, NoMoreApply } = useDate();
+  const { recruitData } = useGetRecruitInfo();
+
+  if (!recruitData) return null;
 
   return (
     <>
       <div className={wrapper}>
-        <ApplySection />
+        <ApplySection headerImage={recruitData.recruitHeaderImage} />
         <RecruitmentTarget />
-        <SoptPart />
-        <CoreValue />
+        <SoptPart parts={recruitData.partIntroduction} />
+        <CoreValue values={recruitData.coreValue} />
         <Schedule />
-        <FAQ />
+        <FAQ faqData={recruitData.recruitQuestion} />
         {!NoMoreRecruit && !NoMoreApply && <BottomApplyCTA />}
         {deviceType !== 'DESK' && <hr className={divider} />}
         <Inquiry />

@@ -1,20 +1,54 @@
 import { wrapper, inputVar, buttonVar, gradientWrapper } from './style.css';
-import { Button } from '@sopt-makers/ui';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { Button, useToast } from '@sopt-makers/ui';
+import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
+import { FormEvent, useState } from 'react';
+import useMutateNotificationEmail from 'views/IntroducePage/hooks/useMutateNotificationEmail';
 
 const NotificationInput = () => {
   const [email, setEmail] = useState('');
 
-  const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  }, []);
+  const {
+    recruitingInfo: { season },
+  } = useRecruitingInfo();
 
-  const handleSubmit = useCallback(() => {
-    if (!email) {
+  const { mutate } = useMutateNotificationEmail();
+
+  const { open: showToast } = useToast();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!email || !season) {
       return;
     }
-    // TODO: 알림 신청 API 호출
-  }, [email]);
+
+    mutate(
+      { email, generation: season },
+      {
+        onSuccess: () => {
+          showToast({
+            content: '알림 신청이 완료되었습니다.',
+            icon: 'success',
+          });
+        },
+        onError: (error) => {
+          const status = error.response?.status;
+
+          if (status === 409) {
+            showToast({
+              content: '이미 등록된 알림입니다.',
+              icon: 'error',
+            });
+          } else {
+            showToast({
+              content: error.message,
+              icon: 'error',
+            });
+          }
+        },
+      },
+    );
+  };
 
   return (
     <div className={gradientWrapper}>
@@ -24,7 +58,7 @@ const NotificationInput = () => {
           placeholder="메일을 입력해주세요."
           className={inputVar}
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Button theme="blue" rounded="lg" className={buttonVar} type="submit">
           알림 신청하기
