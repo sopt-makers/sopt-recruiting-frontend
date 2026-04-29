@@ -1,11 +1,12 @@
+import { colors } from '@sopt-makers/colors';
 import { style, styleVariants } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
 const containerBase = style({
   display: 'flex',
   flexDirection: 'column',
-
   padding: '28px 28px',
   borderRadius: 15,
   backgroundColor: theme.color.subBackground,
@@ -30,16 +31,34 @@ export const container = styleVariants({
     containerBase,
     {
       width: 312,
-      padding: '28px 16px',
+      padding: '16px',
+      alignItems: 'flex-start',
       ...theme.font.TITLE_7_14_SB,
       letterSpacing: '-0.21px',
     },
   ],
 });
 
+export const iconVar = style({
+  width: '32px',
+  height: '32px',
+  borderRadius: '50%',
+  color: colors.yellow700,
+  fill: colors.yellow200,
+  flexShrink: 0,
+
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '20px',
+      height: '20px',
+      alignSelf: 'flex-start',
+    },
+  },
+});
+
 const warningWrapper = style({
   display: 'flex',
-  gap: 22,
+  gap: '24px',
   alignItems: 'center',
 });
 
@@ -48,13 +67,13 @@ export const warningWrapperVar = styleVariants({
   TAB: [
     warningWrapper,
     {
-      gap: 8,
+      gap: '10px',
     },
   ],
   MOB: [
     warningWrapper,
     {
-      gap: 8,
+      gap: '10px',
     },
   ],
 });
