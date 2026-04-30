@@ -10,6 +10,7 @@ export const wrapper = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '55px 0',
+  backgroundColor: colors.white,
 
   '@media': {
     [breakpoints.tabletAndMobile]: {
