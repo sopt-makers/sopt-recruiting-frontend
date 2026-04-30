@@ -1,6 +1,6 @@
 import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
-import { wrapper, container, name, description, card } from './style.css';
+import { wrapper, container, name, description, itemWrapper } from './style.css';
 import { Tag } from '@sopt-makers/ui';
 import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
@@ -45,7 +45,7 @@ const PartItem = ({ part }: ItemProps) => {
   const { deviceType } = useDeviceType();
 
   return (
-    <li className={card}>
+    <li className={itemWrapper}>
       <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
         {part.part}
       </Tag>
