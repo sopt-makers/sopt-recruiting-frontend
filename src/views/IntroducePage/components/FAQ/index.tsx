@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
-import { TITLE } from 'views/IntroducePage/constants/constant';
+import { FAQ_전체, TITLE } from 'views/IntroducePage/constants/constant';
 import { PartDataType, RecruitQuestion, RecruitQuestionItem } from 'views/IntroducePage/types';
 import {
   wrapper,
@@ -36,8 +36,10 @@ const FAQ = ({ faqData }: FAQProps) => {
   const faqByPart = useMemo(() => {
     if (!faqData) return {};
 
-    return Object.fromEntries(faqData.map((p) => [p.part, p.questions]));
+    return Object.fromEntries(faqData.filter((p) => p.part !== '전체').map((p) => [p.part, p.questions]));
   }, [faqData]);
+
+  const selectedFaqItems = selectedTab === '전체' ? FAQ_전체 : faqByPart[selectedTab] || [];
 
   if (!faqData || faqData.length === 0) return null;
 
@@ -45,7 +47,7 @@ const FAQ = ({ faqData }: FAQProps) => {
     <section className={wrapper[deviceType]}>
       <SectionTitle label={TITLE.FAQ.label} title={TITLE.FAQ.title} />
       <TabBar selectedTab={selectedTab} onChange={handleTabChange} />
-      <FAQList faqItems={faqByPart[selectedTab] || []} selectedTab={selectedTab} openedItems={items} toggle={toggle} />
+      <FAQList faqItems={selectedFaqItems} selectedTab={selectedTab} openedItems={items} toggle={toggle} />
     </section>
   );
 };
