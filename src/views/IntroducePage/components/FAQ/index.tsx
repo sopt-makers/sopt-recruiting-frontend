@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
 import { FAQ_전체, TITLE } from 'views/IntroducePage/constants/constant';
 import { PartDataType, RecruitQuestion, RecruitQuestionItem } from 'views/IntroducePage/types';
@@ -13,10 +13,11 @@ import {
   questionTextVar,
   listWrapperVar,
 } from './style.css';
-import TabBar from 'views/IntroducePage/components/FAQ/TabBar';
+
 import { IconChevronDown } from '@sopt-makers/icons';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import useToggleSet from 'views/IntroducePage/components/FAQ/hooks/useToggleSet';
+import TabBar from 'views/IntroducePage/components/FAQ/components/TabBar';
 
 interface FAQProps {
   faqData?: RecruitQuestion[];
@@ -33,13 +34,8 @@ const FAQ = ({ faqData }: FAQProps) => {
     reset();
   };
 
-  const faqByPart = useMemo(() => {
-    if (!faqData) return {};
-
-    return Object.fromEntries(faqData.filter((p) => p.part !== '전체').map((p) => [p.part, p.questions]));
-  }, [faqData]);
-
-  const selectedFaqItems = selectedTab === '전체' ? FAQ_전체 : faqByPart[selectedTab] || [];
+  const selectedFaqItems =
+    selectedTab === '전체' ? FAQ_전체 : (faqData?.find((p) => p.part === selectedTab)?.questions ?? []);
 
   if (!faqData || faqData.length === 0) return null;
 
