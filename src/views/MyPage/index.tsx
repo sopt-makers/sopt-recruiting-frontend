@@ -1,10 +1,11 @@
+import { reset } from '@amplitude/analytics-browser';
 import { lazy } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
 import useDate from '@hooks/useDate';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 import IconGhost from 'views/ErrorPage/icons/IconGhost';
@@ -25,25 +26,40 @@ import {
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const MyInfoItem = ({ label, value }: { label: string; value?: string | number | boolean }) => {
-  const { deviceType } = useDeviceType();
   const isMasking = label !== '지원서';
 
   return (
     <li className={itemWrapper}>
-      <span className={infoLabelVar[deviceType]}>{label}</span>
-      <span className={`${isMasking ? 'amp-mask' : ''} ${infoValueVar[deviceType]}`}>{value}</span>
+      <span className={infoLabelVar}>{label}</span>
+      <span className={`${isMasking ? 'amp-mask' : ''} ${infoValueVar}`}>{value}</span>
     </li>
   );
 };
 
-const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string; trackingEvent: string }) => {
-  const { deviceType } = useDeviceType();
-
+const StatusButton = ({
+  label,
+  to,
+  trackingEvent,
+  buttonStyle = 'solid',
+  children,
+}: {
+  label: string;
+  to: string;
+  trackingEvent: string;
+  buttonStyle?: 'solid' | 'line';
+  children: string;
+}) => {
   return (
     <li className={buttonValue}>
-      <span className={infoLabelVar[deviceType]}>{label}</span>
-      <Button isLink to={to} className={buttonWidthVar[deviceType]} eventName={trackingEvent} padding="15x25">
-        {label === '지원서' ? '지원서 확인' : '결과 확인'}
+      <span className={infoLabelVar}>{label}</span>
+      <Button
+        isLink
+        to={to}
+        className={buttonWidthVar}
+        eventName={trackingEvent}
+        padding="15x25"
+        buttonStyle={buttonStyle}>
+        {children}
       </Button>
     </li>
   );
@@ -52,73 +68,95 @@ const StatusButton = ({ label, to, trackingEvent }: { label: string; to: string;
 interface MyPageProps {
   part?: string;
   applicationPass?: boolean;
-  isEmpty?: boolean;
+  hasDraft?: boolean;
+  submit?: boolean;
 }
 
-const MyPage = ({ part, applicationPass, isEmpty }: MyPageProps) => {
-  const { deviceType } = useDeviceType();
+const MyPage = ({ part, applicationPass, hasDraft = false, submit = false }: MyPageProps) => {
+  const navigate = useNavigate();
   const {
     recruitingInfo: { name, season },
   } = useRecruitingInfo();
   const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useDate();
 
+  const handleLogout = () => {
+    reset();
+    localStorage.removeItem('soptApplyAccessToken');
+    localStorage.removeItem('soptApplyAccessTokenExpiredTime');
+    navigate('/');
+  };
+
   if (isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
-  if (isEmpty) {
+  if (!hasDraft) {
     return (
-      <section className={containerVar[deviceType]}>
+      <section className={containerVar}>
         <Title>지원 현황</Title>
-        <div className={emptyContainerVar[deviceType]}>
+        <div className={emptyContainerVar}>
           <IconGhost size={140} color="#C3C3C6" />
           <span className={emptyText}>지원한 내역이 없어요</span>
           <Button isLink to="/" padding="15x25">
             메인화면으로 이동
           </Button>
         </div>
-        <button
-          className={logoutButtonVar[deviceType]}
-          onClick={() => {
-            console.log('로그아웃');
-          }}>
+        <button className={logoutButtonVar} onClick={handleLogout}>
           로그아웃
         </button>
       </section>
     );
   }
 
+  const renderApplicationStatus = () => {
+    if (!submit) {
+      return <MyInfoItem label="지원상태" value="미제출" />;
+    }
+    if (!NoMoreScreeningResult) {
+      return (
+        <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result">
+          결과 확인
+        </StatusButton>
+      );
+    }
+    if (!NoMoreFinalResult) {
+      return applicationPass ? (
+        <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result">
+          결과 확인
+        </StatusButton>
+      ) : (
+        <MyInfoItem label="지원상태" value="서류 불합격" />
+      );
+    }
+    return (
+      <MyInfoItem
+        label="지원상태"
+        value={applicationPass == null ? '제출 완료' : applicationPass ? '서류 합격' : '서류 불합격'}
+      />
+    );
+  };
+
   return (
-    <section className={containerVar[deviceType]}>
+    <section className={containerVar}>
       <Title>지원 현황</Title>
       <Callout>{`면접 종료 후에는 지원서를 열람할 수 없으니, 사본을 보관해 주시기 바랍니다.`}</Callout>
-      <ol className={infoContainerVar[deviceType]}>
+      <ol className={infoContainerVar}>
         <MyInfoItem label="기수" value={season} />
         <MyInfoItem label="이름" value={name} />
         <MyInfoItem label="지원파트" value={part} />
-        {NoMoreScreeningResult && NoMoreFinalResult && (
-          <MyInfoItem
-            label="지원상태"
-            value={applicationPass == null ? '제출 완료' : applicationPass ? '서류 합격' : '서류 불합격'}
-          />
-        )}
-        {!NoMoreScreeningResult && <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />}
-        {!NoMoreFinalResult &&
-          (applicationPass ? (
-            <StatusButton label="지원상태" to="/result" trackingEvent="click-my-result" />
-          ) : (
-            <MyInfoItem label="지원상태" value="서류 불합격" />
-          ))}
+        {renderApplicationStatus()}
         {NoMoreReview ? (
           <MyInfoItem label="지원서" value="제출 완료" />
+        ) : submit ? (
+          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" buttonStyle="line">
+            지원서 확인
+          </StatusButton>
         ) : (
-          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" />
+          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" buttonStyle="line">
+            계속 작성하기
+          </StatusButton>
         )}
       </ol>
-      <button
-        className={logoutButtonVar[deviceType]}
-        onClick={() => {
-          console.log('로그아웃');
-        }}>
+      <button className={logoutButtonVar} onClick={handleLogout}>
         로그아웃
       </button>
     </section>
