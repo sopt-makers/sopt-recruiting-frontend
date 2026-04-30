@@ -1,22 +1,23 @@
 import { colors } from '@sopt-makers/colors';
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
-const wrapperBase = style({
+export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '48px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      gap: '16px',
+    },
+  },
 });
 
-export const wrapper = styleVariants({
-  DESK: [wrapperBase, { gap: '48px' }],
-  TAB: [wrapperBase, { gap: '16px' }],
-  MOB: [wrapperBase, { gap: '16px' }],
-});
-
-const listWrapperBase = style({
+export const listWrapper = style({
   display: 'flex',
   width: '100%',
   justifyContent: 'center',
@@ -24,36 +25,35 @@ const listWrapperBase = style({
   flexDirection: 'column',
   gap: '16px',
   listStyle: 'none',
-});
-
-export const listWrapperVar = styleVariants({
-  DESK: [listWrapperBase, { paddingTop: '32px', gap: '48px' }],
-  TAB: [listWrapperBase, { gap: '8px' }],
-  MOB: [listWrapperBase, { gap: '8px' }],
-});
-
-const itemBase = style({
-  display: 'flex',
-  maxWidth: '1200px',
-  width: '100%',
-  flexDirection: 'column',
-  borderRadius: '30px',
-  padding: '40px 50px',
-  cursor: 'pointer',
-  transition: '0.2s',
+  paddingTop: '32px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      gap: '8px',
+      paddingTop: 0,
+    },
+  },
 });
 
 export const itemVar = recipe({
-  base: itemBase,
+  base: {
+    display: 'flex',
+    maxWidth: '1200px',
+    width: '100%',
+    flexDirection: 'column',
+    borderRadius: '30px',
+    padding: '40px 50px',
+    cursor: 'pointer',
+    transition: '0.2s',
+    '@media': {
+      [breakpoints.tabletAndMobile]: {
+        padding: '20px',
+      },
+    },
+  },
   variants: {
     state: {
       opened: { backgroundColor: '#f6f6f6' },
       closed: { backgroundColor: 'transparent' },
-    },
-    viewport: {
-      DESK: { padding: '40px 50px' },
-      TAB: { padding: '20px' },
-      MOB: { padding: '20px' },
     },
   },
 });
@@ -64,115 +64,89 @@ export const questionWrapper = style({
   gap: '14px',
 });
 
-const questionTextBase = style({
+export const questionText = style({
   fontFamily: 'SUIT',
   color: colors.gray950,
+  fontSize: '24px',
+  lineHeight: '36px',
+  fontWeight: 600,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      ...theme.font.BODY_3_14_M,
+    },
+  },
 
   selectors: {
     '&::before': {
       content: '"Q. "',
       color: theme.color.primary,
       fontFamily: 'SUIT',
+      fontWeight: 800,
+      fontSize: '27px',
+      lineHeight: '46px',
+      '@media': {
+        [breakpoints.tabletAndMobile]: {
+          fontWeight: 400,
+          fontSize: theme.font.BODY_3_14_M.fontSize,
+          lineHeight: theme.font.BODY_3_14_M.lineHeight,
+        },
+      },
     },
   },
 });
 
-export const questionTextVar = styleVariants({
-  DESK: [
-    questionTextBase,
-    {
-      fontSize: '24px',
-      lineHeight: '36px',
-      fontWeight: 600,
-      selectors: { '&::before': { fontWeight: 800, fontSize: '27px', lineHeight: '46px' } },
-    },
-  ],
-  TAB: [questionTextBase, { ...theme.font.BODY_3_14_M }],
-  MOB: [questionTextBase, { ...theme.font.BODY_3_14_M }],
-});
-
-const answerLabelBase = style({
+export const answerLabel = style({
   color: theme.color.primary,
   fontFamily: 'SUIT',
   fontWeight: 800,
   flexShrink: 0,
+  fontSize: '27px',
+  lineHeight: '44px',
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      ...theme.font.BODY_3_14_M,
+    },
+  },
 });
 
-export const answerLabelVar = styleVariants({
-  DESK: [answerLabelBase, { fontSize: '27px', lineHeight: '44px' }],
-  TAB: [answerLabelBase, { ...theme.font.BODY_3_14_M }],
-  MOB: [answerLabelBase, { ...theme.font.BODY_3_14_M }],
-});
-
-const answerTextBase = style({
+export const answerText = style({
   fontFamily: 'SUIT',
   fontWeight: 400,
   wordBreak: 'keep-all',
   color: colors.gray600,
   whiteSpace: 'pre-line',
-});
-
-export const answerTextVar = styleVariants({
-  DESK: [answerTextBase, { fontSize: '24px', lineHeight: '44px' }],
-  TAB: [answerTextBase, { ...theme.font.BODY_2_16_R }],
-  MOB: [answerTextBase, { ...theme.font.BODY_3_14_M }],
-});
-
-const iconWrapperBase = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '40px',
-  height: '40px',
-  flexShrink: 0,
-  transition: 'transform 0.2s',
+  fontSize: '24px',
+  lineHeight: '44px',
+  '@media': {
+    [breakpoints.tablet]: {
+      ...theme.font.BODY_2_16_R,
+    },
+    [breakpoints.mobile]: {
+      ...theme.font.BODY_3_14_M,
+    },
+  },
 });
 
 export const iconWrapperVar = recipe({
-  base: iconWrapperBase,
+  base: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '40px',
+    height: '40px',
+    flexShrink: 0,
+    transition: 'transform 0.2s',
+    '@media': {
+      [breakpoints.tabletAndMobile]: {
+        width: '24px',
+        height: '24px',
+      },
+    },
+  },
   variants: {
     state: {
       opened: { transform: 'rotate(180deg)' },
       closed: { transform: 'rotate(0deg)' },
-    },
-    viewport: {
-      DESK: { width: '40px', height: '40px' },
-      TAB: { width: '24px', height: '24px' },
-      MOB: { width: '24px', height: '24px' },
-    },
-  },
-});
-
-const tabBarBase = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '8px',
-});
-
-export const tabBar = styleVariants({
-  DESK: [tabBarBase, { gap: '8px' }],
-  TAB: [tabBarBase, { gap: '8px' }],
-  MOB: [tabBarBase, { flexWrap: 'wrap', justifyContent: 'center' }],
-});
-
-export const tabRecipe = recipe({
-  base: {
-    border: 'none',
-    borderRadius: '14px',
-    cursor: 'pointer',
-    transition: '0.2s',
-    whiteSpace: 'nowrap',
-  },
-  variants: {
-    state: {
-      selected: { backgroundColor: '#f6f6f6', color: colors.gray950 },
-      default: { backgroundColor: colors.gray10, color: colors.gray500 },
-    },
-    viewport: {
-      DESK: { padding: '14px 40px', ...theme.font.HEADING_4_24_B },
-      TAB: { padding: '10px 12px', ...theme.font.LABEL_2_16_SB },
-      MOB: { padding: '8px 14px', ...theme.font.LABEL_3_14_SB },
     },
   },
 });

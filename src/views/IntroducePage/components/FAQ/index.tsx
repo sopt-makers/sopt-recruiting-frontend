@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import SectionTitle from '@components/SectionTitle';
-import { TITLE } from 'views/IntroducePage/constants/constant';
+import { FAQ_전체, TITLE } from 'views/IntroducePage/constants/constant';
 import { PartDataType, RecruitQuestion, RecruitQuestionItem } from 'views/IntroducePage/types';
 import {
   wrapper,
@@ -8,15 +8,15 @@ import {
   questionWrapper,
   iconWrapperVar,
   answerWrapper,
-  answerLabelVar,
-  answerTextVar,
-  questionTextVar,
-  listWrapperVar,
+  answerLabel,
+  answerText,
+  questionText,
+  listWrapper,
 } from './style.css';
-import TabBar from 'views/IntroducePage/components/FAQ/TabBar';
+
 import { IconChevronDown } from '@sopt-makers/icons';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import useToggleSet from 'views/IntroducePage/components/FAQ/hooks/useToggleSet';
+import TabBar from 'views/IntroducePage/components/FAQ/components/TabBar';
 
 interface FAQProps {
   faqData?: RecruitQuestion[];
@@ -26,26 +26,22 @@ const FAQ = ({ faqData }: FAQProps) => {
   const [selectedTab, setSelectedTab] = useState<PartDataType>('전체');
 
   const { items, toggle, reset } = useToggleSet();
-  const { deviceType } = useDeviceType();
 
   const handleTabChange = (tab: PartDataType) => {
     setSelectedTab(tab);
     reset();
   };
 
-  const faqByPart = useMemo(() => {
-    if (!faqData) return {};
-
-    return Object.fromEntries(faqData.map((p) => [p.part, p.questions]));
-  }, [faqData]);
+  const selectedFaqItems =
+    selectedTab === '전체' ? FAQ_전체 : (faqData?.find((p) => p.part === selectedTab)?.questions ?? []);
 
   if (!faqData || faqData.length === 0) return null;
 
   return (
-    <section className={wrapper[deviceType]}>
+    <section className={wrapper}>
       <SectionTitle label={TITLE.FAQ.label} title={TITLE.FAQ.title} />
       <TabBar selectedTab={selectedTab} onChange={handleTabChange} />
-      <FAQList faqItems={faqByPart[selectedTab] || []} selectedTab={selectedTab} openedItems={items} toggle={toggle} />
+      <FAQList faqItems={selectedFaqItems} selectedTab={selectedTab} openedItems={items} toggle={toggle} />
     </section>
   );
 };
@@ -60,10 +56,8 @@ interface FAQListProps {
 }
 
 const FAQList = ({ faqItems, selectedTab, openedItems, toggle }: FAQListProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <ul className={listWrapperVar[deviceType]}>
+    <ul className={listWrapper}>
       {faqItems.map((faq, index) => {
         const isOpened = openedItems.has(index);
         return <FAQItem key={`${selectedTab}-${index}`} faq={faq} isOpened={isOpened} onClick={() => toggle(index)} />;
@@ -79,21 +73,20 @@ interface FAQItemProps {
 }
 
 const FAQItem = ({ faq, isOpened, onClick }: FAQItemProps) => {
-  const { deviceType } = useDeviceType();
   const state = isOpened ? 'opened' : 'closed';
 
   return (
-    <li className={itemVar({ state, viewport: deviceType })} onClick={onClick}>
+    <li className={itemVar({ state })} onClick={onClick}>
       <div className={questionWrapper}>
-        <p className={questionTextVar[deviceType]}>{faq.question}</p>
-        <span className={iconWrapperVar({ state, viewport: deviceType })}>
+        <p className={questionText}>{faq.question}</p>
+        <span className={iconWrapperVar({ state })}>
           <IconChevronDown />
         </span>
       </div>
       {isOpened && (
         <div className={answerWrapper}>
-          <span className={answerLabelVar[deviceType]}>A.</span>
-          <p className={answerTextVar[deviceType]}>{faq.answer}</p>
+          <span className={answerLabel}>A.</span>
+          <p className={answerText}>{faq.answer}</p>
         </div>
       )}
     </li>
