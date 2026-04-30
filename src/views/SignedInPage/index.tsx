@@ -13,7 +13,7 @@ const SignedInPage = () => {
   const [isComplete, setIsComplete] = useState(false);
 
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { name, season, part, submit, applicationPass } = myInfoData?.data || {};
+  const { name, season, part, submit, applicationPass, hasDraft } = myInfoData?.data || {};
 
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
@@ -34,7 +34,7 @@ const SignedInPage = () => {
   return (
     <>
       {isComplete && <CompletePage />}
-      {!isComplete && submit && <MyPage part={part} applicationPass={applicationPass} />}
+      {!isComplete && <MyPage part={part} applicationPass={applicationPass} hasDraft={hasDraft} submit={submit} />}
       {!isComplete && !submit && <ApplyPage onSetComplete={handleSetComplete} />}
     </>
   );
