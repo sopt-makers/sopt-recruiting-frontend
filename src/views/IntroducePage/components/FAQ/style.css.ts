@@ -27,7 +27,7 @@ const listWrapperBase = style({
 });
 
 export const listWrapperVar = styleVariants({
-  DESK: [listWrapperBase, { paddingTop: '32px', gap: '48px' }],
+  DESK: [listWrapperBase, { paddingTop: '32px', gap: '16px' }],
   TAB: [listWrapperBase, { gap: '8px' }],
   MOB: [listWrapperBase, { gap: '8px' }],
 });
