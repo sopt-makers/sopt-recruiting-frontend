@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
 import { wrapper, container, name, description, itemWrapper } from './style.css';
@@ -43,9 +44,10 @@ interface ItemProps {
 
 const PartItem = ({ part }: ItemProps) => {
   const { deviceType } = useDeviceType();
+  const navigate = useNavigate();
 
   return (
-    <li className={itemWrapper}>
+    <li className={itemWrapper} onClick={() => navigate(`/part/${part.part}`)} style={{ cursor: 'pointer' }}>
       <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
         {part.part}
       </Tag>

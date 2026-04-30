@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@components/Button';
 import Callout from '@components/Callout';
 import Title from '@components/Title';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 import IconGhost from 'views/ErrorPage/icons/IconGhost';
@@ -77,7 +77,7 @@ const MyPage = ({ part, applicationPass, hasDraft = false, submit = false }: MyP
   const {
     recruitingInfo: { name, season },
   } = useRecruitingInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useDate();
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useRecruitingSchedule();
 
   const handleLogout = () => {
     reset();

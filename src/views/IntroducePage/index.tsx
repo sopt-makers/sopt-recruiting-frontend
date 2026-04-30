@@ -5,7 +5,7 @@ import { divider, wrapper } from './style.css';
 import Schedule from 'views/IntroducePage/components/Schedule';
 import Inquiry from 'views/IntroducePage/components/Inquiry';
 import SoptPart from 'views/IntroducePage/components/SoptPart';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import BottomApplyCTA from 'views/IntroducePage/components/BottomApplyCTA';
 import ApplySection from 'views/IntroducePage/components/ApplySection';
 import useGetRecruitInfo from 'views/IntroducePage/hooks/useGetRecruitInfo';
@@ -15,7 +15,7 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 const IntroducePage = () => {
   const { deviceType } = useDeviceType();
 
-  const { NoMoreRecruit, NoMoreApply } = useDate();
+  const { NoMoreRecruit, NoMoreApply } = useRecruitingSchedule();
   const { recruitData } = useGetRecruitInfo();
 
   if (!recruitData) return null;

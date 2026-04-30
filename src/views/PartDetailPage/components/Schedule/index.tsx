@@ -1,5 +1,5 @@
-import SectionTitle from '@components/SectionTitle';
-import { TITLE } from 'views/IntroducePage/constants/constant';
+import SectionTitle from 'views/PartDetailPage/components/SectionTitle';
+import { PART_DETAIL_TITLE } from 'views/PartDetailPage/constants/constant';
 import { gridWrapper, oddText, evenText, highlight, container, scheduleGroup, wrapper } from './style.css';
 import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { format } from '@utils/dateFormatter';
@@ -7,7 +7,7 @@ import { format } from '@utils/dateFormatter';
 const Schedule = () => {
   return (
     <section className={wrapper}>
-      <SectionTitle label={TITLE.SCHEDULE.label} title={TITLE.SCHEDULE.title} />
+      <SectionTitle label={PART_DETAIL_TITLE.SCHEDULE.label} title={PART_DETAIL_TITLE.SCHEDULE.title} />
       <ScheduleBox />
     </section>
   );

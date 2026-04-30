@@ -24,6 +24,7 @@ const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
 );
 const AuthPage = lazy(() => import('views/AuthPage'));
+const PartDetailPage = lazy(() => import('views/PartDetailPage'));
 const IntroducePage = lazy(() => import('views/IntroducePage'));
 const PasswordPage = lazy(() => import('views/PasswordPage'));
 const ResultPage = lazy(() => import('views/ResultPage'));
@@ -36,6 +37,7 @@ const makersRoutes = [{ index: true, element: <AuthPage /> }];
 const soptRoutes = [
   { index: true, element: <IntroducePage /> },
   { path: '/introduce', element: <IntroducePage /> },
+  { path: '/part/:partId', element: <PartDetailPage /> },
   { path: '/auth', element: <AuthPage /> },
 ];
 

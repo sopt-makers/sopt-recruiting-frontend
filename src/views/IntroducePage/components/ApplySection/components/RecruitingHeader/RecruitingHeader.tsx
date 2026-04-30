@@ -1,4 +1,4 @@
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { useDevice } from '@hooks/useDevice';
 import { Button, Tag } from '@sopt-makers/ui';
 import { format } from '@utils/dateFormatter';
@@ -26,7 +26,7 @@ const RecruitingHeader = ({ headerImage }: Props) => {
   const navigate = useNavigate();
   const deviceType = useDevice();
 
-  const { applicationStart, applicationEnd } = useDate();
+  const { applicationStart, applicationEnd } = useRecruitingSchedule();
 
   const formattedApplicationStart = format(new Date(applicationStart || ''), 'YYYY.MM.dd');
   const formattedApplicationEnd = format(new Date(applicationEnd || ''), 'YYYY.MM.dd');

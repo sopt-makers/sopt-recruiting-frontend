@@ -5,7 +5,7 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useGetRecruitingInfo from './useGetRecruitingInfo';
 import { isAfter, isBefore } from '@utils/dateFormatter';
 
-const useDate = () => {
+const useRecruitingSchedule = () => {
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
   const { data, isLoading } = useGetRecruitingInfo();
@@ -78,4 +78,4 @@ const useDate = () => {
   };
 };
 
-export default useDate;
+export default useRecruitingSchedule;
