@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
-import { wrapper, container, name, description, card } from './style.css';
+import { wrapper, container, name, description, itemWrapper } from './style.css';
 import { Tag } from '@sopt-makers/ui';
 import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
@@ -47,7 +47,7 @@ const PartItem = ({ part }: ItemProps) => {
   const navigate = useNavigate();
 
   return (
-    <li className={card} onClick={() => navigate(`/part/${part.part}`)} style={{ cursor: 'pointer' }}>
+    <li className={itemWrapper} onClick={() => navigate(`/part/${part.part}`)} style={{ cursor: 'pointer' }}>
       <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
         {part.part}
       </Tag>

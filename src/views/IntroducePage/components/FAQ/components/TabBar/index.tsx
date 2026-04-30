@@ -1,4 +1,3 @@
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { FAQ_TABS } from 'views/IntroducePage/constants/constant';
 import { PartDataType } from 'views/IntroducePage/types';
 import { tabBar, tabRecipe } from './style.css';
@@ -9,18 +8,13 @@ interface Props {
 }
 
 const TabBar = ({ selectedTab, onChange }: Props) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <nav className={tabBar[deviceType]}>
+    <nav className={tabBar}>
       {FAQ_TABS.map((tab) => (
         <button
           key={tab}
           type="button"
-          className={tabRecipe({
-            state: selectedTab === tab ? 'selected' : 'default',
-            viewport: deviceType,
-          })}
+          className={tabRecipe({ state: selectedTab === tab ? 'selected' : 'default' })}
           onClick={() => onChange(tab)}>
           {tab}
         </button>

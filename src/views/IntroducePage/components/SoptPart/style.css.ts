@@ -44,13 +44,14 @@ export const container = style({
   },
 });
 
-export const card = style({
+export const itemWrapper = style({
   display: 'flex',
   maxWidth: '380px',
   flexDirection: 'column',
   backgroundColor: '#f6f6f6',
   borderRadius: '24px',
   padding: '38px 40px',
+  cursor: 'pointer',
   '@media': {
     [breakpoints.tablet]: {
       width: '224px',
