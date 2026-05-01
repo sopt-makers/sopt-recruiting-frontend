@@ -1,19 +1,12 @@
-import { reset } from '@amplitude/analytics-browser';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style.css';
-import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '../../contants';
+import { MENU_ITEMS_MAKERS, MENU_ITEMS_SOPT, SIGNED_IN_MENU_ITEMS_SOPT } from '../../contants';
 import MenuItem from '../MenuItem';
-import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
 const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
   const { deviceType } = useDeviceType();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
   const [isShown, setIsShown] = useState(isMenuOpen);
   const [animation, setAnimation] = useState<'open' | 'close'>(isMenuOpen ? 'open' : 'close');
 
@@ -30,16 +23,7 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
 
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
-  const {
-    recruitingInfo: { name },
-  } = useRecruitingInfo();
-  const menuItems = __IS_MAKERS__ ? MENU_ITEMS_MAKERS : MENU_ITEMS;
-  const handleLogout = () => {
-    reset();
-    localStorage.removeItem('soptApplyAccessToken');
-    localStorage.removeItem('soptApplyAccessTokenExpiredTime');
-    pathname === '/' ? window.location.reload() : navigate('/');
-  };
+  const menuItems = __IS_MAKERS__ ? MENU_ITEMS_MAKERS : isSignedIn ? SIGNED_IN_MENU_ITEMS_SOPT : MENU_ITEMS_SOPT;
 
   if (onClickMenuToggle && !isShown) return null;
 
@@ -54,15 +38,11 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
             <MenuItem key="로그인" text="로그인" path="/auth" amplitudeId="click-gnb-signin" />
           </>
         )}
-        {isSignedIn && name && (
+        {isSignedIn && (
           <>
             {menuItems.map(({ text, path, target, amplitudeId }) => (
               <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
             ))}
-            <AmplitudeEventTrack eventName="click-gnb-logout">
-              <MenuItem key="로그아웃" text="로그아웃" onClick={handleLogout} />
-            </AmplitudeEventTrack>
-            <MenuItem key="로그인완료" text={`${name}님`} className="amp-block" />
           </>
         )}
       </ul>
