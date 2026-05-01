@@ -1,11 +1,11 @@
 import { track } from '@amplitude/analytics-browser';
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import ApplyPage from 'views/ApplyPage';
 import CompletePage from 'views/CompletePage';
 import BigLoading from 'views/loadings/BigLoding';
-import MyPage from 'views/MyPage';
 
 import useGetMyInfo from './hooks/useGetMyInfo';
 
@@ -13,7 +13,7 @@ const SignedInPage = () => {
   const [isComplete, setIsComplete] = useState(false);
 
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
-  const { name, season, part, submit, applicationPass, hasDraft } = myInfoData?.data || {};
+  const { name, season, submit } = myInfoData?.data || {};
 
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
@@ -30,14 +30,10 @@ const SignedInPage = () => {
   }, [name, season, handleSaveRecruitingInfo]);
 
   if (myInfoIsLoading) return <BigLoading />;
+  if (isComplete) return <CompletePage />;
+  if (submit) return <Navigate to="/my" replace />;
 
-  return (
-    <>
-      {isComplete && <CompletePage />}
-      {!isComplete && (hasDraft || submit) && <MyPage part={part} applicationPass={applicationPass} hasDraft={hasDraft} submit={submit} />}
-      {!isComplete && !hasDraft && !submit && <ApplyPage onSetComplete={handleSetComplete} />}
-    </>
-  );
+  return <ApplyPage onSetComplete={handleSetComplete} />;
 };
 
 export default SignedInPage;

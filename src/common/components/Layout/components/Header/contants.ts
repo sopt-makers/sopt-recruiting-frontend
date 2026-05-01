@@ -23,7 +23,7 @@ export const SIGNED_IN_MENU_ITEMS_SOPT: menuItemsTypes[] = [
   },
   {
     text: '마이페이지',
-    path: '/auth',
+    path: '/my',
     target: '_self',
   },
 ];

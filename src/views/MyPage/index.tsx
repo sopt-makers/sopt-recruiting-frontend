@@ -1,6 +1,6 @@
 import { reset } from '@amplitude/analytics-browser';
-import { lazy } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { lazy, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Callout from '@components/Callout';
@@ -9,6 +9,7 @@ import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import BigLoading from 'views/loadings/BigLoding';
 import IconGhost from 'views/ErrorPage/icons/IconGhost';
+import useGetMyInfo from 'views/SignedInPage/hooks/useGetMyInfo';
 
 import {
   itemWrapper,
@@ -65,19 +66,19 @@ const StatusButton = ({
   );
 };
 
-interface MyPageProps {
-  part?: string;
-  applicationPass?: boolean;
-  hasDraft?: boolean;
-  submit?: boolean;
-}
+const MyPage = () => {
+  const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
-const MyPage = ({ part, applicationPass, hasDraft = false, submit = false }: MyPageProps) => {
+  const { myInfoData, myInfoIsLoading } = useGetMyInfo();
+  const { part, applicationPass, hasDraft = false, submit = false } = myInfoData?.data || {};
+
   const navigate = useNavigate();
-  const {
-    recruitingInfo: { name, season },
-  } = useRecruitingInfo();
+  const { recruitingInfo: { name, season }, handleSaveRecruitingInfo } = useRecruitingInfo();
   const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useRecruitingSchedule();
+
+  useEffect(() => {
+    handleSaveRecruitingInfo({ name: myInfoData?.data?.name, season: myInfoData?.data?.season });
+  }, [myInfoData?.data?.name, myInfoData?.data?.season, handleSaveRecruitingInfo]);
 
   const handleLogout = () => {
     reset();
@@ -86,7 +87,8 @@ const MyPage = ({ part, applicationPass, hasDraft = false, submit = false }: MyP
     navigate('/');
   };
 
-  if (isLoading) return <BigLoading />;
+  if (!isSignedIn) return <Navigate to="/auth" replace />;
+  if (myInfoIsLoading || isLoading) return <BigLoading />;
   if (NoMoreRecruit) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
   if (!hasDraft) {
@@ -151,7 +153,7 @@ const MyPage = ({ part, applicationPass, hasDraft = false, submit = false }: MyP
             지원서 확인
           </StatusButton>
         ) : (
-          <StatusButton label="지원서" to="/review" trackingEvent="click-my-review" buttonStyle="line">
+          <StatusButton label="지원서" to="/auth" trackingEvent="click-my-review" buttonStyle="line">
             계속 작성하기
           </StatusButton>
         )}
