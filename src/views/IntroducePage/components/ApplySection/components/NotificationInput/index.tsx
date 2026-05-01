@@ -32,9 +32,7 @@ const NotificationInput = () => {
           });
         },
         onError: (error) => {
-          const status = error.response?.status;
-
-          if (status === 409) {
+          if (error.status === 409) {
             showToast({
               content: '이미 등록된 알림입니다.',
               icon: 'error',
