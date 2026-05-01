@@ -38,7 +38,9 @@ const RecruitingHeader = ({ headerImage }: Props) => {
   return (
     <header className={container}>
       <div className={imageWrapper}>
-        <img src={headerImage} alt="recruiting header" className={image} />
+        {/* <img src={headerImage} alt="recruiting header" className={image} /> */}
+        {/* TODO : 서버 응답 교체되면 위 코드로 변경 */}
+        <img src={'./top_banner.png'} alt="recruiting header" className={image} />
       </div>
       <div className={contentLayout}>
         <div className={textContentLayout}>
