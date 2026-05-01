@@ -3,7 +3,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import ApplyCategory from 'views/ApplyPage/components/ApplyCategory';
 import ApplyHeader from 'views/ApplyPage/components/ApplyHeader';
 import ApplyInfo from 'views/ApplyPage/components/ApplyInfo';
@@ -23,10 +22,10 @@ const PreventReviewDialog = lazy(() =>
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
 const ReviewPage = () => {
-  const { ref: preventReviewDialogRef, handleShowDialog: handleShowPreventReviewDialog } = useDialog();
+  const { ref: preventReviewDialogRef } = useDialog();
   const sectionsRef = useRef<HTMLSelectElement[]>([]);
 
-  const { handleSaveRecruitingInfo } = useRecruitingInfo();
+  // const { handleSaveRecruitingInfo } = useRecruitingInfo();
   const { draftData, draftIsLoading } = useGetDraft();
 
   const [isInView, setIsInView] = useState([true, false, false]);
