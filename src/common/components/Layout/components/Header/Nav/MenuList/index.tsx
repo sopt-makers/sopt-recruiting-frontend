@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style.css';
 import { MENU_ITEMS_MAKERS, MENU_ITEMS_SOPT, SIGNED_IN_MENU_ITEMS_SOPT } from '../../contants';
@@ -24,9 +23,6 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
 
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
-  const {
-    recruitingInfo: { name },
-  } = useRecruitingInfo();
   const menuItems = __IS_MAKERS__ ? MENU_ITEMS_MAKERS : isSignedIn ? SIGNED_IN_MENU_ITEMS_SOPT : MENU_ITEMS_SOPT;
 
   if (onClickMenuToggle && !isShown) return null;
@@ -42,7 +38,7 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
             <MenuItem key="로그인" text="로그인" path="/auth" amplitudeId="click-gnb-signin" />
           </>
         )}
-        {isSignedIn && name && (
+        {isSignedIn && (
           <>
             {menuItems.map(({ text, path, target, amplitudeId }) => (
               <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
