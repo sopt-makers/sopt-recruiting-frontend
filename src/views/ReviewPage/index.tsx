@@ -43,22 +43,22 @@ const ReviewPage = () => {
   const { questionsIsLoading } = useGetQuestions(applicantDraft);
 
   const methods = useForm({ mode: 'onBlur' });
-  const { setValue } = methods;
+  // const { setValue } = methods;
 
-  useEffect(() => {
-    if (preventReviewDialogRef.current && !applicantDraft?.submit) {
-      handleShowPreventReviewDialog();
-    }
+  // useEffect(() => {
+  //   if (preventReviewDialogRef.current && !applicantDraft?.submit) {
+  //     handleShowPreventReviewDialog();
+  //   }
 
-    if (applicantDraft?.part) {
-      setValue('part', applicantDraft?.part);
-    }
+  //   if (applicantDraft?.part) {
+  //     setValue('part', applicantDraft?.part);
+  //   }
 
-    handleSaveRecruitingInfo({
-      name: applicantDraft?.name,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicantDraft, preventReviewDialogRef.current]);
+  //   handleSaveRecruitingInfo({
+  //     name: applicantDraft?.name,
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [applicantDraft, preventReviewDialogRef.current]);
 
   const refCallback = useCallback((element: HTMLSelectElement) => {
     if (element) {
