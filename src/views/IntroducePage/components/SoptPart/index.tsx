@@ -5,6 +5,7 @@ import { wrapper, container, name, description, itemWrapper } from './style.css'
 import { Tag } from '@sopt-makers/ui';
 import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { getPartIdFromPartName } from 'views/PartDetailPage/constants/constant';
 
 interface SoptPartProps {
   parts?: SoptPartIntroduction[];
@@ -47,7 +48,12 @@ const PartItem = ({ part }: ItemProps) => {
   const navigate = useNavigate();
 
   return (
-    <li className={itemWrapper} onClick={() => navigate(`/part/${part.part}`)} style={{ cursor: 'pointer' }}>
+    <li
+      className={itemWrapper}
+      onClick={() => {
+        const partId = getPartIdFromPartName(part.part);
+        if (partId) navigate(`/part/${partId}`);
+      }}>
       <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
         {part.part}
       </Tag>
