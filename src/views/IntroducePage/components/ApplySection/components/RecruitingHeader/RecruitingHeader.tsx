@@ -18,11 +18,12 @@ import {
   button,
 } from './style.css';
 
-interface Props {
-  headerImage: string;
-}
+// TODO : 서버 응답 교체되면 아래 코드로 변경
+// interface Props {
+//   headerImage: string;
+// }
 
-const RecruitingHeader = ({ headerImage }: Props) => {
+const RecruitingHeader = () => {
   const navigate = useNavigate();
   const deviceType = useDevice();
 

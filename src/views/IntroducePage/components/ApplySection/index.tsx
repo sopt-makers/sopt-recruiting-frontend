@@ -6,18 +6,19 @@ import IconArrowsL from 'views/IntroducePage/assets/IconArrowsL';
 import RecruitingHeader from 'views/IntroducePage/components/ApplySection/components/RecruitingHeader/RecruitingHeader';
 import NotificationHeader from 'views/IntroducePage/components/ApplySection/components/NotificationHeader/NotificationHeader';
 
-interface Props {
-  headerImage: string;
-}
+// TODO : 서버 응답 교체되면 아래 코드로 변경
+// interface Props {
+//   headerImage: string;
+// }
 
-const ApplySection = ({ headerImage }: Props) => {
+const ApplySection = () => {
   const { NoMoreRecruit, NoMoreApply } = useRecruitingSchedule();
 
   const deviceType = useDevice();
 
   return (
     <section className={wrapper}>
-      {NoMoreRecruit || NoMoreApply ? <NotificationHeader /> : <RecruitingHeader headerImage={headerImage} />}
+      {NoMoreRecruit || NoMoreApply ? <NotificationHeader /> : <RecruitingHeader />}
       {deviceType === 'DESK' ? <IconArrowsL /> : <IconArrowsS />}
     </section>
   );
