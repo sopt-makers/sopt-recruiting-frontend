@@ -51,7 +51,7 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
             {menuItems.map(({ text, path, target, amplitudeId }) => (
               <MenuItem key={text} text={text} path={path} target={target} amplitudeId={amplitudeId} />
             ))}
-            <MenuItem key="로그인" text="로그인" path="/" amplitudeId="click-gnb-signin" />
+            <MenuItem key="로그인" text="로그인" path="/auth" amplitudeId="click-gnb-signin" />
           </>
         )}
         {isSignedIn && name && (
