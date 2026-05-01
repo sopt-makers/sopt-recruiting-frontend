@@ -3,12 +3,15 @@ import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { format } from '@utils/dateFormatter';
 import { wrapper, button, dateText, partText } from './style.css';
 import { Button } from '@sopt-makers/ui';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   partName: string;
 }
 
 const PartHeader = ({ partName }: Props) => {
+  const navigate = useNavigate();
+
   const { applicationStart, applicationEnd, NoMoreApply } = useRecruitingSchedule();
 
   const {
@@ -29,7 +32,9 @@ const PartHeader = ({ partName }: Props) => {
         </p>
       </div>
 
-      <Button className={button} disabled={NoMoreApply}>{NoMoreApply ? '모집 마감' : '지원하기'}</Button>
+      <Button className={button} disabled={NoMoreApply} onClick={() => navigate('/auth')}>
+        {NoMoreApply ? '모집 마감' : '지원하기'}
+      </Button>
     </div>
   );
 };

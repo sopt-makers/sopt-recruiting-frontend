@@ -31,3 +31,7 @@ export const PART_NAME_MAP: Record<PartId, string> = {
   Web: '웹',
   Server: '서버',
 };
+
+export const getPartIdFromPartName = (partName: string) => {
+  return (Object.entries(PART_NAME_MAP) as [PartId, string][]).find(([, name]) => name === partName)?.[0];
+};

@@ -1,9 +1,9 @@
-import { orgInstance } from '@apis/tokenInstance';
+import { homepageFetcher } from '@apis/fetcher';
 
 export const getRecruitInfo = () => {
-  return orgInstance.get('/recruit', {});
+  return homepageFetcher('/recruit', { method: 'GET' });
 };
 
 export const postNotificationEmail = (email: string, generation: number) => {
-  return orgInstance.post('/notification/register', { email, generation });
+  return homepageFetcher('/notification/register', { method: 'POST', body: { email, generation } });
 };

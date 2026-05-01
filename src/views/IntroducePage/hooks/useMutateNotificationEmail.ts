@@ -1,19 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
-import { ErrorResponse } from '@type/errorResponse';
-import { AxiosError, AxiosResponse } from 'axios';
 import { postNotificationEmail } from 'views/IntroducePage/apis';
-import { PostNotificationEmailRequest, PostNotificationEmailResponse } from 'views/IntroducePage/types';
+
+import type { CustomError } from '@apis/fetcher';
+import type {
+  PostNotificationEmailRequest,
+  PostNotificationEmailResponse,
+} from 'views/IntroducePage/types';
 
 const useMutateNotificationEmail = () => {
-  const { mutate } = useMutation<
-    AxiosResponse<PostNotificationEmailResponse, PostNotificationEmailRequest>,
-    AxiosError<ErrorResponse, PostNotificationEmailRequest>,
+  return useMutation<
+    PostNotificationEmailResponse,
+    CustomError,
     PostNotificationEmailRequest
   >({
-    mutationFn: ({ email, generation }) => postNotificationEmail(email, generation),
+    mutationFn: ({ email, generation }: PostNotificationEmailRequest) =>
+      postNotificationEmail(email, generation),
   });
-
-  return { mutate };
 };
 
 export default useMutateNotificationEmail;
