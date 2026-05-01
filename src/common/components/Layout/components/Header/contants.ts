@@ -2,21 +2,29 @@ type menuItemsTypes = {
   text: string;
   path?: string;
   amplitudeId?: string;
-  target?: '_blank';
+  target?: '_blank' | '_self';
 };
 
-export const MENU_ITEMS: menuItemsTypes[] = [
-  {
-    text: '모집공고',
-    path: 'https://www.sopt.org/recruit',
-    amplitudeId: 'click-gnb-recruitment_notice',
-    target: '_blank',
-  },
+export const MENU_ITEMS_SOPT: menuItemsTypes[] = [
   {
     text: '문의하기',
     path: 'mailto:manager@sopt.org',
     amplitudeId: 'click-gnb-ask',
     target: '_blank',
+  },
+];
+
+export const SIGNED_IN_MENU_ITEMS_SOPT: menuItemsTypes[] = [
+  {
+    text: '문의하기',
+    path: 'mailto:manager@sopt.org',
+    amplitudeId: 'click-gnb-ask',
+    target: '_blank',
+  },
+  {
+    text: '마이페이지',
+    path: '/auth',
+    target: '_self',
   },
 ];
 
