@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
@@ -10,8 +8,6 @@ import MenuItem from '../MenuItem';
 
 const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
   const { deviceType } = useDeviceType();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
   const [isShown, setIsShown] = useState(isMenuOpen);
   const [animation, setAnimation] = useState<'open' | 'close'>(isMenuOpen ? 'open' : 'close');
 
