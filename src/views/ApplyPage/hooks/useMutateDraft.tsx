@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { sendData } from '../apis';
 
@@ -7,13 +7,18 @@ import type { ErrorResponse } from '@type/errorResponse';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const useMutateDraft = ({ onSuccess }: { onSuccess: () => void }) => {
+  const queryClient = useQueryClient();
+
   const { mutate: draftMutate, isPending: draftIsPending } = useMutation<
     AxiosResponse<ApplyResponse, ApplyRequest>,
     AxiosError<ErrorResponse, ApplyRequest>,
     ApplyRequest
   >({
     mutationFn: (jsonData) => sendData('/recruiting-answer/store', jsonData),
-    onSuccess,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['my'] });
+      onSuccess();
+    },
   });
 
   return { draftMutate, draftIsPending };
