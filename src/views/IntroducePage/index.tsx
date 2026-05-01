@@ -8,17 +8,20 @@ import SoptPart from 'views/IntroducePage/components/SoptPart';
 import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import BottomApplyCTA from 'views/IntroducePage/components/BottomApplyCTA';
 import ApplySection from 'views/IntroducePage/components/ApplySection';
-import useGetRecruitInfo from 'views/IntroducePage/hooks/useGetRecruitInfo';
 import Footer from '@components/Layout/components/Footer';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import useRecruitInfo from 'views/IntroducePage/hooks/useRecruitInfo';
+import BigLoading from 'views/loadings/BigLoding';
+import { Navigate } from 'react-router-dom';
 
 const IntroducePage = () => {
   const { deviceType } = useDeviceType();
 
   const { NoMoreRecruit, NoMoreApply } = useRecruitingSchedule();
-  const { recruitData } = useGetRecruitInfo();
+  const { data: recruitData, isPending, isLoading } = useRecruitInfo();
 
-  if (!recruitData) return null;
+  if (isPending || isLoading) return <BigLoading />;
+  if (!recruitData) return <Navigate to="/error" replace />;
 
   return (
     <>
