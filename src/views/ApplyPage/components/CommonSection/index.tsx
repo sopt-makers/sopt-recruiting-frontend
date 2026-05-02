@@ -1,6 +1,7 @@
 import Textarea from '@components/Textarea';
 import { sectionContainerVar, sectionTitle } from 'views/ApplyPage/style.css';
 import { Answers } from 'views/ApplyPage/types';
+import { DUMMY_COMMON_QUESTIONS } from 'views/ApplyPage/dummyQuestions';
 
 import FileInput from '../FileInput';
 import Info from '../Info';
@@ -15,24 +16,25 @@ interface CommonSectionProps {
 
 const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) => {
   const { draftData } = useGetDraft();
-  const { applicant, commonQuestions } = draftData?.data || {};
+  const { applicant, commonQuestions: savedCommonAnswers } = draftData?.data || {};
 
   const { questionsData } = useGetQuestions(applicant);
-  const { commonQuestions: questions } = questionsData?.data || {};
+  const { commonQuestions } = questionsData?.data || {};
+  const commonQuestionGroup = commonQuestions?.questions.length ? commonQuestions : DUMMY_COMMON_QUESTIONS;
 
-  const commonQuestionsById = commonQuestions?.reduce(
+  const commonQuestionsById = savedCommonAnswers?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
       return acc;
     },
     {} as { [key: number]: Answers } | undefined,
   );
-  const hasDescription = questions?.questions.some(({ isDescription }) => isDescription);
+  const hasDescription = commonQuestionGroup?.questions.some(({ isDescription }) => isDescription);
 
   return (
     <section ref={refCallback} id="common" className={sectionContainerVar}>
       <h2 className={sectionTitle}>공통 질문</h2>
-      {questions?.questions.map(
+      {commonQuestionGroup?.questions.map(
         ({ urls, question, id, charLimit, isFile, placeholder, optional, isDescription }, index) => {
           const draftItem = commonQuestionsById?.[id];
           const defaultValue = draftItem ? draftItem.answer.answer : '';
@@ -50,7 +52,7 @@ const CommonSection = ({ refCallback, isReview = false }: CommonSectionProps) =>
                   placeholder={
                     placeholder ||
                     (isFile
-                      ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 ‘파일 제출’이라고 기재 후 제출해주세요.)'
+                      ? '링크로 제출할 경우, 이곳에 작성해주세요. (파일로 제출한 경우에는 "파일 제출"이라고 기재 후 제출해주세요.)'
                       : '')
                   }
                   extraInput={
