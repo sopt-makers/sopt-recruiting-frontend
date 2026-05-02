@@ -208,10 +208,11 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
             maxLength={VALIDATION_CHECK.textInput.maxLength}
             pattern={VALIDATION_CHECK.textInput.pattern}
             errorText={VALIDATION_CHECK.textInput.errorText}
+            style={{ maxWidth: '356px' }}
             disabled={isReview}
           />
         </TextBox>
-        <div style={{ margin: '52px 0 0 22px' }}>
+        <div style={{ margin: '52px 0 0 30px', width: '100%' }}>
           <Radio
             defaultValue={
               leaveAbsence == undefined

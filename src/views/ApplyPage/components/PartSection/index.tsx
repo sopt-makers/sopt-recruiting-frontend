@@ -4,6 +4,7 @@ import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
 import { sectionContainerVar, sectionTitle } from 'views/ApplyPage/style.css';
 import { Answers } from 'views/ApplyPage/types';
+import { DUMMY_PART_QUESTIONS } from 'views/ApplyPage/dummyQuestions';
 
 import FileInput from '../FileInput';
 import Info from '../Info';
@@ -20,16 +21,17 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
   const { getValues } = useFormContext();
 
   const { draftData } = useGetDraft();
-  const { applicant, partQuestions } = draftData?.data || {};
+  const { applicant, partQuestions: savedPartAnswers } = draftData?.data || {};
   const { part } = applicant || {};
 
   const { questionsData } = useGetQuestions(applicant);
-  const { partQuestions: questions } = questionsData?.data || {};
+  const { partQuestions } = questionsData?.data || {};
+  const partQuestionGroups = partQuestions?.length ? partQuestions : DUMMY_PART_QUESTIONS;
 
-  const partOptions = questions ? questions.map((q) => q.part) : [];
+  const partOptions = partQuestionGroups.map((q) => q.part);
   const selectedPart: string = getValues('part');
-  const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
-  const partQuestionsById = partQuestions?.reduce(
+  const filteredQuestions = partQuestionGroups.find((item) => item.part === selectedPart)?.questions;
+  const partQuestionsById = savedPartAnswers?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
       return acc;
