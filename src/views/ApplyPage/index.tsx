@@ -1,7 +1,7 @@
 import { track } from '@amplitude/analytics-browser';
 import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useBlocker, useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Footer from '@components/Layout/components/Footer';
@@ -29,6 +29,7 @@ import BigLoading from 'views/loadings/BigLoding';
 import type { ApplyRequest } from './types';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
+const ExitDialog = lazy(() => import('views/dialogs').then(({ ExitDialog }) => ({ default: ExitDialog })));
 const PreventApplyDialog = lazy(() =>
   import('views/dialogs').then(({ PreventApplyDialog }) => ({ default: PreventApplyDialog })),
 );
@@ -44,12 +45,21 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
 
   // 2. 모달 관련 ref
   const { ref: draftDialogRef, handleShowDialog: handleShowDraftDialog } = useDialog();
+  const { ref: exitDialogRef, handleShowDialog: handleShowExitDialog } = useDialog();
   const { ref: preventApplyDialogRef, handleShowDialog: handleShowPreventApplyDialog } = useDialog();
   const {
     ref: submitDialogRef,
     handleShowDialog: handleShowSubmitDialog,
     handleCloseDialog: handleCloseSubmitDialog,
   } = useDialog();
+
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => currentLocation.pathname !== nextLocation.pathname);
+
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      handleShowExitDialog();
+    }
+  }, [blocker.state]);
 
   // 3. category active 상태 관리
   useScrollToHash(); // scrollTo 카테고리
@@ -288,6 +298,11 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   return (
     <>
       <DraftDialog ref={draftDialogRef} />
+      <ExitDialog
+        ref={exitDialogRef}
+        onExit={() => blocker.proceed?.()}
+        onCancel={() => blocker.reset?.()}
+      />
       <PreventApplyDialog ref={preventApplyDialogRef} />
       <SubmitDialog
         userInfo={{
