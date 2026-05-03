@@ -41,8 +41,8 @@ const EdgeIcon = ({ className }: { className?: string }) => {
           x2="45.4514"
           y2="33.9151"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#0C59A4" />
-          <stop offset="1" stop-color="#114A8B" />
+          <stop stopColor="#0C59A4" />
+          <stop offset="1" stopColor="#114A8B" />
         </linearGradient>
         <radialGradient
           id="paint1_radial_255_3223"
@@ -51,8 +51,8 @@ const EdgeIcon = ({ className }: { className?: string }) => {
           r="1"
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(30.1437 34.1844) scale(18.2872 17.3572)">
-          <stop offset="0.72" stop-opacity="0" />
-          <stop offset="0.95" stop-opacity="0.53" />
+          <stop offset="0.72" stopOpacity="0" />
+          <stop offset="0.95" stopOpacity="0.53" />
           <stop offset="1" />
         </radialGradient>
         <linearGradient
@@ -62,10 +62,10 @@ const EdgeIcon = ({ className }: { className?: string }) => {
           x2="7.94939"
           y2="42.3572"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#1B9DE2" />
-          <stop offset="0.16" stop-color="#1595DF" />
-          <stop offset="0.67" stop-color="#0680D7" />
-          <stop offset="1" stop-color="#0078D4" />
+          <stop stopColor="#1B9DE2" />
+          <stop offset="0.16" stopColor="#1595DF" />
+          <stop offset="0.67" stopColor="#0680D7" />
+          <stop offset="1" stopColor="#0078D4" />
         </linearGradient>
         <radialGradient
           id="paint3_radial_255_3223"
@@ -74,8 +74,8 @@ const EdgeIcon = ({ className }: { className?: string }) => {
           r="1"
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(13.5355 38.1215) rotate(-81.3767) scale(27.4748 22.2161)">
-          <stop offset="0.76" stop-opacity="0" />
-          <stop offset="0.95" stop-opacity="0.5" />
+          <stop offset="0.76" stopOpacity="0" />
+          <stop offset="0.95" stopOpacity="0.5" />
           <stop offset="1" />
         </radialGradient>
         <radialGradient
@@ -85,11 +85,11 @@ const EdgeIcon = ({ className }: { className?: string }) => {
           r="1"
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(4.95862 9.07536) rotate(92.2927) scale(38.808 82.7273)">
-          <stop stop-color="#35C1F1" />
-          <stop offset="0.11" stop-color="#34C1ED" />
-          <stop offset="0.23" stop-color="#2FC2DF" />
-          <stop offset="0.31" stop-color="#2BC3D2" />
-          <stop offset="0.67" stop-color="#36C752" />
+          <stop stopColor="#35C1F1" />
+          <stop offset="0.11" stopColor="#34C1ED" />
+          <stop offset="0.23" stopColor="#2FC2DF" />
+          <stop offset="0.31" stopColor="#2BC3D2" />
+          <stop offset="0.67" stopColor="#36C752" />
         </radialGradient>
         <radialGradient
           id="paint5_radial_255_3223"
@@ -98,8 +98,8 @@ const EdgeIcon = ({ className }: { className?: string }) => {
           r="1"
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(46.0291 14.8277) rotate(73.7259) scale(18.6475 15.1757)">
-          <stop stop-color="#66EB6E" />
-          <stop offset="1" stop-color="#66EB6E" stop-opacity="0" />
+          <stop stopColor="#66EB6E" />
+          <stop offset="1" stopColor="#66EB6E" stopOpacity="0" />
         </radialGradient>
       </defs>
     </svg>
