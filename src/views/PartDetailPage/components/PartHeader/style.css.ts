@@ -19,10 +19,12 @@ export const wrapper = style({
 
   '@media': {
     [breakpoints.tablet]: {
+      top: 48,
       padding: '34px 40px',
       height: '200px',
     },
     [breakpoints.mobile]: {
+      top: 48,
       padding: '34px 20px',
       height: '174px',
     },
