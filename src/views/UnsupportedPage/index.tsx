@@ -18,18 +18,17 @@ import FirefoxIcon from './assets/FirefoxIcon';
 import SafariIcon from './assets/SafariIcon';
 import MakersLogo from '@assets/MakersLogo';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { containerSizeVer, containerVar, logoVar } from '@components/Layout/components/Header/style.css';
+import { container as headerContainer, logo } from '@components/Layout/components/Header/style.css';
 import { container, mainWrapper } from '@components/Layout/style.css';
 import SoptLogo from '@assets/SoptLogo';
 
 const UnsupportedPage = () => {
   const { deviceType } = useDeviceType();
-  const logoVariant = logoVar[deviceType];
 
   return (
     <div className={container}>
-      <header className={`${containerVar['default']} ${containerSizeVer[deviceType]}`}>
-        {__IS_MAKERS__ ? <MakersLogo className={logoVariant} /> : <SoptLogo className={logoVariant} />}
+      <header className={headerContainer}>
+        {__IS_MAKERS__ ? <MakersLogo className={logo} /> : <SoptLogo className={logo} />}
       </header>
       <main className={mainWrapper}>
         <section className={wrapper}>
