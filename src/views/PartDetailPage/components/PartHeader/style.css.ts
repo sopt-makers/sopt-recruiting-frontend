@@ -2,21 +2,66 @@ import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
 import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
+import { Z_INDEX } from '@constants/zIndex';
 
 export const wrapper = style({
+  position: 'sticky',
+  height: '200px',
+  top: 80,
+  zIndex: Z_INDEX.partDetailHeader,
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  overflow: 'hidden',
+  backgroundColor: colors.white,
+  padding: '55px 40px',
+
+  '@media': {
+    [breakpoints.tablet]: {
+      padding: '34px 40px',
+      height: '200px',
+    },
+    [breakpoints.mobile]: {
+      padding: '34px 20px',
+      height: '174px',
+    },
+  },
+});
+
+export const wrapperScrolled = style([
+  wrapper,
+  {
+    height: '120px',
+    padding: '0 40px',
+    '@media': {
+      [breakpoints.tablet]: {
+        height: '120px',
+        padding: '0 40px',
+      },
+      [breakpoints.mobile]: {
+        height: '94px',
+        padding: '0 20px',
+      },
+    },
+  },
+]);
+
+export const divider = style({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: '1px',
+  backgroundColor: '#EDEDED',
+});
+
+export const inner = style({
   display: 'flex',
   maxWidth: '1200px',
   width: '100%',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '55px 0',
-  backgroundColor: colors.white,
-
-  '@media': {
-    [breakpoints.tabletAndMobile]: {
-      padding: '34px 0',
-    },
-  },
 });
 
 export const partText = style({
