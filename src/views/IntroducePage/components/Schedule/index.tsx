@@ -16,11 +16,12 @@ const Schedule = () => {
 export default Schedule;
 
 const ScheduleBox = () => {
-  const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart } = useRecruitingSchedule();
+  const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart } =
+    useRecruitingSchedule();
 
-  const formattedApplicationStart = applicationStart ? format(applicationStart, 'M월 dd일 aaa hh시') : '';
+  const formattedApplicationStart = applicationStart ? format(applicationStart, 'M월 dd일') : '';
   const formattedApplicationStartHour = applicationStart ? format(applicationStart, 'aaa hh시') : '';
-  const formattedApplicationEnd = applicationEnd ? format(applicationEnd, 'M월 dd일 aaa hh시') : '';
+  const formattedApplicationEnd = applicationEnd ? format(applicationEnd, 'M월 dd일') : '';
   const formattedApplicationEndHour = applicationEnd ? format(applicationEnd, 'aaa hh시') : '';
   const formattedInterviewStart = interviewStart ? format(interviewStart, 'M월 dd일') : '';
   const formattedInterviewEnd = interviewEnd ? format(interviewEnd, 'M월 dd일') : '';
