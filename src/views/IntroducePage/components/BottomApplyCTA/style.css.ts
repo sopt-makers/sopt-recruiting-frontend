@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { breakpoints } from 'styles/breakpoints';
+import { contentMaxWidth } from 'styles/layout.css';
 import { theme } from 'styles/theme.css';
 
 export const wrapper = style({
@@ -19,24 +20,27 @@ export const wrapper = style({
   },
 });
 
-export const container = style({
-  display: 'flex',
-  width: '100%',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '24px 40px',
-  borderRadius: '32px',
-  backgroundColor: 'rgba(82, 146, 229, 0.10)',
+export const container = style([
+  contentMaxWidth,
+  {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '24px 40px',
+    borderRadius: '32px',
+    backgroundColor: 'rgba(82, 146, 229, 0.10)',
 
-  '@media': {
-    [breakpoints.mobile]: {
-      flexDirection: 'column',
-      padding: '24px',
-      gap: '16px',
-      borderRadius: '24px',
+    '@media': {
+      [breakpoints.mobile]: {
+        flexDirection: 'column',
+        padding: '24px',
+        gap: '16px',
+        borderRadius: '24px',
+      },
     },
   },
-});
+]);
 
 export const textVar = style({
   ...theme.font.HEADING_2_32_B,
