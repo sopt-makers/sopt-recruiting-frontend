@@ -35,6 +35,7 @@ const toThemeStyle = (color: BrandingColor) =>
     [theme.color.primaryDark]: toCssColor(color.high),
     [theme.color.primaryLight]: toCssColor(color.low),
     [theme.color.primaryLinear]: toCssColor(color.point),
+    [theme.color.primaryAlpha10]: `${toCssColor(color.main)}1a`,
   });
 
 const useBrandingFromRecruitCache = (): BrandingColor | null => {

@@ -7,6 +7,7 @@ const makersPrimary = {
   primaryLight: colors.gray30,
   primaryDark: colors.gray950,
   primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
+  primaryAlpha10: colors.grayAlpha100,
 };
 
 const color = createThemeContract({
@@ -15,6 +16,7 @@ const color = createThemeContract({
   primaryDark: null, // 기수 컬러 어둡게
   // 기수 컬러 linear
   primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  primaryAlpha10: null, // 기수 컬러 투명도 10%
   error: null, // error
 
   background: null, // background
