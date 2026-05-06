@@ -1,6 +1,7 @@
 import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
 import { breakpoints } from 'styles/breakpoints';
+import { contentMaxWidth } from 'styles/layout.css';
 import { theme } from 'styles/theme.css';
 
 export const wrapper = style({
@@ -16,21 +17,23 @@ export const wrapper = style({
   },
 });
 
-export const container = style({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '1200px',
-  flexDirection: 'column',
-  gap: '28px',
-  '@media': {
-    [breakpoints.tablet]: {
-      gap: '40px',
-    },
-    [breakpoints.mobile]: {
-      gap: '8px',
+export const container = style([
+  contentMaxWidth,
+  {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'column',
+    gap: '28px',
+    '@media': {
+      [breakpoints.tablet]: {
+        gap: '40px',
+      },
+      [breakpoints.mobile]: {
+        gap: '8px',
+      },
     },
   },
-});
+]);
 
 export const gridWrapper = style({
   display: 'grid',

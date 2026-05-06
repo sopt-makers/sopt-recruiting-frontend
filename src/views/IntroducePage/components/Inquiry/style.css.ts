@@ -40,11 +40,11 @@ export const description = style({
 
 export const gridWrapper = style({
   display: 'grid',
-  maxWidth: '1200px',
   justifyContent: 'space-between',
   gridTemplateColumns: 'auto auto',
   rowGap: '65px',
   width: '100%',
+  maxWidth: '856px',
   '@media': {
     [breakpoints.tabletAndMobile]: {
       width: 'auto',

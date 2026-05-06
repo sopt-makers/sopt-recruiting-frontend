@@ -49,9 +49,11 @@ export const inputVar = style({
     },
     [breakpoints.mobile]: {
       ...theme.font.BODY_3_14_R,
+      fontSize: '16px',
       selectors: {
         '&::placeholder': {
           ...theme.font.BODY_3_14_R,
+          fontSize: '16px',
         },
       },
     },

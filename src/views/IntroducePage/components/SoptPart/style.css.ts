@@ -46,7 +46,7 @@ export const container = style({
 
 export const itemWrapper = style({
   display: 'flex',
-  maxWidth: '380px',
+  width: '304px',
   flexDirection: 'column',
   backgroundColor: '#f6f6f6',
   borderRadius: '24px',
@@ -64,6 +64,10 @@ export const itemWrapper = style({
       padding: '16px',
       flexShrink: 0,
       scrollSnapAlign: 'start',
+    },
+    [breakpoints.desktopLarge]: {
+      width: '380px',
+      height: '284px',
     },
   },
 });

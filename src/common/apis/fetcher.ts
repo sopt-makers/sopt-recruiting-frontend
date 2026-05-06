@@ -37,8 +37,16 @@ const createFetcher =
     });
 
     if (!response.ok) {
-      const errMsg = await response.json();
-      throw new CustomError(errMsg.userMessage, response.status, errMsg.data);
+      const text = await response.text();
+      const fallbackMessage = `HTTP ${response.status} ${response.statusText}`;
+      let errMsg: { userMessage?: string; data?: unknown } = {};
+
+      try {
+        errMsg = JSON.parse(text);
+      } catch {
+        errMsg = { userMessage: fallbackMessage };
+      }
+      throw new CustomError(errMsg.userMessage || fallbackMessage, response.status, errMsg.data);
     }
 
     return response.json();
