@@ -7,7 +7,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/Layout';
-import BrandingColorProvider from 'contexts/BrandingColorProvider';
+import BrandingColor from 'styles/BrandingColor';
 import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
 import { useTheme } from 'contexts/ThemeProvider';
@@ -129,11 +129,11 @@ const App = () => {
               <QueryClientProvider client={queryClient}>
                 <ReactQueryDevtools />
                 <div className={isLight ? light : dark}>
-                  <BrandingColorProvider>
+                  <BrandingColor>
                     <Suspense fallback={<BigLoading />}>
                       <RouterProvider router={router} />
                     </Suspense>
-                  </BrandingColorProvider>
+                  </BrandingColor>
                 </div>
               </QueryClientProvider>
             </RecruitingInfoProvider>
