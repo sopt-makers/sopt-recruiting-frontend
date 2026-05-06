@@ -6,6 +6,7 @@ import { Tag } from '@sopt-makers/ui';
 import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { getPartIdFromPartName } from 'views/PartDetailPage/constants/constant';
+import { theme } from 'styles/theme.css';
 
 interface SoptPartProps {
   parts?: SoptPartIntroduction[];
@@ -54,7 +55,10 @@ const PartItem = ({ part }: ItemProps) => {
         const partId = getPartIdFromPartName(part.part);
         if (partId) navigate(`/part/${partId}`);
       }}>
-      <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
+      <Tag
+        variant="secondary"
+        size={deviceType === 'DESK' ? 'lg' : 'sm'}
+        style={{ backgroundColor: theme.color.primaryAlpha10, color: theme.color.primary }}>
         {part.part}
       </Tag>
       <p className={name}>{part.part} 파트</p>

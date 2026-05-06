@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { breakpoints } from 'styles/breakpoints';
+import { primaryGradient } from 'styles/gradient.css';
 
 export const wrapper = style({
   position: 'relative',
@@ -24,9 +25,7 @@ export const wrapper = style({
 
       height: 'calc(823px - 80px)', // header 만큼
 
-      borderRadius: '1920px',
-      background:
-        'radial-gradient(50% 50% at 50% 50%, rgba(82, 146, 229, 0.20) 0%, rgba(82, 146, 229, 0.06) 50%, rgba(82, 146, 229, 0.00) 100%)',
+      background: primaryGradient,
     },
   },
   '@media': {
@@ -55,8 +54,7 @@ export const wrapper = style({
           width: '360px',
           height: '154px',
           borderRadius: '360px',
-          background:
-            'radial-gradient(50% 50% at 50% 50%, rgba(82, 146, 229, 0.20) 0%, rgba(82, 146, 229, 0.06) 43.27%, rgba(82, 146, 229, 0.00) 100%)',
+          background: primaryGradient,
         },
       },
     },

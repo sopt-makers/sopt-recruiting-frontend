@@ -26,7 +26,7 @@ export const item = style({
   display: 'flex',
   alignItems: 'center',
   padding: '16px 40px',
-  backgroundColor: '#5292E51A',
+  backgroundColor: theme.color.primaryAlpha10,
   borderRadius: '14px',
   '@media': {
     [breakpoints.tablet]: { padding: '16px 24px', borderRadius: '12px' },
