@@ -45,25 +45,93 @@ export const container = style({
 });
 
 export const itemWrapper = style({
+  position: 'relative',
   display: 'flex',
   maxWidth: '380px',
+  height: '284px',
   flexDirection: 'column',
+  color: 'inherit',
+  textDecoration: 'none',
   backgroundColor: '#f6f6f6',
   borderRadius: '24px',
   padding: '38px 40px',
   cursor: 'pointer',
+  overflow: 'hidden',
+  transition: 'border-radius 0.3s ease-out',
+  selectors: {
+    '&:hover': {
+      borderRadius: '48px',
+    },
+  },
   '@media': {
     [breakpoints.tablet]: {
       width: '224px',
-      height: '200px',
+      height: '220px',
       padding: '20px',
+      borderRadius: '16px',
+
+      selectors: {
+        '&:hover': {
+          borderRadius: '32px',
+        },
+      },
     },
     [breakpoints.mobile]: {
       width: '200px',
       height: '220px',
       padding: '16px',
       flexShrink: 0,
+      borderRadius: '16px',
       scrollSnapAlign: 'start',
+      selectors: {
+        '&:hover': {
+          borderRadius: '32px',
+        },
+      },
+    },
+  },
+});
+
+export const hoverIconBadge = style({
+  position: 'absolute',
+  right: '24px',
+  bottom: '24px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '60px',
+  height: '60px',
+  borderRadius: '999px',
+  backgroundColor: theme.color.primary,
+  opacity: 0,
+  visibility: 'hidden',
+  transform: 'translateY(8px)',
+  transition: 'opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out',
+  selectors: {
+    [`${itemWrapper}:hover &`]: {
+      opacity: 1,
+      visibility: 'visible',
+      transform: 'translateY(0)',
+    },
+  },
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      right: '20px',
+      bottom: '20px',
+      width: '48px',
+      height: '48px',
+    },
+  },
+});
+
+export const hoverIcon = style({
+  width: '32px',
+  height: '32px',
+  color: theme.color.white,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      width: '24px',
+      height: '24px',
     },
   },
 });

@@ -1,9 +1,10 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import { Z_INDEX } from '@constants/zIndex';
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
-const container = style({
+export const container = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -11,43 +12,32 @@ const container = style({
   position: 'fixed',
   top: 0,
   width: '100%',
+  height: '80px',
+  padding: '0 100px',
+  boxSizing: 'border-box',
   margin: '0 auto',
 
   zIndex: Z_INDEX.gnbHeader,
   transition: 'background-color 0.3s ease',
-});
+  backgroundColor: theme.color.background,
 
-export const containerVar = styleVariants({
-  default: [
-    container,
-    {
-      backgroundColor: theme.color.background,
+  '@media': {
+    [breakpoints.tablet]: {
+      height: '48px',
+      padding: '0 40px',
     },
-  ],
-  open: [
-    container,
-    {
-      backgroundColor: theme.color.blackBackground,
-      color: theme.color.whiteButtonFill,
+    [breakpoints.mobile]: {
+      height: '48px',
+      padding: '0 20px',
     },
-  ],
-});
-
-export const containerSizeVer = styleVariants({
-  DESK: { padding: '22px 100px' },
-  TAB: { padding: '22px 40px' },
-  MOB: { padding: '22px 20px' },
-});
-
-export const logoVar = styleVariants(
-  {
-    DESK: 30,
-    TAB: 24,
-    MOB: 24,
   },
-  (height) => [
-    {
-      height,
+});
+
+export const logo = style({
+  height: 30,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      height: 24,
     },
-  ],
-);
+  },
+});

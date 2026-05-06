@@ -17,6 +17,7 @@ const useMutateDraft = ({ onSuccess }: { onSuccess: () => void }) => {
     mutationFn: (jsonData) => sendData('/recruiting-answer/store', jsonData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['my'] });
+      queryClient.invalidateQueries({ queryKey: ['get-draft'] });
       onSuccess();
     },
   });

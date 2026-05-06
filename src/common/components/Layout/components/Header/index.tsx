@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useTheme } from 'contexts/ThemeProvider';
+import soptLogo from '@assets/soptLogo.svg';
 
-import Nav from './Nav';
 import MenuList from './Nav/MenuList';
-import { containerSizeVer, containerVar, logoVar } from './style.css';
-import SoptLogo from '@assets/SoptLogo';
+import { container, logo } from './style.css';
 import SoptLightLogo from '@assets/SoptLightLogo';
 
 const Header = () => {
-  const { deviceType } = useDeviceType();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const handleClickMenuToggle = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isLight } = useTheme();
@@ -28,35 +19,26 @@ const Header = () => {
   };
 
   const isResultPage = pathname.includes('/result');
-
-  useEffect(() => {
-    if (deviceType === 'DESK') {
-      setIsMenuOpen(false);
-    }
-  }, [deviceType]);
-
-  const logoVariant = logoVar[deviceType];
   return (
     <>
       {__IS_MAKERS__ != undefined && (
         <>
-          <header className={`${containerVar[isMenuOpen ? 'open' : 'default']} ${containerSizeVer[deviceType]}`}>
+          <header className={container}>
             <button onClick={handleClickLogo} style={{ cursor: 'pointer' }}>
               {__IS_MAKERS__ ? (
-                !isMenuOpen && isLight ? (
-                  <MakersLogo className={logoVariant} />
+                isLight ? (
+                  <MakersLogo className={logo} />
                 ) : (
-                  <MakersDarkLogo className={logoVariant} />
+                  <MakersDarkLogo className={logo} />
                 )
               ) : !isResultPage ? (
-                <SoptLogo className={logoVariant} />
+                <img src={soptLogo} alt="SOPT" className={logo} />
               ) : (
-                <SoptLightLogo className={logoVariant} />
+                <SoptLightLogo className={logo} />
               )}
             </button>
-            <Nav isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
+            <MenuList />
           </header>
-          <MenuList isMenuOpen={isMenuOpen} onClickMenuToggle={handleClickMenuToggle} />
         </>
       )}
     </>
