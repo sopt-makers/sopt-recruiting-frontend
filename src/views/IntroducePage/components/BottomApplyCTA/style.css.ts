@@ -26,7 +26,7 @@ export const container = style({
   justifyContent: 'space-between',
   padding: '24px 40px',
   borderRadius: '32px',
-  backgroundColor: 'rgba(82, 146, 229, 0.10)',
+  backgroundColor: theme.color.primaryAlpha10,
 
   '@media': {
     [breakpoints.mobile]: {
