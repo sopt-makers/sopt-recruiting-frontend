@@ -1,23 +1,20 @@
+import { recruitInfoQueryKey } from '@constants/queryKeys';
+import { useQueryClient } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { createContext, type Dispatch, type ReactNode, type SetStateAction, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useSyncExternalStore } from 'react';
 
 import { theme } from 'styles/theme.css';
 
-export type BrandingColor = {
-  main: string;
-  high: string;
-  low: string;
-  point: string;
-};
+import type { RecruitInfoResponse } from 'views/IntroducePage/types';
+
+export type BrandingColor = RecruitInfoResponse['brandingColor'];
 
 interface BrandingColorContextType {
   brandingColor: BrandingColor | null;
-  setBrandingColor: Dispatch<SetStateAction<BrandingColor | null>>;
 }
 
 const BrandingColorContext = createContext<BrandingColorContextType>({
   brandingColor: null,
-  setBrandingColor: () => {},
 });
 
 export const useBrandingColor = () => {
@@ -40,13 +37,28 @@ const toThemeStyle = (color: BrandingColor) =>
     [theme.color.primaryLinear]: toCssColor(color.point),
   });
 
-const BrandingColorProvider = ({ children }: { children: ReactNode }) => {
-  const [brandingColor, setBrandingColor] = useState<BrandingColor | null>(null);
+const useBrandingFromRecruitCache = (): BrandingColor | null => {
+  const queryClient = useQueryClient();
 
+  return useSyncExternalStore(
+    (onStoreChange) =>
+      queryClient.getQueryCache().subscribe((event) => {
+        // recruitInfo 외 쿼리 변경 시 불필요한 리렌더 방지
+        if (event.query.queryKey[0] === recruitInfoQueryKey[0]) {
+          onStoreChange();
+        }
+      }),
+    () => queryClient.getQueryData<RecruitInfoResponse>(recruitInfoQueryKey)?.brandingColor ?? null,
+    () => null,
+  );
+};
+
+const BrandingColorProvider = ({ children }: { children: ReactNode }) => {
+  const brandingColor = useBrandingFromRecruitCache();
   const themeStyle = brandingColor ? toThemeStyle(brandingColor) : undefined;
 
   return (
-    <BrandingColorContext.Provider value={{ brandingColor, setBrandingColor }}>
+    <BrandingColorContext.Provider value={{ brandingColor }}>
       <div style={themeStyle}>{children}</div>
     </BrandingColorContext.Provider>
   );
