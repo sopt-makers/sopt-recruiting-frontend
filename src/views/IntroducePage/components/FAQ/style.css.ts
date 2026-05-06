@@ -130,11 +130,12 @@ export const answerText = style({
 export const iconWrapperVar = recipe({
   base: {
     display: 'flex',
+    flexShrink: 0,
     justifyContent: 'center',
     alignItems: 'center',
     width: '40px',
     height: '40px',
-    flexShrink: 0,
+    color: colors.gray950,
     transition: 'transform 0.2s',
     '@media': {
       [breakpoints.tabletAndMobile]: {
