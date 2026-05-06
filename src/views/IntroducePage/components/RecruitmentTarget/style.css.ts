@@ -74,5 +74,8 @@ export const description = style({
     [breakpoints.tabletAndMobile]: {
       ...theme.font.TITLE_6_16_SB,
     },
+    [breakpoints.desktopLarge]: {
+      ...theme.font.TITLE_2_28_SB,
+    },
   },
 });
