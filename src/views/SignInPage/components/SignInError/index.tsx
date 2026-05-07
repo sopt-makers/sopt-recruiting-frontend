@@ -21,21 +21,13 @@ const SignInError = ({ variant }: Props) => {
         </button>
       </div>
     );
-  }
-
-  if (variant === SIGN_IN_ERROR_TYPE.ACCOUNT_NOT_FOUND) {
+  } else {
     return (
       <div className={container}>
-        <p className={messageVar}>{VALIDATION_CHECK.email.errorTextNonexistence}</p>
+        <p className={messageVar}>{VALIDATION_CHECK.email.notMatchErrorText}</p>
       </div>
     );
   }
-
-  return (
-    <div className={container}>
-      <p className={messageVar}>{VALIDATION_CHECK.email.notMatchErrorText}</p>
-    </div>
-  );
 };
 
 export default SignInError;
