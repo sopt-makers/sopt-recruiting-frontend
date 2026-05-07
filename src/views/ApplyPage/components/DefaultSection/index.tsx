@@ -10,7 +10,6 @@ import { sectionTitle } from 'views/ApplyPage/style.css';
 
 import { getPresignedUrl, uploadToS3, verifyFileUpload } from '@apis/fileUpload';
 import useGetDraft from 'views/ApplyPage/hooks/useGetDraft';
-import Postcode from './components/Postcode';
 import { DEFAULT_PROFILE } from './constants';
 import IconUser from './icons/IconUser';
 import {
@@ -132,7 +131,6 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
   const { applicant } = draftData?.data || {};
   const {
     season,
-    address,
     birthday,
     college,
     email,
@@ -187,12 +185,11 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
       <TextBox label="이메일" name="email" required size="lg">
         <InputLine value={email} name="email" readOnly disabled={isReview} />
       </TextBox>
-      <Postcode addressDraft={address} disabled={isReview} />
-      <TextBox label="지하철역" name="nearestStation" required size="lg">
+      <TextBox label="활동 지역" name="nearestStation" required size="lg">
         <InputLine
           defaultValue={nearestStation}
           name="nearestStation"
-          placeholder="역의 이름을 정확하게 적어주세요. (ex. &#9675;&#9675;역)"
+          placeholder="주 활동 지역에서 가까운 역을 작성해주세요."
           maxLength={VALIDATION_CHECK.subway.maxLength}
           pattern={VALIDATION_CHECK.subway.pattern}
           errorText={VALIDATION_CHECK.subway.errorText}

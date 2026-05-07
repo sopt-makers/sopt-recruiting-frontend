@@ -123,7 +123,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   } = methods;
 
   const {
-    address,
     birthday,
     college,
     gender,
@@ -265,7 +264,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     const jsonValues: ApplyRequest = {
       pictureKey: getValues('pictureKey'),
       part,
-      address,
       birthday,
       college,
       gender,
@@ -298,11 +296,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   return (
     <>
       <DraftDialog ref={draftDialogRef} />
-      <ExitDialog
-        ref={exitDialogRef}
-        onExit={() => blocker.proceed?.()}
-        onCancel={() => blocker.reset?.()}
-      />
+      <ExitDialog ref={exitDialogRef} onExit={() => blocker.proceed?.()} onCancel={() => blocker.reset?.()} />
       <PreventApplyDialog ref={preventApplyDialogRef} />
       <SubmitDialog
         userInfo={{
@@ -327,11 +321,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           />
           <ApplyInfo />
           <ApplyCategory minIndex={minIndex} />
-          <form
-            id="apply-form"
-            name="apply-form"
-            onSubmit={handleSubmit(handleApplySubmit)}
-            className={formContainer}>
+          <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
             <DefaultSection refCallback={refCallback} />
             <CommonSection refCallback={refCallback} />
             <PartSection refCallback={refCallback} />
