@@ -80,7 +80,7 @@ const FAQItem = ({ faq, isOpened, onClick }: FAQItemProps) => {
       <div className={questionWrapper}>
         <p className={questionText}>{faq.question}</p>
         <span className={iconWrapperVar({ state })}>
-          <IconChevronDown />
+          <IconChevronDown style={{ width: '100%', height: '100%' }} />
         </span>
       </div>
       {isOpened && (

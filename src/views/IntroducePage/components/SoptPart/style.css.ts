@@ -47,7 +47,7 @@ export const container = style({
 export const itemWrapper = style({
   position: 'relative',
   display: 'flex',
-  maxWidth: '380px',
+  width: '304px',
   height: '284px',
   flexDirection: 'column',
   color: 'inherit',
@@ -88,6 +88,10 @@ export const itemWrapper = style({
           borderRadius: '32px',
         },
       },
+    },
+    [breakpoints.desktopLarge]: {
+      width: '380px',
+      height: '284px',
     },
   },
 });
@@ -132,6 +136,10 @@ export const hoverIcon = style({
     [breakpoints.tabletAndMobile]: {
       width: '24px',
       height: '24px',
+    },
+    [breakpoints.desktopLarge]: {
+      width: '380px',
+      height: '284px',
     },
   },
 });

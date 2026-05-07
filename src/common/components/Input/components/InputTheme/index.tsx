@@ -52,7 +52,7 @@ export const TextBox이메일 = () => {
         pattern={VALIDATION_CHECK.email.pattern}
         maxLength={VALIDATION_CHECK.email.maxLength}
         errorText={VALIDATION_CHECK.emailConfirm.errorText}
-        validate={VALIDATION_CHECK.emailConfirm.validate(watch, 'emailCheck')}
+        validate={VALIDATION_CHECK.emailConfirm.validate(watch, 'email')}
       />
       {emailConfirm && email === emailConfirm && <p className={successVar[deviceType]}>이메일이 일치해요.</p>}
     </TextBox>

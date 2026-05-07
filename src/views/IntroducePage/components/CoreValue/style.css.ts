@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
 import { breakpoints } from 'styles/breakpoints';
+import { contentMaxWidth } from 'styles/layout.css';
 
 export const wrapper = style({
   display: 'flex',
@@ -15,21 +16,25 @@ export const wrapper = style({
   },
 });
 
-export const listWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '16px',
-  '@media': {
-    [breakpoints.tablet]: {
-      gap: '10px',
-    },
-    [breakpoints.mobile]: {
-      flexDirection: 'column',
-      gap: '10px',
+export const listWrapper = style([
+  contentMaxWidth,
+  {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '16px',
+    '@media': {
+      [breakpoints.tablet]: {
+        gap: '10px',
+      },
+      [breakpoints.mobile]: {
+        flexDirection: 'column',
+        gap: '10px',
+      },
     },
   },
-});
+]);
 
 export const cardWrapper = style({
   position: 'relative',
@@ -51,6 +56,10 @@ export const cardWrapper = style({
     [breakpoints.mobile]: {
       width: '320px',
       height: '198px',
+    },
+    [breakpoints.desktopLarge]: {
+      width: '384px',
+      height: '324px',
     },
   },
 });
