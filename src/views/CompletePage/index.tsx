@@ -4,7 +4,7 @@ import { format } from '@utils/dateFormatter';
 
 import Survey from './components/Survey';
 import IconCheckmark from './icons/IconCheckmark';
-import { container, icon, mainText, subText, buttonWrapper } from './style.css';
+import { container, icon, mainText, subText, buttonWrapper, calloutWrapper } from './style.css';
 import Callout from '@components/Callout';
 
 const CompletePage = () => {
@@ -34,9 +34,11 @@ const CompletePage = () => {
         서류 결과는 ${formattedApplicationResultStart}에 발표됩니다.`}
       </p>
 
-      <Callout>
-        메일 도착 시점이 다를 수 있으니, 메일이 확인되지 않는 경우 스팸 메일함을 확인해 주시기 바랍니다.
-      </Callout>
+      <div className={calloutWrapper}>
+        <Callout>
+          메일 도착 시점이 다를 수 있으니, 메일이 확인되지 않는 경우 스팸 메일함을 확인해 주시기 바랍니다.
+        </Callout>
+      </div>
       <div className={buttonWrapper}>
         <Button eventName="click-complete-my" onClick={handleClickMyPage}>
           마이페이지로 이동하기

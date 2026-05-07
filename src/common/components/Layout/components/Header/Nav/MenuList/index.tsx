@@ -1,35 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
-
-import { dimmedBgVar, menuContainerVar, menuList, menuMobListVar } from './style.css';
+import { menuList } from './style.css';
 import { MENU_ITEMS_MAKERS, MENU_ITEMS_SOPT, SIGNED_IN_MENU_ITEMS_SOPT } from '../../contants';
 import MenuItem from '../MenuItem';
 
-const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onClickMenuToggle?: () => void }) => {
-  const { deviceType } = useDeviceType();
-  const [isShown, setIsShown] = useState(isMenuOpen);
-  const [animation, setAnimation] = useState<'open' | 'close'>(isMenuOpen ? 'open' : 'close');
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      setIsShown(true);
-      setAnimation('open');
-    } else {
-      setAnimation('close');
-      const timer = setTimeout(() => setIsShown(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isMenuOpen]);
-
+const MenuList = () => {
   const isSignedIn = localStorage.getItem('soptApplyAccessToken');
 
   const menuItems = __IS_MAKERS__ ? MENU_ITEMS_MAKERS : isSignedIn ? SIGNED_IN_MENU_ITEMS_SOPT : MENU_ITEMS_SOPT;
 
-  if (onClickMenuToggle && !isShown) return null;
-
   return (
     <nav>
-      <ul className={deviceType !== 'DESK' ? `${menuMobListVar[deviceType]} ${menuContainerVar[animation]}` : menuList}>
+      <ul className={menuList}>
         {!isSignedIn && (
           <>
             {menuItems.map(({ text, path, target, amplitudeId }) => (
@@ -46,7 +26,6 @@ const MenuList = ({ isMenuOpen, onClickMenuToggle }: { isMenuOpen?: boolean; onC
           </>
         )}
       </ul>
-      {onClickMenuToggle && isShown && <div className={dimmedBgVar[animation]} onClick={onClickMenuToggle} />}
     </nav>
   );
 };

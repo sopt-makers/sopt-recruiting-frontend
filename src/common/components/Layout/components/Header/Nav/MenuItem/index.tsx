@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom';
 
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
-
 import { menuItemVar, menuLinkVar } from './style.css';
 import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
 
@@ -15,18 +13,16 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ text, path, target, amplitudeId, className, onClick }: MenuItemProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
-    <li className={`${className} ${menuItemVar[deviceType]}`}>
+    <li className={`${className} ${menuItemVar}`}>
       {path ? (
         <AmplitudeEventTrack eventName={amplitudeId ? amplitudeId : undefined}>
-          <NavLink to={path} className={menuLinkVar[deviceType]} target={target}>
+          <NavLink to={path} className={menuLinkVar} target={target}>
             {text}
           </NavLink>
         </AmplitudeEventTrack>
       ) : (
-        <p className={`${onClick ? menuLinkVar[deviceType] : null}`} onClick={onClick}>
+        <p className={`${onClick ? menuLinkVar : null}`} onClick={onClick}>
           {text}
         </p>
       )}

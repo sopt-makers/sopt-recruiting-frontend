@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
-import { wrapper, container, name, description, itemWrapper } from './style.css';
+import { wrapper, container, name, description, itemWrapper, hoverIconBadge, hoverIcon } from './style.css';
 import { Tag } from '@sopt-makers/ui';
 import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { getPartIdFromPartName } from 'views/PartDetailPage/constants/constant';
+import { IconArrowUpRight } from '@sopt-makers/icons';
 
 interface SoptPartProps {
   parts?: SoptPartIntroduction[];
@@ -45,20 +46,22 @@ interface ItemProps {
 
 const PartItem = ({ part }: ItemProps) => {
   const { deviceType } = useDeviceType();
-  const navigate = useNavigate();
+  const partId = getPartIdFromPartName(part.part);
+
+  if (!partId) return null;
 
   return (
-    <li
-      className={itemWrapper}
-      onClick={() => {
-        const partId = getPartIdFromPartName(part.part);
-        if (partId) navigate(`/part/${partId}`);
-      }}>
-      <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
-        {part.part}
-      </Tag>
-      <p className={name}>{part.part} 파트</p>
-      <p className={description}>{part.description}</p>
+    <li>
+      <Link className={itemWrapper} to={`/part/${partId}`}>
+        <div className={hoverIconBadge}>
+          <IconArrowUpRight className={hoverIcon} />
+        </div>
+        <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
+          {part.part}
+        </Tag>
+        <p className={name}>{part.part} 파트</p>
+        <p className={description}>{part.description}</p>
+      </Link>
     </li>
   );
 };

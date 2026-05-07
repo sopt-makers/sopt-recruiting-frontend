@@ -74,7 +74,7 @@ export const contactMap: Record<ContactType, ContactItem> = {
     label: '카카오톡 플러스 친구',
     desc: 'SOPT',
     thumbnail: { src: '/kakao.png' },
-    link: { target: '_blank', href: 'http://pf.kakao.com/_JdTKd' },
+    link: { target: '_blank', href: 'https://pf.kakao.com/_sxaIWG' },
   },
   [ContactType.INSTAGRAM]: {
     label: '인스타그램',
