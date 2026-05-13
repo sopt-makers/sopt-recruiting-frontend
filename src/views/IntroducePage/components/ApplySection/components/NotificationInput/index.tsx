@@ -27,19 +27,20 @@ const NotificationInput = () => {
       {
         onSuccess: () => {
           showToast({
-            content: '알림 신청이 완료되었습니다.',
+            content: '알림 신청이 완료되었어요.',
             icon: 'success',
           });
         },
         onError: (error) => {
           if (error.status === 409) {
             showToast({
-              content: '이미 등록된 알림입니다.',
+              content: '이미 신청된 이메일이에요.',
               icon: 'error',
             });
           } else {
+            console.log(error);
             showToast({
-              content: error.message,
+              content: '일시적인 오류가 발생했어요. 다시 시도해주세요.',
               icon: 'error',
             });
           }

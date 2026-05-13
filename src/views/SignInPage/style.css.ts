@@ -9,7 +9,6 @@ export const container = style({
 export const containerVar = style([
   container,
   {
-    gap: '50px',
     margin: '90px 0 168px 0',
     width: '466px',
     '@media': {

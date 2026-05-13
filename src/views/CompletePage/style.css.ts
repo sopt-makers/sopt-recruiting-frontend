@@ -11,7 +11,7 @@ export const container = style({
   justifyContent: 'center',
   height: calc.subtract('100vh', '80px'),
   minHeight: 700,
-  padding: '0 24',
+  padding: '0 24px',
 
   '@supports': {
     '(height: 100dvh)': {
@@ -50,6 +50,11 @@ export const mainText = style({
       ...theme.font.HEADING_5_20_B,
     },
   },
+});
+
+export const calloutWrapper = style({
+  width: '100%',
+  maxWidth: 458,
 });
 
 export const buttonWrapper = style({

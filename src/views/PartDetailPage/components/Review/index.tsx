@@ -21,6 +21,7 @@ import {
   chevronIcon,
 } from './style.css';
 import { IconChevronRight } from '@sopt-makers/icons';
+import blogDefault from '@assets/blogDefault.svg';
 
 interface Props {
   partId: PartId;
@@ -86,11 +87,14 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
       </div>
 
       <div className={thumbnailWrapper}>
-        {review.thumbnailUrl ? (
-          <img className={thumbnail} src={review.thumbnailUrl} alt={review.title} />
-        ) : (
-          <div className={thumbnail} />
-        )}
+        <img
+          className={thumbnail}
+          src={review.thumbnailUrl ?? blogDefault}
+          alt={review.title}
+          onError={(e) => {
+            e.currentTarget.src = blogDefault;
+          }}
+        />
       </div>
     </article>
   );

@@ -47,8 +47,8 @@ const ChromeIcon = ({ className }: { className?: string }) => {
           x2="24.3766"
           y2="33.2061"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#86BBE5" />
-          <stop offset="1" stop-color="#1072BA" />
+          <stop stopColor="#86BBE5" />
+          <stop offset="1" stopColor="#1072BA" />
         </linearGradient>
       </defs>
     </svg>

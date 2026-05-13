@@ -2,20 +2,25 @@ import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 import { breakpoints } from 'styles/breakpoints';
+import { contentMaxWidth } from 'styles/layout.css';
 import { theme } from 'styles/theme.css';
 
-export const tabBar = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '8px',
-  '@media': {
-    [breakpoints.mobile]: {
-      flexWrap: 'wrap',
-      justifyContent: 'center',
+export const tabBar = style([
+  contentMaxWidth,
+  {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+    '@media': {
+      [breakpoints.mobile]: {
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+      },
     },
   },
-});
+]);
 
 export const tabRecipe = recipe({
   base: {

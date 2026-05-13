@@ -7,7 +7,7 @@ import { theme } from 'styles/theme.css';
 export const infoContainerVar = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 50,
+  gap: '50px',
 });
 
 export const calloutButtonVar = style({

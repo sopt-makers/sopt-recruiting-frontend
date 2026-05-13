@@ -2,6 +2,7 @@ import { colors } from '@sopt-makers/colors';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 import { breakpoints } from 'styles/breakpoints';
+import { contentMaxWidth } from 'styles/layout.css';
 import { theme } from 'styles/theme.css';
 
 export const wrapper = style({
@@ -35,21 +36,23 @@ export const listWrapper = style({
 });
 
 export const itemVar = recipe({
-  base: {
-    display: 'flex',
-    maxWidth: '1200px',
-    width: '100%',
-    flexDirection: 'column',
-    borderRadius: '30px',
-    padding: '40px 50px',
-    cursor: 'pointer',
-    transition: '0.2s',
-    '@media': {
-      [breakpoints.tabletAndMobile]: {
-        padding: '20px',
+  base: [
+    contentMaxWidth,
+    {
+      display: 'flex',
+      width: '100%',
+      flexDirection: 'column',
+      borderRadius: '30px',
+      padding: '40px 50px',
+      cursor: 'pointer',
+      transition: '0.2s',
+      '@media': {
+        [breakpoints.tabletAndMobile]: {
+          padding: '20px',
+        },
       },
     },
-  },
+  ],
   variants: {
     state: {
       opened: { backgroundColor: '#f6f6f6' },
@@ -130,11 +133,12 @@ export const answerText = style({
 export const iconWrapperVar = recipe({
   base: {
     display: 'flex',
+    flexShrink: 0,
     justifyContent: 'center',
     alignItems: 'center',
     width: '40px',
     height: '40px',
-    flexShrink: 0,
+    color: colors.gray950,
     transition: 'transform 0.2s',
     '@media': {
       [breakpoints.tabletAndMobile]: {

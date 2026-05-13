@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { theme } from 'styles/theme.css';
 import { breakpoints } from 'styles/breakpoints';
+import { contentMaxWidth } from 'styles/layout.css';
 
 export const wrapper = style({
   display: 'flex',
@@ -15,21 +16,24 @@ export const wrapper = style({
   },
 });
 
-export const containerWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '16px',
-  '@media': {
-    [breakpoints.tablet]: {
-      gap: '10px',
-    },
-    [breakpoints.mobile]: {
-      flexDirection: 'column',
-      gap: '10px',
+export const containerWrapper = style([
+  contentMaxWidth,
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '16px',
+    '@media': {
+      [breakpoints.tablet]: {
+        gap: '10px',
+      },
+      [breakpoints.mobile]: {
+        flexDirection: 'column',
+        gap: '10px',
+      },
     },
   },
-});
+]);
 
 export const container = style({
   display: 'flex',
@@ -42,6 +46,13 @@ export const container = style({
   gap: '8px',
   borderRadius: '24px',
   backgroundColor: '#F6F6F6',
+
+  '@media': {
+    [breakpoints.desktopLarge]: {
+      width: '384px',
+      height: '285px',
+    },
+  },
 });
 
 export const icon = style({
@@ -62,6 +73,9 @@ export const description = style({
   '@media': {
     [breakpoints.tabletAndMobile]: {
       ...theme.font.TITLE_6_16_SB,
+    },
+    [breakpoints.desktopLarge]: {
+      ...theme.font.TITLE_2_28_SB,
     },
   },
 });
