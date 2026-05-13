@@ -137,10 +137,6 @@ export const hoverIcon = style({
       width: '24px',
       height: '24px',
     },
-    [breakpoints.desktopLarge]: {
-      width: '380px',
-      height: '284px',
-    },
   },
 });
 
