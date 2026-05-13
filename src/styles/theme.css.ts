@@ -2,20 +2,12 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
-const makersPrimary = {
-  primary: colors.gray600,
-  primaryLight: colors.gray30,
-  primaryDark: colors.gray950,
-  primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
-  primaryAlpha10: colors.grayAlpha100,
-};
-
 const color = createThemeContract({
   primary: null, // 기수 컬러
   primaryLight: null, // 기수 컬러 밝게
   primaryDark: null, // 기수 컬러 어둡게
-  // 기수 컬러 linear
-  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  primaryLinear: null, // 기수 컬러 linear
+  primaryPoint: null, // 기수 포인트 컬러
   primaryAlpha10: null, // 기수 컬러 투명도 10%
   error: null, // error
 
@@ -44,6 +36,19 @@ const color = createThemeContract({
   white: null, // white
   black: null, // black
 });
+
+const makersPrimary = {
+  primary: colors.gray600,
+  primaryLight: colors.gray30,
+  primaryDark: colors.gray950,
+  primaryLinear: `linear-gradient(
+    color-mix(in srgb, ${color.primary} 30%, transparent) 0%,
+    ${color.primary} 45%,
+    color-mix(in srgb, ${color.primary} 30%, transparent) 100%
+  )`,
+  primaryPoint: colors.gray600,
+  primaryAlpha10: colors.grayAlpha100,
+};
 
 export const light = createTheme(color, {
   ...makersPrimary,

@@ -31,6 +31,6 @@ const toThemeStyle = (color: SoptBrandingColor) =>
     [theme.color.primary]: toCssColor(color.main),
     [theme.color.primaryDark]: toCssColor(color.high),
     [theme.color.primaryLight]: toCssColor(color.low),
-    [theme.color.primaryLinear]: toCssColor(color.point),
+    [theme.color.primaryPoint]: toCssColor(color.point),
     [theme.color.primaryAlpha10]: `${toCssColor(color.main)}1a`,
   });
