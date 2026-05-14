@@ -33,7 +33,7 @@ const SignupForm = () => {
   const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
     if (!season || !group) {
       return;
-    };
+    }
 
     signUpMutate({
       email,
@@ -76,7 +76,7 @@ const SignupForm = () => {
             <Contentbox>{PRIVACY_POLICY}</Contentbox>
           </div>
           <Button isLoading={signUpIsPending} type="submit" style={{ marginTop: 30 }} eventName="click-signup-apply">
-            지원서 작성하기
+            가입완료
           </Button>
         </form>
       </FormProvider>
