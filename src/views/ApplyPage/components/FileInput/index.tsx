@@ -48,7 +48,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
     getValues,
     formState: { errors },
   } = useFormContext();
-  
+
   const fileAnswer = getValues(`${section}${id}`);
   const isFileDeleted = getValues(`file${id}Deleted`);
   const fileValue = getValues(`file${id}`);
@@ -176,13 +176,10 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
       </AmplitudeEventTrack>
       <label
         htmlFor={`file-${id}`}
-        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar}`}
-      >
+        className={`${fileLabelVar[errors[`file${id}`] ? 'error' : fileName === '' ? 'default' : 'selected']} ${fileLabelSizeVar}`}>
         <div className={textWrapperVar}>
           <span>참고 자료</span>
-          <span className={`${fileNameVar[getFileNameClass()]} ${fileNameSizeVar}`}>
-            {getDisplayText()}
-          </span>
+          <span className={`${fileNameVar[getFileNameClass()]} ${fileNameSizeVar}`}>{getDisplayText()}</span>
         </div>
         <IconPlusButton
           isSelected={fileName !== 'delete-file' && fileValue}
