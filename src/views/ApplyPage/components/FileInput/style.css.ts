@@ -79,7 +79,8 @@ export const fileLabelVar = styleVariants({
 const textWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  width: '100%',
+  flex: 1,
+  minWidth: 0,
 
   color: theme.color.lighterText,
 });
@@ -158,6 +159,7 @@ export const fileIcon = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  flexShrink: 0,
   width: '27px',
   height: '27px',
   backgroundColor: theme.color.fileUploadButton,
