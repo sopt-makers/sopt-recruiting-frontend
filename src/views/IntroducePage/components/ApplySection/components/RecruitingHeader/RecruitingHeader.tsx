@@ -17,6 +17,7 @@ import {
   buttonWrapperInner,
   button,
 } from './style.css';
+import { theme } from 'styles/theme.css';
 
 // TODO : 서버 응답 교체되면 아래 코드로 변경
 // interface Props {
@@ -47,7 +48,13 @@ const RecruitingHeader = () => {
         <div className={textContentLayout}>
           <h1 className={title}>{`SOPT의 ${season}번째 열정을 기다리고 있어요!`}</h1>
           <div className={recruitmentInfo}>
-            <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>{`${group} 모집`}</Tag>
+            <Tag
+              variant="secondary"
+              size={deviceType === 'DESK' ? 'lg' : 'sm'}
+              style={{
+                backgroundColor: theme.color.primaryAlpha10,
+                color: theme.color.primary,
+              }}>{`${group} 모집`}</Tag>
             <span className={date}>{`${formattedApplicationStart}~${formattedApplicationEnd}`}</span>
           </div>
         </div>

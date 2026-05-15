@@ -9,8 +9,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Layout from '@components/Layout';
 import DeviceTypeProvider from 'contexts/DeviceTypeProvider';
 import RecruitingInfoProvider from 'contexts/RecruitingInfoProvider';
-import { useTheme } from 'contexts/ThemeProvider';
-import { dark, light } from 'styles/theme.css';
 
 import BigLoading from 'views/loadings/BigLoding';
 
@@ -19,6 +17,7 @@ import '@sopt-makers/ui/dist/index.css';
 import useDialog from '@hooks/useDialog';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from '@sopt-makers/ui';
+import BrandingThemeLayout from 'styles/BrandingThemeLayout';
 
 const SessionExpiredDialog = lazy(() =>
   import('views/dialogs').then(({ SessionExpiredDialog }) => ({ default: SessionExpiredDialog })),
@@ -67,8 +66,6 @@ const router = createBrowserRouter([
 const App = () => {
   const { ref: sessionExpiredDialogRef, handleShowDialog: handleShowSessionExpiredDialog } = useDialog();
   const [isAmplitudeInitialized, setIsAmplitudeInitialized] = useState(false);
-  const { isLight } = useTheme();
-
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -127,11 +124,11 @@ const App = () => {
             <RecruitingInfoProvider>
               <QueryClientProvider client={queryClient}>
                 <ReactQueryDevtools />
-                <div className={isLight ? light : dark}>
+                <BrandingThemeLayout>
                   <Suspense fallback={<BigLoading />}>
                     <RouterProvider router={router} />
                   </Suspense>
-                </div>
+                </BrandingThemeLayout>
               </QueryClientProvider>
             </RecruitingInfoProvider>
           </ToastProvider>

@@ -158,3 +158,8 @@ export const description = style({
     },
   },
 });
+
+export const tag = style({
+  color: theme.color.primary,
+  backgroundColor: theme.color.primaryAlpha10,
+});

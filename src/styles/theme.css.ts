@@ -2,31 +2,13 @@ import { colors } from '@sopt-makers/colors';
 import { fontsObject } from '@sopt-makers/fonts';
 import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
-const primaryColor = () => {
-  if (__IS_MAKERS__) {
-    return {
-      // makers 기본 컬러
-      primary: colors.gray600,
-      primaryLight: colors.gray30,
-      primaryDark: colors.gray950,
-      primaryLinear: 'linear-gradient(rgba(63, 63, 71, 0.3) 0%, rgba(63, 63, 71, 1) 45%, rgba(63, 63, 71, 0.3) 100%)',
-    };
-  }
-  return {
-    // 기수 컬러 (매 기수마다 변경 필요)
-    primary: '#00BDFF',
-    primaryLight: '#153858',
-    primaryDark: '#84E1FA',
-    primaryLinear: '#273244',
-  };
-};
-
 const color = createThemeContract({
   primary: null, // 기수 컬러
   primaryLight: null, // 기수 컬러 밝게
   primaryDark: null, // 기수 컬러 어둡게
-  // 기수 컬러 linear
-  primaryLinear: 'linear-gradient(rgba(73, 88, 112, 0.3) 0%, rgba(73, 88, 112, 1) 45%, rgba(73, 88, 112, 0.3) 100%)',
+  primaryLinear: null, // 기수 컬러 linear
+  primaryPoint: null, // 기수 포인트 컬러
+  primaryAlpha10: null, // 기수 컬러 투명도 10%
   error: null, // error
 
   background: null, // background
@@ -55,11 +37,21 @@ const color = createThemeContract({
   black: null, // black
 });
 
+const makersPrimary = {
+  primary: colors.gray600,
+  primaryLight: colors.gray30,
+  primaryDark: colors.gray950,
+  primaryLinear: `linear-gradient(
+    color-mix(in srgb, ${color.primary} 30%, transparent) 0%,
+    ${color.primary} 45%,
+    color-mix(in srgb, ${color.primary} 30%, transparent) 100%
+  )`,
+  primaryPoint: colors.gray600,
+  primaryAlpha10: colors.grayAlpha100,
+};
+
 export const light = createTheme(color, {
-  primary: primaryColor().primary,
-  primaryLight: primaryColor().primaryLight,
-  primaryDark: primaryColor().primaryDark,
-  primaryLinear: primaryColor().primaryLinear,
+  ...makersPrimary,
   error: colors.error,
 
   background: colors.white,
@@ -89,10 +81,7 @@ export const light = createTheme(color, {
 });
 
 export const dark = createTheme(color, {
-  primary: primaryColor().primary,
-  primaryLight: primaryColor().primaryLight,
-  primaryDark: primaryColor().primaryDark,
-  primaryLinear: primaryColor().primaryLinear,
+  ...makersPrimary,
   error: colors.error,
 
   background: colors.gray950,

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
-import { wrapper, container, name, description, itemWrapper, hoverIconBadge, hoverIcon } from './style.css';
+import { wrapper, container, name, description, itemWrapper, hoverIconBadge, hoverIcon, tag } from './style.css';
 import { Tag } from '@sopt-makers/ui';
 import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
@@ -56,7 +56,7 @@ const PartItem = ({ part }: ItemProps) => {
         <div className={hoverIconBadge}>
           <IconArrowUpRight className={hoverIcon} />
         </div>
-        <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'}>
+        <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'} className={tag}>
           {part.part}
         </Tag>
         <p className={name}>{part.part} 파트</p>
