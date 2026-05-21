@@ -46,6 +46,12 @@ export interface RecruitQuestion {
 
 export interface RecruitInfoResponse {
   recruitHeaderImage: string;
+  brandingColor: {
+    main: string;
+    high: string;
+    low: string;
+    point: string;
+  };
   partIntroduction: SoptPartIntroduction[];
   coreValue: CoreValue[];
   recruitQuestion: RecruitQuestion[];

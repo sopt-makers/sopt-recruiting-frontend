@@ -5,6 +5,7 @@ import IconArrowsS from 'views/IntroducePage/assets/IconArrowsS';
 import IconArrowsL from 'views/IntroducePage/assets/IconArrowsL';
 import RecruitingHeader from 'views/IntroducePage/components/ApplySection/components/RecruitingHeader/RecruitingHeader';
 import NotificationHeader from 'views/IntroducePage/components/ApplySection/components/NotificationHeader/NotificationHeader';
+import BigLoading from 'views/loadings/BigLoding';
 
 // TODO : 서버 응답 교체되면 아래 코드로 변경
 // interface Props {
@@ -12,9 +13,11 @@ import NotificationHeader from 'views/IntroducePage/components/ApplySection/comp
 // }
 
 const ApplySection = () => {
-  const { NoMoreRecruit, NoMoreApply } = useRecruitingSchedule();
+  const { NoMoreRecruit, NoMoreApply, isLoading } = useRecruitingSchedule();
 
   const deviceType = useDevice();
+
+  if (isLoading) return <BigLoading />;
 
   return (
     <section className={wrapper}>
