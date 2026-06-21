@@ -47,7 +47,7 @@ export const container = style({
 export const itemWrapper = style({
   position: 'relative',
   display: 'flex',
-  width: '304px',
+  width: '400px',
   height: '284px',
   flexDirection: 'column',
   color: 'inherit',
@@ -66,7 +66,7 @@ export const itemWrapper = style({
   '@media': {
     [breakpoints.tablet]: {
       width: '224px',
-      height: '220px',
+      height: '280px',
       padding: '20px',
       borderRadius: '16px',
 
@@ -78,7 +78,7 @@ export const itemWrapper = style({
     },
     [breakpoints.mobile]: {
       width: '200px',
-      height: '220px',
+      height: '280px',
       padding: '16px',
       flexShrink: 0,
       borderRadius: '16px',
@@ -91,7 +91,7 @@ export const itemWrapper = style({
     },
     [breakpoints.desktopLarge]: {
       width: '380px',
-      height: '284px',
+      height: '334px',
     },
   },
 });
