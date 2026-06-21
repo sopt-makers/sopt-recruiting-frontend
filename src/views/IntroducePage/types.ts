@@ -47,10 +47,10 @@ export interface RecruitQuestion {
 export interface RecruitInfoResponse {
   recruitHeaderImage: string;
   brandingColor: {
-    main: string;
-    high: string;
-    low: string;
-    point: string;
+    darkModeKeyColor: string;
+    darkModeTextColor: string;
+    lightModeKeyColor: string;
+    lightModeTextColor: string;
   };
   partIntroduction: SoptPartIntroduction[];
   coreValue: CoreValue[];
