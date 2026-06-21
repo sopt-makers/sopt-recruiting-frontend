@@ -2,8 +2,7 @@ import { IconChevronDown } from '@sopt-makers/icons';
 import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { circle, containerVar, titleVar } from '@components/Input/components/TextBox/style.css';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { circle, container, titleVar } from '@components/Input/components/TextBox/style.css';
 
 import {
   errorVar,
@@ -17,8 +16,6 @@ import {
 import { SelectBoxProps } from './type';
 
 const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElementProps }: SelectBoxProps) => {
-  const { deviceType } = useDeviceType();
-
   const { register, formState, clearErrors, getValues, setValue, setError } = useFormContext();
   const { errors } = formState;
 
@@ -35,8 +32,8 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
   };
 
   return (
-    <div className={containerVar[deviceType === 'DESK' ? size : deviceType]}>
-      <label className={titleVar[deviceType]} htmlFor={name}>
+    <div className={container}>
+      <label className={titleVar} htmlFor={name}>
         <span>{label}</span>
         {required && <i className={circle} />}
       </label>
@@ -44,7 +41,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         <input
           id={name}
           type="text"
-          className={`${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar[deviceType]}`}
+          className={`${selectVariant[errors?.[name] ? 'error' : 'selected']} ${selectPaddingVar}`}
           role="combobox"
           readOnly
           {...inputElementProps}
@@ -53,8 +50,8 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
           })}
           onBlur={handleBlur}
         />
-        <IconChevronDown className={iconVar[deviceType]} />
-        <ul className={optionContainerVar[deviceType]}>
+        <IconChevronDown className={iconVar} />
+        <ul className={optionContainerVar}>
           {options.map((option) => (
             <li role="option" key={option}>
               <input id={option} type="radio" name={name} onChange={handleChange} style={{ display: 'none' }} />
@@ -66,7 +63,7 @@ const SelectBox = ({ label, name, options, size = 'sm', required, ...inputElemen
         </ul>
       </div>
       {errors?.[name] && (
-        <div className={errorVar[deviceType]}>
+        <div className={errorVar}>
           <p>{errors[name]?.message as string}</p>
         </div>
       )}

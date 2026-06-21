@@ -1,14 +1,13 @@
 import { track } from '@amplitude/analytics-browser';
 import { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useBlocker, useNavigate } from 'react-router-dom';
 
 import Button from '@components/Button';
 import Footer from '@components/Layout/components/Footer';
 import useCheckBrowser from '@hooks/useCheckBrowser';
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import useScrollToHash from '@hooks/useScrollToHash';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import ApplyCategory from './components/ApplyCategory';
 import ApplyHeader from './components/ApplyHeader';
@@ -23,13 +22,14 @@ import useGetDraft from './hooks/useGetDraft';
 import useGetQuestions from './hooks/useGetQuestions';
 import useMutateDraft from './hooks/useMutateDraft';
 import useMutateSubmit from './hooks/useMutateSubmit';
-import { buttonWrapper, container, formContainerVar } from './style.css';
+import { buttonWrapper, container, formContainer } from './style.css';
 
 import useDialog from '@hooks/useDialog';
 import BigLoading from 'views/loadings/BigLoding';
 import type { ApplyRequest } from './types';
 
 const DraftDialog = lazy(() => import('views/dialogs').then(({ DraftDialog }) => ({ default: DraftDialog })));
+const ExitDialog = lazy(() => import('views/dialogs').then(({ ExitDialog }) => ({ default: ExitDialog })));
 const PreventApplyDialog = lazy(() =>
   import('views/dialogs').then(({ PreventApplyDialog }) => ({ default: PreventApplyDialog })),
 );
@@ -41,18 +41,25 @@ interface ApplyPageProps {
 }
 
 const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
-  // 반응형 페이지
-  const { deviceType } = useDeviceType();
   useCheckBrowser(); // 크롬 브라우저 권장 알럿
 
   // 2. 모달 관련 ref
   const { ref: draftDialogRef, handleShowDialog: handleShowDraftDialog } = useDialog();
+  const { ref: exitDialogRef, handleShowDialog: handleShowExitDialog } = useDialog();
   const { ref: preventApplyDialogRef, handleShowDialog: handleShowPreventApplyDialog } = useDialog();
   const {
     ref: submitDialogRef,
     handleShowDialog: handleShowSubmitDialog,
     handleCloseDialog: handleCloseSubmitDialog,
   } = useDialog();
+
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => currentLocation.pathname !== nextLocation.pathname);
+
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      handleShowExitDialog();
+    }
+  }, [blocker.state]);
 
   // 3. category active 상태 관리
   useScrollToHash(); // scrollTo 카테고리
@@ -116,7 +123,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   } = methods;
 
   const {
-    address,
     birthday,
     college,
     gender,
@@ -206,7 +212,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   useBeforeExitPageAlert();
 
   // 11. 지원 기간 아니면 에러 페이지 띄우기
-  const { NoMoreApply } = useDate();
+  const { NoMoreApply } = useRecruitingSchedule();
   if (NoMoreApply) return <NoMore isMakers={__IS_MAKERS__} content="모집 기간이 아니에요" />;
 
   // 13. data 전송 로직
@@ -258,7 +264,6 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
     const jsonValues: ApplyRequest = {
       pictureKey: getValues('pictureKey'),
       part,
-      address,
       birthday,
       college,
       gender,
@@ -291,6 +296,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   return (
     <>
       <DraftDialog ref={draftDialogRef} />
+      <ExitDialog ref={exitDialogRef} onExit={() => blocker.proceed?.()} onCancel={() => blocker.reset?.()} />
       <PreventApplyDialog ref={preventApplyDialogRef} />
       <SubmitDialog
         userInfo={{
@@ -315,11 +321,7 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
           />
           <ApplyInfo />
           <ApplyCategory minIndex={minIndex} />
-          <form
-            id="apply-form"
-            name="apply-form"
-            onSubmit={handleSubmit(handleApplySubmit)}
-            className={formContainerVar[deviceType]}>
+          <form id="apply-form" name="apply-form" onSubmit={handleSubmit(handleApplySubmit)} className={formContainer}>
             <DefaultSection refCallback={refCallback} />
             <CommonSection refCallback={refCallback} />
             <PartSection refCallback={refCallback} />

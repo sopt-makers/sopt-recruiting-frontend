@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
 export const container = style({
@@ -8,6 +9,11 @@ export const container = style({
   alignItems: 'center',
   paddingTop: 80,
   backgroundColor: theme.color.background,
+  '@media': {
+    [breakpoints.tabletAndMobile]: {
+      paddingTop: 48,
+    },
+  },
 });
 
 export const mainWrapper = style({

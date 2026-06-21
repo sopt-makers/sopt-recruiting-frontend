@@ -2,7 +2,7 @@ import { useDeviceType } from 'contexts/DeviceTypeProvider';
 
 import { article, contactButtonVar, container, errorButtonVar, errorTextVar, instructionVar } from '../../style.css';
 import AmplitudeEventTrack from '@components/Button/AmplitudeEventTrack';
-import { MENU_ITEMS, MENU_ITEMS_MAKERS } from '@components/Layout/components/Header/contants';
+import { MENU_ITEMS_SOPT, MENU_ITEMS_MAKERS } from '@components/Layout/components/Header/contants';
 
 interface NoMoreProps {
   isMakers?: boolean;
@@ -33,7 +33,7 @@ const NoMore = ({ isMakers, content }: NoMoreProps) => {
           href={
             isMakers
               ? MENU_ITEMS_MAKERS.find((item) => item.text === '문의하기')?.path
-              : MENU_ITEMS.find((item) => item.text === '문의하기')?.path
+              : MENU_ITEMS_SOPT.find((item) => item.text === '문의하기')?.path
           }
           target="_blank"
           rel="noreferrer noopener"

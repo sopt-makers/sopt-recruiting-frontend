@@ -18,14 +18,14 @@ export const labelStyleVar = styleVariants({
   TAB: [
     labelStyle,
     {
-      width: 367,
+      width: '100%',
       ...theme.font.TITLE_5_18_SB,
     },
   ],
   MOB: [
     labelStyle,
     {
-      width: 312,
+      width: '100%',
       ...theme.font.TITLE_6_16_SB,
     },
   ],

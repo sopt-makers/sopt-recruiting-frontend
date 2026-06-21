@@ -1,7 +1,6 @@
 export interface ApplyRequest {
   pictureKey?: string;
   part: string;
-  address: string;
   birthday: string;
   college: string;
   gender: string;
@@ -60,7 +59,6 @@ export interface Applicant {
   phone: string;
   email: string;
   name: string;
-  address: string;
   gender: string;
   birthday: string;
   college: string;

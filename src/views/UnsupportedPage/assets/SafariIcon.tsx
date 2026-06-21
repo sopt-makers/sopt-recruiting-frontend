@@ -11,9 +11,9 @@ const SafariIcon = ({ className }: { className?: string }) => {
         d="M50.0441 25.5221C50.0441 32.0258 47.4606 38.263 42.8618 42.8618C38.263 47.4606 32.0257 50.0442 25.522 50.0442C19.0184 50.0442 12.7811 47.4606 8.18233 42.8618C3.58356 38.263 1 32.0257 1 25.5221C1 19.0184 3.58356 12.7812 8.18233 8.18238C12.7811 3.5836 19.0184 1.00002 25.522 1C32.0257 1 38.263 3.58356 42.8618 8.18234C47.4606 12.7811 50.0441 19.0184 50.0441 25.5221Z"
         fill="url(#paint0_linear_255_3211)"
         stroke="#CDCDCD"
-        stroke-width="0.397619"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.397619"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M48.1225 25.5221C48.1225 31.5161 45.7414 37.2646 41.5029 41.5031C37.2645 45.7415 31.516 48.1226 25.5219 48.1226C19.5279 48.1226 13.7793 45.7415 9.54092 41.5031C5.3025 37.2646 2.92139 31.5161 2.92139 25.5221C2.92139 19.528 5.3025 13.7795 9.54092 9.54106C13.7793 5.30263 19.5279 2.9215 25.5219 2.92148C31.516 2.92148 37.2645 5.30261 41.5029 9.54104C45.7414 13.7795 48.1225 19.528 48.1225 25.5221Z"
@@ -37,8 +37,8 @@ const SafariIcon = ({ className }: { className?: string }) => {
           width="35.184"
           height="34.1763"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feGaussianBlur stdDeviation="1.43942" result="effect1_foregroundBlur_255_3211" />
         </filter>
@@ -49,8 +49,8 @@ const SafariIcon = ({ className }: { className?: string }) => {
           x2="25.5212"
           y2="0.999871"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#BDBDBD" />
-          <stop offset="1" stop-color="white" />
+          <stop stopColor="#BDBDBD" />
+          <stop offset="1" stopColor="white" />
         </linearGradient>
         <radialGradient
           id="paint1_radial_255_3211"
@@ -59,11 +59,11 @@ const SafariIcon = ({ className }: { className?: string }) => {
           r="1"
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(25.6238 22.2266) scale(24.522 24.522)">
-          <stop stop-color="#06C2E7" />
-          <stop offset="0.25" stop-color="#0DB8EC" />
-          <stop offset="0.5" stop-color="#12AEF1" />
-          <stop offset="0.75" stop-color="#1F86F9" />
-          <stop offset="1" stop-color="#107DDD" />
+          <stop stopColor="#06C2E7" />
+          <stop offset="0.25" stopColor="#0DB8EC" />
+          <stop offset="0.5" stopColor="#12AEF1" />
+          <stop offset="0.75" stopColor="#1F86F9" />
+          <stop offset="1" stopColor="#107DDD" />
         </radialGradient>
       </defs>
     </svg>

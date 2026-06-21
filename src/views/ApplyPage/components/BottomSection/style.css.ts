@@ -1,4 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
@@ -6,7 +7,7 @@ export const sectionContainer = style({
   display: 'flex',
   flexDirection: 'column',
 
-  gap: 50,
+  gap: '50px',
 });
 
 export const line = style({
@@ -24,37 +25,28 @@ export const doubleLineCheck = style({
 const label = style({
   display: 'flex',
   alignItems: 'center',
-  marginBottom: 16,
+  marginBottom: '16px',
 
   width: 'fit-content',
 
   color: theme.color.baseText,
 });
 
-export const labelVar = styleVariants({
-  DESK: [
-    label,
-    {
-      ...theme.font.TITLE_5_18_SB,
+export const labelVar = style([
+  label,
+  {
+    ...theme.font.TITLE_5_18_SB,
+    '@media': {
+      [breakpoints.mobile]: {
+        ...theme.font.TITLE_6_16_SB,
+      },
     },
-  ],
-  TAB: [
-    label,
-    {
-      ...theme.font.TITLE_5_18_SB,
-    },
-  ],
-  MOB: [
-    label,
-    {
-      ...theme.font.TITLE_6_16_SB,
-    },
-  ],
-});
+  },
+]);
 
 export const circle = style({
-  width: 8,
-  height: 8,
-  borderRadius: 4,
+  width: '8px',
+  height: '8px',
+  borderRadius: '4px',
   backgroundColor: theme.color.primary,
 });

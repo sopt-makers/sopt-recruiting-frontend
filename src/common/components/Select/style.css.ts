@@ -2,6 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import { formColors } from '@constants/styleValues';
 import { Z_INDEX } from '@constants/zIndex';
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
 // Input과 공통되는 스타일 Input style 적용
@@ -53,15 +54,12 @@ export const selectVariant = styleVariants(formColors, ({ boxShadow, focusShadow
   },
 ]);
 
-export const selectPaddingVar = styleVariants({
-  DESK: {
-    padding: 16,
-  },
-  TAB: {
-    padding: 16,
-  },
-  MOB: {
-    padding: '14px 16px',
+export const selectPaddingVar = style({
+  padding: '16px',
+  '@media': {
+    [breakpoints.mobile]: {
+      padding: '14px 16px',
+    },
   },
 });
 
@@ -83,29 +81,18 @@ const icon = style({
   },
 });
 
-export const iconVar = styleVariants({
-  DESK: [
-    icon,
-    {
-      top: 17,
-      right: 16,
+export const iconVar = style([
+  icon,
+  {
+    top: '17px',
+    right: '16px',
+    '@media': {
+      [breakpoints.mobile]: {
+        top: '14px',
+      },
     },
-  ],
-  TAB: [
-    icon,
-    {
-      top: 17,
-      right: 16,
-    },
-  ],
-  MOB: [
-    icon,
-    {
-      top: 14,
-      right: 16,
-    },
-  ],
-});
+  },
+]);
 
 export const optionContainer = style({
   display: 'flex',
@@ -136,26 +123,17 @@ export const optionContainer = style({
   },
 });
 
-export const optionContainerVar = styleVariants({
-  DESK: [
-    optionContainer,
-    {
-      top: 67,
+export const optionContainerVar = style([
+  optionContainer,
+  {
+    top: '67px',
+    '@media': {
+      [breakpoints.mobile]: {
+        top: '63px',
+      },
     },
-  ],
-  TAB: [
-    optionContainer,
-    {
-      top: 67,
-    },
-  ],
-  MOB: [
-    optionContainer,
-    {
-      top: 63,
-    },
-  ],
-});
+  },
+]);
 export const optionLabel = style({
   display: 'flex',
   padding: '6px 8px',
@@ -179,17 +157,12 @@ export const optionLabel = style({
   },
 });
 
-export const errorVar = styleVariants({
-  DESK: {
-    ...theme.font.LABEL_2_16_SB,
-    color: theme.color.error,
-  },
-  TAB: {
-    ...theme.font.LABEL_2_16_SB,
-    color: theme.color.error,
-  },
-  MOB: {
-    ...theme.font.LABEL_3_14_SB,
-    color: theme.color.error,
+export const errorVar = style({
+  ...theme.font.LABEL_2_16_SB,
+  color: theme.color.error,
+  '@media': {
+    [breakpoints.mobile]: {
+      ...theme.font.LABEL_3_14_SB,
+    },
   },
 });

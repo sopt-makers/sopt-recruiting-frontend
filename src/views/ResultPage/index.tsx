@@ -1,6 +1,6 @@
 import { useEffect, lazy } from 'react';
 
-import useDate from '@hooks/useDate';
+import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
 import { useTheme } from 'contexts/ThemeProvider';
 import BigLoading from 'views/loadings/BigLoding';
 import useGetMyInfo from 'views/SignedInPage/hooks/useGetMyInfo';
@@ -15,7 +15,7 @@ const ResultPage = () => {
   const { myInfoData, myInfoIsLoading } = useGetMyInfo();
   const { submit, applicationPass } = myInfoData?.data || {};
 
-  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useDate();
+  const { NoMoreRecruit, NoMoreScreeningResult, NoMoreFinalResult, isLoading } = useRecruitingSchedule();
 
   useEffect(() => {
     handleChangeMode('dark');

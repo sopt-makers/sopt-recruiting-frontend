@@ -1,0 +1,67 @@
+import { Link } from 'react-router-dom';
+import SectionTitle from '@components/SectionTitle';
+import { TITLE } from 'views/IntroducePage/constants/constant';
+import { wrapper, container, name, description, itemWrapper, hoverIconBadge, hoverIcon, tag } from './style.css';
+import { Tag } from '@sopt-makers/ui';
+import { PART_ORDER, type SoptPartIntroduction } from 'views/IntroducePage/types';
+import { useDeviceType } from 'contexts/DeviceTypeProvider';
+import { getPartIdFromPartName } from 'views/PartDetailPage/constants/constant';
+import { IconArrowUpRight } from '@sopt-makers/icons';
+
+interface SoptPartProps {
+  parts?: SoptPartIntroduction[];
+}
+
+const SoptPart = ({ parts }: SoptPartProps) => {
+  if (!parts || parts.length === 0) return null;
+
+  return (
+    <section className={wrapper}>
+      <SectionTitle label={TITLE.POSITION.label} title={TITLE.POSITION.title} />
+      <PartList parts={parts} />
+    </section>
+  );
+};
+
+export default SoptPart;
+
+interface ListProps {
+  parts: SoptPartIntroduction[];
+}
+
+const PartList = ({ parts }: ListProps) => {
+  return (
+    <ul className={container}>
+      {PART_ORDER.map((partName) => {
+        const part = parts.find((p) => p.part === partName);
+        return part && <PartItem key={part.part} part={part} />;
+      })}
+    </ul>
+  );
+};
+
+interface ItemProps {
+  part: SoptPartIntroduction;
+}
+
+const PartItem = ({ part }: ItemProps) => {
+  const { deviceType } = useDeviceType();
+  const partId = getPartIdFromPartName(part.part);
+
+  if (!partId) return null;
+
+  return (
+    <li>
+      <Link className={itemWrapper} to={`/part/${partId}`}>
+        <div className={hoverIconBadge}>
+          <IconArrowUpRight className={hoverIcon} />
+        </div>
+        <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'} className={tag}>
+          {part.part}
+        </Tag>
+        <p className={name}>{part.part} 파트</p>
+        <p className={description}>{part.description}</p>
+      </Link>
+    </li>
+  );
+};

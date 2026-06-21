@@ -1,6 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
 import { Z_INDEX } from '@constants/zIndex';
+import { breakpoints } from 'styles/breakpoints';
 import { theme } from 'styles/theme.css';
 
 export const containerBase = style({
@@ -33,18 +34,12 @@ export const container = styleVariants({
   ],
 });
 
-export const containerVar = styleVariants({
-  DESK: {
-    top: 178,
-  },
-  TAB: {
-    top: 238,
-  },
-  MOB: {
-    top: 153,
-  },
-  REVIEW_TAB: {
-    top: 177,
+export const containerVar = style({
+  top: '178px',
+  '@media': {
+    [breakpoints.mobile]: {
+      top: '153px',
+    },
   },
 });
 
@@ -56,7 +51,7 @@ const categoryLinkStyle = style({
   display: 'flex',
   justifyContent: 'center',
   backgroundColor: theme.color.white,
-  minWidth: 104,
+  minWidth: '104px',
 
   transition: 'background-color 0.2s ease-out, color 0.2s ease',
 
@@ -79,29 +74,18 @@ export const activeLinkStyleVar = styleVariants({
   },
 });
 
-export const categoryLinkStyleVar = styleVariants({
-  DESK: [
-    categoryLinkStyle,
-    {
-      width: 240,
-      padding: '26px 0',
-      ...theme.font.HEADING_6_18_B,
+export const categoryLinkStyleVar = style([
+  categoryLinkStyle,
+  {
+    width: '240px',
+    padding: '26px 0',
+    ...theme.font.HEADING_6_18_B,
+    '@media': {
+      [breakpoints.mobile]: {
+        width: 'calc((100vw - 48px) / 3)',
+        padding: '16px 0',
+        ...theme.font.HEADING_7_16_B,
+      },
     },
-  ],
-  TAB: [
-    categoryLinkStyle,
-    {
-      width: 'calc(129px + (111 * ((100vw - 431px) / 337)))',
-      padding: '26px 0',
-      ...theme.font.HEADING_7_16_B,
-    },
-  ],
-  MOB: [
-    categoryLinkStyle,
-    {
-      width: 'calc(104px + (25 * ((100vw - 375px) / 56)))',
-      padding: '16px 0',
-      ...theme.font.HEADING_7_16_B,
-    },
-  ],
-});
+  },
+]);

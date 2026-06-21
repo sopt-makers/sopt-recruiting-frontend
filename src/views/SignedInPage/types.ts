@@ -11,6 +11,7 @@ export interface MyResponse {
   name: string;
   part: string;
   submit: boolean;
+  hasDraft: boolean;
   applicationPass: boolean;
   finalPass: boolean;
 }

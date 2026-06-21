@@ -1,7 +1,7 @@
 import { isBefore } from '@utils/dateFormatter';
 import axios from 'axios';
 
-const tokenInstance = axios.create({
+export const tokenInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',

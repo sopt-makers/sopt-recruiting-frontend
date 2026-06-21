@@ -33,7 +33,7 @@ const useMutateCheckUser = ({ onSendCode }: MutateCheckUserProps) => {
         });
         setError('email', {
           type: 'non-existence',
-          message: VALIDATION_CHECK.email.errorTextNonexistence,
+          message: VALIDATION_CHECK.email.notMatchErrorText,
         });
       }
     },

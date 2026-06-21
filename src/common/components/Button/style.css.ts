@@ -19,7 +19,6 @@ export const outsideBox = styleVariants({
     outsideBoxBase,
     {
       color: theme.color.primary,
-      boxShadow: `0 0 0 1px ${theme.color.primary}`,
     },
   ],
   disabled: [
@@ -88,6 +87,7 @@ export const container = styleVariants({
     containerBase,
     {
       color: theme.color.primary,
+      boxShadow: `0 0 0 1px ${theme.color.primary}`,
 
       ':hover': {
         backgroundColor: theme.color.subBackground,

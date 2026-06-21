@@ -23,6 +23,11 @@ globalStyle('html', {
   MozTextSizeAdjust: 'none',
   WebkitTextSizeAdjust: 'none',
   textSizeAdjust: 'none',
+  scrollbarWidth: 'none',
+});
+
+globalStyle('html::-webkit-scrollbar', {
+  display: 'none',
 });
 
 globalStyle('body', {

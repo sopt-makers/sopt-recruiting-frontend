@@ -6,6 +6,7 @@ export const Z_INDEX = {
   options: 2,
   applyCategory: 80,
   applyHeader: 90,
+  partDetailHeader: 50,
   resultContent: 5,
   resultGrad: 3,
   resultAnim: 4,

@@ -1,4 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { breakpoints } from 'styles/breakpoints';
 
 import { theme } from 'styles/theme.css';
 
@@ -8,63 +9,50 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+
+  '@media': {
+    [breakpoints.mobile]: {
+      padding: '0 24px',
+    },
+  },
 });
 
 export const formContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: 100,
+  gap: '100px',
 
-  marginBottom: 362,
-});
+  width: '720px',
+  marginBottom: '362px',
 
-export const formContainerVar = styleVariants({
-  DESK: [
-    formContainer,
-    {
-      width: 720,
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '100%',
     },
-  ],
-  TAB: [
-    formContainer,
-    {
-      width: 367,
-    },
-  ],
-  MOB: [
-    formContainer,
-    {
-      width: 312,
-    },
-  ],
+  },
 });
 export const content = style({});
 
 export const buttonWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: 12,
+  gap: '12px',
 
-  marginTop: 46,
+  marginTop: '46px',
 });
 
 // section common styles
 
-export const sectionTitleVar = styleVariants({
-  DESK: {
-    width: 720,
-    ...theme.font.TITLE_2_28_SB,
-    color: theme.color.baseText,
-  },
-  TAB: {
-    width: 367,
-    ...theme.font.TITLE_3_24_SB,
-    color: theme.color.baseText,
-  },
-  MOB: {
-    width: 312,
-    ...theme.font.TITLE_5_18_SB,
-    color: theme.color.baseText,
+export const sectionTitle = style({
+  width: '720px',
+  ...theme.font.TITLE_2_28_SB,
+  color: theme.color.baseText,
+
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '100%',
+      ...theme.font.TITLE_5_18_SB,
+    },
   },
 });
 
@@ -73,26 +61,17 @@ export const sectionContainer = style({
   flexDirection: 'column',
 });
 
-export const sectionContainerVar = styleVariants({
-  DESK: [
-    sectionContainer,
-    {
-      paddingTop: 166,
-      gap: 50,
+export const sectionContainerVar = style([
+  sectionContainer,
+  {
+    paddingTop: '166px',
+    gap: '50px',
+
+    '@media': {
+      [breakpoints.mobile]: {
+        paddingTop: '49px',
+        gap: '40px',
+      },
     },
-  ],
-  TAB: [
-    sectionContainer,
-    {
-      paddingTop: 100,
-      gap: 50,
-    },
-  ],
-  MOB: [
-    sectionContainer,
-    {
-      paddingTop: 49,
-      gap: 40,
-    },
-  ],
-});
+  },
+]);

@@ -2,7 +2,6 @@ import Checkbox from '@components/Checkbox';
 import Contentbox from '@components/Checkbox/components/Contentbox';
 import SelectBox from '@components/Select';
 import { PRIVACY_POLICY } from '@constants/policy';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { SELECT_OPTIONS } from 'views/ApplyPage/constant';
 
 import { doubleLineCheck, labelVar, line, sectionContainer } from './style.css';
@@ -13,8 +12,6 @@ interface BottomSectionProps {
 }
 
 const BottomSection = ({ knownPath, isReview = false }: BottomSectionProps) => {
-  const { deviceType } = useDeviceType();
-
   return (
     <section className={sectionContainer}>
       <hr className={line} />
@@ -30,7 +27,7 @@ const BottomSection = ({ knownPath, isReview = false }: BottomSectionProps) => {
         />
       )}
       <div id="check-necessary" className={doubleLineCheck}>
-        <p className={labelVar[deviceType]}>
+        <p className={labelVar}>
           {__IS_MAKERS__
             ? 'SOPT makers의 행사 및 정기 모임은 토요일에 진행됩니다.'
             : 'SOPT의 행사 및 세미나는 매주 토요일에 진행됩니다.'}

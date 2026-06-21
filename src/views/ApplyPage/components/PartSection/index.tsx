@@ -2,9 +2,9 @@ import { useFormContext } from 'react-hook-form';
 
 import SelectBox from '@components/Select';
 import Textarea from '@components/Textarea';
-import { useDeviceType } from 'contexts/DeviceTypeProvider';
-import { sectionContainerVar, sectionTitleVar } from 'views/ApplyPage/style.css';
+import { sectionContainerVar, sectionTitle } from 'views/ApplyPage/style.css';
 import { Answers } from 'views/ApplyPage/types';
+import { DUMMY_PART_QUESTIONS } from 'views/ApplyPage/dummyQuestions';
 
 import FileInput from '../FileInput';
 import Info from '../Info';
@@ -18,20 +18,20 @@ interface PartSectionProps {
 }
 
 const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
-  const { deviceType } = useDeviceType();
   const { getValues } = useFormContext();
 
   const { draftData } = useGetDraft();
-  const { applicant, partQuestions } = draftData?.data || {};
+  const { applicant, partQuestions: savedPartAnswers } = draftData?.data || {};
   const { part } = applicant || {};
 
   const { questionsData } = useGetQuestions(applicant);
-  const { partQuestions: questions } = questionsData?.data || {};
+  const { partQuestions } = questionsData?.data || {};
+  const partQuestionGroups = partQuestions?.length ? partQuestions : DUMMY_PART_QUESTIONS;
 
-  const partOptions = questions ? questions.map((q) => q.part) : [];
+  const partOptions = partQuestionGroups.map((q) => q.part);
   const selectedPart: string = getValues('part');
-  const filteredQuestions = questions?.find((item) => item.part === selectedPart)?.questions;
-  const partQuestionsById = partQuestions?.reduce(
+  const filteredQuestions = partQuestionGroups.find((item) => item.part === selectedPart)?.questions;
+  const partQuestionsById = savedPartAnswers?.reduce(
     (acc, draft) => {
       acc ? (acc[draft.id] = draft) : undefined;
       return acc;
@@ -41,8 +41,8 @@ const PartSection = ({ refCallback, isReview = false }: PartSectionProps) => {
   const hasDescription = filteredQuestions?.some(({ isDescription }) => isDescription);
 
   return (
-    <section ref={refCallback} id="partial" className={sectionContainerVar[deviceType]}>
-      <h2 className={sectionTitleVar[deviceType]}>파트별 질문</h2>
+    <section ref={refCallback} id="partial" className={sectionContainerVar}>
+      <h2 className={sectionTitle}>파트별 질문</h2>
       <SelectBox
         defaultValue={part}
         label="지원파트"
