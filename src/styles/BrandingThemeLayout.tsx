@@ -12,8 +12,7 @@ const BrandingThemeLayout = ({ children }: { children: ReactNode }) => {
   const { isLight } = useTheme();
   const { data } = useRecruitInfo();
 
-  // SOPT 기수 컬러
-  const brandingColor = data?.brandingColor ? toThemeStyle(data.brandingColor) : undefined;
+  const brandingColor = data?.brandingColor ? toThemeStyle(data.brandingColor, isLight) : undefined;
 
   return (
     <div className={isLight ? light : dark} style={brandingColor}>
@@ -24,13 +23,22 @@ const BrandingThemeLayout = ({ children }: { children: ReactNode }) => {
 
 export default BrandingThemeLayout;
 
-const toCssColor = (hex: string) => (hex.startsWith('#') ? hex : `#${hex}`);
+const toCssColor = (color: string) => {
+  if (color.startsWith('#')) return color;
+  if (/^[0-9A-Fa-f]{3,8}$/.test(color)) return `#${color}`;
 
-const toThemeStyle = (color: SoptBrandingColor) =>
-  assignInlineVars({
-    [theme.color.primary]: toCssColor(color.main),
-    [theme.color.primaryDark]: toCssColor(color.high),
-    [theme.color.primaryLight]: toCssColor(color.low),
-    [theme.color.primaryPoint]: toCssColor(color.point),
-    [theme.color.primaryAlpha10]: `${toCssColor(color.main)}1a`,
+  return color;
+};
+
+const toThemeStyle = (color: SoptBrandingColor, isLight: boolean) => {
+  const keyColor = isLight ? color.lightModeKeyColor : color.darkModeKeyColor;
+  const otherKeyColor = isLight ? color.darkModeKeyColor : color.lightModeKeyColor;
+
+  return assignInlineVars({
+    [theme.color.primary]: toCssColor(keyColor),
+    [theme.color.primaryDark]: toCssColor(otherKeyColor),
+    [theme.color.primaryLight]: toCssColor(keyColor),
+    [theme.color.primaryPoint]: toCssColor(keyColor),
+    [theme.color.primaryAlpha10]: `${toCssColor(keyColor)}1a`,
   });
+};
