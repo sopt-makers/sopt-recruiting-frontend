@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import MakersDarkLogo from '@assets/MakersDarkLogo';
 import MakersLogo from '@assets/MakersLogo';
+import SoptLogo from '@assets/SoptLogo';
 import { useTheme } from 'contexts/ThemeProvider';
-import soptLogo from '@assets/soptLogo.svg';
 
 import MenuList from './Nav/MenuList';
 import { container, logo } from './style.css';
@@ -32,9 +32,9 @@ const Header = () => {
                   <MakersDarkLogo className={logo} />
                 )
               ) : !isResultPage ? (
-                <img src={soptLogo} alt="SOPT" className={logo} />
+                <SoptLogo className={logo} aria-label="SOPT" />
               ) : (
-                <SoptLightLogo className={logo} />
+                <SoptLightLogo className={logo} aria-label="SOPT" />
               )}
             </button>
             <MenuList />

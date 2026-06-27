@@ -1,12 +1,16 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { type ReactNode } from 'react';
 
+import { normalizeHexColor, toBlendedHexColor } from '@utils/color';
 import { useTheme } from 'contexts/ThemeProvider';
 import { dark, light, theme } from 'styles/theme.css';
 import useRecruitInfo from 'views/IntroducePage/hooks/useRecruitInfo';
 import type { RecruitInfoResponse } from 'views/IntroducePage/types';
 
 type SoptBrandingColor = RecruitInfoResponse['brandingColor'];
+
+// 지원자용 리크루팅 사이트는 항상 라이트 모드 브랜드 컬러를 사용 (공식 홈페이지 레포는 반대로 dark 고정)
+const BRAND_COLOR_MODE: 'light' | 'dark' = 'light';
 
 const BrandingThemeLayout = ({ children }: { children: ReactNode }) => {
   const { isLight } = useTheme();
@@ -24,13 +28,12 @@ const BrandingThemeLayout = ({ children }: { children: ReactNode }) => {
 
 export default BrandingThemeLayout;
 
-const toCssColor = (hex: string) => (hex.startsWith('#') ? hex : `#${hex}`);
+const toThemeStyle = (color: SoptBrandingColor) => {
+  const main = normalizeHexColor(BRAND_COLOR_MODE === 'light' ? color.lightModeKeyColor : color.darkModeKeyColor);
 
-const toThemeStyle = (color: SoptBrandingColor) =>
-  assignInlineVars({
-    [theme.color.primary]: toCssColor(color.main),
-    [theme.color.primaryDark]: toCssColor(color.high),
-    [theme.color.primaryLight]: toCssColor(color.low),
-    [theme.color.primaryPoint]: toCssColor(color.point),
-    [theme.color.primaryAlpha10]: `${toCssColor(color.main)}1a`,
+  return assignInlineVars({
+    [theme.color.primary]: main,
+    [theme.color.primaryDark]: toBlendedHexColor(main, 255, 0.2), // 고명도 (hover) = 키컬러 + 흰 20%
+    [theme.color.primaryLight]: toBlendedHexColor(main, 0, 0.1), // 저명도 (active/press) = 키컬러 + 검 10%
   });
+};
