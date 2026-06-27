@@ -1,9 +1,22 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderToStaticMarkup } from 'react-dom/server';
 import fs from 'node:fs';
 import path from 'node:path';
 import UnsupportedPage from './index';
 
-const str = renderToStaticMarkup(<UnsupportedPage />);
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
+const str = renderToStaticMarkup(
+  <QueryClientProvider client={queryClient}>
+    <UnsupportedPage />
+  </QueryClientProvider>,
+);
 
 const html = `
   <html lang="ko">
