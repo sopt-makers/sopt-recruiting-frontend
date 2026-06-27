@@ -1,6 +1,7 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { type ReactNode } from 'react';
 
+import { normalizeHexColor, toBlendedHexColor } from '@utils/color';
 import { useTheme } from 'contexts/ThemeProvider';
 import { dark, light, theme } from 'styles/theme.css';
 import useRecruitInfo from 'views/IntroducePage/hooks/useRecruitInfo';
@@ -27,22 +28,12 @@ const BrandingThemeLayout = ({ children }: { children: ReactNode }) => {
 
 export default BrandingThemeLayout;
 
-const toCssColor = (hex: string) => (hex.startsWith('#') ? hex : `#${hex}`);
-
-// 키컬러에 흰/검을 alpha-blend해서 고명도(hover)/저명도(active) 톤을 파생
-const mix = (hex: string, target: number, ratio: number) => {
-  const n = parseInt(hex.replace('#', ''), 16);
-  const channel = (shift: number) => Math.round(((n >> shift) & 0xff) * (1 - ratio) + target * ratio);
-  const toHex = (c: number) => c.toString(16).padStart(2, '0');
-  return `#${toHex(channel(16))}${toHex(channel(8))}${toHex(channel(0))}`;
-};
-
 const toThemeStyle = (color: SoptBrandingColor) => {
-  const main = toCssColor(BRAND_COLOR_MODE === 'light' ? color.lightModeKeyColor : color.darkModeKeyColor);
+  const main = normalizeHexColor(BRAND_COLOR_MODE === 'light' ? color.lightModeKeyColor : color.darkModeKeyColor);
 
   return assignInlineVars({
     [theme.color.primary]: main,
-    [theme.color.primaryDark]: mix(main, 255, 0.2), // 고명도 (hover) = 키컬러 + 흰 20%
-    [theme.color.primaryLight]: mix(main, 0, 0.1), // 저명도 (active/press) = 키컬러 + 검 10%
+    [theme.color.primaryDark]: toBlendedHexColor(main, 255, 0.2), // 고명도 (hover) = 키컬러 + 흰 20%
+    [theme.color.primaryLight]: toBlendedHexColor(main, 0, 0.1), // 저명도 (active/press) = 키컬러 + 검 10%
   });
 };
