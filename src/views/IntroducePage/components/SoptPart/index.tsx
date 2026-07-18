@@ -57,7 +57,7 @@ const PartItem = ({ part }: ItemProps) => {
           <IconArrowUpRight className={hoverIcon} />
         </div>
         <Tag variant="secondary" size={deviceType === 'DESK' ? 'lg' : 'sm'} className={tag}>
-          {part.part}
+          {partId}
         </Tag>
         <p className={name}>{part.part} 파트</p>
         <p className={description}>{part.description}</p>
