@@ -161,5 +161,5 @@ export const description = style({
 
 export const tag = style({
   color: theme.color.primary,
-  backgroundColor: theme.color.primaryAlpha10,
+  backgroundColor: `color-mix(in srgb, ${theme.color.primary} 10%, transparent)`,
 });
