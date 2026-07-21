@@ -159,7 +159,7 @@
 ### 발견된 결함 두 개 (닫아야 할 대상)
 
 1. **타입 드리프트:** `MyResponse.applicationPass`가 타입은 `boolean`, 실제 사용은 `== null`. → nullable로 수정하고 백엔드 응답 확인.
-2. **페이지 불일치:** 최종발표 기간+applicationPass가 true 아닐 때, MyPage는 "제출 완료" 표시 / ResultPage는 전면 차단. → 의도인지 버그인지 확인 후 정렬.
+2. **페이지 불일치:** 최종발표 기간+applicationPass가 true 아닐 때, MyPage는 "서류 불합격" 표시(정정: 이전 버전엔 "제출 완료"로 잘못 적혀 있었음 — 5번에서 코드로 재확인) / ResultPage는 전면 차단. → 의도인지 버그인지 확인 후 정렬.
 
 ---
 
@@ -177,9 +177,9 @@
 
 **확인 완료: 버그 아님.** `api-spec.yml`(`/recruiting-season/latest` 예시)과 기존 `src/mocks/handlers.ts` fixture는 `ybApplicationStart`/`obApplicationStart` 식 prefix 필드를 쓰는 반면, `RecruitingResponse['season']` 타입과 `useRecruitingSchedule`은 prefix 없는 제네릭 필드를 읽는다 — 처음엔 세 번째 타입 드리프트 후보로 의심했으나, dev `/latest` 실응답을 네트워크 탭으로 직접 확인한 결과 실제로는 prefix 없이 온다. `api-spec.yml`의 해당 예시가 (아마 과거 admin 원본 응답을 캡처한) 오래된 문서일 뿐, 실제 계약과는 무관. `yarn api-spec`으로 스펙 재생성 완료 — 백엔드 확인 대기 아님, 종결.
 
-**4. MSW 핸들러 시나리오 기반 개편** — `/latest`, `/my`를 시나리오 주입식으로.
+**4. ✅ MSW 핸들러 시나리오 기반 개편** — `src/mocks/handlers/{scenario,auth}.ts` + `src/mocks/scenario/state.ts`(get/set/resetScenario 진입점)로 구현 완료. `/latest`, `/my`가 시나리오 주입식으로 동작.
 
-**5. 단위 테스트 (가장 두껍게)** — phase×user×page 매트릭스로 `useRecruitingSchedule`·`renderApplicationStatus` 분기 잠금. **여기서 발견한 결함 2개를 회귀 테스트로 박제.**
+**5. ✅ 단위 테스트 (가장 두껍게)** — `src/tests/views/MyPage.test.tsx`, `src/tests/views/ResultPage.test.tsx`. phase(8)×user(5) 매트릭스로 MyPage 지원상태 분기(40케이스)·ResultPage 렌더 분기(40케이스) 잠금, 총 80케이스 전부 통과. finalResult×submitted/screenFail의 MyPage-ResultPage 불일치(결함 #2)를 현재 실동작 그대로 회귀 고정 — 판단은 6번에서. ReviewPage는 draft/questions builder가 별도로 필요해 이번 범위에서 제외(후속 항목).
 
 **6. 발견 결함 정리** — 타입 드리프트 수정, 페이지 불일치 의사결정(기획/코드). 5번 테스트가 안전망.
 
