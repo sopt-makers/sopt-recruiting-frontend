@@ -156,10 +156,35 @@
 
 `interview`/`afterInterview`는 다른 6개 타임스탬프가 완전히 동일하고 `interviewEnd`만 now 기준 앞/뒤로 바뀜 — `NoMoreReview` 경계를 정확히 겨냥.
 
-### 발견된 결함 두 개 (닫아야 할 대상)
+### 발견된 결함 두 개 (닫음 — 6번에서 최종 판정)
 
-1. **타입 드리프트:** `MyResponse.applicationPass`가 타입은 `boolean`, 실제 사용은 `== null`. → nullable로 수정하고 백엔드 응답 확인.
-2. **페이지 불일치:** 최종발표 기간+applicationPass가 true 아닐 때, MyPage는 "서류 불합격" 표시(정정: 이전 버전엔 "제출 완료"로 잘못 적혀 있었음 — 5번에서 코드로 재확인) / ResultPage는 전면 차단. → 의도인지 버그인지 확인 후 정렬.
+1. ✅ **타입 드리프트:** `MyResponse.applicationPass`가 타입은 `boolean`, 실제 사용은 `== null`. → 3번에서 `boolean | null`로 수정 완료, dev 실응답도 확인. 종결(백엔드 문의 불필요).
+2. ✅ **페이지 불일치:** 최종발표 기간+applicationPass가 true 아닐 때, MyPage는 "서류 불합격" 표시 / ResultPage는 전면 차단. → 아래 "6번 결론"에서 버그로 확정. 심각도 낮음, 조치는 11번(상태 머신 리팩터링)으로 이관.
+
+### 6번 결론: 발견 결함 최종 판정
+
+**대상 1 — applicationPass 타입 드리프트:** 종결. 3번에서 처리 완료, 백엔드 문의 불필요.
+
+**대상 2 — finalResult × submitted/screenFail 불일치**
+
+실제 사용자 여정을 코드로 추적 완료:
+1. `MyPage/index.tsx` 118·125번 줄: `StatusButton(to="/result")`이 finalResult phase에서도 노출되어 실제 클릭 동선이 존재.
+2. `ResultPage/components/ScreeningResult.tsx`: `pass=false`일 때 완결된 "서류 불합격" 안내문이 이미 존재하지만, 이 컴포넌트는 `NoMoreScreeningResult` 게이트에만 묶여 있어 finalResult phase에선 렌더 자체가 안 됨.
+3. MyPage와 ResultPage가 각각 독립적으로 게이트를 재판단하는 구조라, MyPage가 보여준 정보(문구)와 ResultPage의 실제 접근 가능 여부가 어긋남.
+
+**판정:** 버그 (의도된 설계 아님).
+
+**원인:** `ScreeningResult` 게이트(`NoMoreScreeningResult`)와 최종발표 차단 게이트(`NoMoreFinalResult`)가 독립적으로 설계되어, "서류 결과는 최종발표 기간에도 계속 조회 가능해야 한다"는 요구가 누락됨.
+
+**심각도 재평가(하향 확정):** 낮음. 정상 지원 플로우 기준으로 재검토한 결과:
+- 이 경로를 타려면 (a) 최종발표 기간까지 서류결과가 확정 안 된 극소수 케이스이거나, (b) 이미 서류에서 떨어진 사람이 최종발표 기간에 재방문해 버튼을 클릭하는 드문 경우여야 함.
+- 대다수 지원자(서류 합격자)의 정상 경로는 영향 없음.
+- 서비스 중단·데이터 손실 없음 — "정보 미노출" 수준.
+
+**조치(최종):** 지금은 수정하지 않음 — 지원 기간(8월) 임박 + 낮은 심각도 + 낮은 발생 빈도 + 단독 수정 시 오히려 리스크. 11번(상태 머신 리팩터링) 시 `deriveRecruitingState`가 아래 규칙으로 통합하도록 설계에 반영:
+- 서류 결과는 `NoMoreScreeningResult` 이후 최종발표 기간과 무관하게 항상 조회 가능해야 함.
+- 최종 결과는 서류 합격자에 한해 `NoMoreFinalResult` 이후 조회 가능.
+- 이 둘은 배타적이 아니라 누적적이어야 함.
 
 ---
 
@@ -181,7 +206,7 @@
 
 **5. ✅ 단위 테스트 (가장 두껍게)** — `src/tests/views/MyPage.test.tsx`, `src/tests/views/ResultPage.test.tsx`. phase(8)×user(5) 매트릭스로 MyPage 지원상태 분기(40케이스)·ResultPage 렌더 분기(40케이스) 잠금, 총 80케이스 전부 통과. finalResult×submitted/screenFail의 MyPage-ResultPage 불일치(결함 #2)를 현재 실동작 그대로 회귀 고정 — 판단은 6번에서. ReviewPage는 draft/questions builder가 별도로 필요해 이번 범위에서 제외(후속 항목).
 
-**6. 발견 결함 정리** — 타입 드리프트 수정, 페이지 불일치 의사결정(기획/코드). 5번 테스트가 안전망.
+**6. ✅ 발견 결함 정리** — 최종 판정 완료("6번 결론" 참고). 대상1(타입 드리프트)은 종결. 대상2(finalResult×submitted/screenFail 불일치)는 버그로 확정했으나 심각도 낮음(대다수 정상 플로우엔 영향 없음, 정보 미노출 수준)으로 재평가 — 지원 기간 임박·단독 수정 리스크를 감안해 지금은 보류하고 11번(상태 머신 리팩터링)으로 조치 이관.
 
 **7. Playwright + codegen 골든패스** — 로그인→작성→제출→확인 1개. 얇게.
 
