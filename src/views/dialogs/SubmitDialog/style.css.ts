@@ -179,17 +179,13 @@ export const checkmark = style({
 
     /* 체크되었을 때 배경색 */
     [`${checkboxWrapper} input:checked ~ &`]: {
-      // border: `1px solid ${colors.gray600}`,
-      // backgroundColor: colors.gray600,
-      border: `1px solid #84E1FA`,
-      backgroundColor: '#84E1FA',
+      border: `1px solid ${theme.color.primary}`,
+      backgroundColor: theme.color.primary,
     },
 
     [`${checkboxWrapper} input:checked:hover ~ &`]: {
-      // border: `1px solid ${colors.gray950}`,
-      // backgroundColor: colors.gray950,
-        border: `1px solid #153858`,
-        backgroundColor: '#153858',
+      border: `1px solid ${theme.color.primaryDark}`,
+      backgroundColor: theme.color.primaryDark,
     },
 
     /* 체크되면 체크마크 보이게 하기 */
@@ -212,8 +208,7 @@ export const checkmark = style({
 
     /* focus-visible 속성 */
     [`${checkboxWrapper} input:focus-visible ~ &`]: {
-      // outline: `2px dotted ${colors.gray600}`,
-      outline: `2px dotted #84E1FA`,
+      outline: `2px dotted ${theme.color.primary}`,
       outlineOffset: 2,
     },
   },
