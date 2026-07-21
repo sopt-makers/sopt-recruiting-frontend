@@ -173,7 +173,9 @@
 
 **2. ✅ Scenario 타입 + 유틸** — `types.ts`(phase 8/user 5), `dateUtils.ts`(상대날짜), `withMode.ts`(빌드모드 축). 완료.
 
-**3. 🔧 buildSeason / buildMyInfo** — 시나리오→가짜 season/myInfo. 타임스탬프 배치 표(위 3번 섹션) 확정, 실데이터 기준 gap 반영 완료. 구현은 아직.
+**3. ✅ buildSeason / buildMyInfo** — 시나리오→가짜 season/myInfo. `src/mocks/scenario/buildSeason.ts`, `src/mocks/scenario/buildMyInfo.ts`로 구현 완료. `RecruitingResponse['season']`(비-yb/ob prefix 제네릭 필드) 형태로 반환 — `useRecruitingSchedule`이 실제로 소비하는 타입 기준. 8개 phase 전부 NoMore* 파생 로직으로 역산해 자기 자신으로 복원됨을 스모크 확인(임시 테스트, 커밋 안 함).
+
+**확인 완료: 버그 아님.** `api-spec.yml`(`/recruiting-season/latest` 예시)과 기존 `src/mocks/handlers.ts` fixture는 `ybApplicationStart`/`obApplicationStart` 식 prefix 필드를 쓰는 반면, `RecruitingResponse['season']` 타입과 `useRecruitingSchedule`은 prefix 없는 제네릭 필드를 읽는다 — 처음엔 세 번째 타입 드리프트 후보로 의심했으나, dev `/latest` 실응답을 네트워크 탭으로 직접 확인한 결과 실제로는 prefix 없이 온다. `api-spec.yml`의 해당 예시가 (아마 과거 admin 원본 응답을 캡처한) 오래된 문서일 뿐, 실제 계약과는 무관. `yarn api-spec`으로 스펙 재생성 완료 — 백엔드 확인 대기 아님, 종결.
 
 **4. MSW 핸들러 시나리오 기반 개편** — `/latest`, `/my`를 시나리오 주입식으로.
 
