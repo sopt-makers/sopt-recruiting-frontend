@@ -57,6 +57,17 @@ export interface RecruitInfoResponse {
   recruitQuestion: RecruitQuestion[];
 }
 
+export interface ActivitySchedule {
+  name: string;
+  startDate: string;
+  endDate: string;
+}
+
+// TODO: /admin 임시 연동용. activitySchedule이 /recruit으로 옮겨오면 제거
+export interface AdminInfoResponse {
+  activitySchedule: ActivitySchedule[];
+}
+
 export interface PostNotificationEmailRequest {
   email: string;
   generation: number;
