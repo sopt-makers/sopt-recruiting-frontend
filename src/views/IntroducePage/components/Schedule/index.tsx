@@ -2,6 +2,7 @@ import SectionTitle from '@components/SectionTitle';
 import { TITLE } from 'views/IntroducePage/constants/constant';
 import { gridWrapper, oddText, evenText, highlight, container, scheduleGroup, wrapper } from './style.css';
 import useRecruitingSchedule from '@hooks/useRecruitingSchedule';
+import useAdminInfo from 'views/IntroducePage/hooks/useAdminInfo';
 import { format } from '@utils/dateFormatter';
 
 const Schedule = () => {
@@ -18,6 +19,7 @@ export default Schedule;
 const ScheduleBox = () => {
   const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart } =
     useRecruitingSchedule();
+  const { data: adminData } = useAdminInfo();
 
   const formattedApplicationStart = applicationStart ? format(applicationStart, 'M월 dd일') : '';
   const formattedApplicationStartHour = applicationStart ? format(applicationStart, 'aaa hh시') : '';
@@ -26,6 +28,9 @@ const ScheduleBox = () => {
   const formattedInterviewStart = interviewStart ? format(interviewStart, 'M월 dd일') : '';
   const formattedInterviewEnd = interviewEnd ? format(interviewEnd, 'M월 dd일') : '';
   const formattedFinalResultStart = finalResultStart ? format(finalResultStart, 'M월 dd일') : '';
+
+  const otSchedule = adminData?.activitySchedule.find((schedule) => schedule.name === 'OT');
+  const formattedOtStart = otSchedule ? format(otSchedule.startDate, 'M월 dd일') : '';
 
   return (
     <div className={container}>
@@ -50,10 +55,10 @@ const ScheduleBox = () => {
           <div className={evenText}>{formattedFinalResultStart}</div>
         </div>
 
-        {/* TODO: 오리엔테이션 날짜 어드민에서 가져오기 */}
+        {/* TODO: /admin 임시 연동. activitySchedule이 /recruit으로 옮겨오면 useRecruitInfo로 교체 */}
         <div className={scheduleGroup}>
           <p className={oddText}>오리엔테이션</p>
-          <div className={evenText}>{'3월 27일'}</div>
+          <div className={evenText}>{formattedOtStart}</div>
         </div>
       </div>
     </div>
