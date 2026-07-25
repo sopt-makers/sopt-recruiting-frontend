@@ -71,6 +71,7 @@ export const scheduleGroup = style({
 });
 
 export const oddText = style({
+  whiteSpace: 'nowrap',
   color: colors.gray950,
   ...theme.font.HEADING_4_24_B,
   '@media': {
