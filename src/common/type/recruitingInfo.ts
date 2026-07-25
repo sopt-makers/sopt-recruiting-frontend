@@ -13,5 +13,6 @@ export interface RecruitingResponse {
     finalResultEnd: string;
     interviewStart: string;
     interviewEnd: string;
+    otDate: string;
   };
 }
