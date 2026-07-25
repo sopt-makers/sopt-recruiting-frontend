@@ -16,7 +16,7 @@ const Schedule = () => {
 export default Schedule;
 
 const ScheduleBox = () => {
-  const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart } =
+  const { group, applicationStart, applicationEnd, interviewStart, interviewEnd, finalResultStart, otDate } =
     useRecruitingSchedule();
 
   const formattedApplicationStart = applicationStart ? format(applicationStart, 'M월 dd일') : '';
@@ -26,6 +26,7 @@ const ScheduleBox = () => {
   const formattedInterviewStart = interviewStart ? format(interviewStart, 'M월 dd일') : '';
   const formattedInterviewEnd = interviewEnd ? format(interviewEnd, 'M월 dd일') : '';
   const formattedFinalResultStart = finalResultStart ? format(finalResultStart, 'M월 dd일') : '';
+  const formattedOtDate = otDate ? format(otDate, 'M월 dd일') : '';
 
   return (
     <div className={container}>
@@ -50,10 +51,9 @@ const ScheduleBox = () => {
           <div className={evenText}>{formattedFinalResultStart}</div>
         </div>
 
-        {/* TODO: 오리엔테이션 날짜 어드민에서 가져오기 */}
         <div className={scheduleGroup}>
           <p className={oddText}>오리엔테이션</p>
-          <div className={evenText}>{'3월 27일'}</div>
+          <div className={evenText}>{formattedOtDate}</div>
         </div>
       </div>
     </div>

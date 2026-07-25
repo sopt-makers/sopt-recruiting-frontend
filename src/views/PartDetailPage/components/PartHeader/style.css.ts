@@ -101,6 +101,15 @@ export const button = style({
   color: colors.white,
   ...theme.font.HEADING_4_24_B,
 
+  ':hover': {
+    backgroundColor: theme.color.primaryDark,
+    color: colors.white,
+  },
+  ':active': {
+    backgroundColor: theme.color.primaryLight,
+    color: colors.white,
+  },
+
   ':disabled': {
     backgroundColor: colors.gray50,
     color: colors.gray400,
