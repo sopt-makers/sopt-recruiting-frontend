@@ -22,6 +22,7 @@ const useRecruitingSchedule = () => {
     finalResultEnd,
     interviewStart,
     interviewEnd,
+    otDate,
   } = data?.season || {};
 
   const beforeRecruiting = isAfter(new Date(applicationStart || ''), new Date());
@@ -51,6 +52,7 @@ const useRecruitingSchedule = () => {
       finalResultEnd, // 최종 합격 확인 종료
       interviewStart, // 면접 시작
       interviewEnd, // 면접 끝
+      otDate, // 오리엔테이션 날짜
     });
   }, [
     name,
@@ -64,6 +66,7 @@ const useRecruitingSchedule = () => {
     finalResultEnd,
     interviewStart,
     interviewEnd,
+    otDate,
     handleSaveRecruitingInfo,
   ]);
 

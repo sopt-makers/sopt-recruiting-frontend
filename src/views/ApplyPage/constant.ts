@@ -1,4 +1,7 @@
-export const APPLY_INFO = {
+// makers는 어드민 연동이 안 돼있어 ot 날짜 하드코딩
+export const OT_DATE_TEXT_MAKERS = '2월 28일 토요일';
+
+export const getApplyInfo = (otDateText: string) => ({
   sections: [
     {
       id: 0,
@@ -13,9 +16,7 @@ export const APPLY_INFO = {
       id: 1,
       content: [
         {
-          text: `${
-            __IS_MAKERS__ ? '2월 28일 토요일 ' : '3월 28일 토요일 '
-          }OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
+          text: `${otDateText} OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
           weight: 'normal',
         },
       ],
@@ -45,7 +46,7 @@ export const APPLY_INFO = {
       ],
     },
   ],
-};
+});
 
 export const SELECT_OPTIONS = {
   gender: ['남자', '여자'],
