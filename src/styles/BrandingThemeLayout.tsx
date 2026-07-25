@@ -1,7 +1,7 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { type ReactNode } from 'react';
 
-import { normalizeHexColor, toBlendedHexColor } from '@utils/color';
+import { normalizeHexColor, toAlphaHexColor, toBlendedHexColor } from '@utils/color';
 import { useTheme } from 'contexts/ThemeProvider';
 import { dark, light, theme } from 'styles/theme.css';
 import useRecruitInfo from 'views/IntroducePage/hooks/useRecruitInfo';
@@ -35,5 +35,6 @@ const toThemeStyle = (color: SoptBrandingColor) => {
     [theme.color.primary]: main,
     [theme.color.primaryDark]: toBlendedHexColor(main, 255, 0.2), // 고명도 (hover) = 키컬러 + 흰 20%
     [theme.color.primaryLight]: toBlendedHexColor(main, 0, 0.1), // 저명도 (active/press) = 키컬러 + 검 10%
+    [theme.color.primaryAlpha10]: toAlphaHexColor(main, 0.1), // 키컬러 투명도 10%
   });
 };
