@@ -13,7 +13,7 @@ import {
   infoItemsVar,
   infoWrapper,
 } from './style.css';
-import { APPLY_INFO } from '../../constant';
+import { getApplyInfo, OT_DATE_TEXT_MAKERS } from '../../constant';
 import { format } from '@utils/dateFormatter';
 
 const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
@@ -25,6 +25,7 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
       interviewStart,
       interviewEnd,
       finalResultStart,
+      otDate,
     },
   } = useRecruitingInfo();
 
@@ -36,6 +37,10 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   const formattedInterviewStart = format(new Date(interviewStart || ''), 'M월 dd일 (E)');
   const formattedInterviewEnd = format(new Date(interviewEnd || ''), 'M월 dd일 (E)');
   const formattedResultStart = format(new Date(finalResultStart || ''), 'M월 dd일 (E) aaa HH시 mm분');
+
+  // makers는 어드민 연동이 안 돼있어 하드코딩
+  const otDateText = __IS_MAKERS__ ? OT_DATE_TEXT_MAKERS : otDate ? format(otDate, 'M월 dd일 EEEE') : '';
+  const APPLY_INFO = getApplyInfo(otDateText);
 
   return (
     <section className={infoContainer}>

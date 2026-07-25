@@ -74,7 +74,8 @@ const MyPage = () => {
 
   const navigate = useNavigate();
   const { recruitingInfo: { name, season }, handleSaveRecruitingInfo } = useRecruitingInfo();
-  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, isLoading } = useRecruitingSchedule();
+  const { NoMoreReview, NoMoreScreeningResult, NoMoreFinalResult, NoMoreRecruit, NoMoreApply, isLoading } =
+    useRecruitingSchedule();
 
   useEffect(() => {
     handleSaveRecruitingInfo({ name: myInfoData?.data?.name, season: myInfoData?.data?.season });
@@ -98,9 +99,15 @@ const MyPage = () => {
         <div className={emptyContainerVar}>
           <IconGhost size={140} color="#C3C3C6" />
           <span className={emptyText}>지원한 내역이 없어요</span>
-          <Button isLink to="/" padding="15x25">
-            메인화면으로 이동
-          </Button>
+          {NoMoreApply ? (
+            <Button isLink to="/" padding="15x25">
+              메인화면으로 이동
+            </Button>
+          ) : (
+            <Button isLink to="/auth" padding="15x25">
+              지원서 작성하기
+            </Button>
+          )}
         </div>
         <button className={logoutButtonVar} onClick={handleLogout}>
           로그아웃

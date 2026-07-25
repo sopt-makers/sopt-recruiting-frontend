@@ -6,8 +6,8 @@ export const PART_DETAIL_TITLE = {
     title: (partName: string) => `${partName} 파트를 소개합니다`,
   },
   GOOD_FOR_YOU: {
-    label: 'Qualification',
-    title: '이런 분이면 더 좋아요',
+    label: 'Who we look for',
+    title: '이런 분이면 좋아요',
   },
   LEARNING: {
     label: 'Curriculum',
