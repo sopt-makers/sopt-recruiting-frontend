@@ -24,7 +24,7 @@ interface CoreValueProps {
 
 const CoreValue = ({ values }: CoreValueProps) => {
   const {
-    recruitingInfo: { season, soptName },
+    recruitingInfo: { season },
   } = useRecruitingInfo();
 
   if (!values || values.length === 0) return null;
@@ -33,7 +33,9 @@ const CoreValue = ({ values }: CoreValueProps) => {
     <section className={wrapper}>
       <SectionTitle
         label={TITLE.CORE_VALUE.label}
-        title={`${season}기 ${soptName} SOPT가 함께 나아가고 싶은 사람이에요`}
+        // TODO: soptName 등록되면 아래 코드로 변경
+        // title={`${season}기 ${soptName} SOPT가 함께 나아가고 싶은 사람이에요`}
+        title={`${season}기 SOPT가 함께 나아가고 싶은 사람이에요`}
       />
       <CoreValueList values={values} />
     </section>

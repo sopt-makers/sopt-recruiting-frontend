@@ -13,6 +13,7 @@ type RecruitingInfoType = {
   finalResultEnd?: string;
   interviewStart?: string;
   interviewEnd?: string;
+  otDate?: string;
 };
 
 interface RecruitingInfoContextType {
