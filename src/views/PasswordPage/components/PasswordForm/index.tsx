@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 
 import Button from '@components/Button';
-import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/components/InputTheme';
+import { TextBox비밀번호, TextBox이름 } from '@components/Input/components/InputTheme';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateChangePassword from 'views/PasswordPage/hooks/useMutateChangePassword';
 
@@ -51,7 +51,8 @@ const PasswordForm = () => {
           onSubmit={handleSubmit(handleChangePassword)}
           className={formWrapper}>
           <TextBox이름 />
-          <TextBox이메일 />
+          {/* TODO: 비밀번호 재설정 페이지 활성화 시 TextBox이메일 함께 사용 */}
+          {/* <TextBox이메일 /> */}
           <TextBox비밀번호 />
           <Button
             isLoading={changePasswordIsPending}
