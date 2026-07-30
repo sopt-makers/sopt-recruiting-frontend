@@ -7,7 +7,7 @@ export const getApplyInfo = (otDateText: string) => ({
       id: 0,
       content: [
         {
-          text: '지원서 작성 전에 SOPT 커리큘럼을 꼭 숙지하고 지원해 주시기 바랍니다.',
+          text: '지원서 작성 전에 커리큘럼을 꼭 숙지하고 지원해 주시기 바랍니다.',
           weight: 'normal',
         },
       ],
