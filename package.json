@@ -34,8 +34,8 @@
     "not dead"
   ],
   "dependencies": {
-    "@amplitude/analytics-browser": "^2.9.3",
-    "@amplitude/plugin-session-replay-browser": "^1.6.13",
+    "@amplitude/analytics-browser": "^2.45.5",
+    "@amplitude/plugin-session-replay-browser": "^1.33.7",
     "@sopt-makers/colors": "^3.0.1",
     "@sopt-makers/fonts": "^2.0.1",
     "@sopt-makers/icons": "^1.0.4",
