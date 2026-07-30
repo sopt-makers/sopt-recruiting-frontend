@@ -1,3 +1,5 @@
+import { MAKERS_RECRUITMENT_NOTICE_URL } from '@constants/links';
+
 type menuItemsTypes = {
   text: string;
   path?: string;
@@ -31,7 +33,7 @@ export const SIGNED_IN_MENU_ITEMS_SOPT: menuItemsTypes[] = [
 export const MENU_ITEMS_MAKERS: menuItemsTypes[] = [
   {
     text: '모집공고',
-    path: 'https://sopt-makers.notion.site/38-2fd76042aac280f39548e46b98e2a06a?pvs=73',
+    path: MAKERS_RECRUITMENT_NOTICE_URL,
     amplitudeId: 'click-gnb-recruitment_notice_makers',
     target: '_blank',
   },

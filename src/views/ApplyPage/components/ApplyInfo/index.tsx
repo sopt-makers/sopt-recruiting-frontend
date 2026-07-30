@@ -15,6 +15,7 @@ import {
 } from './style.css';
 import { getApplyInfo, OT_DATE_TEXT_MAKERS } from '../../constant';
 import { format } from '@utils/dateFormatter';
+import { MAKERS_RECRUITMENT_NOTICE_URL } from '@constants/links';
 
 const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
   const {
@@ -49,7 +50,7 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
           <li key="first-info" className={infoItemsVar}>
             지원서 작성 전에{` `}
             <a
-              href="https://makers.sopt.org/recruit"
+              href={__IS_MAKERS__ ? MAKERS_RECRUITMENT_NOTICE_URL : 'https://recruit.sopt.org/'}
               className={infoItemsBold}
               target="_blank"
               rel="noreferrer noopener">

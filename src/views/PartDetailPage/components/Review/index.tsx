@@ -1,5 +1,7 @@
+import { track } from '@amplitude/analytics-browser';
+
 import SectionTitle from 'views/PartDetailPage/components/SectionTitle';
-import { PART_DETAIL_TITLE } from 'views/PartDetailPage/constants/constant';
+import { PART_DETAIL_TITLE, PART_NAME_MAP } from 'views/PartDetailPage/constants/constant';
 import { PartId, ReviewApiItem } from 'views/PartDetailPage/types';
 import useGetReviews from 'views/PartDetailPage/hooks/useGetReviews';
 import {
@@ -30,13 +32,14 @@ interface Props {
 const Review = ({ partId }: Props) => {
   const { data } = useGetReviews(partId);
   const reviews = data?.data ?? [];
+  const partName = PART_NAME_MAP[partId];
 
   return (
     <section className={wrapper}>
       <SectionTitle label={PART_DETAIL_TITLE.REVIEW.label} title={PART_DETAIL_TITLE.REVIEW.title} />
       <div className={listContainer}>
         {reviews.map((review) => (
-          <ReviewCard key={review.id} review={review} />
+          <ReviewCard key={review.id} review={review} partName={partName} />
         ))}
       </div>
 
@@ -44,6 +47,7 @@ const Review = ({ partId }: Props) => {
         className={moreButton}
         onClick={() => {
           window.open('https://www.sopt.org/blog', '_blank');
+          track('click-recruit-part-blog', { part_name: partName, click_target: 'view_all' });
         }}>
         <p>전체 후기 보기</p>
         <IconChevronRight className={chevronIcon} />
@@ -56,11 +60,17 @@ export default Review;
 
 interface ReviewCardProps {
   review: ReviewApiItem;
+  partName: string;
 }
 
-const ReviewCard = ({ review }: ReviewCardProps) => {
+const ReviewCard = ({ review, partName }: ReviewCardProps) => {
   return (
-    <article className={card} onClick={() => window.open(review.url, '_blank')}>
+    <article
+      className={card}
+      onClick={() => {
+        window.open(review.url, '_blank');
+        track('click-recruit-part-blog', { part_name: partName, click_target: 'review_card' });
+      }}>
       <div className={cardLeft}>
         <div>
           <div className={header}>

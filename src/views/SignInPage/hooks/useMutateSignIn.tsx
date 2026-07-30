@@ -1,4 +1,4 @@
-import { setUserId } from '@amplitude/analytics-browser';
+import { setUserId, track } from '@amplitude/analytics-browser';
 import { useMutation } from '@tanstack/react-query';
 
 import { sendSignIn } from '../apis';
@@ -22,6 +22,7 @@ const useMutateSignIn = ({ finalResultEnd, onSetError, onSignInBlocked }: Mutate
     mutationFn: (userInfo: SignInRequest) => sendSignIn(userInfo),
     onSuccess: ({ email, token }) => {
       setUserId(email);
+      track('login_success');
       localStorage.setItem('soptApplyAccessToken', token);
       localStorage.setItem('soptApplyAccessTokenExpiredTime', finalResultEnd || '');
       window.location.reload();
@@ -30,6 +31,7 @@ const useMutateSignIn = ({ finalResultEnd, onSetError, onSignInBlocked }: Mutate
       if (error.status === 403) {
         onSetError('email', 'not-match', '');
         onSetError('password', 'not-match', '');
+        track('login_fail');
         return;
       }
 
@@ -46,6 +48,8 @@ const useMutateSignIn = ({ finalResultEnd, onSetError, onSignInBlocked }: Mutate
           onSetError('email', 'not-match', '');
           onSetError('password', 'not-match', '');
         }
+
+        track('login_fail');
       }
     },
   });
