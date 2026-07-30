@@ -18,8 +18,8 @@ const SignedInPage = () => {
   const { handleSaveRecruitingInfo } = useRecruitingInfo();
 
   const handleSetComplete = () => {
-    track('done-apply-confirm_submit');
     setIsComplete(true);
+    track('done-apply-confirm_submit');
   };
 
   useEffect(() => {

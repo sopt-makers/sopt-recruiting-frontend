@@ -17,8 +17,8 @@ const useMutateSignUp = ({ onCheckExistence }: MutateSignUpProps) => {
   const { mutate: signUpMutate, isPending: signUpIsPending } = useMutation<SignUpResponse, CustomError, SignUpRequest>({
     mutationFn: (userInfo: SignUpRequest) => sendSignUp(userInfo),
     onSuccess: () => {
-      track('done-signup-apply');
       navigate('/');
+      track('done-signup-apply');
     },
     onError: (error) => {
       if (error.status === 400) {
