@@ -101,7 +101,8 @@ const App = () => {
   });
 
   useEffect(() => {
-    if (!isAmplitudeInitialized) {
+    const isProdHost = location.hostname === (__IS_MAKERS__ ? 'recruiting.sopt.org' : 'recruit.sopt.org');
+    if (!isAmplitudeInitialized && isProdHost) {
       init(import.meta.env.VITE_AMPLITUDE_API_KEY);
       setIsAmplitudeInitialized(true);
 
