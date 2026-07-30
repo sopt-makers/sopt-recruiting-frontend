@@ -1,5 +1,5 @@
 // makers는 어드민 연동이 안 돼있어 ot 날짜 하드코딩
-export const OT_DATE_TEXT_MAKERS = '2월 28일 토요일';
+export const OT_DATE_TEXT_MAKERS = '8월 22일 토요일';
 
 export const getApplyInfo = (otDateText: string) => ({
   sections: [
