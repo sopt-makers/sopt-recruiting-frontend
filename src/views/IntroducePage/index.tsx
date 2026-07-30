@@ -1,3 +1,6 @@
+import { track } from '@amplitude/analytics-browser';
+import { useEffect } from 'react';
+
 import CoreValue from 'views/IntroducePage/components/CoreValue';
 import FAQ from 'views/IntroducePage/components/FAQ';
 import RecruitmentTarget from 'views/IntroducePage/components/RecruitmentTarget';
@@ -19,6 +22,10 @@ const IntroducePage = () => {
 
   const { NoMoreRecruit, NoMoreApply } = useRecruitingSchedule();
   const { data: recruitData, isPending, isLoading } = useRecruitInfo();
+
+  useEffect(() => {
+    track('view_recruit_main');
+  }, []);
 
   if (isPending || isLoading) return <BigLoading />;
   if (!recruitData) return <Navigate to="/error" replace />;

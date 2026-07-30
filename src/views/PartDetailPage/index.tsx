@@ -1,3 +1,5 @@
+import { track } from '@amplitude/analytics-browser';
+import { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { PART_NAME_MAP } from 'views/PartDetailPage/constants/constant';
 import { PartId } from 'views/PartDetailPage/types';
@@ -17,21 +19,27 @@ const PartDetailPage = () => {
   const { partId } = useParams<{ partId: string }>();
   const isValidPartId = !!partId && VALID_PART_IDS.includes(partId as PartId);
   const { data: partContent, isPending } = useGetPartDetail(partId as PartId);
+  const partName = isValidPartId ? PART_NAME_MAP[partId as PartId] : undefined;
+
+  useEffect(() => {
+    if (!partName) return;
+    track('view_part_detail', { part_name: partName });
+  }, [partName]);
 
   if (isPending) return <BigLoading />;
   if (!isValidPartId) {
     return <Navigate to="/introduce" replace />;
   }
 
-  const partName = PART_NAME_MAP[partId as PartId];
+  const validPartName = partName as string;
 
   return (
     <>
-      <PartHeader partName={partName} />
+      <PartHeader partName={validPartName} />
       <div className={wrapper}>
-        <PartIntroduction partName={partName} introduction={partContent?.introduction ?? ''} />
+        <PartIntroduction partName={validPartName} introduction={partContent?.introduction ?? ''} />
         <GoodForYou preferences={partContent?.preferences ?? []} />
-        <LearningList partName={partName} partCurriculum={partContent?.partCurriculum ?? []} />
+        <LearningList partName={validPartName} partCurriculum={partContent?.partCurriculum ?? []} />
         <Schedule />
         <Review partId={partId as PartId} />
       </div>

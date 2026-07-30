@@ -1,3 +1,4 @@
+import { track } from '@amplitude/analytics-browser';
 import Dialog from '@components/Dialog';
 import { forwardRef } from 'react';
 
@@ -20,7 +21,12 @@ const SignInBlockedDialog = forwardRef<HTMLDialogElement>((_, ref) => {
           <button className={buttonInside.line}>닫기</button>
         </form>
         <div className={`${buttonOutside.solid} ${buttonOutsideVar[deviceType]}`}>
-          <button className={buttonInside.solid} onClick={문의메일열기}>
+          <button
+            className={buttonInside.solid}
+            onClick={() => {
+              문의메일열기();
+              track('click_login_error_ten_ask');
+            }}>
             문의하기
           </button>
         </div>
