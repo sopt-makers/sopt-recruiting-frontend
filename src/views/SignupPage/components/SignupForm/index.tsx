@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
 import { type FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@components/Button';
@@ -8,6 +8,7 @@ import { InputLine, TextBox } from '@components/Input';
 import { TextBox비밀번호, TextBox이름, TextBox이메일 } from '@components/Input/components/InputTheme';
 import { PRIVACY_POLICY } from '@constants/policy';
 import { VALIDATION_CHECK } from '@constants/validationCheck';
+import useVerificationStatus from '@hooks/useVerificationStatus';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 import useMutateSignUp from 'views/SignupPage/hooks/useMutateSignUp';
 
@@ -24,13 +25,28 @@ const SignupForm = () => {
   } = useRecruitingInfo();
   const { ref: existingApplicantDialogRef, handleShowDialog: handleShowExistingApplicantDialog } = useDialog();
 
+  const { isVerified, handleVerified } = useVerificationStatus();
   const methods = useForm({ mode: 'onBlur' });
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    setError,
+    setFocus,
+    formState: { errors },
+  } = methods;
   const { signUpMutate, signUpIsPending } = useMutateSignUp({
     onCheckExistence: () => handleShowExistingApplicantDialog(),
   });
 
   const handleSubmitSignUp = ({ email, password, passwordCheck, name, phone }: FieldValues) => {
+    if (!isVerified) {
+      setError('code', {
+        type: 'not-match',
+        message: VALIDATION_CHECK.verificationCode.errorText,
+      });
+
+      return;
+    }
+
     if (!season || !group) {
       return;
     }
@@ -45,6 +61,13 @@ const SignupForm = () => {
       group,
     });
   };
+
+  useEffect(() => {
+    if (errors.email?.message === VALIDATION_CHECK.email.errorTextExistence) {
+      setFocus('email');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors.email?.message, setFocus]);
 
   return (
     <>
@@ -67,7 +90,11 @@ const SignupForm = () => {
               errorText={VALIDATION_CHECK.phoneNumber.errorText}
             />
           </TextBox>
-          <TextBox이메일 />
+          <TextBox이메일
+            recruitingInfo={{ season, group }}
+            isVerified={isVerified}
+            onChangeVerification={handleVerified}
+          />
           <TextBox비밀번호 />
           <div>
             <Checkbox required name="personalInformation">

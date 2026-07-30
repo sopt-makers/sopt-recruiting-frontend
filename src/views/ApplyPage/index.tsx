@@ -287,8 +287,8 @@ const ApplyPage = ({ onSetComplete }: ApplyPageProps) => {
   };
 
   const handleApplySubmit = () => {
-    track('click-apply-submit');
     handleShowSubmitDialog();
+    track('click-apply-submit');
   };
 
   if (draftIsLoading) return <BigLoading />;
