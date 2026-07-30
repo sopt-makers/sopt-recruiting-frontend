@@ -120,7 +120,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
         setFileName('delete-file');
         handleDeleteFileValue();
         setUploadPercent(-1);
-        track(`click-apply-remove_file${id}`);
+        track('click-apply-remove_file', { recruitingQuestionId: id, section });
       } else {
         inputRef.current.click();
       }
@@ -162,7 +162,7 @@ const FileInput = ({ section, id, isReview, disabled, defaultFile }: FileInputPr
 
   return (
     <div className={containerVar}>
-      <AmplitudeEventTrack eventName={`click-apply-add_file${id}`}>
+      <AmplitudeEventTrack eventName="click-apply-add_file" eventProperties={{ recruitingQuestionId: id, section }}>
         <input
           id={`file-${id}`}
           type="file"
