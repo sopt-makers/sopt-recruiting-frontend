@@ -39,7 +39,6 @@ const soptRoutes = [
   { path: '/introduce', element: <IntroducePage /> },
   { path: '/part/:partId', element: <PartDetailPage /> },
   { path: '/auth', element: <AuthPage /> },
-  { path: '/my', element: <MyPage /> },
 ];
 
 const router = createBrowserRouter([
@@ -58,6 +57,7 @@ const router = createBrowserRouter([
       { path: '/result', element: <ResultPage /> },
       { path: '/review', element: <ReviewPage /> },
       { path: '/error', element: <ErrorPage code={500} /> },
+      { path: '/my', element: <MyPage /> },
       { path: '*', element: <ErrorPage code={404} /> },
     ],
   },
