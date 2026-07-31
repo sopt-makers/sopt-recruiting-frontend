@@ -15,3 +15,15 @@ export const container = style({
   ...theme.font.BODY_2_16_R,
   letterSpacing: '-0.24px',
 });
+
+export const privacyPolicyLink = style({
+  display: 'block',
+  width: 'fit-content',
+  marginBottom: 8,
+  color: theme.color.baseText,
+  textDecoration: 'underline',
+  textUnderlineOffset: 4,
+  textDecorationThickness: 1,
+  ...theme.font.BODY_2_16_R,
+  letterSpacing: '-0.24px',
+});
