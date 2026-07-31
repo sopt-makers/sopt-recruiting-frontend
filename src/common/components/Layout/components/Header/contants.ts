@@ -30,7 +30,7 @@ export const SIGNED_IN_MENU_ITEMS_SOPT: menuItemsTypes[] = [
   },
 ];
 
-export const SIGNED_IN_MENU_ITEMS_MAKERS = [
+export const SIGNED_IN_MENU_ITEMS_MAKERS: menuItemsTypes[] = [
   {
     text: '모집공고',
     path: MAKERS_RECRUITMENT_NOTICE_URL,
@@ -48,7 +48,7 @@ export const SIGNED_IN_MENU_ITEMS_MAKERS = [
     path: '/my',
     target: '_self',
   },
-]
+];
 
 export const MENU_ITEMS_MAKERS: menuItemsTypes[] = [
   {
