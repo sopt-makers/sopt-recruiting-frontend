@@ -30,6 +30,26 @@ export const SIGNED_IN_MENU_ITEMS_SOPT: menuItemsTypes[] = [
   },
 ];
 
+export const SIGNED_IN_MENU_ITEMS_MAKERS: menuItemsTypes[] = [
+  {
+    text: '모집공고',
+    path: MAKERS_RECRUITMENT_NOTICE_URL,
+    amplitudeId: 'click-gnb-recruitment_notice_makers',
+    target: '_blank',
+  },
+  {
+    text: '문의하기',
+    path: 'https://pf.kakao.com/_sxaIWG',
+    amplitudeId: 'click-gnb-ask_makers',
+    target: '_blank',
+  },
+  {
+    text: '마이페이지',
+    path: '/my',
+    target: '_self',
+  },
+];
+
 export const MENU_ITEMS_MAKERS: menuItemsTypes[] = [
   {
     text: '모집공고',
