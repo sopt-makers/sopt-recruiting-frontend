@@ -7,12 +7,19 @@ type menuItemsTypes = {
   target?: '_blank' | '_self';
 };
 
+export const AUTH_PATH = '/auth';
+
 export const MENU_ITEMS_SOPT: menuItemsTypes[] = [
   {
     text: '문의하기',
     path: 'mailto:manager@sopt.org',
     amplitudeId: 'click-gnb-ask',
     target: '_blank',
+  },
+  {
+    text: '로그인',
+    path: AUTH_PATH,
+    amplitudeId: 'click-gnb-signin',
   },
 ];
 
