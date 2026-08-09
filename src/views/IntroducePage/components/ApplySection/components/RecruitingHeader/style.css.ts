@@ -67,10 +67,6 @@ export const image = style({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
-  '@media': {
-    [breakpoints.tablet]: { objectFit: 'contain' },
-    [breakpoints.mobile]: { objectFit: 'contain' },
-  },
 });
 
 export const contentLayout = style({
