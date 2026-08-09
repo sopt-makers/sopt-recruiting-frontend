@@ -7,12 +7,11 @@ import RecruitingHeader from 'views/IntroducePage/components/ApplySection/compon
 import NotificationHeader from 'views/IntroducePage/components/ApplySection/components/NotificationHeader/NotificationHeader';
 import BigLoading from 'views/loadings/BigLoding';
 
-// TODO : 서버 응답 교체되면 아래 코드로 변경
-// interface Props {
-//   headerImage: string;
-// }
+interface Props {
+  headerImage: string;
+}
 
-const ApplySection = () => {
+const ApplySection = ({ headerImage }: Props) => {
   const { NoMoreRecruit, NoMoreApply, isLoading } = useRecruitingSchedule();
 
   const deviceType = useDevice();
@@ -21,7 +20,7 @@ const ApplySection = () => {
 
   return (
     <section className={wrapper}>
-      {NoMoreRecruit || NoMoreApply ? <NotificationHeader /> : <RecruitingHeader />}
+      {NoMoreRecruit || NoMoreApply ? <NotificationHeader /> : <RecruitingHeader headerImage={headerImage} />}
       {deviceType === 'DESK' ? <IconArrowsL /> : <IconArrowsS />}
     </section>
   );

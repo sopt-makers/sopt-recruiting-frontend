@@ -33,8 +33,7 @@ const IntroducePage = () => {
   return (
     <>
       <div className={wrapper}>
-        {/* TODO : 서버 응답 교체되면 Props 추가 */}
-        <ApplySection />
+        <ApplySection headerImage={recruitData.recruitHeaderImage} />
         <RecruitmentTarget />
         <SoptPart parts={recruitData.partIntroduction} />
         <CoreValue values={recruitData.coreValue} />

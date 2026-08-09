@@ -19,12 +19,11 @@ import {
 } from './style.css';
 import { theme } from 'styles/theme.css';
 
-// TODO : 서버 응답 교체되면 아래 코드로 변경
-// interface Props {
-//   headerImage: string;
-// }
+interface Props {
+  headerImage: string;
+}
 
-const RecruitingHeader = () => {
+const RecruitingHeader = ({ headerImage }: Props) => {
   const navigate = useNavigate();
   const deviceType = useDevice();
 
@@ -40,9 +39,7 @@ const RecruitingHeader = () => {
   return (
     <header className={container}>
       <div className={imageWrapper}>
-        {/* <img src={headerImage} alt="recruiting header" className={image} /> */}
-        {/* TODO : 서버 응답 교체되면 위 코드로 변경 */}
-        <img src={'./top_banner.png'} alt="recruiting header" className={image} />
+        <img src={headerImage} alt="recruiting header" className={image} />
       </div>
       <div className={contentLayout}>
         <div className={textContentLayout}>
