@@ -23,7 +23,7 @@ import {
   profileWrapperVar,
   sectionContainerVar,
 } from './style.css';
-import { getMostRecentSeasonArray } from './utils';
+import { getPastSeasons } from './utils';
 
 interface ProfileImageProps {
   disabled: boolean;
@@ -135,6 +135,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
     college,
     email,
     gender,
+    group,
     major,
     mostRecentSeason,
     name,
@@ -144,6 +145,11 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
     univYear,
     leaveAbsence,
   } = applicant || {};
+
+  // OB는 이전 기수(YB) 활동 이력이 반드시 있어야 지원 가능하므로 '해당사항 없음'을 노출하지 않음
+  const shouldShowNoneOption = !__IS_MAKERS__ && group !== 'OB';
+  const pastSeasons = getPastSeasons(season || 0);
+  const mostRecentSeasonOptions = shouldShowNoneOption ? ['해당사항 없음', ...pastSeasons] : pastSeasons;
 
   return (
     <section ref={refCallback} id="default" className={sectionContainerVar}>
@@ -262,7 +268,7 @@ const DefaultSection = ({ refCallback, isReview = false }: DefaultSectionProps) 
         label="이전 기수 활동 여부 (제명 포함)"
         name="mostRecentSeason"
         placeholder="가장 최근에 활동했던 기수를 선택해주세요."
-        options={getMostRecentSeasonArray(season || 0, __IS_MAKERS__ || false)}
+        options={mostRecentSeasonOptions}
         required
         size="lg"
         disabled={isReview}
