@@ -1,1 +1,2 @@
-export const getPastSeasons = (season: number) => Array.from({ length: 10 }, (_, i) => String(season - i - 1));
+export const getPastSeasons = (mostRecentSeason: number) =>
+  Array.from({ length: 10 }, (_, i) => String(mostRecentSeason - i - 1));
