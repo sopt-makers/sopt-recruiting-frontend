@@ -13,7 +13,7 @@ import {
   infoItemsVar,
   infoWrapper,
 } from './style.css';
-import { getApplyInfo, OT_DATE_TEXT_MAKERS } from '../../constant';
+import { getApplyInfo, OB_APPLY_NOTICE_CONTENT, OT_DATE_TEXT_MAKERS } from '../../constant';
 import { format } from '@utils/dateFormatter';
 import { MAKERS_RECRUITMENT_NOTICE_URL } from '@constants/links';
 
@@ -27,6 +27,7 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
       interviewEnd,
       finalResultStart,
       otDate,
+      group,
     },
   } = useRecruitingInfo();
 
@@ -41,12 +42,22 @@ const ApplyInfo = memo(({ isReview = false }: { isReview?: boolean }) => {
 
   // makers는 어드민 연동이 안 돼있어 하드코딩
   const otDateText = __IS_MAKERS__ ? OT_DATE_TEXT_MAKERS : otDate ? format(otDate, 'M월 dd일 EEEE') : '';
+  const isOB = !__IS_MAKERS__ && group === 'OB';
   const APPLY_INFO = getApplyInfo(otDateText);
 
   return (
     <section className={infoContainer}>
       {!isReview && (
         <ul className={infoWrapper}>
+          {isOB && (
+            <li key="ob-notice" className={infoItemsVar}>
+              {OB_APPLY_NOTICE_CONTENT.map(({ text, weight }) => (
+                <span key={text} className={weight === 'strong' ? infoItemsBold : ''}>
+                  {text}
+                </span>
+              ))}
+            </li>
+          )}
           <li key="first-info" className={infoItemsVar}>
             지원서 작성 전에{` `}
             <a
