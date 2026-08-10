@@ -1,19 +1,15 @@
 // makers는 어드민 연동이 안 돼있어 ot 날짜 하드코딩
 export const OT_DATE_TEXT_MAKERS = '8월 22일 토요일';
 
+export const OB_APPLY_NOTICE_CONTENT = [
+  { text: 'SOPT에서 한 번 이상 활동한 경험이 있는 SOPT 회원을 대상으로 한 OB 지원서입니다.', weight: 'normal' },
+  { text: '\nSOPT 활동 경험이 없는 지원자는 YB 모집 기간에 지원해 주시기 바랍니다.', weight: 'strong' },
+];
+
 export const getApplyInfo = (otDateText: string) => ({
   sections: [
     {
       id: 0,
-      content: [
-        {
-          text: '지원서 작성 전에 커리큘럼을 꼭 숙지하고 지원해 주시기 바랍니다.',
-          weight: 'normal',
-        },
-      ],
-    },
-    {
-      id: 1,
       content: [
         {
           text: `${otDateText} OT(오프라인 예정)에 불참 시 지원이 불가하오니 자세히 확인 바랍니다.`,
@@ -22,13 +18,13 @@ export const getApplyInfo = (otDateText: string) => ({
       ],
     },
     {
-      id: 2,
+      id: 1,
       content: [
         { text: '한 번 제출된 지원서는 수정이 불가하니 신중히 작성하신 후 제출 부탁드립니다.', weight: 'normal' },
       ],
     },
     {
-      id: 3,
+      id: 2,
       content: [
         {
           text: '최종 제출하지 않은 임시저장 지원서는 미제출로 간주하오니 반드시 최종 제출하시길 바랍니다.',
@@ -37,7 +33,7 @@ export const getApplyInfo = (otDateText: string) => ({
       ],
     },
     {
-      id: 4,
+      id: 3,
       content: [
         {
           text: `지원 마감 시간이 임박하면 지원자가 몰려 서버가 불안정할 수 있으므로 가급적 여유롭게 제출하는 것을 권장드립니다.`,
