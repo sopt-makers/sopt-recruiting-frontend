@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 const Head = () => {
   const TOUCH_ICON = __IS_MAKERS__ ? '/makers-touch-icon.png' : '/apple-touch-icon.png';
   const ICON = __IS_MAKERS__ ? '/makersIcon.svg' : '/icon.svg';
-  const FAVICON = __IS_MAKERS__ ? '/makersFavicon.ico' : '/favicon.ico';
+  const FAVICON = __IS_MAKERS__ ? '/makersFavicon.ico' : '/favicon.svg';
   const SITE_NAME = `SOPT ${__IS_MAKERS__ ? 'makers ' : ''}리크루팅`;
   const TITLE = `SOPT ${__IS_MAKERS__ ? 'makers ' : ''}모집 지원하기`;
   const IMAGE = __IS_MAKERS__ ? '/makersOg.png' : '/imgOg.png';
