@@ -4,6 +4,7 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
   bottomAnimation,
+  bottomImgVar,
   bottomSvg,
   container,
   contentVar,
@@ -15,7 +16,7 @@ import IconMakersLogo from '../assets/IconMakersLogo';
 import useGetScreeningResult from 'views/ResultPage/hooks/useGetScreeningResult';
 import { useEffect } from 'react';
 import BigLoading from 'views/loadings/BigLoding';
-import { format } from '@utils/dateFormatter';
+import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
 
 const MOBILE_HEADER_HEIGHT = 73;
 const DESKTOP_HEADER_HEIGHT = 79;
@@ -23,7 +24,7 @@ const DESKTOP_HEADER_HEIGHT = 79;
 const Content = ({ pass }: { pass?: boolean }) => {
   const { deviceType } = useDeviceType();
   const {
-    recruitingInfo: { name, group, soptName, season, applicationResultStart, interviewStart, interviewEnd },
+    recruitingInfo: { name, group, soptName, season, applicationResultStart },
   } = useRecruitingInfo();
 
   if (!name) return;
@@ -32,19 +33,21 @@ const Content = ({ pass }: { pass?: boolean }) => {
   const applicationPassConfirmNextDay = new Date(applicationDate);
   applicationPassConfirmNextDay.setDate(applicationDate.getDate() + 1);
 
-  const formattedInterviewStartWithDay = format(new Date(interviewStart || ''), 'M/dd (E)');
-  const formattedInterviewEndWithDay = format(new Date(interviewEnd || ''), 'M/dd (E)');
+  // const formattedInterviewStartWithDay = format(new Date(interviewStart || ''), 'M/dd(E)');
+  // const formattedInterviewEndWithDay = format(new Date(interviewEnd || ''), 'M/dd(E)');
 
   const SOPT_NAME = __IS_MAKERS__ ? `SOPT makers` : `${season}기 ${soptName}`;
   const GROUP_NAME = __IS_MAKERS__ ? 'SOPT makers' : group;
 
   return (
     <>
-      {pass && !__IS_MAKERS__ ? (
+      {false && !__IS_MAKERS__ ? (
         // SOPT 서류 합격
         <p className={contentVar[deviceType]}>
           <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
-          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
+          <strong
+            className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}
+            style={{ fontWeight: 'bold' }}>{`축하드립니다!`}</strong>
           <>
             <span className="amp-mask">
               {`
@@ -53,11 +56,13 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
             </span>
             <span className="amp-mask">{`${season}기 ${GROUP_NAME} 면접은 `}</span>
-            <span>{`${formattedInterviewStartWithDay} ~ ${formattedInterviewEndWithDay}`}</span>
-            <span className="amp-mask">{` 양일 간 \n오프라인으로 진행될 예정입니다.\n\n`}</span>
+            {/* <span>{`${formattedInterviewStartWithDay} ~ ${formattedInterviewEndWithDay}`}</span>
+             */}
+            <span>{`8/15(토) ~ 8/16(일)`}</span>
+            <span className="amp-mask">{` 양일 간 \n온라인으로 진행될 예정입니다.\n\n`}</span>
 
             <span className="amp-mask">{`모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다. 
-              아래 구글폼을 금일 22시 (3월 18일 수요일 오후 10시) 까지 제출해주세요. \n\n`}</span>
+              아래 구글폼을 금일 20시(8/13일 목요일 오후 8시) 까지 제출해  주세요. \n\n`}</span>
 
             <span className="amp-mask">{`( 구글폼 : `}</span>
             <a
@@ -68,7 +73,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             <span>
               {`
               면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를
-              내일 (19일 목요일) 오후 12시 전으로 이메일을 통해 전해드리겠습니다.
+              내일(8월 14일 금요일) 오후 12시 전으로 이메일을 통해 전해드리겠습니다.
 
               다시 한 번 진심으로 축하드리며,
               면접에서 뵙도록 하겠습니다:)
@@ -96,21 +101,23 @@ const Content = ({ pass }: { pass?: boolean }) => {
       ) : // SOPT 서류 불합격
       !pass && !__IS_MAKERS__ ? (
         <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
-          {`안녕하세요. ${SOPT_NAME}입니다.
+          {`안녕하세요. `}
+          <strong style={{ fontWeight: 'bold' }}>{`${SOPT_NAME}`}</strong>
+          <span className="amp-mask">{`입니다.\n\n`}</span>
 
-          먼저 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고
-          합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.
+          <span className="amp-mask">{`먼저 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고\n`}</span>
+          <span className="amp-mask">{`합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.\n\n`}</span>
 
-          ${name}님은 ${SOPT_NAME} 신입회원 모집에 불합격하셨습니다.
+          <span className="amp-mask">{`${name}님은 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.\n\n`}</span>
 
-          지원자님의 뛰어난 역량과 잠재력에도 불구하고
+          <span className="amp-mask">{`지원자님의 뛰어난 역량과 잠재력에도 불구하고
           안타깝게도 귀하의 서류 합격 소식을 전해드리지 못하게 되었습니다.
 
-          한 분 한 분에게 개별적인 피드백을 드리기는 어렵겠으나 저희 SOPT에 지원하셨던 경험이 
-          IT 창업인으로서 멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다.
+          저희 SOPT에 지원하셨던 경험이 IT 창업인으로서
+          멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다.
 
           감사합니다. 
-          `}
+          `}</span>
         </p>
       ) : (
         // makers 서류 합격
@@ -191,11 +198,16 @@ const ScreeningResult = () => {
         </div>
       </div>
       <>
-        {pass && <div className={bottomAnimation[__IS_MAKERS__ ? 'makers' : 'sopt']} />}
+        {__IS_MAKERS__ && pass && <div className={bottomAnimation[__IS_MAKERS__ ? 'makers' : 'sopt']} />}
         {__IS_MAKERS__ && deviceType !== 'MOB' && (
           <i className={bottomSvg}>
             <IconMakersLogo />
           </i>
+        )}
+        {!__IS_MAKERS__ && pass && (
+          <div className={bottomImgVar[deviceType]}>
+            <IconSoptRecrutingLogo deviceType={deviceType} />
+          </div>
         )}
       </>
       <div className={scrollBottomGradVar[deviceType]} />
