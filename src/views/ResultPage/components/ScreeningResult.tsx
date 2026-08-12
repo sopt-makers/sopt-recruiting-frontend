@@ -69,7 +69,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
               style={{ textDecoration: 'underline' }}
               href={`https://${import.meta.env.VITE_SCREENING_PASS_LINK}`}
               target="_blank"
-              rel="noreferrer noopener">{`https:/${import.meta.env.VITE_SCREENING_PASS_LINK} )\n`}</a>
+              rel="noreferrer noopener">{`https://${import.meta.env.VITE_SCREENING_PASS_LINK} )\n`}</a>
             <span>
               {`
               면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를
