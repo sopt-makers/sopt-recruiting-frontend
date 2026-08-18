@@ -5,8 +5,9 @@ import { useTheme } from 'contexts/ThemeProvider';
 import BigLoading from 'views/loadings/BigLoding';
 import useGetMyInfo from 'views/SignedInPage/hooks/useGetMyInfo';
 
-import FinalResult from './components/FinalResult';
+import MakersFinalResult from './components/MakersFinalResult';
 import ScreeningResult from './components/ScreeningResult';
+import SoptFinalResult from './components/SoptFinalResult';
 
 const NoMore = lazy(() => import('views/ErrorPage/components/NoMore'));
 
@@ -33,7 +34,15 @@ const ResultPage = () => {
     <>
       {!NoMoreScreeningResult && <ScreeningResult />}
       {!NoMoreFinalResult &&
-        (applicationPass ? <FinalResult /> : <NoMore isMakers={__IS_MAKERS__} content="합불 확인 기간이 아니에요" />)}
+        (applicationPass ? (
+          __IS_MAKERS__ ? (
+            <MakersFinalResult />
+          ) : (
+            <SoptFinalResult />
+          )
+        ) : (
+          <NoMore isMakers={__IS_MAKERS__} content="합불 확인 기간이 아니에요" />
+        ))}
     </>
   );
 };
