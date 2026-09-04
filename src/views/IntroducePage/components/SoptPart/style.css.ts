@@ -66,7 +66,7 @@ export const itemWrapper = style({
   '@media': {
     [breakpoints.tablet]: {
       width: '224px',
-      height: '280px',
+      height: '200px',
       padding: '20px',
       borderRadius: '16px',
 
@@ -78,7 +78,7 @@ export const itemWrapper = style({
     },
     [breakpoints.mobile]: {
       width: '200px',
-      height: '280px',
+      height: '220px',
       padding: '16px',
       flexShrink: 0,
       borderRadius: '16px',
