@@ -50,7 +50,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           {`안녕하세요. ${season}기 ${SOPT_NAME}입니다.
 
           먼저 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고
-          합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.
+          합류 여정을 함께해 주셔서 감사하다는 말씀을 드립니다.
 
           ${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.
 

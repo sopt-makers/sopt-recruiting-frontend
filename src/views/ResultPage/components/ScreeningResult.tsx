@@ -106,7 +106,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <span className="amp-mask">{`입니다.\n\n`}</span>
 
           <span className="amp-mask">{`먼저 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고\n`}</span>
-          <span className="amp-mask">{`합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.\n\n`}</span>
+          <span className="amp-mask">{`합류 여정을 함께해 주셔서 감사하다는 말씀을 드립니다.\n\n`}</span>
 
           <span className="amp-mask">{`${name}님은 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.\n\n`}</span>
 
