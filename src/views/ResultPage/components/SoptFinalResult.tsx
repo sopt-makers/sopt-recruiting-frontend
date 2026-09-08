@@ -35,7 +35,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
     <>
       {pass ? (
         <p className={contentVar[deviceType]}>
-          <span>{`안녕하세요. ${season}기 ${SOPT_NAME} 입니다.\n\n`}</span>
+          <span>{`안녕하세요. ${season}기 ${SOPT_NAME}입니다.\n\n`}</span>
           <strong className={strongText['sopt']}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">{`${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 `}</span>
           <span>{`최종 합격`}</span>
@@ -50,7 +50,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           {`안녕하세요. ${season}기 ${SOPT_NAME}입니다.
 
           먼저 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고
-          합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.
+          합류 여정을 함께해 주셔서 감사하다는 말씀을 드립니다.
 
           ${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.
 
@@ -58,7 +58,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           안타깝게도 귀하의 최종 합격 소식을 전해드리지 못하게 되었습니다.
 
           저희 SOPT에 지원하셨던 경험이 IT 창업인으로서
-          멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다
+          멋진 역할을 해나가시는 데 큰 도움이 되기를 바랍니다.
 
           감사합니다.
           `}

@@ -44,7 +44,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
       {pass && !__IS_MAKERS__ ? (
         // SOPT 서류 합격
         <p className={contentVar[deviceType]}>
-          <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
+          <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
           <strong
             className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}
             style={{ fontWeight: 'bold' }}>{`축하드립니다!`}</strong>
@@ -58,11 +58,11 @@ const Content = ({ pass }: { pass?: boolean }) => {
             <span className="amp-mask">{`${season}기 ${GROUP_NAME} 면접은 `}</span>
             {/* <span>{`${formattedInterviewStartWithDay} ~ ${formattedInterviewEndWithDay}`}</span>
              */}
-            <span>{`8/15(토) ~ 8/16(일)`}</span>
-            <span className="amp-mask">{` 양일 간 \n온라인으로 진행될 예정입니다.\n\n`}</span>
+            <span>{`9/12(토) ~ 9/13(일)`}</span>
+            <span className="amp-mask">{` 양일 간 \n오프라인으로 진행될 예정입니다.\n\n`}</span>
 
             <span className="amp-mask">{`모든 면접 대상자 분들을 대상으로 면접 가능 시간을 조사하려 합니다. 
-              아래 구글폼을 금일 20시(8/13일 목요일 오후 8시) 까지 제출해  주세요. \n\n`}</span>
+              아래 구글폼을 금일 22시(9/10일 목요일 오후 10시)까지 제출해  주세요. \n\n`}</span>
 
             <span className="amp-mask">{`( 구글폼 : `}</span>
             <a
@@ -73,7 +73,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
             <span>
               {`
               면접 안내 사항 및 폼 제출 내용을 기반으로 한 면접 시간표를
-              내일(8월 14일 금요일) 오후 12시 전으로 이메일을 통해 전해드리겠습니다.
+              내일(9월 11일 금요일) 오후 12시 전으로 이메일을 통해 전해드리겠습니다.
 
               다시 한 번 진심으로 축하드리며,
               면접에서 뵙도록 하겠습니다:)
@@ -106,7 +106,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <span className="amp-mask">{`입니다.\n\n`}</span>
 
           <span className="amp-mask">{`먼저 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고\n`}</span>
-          <span className="amp-mask">{`합류 여정을 함께해주셔서 감사하다는 말씀을 드립니다.\n\n`}</span>
+          <span className="amp-mask">{`합류 여정을 함께해 주셔서 감사하다는 말씀을 드립니다.\n\n`}</span>
 
           <span className="amp-mask">{`${name}님은 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 불합격하셨습니다.\n\n`}</span>
 
