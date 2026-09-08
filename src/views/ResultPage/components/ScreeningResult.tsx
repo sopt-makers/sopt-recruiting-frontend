@@ -44,7 +44,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
       {pass && !__IS_MAKERS__ ? (
         // SOPT 서류 합격
         <p className={contentVar[deviceType]}>
-          <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
+          <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
           <strong
             className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}
             style={{ fontWeight: 'bold' }}>{`축하드립니다!`}</strong>
