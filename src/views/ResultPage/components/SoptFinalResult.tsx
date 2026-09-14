@@ -1,15 +1,17 @@
-import Title from '@components/Title';
 import { useDeviceType } from 'contexts/DeviceTypeProvider';
 import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
-  bottomAnimation,
-  bottomImgVar,
+  finalResultBottomAnimation,
   container,
-  contentVar,
-  contentWrapperVar,
-  scrollBottomGradVar,
+  contentWrapper,
+  finalResultContent,
+  finalResultImage,
+  finalResultImageAsset,
+  finalResultTitle,
+  scrollBottomGrad,
   strongText,
+  nonDesktopLineBreak,
 } from './style.css';
 
 import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
@@ -17,11 +19,7 @@ import { useEffect } from 'react';
 import useGetFinalResult from 'views/ResultPage/hooks/useGetFinalResult';
 import BigLoading from 'views/loadings/BigLoding';
 
-const MOBILE_HEADER_HEIGHT = 73;
-const DESKTOP_HEADER_HEIGHT = 79;
-
 const Content = ({ pass }: { pass?: boolean }) => {
-  const { deviceType } = useDeviceType();
   const {
     recruitingInfo: { name, soptName, season, group },
   } = useRecruitingInfo();
@@ -34,19 +32,29 @@ const Content = ({ pass }: { pass?: boolean }) => {
   return (
     <>
       {pass ? (
-        <p className={contentVar[deviceType]}>
+        <p className={finalResultContent}>
           <span>{`안녕하세요. ${season}기 ${SOPT_NAME}입니다.\n\n`}</span>
-          <strong className={strongText['sopt']}>{`축하드립니다!\n`}</strong>
-          <span className="amp-mask">{`${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 `}</span>
-          <span>{`최종 합격`}</span>
-          {`하셨습니다.\n\n`}
-          <span className="amp-mask">{`${name}님과 ${season}기 ${SOPT_NAME}를 함께하게 되어 진심으로 기쁩니다.\n\n`}</span>
-          <span className="amp-mask">{`향후 활동은 ${SOPT_NAME} 공식 노션과 카카오톡 단체 대화방, 디스코드를 통해 운영 및 진행됩니다.\n`}</span>
-          <span className="amp-mask">{`오늘 중으로 카카오톡 단체 대화방에 초대해드릴 예정입니다.\n\n`}</span>
+
+          <strong className={strongText({ brand: 'sopt' })}>{`축하드립니다!\n`}</strong>
+          <span className="amp-mask">{`${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에`}</span>
+          <br className={nonDesktopLineBreak} />
+          <span>{` 최종 합격하셨습니다.\n\n`}</span>
+
+          <span className="amp-mask">{`${name}님과 ${season}기 ${SOPT_NAME}를 함께하게 되어`}</span>
+          <br className={nonDesktopLineBreak} />
+          <span className="amp-mask">{` 진심으로 기쁩니다.\n\n`}</span>
+
+          <span className="amp-mask">{`향후 활동은 ${SOPT_NAME} 공식 노션과 카카오톡`}</span>
+          <br className={nonDesktopLineBreak} />
+          <span className="amp-mask">{` 단체 대화방, 디스코드를 통해 운영 및 진행됩니다.\n`}</span>
+          <span className="amp-mask">{`오늘 중으로 카카오톡 단체 대화방에 초대해드릴`}</span>
+          <br className={nonDesktopLineBreak} />
+          <span className="amp-mask">{` 예정입니다.\n\n`}</span>
+
           <span className="amp-mask">{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</span>
         </p>
       ) : (
-        <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
+        <p className={`amp-mask ${finalResultContent}`}>
           {`안녕하세요. ${season}기 ${SOPT_NAME}입니다.
 
           먼저 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에 관심을 가지고
@@ -85,24 +93,20 @@ const SoptFinalResult = () => {
   if (finalResultIsLoading) return <BigLoading />;
 
   return (
-    <section
-      className={container}
-      style={{ height: `calc(100dvh - ${deviceType === 'MOB' ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT}px)` }}>
+    <section className={container}>
       <div style={{ overflow: 'auto' }}>
-        <div className={contentWrapperVar[deviceType]}>
-          <Title>결과 확인</Title>
+        <div className={contentWrapper({ deviceType })}>
+          <h1 className={finalResultTitle}>결과 확인</h1>
           <Content pass={pass} />
         </div>
       </div>
-      <>
-        {pass && <div className={bottomAnimation['sopt']} />}
-        {pass && (
-          <div className={bottomImgVar[deviceType]}>
-            <IconSoptRecrutingLogo deviceType={deviceType} />
-          </div>
-        )}
-      </>
-      <div className={scrollBottomGradVar[deviceType]} />
+      {pass && (
+        <div className={finalResultImage}>
+          <IconSoptRecrutingLogo deviceType={deviceType} className={finalResultImageAsset} />
+        </div>
+      )}
+      {pass && <div className={finalResultBottomAnimation} />}
+      <div className={scrollBottomGrad({ deviceType })} />
     </section>
   );
 };
