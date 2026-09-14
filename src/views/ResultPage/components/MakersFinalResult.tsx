@@ -7,9 +7,9 @@ import {
   bottomAnimation,
   bottomSvg,
   container,
-  contentVar,
-  contentWrapperVar,
-  scrollBottomGradVar,
+  content,
+  contentWrapper,
+  scrollBottomGrad,
   strongText,
 } from './style.css';
 
@@ -33,9 +33,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
   return (
     <>
       {pass ? (
-        <p className={contentVar[deviceType]}>
+        <p className={content({ deviceType })}>
           <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
-          <strong className={strongText['makers']}>{`축하드립니다!\n`}</strong>
+          <strong className={strongText({ brand: 'makers' })}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">{`${name}님은 ${season}기 ${SOPT_NAME} 신입회원 모집에 `}</span>
           <span>{`최종 합격`}</span>
           {`하셨습니다.\n\n`}
@@ -45,7 +45,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
           <span className="amp-mask">{`다시 한 번 ${SOPT_NAME} ${season}기 합류를 진심으로 축하드립니다!`}</span>
         </p>
       ) : (
-        <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
+        <p className={`amp-mask ${content({ deviceType })}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. ${SOPT_NAME}입니다.
 
           ${SOPT_NAME}에 관심을 갖고 지원해 주셔서 감사드립니다. 
@@ -86,20 +86,20 @@ const MakersFinalResult = () => {
       className={container}
       style={{ height: `calc(100dvh - ${deviceType === 'MOB' ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT}px)` }}>
       <div style={{ overflow: 'auto' }}>
-        <div className={contentWrapperVar[deviceType]}>
+        <div className={contentWrapper({ deviceType })}>
           <Title>결과 확인</Title>
           <Content pass={pass} />
         </div>
       </div>
       <>
-        {pass && <div className={bottomAnimation['makers']} />}
+        {pass && <div className={bottomAnimation({ brand: 'makers' })} />}
         {deviceType !== 'MOB' && (
           <i className={bottomSvg}>
             <IconMakersLogo />
           </i>
         )}
       </>
-      <div className={scrollBottomGradVar[deviceType]} />
+      <div className={scrollBottomGrad({ deviceType })} />
     </section>
   );
 };
