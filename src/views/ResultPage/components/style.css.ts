@@ -95,7 +95,7 @@ export const content = recipe({
   },
 });
 
-export const tabletBreak = style({
+export const nonDesktopLineBreak = style({
   '@media': {
     'screen and (min-width: 1024px)': {
       display: 'none',

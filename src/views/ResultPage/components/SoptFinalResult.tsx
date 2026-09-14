@@ -11,7 +11,7 @@ import {
   finalResultTitle,
   scrollBottomGrad,
   strongText,
-  tabletBreak,
+  nonDesktopLineBreak,
 } from './style.css';
 
 import IconSoptRecrutingLogo from 'views/ResultPage/assets/IconSoptRecrutingLogo';
@@ -37,18 +37,18 @@ const Content = ({ pass }: { pass?: boolean }) => {
 
           <strong className={strongText({ brand: 'sopt' })}>{`축하드립니다!\n`}</strong>
           <span className="amp-mask">{`${name}님은 ${season}기 ${SOPT_NAME} ${GROUP_NAME}회원 모집에`}</span>
-          <br className={tabletBreak} />
+          <br className={nonDesktopLineBreak} />
           <span>{` 최종 합격하셨습니다.\n\n`}</span>
 
           <span className="amp-mask">{`${name}님과 ${season}기 ${SOPT_NAME}를 함께하게 되어`}</span>
-          <br className={tabletBreak} />
+          <br className={nonDesktopLineBreak} />
           <span className="amp-mask">{` 진심으로 기쁩니다.\n\n`}</span>
 
           <span className="amp-mask">{`향후 활동은 ${SOPT_NAME} 공식 노션과 카카오톡`}</span>
-          <br className={tabletBreak} />
+          <br className={nonDesktopLineBreak} />
           <span className="amp-mask">{` 단체 대화방, 디스코드를 통해 운영 및 진행됩니다.\n`}</span>
           <span className="amp-mask">{`오늘 중으로 카카오톡 단체 대화방에 초대해드릴`}</span>
-          <br className={tabletBreak} />
+          <br className={nonDesktopLineBreak} />
           <span className="amp-mask">{` 예정입니다.\n\n`}</span>
 
           <span className="amp-mask">{`SOPT의 ${season}번째 열정이 되신 것을 축하드립니다!`}</span>
