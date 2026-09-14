@@ -1,64 +1,24 @@
 import { DeviceType } from '@hooks/useDevice';
+import cardsImage from './sopt-final-result-cards.svg';
 
-const IconSoptRecrutingLogo = ({ deviceType }: { deviceType: DeviceType }) => {
+const IconSoptRecrutingLogo = ({ deviceType, className }: { deviceType: DeviceType; className?: string }) => {
   let width, height;
   switch (deviceType) {
     case 'DESK':
-      width = 498;
-      height = 400;
+      width = 551;
+      height = 308;
       break;
     case 'TAB':
-      width = 330;
-      height = 300;
+      width = 377;
+      height = 211;
       break;
     case 'MOB':
-      width = 335;
-      height = 250;
+      width = 302;
+      height = 169;
       break;
   }
 
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 523 603" fill="none">
-      <g opacity="0.16" filter="url(#filter0_f_5_2261)" style={{ mixBlendMode: 'plus-lighter' }}>
-        <path
-          d="M145.042 457.042L261.042 301.042L377.042 145.042"
-          stroke="url(#paint0_linear_5_2261)"
-          strokeWidth="160"
-          strokeLinecap="round"
-        />
-      </g>
-      <defs>
-        <filter
-          id="filter0_f_5_2261"
-          x="1.52588e-05"
-          y="1.52588e-05"
-          width="522.084"
-          height="602.084"
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB">
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur stdDeviation="32.5185" result="effect1_foregroundBlur_5_2261" />
-        </filter>
-        <linearGradient
-          id="paint0_linear_5_2261"
-          x1="583.816"
-          y1="404.545"
-          x2="419.387"
-          y2="70.8056"
-          gradientUnits="userSpaceOnUse">
-          <stop stop-color="#171820" style={{ stopColor: 'color(display-p3 0.0902 0.0941 0.1255)', stopOpacity: 1 }} />
-          <stop offset="0.376632" stop-color="#171820" stop-opacity="0" style={{ stopColor: 'none', stopOpacity: 0 }} />
-          <stop
-            offset="0.785212"
-            stop-color="#98FAE1"
-            style={{ stopColor: 'color(display-p3 0.5950 0.9798 0.8836)', stopOpacity: 1 }}
-          />
-          <stop offset="1" stop-color="white" style={{ stopColor: 'white', stopOpacity: 1 }} />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
+  return <img className={className} src={cardsImage} width={width} height={height} alt="" aria-hidden="true" style={{ objectFit: 'contain' }} />;
 };
 
 export default IconSoptRecrutingLogo;

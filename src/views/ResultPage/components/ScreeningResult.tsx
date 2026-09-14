@@ -4,12 +4,12 @@ import { useRecruitingInfo } from 'contexts/RecruitingInfoProvider';
 
 import {
   bottomAnimation,
-  bottomImgVar,
+  bottomImg,
   bottomSvg,
   container,
-  contentVar,
-  contentWrapperVar,
-  scrollBottomGradVar,
+  content,
+  contentWrapper,
+  scrollBottomGrad,
   strongText,
 } from './style.css';
 import IconMakersLogo from '../assets/IconMakersLogo';
@@ -43,10 +43,10 @@ const Content = ({ pass }: { pass?: boolean }) => {
     <>
       {pass && !__IS_MAKERS__ ? (
         // SOPT 서류 합격
-        <p className={contentVar[deviceType]}>
+        <p className={content({ deviceType })}>
           <span>{`안녕하세요. ${SOPT_NAME}입니다.\n\n`}</span>
           <strong
-            className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}
+            className={strongText({ brand: __IS_MAKERS__ ? 'makers' : 'sopt' })}
             style={{ fontWeight: 'bold' }}>{`축하드립니다!`}</strong>
           <>
             <span className="amp-mask">
@@ -83,7 +83,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
         </p>
       ) : // makers 서류 불합격
       !pass && __IS_MAKERS__ ? (
-        <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
+        <p className={`amp-mask ${content({ deviceType })}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. ${SOPT_NAME}입니다.
 
           ${SOPT_NAME}에 관심을 갖고 지원해 주셔서 감사드립니다. 
@@ -100,7 +100,7 @@ const Content = ({ pass }: { pass?: boolean }) => {
         </p>
       ) : // SOPT 서류 불합격
       !pass && !__IS_MAKERS__ ? (
-        <p className={`amp-mask ${contentVar[deviceType]}`} style={{ wordBreak: 'keep-all' }}>
+        <p className={`amp-mask ${content({ deviceType })}`} style={{ wordBreak: 'keep-all' }}>
           {`안녕하세요. `}
           <strong style={{ fontWeight: 'bold' }}>{`${SOPT_NAME}`}</strong>
           <span className="amp-mask">{`입니다.\n\n`}</span>
@@ -121,9 +121,9 @@ const Content = ({ pass }: { pass?: boolean }) => {
         </p>
       ) : (
         // makers 서류 합격
-        <p className={contentVar[deviceType]}>
+        <p className={content({ deviceType })}>
           <span>{`안녕하세요. ${SOPT_NAME} 입니다.\n\n`}</span>
-          <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`축하드립니다!`}</strong>
+          <strong className={strongText({ brand: __IS_MAKERS__ ? 'makers' : 'sopt' })}>{`축하드립니다!`}</strong>
           <>
             <span className="amp-mask">
               {`
@@ -131,14 +131,14 @@ const Content = ({ pass }: { pass?: boolean }) => {
             `}
             </span>
             <span className="amp-mask">{`${season}기 ${SOPT_NAME} 인터뷰는 `}</span>
-            <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`8월 15일 ~ 8월 16일`}</strong>
+            <strong className={strongText({ brand: __IS_MAKERS__ ? 'makers' : 'sopt' })}>{`8월 15일 ~ 8월 16일`}</strong>
             <span className="amp-mask">{` 기간 중 진행될 예정입니다.\n\n`}</span>
 
             <span className="amp-mask">{`원할한 면접 진행을 위해, 아래 구글 폼에 `}</span>
-            <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`불가능한 시간대를 모두 선택`}</strong>
+            <strong className={strongText({ brand: __IS_MAKERS__ ? 'makers' : 'sopt' })}>{`불가능한 시간대를 모두 선택`}</strong>
             <span className="amp-mask">{`해 제출 부탁드립니다.\n`}</span>
             <span className="amp-mask">{`( 제출 마감 : `}</span>
-            <strong className={strongText[__IS_MAKERS__ ? 'makers' : 'sopt']}>{`8월 12일 수요일 오후 8시`}</strong>
+            <strong className={strongText({ brand: __IS_MAKERS__ ? 'makers' : 'sopt' })}>{`8월 12일 수요일 오후 8시`}</strong>
             <span className="amp-mask">{` )\n`}</span>
             <span className="amp-mask">{`( 구글폼 : `}</span>
             <a
@@ -192,25 +192,25 @@ const ScreeningResult = () => {
           height: `calc(100dvh - ${deviceType === 'MOB' ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT}px)`,
           wordBreak: 'keep-all',
         }}>
-        <div className={contentWrapperVar[deviceType]}>
+        <div className={contentWrapper({ deviceType })}>
           <Title>결과 확인</Title>
           <Content pass={pass} />
         </div>
       </div>
       <>
-        {__IS_MAKERS__ && pass && <div className={bottomAnimation[__IS_MAKERS__ ? 'makers' : 'sopt']} />}
+        {__IS_MAKERS__ && pass && <div className={bottomAnimation({ brand: __IS_MAKERS__ ? 'makers' : 'sopt' })} />}
         {__IS_MAKERS__ && deviceType !== 'MOB' && (
           <i className={bottomSvg}>
             <IconMakersLogo />
           </i>
         )}
         {!__IS_MAKERS__ && pass && (
-          <div className={bottomImgVar[deviceType]}>
+          <div className={bottomImg({ deviceType })}>
             <IconSoptRecrutingLogo deviceType={deviceType} />
           </div>
         )}
       </>
-      <div className={scrollBottomGradVar[deviceType]} />
+      <div className={scrollBottomGrad({ deviceType })} />
     </section>
   );
 };
