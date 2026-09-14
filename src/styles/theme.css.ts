@@ -84,7 +84,7 @@ export const dark = createTheme(color, {
   ...makersPrimary,
   error: colors.error,
 
-  background: colors.gray950,
+  background: '#191A1E', // mds1 버전에 없는 색이어서 임시로 사용
   backgroundDimmed: colors.grayAlpha500,
   subBackground: colors.gray30, // gray20 인데 아직 mds에 미반영 되어서 30으로 임시 저장.
 
@@ -97,7 +97,7 @@ export const dark = createTheme(color, {
 
   border: colors.gray50,
 
-  blackBackground: colors.gray950,
+  blackBackground: '#191A1E', // mds1 버전에 없는 색이어서 임시로 사용
   buttonText: colors.gray400,
   errorButtonBackground: colors.gray30,
   stickyButtonText: colors.gray100,
